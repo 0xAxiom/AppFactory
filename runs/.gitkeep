@@ -1,0 +1,2 @@
+# Keep this directory in git
+# Individual runs are ignored by .gitignore but this preserves the folder structure

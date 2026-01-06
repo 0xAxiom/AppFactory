@@ -1,0 +1,208 @@
+name: app-factory-pipeline
+version: "1.0"
+description: Personal Claude-driven pipeline for consumer subscription apps
+
+variables:
+  run_date: "{{ date.today }}"
+  app_folder: "runs/{{ run_date }}/{{ app_name }}"
+
+stages:
+  - id: "01"
+    name: market_research
+    description: "Market research and idea generation"
+    agent: "templates/agents/01_market_research.md"
+    manual: false
+    inputs:
+      - "{{ app_folder }}/spec/00_intake.md"
+    outputs:
+      - "{{ app_folder }}/spec/01_market_research.md"
+      - "{{ app_folder }}/spec/02_ideas.md"
+      - "{{ app_folder }}/spec/03_pricing.md"
+    stop_after_completion: true
+    constraints:
+      - "Must generate exactly 10 app ideas"
+      - "Low/Medium competition only"
+      - "Web research required"
+
+  - id: "1.5"
+    name: idea_selection
+    description: "Human curation of generated ideas"
+    manual: true
+    depends_on: ["01"]
+    inputs:
+      - "{{ app_folder }}/spec/01_market_research.md"
+      - "{{ app_folder }}/spec/02_ideas.md"
+      - "{{ app_folder }}/spec/03_pricing.md"
+    outputs:
+      - "{{ app_folder }}/spec/02_idea_selection.md"
+    gate: required
+    gate_message: "Pipeline halted: no idea selected."
+
+  - id: "02"
+    name: product_spec
+    description: "Detailed product specification"
+    agent: "templates/agents/02_product_spec.md"
+    depends_on: ["1.5"]
+    gate_check:
+      file: "{{ app_folder }}/spec/02_idea_selection.md"
+      condition: exists_and_not_empty
+    inputs:
+      - "{{ app_folder }}/spec/02_idea_selection.md"
+      - "{{ app_folder }}/spec/01_market_research.md"
+      - "{{ app_folder }}/spec/02_ideas.md"
+      - "{{ app_folder }}/spec/03_pricing.md"
+    outputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+    standards_compliance: required
+
+  - id: "03"
+    name: ux_design
+    description: "User experience and interface design"
+    agent: "templates/agents/03_ux.md"
+    depends_on: ["02"]
+    inputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+    outputs:
+      - "{{ app_folder }}/spec/05_ux.md"
+    standards_compliance: required
+
+  - id: "04"
+    name: monetization
+    description: "RevenueCat integration and subscription strategy"
+    agent: "templates/agents/04_monetization.md"
+    depends_on: ["02"]
+    inputs:
+      - "{{ app_folder }}/spec/03_pricing.md"
+      - "{{ app_folder }}/spec/04_product_spec.md"
+    outputs:
+      - "{{ app_folder }}/spec/06_monetization.md"
+    standards_compliance: required
+
+  - id: "05"
+    name: architecture
+    description: "Technical architecture and backend decisions"
+    agent: "templates/agents/05_architecture.md"
+    depends_on: ["03", "04"]
+    inputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+      - "{{ app_folder }}/spec/05_ux.md"
+      - "{{ app_folder }}/spec/06_monetization.md"
+    outputs:
+      - "{{ app_folder }}/spec/07_architecture.md"
+    standards_compliance: required
+
+  - id: "06"
+    name: builder_handoff
+    description: "Preparation for Master Builder execution"
+    agent: "templates/agents/06_builder_handoff.md"
+    depends_on: ["05"]
+    inputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+      - "{{ app_folder }}/spec/05_ux.md"
+      - "{{ app_folder }}/spec/06_monetization.md"
+      - "{{ app_folder }}/spec/07_architecture.md"
+    outputs:
+      - "{{ app_folder }}/spec/08_builder_handoff.md"
+    standards_compliance: required
+
+  - id: "07"
+    name: polish
+    description: "Polish and accessibility requirements"
+    agent: "templates/agents/07_polish.md"
+    depends_on: ["06"]
+    inputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+      - "{{ app_folder }}/spec/05_ux.md"
+    outputs:
+      - "{{ app_folder }}/spec/09_polish.md"
+    standards_compliance: required
+
+  - id: "08"
+    name: brand
+    description: "Brand identity and store assets"
+    agent: "templates/agents/08_brand.md"
+    depends_on: ["02"]
+    inputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+    outputs:
+      - "{{ app_folder }}/spec/10_brand.md"
+    standards_compliance: required
+
+  - id: "09"
+    name: release
+    description: "Release readiness and QA checklist"
+    agent: "templates/agents/09_release.md"
+    depends_on: ["07", "08"]
+    inputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+      - "{{ app_folder }}/spec/05_ux.md"
+      - "{{ app_folder }}/spec/06_monetization.md"
+      - "{{ app_folder }}/spec/07_architecture.md"
+      - "{{ app_folder }}/spec/09_polish.md"
+      - "{{ app_folder }}/spec/10_brand.md"
+    outputs:
+      - "{{ app_folder }}/spec/11_release_checklist.md"
+    standards_compliance: required
+
+  - id: "10"
+    name: master_builder
+    description: "Complete Flutter application development"
+    agent: "builder/MASTER_BUILDER_PROMPT.md"
+    manual: true
+    depends_on: ["06", "07", "08", "09"]
+    inputs:
+      - "{{ app_folder }}/spec/04_product_spec.md"
+      - "{{ app_folder }}/spec/05_ux.md"
+      - "{{ app_folder }}/spec/06_monetization.md"
+      - "{{ app_folder }}/spec/07_architecture.md"
+      - "{{ app_folder }}/spec/08_builder_handoff.md"
+      - "{{ app_folder }}/spec/09_polish.md"
+      - "{{ app_folder }}/spec/10_brand.md"
+      - "{{ app_folder }}/spec/11_release_checklist.md"
+    outputs:
+      - "{{ app_folder }}/outputs/flutter_app/"
+      - "{{ app_folder }}/outputs/release_builds/"
+
+gates:
+  - name: human_selection_gate
+    type: file_exists
+    file: "{{ app_folder }}/spec/02_idea_selection.md"
+    message: "Pipeline halted: no idea selected."
+    applies_to: ["02", "03", "04", "05", "06", "07", "08", "09"]
+
+validation:
+  required_structure:
+    - "spec/"
+    - "stages/"
+    - "outputs/"
+  required_files:
+    - "spec/02_idea_selection.md"
+  standards_compliance:
+    file: "standards/mobile_app_best_practices_2026.md"
+    applies_to: ["02", "03", "04", "05", "06", "07", "08", "09"]
+
+defaults:
+  technology:
+    platform: "iOS + Android"
+    framework: "Flutter (latest stable)"
+    design: "Material 3 + iOS adaptations"
+    monetization: "RevenueCat"
+    analytics: "Firebase Analytics"
+    crash_reporting: "Firebase Crashlytics"
+  
+  architecture:
+    auth: "Guest-first, optional accounts"
+    state_management: "Provider/Riverpod (simple), Bloc (complex)"
+    storage: "SQLite + SharedPreferences + Secure Storage"
+  
+  constraints:
+    mvp_scope: "single focused development stage"
+    competition_level: "Low/Medium only"
+    excluded_categories: ["Dating", "Gambling", "Crypto", "Medical diagnosis"]
+    business_model: "Subscription required"
+
+constraints:
+  max_concurrent_stages: 1
+  immutable_outputs: true
+  enforce_sequence: true
+  mandatory_human_gate: true

@@ -1,0 +1,88 @@
+# App Factory specific
+runs/*
+!runs/.gitkeep
+
+# Environment files
+.env*
+config.local.*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Flutter/Dart (for generated Flutter projects)
+**/build/
+**/.dart_tool/
+**/.packages
+**/.pub-cache/
+**/.pub/
+**/pubspec.lock
+
+# iOS
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/.symlinks/
+
+# Android
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+**/android/.gradle/
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+
+# Web
+**/web/
+
+# Build artifacts
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Cache directories
+node_modules/
+.cache/
+.parcel-cache/
+
+# Editor backup files
+*~
+*.bak
+*.backup
+
+# API keys and secrets (though should be in env files)
+**/secrets.*
+**/keys.*
+*.pem
+*.p12
+*.keystore
+
+# Generated documentation
+docs/build/

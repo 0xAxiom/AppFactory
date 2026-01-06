@@ -1,0 +1,706 @@
+#!/bin/bash
+# App Factory - CLI App Development Pipeline
+# Transform signals into shipped apps through automated sequential execution
+
+set -euo pipefail
+
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Source helper functions
+source "$PROJECT_ROOT/scripts/helpers.sh"
+
+# Colors for output - Maximum terminal compatibility
+# Using standard 8/16-bit ANSI colors that work everywhere
+PRIMARY_BLUE='\033[1;34m'    # Bright blue
+ACCENT_BLUE='\033[0;36m'     # Cyan 
+MUTED_BLUE='\033[0;37m'      # Light gray
+WHITE='\033[1;37m'           # Bright white
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+show_banner() {
+    clear
+    echo
+    echo -e "${PRIMARY_BLUE}APP FACTORY${NC}"
+    echo -e "${ACCENT_BLUE}Turn signals into shipped apps.${NC}"
+    echo
+}
+
+# Main menu display
+show_main_menu() {
+    echo -e "${WHITE}${BOLD}Choose your next action:${NC}"
+    echo ""
+    echo -e "${PRIMARY_BLUE}[1]${NC} ${BOLD}Start new run${NC}          → Generate complete app specifications"
+    echo -e "${PRIMARY_BLUE}[2]${NC} ${BOLD}Build Flutter app${NC}      → Generate app scaffold from specs"
+    echo -e "${PRIMARY_BLUE}[3]${NC} ${BOLD}View idea bin${NC}          → Browse saved and unused ideas"  
+    echo -e "${PRIMARY_BLUE}[4]${NC} ${BOLD}Resume last run${NC}        → Continue where you left off"
+    echo -e "${PRIMARY_BLUE}[5]${NC} ${BOLD}List all runs${NC}          → Browse complete run history"
+    echo -e "${PRIMARY_BLUE}[6]${NC} ${BOLD}Help${NC}                   → How this works + examples"
+    echo -e "${PRIMARY_BLUE}[d]${NC} ${BOLD}Doctor check${NC}           → Verify system dependencies"
+    echo -e "${MUTED_BLUE}[0]${NC} ${WHITE}Exit${NC}"
+    echo ""
+    echo -e "${MUTED_BLUE}💡 Tip: Use Ctrl+C to exit anytime safely${NC}"
+    echo ""
+    echo -n -e "${WHITE}${BOLD}Choice [0-6,d]: ${NC}"
+}
+
+# Error handling for invalid menu input with helpful suggestions
+handle_invalid_input() {
+    local input="$1"
+    echo ""
+    echo -e "${YELLOW}⚠ Invalid choice: '$input'${NC}"
+    
+    # Provide smart suggestions based on input
+    case "$input" in
+        "start"|"new"|"begin"|"create")
+            echo -e "${MUTED_BLUE}Did you mean '1' (Start new run)?${NC}"
+            ;;
+        "build"|"flutter"|"app"|"scaffold")
+            echo -e "${MUTED_BLUE}Did you mean '2' (Build Flutter app)?${NC}"
+            ;;
+        "idea"|"ideas"|"bin"|"vault")
+            echo -e "${MUTED_BLUE}Did you mean '3' (View idea bin)?${NC}"
+            ;;
+        "resume"|"continue"|"last")
+            echo -e "${MUTED_BLUE}Did you mean '4' (Resume last run)?${NC}"
+            ;;
+        "list"|"runs"|"history")
+            echo -e "${MUTED_BLUE}Did you mean '5' (List all runs)?${NC}"
+            ;;
+        "help"|"how"|"info")
+            echo -e "${MUTED_BLUE}Did you mean '6' (Help)?${NC}"
+            ;;
+        "exit"|"quit"|"q")
+            echo -e "${MUTED_BLUE}Did you mean '0' (Exit)?${NC}"
+            ;;
+        *)
+            echo -e "${MUTED_BLUE}Please select a number from 0-6${NC}"
+            ;;
+    esac
+    
+    echo ""
+    echo -n "Press ENTER to continue..."
+    read -r
+}
+
+# Help / How this works
+show_help() {
+    clear
+    echo -e "${PRIMARY_BLUE}${BOLD}How App Factory Works${NC}"
+    echo ""
+    echo -e "${WHITE}App Factory transforms real-world signals into complete app specifications.${NC}"
+    echo ""
+    echo -e "${ACCENT_BLUE}Signal-Driven Process:${NC}"
+    echo "• Analyzes user frustration patterns across forums and reviews"
+    echo "• Identifies gaps in existing solutions"  
+    echo "• Generates ideas with proven demand signals"
+    echo "• Automatically selects the highest-scoring opportunity"
+    echo ""
+    echo -e "${ACCENT_BLUE}9-Stage Pipeline:${NC}"
+    echo "  01 → Market Research (generates 10 ideas from signals)"
+    echo "  02 → Product Specification"
+    echo "  03 → UX Design"
+    echo "  04 → Monetization Strategy (RevenueCat integration)"
+    echo "  05 → Technical Architecture"
+    echo "  06 → Builder Handoff"
+    echo "  07 → Polish & Quality"
+    echo "  08 → Brand & Assets"
+    echo "  09 → Release Preparation"
+    echo ""
+    echo -e "${ACCENT_BLUE}Output:${NC}"
+    echo "Complete specifications ready for development in:"
+    echo "  runs/YYYY-MM-DD/<project>/spec/"
+    echo ""
+    echo -e "${MUTED_BLUE}Press ENTER to return to main menu...${NC}"
+    read -r
+}
+
+# Start new run flow
+start_new_run() {
+    clear
+    echo -e "${PRIMARY_BLUE}${BOLD}Starting New App Factory Run${NC}"
+    echo ""
+    echo -e "${WHITE}You can start with an idea, keywords, or nothing at all.${NC}"
+    echo -e "${ACCENT_BLUE}Leaving this blank will generate ideas from real-world signals.${NC}"
+    echo ""
+    
+    # Idea input
+    echo -e "${WHITE}Enter an app idea or problem (optional):${NC}"
+    echo -n "> "
+    read -r user_idea
+    
+    # Keywords input  
+    echo ""
+    echo -e "${WHITE}Enter keywords (comma-separated, optional):${NC}"
+    echo -n "> "
+    read -r user_keywords
+    
+    # Project name
+    echo ""
+    echo -e "${WHITE}Project name (will auto-generate if blank):${NC}"
+    echo -n "> "
+    read -r project_name
+    
+    # Attribution option
+    echo ""
+    echo -e "${MUTED_BLUE}Add 'Created with App Factory' footer to spec files? [Y/n]:${NC}"
+    echo -n "> "
+    read -r attribution_choice
+    
+    # Trim inputs
+    user_idea=$(echo "$user_idea" | xargs)
+    user_keywords=$(echo "$user_keywords" | xargs)  
+    project_name=$(echo "$project_name" | xargs)
+    attribution_choice=$(echo "$attribution_choice" | xargs)
+    
+    # Generate project name if empty
+    if [[ -z "$project_name" ]]; then
+        if [[ -n "$user_idea" ]]; then
+            # Extract key words from idea for name
+            project_name=$(echo "$user_idea" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]//g' | awk '{print $1"-"$2}' | head -c 20)
+        else
+            project_name="signal-driven-$(date +%s | tail -c 4)"
+        fi
+    fi
+    
+    # Validate project name  
+    if ! validate_app_name "$project_name"; then
+        echo ""
+        echo -e "${RED}Invalid project name. Using auto-generated name.${NC}"
+        project_name="app-factory-$(date +%s | tail -c 4)"
+    fi
+    
+    echo ""
+    echo -e "${PRIMARY_BLUE}${BOLD}═══ RESEARCH PHASE ═══${NC}"
+    echo ""
+    
+    if [[ -n "$user_idea" ]] || [[ -n "$user_keywords" ]]; then
+        echo -e "${WHITE}I'm now researching your concept across real user discussions,${NC}"
+        echo -e "${WHITE}app reviews, and workflow patterns to validate demand and${NC}" 
+        echo -e "${WHITE}generate related opportunities.${NC}"
+    else
+        echo -e "${WHITE}I'm now researching real user pain points across forums,${NC}"
+        echo -e "${WHITE}reviews, and workflows to generate ideas that already${NC}"
+        echo -e "${WHITE}show demand signals.${NC}"
+    fi
+    
+    echo ""
+    echo -e "${ACCENT_BLUE}Sources I'll analyze:${NC}"
+    echo "• User friction patterns and complaints"
+    echo "• App Store review sentiment analysis"  
+    echo "• Workflow inefficiency signals"
+    echo "• Competitive gap analysis"
+    echo ""
+    echo -e "${MUTED_BLUE}This takes 30-60 seconds...${NC}"
+    echo ""
+    
+    # Process attribution choice (default to enabled)
+    attribution_lower=$(echo "$attribution_choice" | tr '[:upper:]' '[:lower:]')
+    case "$attribution_lower" in
+        "n"|"no"|"false"|"0")
+            export APPFACTORY_NO_ATTRIBUTION="true"
+            ;;
+        *)
+            # Default to enabled - no need to set anything
+            ;;
+    esac
+    
+    # Run pipeline with inputs
+    run_pipeline_with_inputs "$project_name" "$user_idea" "$user_keywords"
+}
+
+# View idea bin
+view_idea_bin() {
+    clear
+    echo -e "${PRIMARY_BLUE}${BOLD}Idea Bin${NC}"
+    echo ""
+    
+    # Check if any runs exist
+    if [[ ! -d "$PROJECT_ROOT/runs" ]]; then
+        echo -e "${YELLOW}No ideas saved yet.${NC}"
+        echo "Start your first run to generate ideas!"
+        echo ""
+        echo -e "${MUTED_BLUE}Press ENTER to return to main menu...${NC}"
+        read -r
+        return
+    fi
+    
+    echo -e "${ACCENT_BLUE}Available Ideas:${NC}"
+    echo ""
+    
+    local idea_count=0
+    local choice_map=()
+    local choice_num=1
+    
+    # Find all unused ideas across runs
+    while IFS= read -r -d '' unused_dir; do
+        local run_path=$(dirname "$(dirname "$unused_dir")")
+        local run_name=$(basename "$run_path")
+        local run_date=$(basename "$(dirname "$run_path")")
+        
+        echo -e "${WHITE}From run: ${run_date}/${run_name}${NC}"
+        
+        # List unused ideas
+        if [[ -d "$unused_dir" ]]; then
+            while IFS= read -r -d '' idea_file; do
+                if [[ -f "$idea_file" ]]; then
+                    local idea_name=$(basename "$idea_file" .md)
+                    echo -e "${PRIMARY_BLUE}[$choice_num]${NC} $(echo "$idea_name" | sed 's/^[0-9]*_//')"
+                    choice_map[$choice_num]="$idea_file"
+                    ((choice_num++))
+                    ((idea_count++))
+                fi
+            done < <(find "$unused_dir" -name "*.md" -print0 2>/dev/null)
+        fi
+        echo ""
+    done < <(find "$PROJECT_ROOT/runs" -name "unused_ideas" -type d -print0 2>/dev/null)
+    
+    if [[ $idea_count -eq 0 ]]; then
+        echo -e "${YELLOW}No unused ideas found.${NC}"
+        echo "Generate ideas by starting a new run!"
+    else
+        echo -e "${ACCENT_BLUE}[v]${NC} View idea details"
+        echo -e "${ACCENT_BLUE}[n]${NC} Start new run with selected idea"
+    fi
+    
+    echo -e "${MUTED_BLUE}[b]${NC} Back to main menu"
+    echo ""
+    echo -n -e "${WHITE}Enter your choice: ${NC}"
+    read -r choice
+    
+    case "$choice" in
+        [0-9]*)
+            # Validate that choice is purely numeric and within valid range
+            if [[ "$choice" =~ ^[0-9]+$ ]] && [[ "$choice" -gt 0 ]] && [[ -n "${choice_map[$choice]:-}" ]]; then
+                view_idea_details "${choice_map[$choice]}"
+            else
+                echo ""
+                if [[ ! "$choice" =~ ^[0-9]+$ ]]; then
+                    echo -e "${YELLOW}Invalid input: '$choice' (numbers only, please)${NC}"
+                else
+                    echo -e "${YELLOW}Invalid idea number: $choice (choose from 1-$((choice_num-1)))${NC}"
+                fi
+                echo ""
+                echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+                read -r
+            fi
+            ;;
+        "v"|"V")
+            view_idea_bin
+            ;;
+        "n"|"N")
+            echo "Feature coming soon!"
+            echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+            read -r
+            ;;
+        "b"|"B"|"")
+            return
+            ;;
+        *)
+            echo ""
+            echo -e "${YELLOW}Invalid option.${NC}"
+            echo ""
+            echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+            read -r
+            view_idea_bin
+            ;;
+    esac
+}
+
+# View idea details
+view_idea_details() {
+    local idea_file="$1"
+    clear
+    echo -e "${PRIMARY_BLUE}${BOLD}Idea Details${NC}"
+    echo ""
+    
+    if [[ -f "$idea_file" ]]; then
+        cat "$idea_file"
+    else
+        echo -e "${RED}Idea file not found.${NC}"
+    fi
+    
+    echo ""
+    echo -e "${MUTED_BLUE}Press ENTER to return...${NC}"
+    read -r
+    view_idea_bin
+}
+
+# Resume last run
+resume_last_run() {
+    clear
+    echo -e "${PRIMARY_BLUE}${BOLD}Resume Last Run${NC}"
+    echo ""
+    
+    local active_run_data
+    active_run_data=$(load_active_run)
+    
+    if [[ "$active_run_data" == "null" ]]; then
+        echo -e "${YELLOW}No active run found.${NC}"
+        echo ""
+        echo -e "${ACCENT_BLUE}Options:${NC}"
+        echo -e "${PRIMARY_BLUE}[1]${NC} Start new run"
+        echo -e "${PRIMARY_BLUE}[2]${NC} View all runs to select one"
+        echo -e "${MUTED_BLUE}[b]${NC} Back to main menu"
+        echo ""
+        echo -n -e "${WHITE}Enter your choice: ${NC}"
+        read -r choice
+        
+        case "$choice" in
+            "1")
+                start_new_run
+                ;;
+            "2")
+                list_all_runs
+                ;;
+            "b"|"B"|"")
+                return
+                ;;
+            *)
+                echo -e "${YELLOW}Invalid option.${NC}"
+                echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+                read -r
+                ;;
+        esac
+        return
+    fi
+    
+    # Show current run status
+    echo -e "${WHITE}Active Run Status:${NC}"
+    show_run_status_inline "$active_run_data"
+    
+    echo ""
+    echo -e "${ACCENT_BLUE}Options:${NC}"
+    echo -e "${PRIMARY_BLUE}[1]${NC} Continue pipeline"
+    echo -e "${PRIMARY_BLUE}[2]${NC} Run specific stage"
+    echo -e "${PRIMARY_BLUE}[3]${NC} View generated specs"
+    echo -e "${MUTED_BLUE}[b]${NC} Back to main menu"
+    echo ""
+    echo -n -e "${WHITE}Enter your choice: ${NC}"
+    read -r choice
+    
+    case "$choice" in
+        "1")
+            continue_pipeline
+            ;;
+        "2")
+            run_specific_stage
+            ;;
+        "3")
+            view_generated_specs "$active_run_data"
+            ;;
+        "b"|"B"|"")
+            return
+            ;;
+        *)
+            echo -e "${YELLOW}Invalid option.${NC}"
+            echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+            read -r
+            ;;
+    esac
+}
+
+# List all runs
+list_all_runs() {
+    clear
+    echo -e "${PRIMARY_BLUE}${BOLD}All Runs${NC}"
+    echo ""
+    
+    if [[ ! -d "$PROJECT_ROOT/runs" ]]; then
+        echo -e "${YELLOW}No runs found.${NC}"
+        echo ""
+        echo -e "${MUTED_BLUE}Press ENTER to return to main menu...${NC}"
+        read -r
+        return
+    fi
+    
+    local runs_found=false
+    local choice_map=()
+    local choice_num=1
+    
+    while IFS= read -r -d '' run_dir; do
+        runs_found=true
+        local run_id=$(basename "$run_dir")
+        local run_date=$(basename "$(dirname "$run_dir")")
+        local mod_time=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M" "$run_dir" 2>/dev/null || stat -c "%y" "$run_dir" 2>/dev/null | cut -d. -f1)
+        
+        # Count spec files
+        local spec_count=0
+        if [[ -d "$run_dir/spec" ]]; then
+            spec_count=$(find "$run_dir/spec" -name "*.md" | wc -l)
+        fi
+        
+        echo -e "${PRIMARY_BLUE}[$choice_num]${NC} ${WHITE}${run_date}/${run_id}${NC}"
+        echo "    Modified: $mod_time"
+        echo "    Specs: $spec_count files"
+        echo ""
+        
+        choice_map[$choice_num]="$run_dir"
+        ((choice_num++))
+    done < <(find "$PROJECT_ROOT/runs" -mindepth 2 -maxdepth 2 -type d -print0 | sort -z -r)
+    
+    if [[ "$runs_found" == "false" ]]; then
+        echo -e "${YELLOW}No runs found.${NC}"
+    else
+        echo -e "${ACCENT_BLUE}[s]${NC} Set as active run"
+        echo -e "${ACCENT_BLUE}[v]${NC} View run details"
+        echo -e "${ACCENT_BLUE}[d]${NC} Delete run"
+    fi
+    
+    echo -e "${MUTED_BLUE}[b]${NC} Back to main menu"
+    echo ""
+    echo -n -e "${WHITE}Enter your choice: ${NC}"
+    read -r choice
+    
+    case "$choice" in
+        [0-9]*)
+            # Validate that choice is purely numeric and within valid range
+            if [[ "$choice" =~ ^[0-9]+$ ]] && [[ "$choice" -gt 0 ]] && [[ -n "${choice_map[$choice]:-}" ]]; then
+                view_run_details "${choice_map[$choice]}"
+            else
+                echo ""
+                if [[ ! "$choice" =~ ^[0-9]+$ ]]; then
+                    echo -e "${YELLOW}Invalid input: '$choice' (numbers only, please)${NC}"
+                else
+                    echo -e "${YELLOW}Invalid run number: $choice (choose from 1-$((choice_num-1)))${NC}"
+                fi
+                echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+                read -r
+            fi
+            ;;
+        "s"|"S")
+            echo "Feature coming soon!"
+            echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+            read -r
+            ;;
+        "v"|"V")
+            list_all_runs
+            ;;
+        "d"|"D")
+            echo "Feature coming soon!"
+            echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+            read -r
+            ;;
+        "b"|"B"|"")
+            return
+            ;;
+        *)
+            echo -e "${YELLOW}Invalid option.${NC}"
+            echo -e "${MUTED_BLUE}Press ENTER to continue...${NC}"
+            read -r
+            list_all_runs
+            ;;
+    esac
+}
+
+# Signal handlers for clean exit
+cleanup_and_exit() {
+    echo ""
+    echo -e "${ACCENT_BLUE}Cleaning up...${NC}"
+    
+    # Kill any Claude child processes
+    local claude_pids
+    claude_pids=$(pgrep -f "claude" | grep -v "$$" || true)
+    if [[ -n "$claude_pids" ]]; then
+        echo "$claude_pids" | xargs kill -TERM 2>/dev/null || true
+    fi
+    
+    echo -e "${WHITE}Thanks for using App Factory!${NC}"
+    exit 0
+}
+
+trap cleanup_and_exit INT TERM
+
+# Check if we're in a valid project directory
+check_project_directory() {
+    if [[ ! -f "$PROJECT_ROOT/scripts/helpers.sh" ]] || [[ ! -d "$PROJECT_ROOT/templates" ]]; then
+        clear
+        echo -e "${RED}${BOLD}Error: Not in App Factory directory${NC}"
+        echo ""
+        echo "Please run this command from the app-factory root directory."
+        echo ""
+        exit 1
+    fi
+}
+
+# Legacy command-line interface support
+handle_legacy_commands() {
+    # Process global flags first
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            "--no-attribution")
+                export APPFACTORY_NO_ATTRIBUTION="true"
+                shift
+                ;;
+            "--json")
+                export APPFACTORY_OUTPUT_JSON="true"
+                shift
+                ;;
+            "--timeout")
+                if [[ -n "${2:-}" ]]; then
+                    export APPFACTORY_CLAUDE_ARGS="--timeout=$2"
+                    shift 2
+                else
+                    echo -e "${RED}Error: --timeout requires a value (seconds)${NC}"
+                    exit 1
+                fi
+                ;;
+            "--stream")
+                export APPFACTORY_STREAM_OUTPUT="true"
+                shift
+                ;;
+            "--verbose")
+                export APPFACTORY_DEBUG="true"
+                export APPFACTORY_STREAM_OUTPUT="true"
+                shift
+                ;;
+            "--stub")
+                export APPFACTORY_TEST_MODE="1"
+                shift
+                ;;
+            "--idea")
+                if [[ -n "${2:-}" ]]; then
+                    export APPFACTORY_IDEA="$2"
+                    shift 2
+                else
+                    echo -e "${RED}Error: --idea requires a value${NC}"
+                    exit 1
+                fi
+                ;;
+            "--keywords")
+                if [[ -n "${2:-}" ]]; then
+                    export APPFACTORY_KEYWORDS="$2"
+                    shift 2
+                else
+                    echo -e "${RED}Error: --keywords requires a value${NC}"
+                    exit 1
+                fi
+                ;;
+            "--yes")
+                export APPFACTORY_AUTO_CONFIRM="true"
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    
+    case "${1:-}" in
+        "run")
+            shift
+            run_pipeline "${1:-}"
+            exit 0
+            ;;
+        "build")
+            shift
+            run_builder "$@"
+            exit 0
+            ;;
+        "stage")
+            if [[ -z "${2:-}" ]]; then
+                echo -e "${RED}Error: Stage number required${NC}"
+                echo "Usage: ./bin/appfactory stage <01..09>"
+                exit 1
+            fi
+            run_single_stage "$2"
+            exit 0
+            ;;
+        "status")
+            show_pipeline_status
+            exit 0
+            ;;
+        "list-runs")
+            show_runs_list
+            exit 0
+            ;;
+        "clean")
+            shift
+            clean_artifacts "$@"
+            exit 0
+            ;;
+        "doctor")
+            run_doctor_check
+            exit 0
+            ;;
+        "--help"|"-h"|"help")
+            show_legacy_help
+            exit 0
+            ;;
+        "")
+            # No arguments - show interactive menu
+            return 0
+            ;;
+        *)
+            echo -e "${RED}Unknown command: $1${NC}"
+            echo ""
+            echo "Use './bin/appfactory --help' for legacy commands,"
+            echo "or './bin/appfactory' for interactive mode."
+            exit 1
+            ;;
+    esac
+}
+
+# Main interactive loop
+main_interactive_loop() {
+    while true; do
+        show_banner
+        show_main_menu
+        
+        read -r choice
+        
+        case "$choice" in
+            "1")
+                start_new_run
+                ;;
+            "2")
+                build_flutter_app
+                ;;
+            "3")
+                view_idea_bin
+                ;;
+            "4")
+                resume_last_run
+                ;;
+            "5")
+                list_all_runs
+                ;;
+            "6")
+                show_help
+                ;;
+            "d"|"D"|"doctor")
+                run_doctor_check
+                ;;
+            "0"|"exit"|"quit"|"q")
+                cleanup_and_exit
+                ;;
+            *)
+                handle_invalid_input "$choice"
+                ;;
+        esac
+    done
+}
+
+# Source required functions (will add these implementations)
+source "$PROJECT_ROOT/scripts/pipeline_functions.sh" 2>/dev/null || {
+    echo -e "${YELLOW}Warning: Pipeline functions not found. Some features may not work.${NC}"
+}
+
+# Main execution
+main() {
+    check_project_directory
+    
+    # Handle legacy command-line arguments  
+    handle_legacy_commands "$@"
+    
+    # Start interactive menu
+    main_interactive_loop
+}
+
+main "$@"
