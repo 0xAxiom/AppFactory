@@ -1,6 +1,10 @@
+<p align="center">
+  <img src="./AppFactory.png" alt="App Factory" width="800" />
+</p>
+
 # App Factory
 
-Claude runs a 10-stage pipeline to generate complete mobile app specifications and optionally a runnable Expo React Native app.
+**Open Source Mobile App Factory** - Claude runs a 10-stage pipeline to generate complete mobile app specifications and optionally a runnable Expo React Native app.
 
 ## Quickstart
 
@@ -131,7 +135,7 @@ App Factory operates as an agent-native pipeline:
 
 ## Contributing
 
-App Factory is open source. See `CONTRIBUTING.md` for guidelines.
+App Factory is **open source** and welcomes contributions from the community. See `CONTRIBUTING.md` for guidelines.
 
 **Key principles:**
 - Agent-native execution (Claude is the runner)
@@ -140,9 +144,42 @@ App Factory is open source. See `CONTRIBUTING.md` for guidelines.
 - No subprocess delegation
 - Truth enforcement over convenience
 
+**Ways to contribute:**
+- 🐛 Report bugs and issues
+- 💡 Suggest new features or improvements
+- 📝 Improve documentation
+- 🧪 Add tests and validation
+- 🔧 Submit pull requests
+
 ## License
 
-MIT License - see LICENSE file for details.
+**MIT License** - This project is open source and free to use. See LICENSE file for details.
+
+## Support Open Source Development
+
+App Factory is developed and maintained as an **open source project**. If this tool helps you build better mobile applications faster, please consider supporting its continued development.
+
+### ⭐ Ways to Support
+
+- **Star this repository** - Help others discover App Factory
+- **Share the project** - Tell other developers about agent-native app generation
+- **Contribute code** - Submit improvements and new features
+- **Report issues** - Help us improve reliability and usability
+- **Sponsor development** - Support ongoing maintenance and new features
+
+### 💖 Become a Sponsor
+
+Your sponsorship helps:
+- 🚀 **Add new pipeline stages** for advanced app features
+- 🔧 **Improve validation** and error handling
+- 📱 **Support new frameworks** beyond React Native
+- 🌐 **Enhance signal sources** for better market research
+- 📚 **Create tutorials** and documentation
+- 🐛 **Fix bugs** and performance issues
+
+[**Sponsor App Factory on GitHub →**](https://github.com/sponsors/MeltedMindz)
+
+Every contribution, whether code or financial, helps make App Factory better for the entire developer community. Thank you for supporting open source! 🙏
 
 ---
 

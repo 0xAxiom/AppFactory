@@ -1,1 +1,10 @@
-github: MeltedMindz
+# GitHub Sponsors funding configuration for App Factory
+
+# GitHub Sponsors
+github: [MeltedMindz]
+
+# Additional funding platforms (uncomment if you use them)
+# patreon: username
+# ko_fi: username
+# buymeacoffee: username
+# custom: ["https://your-custom-funding-url.com"]
