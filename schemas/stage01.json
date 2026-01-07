@@ -1,0 +1,78 @@
+{
+  "type": "object",
+  "properties": {
+    "market_research": {
+      "type": "object",
+      "properties": {
+        "trends": {
+          "type": "array",
+          "items": {
+            "type": "object", 
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "evidence": {"type": "string"},
+              "opportunity_level": {"enum": ["High", "Medium", "Low"]}
+            },
+            "required": ["name", "description", "evidence", "opportunity_level"]
+          }
+        },
+        "competition_landscape": {
+          "type": "object",
+          "properties": {
+            "oversaturated": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "underexplored": {
+              "type": "array", 
+              "items": {"type": "string"}
+            }
+          },
+          "required": ["oversaturated", "underexplored"]
+        },
+        "monetization_trends": {"type": "string"}
+      },
+      "required": ["trends", "competition_landscape", "monetization_trends"]
+    },
+    "app_ideas": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "validation_score": {"type": "number", "minimum": 1, "maximum": 10},
+          "signal_source": {"type": "string"},
+          "description": {"type": "string"},
+          "target_user": {"type": "string"},
+          "pain_point_evidence": {"type": "string"},
+          "core_loop": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "differentiation": {"type": "string"},
+          "subscription_fit": {"type": "string"},
+          "mvp_complexity": {"enum": ["S", "M", "L"]},
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "monthly_range": {"type": "string"},
+              "annual_range": {"type": "string"},
+              "trial_strategy": {"type": "string"}
+            },
+            "required": ["monthly_range", "annual_range", "trial_strategy"]
+          }
+        },
+        "required": [
+          "id", "name", "validation_score", "signal_source", "description",
+          "target_user", "pain_point_evidence", "core_loop", "differentiation", 
+          "subscription_fit", "mvp_complexity", "pricing"
+        ]
+      }
+    }
+  },
+  "required": ["market_research", "app_ideas"]
+}

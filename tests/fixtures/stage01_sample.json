@@ -1,0 +1,42 @@
+{
+  "market_research": {
+    "trends": [
+      {
+        "name": "Mobile Productivity",
+        "description": "Users seeking mobile-first productivity solutions",
+        "evidence": "25% increase in mobile productivity app downloads",
+        "opportunity_level": "High"
+      }
+    ],
+    "competition_landscape": {
+      "oversaturated": ["Note-taking apps", "Simple task managers"],
+      "underexplored": ["AI-powered workflow automation", "Voice-first productivity"]
+    },
+    "monetization_trends": "Subscription models showing 40% higher retention than one-time purchases"
+  },
+  "app_ideas": [
+    {
+      "id": "idea_001",
+      "name": "FocusFlow",
+      "validation_score": 8.5,
+      "signal_source": "Reddit productivity subreddit complaints",
+      "description": "AI-powered focus session app with distraction blocking",
+      "target_user": "Remote workers struggling with focus",
+      "pain_point_evidence": "2000+ Reddit posts about focus issues while working from home",
+      "core_loop": [
+        "Set focus intention",
+        "AI blocks distracting apps/websites", 
+        "Track focus metrics",
+        "Get personalized insights"
+      ],
+      "differentiation": "AI learns your distraction patterns and proactively blocks them",
+      "subscription_fit": "Monthly tracking and AI analysis requires ongoing service",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$9.99",
+        "annual_range": "$99.99",
+        "trial_strategy": "7-day free trial with core features"
+      }
+    }
+  ]
+}

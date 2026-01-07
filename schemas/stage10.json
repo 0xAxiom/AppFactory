@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "build_plan": {
+      "type": "object",
+      "properties": {
+        "app_name": {"type": "string"},
+        "expo_version": {"type": "string"},
+        "bundle_id": {"type": "string"},
+        "dependencies": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "screens_to_implement": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "services_to_create": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "navigation_structure": {"type": "object"},
+        "build_steps": {
+          "type": "array", 
+          "items": {"type": "string"}
+        }
+      },
+      "required": [
+        "app_name", "expo_version", "bundle_id", "dependencies",
+        "screens_to_implement", "services_to_create", "navigation_structure", "build_steps"
+      ]
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "all_screens_planned": {"type": "boolean"},
+        "revenuecat_integrated": {"type": "boolean"},
+        "expo_configured": {"type": "boolean"}
+      },
+      "required": ["all_screens_planned", "revenuecat_integrated", "expo_configured"]
+    }
+  },
+  "required": ["build_plan", "validation"]
+}
