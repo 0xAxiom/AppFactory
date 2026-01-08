@@ -8,6 +8,24 @@ interface LivePreviewProps {
   runId?: string;
 }
 
+interface BuildInfo {
+  id: string;
+  path: string;
+  name?: string;
+  validation: {
+    isValid: boolean;
+    errors: string[];
+    warnings: string[];
+  };
+}
+
+interface BuildDiscoveryResult {
+  totalBuilds: number;
+  validBuilds: number;
+  builds: BuildInfo[];
+  errors: string[];
+}
+
 interface PreviewSession {
   id: string;
   buildPath: string;
@@ -30,7 +48,9 @@ const LivePreview: React.FC<LivePreviewProps> = ({ ideaSlug, ideaName, runId }) 
   const [qrCode, setQrCode] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  const [buildPath, setBuildPath] = useState<string>('');
+  const [availableBuilds, setAvailableBuilds] = useState<BuildInfo[]>([]);
+  const [selectedBuild, setSelectedBuild] = useState<BuildInfo | null>(null);
+  const [isLoadingBuilds, setIsLoadingBuilds] = useState(true);
 
   // Check if preview service is running
   const checkService = async () => {
@@ -69,29 +89,41 @@ const LivePreview: React.FC<LivePreviewProps> = ({ ideaSlug, ideaName, runId }) 
     }
   };
 
-  // Determine build path for the idea
-  const determineBuildPath = () => {
-    // Try common build path patterns
-    const patterns = [
-      `builds/${ideaSlug}`,
-      `builds/01_${ideaSlug}__${ideaSlug}_001`,
-      `builds/02_${ideaSlug}__${ideaSlug}_002`,
-      `builds/03_${ideaSlug}__${ideaSlug}_003`,
-      `builds/04_${ideaSlug}__${ideaSlug}_004`,
-      `builds/05_${ideaSlug}__${ideaSlug}_005`,
-      `builds/06_${ideaSlug}__${ideaSlug}_006`,
-      `builds/07_${ideaSlug}__${ideaSlug}_007`,
-      `builds/08_${ideaSlug}__${ideaSlug}_008`,
-      `builds/09_${ideaSlug}__${ideaSlug}_009`,
-      `builds/10_${ideaSlug}__${ideaSlug}_010`
-    ];
+  // Load available builds from the discovery API
+  const loadAvailableBuilds = async () => {
+    if (!isServiceRunning) return;
     
-    return patterns[1]; // Default to rank 1 pattern, service will validate
+    setIsLoadingBuilds(true);
+    try {
+      const response = await fetch(`${PREVIEW_API_BASE}/builds`);
+      if (response.ok) {
+        const buildData: BuildDiscoveryResult = await response.json();
+        setAvailableBuilds(buildData.builds);
+        
+        // Auto-select matching build for current idea
+        const matchingBuilds = buildData.builds.filter(build => 
+          build.id.includes(ideaSlug) || 
+          build.name?.toLowerCase().includes(ideaSlug.toLowerCase()) ||
+          build.path.includes(ideaSlug)
+        ).filter(build => build.validation.isValid);
+        
+        if (matchingBuilds.length > 0) {
+          // Prefer most recent valid build
+          setSelectedBuild(matchingBuilds[0]);
+        }
+        
+        setError('');
+      }
+    } catch (err) {
+      console.error('Failed to load builds:', err);
+      setError('Failed to load available builds');
+    } finally {
+      setIsLoadingBuilds(false);
+    }
   };
 
   useEffect(() => {
     checkService();
-    setBuildPath(determineBuildPath());
     
     const interval = setInterval(() => {
       checkService();
@@ -101,7 +133,18 @@ const LivePreview: React.FC<LivePreviewProps> = ({ ideaSlug, ideaName, runId }) 
     return () => clearInterval(interval);
   }, [ideaSlug]);
 
+  useEffect(() => {
+    if (isServiceRunning) {
+      loadAvailableBuilds();
+    }
+  }, [isServiceRunning, ideaSlug]);
+
   const startPreview = async () => {
+    if (!selectedBuild) {
+      setError('No build selected. Please select a valid build to preview.');
+      return;
+    }
+
     setIsLoading(true);
     setError('');
     
@@ -110,7 +153,7 @@ const LivePreview: React.FC<LivePreviewProps> = ({ ideaSlug, ideaName, runId }) 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          buildPath: buildPath,
+          buildPath: selectedBuild.path,
           mode: 'dev-client' 
         })
       });
@@ -179,12 +222,59 @@ const LivePreview: React.FC<LivePreviewProps> = ({ ideaSlug, ideaName, runId }) 
     <div className="detail-section">
       <h3>Live Preview</h3>
       
+      {isLoadingBuilds ? (
+        <div className="preview-loading">
+          <Loader className="spin" size={16} />
+          <span>Loading available builds...</span>
+        </div>
+      ) : availableBuilds.length > 0 ? (
+        <div className="build-selection">
+          <label htmlFor="build-select"><strong>Select Build:</strong></label>
+          <select 
+            id="build-select"
+            value={selectedBuild?.id || ''} 
+            onChange={(e) => {
+              const build = availableBuilds.find(b => b.id === e.target.value);
+              setSelectedBuild(build || null);
+            }}
+            className="build-selector"
+          >
+            <option value="">Choose a build to preview...</option>
+            {availableBuilds
+              .filter(build => build.validation.isValid)
+              .map(build => (
+                <option key={build.id} value={build.id}>
+                  {build.name || build.id} {build.validation.warnings.length > 0 ? '⚠️' : ''}
+                </option>
+              ))}
+          </select>
+          
+          {selectedBuild && selectedBuild.validation.warnings.length > 0 && (
+            <div className="build-warnings">
+              <AlertCircle size={16} />
+              <span>Warnings: {selectedBuild.validation.warnings.join(', ')}</span>
+            </div>
+          )}
+          
+          {selectedBuild && (
+            <div className="build-info">
+              <code>{selectedBuild.path}</code>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="no-builds">
+          <AlertCircle size={20} />
+          <span>No valid builds found. Build an app first with <code>build &lt;IDEA_NAME&gt;</code></span>
+        </div>
+      )}
+      
       <div className="preview-controls">
         {!session || session.status === 'stopped' || session.status === 'error' ? (
           <button 
             className="preview-button start"
             onClick={startPreview}
-            disabled={isLoading}
+            disabled={isLoading || !selectedBuild}
           >
             {isLoading ? <Loader className="spin" size={16} /> : <Play size={16} />}
             Launch Live Preview
@@ -297,6 +387,9 @@ const LivePreview: React.FC<LivePreviewProps> = ({ ideaSlug, ideaName, runId }) 
             <p><strong>Build Path:</strong> <code>{session.buildPath}</code></p>
             <p><strong>Mode:</strong> {session.mode}</p>
             <p><strong>Started:</strong> {new Date(session.startedAt).toLocaleTimeString()}</p>
+            {selectedBuild && (
+              <p><strong>Build Name:</strong> {selectedBuild.name || selectedBuild.id}</p>
+            )}
           </div>
         </div>
       )}

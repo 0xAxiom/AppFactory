@@ -3,6 +3,8 @@ const cors = require('cors');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { discoverBuilds, validateExpoBuild } = require('../../scripts/preview/discover_builds.js');
+const { validateBuild } = require('../../scripts/preview/validate_build.js');
 
 const app = express();
 const PORT = 3456; // Different from common ports
@@ -21,6 +23,34 @@ class SessionManager {
   constructor() {
     this.currentSession = null;
     this.loadSessions();
+  }
+
+  async findAvailablePort(startPort = 8081) {
+    const net = require('net');
+    
+    const isPortAvailable = (port) => {
+      return new Promise((resolve) => {
+        const server = net.createServer();
+        
+        server.listen(port, (err) => {
+          if (err) {
+            resolve(false);
+          } else {
+            server.once('close', () => resolve(true));
+            server.close();
+          }
+        });
+        
+        server.on('error', () => resolve(false));
+      });
+    };
+
+    for (let port = startPort; port < startPort + 100; port++) {
+      if (await isPortAvailable(port)) {
+        return port;
+      }
+    }
+    throw new Error('No available ports found');
   }
 
   loadSessions() {
@@ -52,39 +82,42 @@ class SessionManager {
     const sessionId = `session_${Date.now()}`;
     const fullBuildPath = path.resolve('../' + buildPath);
 
-    // Validate build path
-    if (!fs.existsSync(fullBuildPath)) {
-      throw new Error(`Build path not found: ${buildPath}`);
+    // Enhanced build validation using the discovery script
+    const validation = validateExpoBuild(fullBuildPath);
+    if (!validation.isValid) {
+      const errors = validation.errors.join(', ');
+      throw new Error(`Build validation failed: ${errors}`);
     }
 
-    const packageJsonPath = path.join(fullBuildPath, 'package.json');
-    if (!fs.existsSync(packageJsonPath)) {
-      throw new Error(`package.json not found in build: ${buildPath}`);
+    // Log warnings if any
+    if (validation.warnings.length > 0) {
+      console.warn('Build warnings:', validation.warnings.join(', '));
     }
 
-    // Check if build has expo
-    let packageJson;
-    try {
-      packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    } catch (error) {
-      throw new Error(`Invalid package.json in build: ${buildPath}`);
+    // Determine expo command with enhanced options
+    const expoCommand = ['npx', 'expo', 'start'];
+    
+    if (mode === 'dev-client') {
+      expoCommand.push('--dev-client');
     }
-
-    if (!packageJson.dependencies?.expo && !packageJson.devDependencies?.expo) {
-      throw new Error(`Expo not found in dependencies: ${buildPath}`);
-    }
-
-    // Determine expo command
-    const expoCommand = mode === 'dev-client' ? 
-      ['npx', 'expo', 'start', '--dev-client'] :
-      ['npx', 'expo', 'start'];
+    
+    // Add automatic port selection to avoid conflicts
+    const availablePort = await this.findAvailablePort();
+    expoCommand.push('--port', availablePort.toString());
 
     console.log(`Starting Expo in ${fullBuildPath} with command: ${expoCommand.join(' ')}`);
 
-    // Start expo process
+    // Start expo process with enhanced environment
+    const env = {
+      ...process.env,
+      EXPO_USE_METRO_WORKSPACE_ROOT: 'true', // Enable monorepo support
+      EXPO_NO_TELEMETRY: 'true' // Disable telemetry for preview sessions
+    };
+
     const expoProcess = spawn(expoCommand[0], expoCommand.slice(1), {
       cwd: fullBuildPath,
-      stdio: ['pipe', 'pipe', 'pipe']
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env
     });
 
     const session = {
@@ -203,6 +236,101 @@ const sessionManager = new SessionManager();
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Get available builds
+app.get('/builds', (req, res) => {
+  try {
+    const builds = discoverBuilds();
+    res.json(builds);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Validate a specific build (quick validation)
+app.post('/builds/validate', (req, res) => {
+  try {
+    const { buildPath } = req.body;
+    
+    if (!buildPath) {
+      return res.status(400).json({ error: 'buildPath is required' });
+    }
+
+    const fullBuildPath = path.resolve('../' + buildPath);
+    const validation = validateExpoBuild(fullBuildPath);
+    
+    res.json({ buildPath, validation });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Comprehensive build health check
+app.post('/builds/health-check', async (req, res) => {
+  try {
+    const { buildPath } = req.body;
+    
+    if (!buildPath) {
+      return res.status(400).json({ error: 'buildPath is required' });
+    }
+
+    const fullBuildPath = path.resolve('../' + buildPath);
+    
+    if (!fs.existsSync(fullBuildPath)) {
+      return res.status(404).json({ error: 'Build path does not exist' });
+    }
+
+    const healthCheck = await validateBuild(fullBuildPath);
+    
+    res.json({ 
+      buildPath, 
+      healthCheck,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get health status for multiple builds
+app.post('/builds/batch-health', async (req, res) => {
+  try {
+    const { buildPaths } = req.body;
+    
+    if (!Array.isArray(buildPaths)) {
+      return res.status(400).json({ error: 'buildPaths must be an array' });
+    }
+
+    const results = [];
+    
+    for (const buildPath of buildPaths.slice(0, 10)) { // Limit to 10 builds
+      try {
+        const fullBuildPath = path.resolve('../' + buildPath);
+        const healthCheck = await validateBuild(fullBuildPath);
+        
+        results.push({
+          buildPath,
+          healthCheck,
+          success: true
+        });
+      } catch (error) {
+        results.push({
+          buildPath,
+          error: error.message,
+          success: false
+        });
+      }
+    }
+
+    res.json({
+      results,
+      timestamp: new Date().toISOString(),
+      totalChecked: results.length
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Get all sessions
