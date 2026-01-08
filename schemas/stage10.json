@@ -1,8 +1,7 @@
 {
-  "$ref": "schemas/_shared/meta.schema.json",
   "allOf": [
     {
-      "$ref": "schemas/_shared/meta.schema.json"
+      "$ref": "_shared/meta.schema.json"
     },
     {
       "type": "object",
