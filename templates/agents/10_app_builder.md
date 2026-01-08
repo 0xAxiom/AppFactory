@@ -4,8 +4,9 @@
 You are Claude executing Stage 10 for a SPECIFIC IDEA PACK. Build a complete, production-ready Expo React Native app directly from the idea's specifications with strict isolation.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
-Stage 10 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:
-- Verify invocation came from build mode, not `run app factory`
+Stage 10 can be executed via `build <IDEA_ID_OR_NAME>` command OR `dream <IDEA_TEXT>` command:
+- For build mode: Verify invocation came from build mode, not `run app factory`
+- For dream mode: Verify complete end-to-end execution from dream stage 01
 - Require Stage 01-09 artifacts exist (hard-fail if missing)
 - Assert this stage is building ONE SPECIFIC IDEA only
 - NO looping, NO batch processing, SINGLE IDEA CONTEXT ONLY
@@ -65,6 +66,10 @@ If Stage 10 cannot implement something as specified, it MUST:
 - Read: `runs/.../ideas/<idea_dir>/stages/stage07.json` (quality and polish requirements)
 - Read: `runs/.../ideas/<idea_dir>/stages/stage08.json` (brand identity and visual design)
 - Read: `runs/.../ideas/<idea_dir>/stages/stage09.json` (ASO package and launch planning)
+
+**For Dream Mode executions:**
+- Also read: `runs/.../stage01_dream/stages/stage01_dream.json` (original validated idea)
+- Also read: `runs/.../inputs/dream_intake.md` (raw user idea for context)
 
 **BOUNDARY VALIDATION**: 
 - Verify all stage JSONs have identical run_id, idea_id, and idea_dir
@@ -237,14 +242,16 @@ builds/<idea_dir>/<build_id>/app/
 
 ### Ship-Ready UX Requirements (MANDATORY)
 - **Onboarding Flow**: 2-4 screens matching Stage 03 UX and Stage 02 product spec
-- **Paywall Screen**: Full-screen paywall (not alert dialogs) with subscription messaging
-- **Settings Screen**: Manage subscription, restore, privacy/terms, support, app version
-- **Empty States**: All primary screens have appropriate empty state UX
-- **Loading States**: Loading indicators and optimistic UI where appropriate
-- **Error Boundary**: Safe error surfaces with recovery options
-- **Accessibility**: Labels, hit targets, contrast, Dynamic Type support
-- **Asset Placeholders**: App icon, splash screen, adaptive icon generated
-- **Production Toggles**: Development-only logging, lint/format scripts
+- **Paywall Screen**: Full-screen paywall (not alert dialogs) with RevenueCat offerings and subscription messaging per Stage 04
+- **Settings Screen**: Manage subscription, restore purchases, privacy/terms links, support contact, app version
+- **Empty States**: All primary screens have appropriate empty state UX with helpful guidance
+- **Loading States**: Loading indicators and optimistic UI where appropriate, especially for subscription states
+- **Error Boundary**: Safe error surfaces with recovery options for crashes and subscription errors
+- **Accessibility**: WCAG 2.1 AA compliant with labels, hit targets 44pt minimum, color contrast, Dynamic Type support
+- **Asset Placeholders**: App icon (1024x1024), splash screen, adaptive icon generated with brand colors from Stage 08
+- **Production Toggles**: Development-only logging gated by __DEV__, lint/format scripts in package.json
+- **Subscription Compliance**: Auto-renew disclosure, cancel instructions, trial terms clear throughout paywall and subscription UI
+- **Offline Capability**: App functions when offline with cached data and graceful degradation when network unavailable
 
 ## JSON SCHEMA (Build Plan with Mapping Proof)
 

@@ -52,6 +52,7 @@ Claude MUST NOT:
 The ONLY supported user-facing commands are:
 - `run app factory`
 - `build <IDEA_ID_OR_NAME>`
+- `dream <IDEA_TEXT>`
 - `validate run`
 - `show status`
 
@@ -173,6 +174,39 @@ Validates the most recent run (or current run if active):
 - Validates stage gates: all required artifacts per stage exist
 - No generation. Validation only.
 
+### Command: `dream <IDEA_TEXT>`
+Transforms a raw app idea into a complete, store-ready Expo React Native app via end-to-end pipeline execution.
+
+**Behavior (MANDATORY)**:
+When user runs `dream <IDEA_TEXT>`:
+
+1) **Parse raw idea and create run**:
+   - Create new run directory: `runs/YYYY-MM-DD/dream-<timestamp>-<hash>/`
+   - Write `runs/.../inputs/dream_intake.md` containing raw idea text verbatim
+   - Generate deterministic run_id from idea text hash
+
+2) **Execute Dream Stage 01 (Single Idea Validation)**:
+   - Transform raw idea into structured idea pack format
+   - Perform lightweight web research for validation and differentiation
+   - Enforce standards exclusions and subscription viability
+   - Write `runs/.../stage01_dream/stages/stage01_dream.json` 
+   - Create single idea pack: `runs/.../ideas/01_<slug>__<idea_id>/`
+
+3) **Execute Stages 02-09 automatically**:
+   - Run missing stages 02-09 IN ORDER for the single idea
+   - Use existing stage templates and schemas
+   - Write all stage artifacts to idea pack directory
+
+4) **Execute Stage 10 build**:
+   - Build complete Expo app to `builds/<idea_dir>/<build_id>/app/`
+   - Include RevenueCat integration, store-ready screens, production hygiene
+
+**Single-Shot Execution**:
+- Dream Mode executes Stages 01-10 end-to-end without pause
+- No leaderboard updates (single idea, not batch generation)
+- Produces ONE store-ready app from raw idea text
+- MUST enforce standards exclusions and offline-first bias
+
 ### Command: `show status`
 Prints the current run status using run_manifest.json and per-idea stage_status.json files.
 - No generation. No mutation.
@@ -194,10 +228,11 @@ runs/YYYY-MM-DD/<run_name>/meta/run_manifest.json
   "run_id": "string",
   "run_name": "string", 
   "date": "ISO timestamp",
-  "command_invoked": "run app factory | build <idea>",
+  "command_invoked": "run app factory | build <idea> | dream <idea_text>",
   "expected_idea_count": 10,
   "expected_stages_run_factory": ["01"],
   "expected_stages_build_idea": ["02","03","04","05","06","07","08","09","10"],
+  "expected_stages_dream": ["01_dream","02","03","04","05","06","07","08","09","10"],
   "expected_stage_artifacts": {
     "stage01": ["stages/stage01.json", "outputs/stage01_execution.md", "spec/01_market_research.md"],
     "stage02": ["stages/stage02.json", "outputs/stage02_execution.md", "spec/02_product_spec.md"],
@@ -207,7 +242,8 @@ runs/YYYY-MM-DD/<run_name>/meta/run_manifest.json
     "stage06": ["stages/stage06.json", "outputs/stage06_execution.md", "spec/06_builder_handoff.md"],
     "stage07": ["stages/stage07.json", "outputs/stage07_execution.md", "spec/07_polish.md"],
     "stage08": ["stages/stage08.json", "outputs/stage08_execution.md", "spec/08_brand.md"],
-    "stage09": ["stages/stage09.json", "outputs/stage09_execution.md", "spec/09_release_planning.md"]
+    "stage09": ["stages/stage09.json", "outputs/stage09_execution.md", "spec/09_release_planning.md"],
+    "stage01_dream": ["stages/stage01_dream.json", "outputs/stage01_dream_execution.md", "dream_research.md"]
   },
   "idea_index_path": "meta/idea_index.json",
   "leaderboard_paths": ["leaderboards/app_factory_all_time.json", "leaderboards/app_factory_all_time.csv"],
@@ -473,6 +509,37 @@ runs/.../ideas/<idea_dir>/             # Adds to selected idea only
 │   ├── stage02_execution.md...stage10_build.log
 └── spec/
     └── 02_product_spec.md...10_mobile_app.md
+```
+
+### Dream Mode Structure
+`dream <IDEA_TEXT>` creates end-to-end pipeline:
+
+```
+runs/YYYY-MM-DD/dream-<timestamp>-<hash>/
+├── inputs/
+│   └── dream_intake.md                # Raw idea text verbatim
+├── stage01_dream/                     # Dream Stage 01 (single idea validation)
+│   ├── stages/stage01_dream.json      # Single validated app idea
+│   ├── outputs/stage01_dream_execution.md
+│   └── dream_research.md              # Lightweight validation research
+├── ideas/                             # Single idea pack
+│   └── 01_<slug>__<idea_id>/
+│       ├── stages/
+│       │   ├── stage02.json...stage10.json  # Complete pipeline stages
+│       ├── outputs/
+│       │   ├── stage02_execution.md...stage10_build.log
+│       ├── spec/
+│       │   └── 02_product_spec.md...10_mobile_app.md
+│       └── meta/
+│           ├── idea.json, boundary.json, stage_status.json
+└── meta/
+    ├── idea_index.json                # Single idea mapping  
+    └── run_manifest.json              # Dream run metadata
+
+builds/<idea_dir>/<build_id>/app/      # Complete store-ready Expo app
+├── package.json, app.json, App.js
+├── src/screens/... (onboarding, paywall, settings)
+└── RevenueCat integration + production hygiene
 ```
 
 ### Finder-Friendly Naming (MANDATORY)
