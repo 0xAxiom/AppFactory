@@ -252,6 +252,16 @@ Top ideas remain discoverable regardless of when they were generated.
 
 ---
 
+## Bags App
+
+$FACTORY
+
+**CA**: BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS
+
+https://bags.fm/BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS
+
+---
+
 ## Contributing
 
 **Welcome Contributors!**
