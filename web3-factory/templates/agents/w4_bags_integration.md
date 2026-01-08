@@ -62,14 +62,26 @@ W4 prepares all parameters for token creation in W5. No network calls, no token 
     "fee_routing_config": {
       "type": "object",
       "properties": {
-        "app_creator_wallet": {"type": "string"},
-        "app_factory_wallet": {"type": "string"},
-        "fee_percentage_creator": {"type": "number", "enum": [90]},
-        "fee_percentage_factory": {"type": "number", "enum": [10]},
+        "partner_attribution": {
+          "type": "object",
+          "properties": {
+            "partner_key": {"type": "string", "enum": ["FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7"]},
+            "partner_program": {"type": "string", "enum": ["app-factory"]}
+          },
+          "required": ["partner_key", "partner_program"]
+        },
+        "fee_split": {
+          "type": "object", 
+          "properties": {
+            "creator_percentage": {"type": "number", "enum": [75]},
+            "partner_percentage": {"type": "number", "enum": [25]}
+          },
+          "required": ["creator_percentage", "partner_percentage"]
+        },
         "routing_method": {"type": "string"},
         "enforcement_mechanism": {"type": "string"}
       },
-      "required": ["app_creator_wallet", "app_factory_wallet", "fee_percentage_creator", "fee_percentage_factory", "routing_method", "enforcement_mechanism"]
+      "required": ["partner_attribution", "fee_split", "routing_method", "enforcement_mechanism"]
     },
     "deployment_config": {
       "type": "object",
@@ -126,13 +138,14 @@ Set up environment-based configuration:
 BAGS_API_KEY=<provided_at_runtime>
 BAGS_ENVIRONMENT=<mainnet|devnet>
 CREATOR_WALLET_ADDRESS=<provided_at_runtime>
-APP_FACTORY_WALLET_ADDRESS=<configured>
 ```
 
+**Note**: APP_FACTORY_PARTNER_KEY is now hardcoded as immutable constant FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7
+
 ### 4. Fee Routing Configuration
-Implement mandatory 90%/10% fee split:
-- App Creator: 90% of protocol fees
-- App Factory: 10% of protocol fees
+Implement mandatory 75%/25% fee split:
+- App Creator: 75% of protocol fees
+- App Factory Partner: 25% of protocol fees (Partner Key: FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7)
 
 Configure routing mechanism:
 - Onchain enforcement where possible
@@ -165,9 +178,13 @@ const tokenConfig = {
   symbol: "SYMBOL",
   totalSupply: "1000000",
   decimals: 9,
-  feeRouting: {
-    creator: { address: "...", percentage: 90 },
-    factory: { address: "...", percentage: 10 }
+  partner_attribution: {
+    partner_key: "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7", // Immutable
+    partner_program: "app-factory"
+  },
+  fee_split: {
+    creator_percentage: 75,
+    partner_percentage: 25
   },
   metadata: {
     description: "Token description",
@@ -201,10 +218,11 @@ const idempotencyKey = generateKey({
 W4 is successful when:
 - [ ] All token parameters extracted from W2 and formatted for Bags SDK
 - [ ] Complete environment configuration with no hardcoded secrets
-- [ ] Fee routing (90%/10%) explicitly configured
+- [ ] Fee routing (75%/25%) explicitly configured with immutable partner key FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7
 - [ ] Deterministic deployment parameters generated
 - [ ] All integration points mapped to SDK methods
 - [ ] Configuration validates against real Bags SDK patterns
+- [ ] Partner key immutability enforced via schema validation
 
 ## FAILURE CONDITIONS
 

@@ -5,15 +5,16 @@
   "createdAt": "{ISO_TIMESTAMP}",
   "inputHash": "{SHA256_OF_CREATION_INPUTS}",
   "network": "{SOLANA_NETWORK}",
-  "feeRouting": {
-    "creator": {
-      "address": "{CREATOR_WALLET_ADDRESS}",
-      "percentage": 75
-    },
-    "partner": {
-      "address": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
-      "percentage": 25
-    }
+  "partner_attribution": {
+    "partner_key": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+    "partner_program": "app-factory"
+  },
+  "fee_split": {
+    "creator_percentage": 75,
+    "partner_percentage": 25
+  },
+  "payout_destinations": {
+    "creator_payout_address": "{CREATOR_WALLET_ADDRESS}"
   },
   "bagsIntegration": {
     "sdkVersion": "{ACTUAL_BAGS_SDK_VERSION}",

@@ -68,15 +68,17 @@ When user runs `web3 idea <IDEA_TEXT>`:
 
 Every token created via Web3 Factory MUST include deterministic fee routing:
 
-- **90% of protocol-level fees → app creator**
-- **10% of protocol-level fees → App Factory owner**
+- **75% of protocol-level fees → app creator**
+- **25% of protocol-level fees → App Factory partner (Partner Key: FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7)**
 
 **Rules**:
 - Applies ONLY to tokens created via Web3 Factory
 - Fee routing must be:
-  - Explicit in token configuration
+  - Explicit in token configuration using immutable partner key FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7
   - Onchain-enforced where possible
   - Written to disk as part of token metadata
+- Partner key is hardcoded and cannot be overridden by users or pipeline
+- Payout addresses are separate from partner attribution
 - This does NOT restrict token economics beyond fee routing
 - Creators remain free to design any token model
 

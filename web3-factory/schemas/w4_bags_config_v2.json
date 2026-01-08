@@ -1,0 +1,489 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "W4 Bags Configuration Schema - Token Launch v2 Compliant",
+  "description": "Schema for W4 stage output supporting both token-powered and token-free Web3 apps with Token Launch v2 compliance",
+  "type": "object",
+  "properties": {
+    "app_configuration": {
+      "type": "object",
+      "description": "Overall app type and requirements",
+      "properties": {
+        "requires_token_creation": {
+          "type": "boolean",
+          "description": "Whether this app requires token creation or is token-free"
+        },
+        "wallet_auth_only": {
+          "type": "boolean",
+          "description": "Whether the app only needs wallet authentication"
+        },
+        "onchain_data_strategy": {
+          "type": "string",
+          "description": "Strategy for onchain data usage (if any)"
+        },
+        "app_type": {
+          "enum": ["token_powered", "token_free"],
+          "description": "High-level app categorization"
+        }
+      },
+      "required": ["requires_token_creation", "wallet_auth_only", "app_type"]
+    },
+    "token_metadata": {
+      "type": "object",
+      "description": "Token metadata for createTokenInfoAndMetadata() - required if requires_token_creation is true",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Token name (max 32 characters)"
+        },
+        "symbol": {
+          "type": "string", 
+          "maxLength": 10,
+          "description": "Token symbol (max 10 characters)"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Token description (max 500 characters)"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri",
+          "description": "Token image URL from file upload or IPFS"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional website URL"
+        },
+        "twitter": {
+          "type": "string",
+          "description": "Optional Twitter handle"
+        },
+        "telegram": {
+          "type": "string",
+          "description": "Optional Telegram link"
+        }
+      },
+      "required": ["name", "symbol", "description"]
+    },
+    "token_launch_params": {
+      "type": "object",
+      "description": "Parameters for createLaunchTransaction() - required if requires_token_creation is true",
+      "properties": {
+        "initialBuyAmount": {
+          "type": "string",
+          "description": "Initial buy amount in lamports"
+        },
+        "totalSupply": {
+          "type": "string",
+          "description": "Total token supply"
+        },
+        "decimals": {
+          "type": "number",
+          "enum": [9],
+          "description": "Token decimals (always 9 for SPL tokens)"
+        }
+      },
+      "required": ["initialBuyAmount"]
+    },
+    "fee_share_config_v2": {
+      "type": "object",
+      "description": "Token Launch v2 fee share configuration - required if requires_token_creation is true",
+      "properties": {
+        "config_required": {
+          "type": "boolean",
+          "enum": [true],
+          "description": "Fee share config is mandatory in Token Launch v2"
+        },
+        "partner_attribution": {
+          "type": "object",
+          "description": "Partner attribution for analytics (not payout)",
+          "properties": {
+            "partner_key": {
+              "type": "string",
+              "enum": ["FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7"],
+              "description": "Immutable App Factory partner key for attribution"
+            },
+            "partner_program": {
+              "type": "string",
+              "enum": ["app-factory"],
+              "description": "Partner program identifier"
+            }
+          },
+          "required": ["partner_key", "partner_program"]
+        },
+        "fee_claimers": {
+          "type": "array",
+          "description": "All fee claimers (wallet and social)",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "description": "Direct wallet fee claimer",
+                "properties": {
+                  "wallet": {
+                    "type": "string",
+                    "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}$",
+                    "description": "Base58 Solana wallet address"
+                  },
+                  "bps": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 9999,
+                    "description": "Fee share in basis points"
+                  },
+                  "claimer_type": {
+                    "type": "string",
+                    "enum": ["wallet"],
+                    "description": "Type of fee claimer"
+                  }
+                },
+                "required": ["wallet", "bps", "claimer_type"]
+              },
+              {
+                "type": "object",
+                "description": "Social identity fee claimer",
+                "properties": {
+                  "provider": {
+                    "enum": ["github", "twitter", "kick"],
+                    "description": "Social provider type"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Username on social platform"
+                  },
+                  "bps": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 9999,
+                    "description": "Fee share in basis points"
+                  },
+                  "claimer_type": {
+                    "type": "string",
+                    "enum": ["social"],
+                    "description": "Type of fee claimer"
+                  },
+                  "role_description": {
+                    "type": "string",
+                    "description": "Description of contributor's role"
+                  }
+                },
+                "required": ["provider", "username", "bps", "claimer_type", "role_description"]
+              }
+            ]
+          },
+          "maxItems": 100
+        },
+        "total_bps": {
+          "type": "number",
+          "enum": [10000],
+          "description": "Total BPS (must equal sum of all fee claimers)"
+        },
+        "creator_bps": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 9999,
+          "description": "Explicit creator BPS allocation"
+        },
+        "partner_bps": {
+          "type": "number",
+          "enum": [2500],
+          "description": "Partner BPS allocation (always 25%)"
+        },
+        "social_claimers_bps": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 9999,
+          "description": "Total BPS allocated to social claimers"
+        },
+        "bps_breakdown": {
+          "type": "object",
+          "description": "Percentage breakdown for validation",
+          "properties": {
+            "creator_percentage": {
+              "type": "number",
+              "description": "Creator percentage (creator_bps / 100)"
+            },
+            "social_percentage": {
+              "type": "number", 
+              "description": "Social claimers percentage"
+            },
+            "partner_percentage": {
+              "type": "number",
+              "enum": [25],
+              "description": "Partner percentage (always 25%)"
+            }
+          },
+          "required": ["creator_percentage", "social_percentage", "partner_percentage"]
+        },
+        "explicit_bps_validation": {
+          "type": "boolean",
+          "enum": [true],
+          "description": "BPS validation is explicit in Token Launch v2"
+        }
+      },
+      "required": ["config_required", "partner_attribution", "fee_claimers", "total_bps", "creator_bps", "partner_bps", "explicit_bps_validation"]
+    },
+    "social_provider_config": {
+      "type": "object", 
+      "description": "Social provider resolution configuration - required if requires_token_creation is true",
+      "properties": {
+        "has_social_claimers": {
+          "type": "boolean",
+          "description": "Whether any social fee claimers are configured"
+        },
+        "social_providers_used": {
+          "type": "array",
+          "items": {"enum": ["github", "twitter", "kick"]},
+          "description": "List of social providers used"
+        },
+        "github_claimers_count": {
+          "type": "number",
+          "description": "Number of GitHub fee claimers"
+        },
+        "twitter_claimers_count": {
+          "type": "number",
+          "description": "Number of Twitter fee claimers"
+        },
+        "kick_claimers_count": {
+          "type": "number", 
+          "description": "Number of Kick fee claimers"
+        },
+        "social_resolution_strategy": {
+          "enum": ["fail_fast", "skip_unresolved"],
+          "description": "Strategy for handling social resolution failures"
+        },
+        "username_validation_required": {
+          "type": "boolean",
+          "enum": [true],
+          "description": "Username validation is always required"
+        }
+      },
+      "required": ["has_social_claimers", "social_resolution_strategy", "username_validation_required"]
+    },
+    "lookup_table_config": {
+      "type": "object",
+      "description": "Address Lookup Table configuration - required if requires_token_creation is true",
+      "properties": {
+        "use_bags_lut": {
+          "type": "boolean",
+          "description": "Whether to use Bags public LUT"
+        },
+        "bags_lut_address": {
+          "type": "string",
+          "enum": ["Eq1EVs15EAWww1YtPTtWPzJRLPJoS6VYP9oW9SbNr3yp"],
+          "description": "Bags public LUT address"
+        },
+        "custom_lut_required": {
+          "type": "boolean",
+          "description": "Whether custom LUT is required (>15 fee claimers)"
+        },
+        "fee_claimers_count": {
+          "type": "number",
+          "description": "Total number of fee claimers"
+        },
+        "lut_threshold": {
+          "type": "number",
+          "enum": [15],
+          "description": "Threshold for custom LUT requirement"
+        },
+        "lut_strategy": {
+          "enum": ["bags_only", "bags_plus_custom"],
+          "description": "LUT usage strategy"
+        }
+      },
+      "required": ["use_bags_lut", "custom_lut_required", "fee_claimers_count", "lut_threshold"]
+    },
+    "tipping_config": {
+      "type": "object",
+      "description": "Optional tipping configuration - optional if requires_token_creation is true",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether tipping is enabled"
+        },
+        "tip_wallet": {
+          "type": "string",
+          "description": "Tip recipient wallet address"
+        },
+        "tip_lamports": {
+          "type": "number",
+          "minimum": 1000,
+          "description": "Tip amount in lamports"
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["jito", "bloxroute", "astral", "custom"],
+          "description": "Tip provider/service"
+        }
+      },
+      "required": ["enabled"]
+    },
+    "environment_config": {
+      "type": "object",
+      "description": "Environment and network configuration",
+      "properties": {
+        "network": {
+          "type": "string",
+          "enum": ["mainnet-beta", "devnet"],
+          "description": "Solana network"
+        },
+        "rpc_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Solana RPC endpoint"
+        },
+        "api_base_url": {
+          "type": "string",
+          "enum": ["https://public-api-v2.bags.fm/api/v1/"],
+          "description": "Bags API base URL"
+        },
+        "api_version": {
+          "type": "string",
+          "enum": ["v1"],
+          "description": "Bags API version"
+        },
+        "required_env_vars": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of required environment variables"
+        }
+      },
+      "required": ["network", "api_base_url", "api_version", "required_env_vars"]
+    },
+    "program_ids": {
+      "type": "object",
+      "description": "Bags program IDs for mainnet - required if requires_token_creation is true",
+      "properties": {
+        "fee_share_v2": {
+          "type": "string",
+          "enum": ["7ko7duEv4Gk5kRoJKGTRVgypuRHvTbCFbDeaC9Q4pWk3"],
+          "description": "Fee Share V2 program ID"
+        },
+        "meteora_damm_v2": {
+          "type": "string",
+          "enum": ["cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG"],
+          "description": "Meteora DAMM v2 program ID"
+        },
+        "meteora_dbc": {
+          "type": "string",
+          "enum": ["dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN"],
+          "description": "Meteora DBC program ID"
+        }
+      },
+      "required": ["fee_share_v2", "meteora_damm_v2", "meteora_dbc"]
+    },
+    "file_upload_config": {
+      "type": "object",
+      "description": "File upload configuration - required if requires_token_creation is true",
+      "properties": {
+        "has_image_uploads": {
+          "type": "boolean",
+          "description": "Whether image uploads are needed"
+        },
+        "max_file_size_mb": {
+          "type": "number",
+          "enum": [15],
+          "description": "Maximum file size in MB"
+        },
+        "supported_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["image/png", "image/jpg", "image/jpeg", "image/gif", "image/webp"]
+          },
+          "description": "Supported file types"
+        },
+        "upload_strategy": {
+          "type": "string",
+          "enum": ["direct", "deferred"],
+          "description": "Upload strategy for W5"
+        }
+      },
+      "required": ["has_image_uploads", "max_file_size_mb", "supported_types"]
+    },
+    "idempotency_config": {
+      "type": "object",
+      "description": "Idempotency configuration for safe re-runs",
+      "properties": {
+        "build_id": {
+          "type": "string",
+          "description": "Deterministic build identifier"
+        },
+        "input_hash": {
+          "type": "string",
+          "description": "SHA256 hash of all configuration inputs"
+        },
+        "deterministic_params": {
+          "type": "object",
+          "description": "Parameters for deterministic execution"
+        },
+        "retry_strategy": {
+          "type": "string",
+          "enum": ["exponential_backoff"],
+          "description": "Retry strategy for failed operations"
+        },
+        "max_retries": {
+          "type": "number",
+          "enum": [5],
+          "description": "Maximum number of retry attempts"
+        }
+      },
+      "required": ["build_id", "input_hash", "deterministic_params", "retry_strategy", "max_retries"]
+    }
+  },
+  "required": [
+    "app_configuration",
+    "environment_config", 
+    "idempotency_config"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "app_configuration": {
+            "properties": {
+              "requires_token_creation": {"const": true}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "token_metadata",
+          "token_launch_params", 
+          "fee_share_config_v2",
+          "social_provider_config",
+          "lookup_table_config",
+          "program_ids",
+          "file_upload_config"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "app_configuration": {
+            "properties": {
+              "requires_token_creation": {"const": false}
+            }
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {"required": ["token_metadata"]},
+            {"required": ["token_launch_params"]},
+            {"required": ["fee_share_config_v2"]},
+            {"required": ["social_provider_config"]},
+            {"required": ["lookup_table_config"]},
+            {"required": ["program_ids"]},
+            {"required": ["file_upload_config"]}
+          ]
+        }
+      }
+    }
+  ]
+}

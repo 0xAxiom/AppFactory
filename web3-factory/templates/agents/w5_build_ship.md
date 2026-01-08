@@ -211,9 +211,9 @@ const performAction = async () => {
 ```javascript
 // Example: Distribute fees to token holders
 const distributeFees = async (totalFees) => {
-  const creatorShare = totalFees * 0.9;
-  const factoryShare = totalFees * 0.1;
-  // Route fees according to configuration
+  const creatorShare = totalFees * 0.75; // 75% to creator
+  const partnerShare = totalFees * 0.25; // 25% to App Factory partner
+  // Route fees according to configuration (partner key: FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7)
 };
 ```
 
@@ -254,7 +254,7 @@ W5 is successful when:
 - [ ] Token address captured and persisted
 - [ ] Complete web app generated and functional
 - [ ] Token meaningfully integrated into app behavior
-- [ ] Fee routing (90%/10%) implemented and documented
+- [ ] Fee routing (75%/25%) implemented and documented with immutable partner key FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7
 - [ ] App is production-ready with proper error handling
 - [ ] Documentation complete for setup and deployment
 

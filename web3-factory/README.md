@@ -1,5 +1,7 @@
 # Web3 Factory
 
+> **⚠️ IN DEVELOPMENT** - Token Launch v2 compliance and social fee claimers implementation in progress
+
 **Solana-first tokenized web app generation for Web3 builders.**
 
 Web3 Factory is a specialized pipeline that transforms Web3 app concepts into production-ready tokenized web applications. Every app generated includes a custom Solana token that serves a functional purpose in the user experience.
@@ -12,11 +14,11 @@ Web3 Factory takes raw Web3 app ideas and builds complete, tokenized web applica
 - **Create functional tokens**: Generates Solana tokens that serve real utility, not speculation  
 - **Build complete web apps**: Produces production-ready Next.js or Vite + React applications
 - **Integrate Solana seamlessly**: Handles wallet connection, token operations, and transaction flows
-- **Route fees automatically**: Built-in 90%/10% fee split (creator/App Factory) for infrastructure compensation
+- **Route fees automatically**: Built-in 75%/25% fee split (creator/App Factory) with immutable partner attribution
 
 ## 🚀 Quick Start
 
-**Prerequisites**: Claude subscription + Solana wallet + this repository
+**Prerequisites**: Node.js 18+, Solana wallet, Bags API key from https://dev.bags.fm
 
 ```bash
 # 1. Open Claude and navigate to web3-factory directory

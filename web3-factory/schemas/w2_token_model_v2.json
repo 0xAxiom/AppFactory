@@ -1,0 +1,268 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "W2 Token Model Schema - Token Launch v2 Compliant",
+  "description": "Schema for W2 stage output supporting optional token creation and social fee claimers",
+  "type": "object",
+  "properties": {
+    "token_necessity": {
+      "type": "object",
+      "description": "Evaluation of whether this app requires a custom token",
+      "properties": {
+        "requires_token": {
+          "type": "boolean",
+          "description": "Whether this app meaningfully benefits from a custom token"
+        },
+        "justification": {
+          "type": "string",
+          "description": "Detailed reasoning for token necessity decision"
+        },
+        "token_benefits": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of specific benefits the token provides"
+        },
+        "token_free_alternative": {
+          "type": "string",
+          "description": "Description of how the app would work without a custom token"
+        },
+        "decision_reasoning": {
+          "type": "string",
+          "description": "Final reasoning for the token vs token-free decision"
+        }
+      },
+      "required": ["requires_token", "justification", "decision_reasoning"]
+    },
+    "token_definition": {
+      "type": "object",
+      "description": "Token specification - required if requires_token is true",
+      "properties": {
+        "token_name": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Human-readable token name"
+        },
+        "token_symbol": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Token ticker symbol"
+        },
+        "primary_role": {
+          "enum": ["access", "usage", "fee_capture", "settlement", "governance_lite"],
+          "description": "Primary functional role of the token"
+        },
+        "role_description": {
+          "type": "string",
+          "description": "Detailed description of how the token role works"
+        },
+        "functional_purpose": {
+          "type": "string",
+          "description": "Specific functional purpose the token serves in the app"
+        }
+      },
+      "required": ["token_name", "token_symbol", "primary_role", "role_description", "functional_purpose"]
+    },
+    "supply_model": {
+      "type": "object",
+      "description": "Token supply economics - required if requires_token is true",
+      "properties": {
+        "total_supply": {
+          "type": "string",
+          "description": "Total token supply amount"
+        },
+        "supply_type": {
+          "enum": ["fixed", "mint_on_use", "hybrid"],
+          "description": "Type of supply model"
+        },
+        "inflation_rate": {
+          "type": "string",
+          "description": "Annual inflation rate if applicable"
+        },
+        "burn_mechanism": {
+          "type": "string",
+          "description": "Token burn mechanism if applicable"
+        },
+        "supply_justification": {
+          "type": "string",
+          "description": "Justification for the chosen supply model"
+        }
+      },
+      "required": ["total_supply", "supply_type", "inflation_rate", "burn_mechanism", "supply_justification"]
+    },
+    "ownership_model": {
+      "type": "object",
+      "description": "Token ownership and distribution - required if requires_token is true",
+      "properties": {
+        "initial_distribution": {
+          "type": "object",
+          "description": "How tokens are initially distributed"
+        },
+        "creator_allocation": {
+          "type": "string",
+          "description": "Percentage/amount allocated to creator"
+        },
+        "user_acquisition": {
+          "type": "string",
+          "description": "How users acquire tokens"
+        },
+        "vesting_schedule": {
+          "type": "string",
+          "description": "Token vesting schedule if applicable"
+        }
+      },
+      "required": ["initial_distribution", "creator_allocation", "user_acquisition", "vesting_schedule"]
+    },
+    "fee_share_configuration": {
+      "type": "object",
+      "description": "Token Launch v2 explicit fee share configuration - required if requires_token is true",
+      "properties": {
+        "fee_share_required": {
+          "type": "boolean",
+          "enum": [true],
+          "description": "Fee share config is always required in Token Launch v2"
+        },
+        "creator_bps": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 9999,
+          "description": "Creator fee share in basis points (explicit)"
+        },
+        "partner_bps": {
+          "type": "number",
+          "enum": [2500],
+          "description": "App Factory partner fee share (always 2500 BPS = 25%)"
+        },
+        "social_fee_claimers": {
+          "type": "array",
+          "description": "Social identity fee claimers (GitHub/Twitter/Kick)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "provider": {
+                "enum": ["github", "twitter", "kick"],
+                "description": "Social provider type"
+              },
+              "username": {
+                "type": "string",
+                "description": "Username on the social platform"
+              },
+              "bps": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 9999,
+                "description": "Fee share in basis points for this claimer"
+              },
+              "role_description": {
+                "type": "string",
+                "description": "Description of this person's role/contribution"
+              }
+            },
+            "required": ["provider", "username", "bps", "role_description"]
+          }
+        },
+        "total_bps": {
+          "type": "number",
+          "enum": [10000],
+          "description": "Total basis points (must equal sum of all claimers)"
+        },
+        "bps_breakdown": {
+          "type": "object",
+          "description": "Breakdown of BPS allocation",
+          "properties": {
+            "creator_percentage": {
+              "type": "number",
+              "description": "Creator percentage (creator_bps / 100)"
+            },
+            "social_percentage": {
+              "type": "number", 
+              "description": "Total social claimers percentage"
+            },
+            "partner_percentage": {
+              "type": "number",
+              "enum": [25],
+              "description": "Partner percentage (always 25%)"
+            }
+          },
+          "required": ["creator_percentage", "social_percentage", "partner_percentage"]
+        },
+        "partner_key": {
+          "type": "string",
+          "enum": ["FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7"],
+          "description": "Immutable App Factory partner key for attribution"
+        },
+        "partner_program": {
+          "type": "string", 
+          "enum": ["app-factory"],
+          "description": "Partner program identifier"
+        }
+      },
+      "required": ["fee_share_required", "creator_bps", "partner_bps", "total_bps", "partner_key", "partner_program"]
+    },
+    "app_behavior": {
+      "type": "object",
+      "description": "App behavior specification for both token and token-free apps",
+      "properties": {
+        "zero_token_fallback": {
+          "type": "string",
+          "description": "How the app behaves when user has zero tokens (token apps) or general behavior (token-free apps)"
+        },
+        "minimum_balance_required": {
+          "type": "string",
+          "description": "Minimum token balance required for functionality (N/A for token-free apps)"
+        },
+        "token_earning_mechanisms": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "How users earn tokens (token apps) or other incentives (token-free apps)"
+        },
+        "spending_triggers": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Actions that trigger token spending (token apps) or SOL/USDC payments (token-free apps)"
+        },
+        "wallet_auth_strategy": {
+          "type": "string",
+          "description": "How wallet authentication is handled for this app"
+        }
+      },
+      "required": ["zero_token_fallback", "minimum_balance_required", "token_earning_mechanisms", "spending_triggers", "wallet_auth_strategy"]
+    }
+  },
+  "required": ["token_necessity", "app_behavior"],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "token_necessity": {
+            "properties": {
+              "requires_token": {"const": true}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["token_definition", "supply_model", "ownership_model", "fee_share_configuration"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "token_necessity": {
+            "properties": {
+              "requires_token": {"const": false}
+            }
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {"required": ["token_definition"]},
+            {"required": ["supply_model"]},
+            {"required": ["ownership_model"]},
+            {"required": ["fee_share_configuration"]}
+          ]
+        }
+      }
+    }
+  ]
+}

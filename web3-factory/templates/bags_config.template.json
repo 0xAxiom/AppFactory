@@ -8,26 +8,26 @@
     "totalSupply": "{TOTAL_SUPPLY}",
     "decimals": 9
   },
-  "feeRouting": {
-    "creator": {
-      "percentage": 75
-    },
-    "partner": {
-      "key": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
-      "percentage": 25
-    }
+  "partner_attribution": {
+    "partner_key": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+    "partner_program": "app-factory"
+  },
+  "fee_split": {
+    "creator_percentage": 75,
+    "partner_percentage": 25
   },
   "bagsConfiguration": {
     "sdkVersion": "@bagsfm/bags-sdk@latest",
     "apiEndpoint": "https://public-api-v2.bags.fm/api/v1/",
     "network": "{SOLANA_NETWORK}",
+    "partnerKey": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
     "environmentVariables": [
       "BAGS_API_KEY",
       "SOLANA_RPC_URL", 
-      "CREATOR_WALLET_ADDRESS",
-      "APP_FACTORY_PARTNER_KEY"
+      "CREATOR_WALLET_ADDRESS"
     ],
-    "idempotencyStrategy": "input_hash_based"
+    "idempotencyStrategy": "input_hash_based",
+    "partnerKeyEnforcement": "immutable_hardcoded"
   },
   "deploymentConfig": {
     "deterministic": true,

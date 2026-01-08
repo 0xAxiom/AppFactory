@@ -1,0 +1,442 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "W5 Build Manifest Schema - Token Launch v2 Compliant",
+  "description": "Schema for W5 stage output supporting both token-powered and token-free Web3 app builds",
+  "type": "object",
+  "properties": {
+    "build_info": {
+      "type": "object",
+      "description": "General build information",
+      "properties": {
+        "build_id": {
+          "type": "string",
+          "description": "Unique build identifier"
+        },
+        "app_name": {
+          "type": "string",
+          "description": "Application name"
+        },
+        "app_type": {
+          "enum": ["token_powered", "token_free"],
+          "description": "Type of Web3 app built"
+        },
+        "framework": {
+          "enum": ["nextjs", "vite_react"],
+          "description": "Frontend framework used"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Build creation timestamp"
+        },
+        "build_duration_ms": {
+          "type": "number",
+          "description": "Build duration in milliseconds"
+        },
+        "build_status": {
+          "enum": ["completed", "failed", "partial"],
+          "description": "Overall build status"
+        }
+      },
+      "required": ["build_id", "app_name", "app_type", "framework", "created_at", "build_status"]
+    },
+    "token_creation_result": {
+      "type": "object",
+      "description": "Token creation results - only present for token_powered apps",
+      "properties": {
+        "token_created": {
+          "type": "boolean",
+          "description": "Whether token was successfully created"
+        },
+        "token_address": {
+          "type": "string",
+          "description": "Created token mint address"
+        },
+        "transaction_id": {
+          "type": "string", 
+          "description": "Token creation transaction signature"
+        },
+        "network": {
+          "enum": ["mainnet-beta", "devnet"],
+          "description": "Network where token was created"
+        },
+        "launch_version": {
+          "type": "string",
+          "enum": ["v2"],
+          "description": "Bags Token Launch version used"
+        },
+        "fee_share_config_applied": {
+          "type": "object",
+          "description": "Applied fee share configuration",
+          "properties": {
+            "total_bps": {
+              "type": "number",
+              "enum": [10000],
+              "description": "Total basis points"
+            },
+            "creator_bps": {
+              "type": "number",
+              "description": "Creator fee share in BPS"
+            },
+            "social_claimers_bps": {
+              "type": "number",
+              "description": "Total social claimers BPS"
+            },
+            "partner_bps": {
+              "type": "number",
+              "enum": [2500],
+              "description": "Partner fee share in BPS"
+            },
+            "fee_claimers_count": {
+              "type": "number",
+              "description": "Total number of fee claimers"
+            },
+            "social_resolution_success": {
+              "type": "boolean",
+              "description": "Whether all social resolutions succeeded"
+            }
+          },
+          "required": ["total_bps", "creator_bps", "partner_bps", "fee_claimers_count", "social_resolution_success"]
+        },
+        "social_provider_resolution": {
+          "type": "object",
+          "description": "Social provider resolution results",
+          "properties": {
+            "total_requested": {
+              "type": "number",
+              "description": "Number of social identities requested"
+            },
+            "successful_resolutions": {
+              "type": "number", 
+              "description": "Number successfully resolved"
+            },
+            "failed_resolutions": {
+              "type": "number",
+              "description": "Number that failed resolution"
+            },
+            "resolution_strategy": {
+              "enum": ["fail_fast", "skip_unresolved"],
+              "description": "Strategy used for resolution failures"
+            },
+            "resolved_identities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "provider": {"enum": ["github", "twitter", "kick"]},
+                  "username": {"type": "string"},
+                  "resolved_wallet": {"type": "string"},
+                  "bps": {"type": "number"}
+                },
+                "required": ["provider", "username", "resolved_wallet", "bps"]
+              },
+              "description": "Successfully resolved social identities"
+            }
+          },
+          "required": ["total_requested", "successful_resolutions", "failed_resolutions", "resolution_strategy"]
+        },
+        "lookup_table_usage": {
+          "type": "object",
+          "description": "Address Lookup Table usage",
+          "properties": {
+            "bags_lut_used": {
+              "type": "boolean",
+              "description": "Whether Bags public LUT was used"
+            },
+            "custom_lut_created": {
+              "type": "boolean",
+              "description": "Whether custom LUT was created"
+            },
+            "custom_lut_address": {
+              "type": "string",
+              "description": "Custom LUT address if created"
+            },
+            "total_addresses": {
+              "type": "number",
+              "description": "Total addresses in LUT"
+            }
+          },
+          "required": ["bags_lut_used", "custom_lut_created", "total_addresses"]
+        },
+        "token_receipts": {
+          "type": "object",
+          "description": "Token receipt file locations",
+          "properties": {
+            "json_receipt": {
+              "type": "string",
+              "description": "Path to JSON token receipt"
+            },
+            "markdown_receipt": {
+              "type": "string", 
+              "description": "Path to human-readable receipt"
+            },
+            "config_backup": {
+              "type": "string",
+              "description": "Path to configuration backup"
+            }
+          },
+          "required": ["json_receipt", "markdown_receipt"]
+        }
+      },
+      "required": ["token_created"]
+    },
+    "app_generation_result": {
+      "type": "object",
+      "description": "Web application generation results",
+      "properties": {
+        "app_generated": {
+          "type": "boolean",
+          "description": "Whether app was successfully generated"
+        },
+        "output_directory": {
+          "type": "string",
+          "description": "Path to generated app directory"
+        },
+        "framework_config": {
+          "type": "object",
+          "description": "Framework-specific configuration",
+          "properties": {
+            "package_json": {"type": "string"},
+            "config_files": {"type": "array", "items": {"type": "string"}},
+            "environment_template": {"type": "string"}
+          },
+          "required": ["package_json"]
+        },
+        "wallet_integration": {
+          "type": "object",
+          "description": "Wallet integration components generated",
+          "properties": {
+            "wallet_adapter_configured": {"type": "boolean"},
+            "connection_component": {"type": "string"},
+            "auth_hooks": {"type": "array", "items": {"type": "string"}}
+          },
+          "required": ["wallet_adapter_configured"]
+        },
+        "token_integration": {
+          "type": "object", 
+          "description": "Token-specific integration (token_powered apps only)",
+          "properties": {
+            "token_hooks": {"type": "array", "items": {"type": "string"}},
+            "token_components": {"type": "array", "items": {"type": "string"}},
+            "token_constants": {"type": "string"},
+            "balance_display": {"type": "boolean"},
+            "transaction_handling": {"type": "boolean"}
+          }
+        },
+        "sol_payment_integration": {
+          "type": "object",
+          "description": "SOL/USDC payment integration (token_free apps)",
+          "properties": {
+            "payment_components": {"type": "array", "items": {"type": "string"}},
+            "payment_hooks": {"type": "array", "items": {"type": "string"}},
+            "supported_currencies": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "generated_files": {
+          "type": "object",
+          "description": "Summary of generated files",
+          "properties": {
+            "total_files": {"type": "number"},
+            "components_count": {"type": "number"},
+            "hooks_count": {"type": "number"},
+            "pages_count": {"type": "number"},
+            "utils_count": {"type": "number"},
+            "documentation_files": {"type": "array", "items": {"type": "string"}}
+          },
+          "required": ["total_files"]
+        }
+      },
+      "required": ["app_generated", "framework_config", "wallet_integration", "generated_files"]
+    },
+    "deployment_readiness": {
+      "type": "object",
+      "description": "Deployment readiness assessment",
+      "properties": {
+        "ready_for_deployment": {
+          "type": "boolean",
+          "description": "Whether app is ready for deployment"
+        },
+        "deployment_platforms": {
+          "type": "array",
+          "items": {"enum": ["vercel", "netlify", "aws", "gcp", "ipfs"]},
+          "description": "Supported deployment platforms"
+        },
+        "environment_variables_documented": {
+          "type": "boolean",
+          "description": "Whether environment setup is documented"
+        },
+        "build_scripts_ready": {
+          "type": "boolean", 
+          "description": "Whether build scripts are configured"
+        },
+        "deployment_guide_created": {
+          "type": "boolean",
+          "description": "Whether deployment guide was created"
+        },
+        "security_checklist_complete": {
+          "type": "boolean",
+          "description": "Whether security checklist is complete"
+        }
+      },
+      "required": ["ready_for_deployment", "deployment_platforms", "environment_variables_documented", "build_scripts_ready"]
+    },
+    "validation_results": {
+      "type": "object",
+      "description": "Build validation results",
+      "properties": {
+        "compilation_successful": {
+          "type": "boolean",
+          "description": "Whether code compiles successfully"
+        },
+        "type_checking_passed": {
+          "type": "boolean",
+          "description": "Whether TypeScript type checking passed"
+        },
+        "linting_passed": {
+          "type": "boolean",
+          "description": "Whether linting passed"
+        },
+        "wallet_connection_tested": {
+          "type": "boolean", 
+          "description": "Whether wallet connection was tested"
+        },
+        "token_integration_tested": {
+          "type": "boolean",
+          "description": "Whether token integration was tested (token apps only)"
+        },
+        "environment_validation_passed": {
+          "type": "boolean",
+          "description": "Whether environment validation passed"
+        },
+        "validation_errors": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of validation errors if any"
+        }
+      },
+      "required": ["compilation_successful", "type_checking_passed", "wallet_connection_tested", "environment_validation_passed"]
+    },
+    "error_details": {
+      "type": "object",
+      "description": "Error details if build failed",
+      "properties": {
+        "error_stage": {
+          "enum": ["token_creation", "app_generation", "validation", "deployment_prep"],
+          "description": "Stage where error occurred"
+        },
+        "error_type": {
+          "type": "string",
+          "description": "Type of error"
+        },
+        "error_message": {
+          "type": "string",
+          "description": "Detailed error message"
+        },
+        "stack_trace": {
+          "type": "string",
+          "description": "Error stack trace if available"
+        },
+        "remediation_steps": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Suggested remediation steps"
+        },
+        "recovery_possible": {
+          "type": "boolean",
+          "description": "Whether recovery is possible"
+        }
+      }
+    },
+    "performance_metrics": {
+      "type": "object",
+      "description": "Performance metrics for the build",
+      "properties": {
+        "token_creation_duration_ms": {
+          "type": "number",
+          "description": "Token creation duration in milliseconds"
+        },
+        "social_resolution_duration_ms": {
+          "type": "number",
+          "description": "Social provider resolution duration"
+        },
+        "app_generation_duration_ms": {
+          "type": "number",
+          "description": "App generation duration in milliseconds"
+        },
+        "validation_duration_ms": {
+          "type": "number",
+          "description": "Validation duration in milliseconds"
+        },
+        "total_build_size_mb": {
+          "type": "number",
+          "description": "Total build output size in MB"
+        },
+        "files_generated_count": {
+          "type": "number",
+          "description": "Total number of files generated"
+        }
+      }
+    }
+  },
+  "required": ["build_info", "app_generation_result", "deployment_readiness", "validation_results"],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "build_info": {
+            "properties": {
+              "app_type": {"const": "token_powered"}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["token_creation_result"],
+        "properties": {
+          "app_generation_result": {
+            "required": ["token_integration"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "build_info": {
+            "properties": {
+              "app_type": {"const": "token_free"}
+            }
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "required": ["token_creation_result"]
+        },
+        "properties": {
+          "app_generation_result": {
+            "properties": {
+              "sol_payment_integration": {
+                "description": "SOL payment integration for token-free apps"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "build_info": {
+            "properties": {
+              "build_status": {"const": "failed"}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["error_details"]
+      }
+    }
+  ]
+}

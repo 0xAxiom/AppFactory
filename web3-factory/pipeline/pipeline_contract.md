@@ -170,7 +170,7 @@ Raw Web3 Idea → W1 → W2 → W3 → W4 → W5 → Complete Tokenized Web App
 - No overlap with App Factory mobile app outputs
 
 ### Fee Routing Isolation
-- Web3 Factory: 75%/25% creator/partner split
+- Web3 Factory: 75%/25% creator/partner split (partner key: FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7)
 - App Factory: 90%/10% creator/factory split (completely separate)
 - Different monetization models (tokens vs. subscriptions)
 
