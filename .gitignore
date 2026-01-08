@@ -4,9 +4,9 @@
 # Generated pipeline artifacts - NEVER commit these
 # runs/ contains all pipeline execution outputs
 # builds/ contains generated React Native apps
-runs/**
-builds/**
-**/outputs/**
+runs/
+builds/
+**/outputs/
 *.log
 *.tmp
 
@@ -68,3 +68,9 @@ debug/
 .config/appfactory/
 .local/share/appfactory/
 .cache/appfactory/
+
+# Dashboard build artifacts (additive-only for isolation)
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.vite/
+dashboard/public/leaderboard.json

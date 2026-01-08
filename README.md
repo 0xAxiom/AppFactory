@@ -4,76 +4,77 @@
 
 # App Factory
 
-**Build market-ready mobile apps — from research to React Native code — in one command.**
+**From market research to production-ready mobile apps in two commands.**
 
-App Factory is an agent-native workflow that designs, validates, and builds mobile apps with product, monetization, UX, ASO, and launch strategy baked in.
+App Factory is an intelligent pipeline that researches real market opportunities, generates validated app ideas, and builds complete mobile applications. It combines market research, product specification, UX design, technical architecture, and React Native development into a single automated workflow.
 
-No prompts. No hand-holding. Artifacts on disk or it didn't happen.
+**What makes it different**: Every generated app traces back to real market evidence. No generic templates, no disconnected specs—just apps built to solve actual user problems with validated business models.
 
-## What You Get
+## How It Works
 
-✅ Market research with evidence  
-✅ 10 validated app ideas per run  
-✅ Full product specs for each idea  
-✅ UX flows, IA, and accessibility guidance  
-✅ Monetization strategy (subscriptions, pricing, trials)  
-✅ Technical architecture decisions  
-✅ Brand identity & positioning  
-✅ ASO package (App Store title/subtitle/keywords + screenshot plan)  
-✅ Release planning  
-✅ A real Expo / React Native app (when you build)  
+App Factory runs in stages, with each stage building on previous outputs to create a complete, connected specification:
 
-**Everything is written to disk. Everything is validated. Everything is reproducible.**
+```mermaid
+graph TD
+    A[📝 Stage 00: Intake] --> B[🔍 Stage 01: Market Research]
+    B --> C[📊 10 Ranked Ideas]
+    C --> D{Choose One Idea}
+    D --> E[📋 Stage 02: Product Spec]
+    E --> F[🎨 Stage 03: UX Design]
+    F --> G[💰 Stage 04: Monetization]
+    G --> H[🏗️ Stage 05: Architecture]
+    H --> I[🔧 Stage 06-09: Polish & Brand]
+    I --> J[📱 Stage 10: React Native App]
+    
+    B --> K[📈 Global Leaderboard]
+    J --> L[🚀 Production-Ready App]
+```
+
+**Stage-by-Stage Output:**
+| Stage | Purpose | Key Output | Why It Matters |
+|-------|---------|------------|----------------|
+| 01 | Market Research | `stage01.json` (10 ranked ideas) | Evidence-backed opportunities |
+| 02 | Product Spec | `stage02.json` (features, users, metrics) | What to build and why |
+| 03 | UX Design | `stage03.json` (wireframes, flows, accessibility) | How users interact |
+| 04 | Monetization | `stage04.json` (pricing, subscriptions, RevenueCat) | How it makes money |
+| 05-09 | Architecture & Brand | `stage05-09.json` (tech stack, polish, ASO) | How it's built and positioned |
+| 10 | App Generation | `builds/<idea>/app/` (complete Expo app) | What you ship |
 
 ## The Two Core Commands
 
 **Open Claude in this repository and type:**
 
-```
-run app factory (batch specs)
-```
-*Generates complete specifications for 10 validated app ideas*
-
-```
-build app <IDEA_NAME>
-```  
-*Builds a complete Expo React Native app for your selected idea*
-
-## The Two Core Commands
-
-**Open Claude in this repository and type:**
-
-### Generate Complete Specifications
+### Generate 10 Ranked App Ideas
 ```
 run app factory
 ```
-*Generates complete specifications for 10 validated app ideas automatically*
+*Researches markets and generates 10 ranked app ideas for selective building*
 
 - **Input**: Market signals and user constraints  
-- **Output**: 80 specification files (8 stages × 10 ideas)
-- **Duration**: ~3 hours (fully automated)
-- **Result**: 10 store-ready app concepts with complete product specs
+- **Output**: 10 ranked app ideas in idea bin
+- **Duration**: Automated idea generation
+- **Result**: Validated ideas ready for selective building
 
 ### Build Selected App  
 ```
-build app <IDEA_NAME>
+build <IDEA_NAME>
 ```  
-*Builds a complete Expo React Native app for your selected idea*
+*Builds ONE chosen idea into a complete production-ready app*
 
-- **Input**: One idea from your batch specs run
+- **Input**: One idea from your idea bin
 - **Output**: Complete React Native app in `builds/` directory  
-- **Duration**: ~45 minutes (fully automated)
-- **Result**: Store-ready mobile application
+- **Duration**: Automated app building
+- **Result**: Store-ready mobile application with complete specs
 
 ### Example Workflow
 ```bash
-# Step 1: Generate 10 complete app specifications
+# Step 1: Generate 10 ranked app ideas
 run app factory
 
-# Step 2: Pick your favorite idea and build it
-build app "FocusFlow AI"
+# Step 2: Pick your favorite idea and build it completely
+build "FocusFlow AI"
 
-# Result: Complete mobile app ready for App Store submission
+# Result: One complete mobile app ready for App Store submission
 ```
 
 ## Why This Is Different
@@ -91,14 +92,23 @@ Most AI tools generate disconnected outputs. App Factory ensures every specifica
 
 **Result**: Every line of generated code traces back to market evidence.
 
+**Selective Execution, Not Batch Waste**
+
+App Factory gives you choice and control:
+
+- Generate 10 ideas quickly, then choose your winner  
+- Build only the idea you want
+- No wasted tokens on apps you'll never use
+- No commitment until you explicitly choose to build
+
 ## Truth Enforcement
 
 **Success is files-on-disk.** No stubs, no placeholders, no false success claims.
 
-✅ All 80+ JSON outputs validate against schemas  
+✅ All 100+ JSON outputs validate against schemas  
 ✅ All execution steps documented in logs  
 ✅ All specifications rendered to markdown  
-✅ Mobile app (when built) is complete and runnable  
+✅ Built apps are complete and runnable for the selected idea  
 ✅ Every constraint maps to actual implementation  
 
 **If it's not written to disk with binding proof, it didn't happen.**
@@ -132,10 +142,10 @@ cd app-factory
 run app factory
 
 # 4. Build your favorite idea into a complete app
-build app "Your Chosen Idea Name"
+build "Your Chosen Idea Name"
 
 # 5. Your app is ready in builds/ directory
-cd builds/01_your_idea__idea_id_001
+cd builds/01_your_idea__idea_id_001/<build_id>/app
 npm install
 npm start
 ```
@@ -158,26 +168,40 @@ npm start
 
 ## Output Structure
 
-After running batch specs, you get:
+**After `run app factory` (idea generation):**
 
 ```
 runs/YYYY-MM-DD/your-run-name/
-├── ideas/
-│   ├── 01_focusflow_ai__focus_ai_001/     # Idea pack 1
-│   │   ├── stages/                           # 8 JSON specs (02-09)
-│   │   ├── spec/                             # Human-readable markdown
-│   │   └── meta/                             # Idea metadata & isolation
-│   ├── 02_mindful_habits__habits_002/     # Idea pack 2
-│   └── ...                               # 8 more idea packs
+├── stage01/
+│   ├── stages/stage01.json               # 10 ranked app ideas
+│   └── spec/01_market_research.md
+├── ideas/                                # Idea bin (metadata only)
+│   ├── 01_focusflow_ai__focus_ai_001/
+│   │   └── meta/                         # Metadata only
+│   ├── 02_mindful_habits__habits_002/
+│   │   └── meta/                         # Metadata only
+│   └── ...                               # 8 more idea directories
 └── meta/
-    └── idea_index.json                   # Master index of all 10 ideas
+    └── idea_index.json                   # Master index for building
+```
 
-builds/
-└── 01_focusflow_ai__focus_ai_001/        # Built app (after build command)
-    ├── package.json                      # Complete Expo config
-    ├── src/screens/                      # All app screens
-    ├── src/services/purchases.js         # RevenueCat integration
-    └── README.md                         # Setup instructions
+**After `build "FocusFlow AI"` (selective building):**
+
+```
+builds/01_focusflow_ai__focus_ai_001/     # Built app only
+└── <build_id>/                          # Immutable build output
+    ├── app/                             # Complete Expo app
+    │   ├── package.json                 # Complete Expo config
+    │   ├── src/screens/                 # All app screens
+    │   ├── src/services/purchases.js    # RevenueCat integration
+    │   └── README.md                    # Setup instructions
+    ├── build_log.md                     # Build execution log
+    └── sources.md                       # Research citations
+
+runs/YYYY-MM-DD/your-run-name/ideas/01_focusflow_ai__focus_ai_001/
+├── stages/                              # Now contains stages 02-10
+├── outputs/                             # All execution logs
+└── spec/                                # Complete specifications
 ```
 
 ## Repository Hygiene
@@ -192,22 +216,62 @@ builds/
 
 All builds go to `builds/<idea_dir>/` - never a fixed location.
 
+## What You Get
+
+**After `run app factory`**:
+- 10 ranked, validated app ideas with market evidence
+- Complete market research specifications in markdown
+- Global leaderboard tracking all ideas across runs
+- Ready-to-build idea bin for selective development
+
+**After `build <IDEA_NAME>`**:
+- Complete React Native app with full source code
+- Production-ready Expo configuration
+- Integrated RevenueCat subscription system
+- Store-submission-ready mobile application
+- Complete technical specifications and documentation
+
+## Quickstart
+
+1. **Open Claude** in this repository
+2. **Type**: `run app factory`  
+3. **Choose** your favorite from 10 ranked ideas
+4. **Type**: `build "Your Chosen Idea"`
+5. **Launch**: Your app is in `builds/` directory
+
+No configuration, no prompts, no hand-holding.
+
+## Leaderboard Explained
+
+App Factory tracks every idea generated across all runs:
+
+**Raw Leaderboard**: Permanent record of all ideas with original rankings  
+**Global Leaderboard**: Best ideas across all runs, automatically updated  
+
+Top ideas remain discoverable regardless of when they were generated.
+
 ---
 
 ## Contributing
 
-**Key Principles:**
-- Agent-native execution (Claude is the primary runner)
-- Filesystem as source of truth (no false success claims)
-- Schema-validated outputs (everything validates)
-- Connected specifications (every decision traces to market research)
+**Welcome Contributors!**
 
-**Ways to Contribute:**
-- 🐛 Report bugs and issues
-- 💡 Suggest new pipeline stages or improvements  
-- 📝 Improve documentation and templates
-- 🧪 Add validation and quality checks
-- 🔧 Submit pull requests
+App Factory thrives on community input. Whether you're improving the pipeline, fixing bugs, or adding features, your contributions help everyone build better apps faster.
+
+**Easy Ways to Start:**
+- 🐛 **Report issues** - Found a bug? Let us know
+- 💡 **Suggest improvements** - Ideas for better pipeline stages or features
+- 📝 **Improve docs** - Make templates and guides clearer
+- 🧪 **Add quality checks** - Help improve validation and reliability
+- 🔧 **Submit PRs** - Code contributions always welcome
+
+**Key Development Principles:**
+- **Agent-native execution**: Claude is the primary runner
+- **Filesystem truth**: No false success claims - if it's not on disk, it didn't happen
+- **Schema validation**: Everything must validate against defined schemas
+- **Connected specs**: Every decision traces back to market research evidence
+
+**Getting Involved**: Check out issues, suggest improvements, or dive into the codebase. All skill levels welcome!
 
 ## License
 
