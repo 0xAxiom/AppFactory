@@ -1,0 +1,35 @@
+{
+  "buildId": "{DETERMINISTIC_BUILD_ID}",
+  "tokenAddress": "{SOLANA_TOKEN_MINT_ADDRESS}",
+  "transactionId": "{SOLANA_TRANSACTION_SIGNATURE}",
+  "createdAt": "{ISO_TIMESTAMP}",
+  "inputHash": "{SHA256_OF_CREATION_INPUTS}",
+  "network": "{SOLANA_NETWORK}",
+  "feeRouting": {
+    "creator": {
+      "address": "{CREATOR_WALLET_ADDRESS}",
+      "percentage": 75
+    },
+    "partner": {
+      "address": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+      "percentage": 25
+    }
+  },
+  "bagsIntegration": {
+    "sdkVersion": "{ACTUAL_BAGS_SDK_VERSION}",
+    "apiEndpoint": "https://public-api-v2.bags.fm/api/v1/",
+    "partnerKey": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7"
+  },
+  "metadata": {
+    "name": "{TOKEN_NAME}",
+    "symbol": "{TOKEN_SYMBOL}",
+    "description": "{TOKEN_DESCRIPTION}",
+    "totalSupply": "{TOTAL_SUPPLY}",
+    "decimals": 9
+  },
+  "verification": {
+    "solscanUrl": "https://solscan.io/token/{SOLANA_TOKEN_MINT_ADDRESS}",
+    "explorerUrl": "https://explorer.solana.com/address/{SOLANA_TOKEN_MINT_ADDRESS}",
+    "transactionUrl": "https://solscan.io/tx/{SOLANA_TRANSACTION_SIGNATURE}"
+  }
+}

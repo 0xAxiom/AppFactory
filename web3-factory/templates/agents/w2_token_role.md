@@ -86,8 +86,8 @@ Token grants voting rights on simple app parameters
     "fee_routing": {
       "type": "object",
       "properties": {
-        "app_creator_percentage": {"type": "number", "enum": [90]},
-        "app_factory_percentage": {"type": "number", "enum": [10]},
+        "app_creator_percentage": {"type": "number", "enum": [75]},
+        "app_factory_percentage": {"type": "number", "enum": [25]},
         "fee_types": {"type": "array", "items": {"type": "string"}},
         "routing_mechanism": {"type": "string"},
         "enforcement_method": {"type": "string"}
@@ -137,8 +137,8 @@ Include inflation/deflation mechanisms and burn schedules.
 
 ### 4. Configure Fee Routing (MANDATORY)
 Every token MUST implement:
-- **90% protocol fees → app creator**
-- **10% protocol fees → App Factory owner**
+- **75% protocol fees → app creator**
+- **25% protocol fees → App Factory partner**
 
 Define:
 - What constitutes a protocol fee

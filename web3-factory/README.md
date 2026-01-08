@@ -213,17 +213,141 @@ web3 idea Create a freelancer marketplace where clients stake tokens for project
 web3 idea Build a DeFi analytics dashboard where users pay tokens for real-time data and token holders receive fee sharing from usage
 ```
 
-## 🔄 Bags SDK Integration
+## 🔄 Bags Integration (Authoritative)
 
-Web3 Factory uses the Bags SDK for all token creation operations:
+Web3 Factory uses the official Bags SDK for all Solana token creation operations. This section provides the complete integration specification.
 
+### Required Environment Variables
+
+```bash
+# Bags API Configuration
+BAGS_API_KEY=your_bags_api_key_here          # From https://dev.bags.fm
+BAGS_ENVIRONMENT=mainnet                     # mainnet or devnet
+
+# Solana Configuration  
+SOLANA_RPC_URL=https://mainnet.helius-rpc.com/?api-key=key  # Helius recommended
+SOLANA_NETWORK=mainnet-beta                  # mainnet-beta or devnet
+
+# Creator Configuration
+CREATOR_WALLET_ADDRESS=your_public_key_here  # Receives 75% of protocol fees
+
+# App Factory Partner (Fixed - DO NOT CHANGE)
+APP_FACTORY_PARTNER_KEY=FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7
+```
+
+### High-Level Flow
+
+**W4 Configuration Stage**:
+1. Read token model from W2 and architecture from W3
+2. Generate deterministic build ID from stage outputs
+3. Configure Bags SDK parameters (no token creation)
+4. Validate environment requirements without accessing secrets
+5. Write `bags_config.json` with all creation parameters
+
+**W5 Build & Ship Stage**:
+1. Load `bags_config.json` from W4
+2. Check for existing token receipt (idempotency)
+3. Initialize Bags SDK with environment variables
+4. Create token via SDK with fee routing configuration
+5. Write complete token receipt and metadata to disk
+6. Generate web app with token integration
+
+### Idempotency System
+
+**Build ID Generation**:
+- Deterministic SHA256 hash of W1-W4 stage outputs
+- Same inputs always produce the same build ID
+- Used for safe re-runs without duplicate tokens
+
+**Receipt-Based Safety**:
+```typescript
+// Check existing receipt before token creation
+const receiptPath = 'builds/app-name/token/token_receipt.json';
+const existingReceipt = loadTokenReceipt(receiptPath);
+
+if (existingReceipt && existingReceipt.inputHash === currentInputHash) {
+  // Token already exists, skip creation safely
+  return existingReceipt;
+}
+```
+
+### Fee Routing Configuration
+
+**Fixed Fee Split (Non-negotiable)**:
+- **75% → App Creator** (your wallet address)  
+- **25% → App Factory Partner** (`FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7`)
+
+**Implementation**:
+```json
+{
+  "feeRouting": {
+    "creator": { "percentage": 75 },
+    "partner": { 
+      "key": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7", 
+      "percentage": 25 
+    }
+  }
+}
+```
+
+Fee routing is enforced via Bags SDK partner configuration and written to all token receipts for transparency.
+
+### Generated Files & Locations
+
+**Token Creation Artifacts** (written to `builds/<app_name>/token/`):
+- `token_plan.json` - Token creation plan used for generation
+- `bags_config.json` - Exact Bags SDK configuration used  
+- `token_receipt.json` - Deterministic creation receipt with all details
+- `token_receipt.md` - Human-readable token information
+
+**Example Receipt Structure**:
+```json
+{
+  "buildId": "deterministic_build_id",
+  "tokenAddress": "solana_token_mint_address", 
+  "transactionId": "solana_transaction_signature",
+  "createdAt": "2024-01-08T12:00:00.000Z",
+  "feeRouting": {
+    "creator": { "address": "creator_wallet", "percentage": 75 },
+    "partner": { "address": "FDYcVLxHk...", "percentage": 25 }
+  },
+  "bagsIntegration": {
+    "sdkVersion": "@bagsfm/bags-sdk@1.x.x",
+    "partnerKey": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7"
+  }
+}
+```
+
+### API Keys & Security
+
+**Open-Source Safe**:
+- API keys are NEVER committed to git
+- All token artifacts safe for public repositories  
+- Only public keys and transaction IDs stored on disk
+- Environment variables required at runtime only
+
+**Development vs Production**:
+- Use devnet for testing with development API keys
+- Switch to mainnet for production deployment
+- Separate creator wallet addresses for each environment
+- Same App Factory partner key across all environments
+
+### Error Handling & Retries
+
+**Automatic Retry Logic**:
+- Rate limiting (1,000 requests/hour): Exponential backoff
+- Network failures: 3 retries with increasing delays
+- Partial failures: Detection and clear error reporting
+
+**Failure Recovery**:
+- Complete error logs written to disk for debugging
+- Idempotency prevents double-spending on retries  
+- Clear remediation steps provided for common issues
+
+**References**:
 - **Official Bags SDK**: https://github.com/bagsfm/bags-sdk
 - **Bags API Docs**: https://docs.bags.fm/
-- **Deterministic creation**: Same inputs always create the same token
-- **Idempotent operations**: Safe retry mechanisms for network failures
-- **Environment-based**: No hardcoded secrets, proper security practices
-
-All token creation follows official Bags patterns and best practices.
+- **Technical Implementation**: `docs/bags_implementation.md`
 
 ## 🆚 Web3 Factory vs. App Factory
 

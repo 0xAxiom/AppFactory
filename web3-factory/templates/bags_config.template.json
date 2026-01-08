@@ -1,0 +1,41 @@
+{
+  "buildId": "{DETERMINISTIC_BUILD_ID}",
+  "inputHash": "{SHA256_OF_TOKEN_PARAMS}",
+  "tokenConfig": {
+    "name": "{TOKEN_NAME}",
+    "symbol": "{TOKEN_SYMBOL}",
+    "description": "{TOKEN_DESCRIPTION}",
+    "totalSupply": "{TOTAL_SUPPLY}",
+    "decimals": 9
+  },
+  "feeRouting": {
+    "creator": {
+      "percentage": 75
+    },
+    "partner": {
+      "key": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+      "percentage": 25
+    }
+  },
+  "bagsConfiguration": {
+    "sdkVersion": "@bagsfm/bags-sdk@latest",
+    "apiEndpoint": "https://public-api-v2.bags.fm/api/v1/",
+    "network": "{SOLANA_NETWORK}",
+    "environmentVariables": [
+      "BAGS_API_KEY",
+      "SOLANA_RPC_URL", 
+      "CREATOR_WALLET_ADDRESS",
+      "APP_FACTORY_PARTNER_KEY"
+    ],
+    "idempotencyStrategy": "input_hash_based"
+  },
+  "deploymentConfig": {
+    "deterministic": true,
+    "retryConfiguration": {
+      "maxRetries": 3,
+      "backoffStrategy": "exponential",
+      "initialDelay": 1000
+    }
+  },
+  "createdAt": "{ISO_TIMESTAMP}"
+}

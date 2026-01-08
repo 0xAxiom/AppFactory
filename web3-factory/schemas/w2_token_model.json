@@ -36,8 +36,8 @@
     "fee_routing": {
       "type": "object",
       "properties": {
-        "app_creator_percentage": {"type": "number", "enum": [90]},
-        "app_factory_percentage": {"type": "number", "enum": [10]},
+        "app_creator_percentage": {"type": "number", "enum": [75]},
+        "app_factory_percentage": {"type": "number", "enum": [25]},
         "fee_types": {"type": "array", "items": {"type": "string"}},
         "routing_mechanism": {"type": "string"},
         "enforcement_method": {"type": "string"}
