@@ -10,6 +10,8 @@ App Factory is an intelligent pipeline that researches real market opportunities
 
 **What makes it different**: Every generated app traces back to real market evidence. No generic templates, no disconnected specs—just apps built to solve actual user problems with validated business models.
 
+**🚀 Live Preview**: Test your built apps instantly with QR codes and live reloading via the integrated dashboard.
+
 ## How It Works
 
 App Factory runs in stages, with each stage building on previous outputs to create a complete, connected specification:
@@ -230,6 +232,7 @@ All builds go to `builds/<idea_dir>/` - never a fixed location.
 - Integrated RevenueCat subscription system
 - Store-submission-ready mobile application
 - Complete technical specifications and documentation
+- **Live preview capability** with QR codes for instant mobile testing
 
 ## Quickstart
 
@@ -237,7 +240,8 @@ All builds go to `builds/<idea_dir>/` - never a fixed location.
 2. **Type**: `run app factory`  
 3. **Choose** your favorite from 10 ranked ideas
 4. **Type**: `build "Your Chosen Idea"`
-5. **Launch**: Your app is in `builds/` directory
+5. **Test**: Launch live preview with QR codes for instant mobile testing
+6. **Ship**: Your app is ready in `builds/` directory
 
 No configuration, no prompts, no hand-holding.
 
@@ -249,6 +253,24 @@ App Factory tracks every idea generated across all runs:
 **Global Leaderboard**: Best ideas across all runs, automatically updated  
 
 Top ideas remain discoverable regardless of when they were generated.
+
+## Live Preview
+
+Test your built apps instantly on mobile devices with integrated live preview:
+
+**Features**:
+- 📱 **QR Code Generation** - Scan with Expo Dev Client for instant testing
+- 🔗 **One-click DevTools** - Direct access to React DevTools and Metro
+- 🔄 **Live Reloading** - See changes instantly on your device
+- 🎯 **Auto-detection** - Automatically finds built apps for preview
+
+**Quick Start**:
+1. Build an app: `build "Your Idea"`
+2. Start preview service: `cd preview && npm install && npm start`
+3. Open dashboard, click any built app idea
+4. Click "Launch Live Preview" and scan the QR code
+
+**Requirements**: Node.js and Expo Dev Client on your mobile device
 
 ---
 

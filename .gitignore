@@ -74,3 +74,9 @@ dashboard/node_modules/
 dashboard/dist/
 dashboard/.vite/
 dashboard/public/leaderboard.json
+
+# Preview service artifacts
+preview/node_modules/
+preview/.runtime/
+preview/dist/
+preview/*.log
