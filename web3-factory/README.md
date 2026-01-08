@@ -1,3 +1,6 @@
+<img width="1536" height="1024" alt="web3factory" src="https://github.com/user-attachments/assets/86af78ed-fe6a-4953-b8d5-f393e1ca0858" />
+
+
 # Web3 Factory
 
 > **⚠️ IN DEVELOPMENT** - Token Launch v2 compliance and social fee claimers implementation in progress
