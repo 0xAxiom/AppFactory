@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "idea_validation": {
+      "type": "object",
+      "properties": {
+        "idea_id": {"type": "string"},
+        "idea_name": {"type": "string"},
+        "original_concept": {"type": "string"},
+        "target_users": {"type": "string"},
+        "core_problem": {"type": "string"},
+        "web3_justification": {"type": "string"}
+      },
+      "required": ["idea_id", "idea_name", "original_concept", "target_users", "core_problem", "web3_justification"]
+    },
+    "onchain_requirements": {
+      "type": "object", 
+      "properties": {
+        "shared_state_needed": {"type": "boolean"},
+        "state_description": {"type": "string"},
+        "why_onchain": {"type": "string"},
+        "centralization_risks": {"type": "string"}
+      },
+      "required": ["shared_state_needed", "state_description", "why_onchain", "centralization_risks"]
+    },
+    "token_justification": {
+      "type": "object",
+      "properties": {
+        "token_needed": {"type": "boolean"},
+        "functional_purpose": {"type": "string"},
+        "why_not_fiat": {"type": "string"},
+        "user_incentive": {"type": "string"}
+      },
+      "required": ["token_needed", "functional_purpose", "why_not_fiat", "user_incentive"]
+    },
+    "validation_result": {
+      "type": "object",
+      "properties": {
+        "passed_onchain_test": {"type": "boolean"},
+        "passed_token_test": {"type": "boolean"},
+        "passed_network_effects_test": {"type": "boolean"},
+        "overall_valid": {"type": "boolean"},
+        "recommendation": {"type": "string"}
+      },
+      "required": ["passed_onchain_test", "passed_token_test", "passed_network_effects_test", "overall_valid", "recommendation"]
+    }
+  },
+  "required": ["idea_validation", "onchain_requirements", "token_justification", "validation_result"]
+}

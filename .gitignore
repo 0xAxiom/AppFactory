@@ -79,4 +79,5 @@ dashboard/public/leaderboard.json
 preview/node_modules/
 preview/.runtime/
 preview/dist/
-preview/*.log
+preview/*.logweb3-factory/runs/
+web3-factory/builds/

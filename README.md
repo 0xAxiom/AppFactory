@@ -6,6 +6,8 @@
 
 **From market research to production-ready mobile apps in three magical commands.**
 
+This repository contains both App Factory (consumer apps) and Web3 Factory (tokenized Web3 apps).
+
 App Factory is an intelligent pipeline that researches real market opportunities, generates validated app ideas, and builds complete mobile applications. It combines market research, product specification, UX design, technical architecture, and React Native development into a single automated workflow.
 
 **What makes it different**: Every generated app traces back to real market evidence. No generic templates, no disconnected specs—just apps built to solve actual user problems with validated business models.
