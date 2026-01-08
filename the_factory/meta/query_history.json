@@ -1,0 +1,53 @@
+{
+  "last_updated": "2026-01-07T21:34:56Z",
+  "queries": [
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "spaced repetition alternatives",
+      "query": "flashcard app too boring boring repetition"
+    },
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "spaced repetition alternatives",
+      "query": "alternatives to Anki less complicated"
+    },
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "emotional regulation journaling",
+      "query": "mood tracking app overwhelming complicated"
+    },
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "emotional regulation journaling",
+      "query": "simple emotion diary app feelings"
+    },
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "creative momentum tracking",
+      "query": "creative project momentum tracking app"
+    },
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "creative momentum tracking",
+      "query": "artist productivity app creative blocks"
+    },
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "intentional boredom tools",
+      "query": "boredom app digital detox activities"
+    },
+    {
+      "run_id": "batch-specs-213456",
+      "run_date": "2026-01-07",
+      "vector": "intentional boredom tools",
+      "query": "what to do when bored without phone"
+    }
+  ]
+}

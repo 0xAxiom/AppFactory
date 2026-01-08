@@ -900,4 +900,33 @@ Generated artifacts are cleaned via `scripts/clean_repo.sh` and ship-readiness v
 
 ---
 
+## ISOLATION FROM WEB3 FACTORY (MANDATORY)
+
+App Factory MUST operate in complete isolation from Web3 Factory:
+
+**Strict Separation Rules**:
+- **NO access** to `/web3-factory/` directory or any of its subdirectories  
+- **NO reference** to Web3 Factory stages (W1-W5), schemas, or templates
+- **NO modification** of Web3 Factory runs, builds, or configuration files
+- **NO shared** execution state, leaderboards, or run tracking between systems
+
+**Technology Stack Isolation**:
+- App Factory generates **React Native mobile apps** with subscription monetization
+- Web3 Factory generates **web apps** with token-based monetization
+- These are SEPARATE technology stacks and business models
+
+**Command Isolation**:
+- App Factory commands (`run app factory`, `build <idea>`, `dream <idea>`) operate ONLY on App Factory directory structure
+- Web3 Factory commands (`web3 idea <idea>`) operate ONLY on Web3 Factory directory structure
+- Claude MUST NOT execute cross-system commands or attempt system integration
+
+**File System Isolation**:
+- App Factory operates under `/the_factory/` directory exclusively
+- Web3 Factory operates under `/web3-factory/` directory exclusively  
+- These systems are designed to coexist without interaction or data sharing
+
+This isolation ensures both systems can evolve independently without conflicts or contamination.
+
+---
+
 **CONSTITUTION END**: This document defines the complete agent-native execution framework. Claude must follow these specifications exactly. When in doubt, prioritize file evidence over claims.

@@ -1,20 +1,69 @@
 <p align="center">
-  <img src="./AppFactory.png" alt="App Factory" width="800" />
+  <img src="./the_factory/AppFactory.png" alt="App Factory" width="800" />
 </p>
 
-# App Factory
+# App Factory & Web3 Factory
 
+**Dual AI-Native Development Systems**
+
+This repository contains two isolated factory systems:
+- **App Factory** (`/the_factory/`) - Consumer mobile apps with subscription monetization  
+- **Web3 Factory** (`/web3-factory/`) - Tokenized web apps with onchain integration
+
+## 🏭 Choose Your Factory
+
+### 📱 App Factory - Consumer Mobile Apps
 **From market research to production-ready mobile apps in three magical commands.**
 
-This repository contains both App Factory (consumer apps) and Web3 Factory (tokenized Web3 apps).
-
-App Factory is an intelligent pipeline that researches real market opportunities, generates validated app ideas, and builds complete mobile applications. It combines market research, product specification, UX design, technical architecture, and React Native development into a single automated workflow.
+App Factory is an intelligent pipeline that researches real market opportunities, generates validated app ideas, and builds complete React Native mobile applications.
 
 **What makes it different**: Every generated app traces back to real market evidence. No generic templates, no disconnected specs—just apps built to solve actual user problems with validated business models.
 
-**🚀 Live Preview**: Test your built apps instantly with QR codes and live reloading via the integrated dashboard.
+### 🌐 Web3 Factory - Tokenized Web Applications  
+**Transform ideas into tokenized web apps with Solana integration.**
 
-## How It Works
+**🚧 IN DEVELOPMENT 🚧**
+
+Web3 Factory validates Web3 concepts, defines token economics, and builds complete tokenized web applications with Bags SDK integration.
+
+**What makes it different**: Every token has a justified utility role, and every web app meaningfully benefits from onchain state.
+
+## 🚀 Quick Start Guide
+
+### For App Factory (Mobile Apps)
+```bash
+cd the_factory
+
+# Generate 10 ranked mobile app ideas
+run app factory
+
+# Build a selected app  
+build <IDEA_NAME>
+
+# Or transform any idea into an app instantly ✨
+dream your app idea here...
+```
+
+### For Web3 Factory (Tokenized Web Apps)  
+```bash
+cd web3-factory
+
+# Transform idea into tokenized web app
+web3 idea your tokenized app idea here...
+```
+
+## 📊 Architecture Comparison
+
+| Aspect | App Factory | Web3 Factory |
+|--------|-------------|--------------|
+| **Target Platform** | iOS/Android Mobile | Web Browsers |
+| **Framework** | React Native + Expo | Next.js/Vite + React |
+| **Monetization** | Subscriptions (RevenueCat) | Tokens (Bags SDK) |
+| **Pipeline** | Stages 01-10 | Stages W1-W5 |
+| **Output** | Complete mobile apps | Complete web apps |
+| **Blockchain** | None | Solana |
+
+## How App Factory Works
 
 App Factory runs in stages, with each stage building on previous outputs to create a complete, connected specification:
 
@@ -67,48 +116,74 @@ graph TD
 | 05-09 | Architecture & Brand | `stage05-09.json` (tech stack, polish, ASO) | How it's built and positioned |
 | 10 | App Generation | `builds/<idea>/app/` (complete Expo app) | What you ship |
 
-## The Three Core Commands
+## 🏭 Directory Structure
 
-**Open Claude in this repository and type:**
+### App Factory (`/the_factory/`)
+```
+the_factory/
+├── CLAUDE.md                     # App Factory control plane
+├── README.md                     # App Factory documentation
+├── templates/                    # Stage execution templates  
+├── schemas/                      # JSON validation schemas
+├── runs/                         # Generated pipeline outputs
+├── builds/                       # Built React Native apps
+└── ...                          # Core App Factory system
+```
+
+### Web3 Factory (`/web3-factory/`)
+```
+web3-factory/
+├── CLAUDE.md                     # Web3 Factory control plane
+├── README.md                     # Web3 Factory documentation  
+├── templates/                    # W1-W5 stage templates
+├── schemas/                      # Web3 validation schemas
+├── constants/                    # Bags SDK configuration
+├── utils/                        # Web3 utilities
+├── runs/                         # Generated Web3 outputs
+└── builds/                       # Built tokenized web apps
+```
+
+## App Factory Commands
+
+**Navigate to `/the_factory/` and open Claude in that directory:**
 
 ### Generate 10 Ranked App Ideas
 ```
 run app factory
 ```
-*Researches markets and generates 10 ranked app ideas for selective building*
-
-- **Input**: Market signals and user constraints  
-- **Output**: 10 ranked app ideas in idea bin
-- **Duration**: Automated idea generation
-- **Result**: Validated ideas ready for selective building
+*Researches markets and generates 10 ranked mobile app ideas for selective building*
 
 ### Build Selected App  
 ```
 build <IDEA_NAME>
 ```  
-*Builds ONE chosen idea into a complete production-ready app*
-
-- **Input**: One idea from your idea bin
-- **Output**: Complete React Native app in `builds/` directory  
-- **Duration**: Automated app building
-- **Result**: Store-ready mobile application with complete specs
+*Builds ONE chosen idea into a complete production-ready mobile app*
 
 ### ✨ Dream Mode: Instant App from Raw Idea
 ```
 dream your app idea here...
 ```
-*Transform any idea into a complete app in one shot!*
+*Transform any mobile app idea into a complete app in one shot!*
 
-- **Input**: Raw idea text in plain English 
-- **Output**: Complete React Native app from idea to code
-- **Magic**: End-to-end pipeline execution in a single command
-- **Result**: Your wildest app dreams become reality ✨
+## Web3 Factory Commands
 
-### Example Workflows
+**Navigate to `/web3-factory/` and open Claude in that directory:**
+
+### Transform Idea into Tokenized Web App
+```
+web3 idea your tokenized app idea here...
+```
+*Validates Web3 concept, defines token economics, and builds complete tokenized web app*
+
+## Example Workflows
+
+### App Factory Workflows (Mobile Apps)
 
 **Traditional Workflow (Research → Build):**
 ```bash
-# Step 1: Generate 10 ranked app ideas
+cd the_factory
+
+# Step 1: Generate 10 ranked mobile app ideas
 run app factory
 
 # Step 2: Pick your favorite idea and build it completely
@@ -119,10 +194,24 @@ build "FocusFlow AI"
 
 **✨ Dream Workflow (Idea → App):**
 ```bash
-# Single command: Turn any idea into a complete app
+cd the_factory
+
+# Single command: Turn any idea into a complete mobile app
 dream I want to create a meditation app that generates personalized soundscapes based on your current location and weather
 
-# Result: Complete production-ready app built from your imagination ✨
+# Result: Complete production-ready mobile app built from your imagination ✨
+```
+
+### Web3 Factory Workflow (Tokenized Web Apps)
+
+**Tokenized App Creation:**
+```bash
+cd web3-factory
+
+# Single command: Transform idea into tokenized web app
+web3 idea Create a decentralized habit tracking app where users earn tokens for consistency and can tip other users for motivation
+
+# Result: Complete tokenized web app with Solana integration and justified token utility
 ```
 
 ## Why This Is Different
@@ -178,25 +267,50 @@ App Factory gives you choice and control:
 
 **Prerequisites**: Claude subscription + this repository
 
+### For App Factory (Mobile Apps)
 ```bash
 # 1. Clone the repository
 git clone <this-repo>
 cd app-factory
 
-# 2. Open Claude and point it to this directory  
+# 2. Navigate to App Factory
+cd the_factory
+
+# 3. Open Claude and point it to the_factory directory  
 # (Claude will automatically read CLAUDE.md constitution)
 
-# 3. Generate complete specifications for 10 app ideas
+# 4. Generate complete specifications for 10 mobile app ideas
 run app factory
 
-# 4. Build your favorite idea into a complete app
+# 5. Build your favorite idea into a complete mobile app
 build "Your Chosen Idea Name"
 
-# OR: Skip research and turn any idea directly into an app! ✨
-dream your amazing app idea in plain English...
+# OR: Skip research and turn any idea directly into a mobile app! ✨
+dream your amazing mobile app idea in plain English...
 
-# 5. Your app is ready in builds/ directory
+# 6. Your mobile app is ready in builds/ directory
 cd builds/01_your_idea__idea_id_001/<build_id>/app
+npm install
+npm start
+```
+
+### For Web3 Factory (Tokenized Web Apps)
+```bash
+# 1. Clone the repository (if not already done)
+git clone <this-repo>
+cd app-factory
+
+# 2. Navigate to Web3 Factory
+cd web3-factory
+
+# 3. Open Claude and point it to web3-factory directory
+# (Claude will automatically read Web3 Factory CLAUDE.md)
+
+# 4. Transform any idea into a tokenized web app
+web3 idea your tokenized app concept here...
+
+# 5. Your tokenized web app is ready in builds/ directory
+cd builds/<app_name>/
 npm install
 npm start
 ```
@@ -300,12 +414,14 @@ Claude: ✨ *Understanding your vision...*
 
 ## Output Structure
 
+### App Factory Output Structure
+
 **After `run app factory` (idea generation):**
 
 ```
-runs/YYYY-MM-DD/your-run-name/
+the_factory/runs/YYYY-MM-DD/your-run-name/
 ├── stage01/
-│   ├── stages/stage01.json               # 10 ranked app ideas
+│   ├── stages/stage01.json               # 10 ranked mobile app ideas
 │   └── spec/01_market_research.md
 ├── ideas/                                # Idea bin (metadata only)
 │   ├── 01_focusflow_ai__focus_ai_001/
@@ -320,68 +436,113 @@ runs/YYYY-MM-DD/your-run-name/
 **After `build "FocusFlow AI"` (selective building):**
 
 ```
-builds/01_focusflow_ai__focus_ai_001/     # Built app only
-└── <build_id>/                          # Immutable build output
-    ├── app/                             # Complete Expo app
-    │   ├── package.json                 # Complete Expo config
-    │   ├── src/screens/                 # All app screens
-    │   ├── src/services/purchases.js    # RevenueCat integration
-    │   └── README.md                    # Setup instructions
-    ├── build_log.md                     # Build execution log
-    └── sources.md                       # Research citations
+the_factory/builds/01_focusflow_ai__focus_ai_001/     # Built mobile app
+└── <build_id>/                                      # Immutable build output
+    ├── app/                                         # Complete Expo app
+    │   ├── package.json                             # Complete Expo config
+    │   ├── src/screens/                             # All mobile app screens
+    │   ├── src/services/purchases.js                # RevenueCat integration
+    │   └── README.md                                # Setup instructions
+    ├── build_log.md                                 # Build execution log
+    └── sources.md                                   # Research citations
 
-runs/YYYY-MM-DD/your-run-name/ideas/01_focusflow_ai__focus_ai_001/
-├── stages/                              # Now contains stages 02-10
-├── outputs/                             # All execution logs
-└── spec/                                # Complete specifications
+the_factory/runs/YYYY-MM-DD/your-run-name/ideas/01_focusflow_ai__focus_ai_001/
+├── stages/                                          # Now contains stages 02-10
+├── outputs/                                         # All execution logs
+└── spec/                                            # Complete specifications
+```
+
+### Web3 Factory Output Structure
+
+**After `web3 idea "Tokenized habit tracker"` (tokenized web app):**
+
+```
+web3-factory/builds/<app_name>/
+├── src/                                 # Complete Next.js/Vite web app
+├── package.json                         # Web app dependencies
+├── token_metadata.json                  # Created Solana token details
+└── README.md                            # Deployment instructions
+
+web3-factory/runs/YYYY-MM-DD/web3-<timestamp>-<hash>/
+├── w1/web3_idea.json                   # Validated Web3 concept
+├── w2/token_model.json                 # Token economics
+├── w3/web3_architecture.json           # Web app architecture
+├── w4/bags_config.json                 # Bags SDK configuration
+└── w5/build_manifest.json              # Build plan and token creation
 ```
 
 ## Repository Hygiene
 
-**Generated outputs** (`runs/` and `builds/`) are ignored by git and never committed:
+**Generated outputs** are ignored by git and never committed:
 
-- **`runs/`** - All pipeline execution outputs and specifications
-- **`builds/`** - Complete React Native apps built from selected ideas
+- **`the_factory/runs/`** - All App Factory pipeline execution outputs and specifications
+- **`the_factory/builds/`** - Complete React Native apps built from selected ideas
+- **`web3-factory/runs/`** - All Web3 Factory pipeline execution outputs
+- **`web3-factory/builds/`** - Complete tokenized web apps with Solana integration
 
-**Clean repository**: `scripts/clean_repo.sh`  
-**Check ship-readiness**: `scripts/ship_check.sh`
+**Clean repository**: `the_factory/scripts/clean_repo.sh`  
+**Check ship-readiness**: `the_factory/scripts/ship_check.sh`
 
-All builds go to `builds/<idea_dir>/` - never a fixed location.
+All builds go to respective `builds/<app_dir>/` directories - never fixed locations.
 
 ## What You Get
 
+### App Factory Outputs
+
 **After `run app factory`**:
-- 10 ranked, validated app ideas with market evidence
+- 10 ranked, validated mobile app ideas with market evidence
 - Complete market research specifications in markdown
 - Global leaderboard tracking all ideas across runs
 - Ready-to-build idea bin for selective development
 
 **After `build <IDEA_NAME>`**:
-- Complete React Native app with full source code
+- Complete React Native mobile app with full source code
 - Production-ready Expo configuration
 - Integrated RevenueCat subscription system
 - Store-submission-ready mobile application
 - Complete technical specifications and documentation
 - **Live preview capability** with QR codes for instant mobile testing
 
+### Web3 Factory Outputs
+
+**After `web3 idea <CONCEPT>`**:
+- Validated Web3 concept with justified token utility
+- Complete token economics and supply model
+- Production-ready web app with Solana integration
+- Created Solana token via Bags SDK
+- Deterministic deployment configuration
+- Complete Web3 specifications and documentation
+
 ## Quickstart
 
-**Two ways to build apps:**
+### App Factory (Mobile Apps)
 
-### 🔬 Research Mode (Traditional)
-1. **Open Claude** in this repository
-2. **Type**: `run app factory`  
-3. **Choose** your favorite from 10 ranked ideas
-4. **Type**: `build "Your Chosen Idea"`
+**🔬 Research Mode (Traditional)**
+1. **Navigate**: `cd the_factory`
+2. **Open Claude** in the_factory directory
+3. **Type**: `run app factory`  
+4. **Choose** your favorite from 10 ranked mobile app ideas
+5. **Type**: `build "Your Chosen Idea"`
+6. **Test**: Launch live preview with QR codes for instant mobile testing
+7. **Ship**: Your mobile app is ready in `builds/` directory
+
+**✨ Dream Mode (Magic)**
+1. **Navigate**: `cd the_factory`
+2. **Open Claude** in the_factory directory
+3. **Type**: `dream your amazing mobile app idea here...`
+4. **Wait**: Watch your idea become a complete mobile app
 5. **Test**: Launch live preview with QR codes for instant mobile testing
-6. **Ship**: Your app is ready in `builds/` directory
+6. **Ship**: Your dream mobile app is ready in `builds/` directory
 
-### ✨ Dream Mode (Magic)
-1. **Open Claude** in this repository
-2. **Type**: `dream your amazing app idea here...`
-3. **Wait**: Watch your idea become a complete app
-4. **Test**: Launch live preview with QR codes for instant mobile testing
-5. **Ship**: Your dream app is ready in `builds/` directory
+### Web3 Factory (Tokenized Web Apps)
+
+**🌐 Tokenized App Creation**
+1. **Navigate**: `cd web3-factory`
+2. **Open Claude** in web3-factory directory  
+3. **Type**: `web3 idea your tokenized app concept here...`
+4. **Wait**: Watch your Web3 idea become a complete tokenized web app
+5. **Test**: Launch your web app locally with `npm start`
+6. **Ship**: Your tokenized web app is ready in `builds/` directory
 
 No configuration, no prompts, no hand-holding.
 

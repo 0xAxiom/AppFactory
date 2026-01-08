@@ -3,9 +3,11 @@
 
 # Generated pipeline artifacts - NEVER commit these
 # runs/ contains all pipeline execution outputs
-# builds/ contains generated React Native apps
+# builds/ contains generated React Native apps  
 runs/
 builds/
+the_factory/runs/
+the_factory/builds/
 **/outputs/
 *.log
 *.tmp
