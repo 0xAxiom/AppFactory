@@ -16,7 +16,58 @@ This runbook defines the execution algorithm for `build app <IDEA_ID_OR_NAME>` c
    - Verify `runs/.../ideas/<idea_dir>/` exists
    - Load `runs/.../ideas/<idea_dir>/meta/idea.json` for confirmation
 
-### Execution Algorithm (Stage 10)
+### Execution Algorithm (Complete Pipeline + Stage 10)
+
+#### Phase 0: Missing Stage Detection and Completion (NEW)
+1. **Check Stage Completeness**:
+   ```
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage02.json
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage03.json
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage04.json
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage05.json
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage06.json
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage07.json
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage08.json
+   Check exists: runs/.../ideas/<idea_dir>/stages/stage09.json
+   ```
+
+2. **Execute Missing Stages (Single Idea Only)**:
+   ```
+   FOR each missing stage (in order 02-09):
+     - Read template: templates/agents/NN_*.md
+     - Read intake: runs/.../inputs/00_intake.md
+     - Read stage01: runs/.../stage01/stages/stage01.json
+     - Read idea definition: runs/.../ideas/<idea_dir>/meta/idea.json
+     - Read prior completed stages: runs/.../ideas/<idea_dir>/stages/stage*.json
+     
+     - Generate stage JSON with proper meta fields:
+       {
+         "meta": {
+           "run_id": "<current_run_id>",
+           "idea_id": "<target_idea_id>", 
+           "idea_name": "<idea_name>",
+           "idea_dir": "<idea_dir>",
+           "source_root": "runs/.../ideas/<idea_dir>/",
+           "input_stage_paths": ["explicit list of files read"],
+           "boundary_path": "runs/.../ideas/<idea_dir>/meta/boundary.json"
+         },
+         ... stage-specific content
+       }
+     
+     - Write: runs/.../ideas/<idea_dir>/stages/stageNN.json
+     - Validate against: schemas/stageNN.json 
+     - Write: runs/.../ideas/<idea_dir>/outputs/stageNN_execution.md
+     - Write: runs/.../ideas/<idea_dir>/spec/NN_*.md
+     - Update: runs/.../ideas/<idea_dir>/meta/stage_status.json
+     
+     - If validation fails: Write failure report and STOP
+   ```
+
+3. **Verify Stage Completeness**:
+   ```
+   Confirm all stages 02-09 now exist and validate
+   If any missing or invalid: Write failure report and STOP
+   ```
 
 #### Phase 1: Boundary Enforcement (CRITICAL)
 1. **Load Boundary Definition**:
@@ -97,6 +148,49 @@ This runbook defines the execution algorithm for `build app <IDEA_ID_OR_NAME>` c
    ```
 
 #### Phase 4: App Generation 
+
+## Ship-Ready Output Standard (MANDATORY)
+
+The generated app MUST meet ALL of the following requirements before declaring Stage 10 success:
+
+### A) RevenueCat (end-to-end)
+- No hardcoded API keys in source code
+- API keys sourced from env/config placeholders:
+  - EXPO_PUBLIC_REVENUECAT_IOS_API_KEY
+  - EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY
+- Purchases configured ONCE at app startup
+- Single premium state provider based on entitlements (default entitlement: "pro")
+- Real paywall experience (screen/modal) using RevenueCat offerings/packages (not alert)
+- Restore purchases flow implemented
+- Manage subscription flow in Settings:
+  - Use RevenueCat customer center if available
+  - Else deep link to iOS/Android subscription management
+
+### B) Storage architecture
+- SQLite as primary data store for core app objects
+- AsyncStorage only for small preferences (theme, onboarding seen)
+- Simple migrations pattern with schema_version tracking
+- Data access layer (DAL) abstraction in src/data/ with CRUD functions
+- Cloud sync adapter interface (no implementation, just interface)
+
+### C) App Store readiness basics
+- app.json includes: app name, bundle identifiers, versioning, icon/splash references
+- Settings screen includes Privacy Policy and Terms links (working placeholders)
+- Subscription disclosure copy near paywall (price, billing, auto-renew, cancel language)
+- iOS permission strings only if app requests permissions
+
+### D) UI/UX completeness
+- Onboarding flow (2-4 screens) showing core value
+- Consistent design system (spacing, typography, colors, components)
+- Empty states for lists, loading states for async operations
+- Error boundaries and user-friendly error UI
+- Accessibility baseline (labels, touch targets, contrast)
+
+### E) Production hygiene
+- DEV-only logging (gated by __DEV__)
+- Consistent formatting conventions
+- Simple error handling pattern with try/catch boundaries
+
 8. **Prepare Build Directory**:
    ```
    - Clean/create: builds/<idea_dir>/
@@ -147,21 +241,25 @@ This runbook defines the execution algorithm for `build app <IDEA_ID_OR_NAME>` c
    ```
 
 #### Phase 5: Build Verification
-10. **Generate Complete App Structure**:
+10. **Generate Complete App Structure** (MANDATORY):
     ```
     builds/<idea_dir>/
     ├── package.json (with all required dependencies)
-    ├── app.json (with ASO metadata from Stage 09)
-    ├── App.js (main entry point)
+    ├── app.json (with ASO metadata + store readiness)
+    ├── app/
+    │   ├── _layout.tsx (providers only, NO hardcoded secrets)
+    │   ├── (tabs)/ or navigation structure (as Stage 03 requires)
+    │   ├── onboarding/ (2-4 screens showing core value)
+    │   └── paywall.tsx (screen or modal route)
     ├── src/
-    │   ├── screens/ (from Stage 03 wireframes)
-    │   ├── components/ (reusable UI from Stage 03)
-    │   ├── navigation/ (from Stage 03 user flows)
-    │   ├── services/
-    │   │   └── purchases.js (RevenueCat from Stage 04)
-    │   ├── styles/
-    │   │   └── theme.js (brand identity from Stage 08)
-    │   └── utils/
+    │   ├── ui/ (design system + reusable components)
+    │   ├── lib/
+    │   │   └── revenuecat/ (init + helpers + types)
+    │   ├── store/ (app state + premium state)
+    │   ├── data/ (sqlite + migrations + repositories)
+    │   ├── screens/ (if not using file-based routing)
+    │   └── utils/ (logging, error handling)
+    ├── assets/ (icons, splash screens)
     └── README.md (setup instructions + ASO notes)
     ```
 
@@ -180,18 +278,34 @@ This runbook defines the execution algorithm for `build app <IDEA_ID_OR_NAME>` c
     → Implementation: Smart session duration recommendations from AI predictions
     ```
 
-### Success Criteria
+### Success Criteria - Stage 10 Quality Gate (MANDATORY)
 
-Build mode is complete when:
+Build mode is complete ONLY when ALL checks pass:
+
+**Core Pipeline Requirements**:
+- [ ] All stages 02-09 exist and validate for the target idea pack
 - [ ] `builds/<idea_dir>/` exists with complete Expo app
-- [ ] `package.json` has all dependencies from Stage 05 architecture
-- [ ] All screens from Stage 03 UX implemented
-- [ ] RevenueCat integration from Stage 04 functional
-- [ ] Brand theme from Stage 08 applied throughout
-- [ ] ASO metadata from Stage 09 in app.json
 - [ ] `stage10.json` plan exists with constraints mapping
 - [ ] `stage10_build.log` proves all constraint bindings
 - [ ] `stage10_research.md` documents all sources consulted
+
+**Ship-Ready Quality Gate**:
+- [ ] App runs without crashes
+- [ ] SQLite used for core data (not AsyncStorage)
+- [ ] RevenueCat configured via env keys (no hardcoded keys in source)
+- [ ] Paywall screen exists and is reachable
+- [ ] Entitlement gating works (isPro state provider)
+- [ ] Restore purchases and Manage subscription exist in Settings
+- [ ] Onboarding flow exists and shows core value
+- [ ] Empty/loading/error states exist for key user flows
+- [ ] Settings has privacy/terms links and app version
+- [ ] Design system applied consistently across all screens
+- [ ] Error boundaries implemented with user-friendly messages
+
+**If any check fails, Stage 10 MUST**:
+- Write detailed failure report to `stage10_quality_gate_failure.md`
+- Include specific missing requirements and remediation steps
+- STOP execution without claiming success
 
 ### Output Location Rules
 

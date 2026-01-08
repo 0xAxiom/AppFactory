@@ -1,44 +1,65 @@
 {
-  "type": "object",
-  "properties": {
-    "build_plan": {
+  "$ref": "schemas/_shared/meta.schema.json",
+  "allOf": [
+    {
+      "$ref": "schemas/_shared/meta.schema.json"
+    },
+    {
       "type": "object",
       "properties": {
-        "app_name": {"type": "string"},
-        "expo_version": {"type": "string"},
-        "bundle_id": {"type": "string"},
-        "dependencies": {
-          "type": "array",
-          "items": {"type": "string"}
+        "build_execution": {
+          "type": "object",
+          "properties": {
+            "build_id": {"type": "string"},
+            "output_path": {"type": "string"},
+            "consumed_stages": {"type": "array", "items": {"type": "string"}},
+            "boundary_verification": {"type": "string", "enum": ["passed", "failed"]},
+            "research_completed": {"type": "boolean"}
+          },
+          "required": ["build_id", "output_path", "consumed_stages", "boundary_verification", "research_completed"]
         },
-        "screens_to_implement": {
-          "type": "array",
-          "items": {"type": "string"}
+        "app_specification": {
+          "type": "object", 
+          "properties": {
+            "app_name": {"type": "string"},
+            "bundle_id": {"type": "string"},
+            "expo_version": {"type": "string"},
+            "main_dependencies": {"type": "array", "items": {"type": "string"}},
+            "screens_implemented": {"type": "array", "items": {"type": "string"}},
+            "navigation_structure": {"type": "object"},
+            "revenuecat_configuration": {"type": "object"},
+            "theme_system": {"type": "object"}
+          },
+          "required": ["app_name", "bundle_id", "expo_version", "main_dependencies", "screens_implemented"]
         },
-        "services_to_create": {
-          "type": "array",
-          "items": {"type": "string"}
+        "constraints_mapping": {
+          "type": "object",
+          "properties": {
+            "stage02_to_screens": {"type": "object"},
+            "stage03_to_ui": {"type": "object"},
+            "stage04_to_subscriptions": {"type": "object"},
+            "stage05_to_architecture": {"type": "object"},
+            "stage08_to_branding": {"type": "object"},
+            "stage09_to_metadata": {"type": "object"}
+          },
+          "required": ["stage02_to_screens", "stage03_to_ui", "stage04_to_subscriptions", "stage05_to_architecture", "stage08_to_branding", "stage09_to_metadata"]
         },
-        "navigation_structure": {"type": "object"},
-        "build_steps": {
-          "type": "array", 
-          "items": {"type": "string"}
+        "verification_proof": {
+          "type": "object",
+          "properties": {
+            "all_features_implemented": {"type": "boolean"},
+            "revenuecat_integrated": {"type": "boolean"},
+            "brand_applied": {"type": "boolean"},
+            "navigation_complete": {"type": "boolean"},
+            "app_runnable": {"type": "boolean"}
+          },
+          "required": ["all_features_implemented", "revenuecat_integrated", "brand_applied", "navigation_complete", "app_runnable"]
+        },
+        "standards_compliance": {
+          "$ref": "schemas/_shared/common.schema.json#/definitions/standards_compliance"
         }
       },
-      "required": [
-        "app_name", "expo_version", "bundle_id", "dependencies",
-        "screens_to_implement", "services_to_create", "navigation_structure", "build_steps"
-      ]
-    },
-    "validation": {
-      "type": "object",
-      "properties": {
-        "all_screens_planned": {"type": "boolean"},
-        "revenuecat_integrated": {"type": "boolean"},
-        "expo_configured": {"type": "boolean"}
-      },
-      "required": ["all_screens_planned", "revenuecat_integrated", "expo_configured"]
+      "required": ["build_execution", "app_specification", "constraints_mapping", "verification_proof", "standards_compliance"]
     }
-  },
-  "required": ["build_plan", "validation"]
+  ]
 }

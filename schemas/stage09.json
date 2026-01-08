@@ -105,7 +105,10 @@
     "marketing_launch_plan": {"type": "object"},
     "success_metrics_and_kpis": {"type": "object"},
     "risk_mitigation": {"type": "object"},
-    "post_launch_roadmap": {"type": "object"}
+    "post_launch_roadmap": {"type": "object"},
+    "standards_compliance": {
+      "$ref": "schemas/_shared/common.schema.json#/definitions/standards_compliance"
+    }
   },
-  "required": ["meta", "launch_strategy", "aso_package", "marketing_launch_plan", "success_metrics_and_kpis", "risk_mitigation", "post_launch_roadmap"]
+  "required": ["meta", "launch_strategy", "aso_package", "marketing_launch_plan", "success_metrics_and_kpis", "risk_mitigation", "post_launch_roadmap", "standards_compliance"]
 }

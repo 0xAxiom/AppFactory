@@ -1,0 +1,53 @@
+{
+  "$ref": "schemas/_shared/meta.schema.json",
+  "allOf": [
+    {
+      "$ref": "schemas/_shared/meta.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "builder_handoff": {
+          "type": "object",
+          "properties": {
+            "implementation_roadmap": {
+              "type": "object",
+              "properties": {
+                "development_phases": {"type": "array", "items": {"type": "object"}},
+                "critical_path": {"type": "string"},
+                "risk_mitigation": {"type": "string"},
+                "testing_strategy": {"type": "string"}
+              },
+              "required": ["development_phases", "critical_path", "risk_mitigation", "testing_strategy"]
+            },
+            "technical_specifications": {
+              "type": "object",
+              "properties": {
+                "component_specifications": {"type": "string"},
+                "api_contracts": {"type": "string"},
+                "data_models": {"type": "string"},
+                "integration_requirements": {"type": "string"}
+              },
+              "required": ["component_specifications", "api_contracts", "data_models", "integration_requirements"]
+            },
+            "quality_requirements": {
+              "type": "object",
+              "properties": {
+                "performance_targets": {"type": "string"},
+                "accessibility_requirements": {"type": "string"},
+                "testing_coverage": {"type": "string"},
+                "code_quality_standards": {"type": "string"}
+              },
+              "required": ["performance_targets", "accessibility_requirements", "testing_coverage", "code_quality_standards"]
+            }
+          },
+          "required": ["implementation_roadmap", "technical_specifications", "quality_requirements"]
+        },
+        "standards_compliance": {
+          "$ref": "schemas/_shared/common.schema.json#/definitions/standards_compliance"
+        }
+      },
+      "required": ["builder_handoff", "standards_compliance"]
+    }
+  ]
+}

@@ -58,7 +58,9 @@ Stage 10 additionally must:
 
 ### 8. Generate Mobile App
 ```
-Create: /mobile/ directory
+Read: Stage 02-09 JSONs from runs/.../ideas/<idea_dir>/stages/
+Verify: Boundary constraints and meta field consistency
+Create: builds/<idea_dir>/<build_id>/app/ directory
 Generate: Complete Expo React Native application
 Include: package.json, app.json, App.js, src/ code
 Ensure: All screens, components, services from prior stages
@@ -66,9 +68,11 @@ Ensure: All screens, components, services from prior stages
 
 ### 9. Validate Mobile Structure
 ```
-Verify: /mobile/package.json exists with required dependencies
-Verify: /mobile/src/ contains screens, components, services  
-Verify: /mobile/README.md has setup instructions
+Verify: builds/<idea_dir>/<build_id>/app/package.json exists with required dependencies
+Verify: builds/<idea_dir>/<build_id>/app/src/ contains screens, components, services  
+Verify: builds/<idea_dir>/<build_id>/app/README.md has setup instructions
+Write: builds/<idea_dir>/<build_id>/build_log.md (execution log)
+Write: builds/<idea_dir>/<build_id>/sources.md (research citations)
 Log: Mobile app generation details
 ```
 
@@ -111,10 +115,13 @@ Before marking any stage complete, verify:
 
 For Stage 10, additionally verify:
 ```
-✓ /mobile/ directory exists
-✓ /mobile/package.json has Expo dependencies
-✓ /mobile/src/ contains application code
-✓ /mobile/README.md exists
+✓ builds/<idea_dir>/<build_id>/app/ directory exists
+✓ builds/<idea_dir>/<build_id>/app/package.json has Expo dependencies
+✓ builds/<idea_dir>/<build_id>/app/src/ contains application code
+✓ builds/<idea_dir>/<build_id>/app/README.md exists
+✓ builds/<idea_dir>/<build_id>/build_log.md exists
+✓ builds/<idea_dir>/<build_id>/sources.md exists
+✓ Stage 02-09 JSONs were consumed correctly
 ```
 
 ## Template Requirements

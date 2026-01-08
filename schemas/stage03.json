@@ -1,0 +1,57 @@
+{
+  "$ref": "schemas/_shared/meta.schema.json",
+  "allOf": [
+    {
+      "$ref": "schemas/_shared/meta.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "ux_design": {
+          "type": "object",
+          "properties": {
+            "information_architecture": {
+              "type": "object",
+              "properties": {
+                "navigation_structure": {"type": "string"},
+                "screen_hierarchy": {"type": "array", "items": {"type": "string"}},
+                "user_flow_patterns": {"type": "string"}
+              },
+              "required": ["navigation_structure", "screen_hierarchy", "user_flow_patterns"]
+            },
+            "wireframes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "screen_name": {"type": "string"},
+                  "layout_description": {"type": "string"},
+                  "key_components": {"type": "array", "items": {"type": "string"}},
+                  "interaction_patterns": {"type": "string"},
+                  "accessibility_considerations": {"type": "string"}
+                },
+                "required": ["screen_name", "layout_description", "key_components", "interaction_patterns", "accessibility_considerations"]
+              },
+              "minItems": 5
+            },
+            "design_system": {
+              "type": "object",
+              "properties": {
+                "color_scheme": {"type": "string"},
+                "typography": {"type": "string"},
+                "component_library": {"type": "string"},
+                "responsive_approach": {"type": "string"}
+              },
+              "required": ["color_scheme", "typography", "component_library", "responsive_approach"]
+            }
+          },
+          "required": ["information_architecture", "wireframes", "design_system"]
+        },
+        "standards_compliance": {
+          "$ref": "schemas/_shared/common.schema.json#/definitions/standards_compliance"
+        }
+      },
+      "required": ["ux_design", "standards_compliance"]
+    }
+  ]
+}

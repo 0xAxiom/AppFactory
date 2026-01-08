@@ -1,0 +1,66 @@
+{
+  "$ref": "schemas/_shared/meta.schema.json",
+  "allOf": [
+    {
+      "$ref": "schemas/_shared/meta.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "technical_architecture": {
+          "type": "object",
+          "properties": {
+            "technology_stack": {
+              "type": "object",
+              "properties": {
+                "framework": {"type": "string", "enum": ["React Native + Expo"]},
+                "language": {"type": "string", "enum": ["TypeScript"]},
+                "navigation": {"type": "string", "enum": ["Expo Router"]},
+                "state_management": {"type": "string"},
+                "storage": {"type": "string"},
+                "authentication": {"type": "string"},
+                "monetization_sdk": {"type": "string", "enum": ["RevenueCat"]}
+              },
+              "required": ["framework", "language", "navigation", "state_management", "storage", "authentication", "monetization_sdk"]
+            },
+            "app_architecture": {
+              "type": "object",
+              "properties": {
+                "folder_structure": {"type": "string"},
+                "component_organization": {"type": "string"},
+                "data_flow": {"type": "string"},
+                "error_handling": {"type": "string"}
+              },
+              "required": ["folder_structure", "component_organization", "data_flow", "error_handling"]
+            },
+            "external_services": {
+              "type": "object",
+              "properties": {
+                "analytics": {"type": "string"},
+                "crash_reporting": {"type": "string"},
+                "push_notifications": {"type": "string"},
+                "backend_services": {"type": "string"}
+              },
+              "required": ["analytics", "crash_reporting", "push_notifications", "backend_services"]
+            },
+            "security_privacy": {
+              "type": "object",
+              "properties": {
+                "data_encryption": {"type": "string"},
+                "secure_storage": {"type": "string"},
+                "api_security": {"type": "string"},
+                "privacy_compliance": {"type": "string"}
+              },
+              "required": ["data_encryption", "secure_storage", "api_security", "privacy_compliance"]
+            }
+          },
+          "required": ["technology_stack", "app_architecture", "external_services", "security_privacy"]
+        },
+        "standards_compliance": {
+          "$ref": "schemas/_shared/common.schema.json#/definitions/standards_compliance"
+        }
+      },
+      "required": ["technical_architecture", "standards_compliance"]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "$ref": "schemas/_shared/meta.schema.json",
+  "allOf": [
+    {
+      "$ref": "schemas/_shared/meta.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "brand_and_marketing": {
+          "type": "object",
+          "properties": {
+            "brand_identity": {
+              "type": "object",
+              "properties": {
+                "brand_positioning": {"type": "string"},
+                "brand_personality": {"type": "string"},
+                "unique_value_proposition": {"type": "string"},
+                "brand_voice": {"type": "string"}
+              },
+              "required": ["brand_positioning", "brand_personality", "unique_value_proposition", "brand_voice"]
+            },
+            "visual_identity": {
+              "type": "object",
+              "properties": {
+                "logo_concept": {"type": "string"},
+                "color_palette": {"type": "string"},
+                "typography": {"type": "string"},
+                "iconography_style": {"type": "string"},
+                "app_icon_concept": {"type": "string"}
+              },
+              "required": ["logo_concept", "color_palette", "typography", "iconography_style", "app_icon_concept"]
+            },
+            "messaging_strategy": {
+              "type": "object",
+              "properties": {
+                "core_messages": {"type": "array", "items": {"type": "string"}},
+                "target_audience_messaging": {"type": "string"},
+                "competitive_differentiation": {"type": "string"},
+                "emotional_positioning": {"type": "string"}
+              },
+              "required": ["core_messages", "target_audience_messaging", "competitive_differentiation", "emotional_positioning"]
+            },
+            "marketing_channels": {
+              "type": "object",
+              "properties": {
+                "primary_channels": {"type": "array", "items": {"type": "string"}},
+                "content_strategy": {"type": "string"},
+                "influencer_strategy": {"type": "string"},
+                "community_building": {"type": "string"}
+              },
+              "required": ["primary_channels", "content_strategy", "influencer_strategy", "community_building"]
+            }
+          },
+          "required": ["brand_identity", "visual_identity", "messaging_strategy", "marketing_channels"]
+        },
+        "standards_compliance": {
+          "$ref": "schemas/_shared/common.schema.json#/definitions/standards_compliance"
+        }
+      },
+      "required": ["brand_and_marketing", "standards_compliance"]
+    }
+  ]
+}

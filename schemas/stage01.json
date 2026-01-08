@@ -1,6 +1,19 @@
 {
   "type": "object",
   "properties": {
+    "exploration_config": {
+      "type": "object",
+      "properties": {
+        "seed_phrase": {"type": "string"},
+        "vectors": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "research_timestamp": {"type": "string"},
+        "non_repetition_check": {"type": "string"}
+      },
+      "required": ["seed_phrase", "vectors", "research_timestamp", "non_repetition_check"]
+    },
     "market_research": {
       "type": "object",
       "properties": {
@@ -74,5 +87,5 @@
       }
     }
   },
-  "required": ["market_research", "app_ideas"]
+  "required": ["exploration_config", "market_research", "app_ideas"]
 }

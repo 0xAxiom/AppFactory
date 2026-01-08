@@ -19,6 +19,9 @@ Execution only occurs when the user explicitly types a supported command listed 
 
 App Factory is an end-to-end system that researches markets, generates validated app ideas, designs UX/monetization/brand, produces launch-ready specs, and builds real React Native apps. Claude executes all stages directly within this repository without subprocess calls or hand-holding.
 
+**Stage 01**: Executed during `run app factory` - generates 10 ranked ideas
+**Stages 02-10**: Executed during `build <IDEA_ID_OR_NAME>` - builds selected idea only
+
 ### Core Execution Model
 - **Claude reads** stage templates from `templates/agents/`
 - **Claude reads** prior stage outputs from runs directories
@@ -36,6 +39,62 @@ App Factory is an end-to-end system that researches markets, generates validated
 
 ---
 
+## COMMAND DISPATCH (MANDATORY — NO GUESSING)
+
+When the user types one of the supported commands, Claude MUST treat it as an immediate execution request and MUST execute the corresponding workflow defined in this repository using the stage templates and runbooks.
+
+Claude MUST NOT:
+- Attempt to locate or run binaries, scripts, or CLIs (bin/, ./pipeline.sh, make, etc.)
+- Enter repo discovery mode (listing files, searching for entrypoints, guessing execution paths)
+- Invent alternate commands or aliases
+- Modify the command string shown to the user
+
+The ONLY supported user-facing commands are:
+- `run app factory`
+- `build <IDEA_ID_OR_NAME>`
+- `validate run`
+- `show status`
+
+Once a supported command is received:
+- Claude MUST immediately execute the documented algorithm
+- Claude MUST NOT ask follow-up questions
+- Claude MUST NOT pause between stages
+- Claude MUST NOT wait for "continue"
+
+If execution cannot proceed due to missing templates, schemas, or runbooks:
+- Claude MUST hard-fail immediately
+- Claude MUST write a failure artifact explaining exactly what is missing
+- No partial execution, no guessing, no recovery attempts
+
+## INTAKE CREATION POLICY (MANDATORY)
+
+During `run app factory` execution:
+- Claude MUST create `runs/.../inputs/00_intake.md`
+- If the user provided a custom intake in the immediately preceding message, Claude MUST use it verbatim
+- Otherwise, Claude MUST generate the intake from `templates/spec/00_intake.template.md`
+
+The generated intake MUST include:
+- A recorded randomization seed
+- Market research vectors (e.g. Reddit, forums, "is there an app for…", "I wish there was…")
+- Constraints from standards and research policy
+
+Claude MUST NOT invent ad-hoc intake formats or bypass the template.
+
+## EXECUTION MODE LOCK
+
+Once a supported command is received, Claude enters Execution Mode.
+
+In Execution Mode:
+- No file exploration
+- No CLI guessing
+- No explanatory narration
+- Only deterministic stage execution, artifact writing, validation, and logging
+
+Claude exits Execution Mode ONLY when:
+- The workflow completes successfully, OR
+- A hard failure artifact is written, OR
+- The user explicitly interrupts
+
 ## COMMAND INTERFACE
 
 Claude supports exactly these commands when opened in this repository:
@@ -43,49 +102,141 @@ Claude supports exactly these commands when opened in this repository:
 ## COMMANDS (THE ONLY SUPPORTED UX)
 
 ### Command: `run app factory`
-Runs the default end-to-end batch specification workflow.
+Generates and ranks 10 app ideas for selective building.
 
 **Behavior (MANDATORY)**:
-- Executes Stage 01 once and generates EXACTLY 10 ranked app ideas
-- Automatically executes Stages 02–09 for EACH of the 10 ideas in the same run
-- Produces a complete idea pack per idea, including:
-  - validated JSON artifacts
-  - rendered markdown specifications
-  - execution logs
-  - boundary metadata
+- Executes Stage 01 ONLY and generates EXACTLY 10 ranked app ideas
+- Creates idea directories with metadata ONLY (no stages 02-10)
+- Updates global leaderboard with ranked ideas
+- DOES NOT execute Stages 02-10 for any idea
+- DOES NOT build any apps
+- Leaves ideas in "idea bin" state for later selective building
 
-**AUTO-CONTINUE is mandatory**:
-- Once started, Claude MUST proceed stage-by-stage and idea-by-idea
-- Claude MUST NOT stop after any stage to ask the user to type "continue"
-- Stop conditions are ONLY:
-  - Explicit user interruption, or
-  - Hard failure (must write failure artifact(s) to disk and stop)
+**No Auto-Continue Beyond Stage 01**:
+- Stage 01 execution completes once 10 ideas are generated and ranked
+- Claude MUST NOT proceed to Stages 02-10 automatically
+- Ideas remain unbuilt until explicit `build <IDEA_ID_OR_NAME>` command
 
 ### Command: `build <IDEA_ID_OR_NAME>`
-Builds ONE selected idea into a runnable Expo / React Native app using Stage 10.
+Builds ONE selected idea from the idea bin into a complete Expo React Native app.
 
-**Behavior (MANDATORY)**:
-- Resolves `<IDEA_ID_OR_NAME>` using `runs/.../meta/idea_index.json`
-- Reads and applies ONLY that idea pack's Stage 02–09 JSON outputs as binding constraints
-- Enforces NO CROSS-CONTAMINATION:
-  - Hard-fail if run_id, idea_id, or boundary paths do not match
-- Writes build output to: `builds/<idea_dir>/`
-  - ❌ Never write builds to a fixed `/mobile` directory
+**BUILD CONTRACT (MANDATORY)**:
+When user runs `build <IDEA>`:
+
+1) **Resolve the idea target**:
+   - Search runs/*/meta/idea_index.json for matching slug OR name alias
+   - Prefer the MOST RECENT run containing the slug
+   - Identify:
+     - run_dir
+     - idea_dir
+     - idea_id
+     - idea pack path
+
+2) **Determine completeness**:
+   - If idea pack contains stages/stage02.json ... stage09.json → complete
+   - If missing any stage02..stage09 → incomplete
+
+3) **If incomplete**:
+   - Execute missing stages 02..09 IN ORDER for THIS SINGLE IDEA ONLY
+   - Use existing stage templates to produce outputs
+   - Write outputs to:
+     runs/<date>/<run_id>/ideas/<idea_dir>/stages/stage0X.json
+   - Update:
+     runs/<...>/ideas/<...>/meta/stage_status.json
+   - Do NOT rerun Stage 01 web research
+   - Do NOT touch other idea packs
+   - Do NOT rebuild leaderboards during build
+
+4) **After stage09.json exists**:
+   - Execute Stage 10 app building
+   - Write complete Expo app to builds/<idea_dir>/ (or repo's established build output convention)
+
+5) **If any stage fails**:
+   - Write a failure file:
+     runs/<...>/ideas/<...>/meta/build_failure.md
+     Include:
+       - stage that failed
+       - reason
+       - missing input files (if any)
+       - paths
+
+**Enforces strict isolation and NO CROSS-CONTAMINATION**
+**❌ Never write builds to a fixed `/mobile` directory**
 
 ### Command: `validate run`
 Validates the most recent run (or current run if active):
+- Confirms run_manifest.json exists and is valid
 - Confirms Stage JSON artifacts exist on disk and validate against schemas
 - Confirms Stage 01 produced exactly 10 ideas
-- Confirms each idea pack contains:
-  - boundary metadata
-  - correct meta.* fields for every stage
+- For idea bin validation: confirms metadata-only structure
+- For built ideas: confirms complete stage artifacts (stages 02-10)
+- Validates stage gates: all required artifacts per stage exist
 - No generation. Validation only.
 
 ### Command: `show status`
-Prints the current run status using run manifests and per-idea stage_status.json files.
+Prints the current run status using run_manifest.json and per-idea stage_status.json files.
 - No generation. No mutation.
 
 ### Command Execution Semantics
+
+## 🏗️ RUN MANIFEST CONTRACT (MANDATORY)
+
+Every run MUST create and maintain a canonical manifest:
+
+### Required Files
+```
+runs/YYYY-MM-DD/<run_name>/meta/run_manifest.json
+```
+
+### Manifest Schema (MANDATORY)
+```json
+{
+  "run_id": "string",
+  "run_name": "string", 
+  "date": "ISO timestamp",
+  "command_invoked": "run app factory | build <idea>",
+  "expected_idea_count": 10,
+  "expected_stages_run_factory": ["01"],
+  "expected_stages_build_idea": ["02","03","04","05","06","07","08","09","10"],
+  "expected_stage_artifacts": {
+    "stage01": ["stages/stage01.json", "outputs/stage01_execution.md", "spec/01_market_research.md"],
+    "stage02": ["stages/stage02.json", "outputs/stage02_execution.md", "spec/02_product_spec.md"],
+    "stage03": ["stages/stage03.json", "outputs/stage03_execution.md", "spec/03_ux.md"],
+    "stage04": ["stages/stage04.json", "outputs/stage04_execution.md", "spec/04_monetization.md"],
+    "stage05": ["stages/stage05.json", "outputs/stage05_execution.md", "spec/05_architecture.md"],
+    "stage06": ["stages/stage06.json", "outputs/stage06_execution.md", "spec/06_builder_handoff.md"],
+    "stage07": ["stages/stage07.json", "outputs/stage07_execution.md", "spec/07_polish.md"],
+    "stage08": ["stages/stage08.json", "outputs/stage08_execution.md", "spec/08_brand.md"],
+    "stage09": ["stages/stage09.json", "outputs/stage09_execution.md", "spec/09_release_planning.md"]
+  },
+  "idea_index_path": "meta/idea_index.json",
+  "leaderboard_paths": ["leaderboards/app_factory_all_time.json", "leaderboards/app_factory_all_time.csv"],
+  "builds_root": "builds/",
+  "per_idea": {
+    "idea_id_001": {
+      "idea_dir": "01_idea_name__idea_id_001",
+      "status": "unbuilt|building|built|failed",
+      "stages_completed": ["list of completed stages"],
+      "missing_artifacts": ["list of missing files"],
+      "build_id": "string|null"
+    }
+  },
+  "run_status": "running|failed|completed",
+  "failure": null | {
+    "idea_id": "string",
+    "idea_dir": "string", 
+    "stage": "string",
+    "reason": "string",
+    "artifact_paths": ["list"]
+  }
+}
+```
+
+### Manifest Updates (MANDATORY)
+- **Create**: At run start with initial structure
+- **Update**: After each stage completion
+- **Final**: Mark run_status as "completed" or "failed"
+- **Fail Fast**: If any stage fails, update failure object and stop
 
 ## 🌐 GLOBAL LEADERBOARD (CROSS-RUN, APPEND-ONLY)
 
@@ -103,19 +254,26 @@ It MUST NOT affect downstream stages.
 ### Canonical Files (MANDATORY)
 ```
 leaderboards/
-  app_factory_all_time.json   # authoritative
-  app_factory_all_time.csv    # derived mirror
+  app_factory_all_time.json   # raw append-only audit log
+  app_factory_all_time.csv    # raw audit log mirror
+  app_factory_global.json     # derived global ranking
+  app_factory_global.csv      # derived global ranking mirror
 ```
 
 ### When the Leaderboard Is Updated
-- The leaderboard MUST be updated immediately after Stage 01 completes successfully
+- The raw leaderboard MUST be updated immediately after Stage 01 completes successfully
+- The global leaderboard MUST be rebuilt after raw leaderboard append succeeds
 - It MUST NOT wait for Stages 02–09
-- If Stage 01 fails, the leaderboard MUST NOT be modified
+- If Stage 01 fails, the leaderboards MUST NOT be modified
+- If global rebuild fails, Stage 01 execution MUST be considered failed
 
 ### Leaderboard Entry Rules
+
+#### Raw Leaderboard (Append-Only Audit)
 - One entry per idea per run (10 entries per successful Stage 01)
 - Append-only. Never rewrite or re-rank historical entries
 - Identity key: idea_id + run_id
+- Field `rank` represents per-run ranking (1-10)
 - Each entry MUST include:
   - run_id
   - run_date
@@ -130,16 +288,28 @@ leaderboards/
   - evidence_summary
   - source paths to the originating run + stage01.json
 
+#### Global Leaderboard (Derived Ranking)
+- Rebuilt deterministically after every Stage 01 completion
+- All entries from raw leaderboard, sorted globally
+- Adds `global_rank` field (1..N across all entries)
+- Preserves original `rank` as `run_rank`
+- Same data fields as raw, plus ranking enrichment
+
 ### Sorting Semantics (GLOBAL VIEW)
 Global ordering is defined as:
-1. score (descending, if present)
+1. score (descending, missing scores treated as -1)
 2. run_date (descending)
-3. rank (ascending)
+3. rank (ascending, per-run rank as tiebreaker)
+4. idea_id (ascending)
+5. run_id (ascending)
 
 ### Isolation Rule (CRITICAL)
 - Stages 02–10 MUST NOT read from the leaderboard
 - The leaderboard is write-only at Stage 01 and read-only for humans and external tools
 - Idea packs remain fully isolated
+- **Leaderboard updates happen ONLY during `run app factory` (Stage 01)**
+- **Individual builds via `build <idea>` NEVER affect the leaderboard**
+- Leaderboard serves as discovery and ranking surface, not build tracking
 
 ### Failure Handling
 If leaderboard append fails:
@@ -149,15 +319,86 @@ If leaderboard append fails:
   - remediation steps
 - Stop execution immediately
 
-**Output Structure**:
+If global leaderboard rebuild fails:
+- Write `leaderboards/global_rebuild_failure.md` with:
+  - run_id
+  - rebuild error details
+  - remediation steps
+- Stop execution immediately
+
+**Output Structure (After `run app factory`)**:
 ```
 runs/YYYY-MM-DD/<run_name>/
   stage01/stages/stage01.json (10 ideas)
-  ideas/01_focusflow_ai__focus_ai_001/stages/stage02.json...stage09.json
-  ideas/02_deepwork_zones__deep_work_002/stages/stage02.json...stage09.json
-  ...10 complete idea packs
+  ideas/01_focusflow_ai__focus_ai_001/meta/ (idea bin - metadata ONLY)
+  ideas/02_deepwork_zones__deep_work_002/meta/ (idea bin - metadata ONLY)  
+  ...10 idea directories with metadata only (no stages 02-10)
   meta/idea_index.json
+  meta/run_manifest.json
 ```
+
+## 🚪 STAGE GATES (DEFINITION OF DONE)
+
+### Stage Completion Requirements
+For each stage to be considered complete, ALL artifacts MUST exist:
+
+#### Stage 01 Gates
+- [ ] `stage01/stages/stage01.json` exists and validates against schema
+- [ ] Contains EXACTLY 10 ideas with unique idea_ids
+- [ ] `stage01/outputs/stage01_execution.md` exists
+- [ ] `stage01/spec/01_market_research.md` rendered
+- [ ] Raw leaderboard updated with 10 new entries
+- [ ] Global leaderboard rebuilt successfully
+- [ ] `meta/idea_index.json` created
+- [ ] 10 idea pack directories created with proper naming
+
+#### Stages 02-09 Gates (Per Selected Idea Only)
+For the ONE idea being built via `build <IDEA_ID_OR_NAME>`:
+- [ ] `ideas/<idea_dir>/stages/stageNN.json` exists and validates
+- [ ] `ideas/<idea_dir>/outputs/stageNN_execution.md` exists
+- [ ] `ideas/<idea_dir>/spec/NN_*.md` rendered
+- [ ] `ideas/<idea_dir>/meta/stage_status.json` updated
+- [ ] JSON includes required meta fields (run_id, idea_id, boundary_path)
+
+#### Stage 09 Additional Gates
+- [ ] ASO package completed with store-ready metadata
+- [ ] Launch planning completed with realistic timelines
+- [ ] Release specifications ready for Stage 10 consumption
+
+## LEGACY BATCH SEMANTICS (NON-USER-VISIBLE)
+Historical internal behavior for reference only:
+- Batch completion concepts exist in schemas for internal validation
+- No user-facing batch commands or success criteria
+- All user interaction occurs via selective execution model
+
+## 📱 STAGE 10: MOBILE APP GENERATION (DIRECT BUILD)
+
+Stage 10 directly generates complete, production-ready Expo React Native apps:
+
+### Stage 10 Responsibilities  
+- Read ONLY that idea's Stage 02–09 JSON artifacts (direct consumption)
+- Enforce strict idea boundary and meta field consistency
+- Perform bounded web research for Expo Router, RevenueCat, Firebase patterns
+- Scaffold, implement, and finalize complete Expo app with all features
+- Integrate RevenueCat SDK correctly for subscription functionality
+- Apply brand identity, UX design, and ASO metadata throughout
+
+### Build Output Contract (IMMUTABLE)
+Stage 10 MUST output to:
+```
+builds/<idea_dir>/<build_id>/app/
+```
+
+Where:
+- `idea_dir` = deterministic Finder-friendly name from idea pack
+- `build_id` = deterministic hash from run_id + idea_id + stage02-09 hashes
+
+### Required Build Artifacts
+- `builds/<idea_dir>/<build_id>/app/` - Complete Expo React Native app
+- `builds/<idea_dir>/<build_id>/build_log.md` - Build execution log
+- `builds/<idea_dir>/<build_id>/sources.md` - Research citations
+- `runs/.../ideas/<idea_dir>/stages/stage10.json` - Build plan
+- `runs/.../ideas/<idea_dir>/outputs/stage10_build.log` - Binding proof
 
 ## 📘 README ENFORCEMENT (UX CONSISTENCY)
 
@@ -183,8 +424,8 @@ Concretely:
 
 ## RUN DIRECTORY CONTRACT
 
-### Batch Specs Mode Structure
-`run app factory (batch specs)` creates this structure:
+### Idea Generation Structure
+`run app factory` creates this structure:
 
 ```
 runs/YYYY-MM-DD/<run_name>/
@@ -194,22 +435,16 @@ runs/YYYY-MM-DD/<run_name>/
 │   ├── stages/stage01.json            # 10 validated app ideas  
 │   ├── outputs/stage01_execution.md
 │   └── spec/01_market_research.md
-├── ideas/                             # Idea packs (isolated)
+├── ideas/                             # Idea bin (metadata only)
 │   ├── 01_focusflow_ai__focus_ai_001/
-│   │   ├── meta/
-│   │   │   ├── idea.json              # Canonical idea definition
-│   │   │   ├── boundary.json          # Isolation enforcement
-│   │   │   ├── name.alias             # Human-readable name
-│   │   │   └── stage_status.json      # Progress for this idea
-│   │   ├── stages/
-│   │   │   ├── stage02.json...stage09.json
-│   │   ├── outputs/
-│   │   │   ├── stage02_execution.md...stage09_execution.md
-│   │   └── spec/
-│   │       └── 02_product_spec.md...09_release_planning.md
+│   │   └── meta/
+│   │       ├── idea.json              # Canonical idea definition
+│   │       ├── boundary.json          # Isolation enforcement
+│   │       ├── name.alias             # Human-readable name
+│   │       └── stage_status.json      # Shows "unbuilt" status
 │   ├── 02_deepwork_zones__deep_work_002/
-│   │   └── [same structure for idea 2]
-│   └── ...10 complete idea packs
+│   │   └── meta/ [same metadata structure]
+│   └── ...10 idea directories with metadata only
 └── meta/
     ├── idea_index.json                # ID->name->directory mapping
     ├── run_manifest.json              # Run metadata
@@ -217,21 +452,27 @@ runs/YYYY-MM-DD/<run_name>/
 ```
 
 ### Build Mode Structure  
-`build app <IDEA_ID_OR_NAME>` adds:
+`build app <IDEA_ID_OR_NAME>` adds to the selected idea:
 
 ```
-builds/
-└── <idea_dir>/                        # Clean build output
-    ├── package.json                   # Complete Expo app
-    ├── app.json
-    ├── App.js
-    ├── src/screens/...
-    └── README.md
+builds/<idea_dir>/<build_id>/app/      # Complete Expo app
+├── package.json                   
+├── app.json
+├── App.js
+├── src/screens/...
+└── README.md
 
-runs/.../ideas/<idea_dir>/
-├── stages/stage10.json                # Build plan (plan-only)
-├── outputs/stage10_build.log          # Binding proof
-└── outputs/stage10_research.md        # Sources consulted
+builds/<idea_dir>/<build_id>/
+├── build_log.md                       # Build execution log
+└── sources.md                         # Sources consulted
+
+runs/.../ideas/<idea_dir>/             # Adds to selected idea only
+├── stages/
+│   ├── stage02.json...stage10.json   # All stages 02-10
+├── outputs/ 
+│   ├── stage02_execution.md...stage10_build.log
+└── spec/
+    └── 02_product_spec.md...10_mobile_app.md
 ```
 
 ### Finder-Friendly Naming (MANDATORY)
@@ -240,6 +481,49 @@ Idea directories use deterministic naming: `<rank>_<idea_slug>__<idea_id>`
 - `idea_slug`: sanitized name (lowercase, underscores, alphanumeric only)
 - `idea_id`: canonical ID from Stage 01
 - Example: `01_focusflow_ai__focus_ai_001`
+
+### IDEA BIN SEMANTICS (CRITICAL STATE)
+
+After `run app factory` completes, ideas exist in the **IDEA BIN** state:
+
+**What the Idea Bin Contains**:
+- 10 idea directories with deterministic naming
+- Metadata only: `idea.json`, `boundary.json`, `stage_status.json` 
+- `stage_status.json` shows status "unbuilt"
+- NO specification artifacts (stages/, outputs/, spec/ directories are empty/missing)
+- NO built apps (builds/ directory empty for these ideas)
+
+**Idea Bin Purpose**:
+- Discovery surface for ranked app ideas
+- Selective building entry point  
+- Token efficiency through choice
+- No commitment until explicit `build` command
+
+**Transition Out of Idea Bin**:
+- Only via explicit `build <IDEA_ID_OR_NAME>` command
+- Builds EXACTLY ONE idea from unbuilt to fully built
+- Other 9 ideas remain in idea bin state (unchanged)
+
+---
+
+## INCOMPLETE IDEA PACKS (MANDATORY BUILD PATH)
+
+**Stage 01 Output State**:
+- Stage 01 may exist without Stages 02–09
+- That is NORMAL and EXPECTED behavior
+- `run app factory` creates idea packs with metadata ONLY
+- Ideas remain in "idea bin" state until `build <IDEA>` is executed
+
+**Build Command Responsibility**:
+- `build <IDEA>` is responsible for completing the idea pack by running missing stages
+- Only Stage 10 requires stages 02–09 — but build will generate them if absent
+- If stages/ directory is missing: create runs/<...>/ideas/<...>/stages/ before executing Stage 02
+- Do NOT treat missing stages 02-09 as an error during build
+
+**No Leaderboard Side Effects During Build**:
+- During `build <IDEA>`, leaderboard append/rebuild MUST NOT run
+- Leaderboards are a Stage 01 post-process only
+- Build operations are isolated from global state changes
 
 ---
 
@@ -285,14 +569,25 @@ Each idea pack in `runs/.../ideas/<idea_dir>/` has strict isolation:
 - Creates shared stage01 directory structure
 - Creates idea_index.json mapping
 
-#### Stages 02-09 (Per Idea Pack)
-**For each idea (automatic batch execution):**
+#### Stages 02-09 (Build Mode Only)
+**Executed ONLY during `build <IDEA_ID_OR_NAME>` for selected idea:**
+
+**Single Idea Execution (MANDATORY)**:
+- Execute missing stages 02-09 IN ORDER for THIS SINGLE IDEA ONLY
+- Create stages/ directory if missing: `runs/.../ideas/<idea_dir>/stages/`
 - Read: `runs/.../ideas/<idea_dir>/meta/idea.json` (canonical idea)
+- Read: `runs/.../stage01/stages/stage01.json` (lookup only)
 - Read: Prior stage JSONs from same idea pack only
 - Write: `runs/.../ideas/<idea_dir>/stages/stageNN.json` 
 - Validate: Against schema with boundary enforcement
 - Log: `runs/.../ideas/<idea_dir>/outputs/stageNN_execution.md`
 - Render: `runs/.../ideas/<idea_dir>/spec/NN_*.md`
+- Update: `runs/.../ideas/<idea_dir>/meta/stage_status.json`
+
+**Isolation Rules**:
+- Do NOT rerun Stage 01 web research
+- Do NOT touch other idea packs
+- Do NOT rebuild leaderboards during build
 
 #### Stage 10 (Build Mode)
 - Triggered by: `build app <IDEA_ID_OR_NAME>`
@@ -306,36 +601,41 @@ Each idea pack in `runs/.../ideas/<idea_dir>/` has strict isolation:
 
 ## DEFINITION OF DONE
 
-### Batch Specs Mode (`run app factory (batch specs)`)
+### Idea Generation Mode (`run app factory`)
 **MUST verify ALL of these before claiming completion:**
+
+**Run Manifest**:
+- [ ] `runs/.../meta/run_manifest.json` exists and tracks progress
+- [ ] `run_status` marked as "completed" (not "failed" or "running")
 
 **Stage 01 Complete**:
 - [ ] `runs/.../stage01/stages/stage01.json` exists with EXACTLY 10 ideas
 - [ ] Each idea has unique idea_id
 - [ ] `runs/.../meta/idea_index.json` created with rank/slug/directory mapping
+- [ ] Global leaderboard updated with 10 new entries
 
-**All 10 Idea Packs Complete** (Stages 02-09):
+**Idea Bin Populated**:
 - [ ] 10 directories: `runs/.../ideas/01_*__*/ ... 10_*__*/`
 - [ ] Each has `meta/idea.json`, `meta/boundary.json`, `meta/stage_status.json`
-- [ ] Each has `stages/stage02.json...stage09.json` (all validated)
-- [ ] Each has `outputs/stage02_execution.md...stage09_execution.md`
-- [ ] Each has `spec/02_*.md...09_*.md` 
-- [ ] All stage JSONs have proper meta fields with matching idea_id
+- [ ] Each `stage_status.json` shows status "unbuilt"
+- [ ] NO stages/stageNN.json files exist (stages 02-10)
+- [ ] NO outputs/ or spec/ directories exist (reserved for build mode)
 
-**Auto-Continuation Rules**:
-- NO PAUSES between stages or ideas
-- Continues until all 10 idea packs have Stage 09 complete
-- Only stops on: hard failure OR user interruption
+**Completion Semantics**:
+- Stage 01 execution completes once all 10 ideas are ranked and in idea bin
+- NO automatic progression to Stages 02-10
+- Ideas remain unbuilt until explicit `build <IDEA_ID_OR_NAME>` command
 
 ### Build Mode (`build app <IDEA_ID_OR_NAME>`)
 **MUST verify ALL of these:**
-- [ ] `builds/<idea_dir>/` exists with complete Expo app
-- [ ] `builds/<idea_dir>/package.json` has required dependencies  
-- [ ] `builds/<idea_dir>/src/` contains screens, components, services
+- [ ] `builds/<idea_dir>/<build_id>/app/` exists with complete Expo app
+- [ ] `builds/<idea_dir>/<build_id>/app/package.json` has required dependencies  
+- [ ] `builds/<idea_dir>/<build_id>/app/src/` contains screens, components, services
+- [ ] `builds/<idea_dir>/<build_id>/build_log.md` (execution log)
+- [ ] `builds/<idea_dir>/<build_id>/sources.md` (research citations)
 - [ ] `runs/.../ideas/<idea_dir>/stages/stage10.json` (plan-only JSON)
 - [ ] `runs/.../ideas/<idea_dir>/outputs/stage10_build.log` (binding proof)
-- [ ] `runs/.../ideas/<idea_dir>/outputs/stage10_research.md` (sources cited)
-- [ ] Boundary verification: all inputs from correct idea pack only
+- [ ] Stage 02-09 JSONs consumed correctly (boundary verification passed)
 
 **CRITICAL**: If ANY artifact is missing, Claude MUST write failure report and stop.
 
@@ -425,6 +725,51 @@ python -m appfactory.paths validate_structure <run_path>
 
 ---
 
+## DEFAULT APP COMPLEXITY BIAS (MANDATORY)
+
+App Factory MUST default to generating and favoring apps that are:
+
+- Client-side or offline-first by default
+- Minimal or no backend servers
+- Minimal or no AI API usage
+- Low ongoing operational cost
+- Simple data models
+- Deterministic logic over probabilistic AI where possible
+
+These apps are PRIORITIZED because the goal is:
+- Quantity of shippable apps
+- Low marginal cost per app
+- Faster iteration
+- Discovery of "sticky" winners
+
+### HEAVY BACKEND / AI APPS (EXCEPTION ONLY)
+
+Apps that require:
+- Dedicated backend servers
+- Complex databases
+- Continuous AI inference
+- Paid third-party APIs
+
+MUST be treated as **EXCEPTIONS**, not defaults.
+
+They may ONLY be generated when:
+- Market evidence is materially stronger than simpler alternatives
+- Subscription pricing clearly supports higher operating costs
+- The value proposition collapses without backend or AI
+
+When such an app is generated, Stage 01 MUST explicitly justify:
+- Why a simpler, client-side version is insufficient
+- Why cost is acceptable relative to expected revenue
+
+### SCORING & PRIORITIZATION RULE
+
+During Stage 01 ranking:
+- Simple, client-side apps with similar evidence MUST rank higher
+- Lower MVP complexity MUST be favored when scores are close
+- AI-heavy or backend-heavy apps MUST be penalized unless strongly justified
+
+This is a WEIGHTING CHANGE, not a schema change.
+
 ## GLOBAL CONSTRAINTS
 
 ### Technology Stack (Stage 10)
@@ -448,6 +793,27 @@ python -m appfactory.paths validate_structure <run_path>
 - Specs: `NN_descriptive_name.md`
 
 ---
+
+## STANDARDS CONTRACT
+
+### Mobile App Best Practices (PIPELINE-BLOCKING)
+**File**: `standards/mobile_app_best_practices_2026.md`
+**Status**: READ-ONLY and MANDATORY for all stages
+
+This standards file is PIPELINE-BLOCKING:
+- **Stages 01**: Must respect excluded categories and business model constraints
+- **Stages 02-10**: Must include "Standards Compliance Mapping" section in execution log and/or rendered spec
+- **All stages**: Must halt pipeline if mandatory requirements cannot be met
+
+Violation of any mandatory standard results in immediate pipeline failure.
+
+### Template Execution Rules
+All stage templates are agent-native and must:
+- Write JSON artifacts to disk with schema validation
+- Generate execution logs with research citations where applicable  
+- Render specification markdown
+- Update stage status tracking
+- Hard-fail with detailed error reports if validation fails
 
 ## GENERATED ARTIFACTS & CLEANUP
 
