@@ -3,21 +3,24 @@
 
 # Web3 Factory
 
-> **⚠️ IN DEVELOPMENT** - Token Launch v2 compliance and social fee claimers implementation in progress
+> **🚀 PRODUCTION READY** - Prompt-driven pipeline for polished, functional Web3 apps
 
-**Solana-first tokenized web app generation for Web3 builders.**
+**Production-grade Solana tokenized web app generator with prompt-driven control plane.**
 
-Web3 Factory is a specialized pipeline that transforms Web3 app concepts into production-ready tokenized web applications. Every app generated includes a custom Solana token that serves a functional purpose in the user experience.
+Web3 Factory is a specialized prompt-driven pipeline that transforms Web3 app concepts into fully functional, polished, domain-authentic tokenized web applications. Every successful build produces a complete production-ready app with meaningful token integration that works end-to-end without fixes.
 
 ## 🎯 What Web3 Factory Does
 
 Web3 Factory takes raw Web3 app ideas and builds complete, tokenized web applications that:
 
-- **Validate Web3 necessity**: Ensures your idea actually benefits from blockchain technology
-- **Create functional tokens**: Generates Solana tokens that serve real utility, not speculation  
-- **Build complete web apps**: Produces production-ready Next.js or Vite + React applications
-- **Integrate Solana seamlessly**: Handles wallet connection, token operations, and transaction flows
-- **Route fees automatically**: Built-in 75%/25% fee split (creator/App Factory) with immutable partner attribution
+- **Validate Web3 necessity**: Prompt-driven validation ensures ideas genuinely benefit from blockchain
+- **Create functional tokens**: Generates Solana tokens with real utility, rejecting speculation-based concepts
+- **Design domain-authentic UI**: Creates polished interfaces that reflect the app's purpose, not generic Web3 aesthetics
+- **Build production-ready apps**: Generates complete Next.js or Vite + React applications that install and run without errors
+- **Validate runtime functionality**: Tests wallet integration, token behavior, and complete user flows before deployment
+- **Integrate Solana seamlessly**: Handles wallet connection, token operations, and transaction flows with proper error handling
+- **Route fees automatically**: Built-in 75%/25% fee split (creator/App Factory) with hardcoded immutable partner attribution
+- **Prevent broken builds**: Pipeline fails if any component is non-functional rather than producing incomplete apps
 
 ## 🚀 Quick Start
 
@@ -31,7 +34,7 @@ cd web3-factory
 web3 idea Create a decentralized marketplace where users stake tokens to list items and earn rewards for successful sales
 
 # 3. Your tokenized app is ready
-cd builds/your-app-name/
+cd web3-builds/your-app-name/
 npm install
 npm run dev
 ```
@@ -40,69 +43,159 @@ npm run dev
 
 ## 🌊 How It Works
 
-Web3 Factory uses a 5-stage pipeline (W1-W5) to transform ideas into tokenized apps:
+Web3 Factory uses a prompt-driven 7-stage pipeline (W1-W7) to transform ideas into production-ready tokenized apps:
 
 ```
-Raw Web3 Idea → W1 Validation → W2 Token Design → W3 Architecture → W4 Bags Config → W5 Build & Ship
-                     ↓              ↓              ↓              ↓              ↓
-               Web3 justified   Token role     Web app specs   SDK ready    Complete app
-                                 defined                                    + Solana token
+Raw Web3 Idea → W1 Reality → W2 Token → W3 UX/UI → W4 Architecture → W5 Bags → W6 Runtime → W7 Ship
+                     ↓           ↓         ↓           ↓               ↓         ↓           ↓
+                Web3 valid   Token role  Authentic  Web app specs   SDK ready  Validated  Complete app
+                                defined     design                              working   + Solana token
 ```
 
-### W1: Web3 Idea Validation
-- **Validates** that your idea meaningfully benefits from blockchain technology
-- **Tests** whether a token serves a functional purpose vs. pure speculation  
+### Prompt-Driven Pipeline
+
+Each stage uses a dedicated Claude prompt template that serves as the execution contract:
+
+- **Prompt Files**: Stored in `/prompts/` with explicit input/output requirements
+- **Integrity Verification**: SHA256 hashes ensure prompt contract enforcement
+- **Deterministic Execution**: Same prompt + same inputs = same outputs
+- **Failure Prevention**: Pipeline fails if prompt contracts are violated
+
+### W1: Web3 Product Reality Gate
+- **Validates** that your idea meaningfully benefits from onchain state
+- **Tests** whether token integration serves real utility vs. forced speculation
 - **Filters out** ideas better suited for traditional app development
+- **Outputs**: Value proposition, onchain analysis, user loop, failure cases
 
-### W2: Token Role Definition
+### W2: Token Role & Economic Contract
 - **Chooses** exactly ONE primary token role (access/usage/fee capture/settlement/governance-lite)
-- **Defines** token economics, supply model, and fee routing
-- **Ensures** token serves app functionality, not speculation
+- **Defines** complete token economics with mandatory 75%/25% fee routing
+- **Ensures** partner key `FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7` is hardcoded
+- **Outputs**: Token role, economics, fee routing configuration
 
-### W3: App Architecture (Web)
-- **Selects** optimal framework (Next.js or Vite + React)
-- **Designs** wallet integration strategy and Solana connection patterns
-- **Plans** failure modes and performance requirements
+### W3: UI/UX Design Contract
+- **Creates** domain-authentic design that avoids generic Web3 aesthetics
+- **Specifies** component system and interaction patterns
+- **Ensures** Web3 features feel integrated, not bolted-on
+- **Outputs**: Design specification, component inventory, interaction semantics
 
-### W4: Bags Integration
-- **Configures** Bags SDK for deterministic token creation
-- **Sets up** environment-based configuration (no hardcoded secrets)
-- **Prepares** fee routing and token parameters
+### W4: Web Architecture Lock-in
+- **Defines** complete technical architecture for Next.js or Vite + React
+- **Plans** wallet integration, data flow, and error handling strategies
+- **Specifies** production deployment and performance requirements
+- **Outputs**: Web stack specification, wallet strategy, data flow
 
-### W5: Build & Ship
-- **Creates** Solana token via Bags SDK
+### W5: Bags SDK Integration
+- **Configures** Bags SDK for deterministic token creation (NO creation in this stage)
+- **Enforces** mandatory fee routing and partner key integration
+- **Validates** environment variable usage for all sensitive data
+- **Outputs**: Complete Bags configuration, token creation plan
+
+### W6: Runtime Sanity Harness
+- **Verifies** application boots without errors and wallet integration works
+- **Tests** token functionality and complete user flow validation
+- **Validates** all components work together correctly
+- **Outputs**: Runtime test logs, validation results, remediation steps
+
+### W7: Final Build & Ship
+- **Creates** Solana token via Bags SDK if token role was selected
 - **Generates** complete production-ready web application
 - **Integrates** token functionality into app behavior
-- **Produces** deployment-ready code with documentation
+- **Outputs**: Complete deployable app, token receipt, deployment documentation
+
+## 🏭 Production-Grade Quality Assurance
+
+### Zero-Tolerance Failure Prevention
+
+Web3 Factory enforces **production quality standards** at every stage. Apps are only generated if they meet all criteria:
+
+**✅ Build Quality Requirements**
+- Application installs with `npm install` without errors
+- Builds successfully with `npm run build` without warnings
+- Starts with `npm run dev` and loads in browser
+- Zero console errors during normal operation
+- All environment variables properly configured
+
+**✅ Wallet Integration Standards**  
+- Wallet adapter initializes correctly on app start
+- Connection modal appears and functions properly
+- Multiple Solana wallets supported (Phantom, Solflare, Backpack)
+- Disconnect functionality works reliably
+- Wallet state persists across page refreshes
+- Network selection functions correctly
+
+**✅ Token Functionality Validation** (if token role selected)
+- Token configuration loads and displays correctly
+- Token metadata appears properly in UI
+- Token balance queries return accurate data
+- Token transactions can be initiated and confirmed
+- Fee routing works exactly as configured (75% creator / 25% partner)
+- Token role behavior functions as designed
+
+**✅ End-to-End User Flow Verification**
+- Primary user action completes successfully
+- Blockchain state changes reflect properly in UI
+- Transaction confirmations display correctly
+- Error states handle failures gracefully
+- Success states provide appropriate user feedback
+- Complete user loop works without requiring fixes
+
+**❌ Guaranteed Failure Conditions**
+
+The pipeline **MUST FAIL AND STOP** if:
+- Application fails to build or start
+- Console errors appear during normal operation  
+- Wallet connection fails or behaves incorrectly
+- Token functionality doesn't work as specified
+- Core user flow cannot be completed
+- Any critical feature is broken or missing
+
+### Domain-Authentic Design Enforcement
+
+**No Generic Web3 Aesthetics**: Apps must reflect their actual purpose, not crypto/DeFi visual tropes
+- Design tokens align with app domain and user needs
+- UI components serve functionality, not technology showcase  
+- Wallet integration feels natural, not prominently featured
+- Color palettes and typography match the app's actual use case
+
+**Progressive Web3 Integration**: Blockchain features feel purposeful
+- Token interactions align with core app functionality
+- Wallet connection doesn't dominate user experience
+- Web3 complexity is revealed progressively as needed
+- Error handling communicates clearly in user-friendly language
 
 ## 🏗️ What You Get
 
 After running `web3 idea <YOUR_IDEA>`:
 
 ### 📱 Complete Web App
-- Production-ready Next.js or Vite + React application
-- Responsive design for desktop and mobile
-- Complete wallet connection flow (Phantom, Solflare, Backpack)
-- Real-time token balance display and transaction history
-- Professional UI with error handling and loading states
+- **Production-ready**: Next.js or Vite + React application that builds and runs without errors
+- **Domain-authentic UI**: Design reflects your app's purpose, not generic Web3 aesthetics
+- **Responsive design**: Mobile-friendly layouts for all screen sizes
+- **Complete wallet flow**: Phantom, Solflare, Backpack with proper error handling
+- **Real-time updates**: Token balances, transaction history, blockchain state changes
+- **Professional polish**: Loading states, error boundaries, accessibility features
 
 ### 🪙 Functional Solana Token  
-- Custom SPL token created specifically for your app
-- Token serves real utility based on your app's purpose
-- Built-in fee routing (90% creator, 10% App Factory)
-- Complete metadata and deployment documentation
+- **Custom SPL token**: Created specifically for your app via Bags SDK
+- **Real utility**: Token serves meaningful purpose based on your app's functionality
+- **Fee routing**: Built-in 75% creator / 25% App Factory split (hardcoded and immutable)
+- **Complete metadata**: IPFS-pinned metadata with creation transaction receipts
+- **Network ready**: Configured for both mainnet and devnet deployment
 
 ### 🔗 Seamless Integration
-- Token operations wired into app functionality
-- Smart contract interactions handled automatically  
-- Transaction confirmation flows and error recovery
-- Environment configuration for mainnet/devnet deployment
+- **Token behavior**: Operations wired directly into app functionality
+- **Error handling**: Graceful failures with user-friendly error messages
+- **Transaction flows**: Confirmation patterns with proper loading and success states
+- **Environment config**: Production-ready configuration for deployment
+- **Runtime validation**: All features tested and verified working before delivery
 
-### 📚 Complete Documentation
-- Setup and deployment guides for major platforms
-- Token integration patterns and best practices
-- Troubleshooting guide for common issues
-- Environment variable configuration
+### 📚 Complete Documentation & Artifacts
+- **Deployment guides**: Step-by-step instructions for Vercel, Netlify, AWS
+- **Environment setup**: Complete .env.example with all required variables
+- **Token receipts**: Detailed creation logs with transaction IDs and verification
+- **Stage reports**: Full execution logs showing prompt usage and validation results
+- **Architecture docs**: Technical specifications and integration patterns
 
 ## 🎮 Token Roles Explained
 
@@ -140,17 +233,25 @@ Web3 Factory supports 5 primary token roles. Your app will use exactly ONE:
 
 ## 🎯 Perfect For
 
-### Web3 Builders
-- **Decentralized marketplaces**: Stake tokens to list, earn rewards for sales
-- **Token-gated communities**: Access exclusive content with token holdings
-- **DeFi tools**: Fee-sharing analytics platforms and trading interfaces
-- **Gaming economies**: In-game tokens for items, upgrades, and rewards
+### Production-Ready Web3 Apps
+Web3 Factory is designed for builders who need **functional, polished apps** that work immediately:
+
+- **Decentralized marketplaces**: Stake tokens to list items, earn rewards for successful sales
+- **Token-gated communities**: Access exclusive content with token holdings and participation rewards
+- **DeFi analytics tools**: Fee-sharing platforms where token holders receive usage revenue
+- **Gaming economies**: In-game tokens for items, upgrades, tournament entry, and rewards
+- **Creator platforms**: Token-based monetization for content, courses, or exclusive access
+- **DAO tools**: Governance tokens for voting on community parameters and resource allocation
 
 ### Ideas That Benefit From Tokens
+Web3 Factory validates that your idea **genuinely benefits** from blockchain integration:
+
 - **Shared state**: Apps requiring verifiable, shared data between users
-- **Network effects**: Value increases with more onchain participants  
-- **Permissionless access**: Apps benefiting from censorship resistance
-- **Token incentives**: User behaviors improved by token-based rewards
+- **Network effects**: Value increases with more onchain participants and token holders
+- **Permissionless access**: Apps benefiting from censorship resistance and global access
+- **Token incentives**: User behaviors improved by token-based rewards and alignment
+- **Composability**: Apps that benefit from integration with other Solana protocols
+- **Ownership models**: Digital assets, reputation, or access rights that users should own
 
 ## ❌ Not Suitable For
 
@@ -251,7 +352,7 @@ APP_FACTORY_PARTNER_KEY=FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7
 **Receipt-Based Safety**:
 ```typescript
 // Check existing receipt before token creation
-const receiptPath = 'builds/app-name/token/token_receipt.json';
+const receiptPath = 'web3-builds/app-name/token/token_receipt.json';
 const existingReceipt = loadTokenReceipt(receiptPath);
 
 if (existingReceipt && existingReceipt.inputHash === currentInputHash) {
@@ -281,9 +382,118 @@ if (existingReceipt && existingReceipt.inputHash === currentInputHash) {
 
 Fee routing is enforced via Bags SDK partner configuration and written to all token receipts for transparency.
 
+## 🤖 Prompt-Driven Architecture 
+
+### Revolutionary Control Plane
+
+Web3 Factory uses a **prompt-driven control plane** where each pipeline stage is governed by an explicit Claude prompt template. This ensures deterministic, auditable, and fail-safe execution.
+
+**Key Innovation**: Every stage has a dedicated prompt file that serves as its execution contract
+- **Role definitions**: What Claude is responsible for in that stage
+- **Hard constraints**: Absolute requirements that cannot be violated
+- **Input/output specs**: Exact files consumed and produced
+- **Acceptance criteria**: Explicit "must pass" validation checks
+- **Failure conditions**: Explicit "must fail" scenarios that stop the pipeline
+
+### Prompt Contract Enforcement
+
+**Integrity Verification**: SHA256 hashes prevent prompt tampering
+```bash
+# Every prompt file is hashed and tracked
+prompts/W1_product_reality_gate.md → fdba3eb571d639f811a502...
+prompts/W2_token_role_economic_contract.md → 2a1725d0bc1389788b3b...
+prompts/W5_bags_sdk_integration.md → 920330c3701d9da0e769...
+```
+
+**Execution Tracking**: Every stage documents its prompt usage
+```json
+{
+  "stage": "W2",
+  "prompt_filename": "W2_token_role_economic_contract.md",
+  "prompt_sha256": "2a1725d0bc1389788b3b...",
+  "execution_timestamp": "2026-01-09T12:00:00.000Z",
+  "status": "success"
+}
+```
+
+**Mandatory Validations**: Partner key and fee routing hardcoded in prompts
+- Partner key `FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7` cannot be modified
+- 75% creator / 25% App Factory split enforced across multiple stages
+- Environment variable usage validated to prevent hardcoded secrets
+
+### Production Safety Features
+
+**Zero-Tolerance Failure Prevention**: Pipeline stops if any validation fails
+- Prompt file missing or corrupted → FAIL
+- Partner key incorrect or missing → FAIL  
+- Fee routing percentages modified → FAIL
+- Runtime tests don't pass → FAIL
+- Build contains errors → FAIL
+
+**Audit Trail**: Complete execution tracking
+- Which prompt was used for each stage
+- What inputs were consumed and outputs generated
+- All validation results and pass/fail status
+- Detailed error logs for any failures
+
+## 📋 Prompt-Driven Pipeline Management
+
+Web3 Factory's pipeline is completely prompt-driven, ensuring deterministic and auditable execution.
+
+### Prompt System Overview
+
+**Prompt Contracts**: Each stage (W1-W7) has a dedicated prompt file that defines:
+- Role definition and responsibilities
+- Hard constraints and limitations  
+- Required inputs and outputs
+- Acceptance criteria and failure conditions
+- Output format rules
+
+**Integrity Verification**: 
+- SHA256 hashes for each prompt file prevent tampering
+- Pipeline fails if prompt integrity is compromised
+- Prompt index tracks all stage prompts and versions
+
+**Execution Tracking**:
+- Stage reports document which prompt was used
+- Input/output files are logged for each execution
+- Pass/fail status with detailed validation results
+
+### Manual Stage Execution
+
+You can run individual stages for testing or debugging:
+
+```bash
+# Run specific pipeline stages
+npm run web3 stage W1 ./runs/2026-01-09/web3-example/
+npm run web3 stage W3 ./runs/2026-01-09/web3-example/  
+npm run web3 stage W7 ./runs/2026-01-09/web3-example/
+```
+
+### Prompt Management Commands
+
+```bash
+# Validate all prompt integrity
+npm run web3 validate-prompts
+
+# Update prompt hashes after modifications  
+npm run web3 reindex-prompts
+
+# View prompt usage for a run
+npm run web3 audit-run ./runs/2026-01-09/web3-example/
+```
+
+### Pipeline Safety Features
+
+**Mandatory Partner Key**: Partner key `FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7` is hardcoded in prompts and validated at multiple stages.
+
+**Fee Routing Enforcement**: 75% creator / 25% App Factory split is enforced in prompts and cannot be overridden.
+
+**Environment Variable Security**: API keys must be provided via environment variables - hardcoded keys cause pipeline failure.
+
 ### Generated Files & Locations
 
-**Token Creation Artifacts** (written to `builds/<app_name>/token/`):
+**Token Creation Artifacts** (written to `web3-builds/<app_name>/token/`):
 - `token_plan.json` - Token creation plan used for generation
 - `bags_config.json` - Exact Bags SDK configuration used  
 - `token_receipt.json` - Deterministic creation receipt with all details
@@ -372,4 +582,17 @@ MIT License - Web3 Factory is open source and free to use.
 
 ---
 
-**Web3 Factory: Transform Web3 ideas into tokenized reality.**
+## 🎉 Ready for Production
+
+**Web3 Factory v2.0 - Production-Grade Pipeline**
+
+✅ **Prompt-driven architecture** with SHA256 integrity verification  
+✅ **7-stage pipeline** (W1-W7) with comprehensive validation  
+✅ **Domain-authentic UI/UX** enforcement (W3)  
+✅ **Runtime functionality testing** (W6)  
+✅ **Zero-tolerance failure prevention** - broken builds are rejected  
+✅ **Hardcoded partner attribution** with immutable fee routing  
+✅ **Complete audit trail** with detailed stage reports  
+✅ **Production-ready output** that works end-to-end without fixes  
+
+**Web3 Factory: Transform Web3 ideas into polished, functional tokenized reality.**

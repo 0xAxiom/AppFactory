@@ -1,0 +1,222 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://web3-factory.local/schemas/w6_runtime_validation.json",
+  "title": "Web3 Factory W6 Runtime Validation Schema",
+  "description": "Schema for W6 stage runtime sanity harness validation output",
+  "type": "object",
+  "required": [
+    "stage",
+    "validation_timestamp",
+    "application_boot",
+    "wallet_integration", 
+    "token_functionality",
+    "user_flow_validation",
+    "overall_status"
+  ],
+  "properties": {
+    "stage": {
+      "type": "string",
+      "const": "W6"
+    },
+    "validation_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "application_boot": {
+      "type": "object",
+      "required": ["status", "checks", "errors"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["passed", "failed"]
+        },
+        "checks": {
+          "type": "object",
+          "required": [
+            "npm_install_success",
+            "build_success", 
+            "dev_server_start",
+            "page_load_success",
+            "console_error_free",
+            "environment_variables_loaded"
+          ],
+          "properties": {
+            "npm_install_success": {"type": "boolean"},
+            "build_success": {"type": "boolean"},
+            "dev_server_start": {"type": "boolean"},
+            "page_load_success": {"type": "boolean"}, 
+            "console_error_free": {"type": "boolean"},
+            "environment_variables_loaded": {"type": "boolean"}
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["check_name", "error_message", "severity"],
+            "properties": {
+              "check_name": {"type": "string"},
+              "error_message": {"type": "string"},
+              "severity": {"type": "string", "enum": ["critical", "warning", "info"]}
+            }
+          }
+        }
+      }
+    },
+    "wallet_integration": {
+      "type": "object",
+      "required": ["status", "checks", "errors"],
+      "properties": {
+        "status": {
+          "type": "string", 
+          "enum": ["passed", "failed"]
+        },
+        "checks": {
+          "type": "object",
+          "required": [
+            "adapter_initialization",
+            "connection_modal_functional",
+            "multi_wallet_support",
+            "disconnect_functional",
+            "state_persistence",
+            "network_selection"
+          ],
+          "properties": {
+            "adapter_initialization": {"type": "boolean"},
+            "connection_modal_functional": {"type": "boolean"},
+            "multi_wallet_support": {"type": "boolean"},
+            "disconnect_functional": {"type": "boolean"},
+            "state_persistence": {"type": "boolean"}, 
+            "network_selection": {"type": "boolean"}
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["check_name", "error_message"],
+            "properties": {
+              "check_name": {"type": "string"},
+              "error_message": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "token_functionality": {
+      "type": "object",
+      "required": ["status", "token_role_selected", "checks"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["passed", "failed", "skipped"]
+        },
+        "token_role_selected": {
+          "type": "boolean",
+          "description": "Whether a token role was selected in W2"
+        },
+        "checks": {
+          "type": "object",
+          "properties": {
+            "token_config_loaded": {"type": "boolean"},
+            "token_metadata_display": {"type": "boolean"},
+            "token_balance_queries": {"type": "boolean"},
+            "token_transaction_initiation": {"type": "boolean"},
+            "fee_routing_functional": {"type": "boolean"},
+            "role_behavior_working": {"type": "boolean"}
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object", 
+            "required": ["check_name", "error_message"],
+            "properties": {
+              "check_name": {"type": "string"},
+              "error_message": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "user_flow_validation": {
+      "type": "object",
+      "required": ["status", "primary_flow_completed", "checks"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["passed", "failed"]
+        },
+        "primary_flow_completed": {"type": "boolean"},
+        "checks": {
+          "type": "object",
+          "required": [
+            "primary_action_completable",
+            "blockchain_state_updates", 
+            "transaction_confirmations",
+            "error_states_handled",
+            "success_feedback_shown"
+          ],
+          "properties": {
+            "primary_action_completable": {"type": "boolean"},
+            "blockchain_state_updates": {"type": "boolean"},
+            "transaction_confirmations": {"type": "boolean"},
+            "error_states_handled": {"type": "boolean"},
+            "success_feedback_shown": {"type": "boolean"}
+          }
+        },
+        "errors": {
+          "type": "array", 
+          "items": {
+            "type": "object",
+            "required": ["flow_step", "error_message"],
+            "properties": {
+              "flow_step": {"type": "string"},
+              "error_message": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "performance_validation": {
+      "type": "object",
+      "properties": {
+        "initial_load_time_ms": {"type": "number"},
+        "wallet_connection_time_ms": {"type": "number"},
+        "transaction_submission_time_ms": {"type": "number"},
+        "meets_performance_criteria": {"type": "boolean"}
+      }
+    },
+    "overall_status": {
+      "type": "object",
+      "required": ["validation_passed", "critical_failures", "summary"],
+      "properties": {
+        "validation_passed": {
+          "type": "boolean",
+          "description": "Whether all validation checks passed successfully"
+        },
+        "critical_failures": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of critical failures that prevent deployment"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Human-readable summary of validation results"
+        }
+      }
+    },
+    "remediation_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["issue", "recommended_action", "priority"],
+        "properties": {
+          "issue": {"type": "string"},
+          "recommended_action": {"type": "string"},
+          "priority": {"type": "string", "enum": ["critical", "high", "medium", "low"]}
+        }
+      }
+    }
+  }
+}

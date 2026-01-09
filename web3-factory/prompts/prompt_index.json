@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-01-09T00:00:00Z",
+  "description": "Web3 Factory prompt file index with integrity hashes",
+  "prompts": [
+    {
+      "stage": "W1",
+      "name": "product_reality_gate", 
+      "filename": "W1_product_reality_gate.md",
+      "purpose": "Validate Web3 idea necessity and onchain justification",
+      "version": "1.0.0",
+      "sha256": "fdba3eb571d639f811a502ac7a3fb2feb4ab99ed20cf368e023d70f844847a42"
+    },
+    {
+      "stage": "W2",
+      "name": "token_role_economic_contract",
+      "filename": "W2_token_role_economic_contract.md", 
+      "purpose": "Define token role and economic parameters with fee routing",
+      "version": "1.0.0",
+      "sha256": "2a1725d0bc1389788b3b0b7066bcb6374d796f76cf4ba89594a0adefdc525063"
+    },
+    {
+      "stage": "W3", 
+      "name": "uiux_design_contract",
+      "filename": "W3_uiux_design_contract.md",
+      "purpose": "Specify domain-authentic UI/UX design requirements",
+      "version": "1.0.0", 
+      "sha256": "83ec3d4b929f26918ec61f661096a203c70c6b597e5907715b60982ed61d6983"
+    },
+    {
+      "stage": "W4",
+      "name": "web_architecture_lockin",
+      "filename": "W4_web_architecture_lockin.md",
+      "purpose": "Define complete web application technical architecture", 
+      "version": "1.0.0",
+      "sha256": "1801a9f39083e37548e70d5e4187d44f1d49a5af095ae9ad073dc3fa01657415"
+    },
+    {
+      "stage": "W5",
+      "name": "bags_sdk_integration", 
+      "filename": "W5_bags_sdk_integration.md",
+      "purpose": "Configure Bags SDK for deterministic token creation",
+      "version": "1.0.0",
+      "sha256": "920330c3701d9da0e769f23271a143b6dd0548cd343be0e8c47b6a6f2ff83dbd"
+    },
+    {
+      "stage": "W6",
+      "name": "runtime_sanity_harness",
+      "filename": "W6_runtime_sanity_harness.md", 
+      "purpose": "Validate complete application runtime functionality",
+      "version": "1.0.0",
+      "sha256": "226ec58733f4a387179bd52e5302b4ff62e00ded24c5aa5b69ae5567c8c46265"
+    },
+    {
+      "stage": "W7",
+      "name": "final_build_ship",
+      "filename": "W7_final_build_ship.md",
+      "purpose": "Generate production-ready application and create token",
+      "version": "1.0.0", 
+      "sha256": "ef792faf5522135b3bd20ab2c0448b47f6f3900b4577684a6ab54c006765e95c"
+    }
+  ],
+  "integrity_check": {
+    "total_prompts": 7,
+    "all_stages_covered": ["W1", "W2", "W3", "W4", "W5", "W6", "W7"],
+    "hash_algorithm": "SHA256"
+  }
+}

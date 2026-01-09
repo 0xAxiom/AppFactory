@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://web3-factory.local/schemas/w3_uiux_design.json",
+  "title": "Web3 Factory W3 UI/UX Design Schema",
+  "description": "Schema for W3 stage UI/UX design specification output",
+  "type": "object",
+  "required": [
+    "stage",
+    "design_identity",
+    "component_system", 
+    "interaction_patterns",
+    "web3_integration",
+    "technical_requirements"
+  ],
+  "properties": {
+    "stage": {
+      "type": "string",
+      "const": "W3"
+    },
+    "design_identity": {
+      "type": "object",
+      "required": ["domain_alignment", "visual_theme", "brand_direction"],
+      "properties": {
+        "domain_alignment": {
+          "type": "string",
+          "description": "How design reflects the app's actual domain/purpose"
+        },
+        "visual_theme": {
+          "type": "object",
+          "required": ["primary_colors", "typography", "aesthetic_direction"],
+          "properties": {
+            "primary_colors": {
+              "type": "array",
+              "items": {"type": "string"},
+              "minItems": 2,
+              "maxItems": 6
+            },
+            "typography": {
+              "type": "object", 
+              "required": ["primary_font", "heading_style", "body_style"],
+              "properties": {
+                "primary_font": {"type": "string"},
+                "heading_style": {"type": "string"},
+                "body_style": {"type": "string"}
+              }
+            },
+            "aesthetic_direction": {
+              "type": "string",
+              "enum": ["minimal", "modern", "playful", "professional", "artistic", "technical"]
+            }
+          }
+        },
+        "brand_direction": {
+          "type": "string",
+          "description": "Overall brand personality and user perception goals"
+        }
+      }
+    },
+    "component_system": {
+      "type": "object",
+      "required": ["core_components", "web3_components", "layout_strategy"],
+      "properties": {
+        "core_components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "purpose", "behavior"],
+            "properties": {
+              "name": {"type": "string"},
+              "purpose": {"type": "string"},
+              "behavior": {"type": "string"}
+            }
+          },
+          "minItems": 5
+        },
+        "web3_components": {
+          "type": "array", 
+          "items": {
+            "type": "object",
+            "required": ["name", "web3_function", "user_interaction"],
+            "properties": {
+              "name": {"type": "string"},
+              "web3_function": {"type": "string"},
+              "user_interaction": {"type": "string"}
+            }
+          },
+          "minItems": 3
+        },
+        "layout_strategy": {
+          "type": "object",
+          "required": ["information_hierarchy", "navigation_pattern", "responsive_approach"],
+          "properties": {
+            "information_hierarchy": {"type": "string"},
+            "navigation_pattern": {"type": "string"},
+            "responsive_approach": {"type": "string"}
+          }
+        }
+      }
+    },
+    "interaction_patterns": {
+      "type": "object",
+      "required": ["primary_actions", "wallet_integration_ux", "error_handling"],
+      "properties": {
+        "primary_actions": {
+          "type": "array",
+          "items": {
+            "type": "object", 
+            "required": ["action_name", "trigger_method", "feedback_pattern"],
+            "properties": {
+              "action_name": {"type": "string"},
+              "trigger_method": {"type": "string"},
+              "feedback_pattern": {"type": "string"}
+            }
+          },
+          "minItems": 3
+        },
+        "wallet_integration_ux": {
+          "type": "object",
+          "required": ["connection_flow", "transaction_signing", "state_display"],
+          "properties": {
+            "connection_flow": {"type": "string"},
+            "transaction_signing": {"type": "string"}, 
+            "state_display": {"type": "string"}
+          }
+        },
+        "error_handling": {
+          "type": "object",
+          "required": ["error_display_strategy", "recovery_patterns", "user_guidance"],
+          "properties": {
+            "error_display_strategy": {"type": "string"},
+            "recovery_patterns": {"type": "string"},
+            "user_guidance": {"type": "string"}
+          }
+        }
+      }
+    },
+    "web3_integration": {
+      "type": "object", 
+      "required": ["blockchain_state_display", "transaction_feedback", "progressive_disclosure"],
+      "properties": {
+        "blockchain_state_display": {
+          "type": "string",
+          "description": "How onchain state is presented to users"
+        },
+        "transaction_feedback": {
+          "type": "string", 
+          "description": "User feedback patterns for blockchain transactions"
+        },
+        "progressive_disclosure": {
+          "type": "string",
+          "description": "How Web3 complexity is revealed progressively"
+        }
+      }
+    },
+    "technical_requirements": {
+      "type": "object",
+      "required": ["css_framework", "component_library", "responsive_breakpoints"],
+      "properties": {
+        "css_framework": {
+          "type": "string",
+          "enum": ["tailwind", "styled-components", "emotion", "css-modules"]
+        },
+        "component_library": {
+          "type": "string", 
+          "enum": ["radix-ui", "headless-ui", "custom", "chakra-ui", "mantine"]
+        },
+        "responsive_breakpoints": {
+          "type": "object",
+          "required": ["mobile", "tablet", "desktop"],
+          "properties": {
+            "mobile": {"type": "string"},
+            "tablet": {"type": "string"}, 
+            "desktop": {"type": "string"}
+          }
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "properties": {
+        "color_contrast_compliance": {"type": "boolean"},
+        "keyboard_navigation": {"type": "boolean"}, 
+        "screen_reader_support": {"type": "boolean"},
+        "aria_labels_strategy": {"type": "string"}
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["design_authenticity", "web3_integration_natural", "production_ready"],
+      "properties": {
+        "design_authenticity": {
+          "type": "boolean",
+          "description": "Design reflects app domain, not generic Web3 aesthetics"
+        },
+        "web3_integration_natural": {
+          "type": "boolean", 
+          "description": "Web3 features feel integrated, not bolted-on"
+        },
+        "production_ready": {
+          "type": "boolean",
+          "description": "Design specifications enable production-quality implementation"
+        }
+      }
+    }
+  }
+}

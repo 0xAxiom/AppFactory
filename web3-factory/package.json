@@ -4,10 +4,14 @@
   "description": "Solana-first Web3 app factory with Bags SDK integration",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "web3": "./dist/web3factory.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsx --watch src/index.ts",
     "start": "node dist/index.js",
+    "web3": "tsx web3factory.ts",
     "launch-token": "tsx scripts/launch_token.ts",
     "launch-token-v2": "tsx scripts/launch_token_v2.ts",
     "validate-env": "tsx scripts/validate_environment.ts",
