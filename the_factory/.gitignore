@@ -1,6 +1,9 @@
 # Generated artifacts
 runs/
 builds/
+app/_docs/
+app/_assets/
+app/_upstream/
 dashboard/dist/
 dashboard/node_modules/
 preview/node_modules/

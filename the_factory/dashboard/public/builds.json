@@ -4,7 +4,7 @@
     {
       "buildId": "f4b5d2c8e9a1234567890abcdef12345",
       "name": "EVP Analyzer Pro",
-      "slug": "evpanalyzerpro", 
+      "slug": "evpanalyzerpro",
       "origin": {
         "mode": "dream",
         "runId": "dream-100541-10d5e81a",
@@ -25,6 +25,7 @@
         "instructions": [
           "cd builds/01_evpanalyzerpro__evp_analyzer_001/31f6c9775c238de5/app",
           "npm install",
+          "npx expo install --check",
           "npx expo start"
         ]
       }
@@ -41,7 +42,7 @@
       },
       "framework": "expo",
       "buildPath": "builds/01_cleartasks__simple_tasks_001",
-      "status": "success", 
+      "status": "success",
       "createdAt": "2026-01-07T15:30:00.000Z",
       "launch": {
         "type": "expo",
@@ -53,6 +54,7 @@
         "instructions": [
           "cd builds/01_cleartasks__simple_tasks_001",
           "npm install",
+          "npx expo install --check",
           "npx expo start"
         ]
       }
@@ -73,7 +75,7 @@
       "createdAt": "2026-01-06T22:15:00.000Z",
       "launch": {
         "type": "expo",
-        "recommended": "npx expo start", 
+        "recommended": "npx expo start",
         "notes": "Energy tracking and pattern analysis app"
       },
       "preview": {
@@ -81,6 +83,7 @@
         "instructions": [
           "cd builds/02_neurodash__neurodash_002",
           "npm install",
+          "npx expo install --check",
           "npx expo start"
         ]
       }
@@ -91,7 +94,7 @@
       "slug": "simplehabitdots",
       "origin": {
         "mode": "pipeline",
-        "runId": "app_factory_110218", 
+        "runId": "app_factory_110218",
         "ideaSlug": "simple_habit_dots",
         "dreamPromptHash": null
       },
@@ -108,7 +111,8 @@
         "enabled": true,
         "instructions": [
           "cd builds/06_simple_habit_dots__simple_habit_dots_006/f4e3a9f12388732b/app",
-          "npm install", 
+          "npm install",
+          "npx expo install --check",
           "npx expo start"
         ]
       }

@@ -4,6 +4,16 @@
 **Status**: MANDATORY — CONSTITUTION FOR ALL CLAUDE OPERATIONS  
 **Applies to**: All pipeline stages, agents, and Claude interactions
 
+## 🎯 PURPOSE (NON-NEGOTIABLE)
+
+The sole purpose of the App Factory pipeline is to produce **fully polished, store-ready Expo React Native apps** that can be submitted to the Apple App Store and Google Play without additional manual work.
+
+Stages 01–10 are tools. The final build artifact is the objective. A working, shippable mobile application is the only successful outcome.
+
+**Conflict Resolution Rule**: If there is ever a conflict between (a) completing a stage "correctly" and (b) producing a polished, shippable app, **the shippable app always wins**.
+
+Passing stages without producing a shippable app is a pipeline failure. Technical compliance without app store readiness violates pipeline intent.
+
 ## 🔒 EXECUTION SCOPE & EDITING MODE (MANDATORY)
 
 This document defines behavior.  
@@ -72,14 +82,21 @@ If execution cannot proceed due to missing templates, schemas, or runbooks:
 During `run app factory` execution:
 - Claude MUST create `runs/.../inputs/00_intake.md`
 - If the user provided a custom intake in the immediately preceding message, Claude MUST use it verbatim
-- Otherwise, Claude MUST generate the intake from `templates/spec/00_intake.template.md`
+- Otherwise, Claude MUST generate the intake using `python -m appfactory.intake_generator <run_id>` to ensure semantic clustering detection
+
+**Intake Generation Requirements**:
+- MUST use the intake_generator utility to enforce template rules
+- MUST check for semantic clustering and regenerate vectors if needed
+- MUST apply domain-lens-first sampling (3-5 domain lenses before vectors)
+- MUST avoid productivity/attention as default unless user requests it
+- MUST use neutrally phrased vectors spanning multiple consumer-life domains
 
 The generated intake MUST include:
-- A recorded randomization seed
-- Market research vectors (e.g. Reddit, forums, "is there an app for…", "I wish there was…")
-- Constraints from standards and research policy
+- A deterministic randomization seed
+- Diverse exploration vectors (no semantic clustering)
+- Market research constraints from standards and research policy
 
-Claude MUST NOT invent ad-hoc intake formats or bypass the template.
+Claude MUST NOT invent ad-hoc intake formats or bypass the clustering detection system.
 
 ## EXECUTION MODE LOCK
 
@@ -423,6 +440,7 @@ Stage 10 directly generates complete, production-ready Expo React Native apps:
 - Scaffold, implement, and finalize complete Expo app with all features
 - Integrate RevenueCat SDK correctly for subscription functionality
 - Apply brand identity, UX design, and ASO metadata throughout
+- **Accountability**: If upstream stages fail to provide sufficient inputs to produce a polished app, Stage 10 MUST fail the run and identify the upstream violation
 
 ### Build Output Contract (IMMUTABLE)
 Stage 10 MUST output to:
@@ -866,6 +884,16 @@ This is a WEIGHTING CHANGE, not a schema change.
 
 ---
 
+## INTERPRETATION RULE (PIPELINE INTENT)
+
+When instructions, schemas, or templates are ambiguous, they MUST be interpreted in the way that most directly supports producing a polished, production-quality mobile app.
+
+UX completeness, design consistency, accessibility, onboarding completeness, monetization correctness, and App Store readiness take precedence over minimal compliance.
+
+A technically "passing" run that produces a non-shippable app violates pipeline intent.
+
+---
+
 ## STANDARDS CONTRACT
 
 ### Mobile App Best Practices (PIPELINE-BLOCKING)
@@ -886,6 +914,353 @@ All stage templates are agent-native and must:
 - Render specification markdown
 - Update stage status tracking
 - Hard-fail with detailed error reports if validation fails
+
+---
+
+## PIPELINE-LEVEL INVARIANT: Asset Contract + Deterministic Placeholder Generation
+(MANDATORY FOR EVERY RUN, Stages 02–10)
+
+### Purpose
+All assets referenced by Expo configuration must exist on disk before Stage 10 build.
+If the product/brand stage has not delivered final assets yet, the pipeline must generate deterministic placeholders using a defined, guaranteed toolchain, and record them as build artifacts.
+
+### Asset Contract (Authoritative)
+At the start of Stage 07 and enforced again at Stage 10, the pipeline must:
+
+Parse and enumerate all image asset references from:
+- `app.json`, `app.config.js/ts`
+- expo fields (icon, splash, adaptiveIcon, notification icon, etc.)
+- Any platform-specific assets (iOS/Android)
+
+Produce a single file:
+```
+app/_assets/asset_contract.json
+```
+
+With:
+- `type` (icon, splash, adaptiveIconForeground, adaptiveIconBackground, favicon, notificationIcon, etc.)
+- `path`
+- `required_dimensions` (if applicable)
+- `format` (png, jpg)
+- `source` (which config field referenced it)
+- `status` (present | missing | generated)
+- `sha256`
+
+### Preflight Gate (Build-Blocking)
+Before Stage 10 runs `npm install`, `expo install --check`, or any native build step, it must run:
+```
+ASSET_PREFLIGHT_CHECK
+```
+
+Verify every referenced asset path exists.
+Verify file format matches expected type (PNG where required).
+Verify dimensions meet minimum requirements (e.g., icon should be 1024×1024 PNG).
+
+If any required asset is missing:
+- The pipeline must generate placeholders deterministically
+- Re-run ASSET_PREFLIGHT_CHECK
+- Only proceed if the check passes
+
+### Deterministic Placeholder Generator (No Tool Guessing Allowed)
+The pipeline must not "try random tools" (convert) at build time.
+
+Instead, it must define one canonical generator and use it everywhere.
+
+**Canonical generator rule**:
+- **Preferred**: Node-based generator (no OS assumptions) using a small dependency such as `sharp`.
+- **Allowed fallback**: macOS `sips` only if Node-based generation is unavailable.
+- **Disallowed**: "hope ImageMagick exists."
+
+**Requirement**: The pipeline must implement (or vendor) a script:
+```
+scripts/generate_placeholders_assets.mjs
+```
+
+That generates (at minimum):
+- `icon.png` (1024×1024)
+- `adaptive-icon.png` foreground if needed
+- `splash.png` (at least 1284×2778 or appropriate baseline)
+- `favicon.png` if web is enabled
+
+All generated assets must:
+- Be valid PNGs
+- Match required dimensions
+- Use a deterministic style (e.g., single solid background + centered label)
+- Be written to the exact paths referenced by config
+
+### Proof Artifacts (Non-Negotiable)
+The pipeline must write:
+```
+app/_assets/asset_contract.json
+app/_assets/asset_generation_log.md
+```
+
+`asset_generation_log.md` must include:
+- What was missing
+- What was generated
+- Tool used (node/sharp or sips)
+- Paths + hashes
+
+### Final Rule
+**Stage 10 must never discover missing assets.**
+If Stage 10 finds missing assets, that is a pipeline violation.
+
+---
+
+## PIPELINE-LEVEL INVARIANT: Canonical Docs + Upstream Reference Synchronization
+(MANDATORY FOR EVERY RUN, Stages 02–10)
+
+### Status
+**NON-OPTIONAL · NON-BYPASSABLE · AUTO-ENFORCED ON EVERY PIPELINE EXECUTION**
+
+This policy is a core pipeline invariant. It is not a suggestion, not a prompt option, and not dependent on any user command.
+It is executed automatically for every run, including partial runs, and enforced as a build-blocking gate.
+
+No stage, agent, or partial execution is exempt.
+
+### Purpose (Global, Always-On)
+Every build must be grounded in authoritative, locally cached sources that already exist inside the repository.
+
+The system must never rely on:
+- Model memory
+- Inference
+- Prior runs as implicit truth
+- External browsing without local persistence
+- Undocumented assumptions
+
+Applies to:
+- Fresh builds
+- Regenerations
+- Partial stage runs
+- Fix-up / recovery runs
+- CI or local executions
+
+### Source-of-Truth Hierarchy (HARD ORDER)
+No stage may violate or reorder this hierarchy:
+
+1. **Expo SDK compatibility rules** (hard gate, build-blocking)
+2. **Locally cached Expo + RevenueCat documentation** (canonical vendor docs + run-layer extensions)
+3. **Locally cached React Native upstream references** (facebook/react-native cache)
+4. **Application code**
+
+If two sources conflict, the higher item always wins.
+
+### PART A — Canonical Documentation Directories
+(Bound to existing repo structure; enforced on every run)
+
+#### 1) Canonical docs locations (EXISTING + REQUIRED)
+The pipeline must treat these existing repo directories as canonical:
+```
+vendor/expo-docs/
+vendor/revenuecat-docs/
+```
+
+These are authoritative and must be referenced during every run.
+They are not optional, not replaceable, and not advisory.
+
+**RevenueCat canonical anchor (explicit)**:
+`vendor/revenuecat-docs/` must include (and the pipeline must reference) the RevenueCat LLM index file (commonly `llms.txt`) as the canonical map of doc endpoints and .md mirrors.
+
+#### 2) Mandatory run extension layer (PER RUN)
+In addition to vendor docs, every run must create and maintain:
+```
+app/_docs/
+app/_docs/INDEX.md
+app/_docs/sources.json
+```
+
+**Purpose**:
+- Run-specific augmentation layer
+- Stores any additional docs required by the run (including gaps not covered by vendor docs)
+- Links back to vendor canonical docs rather than duplicating unnecessarily
+
+🚫 If either the vendor docs OR `app/_docs/` is missing, incomplete, or stale, the run is invalid.
+
+#### 3) Required documentation coverage (EVERY RUN)
+
+**Expo (SDK compatibility + modules)**:
+The pipeline must ensure Expo documentation exists locally:
+- Prefer `vendor/expo-docs/`
+- Supplement into `app/_docs/` only if gaps exist
+
+Coverage must include:
+- Expo SDK compatibility & upgrade rules
+- `expo install --check` behavior
+- Expo module versioning expectations
+
+**Rules**:
+- If present in vendor docs: reference it (do not duplicate).
+- If missing/outdated: add to `app/_docs/` and link back in `INDEX.md`.
+
+**RevenueCat (React Native SDK)**:
+The pipeline must treat `vendor/revenuecat-docs/` as canonical and must reference it directly during builds.
+
+If additional RevenueCat material is required beyond vendor docs:
+- Add to `app/_docs/`
+- Link back in `app/_docs/INDEX.md`
+- Update `app/_docs/sources.json` accordingly
+
+**React Native iOS (archive + upstream)**:
+RN iOS documentation must be available locally, sourced from:
+- Archived RN docs (if already vendored, reference them)
+- Upstream GitHub references via the upstream cache (Part B)
+
+These may live in:
+- `vendor/` (if already present)
+- `app/_docs/` (if newly fetched during this run)
+
+#### 4) Docs manifest (NON-NEGOTIABLE)
+Every document referenced during the run—vendor or newly added—must be registered in:
+```
+app/_docs/sources.json
+```
+
+Each entry must include:
+- `url` (original source; null allowed only for vendor docs with repo-local provenance)
+- `local_path`
+- `downloaded_at_iso` OR `verified_at_iso` (vendor docs use verified)
+- `sha256`
+- `used_for` (stage(s) + decision supported)
+
+`app/_docs/INDEX.md` must summarize:
+- Which Expo docs were used (vendor vs added)
+- Which RevenueCat docs were used (vendor vs added)
+- Which RN references were used
+- How each influenced decisions in this run
+
+### PART B — React Native Upstream Reference Cache
+(Auto-executed and enforced on every run)
+
+#### 5) Mandatory upstream cache
+The pipeline must create and maintain:
+```
+app/_upstream/react-native/
+app/_upstream/react-native/manifest.json
+app/_upstream/react-native/INDEX.md
+```
+
+This cache is:
+- Read-only
+- Reference-only
+- Never vendored into app code
+
+#### 6) Authorized upstream sources
+Explicitly authorized:
+- `https://github.com/facebook/react-native`
+- `https://github.com/facebook/react-native-website` (docs source)
+
+#### 7) Usage rules
+Upstream files must be pulled whenever needed for authoritative clarification on:
+- iOS native modules
+- Autolinking
+- CocoaPods/build scripts
+- New Architecture
+- Hermes
+- App extensions
+- Native build tooling edge cases
+
+🚫 Guessing is forbidden.
+
+Every pulled file must be recorded in `manifest.json` with:
+- `source_repo`
+- `source_ref`
+- `source_path`
+- `local_path`
+- `sha256`
+- `reason` (stage + decision)
+
+### PART C — Expo Is the Hard Compatibility Gate
+(Stage 10, build-blocking, no bypass)
+
+#### 8) Absolute Expo rule
+Before any dependency install:
+- Identify Expo SDK version
+- Run: `npx expo install --check`
+- Treat expected versions output as authoritative
+
+**Hard failures**:
+- Silencing errors with resolutions
+- Upgrading Expo to chase dependencies
+- Pinning versions that conflict with Expo expectations
+
+#### 9) Mandatory install loop
+Only allowed sequence:
+1. Confirm Expo SDK
+2. Run `expo install --check`
+3. Align mismatches to expected versions
+4. Re-run until clean
+5. Then `npm install` / `npm ci`
+
+### PART D — RevenueCat Integration Rules
+(Always enforced)
+
+RevenueCat integration must follow locally cached docs in:
+- `vendor/revenuecat-docs/` (canonical)
+- plus any run extensions in `app/_docs/`
+
+Implementation must:
+- Fetch Offerings at runtime
+- Gate features strictly via Entitlements
+- Provide restore purchases UI
+- Handle offline/error states
+- Prevent paywall bypass
+
+### PART E — Stage Usage Rules (02–10)
+
+**Stages 02–09**:
+May consult vendor docs, `app/_docs`, and upstream cache.
+
+**Stage 10 (Build)**:
+MUST consult:
+- `vendor/expo-docs/`
+- `vendor/revenuecat-docs/`
+- `app/_upstream/react-native/`
+
+MUST cite local files in `build_log.md`
+
+🚫 Any uncached reference is invalid.
+
+### PART F — Required Proof Artifacts
+(Build cannot complete without these)
+
+`build_log.md` must include:
+- Expo SDK version
+- Summary of `expo install --check`
+- Dependency mismatch → expected → fix table
+- Links to:
+  - `vendor/expo-docs/`
+  - `vendor/revenuecat-docs/`
+  - `app/_docs/INDEX.md`
+  - `app/_upstream/react-native/INDEX.md`
+
+### PART G — Pipeline Enforcement (AUTO-RUN, EVERY RUN)
+
+#### 10) Mandatory pipeline step (NO PROMPTING)
+`UPSTREAM_REFERENCE_SYNC` is an automatic pipeline hook.
+It runs without asking the user.
+
+**Execution**:
+- **Stage 02 start**: `scripts/upstream_reference_sync.sh` (initialize cache infrastructure)
+- **Stage 10 start**: `scripts/rn_upstream_cache.sh proactive` (pull common build references)
+- **Stage 10 preflight**: `scripts/verify_rn_upstream_usage.sh` (verify cache usage)
+
+**The run fails if**:
+- Vendor docs are missing
+- `app/_docs` is missing/incomplete
+- `app/_upstream/react-native` is missing or invalid
+- Upstream cache manifest lacks required fields
+- Stage 10 cites uncached upstream sources
+- Any stage attempts to bypass this by asking "which command should I run"
+
+### FINAL HARD RULE (GLOBAL)
+Claude must never rely on memory, inference, or undocumented assumptions for Expo, RevenueCat, or React Native behavior.
+
+If a decision matters:
+- the source must exist locally,
+- be hashed,
+- and be explicitly cited.
+
+This applies to every pipeline run, without exception.
 
 ## GENERATED ARTIFACTS & CLEANUP
 

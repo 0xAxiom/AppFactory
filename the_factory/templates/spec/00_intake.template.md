@@ -219,187 +219,54 @@ Example: "batch-specs-183059-forest-rhythm"
 
 Deterministic Behavior: Given the same seed and run_id, the intake should produce consistent exploration vectors and research approach. This enables reproducible market research while avoiding repetition across different runs.
 
-Exploration Vectors
+Evidence-First Exploration (MANDATORY)
 
-Select 3–5 exploration areas per run from:
+Stage 01 MUST begin with a broad evidence sweep across promoted primary sources.
 
-time-saving automation
+Stage 01 MUST extract 30–60 complaint/request "signal cards" before forming any app ideas.
 
-family logistics coordination
+Stage 01 MUST derive 6–10 emergent "Derived Vectors" by clustering signal cards by workflow similarity.
 
-sleep optimization
+Derived Vectors are written into:
+- stage01_research.md (cluster listing + which cards belong)
+- stage01.json -> exploration_config.vectors (array of derived vector labels)
 
-meal planning simplification
+Domain spread remains a goal, but domains are NOT selected in advance and are NOT used as a generator.
 
-financial mindfulness
+Signal Card Requirements:
+- Exact quote (≤25 words from actual user)
+- Context (persona/use case where this occurs)
+- Frequency (daily/weekly/monthly user behavior)
+- Workaround (how users handle this today without the app)
+- Source URL (direct link to evidence)
+- Source type (App Store, YouTube, forum, etc.)
 
-creative output consistency
-
-social interaction simplification
-
-learning retention improvement
-
-energy management optimization
-
-decision fatigue reduction
-
-habit formation psychology
-
-privacy-first alternatives
-
-offline-capable workflows
-
-attention span protection
-
-context switching minimization
-
-mental load offloading
-
-lightweight task management
-
-daily planning simplification
-
-anti-overwhelm workflows
-
-personal rule engines
-
-subscription hygiene tracking
-
-life admin simplification
-
-posture awareness coaching
-
-screen time behavior shaping
-
-hydration habit nudging
-
-stretching reminder systems
-
-burnout prevention signals
-
-energy journaling
-
-mood pattern reflection
-
-stress awareness tools
-
-habit-based wellness
-
-micro-learning delivery
-
-spaced repetition alternatives
-
-note fragmentation cleanup
-
-personal knowledge management
-
-reading comprehension aids
-
-skill practice accountability
-
-curiosity-driven learning
-
-offline study companions
-
-idea capture systems
-
-writer's block mitigation
-
-content batching assistants
-
-creative momentum tracking
-
-daily creative prompts
-
-creator habit accountability
-
-low-friction publishing prep
-
-conversation rehearsal tools
-
-boundary-setting helpers
-
-emotional regulation journaling
-
-self-reflection scaffolding
-
-values clarification tools
-
-confidence-building exercises
-
-meme organization tools
-
-trend tracking for normies
-
-dumb but delightful utilities
-
-anti-optimization apps
-
-nostalgia-driven utilities
-
-aesthetic-first tools
-
-digital self-expression apps
-
-minimal-permission utilities
-
-notification diet tools
-
-digital declutter assistants
-
-personal automation (non-IoT)
-
-control-plane apps for life
-
-neurodivergent-friendly design
-
-elder-friendly tech (non-medical)
-
-blue-collar workflow helpers
-
-solo operator tooling
-
-remote worker rituals
-
-travel friction reduction
-
-time-zone sanity tools
-
-language micro-practice
-
-personal operating systems
-
-self-experiment tracking
-
-reflection-before-action tools
-
-anti-feed consumption tools
-
-daily challenge engines
-
-intentional boredom tools
+Emergent Clustering Rules:
+- Cluster signal cards into 6–10 groups based on workflow similarity
+- Each cluster gets a short, concrete label (becomes a "Derived Vector")
+- Clusters must be workflow-objective labels, not abstract states
+- Select strongest clusters based on evidence density + willingness-to-pay signals + workaround prevalence
 
 Randomization Rules
 
-The seed and vectors must:
+The seed controls:
+- Ordering of evidence sweep queries across primary sources
+- Clustering tie-breakers when grouping signal cards
+- Selection of top clusters when multiple have similar strength
 
-Diversify idea space: Use vectors to explore different problem domains
-
-Remain evidence-driven: All ideas must have concrete market signals
-
-Respect exclusions: Never generate ideas in forbidden categories
-
-Stay deterministic: Same seed produces same exploration approach
-
-Enable debugging: Seed recorded in run artifacts for reproducibility
+Evidence-first requirements:
+- All ideas must derive from clustered signal cards with concrete market evidence
+- Respect exclusions: Never generate ideas in forbidden categories  
+- Stay deterministic: Same seed produces same evidence sweep order and clustering decisions
+- Enable debugging: Seed recorded in run artifacts for reproducibility
 
 Non-Repetition Guard
 
 Stage 01 must:
 
-Avoid near-duplicate concepts by ensuring exploration vectors span diverse problem domains
+Avoid near-duplicate concepts by ensuring derived vectors span diverse workflow areas
 
-Document differentiation when similar domains are explored
+Document differentiation when similar workflow clusters emerge from evidence
 
 Prioritize novel problem spaces when evidence quality is equal
 
@@ -411,43 +278,20 @@ Recorded Intake Format
 ## Exploration Configuration
 - **Run ID**: [generated run identifier]
 - **Seed Phrase**: [timestamp-based seed for reproducible randomization]
-- **Exploration Vectors**: [3-5 selected focus areas]
 - **Generated**: [ISO timestamp]
 
-### Exploration Vector Generation Rules (MANDATORY)
+### Evidence-First Methodology (MANDATORY)
 
-1) **Domain-lens-first sampling**
-- BEFORE choosing specific vectors, select 3–5 domain lenses (conceptual only).
-- Lenses should span multiple consumer-life domains by default.
+Stage 01 will derive exploration vectors from evidence sweep and emergent clustering.
 
-2) **Productivity/attention is allowed but NOT default**
-- "Productivity/attention" (including ADHD/focus/routine/flow) may appear as a lens ONLY if:
-  a) the user explicitly requests it, OR
-  b) the run's discovery playbook includes it as an intentional target.
-- Otherwise, do not select ADHD/focus/routine/flow as a starting vector.
+No pre-selected vectors in intake. Derived vectors will be recorded in:
+- stage01_research.md (with signal card clusters)
+- stage01.json exploration_config.vectors array
 
-3) **Vectors must be phrased neutrally**
-- Avoid "focus/flow/routine/ADHD/executive function" phrasing unless explicitly requested.
-- Prefer neutral verbs and contexts:
-  - "reduce steps for everyday tasks"
-  - "capture information quickly"
-  - "offline simple tracking"
-  - "lightweight home logistics"
-  - "learning practice companions"
-  - "creative output consistency"
-  - "travel friction reduction"
-  - "small utilities users repeatedly search for"
-
-4) **Vectors must be consumer-life diverse**
-- The vector list must represent multiple domains (home, learning, utilities, creativity, travel, etc.).
-- This is a widening instruction for the exploration prompt space; no domain is banned.
-
-### Intake Artifact Precedence
-- If the generated vectors are semantically clustered, regenerate them BEFORE writing 00_intake.md.
-- This is a generation correction, not a validation gate.
+Evidence sweep order and clustering decisions controlled by seed phrase for deterministic reproducibility.
 
 ## Market Research Instructions
-Stage 01 must follow the Market Signal Discovery Playbook above, using the seed and vectors to diversify search patterns while maintaining evidence-based rigor.
+Stage 01 must follow the Market Signal Discovery Playbook above, using the seed to control evidence sweep order and emergent clustering while maintaining evidence-first rigor.
 
 ## Requirements
 [Core requirements from template above]

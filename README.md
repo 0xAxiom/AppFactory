@@ -240,28 +240,45 @@ Most AI tools generate disconnected outputs. App Factory ensures every specifica
 
 **Result**: Every line of generated code traces back to market evidence.
 
-## 🏆 Professional Quality Enforcement
+## 🏆 Production-Grade Pipeline Enforcement
 
-**NO PROBLEMS AT ALL Policy**: Every successful build must install with ZERO npm errors, launch cleanly in iOS Simulator, and render the REAL app (not placeholders).
+**Ship-Ready Apps Only**: The App Factory pipeline is engineered to produce fully polished, store-ready Expo React Native apps that can be submitted to the Apple App Store and Google Play without additional manual work.
 
-### Quality Gate Sequence (Mandatory)
-App Factory enforces professional-grade quality through a series of validation gates:
+### Comprehensive Enforcement System (Fully Implemented)
+App Factory enforces production quality through **executable verification scripts** with **fail-fast behavior**:
 
-1. **🔒 Product Reality Gate (02.5)** - Validates concrete domain objects and user loops
-2. **🔧 Dependency Resolution Gate (02.7)** - Ensures Expo Router + package compatibility  
-3. **🎯 Runtime Sanity Harness (09.5)** - Validates complete app requirements and boot sequence
-4. **🎨 Design Authenticity Check (10.1)** - Prevents generic UI, enforces domain-appropriate design
-5. **📱 Professional Enforcement Layer (10)** - Zero-defect builds or hard failure
+#### 🔧 **Pipeline Infrastructure Enforcement**
+- **Template Canonicalization**: Single source of truth for all 15 stage templates verified by `verify_no_duplicate_stage_templates.sh`
+- **Deterministic Stage Resolution**: 21 test cases verify predictable template resolution via `verify_stage_resolution_is_deterministic.sh`  
+- **Documentation Compliance**: Vendor docs + upstream cache enforced by `verify_reference_compliance.sh` and `verify_rn_upstream_usage.sh`
 
-### Zero Tolerance Standards
-- ❌ **ZERO npm install errors** or warnings
-- ❌ **ZERO TypeScript compilation errors**  
-- ❌ **ZERO app launch crashes** or red screens
-- ❌ **ZERO navigation errors** or dead ends
-- ❌ **ZERO generic placeholder content** (welcome screens, lorem ipsum)
-- ❌ **ZERO broken subscription integration**
+#### 📋 **Asset & Dependency Enforcement**
+- **Asset Contract**: `asset_preflight_check.sh` validates all referenced assets exist or auto-generates placeholders
+- **Expo Compatibility Gate**: `verify_expo_compatibility_gate.sh` enforces dependency alignment before installation
+- **React Native Upstream Cache**: `rn_upstream_cache.sh` caches authoritative files with SHA256 integrity verification
 
-**Result**: Every completed build is production-ready and professional-grade.
+#### 🎨 **Design & Quality Enforcement**  
+- **Design System Compliance**: `verify_design_system_compliance.sh` verifies design tokens, component primitives, and accessibility
+- **Professional Quality Gates**: Stage 02.5, 02.7, 09.5, 10.1 with executable enforcement
+- **Zero-Defect Building**: Stage 10 professional enforcement layer with comprehensive validation
+
+### Enforcement Wiring (Production Ready)
+All verification scripts are **wired to pipeline execution points**:
+
+| Stage | Verification | Purpose | Failure Behavior |
+|-------|-------------|---------|------------------|
+| **Stage 02 Start** | `upstream_reference_sync.sh` | Initialize vendor docs validation | Hard-fail if docs missing |
+| **Stage 07 Complete** | `asset_preflight_check.sh` | Validate/generate required assets | Hard-fail if cannot satisfy contract |
+| **Stage 10 Preflight** | All compatibility verifiers | Comprehensive pre-build validation | Hard-fail on any violation |
+| **Post-Build** | Design & quality verifiers | Verify production readiness | Mark build non-compliant |
+
+### Verified Enforcement Examples
+- ✅ **Deliberate failure test**: Removing `vendor/revenuecat-docs/llms.txt` → verification correctly fails
+- ✅ **Asset recovery test**: Missing `icon.png` → automatically regenerated with deterministic placeholders  
+- ✅ **Template isolation test**: All 15 stage templates verified in canonical location
+- ✅ **Upstream cache test**: SHA256 verification of 3 cached React Native files
+
+**Result**: Every completed build is guaranteed production-ready through **executable enforcement**, not documentation.
 
 **Selective Execution, Not Batch Waste**
 

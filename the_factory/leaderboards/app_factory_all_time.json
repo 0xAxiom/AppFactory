@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-01-08T09:58:08.278005Z",
-  "total_entries": 170,
+  "last_updated": "2026-01-09T08:27:15.496384Z",
+  "total_entries": 200,
   "entry_count_by_run": {
     "app_factory_220354": 10,
     "run_185842": 10,
@@ -18,7 +18,10 @@
     "batch-specs-171643-prism-delta": 10,
     "batch-specs-010718-5233": 10,
     "batch-specs-010721-3472": 10,
-    "factory-094718": 10
+    "factory-094718": 10,
+    "app_factory_222533": 10,
+    "app_factory_224903": 10,
+    "app_factory_000033": 10
   },
   "entries": [
     {
@@ -31,7 +34,7 @@
       "idea_slug": "neurodash",
       "market": "ADHD focus management",
       "target_user": "Adults with ADHD, autism, or other neurodivergent conditions seeking flexible productivity support",
-      "core_loop": "Energy level check-in \u2192 Adaptive task suggestions \u2192 Flexible focus sessions \u2192 Pattern recognition and adjustment",
+      "core_loop": "Energy level check-in → Adaptive task suggestions → Flexible focus sessions → Pattern recognition and adjustment",
       "evidence_summary": "Neurodivergent users abandoning productivity apps within weeks due to inflexible structure requirements",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -48,7 +51,7 @@
       "idea_slug": "focusflow_ai",
       "market": "ADHD focus management",
       "target_user": "Adults with ADHD seeking executive function support without overwhelming structure",
-      "core_loop": "Energy level check-in \u2192 AI-suggested task matching \u2192 Focus session with adaptive breaks \u2192 Pattern learning and adjustment",
+      "core_loop": "Energy level check-in → AI-suggested task matching → Focus session with adaptive breaks → Pattern learning and adjustment",
       "evidence_summary": "ADHD research showing 'disorder of doing what you know' and need for visual, adaptive systems that don't demand rigid adherence",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -65,7 +68,7 @@
       "idea_slug": "mindflow_auto",
       "market": "Decision automation",
       "target_user": "Busy professionals experiencing decision fatigue and productivity app overwhelm",
-      "core_loop": "Morning routine auto-generation \u2192 Smart choice elimination \u2192 Evening reflection and optimization \u2192 Weekly pattern learning",
+      "core_loop": "Morning routine auto-generation → Smart choice elimination → Evening reflection and optimization → Weekly pattern learning",
       "evidence_summary": "Decision fatigue research showing 'every app switch leaves attention residue' and users seeking single automation source",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -82,7 +85,7 @@
       "idea_slug": "energyrhythm",
       "market": "Energy-based productivity",
       "target_user": "Knowledge workers seeking to optimize productivity through awareness of natural energy and focus patterns",
-      "core_loop": "Daily energy pattern tracking \u2192 Smart task-energy matching \u2192 Circadian-optimized scheduling \u2192 Energy trend analysis",
+      "core_loop": "Daily energy pattern tracking → Smart task-energy matching → Circadian-optimized scheduling → Energy trend analysis",
       "evidence_summary": "Users reporting poor task completion when fighting against natural energy rhythms instead of working with them",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -99,7 +102,7 @@
       "idea_slug": "mindsafe",
       "market": "Cognitive burden reduction",
       "target_user": "Knowledge workers struggling with information overload and decision fatigue",
-      "core_loop": "Passively capture user context and decisions \u2192 AI learns patterns and preferences \u2192 Proactively surface relevant information \u2192 User confirms or adjusts recommendations",
+      "core_loop": "Passively capture user context and decisions → AI learns patterns and preferences → Proactively surface relevant information → User confirms or adjusts recommendations",
       "evidence_summary": "Users report: 'I'm tired of apps that require more mental energy to maintain than they save' and 'need something that actually reduces the cognitive load'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -153,7 +156,7 @@
       "idea_slug": "flowstate",
       "market": "Single-session focus environment that consolidates...",
       "target_user": "Knowledge workers who struggle with productivity loss due to constant app switching and digital interruptions",
-      "core_loop": "Launch unified work session \u2192 Access consolidated tools in single interface \u2192 Block external interruptions automatically \u2192 ...",
+      "core_loop": "Launch unified work session → Access consolidated tools in single interface → Block external interruptions automatically → ...",
       "evidence_summary": "Productivity research shows employees lose 3.3 hours weekly to app switching, with 56% reporting per...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -170,7 +173,7 @@
       "idea_slug": "simpleemotion",
       "market": "Diversified consumer life domains",
       "target_user": "People interested in emotional awareness who find existing mood apps overwhelming or too clinical",
-      "core_loop": "Quick mood check-in with simple sliders \u2192 Add optional context with minimal effort \u2192 View emotional patterns over time",
+      "core_loop": "Quick mood check-in with simple sliders → Add optional context with minimal effort → View emotional patterns over time",
       "evidence_summary": "Mood tracking research shows users 'disliked when they felt overwhelmed by the number of options' bu...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -187,7 +190,7 @@
       "idea_slug": "quickflow_auto",
       "market": "Time-saving automation",
       "target_user": "Busy professionals who want automation benefits but lack time for complex productivity system management",
-      "core_loop": "Morning pattern detection \u2192 One-tap routine activation \u2192 Background task automation \u2192 Evening pattern optimization",
+      "core_loop": "Morning pattern detection → One-tap routine activation → Background task automation → Evening pattern optimization",
       "evidence_summary": "Users reporting 'productivity porn' fatigue - spending more time optimizing systems than doing work",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -226,7 +229,7 @@
       "idea_slug": "thoughtcatcher",
       "market": "Brain dump app that captures random thoughts insta...",
       "target_user": "Creative professionals and knowledge workers overwhelmed by scattered ideas who struggle with traditional note organization",
-      "core_loop": "Instant thought capture via text/voice \u2192 AI suggests related previous thoughts \u2192 Simple connection drawing \u2192 ...",
+      "core_loop": "Instant thought capture via text/voice → AI suggests related previous thoughts → Simple connection drawing → ...",
       "evidence_summary": "Note-taking users report 'mental clutter is a big-time creativity killer' and need apps that 'transf...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -264,7 +267,7 @@
       "idea_slug": "executive_function",
       "market": "Executive function support",
       "target_user": "Adults with ADHD, autism, or other executive function challenges seeking cognitive support tools",
-      "core_loop": "Task breakdown with visual aids \u2192 Working memory support \u2192 Cognitive load assessment \u2192 Achievement tracking and motivation",
+      "core_loop": "Task breakdown with visual aids → Working memory support → Cognitive load assessment → Achievement tracking and motivation",
       "evidence_summary": "ADHD community feedback about task paralysis and need for visual, flexible systems that adapt to changing mental states",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -281,7 +284,7 @@
       "idea_slug": "workflowbridge",
       "market": "Workflow automation",
       "target_user": "Remote professionals using multiple productivity tools who lose time on manual data transfer and context switching",
-      "core_loop": "Workflow pattern detection \u2192 Automated cross-app data bridging \u2192 Context preservation \u2192 Workflow optimization suggestions",
+      "core_loop": "Workflow pattern detection → Automated cross-app data bridging → Context preservation → Workflow optimization suggestions",
       "evidence_summary": "Remote workers reporting significant productivity losses from app fragmentation and manual data synchronization",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -298,7 +301,7 @@
       "idea_slug": "cleartasks",
       "market": "Productivity simplification",
       "target_user": "Overwhelmed users who abandoned complex task managers due to setup complexity",
-      "core_loop": "Add task with single tap \u2192 View clean task list \u2192 Mark complete with swipe \u2192 Tasks auto-archive after completion",
+      "core_loop": "Add task with single tap → View clean task list → Mark complete with swipe → Tasks auto-archive after completion",
       "evidence_summary": "App Store reviews: 'Todoist - Why does adding a task need 10 taps?' and 'Any.do - The UI is overwhelming, just want a simple list'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -352,7 +355,7 @@
       "idea_slug": "authentic",
       "market": "Chronological creative platform that displays cont...",
       "target_user": "Digital creators frustrated with algorithm-driven platforms that hide or manipulate their creative content visibility",
-      "core_loop": "Create and share content \u2192 View chronological feed without algorithms \u2192 Connect directly with followers \u2192 ...",
+      "core_loop": "Create and share content → View chronological feed without algorithms → Connect directly with followers → ...",
       "evidence_summary": "App Store reviews emphasize need for platforms with 'pure, authentic expression' and 'fairness, tran...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -369,7 +372,7 @@
       "idea_slug": "flowstate",
       "market": "Energy-aware productivity",
       "target_user": "Remote workers and creatives who struggle with traditional time-based productivity methods",
-      "core_loop": "Track energy levels and focus quality \u2192 Learn optimal focus periods \u2192 Suggest energy-aligned work sessions \u2192 Adapt recommendations based on outcomes",
+      "core_loop": "Track energy levels and focus quality → Learn optimal focus periods → Suggest energy-aligned work sessions → Adapt recommendations based on outcomes",
       "evidence_summary": "Users complain: 'Focus apps don't work because they ignore my energy levels' and 'I'm forced to work when my brain isn't ready'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -407,7 +410,7 @@
       "idea_slug": "familyhub",
       "market": "Family logistics coordination",
       "target_user": "Busy families with children aged 5-18 struggling with coordination across multiple platforms and activities",
-      "core_loop": "Unified family calendar \u2192 Smart task delegation \u2192 Automatic reminder coordination \u2192 Family achievement tracking",
+      "core_loop": "Unified family calendar → Smart task delegation → Automatic reminder coordination → Family achievement tracking",
       "evidence_summary": "Parents reporting decision fatigue from managing separate apps for calendar, chores, allowances, school communications, and activity schedules",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -424,7 +427,7 @@
       "idea_slug": "learnflow",
       "market": "Diversified consumer life domains",
       "target_user": "Students and lifelong learners frustrated with boring flashcard apps who want effective spaced repetition without the tedium",
-      "core_loop": "Learn concepts through interactive mini-lessons \u2192 Get spaced review prompts with varied formats \u2192 Practice with contextual scenarios",
+      "core_loop": "Learn concepts through interactive mini-lessons → Get spaced review prompts with varied formats → Practice with contextual scenarios",
       "evidence_summary": "Learning research shows users find 'doing flashcards to be incredibly boring, tedious, and energy-dr...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -441,7 +444,7 @@
       "idea_slug": "canvas",
       "market": "Pure creative expression platform focused on authe...",
       "target_user": "Digital artists and creators frustrated with algorithm-driven platforms that hide or manipulate their creative content",
-      "core_loop": "Create and share authentic content \u2192 Discover work through chronological feeds \u2192 Connect directly with other creators \u2192 ...",
+      "core_loop": "Create and share authentic content → Discover work through chronological feeds → Connect directly with other creators → ...",
       "evidence_summary": "App Store reviews highlight need for platforms with 'no shadowbans, no hidden algorithms, no bias. J...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -458,7 +461,7 @@
       "idea_slug": "secureflow",
       "market": "Privacy-first productivity",
       "target_user": "Privacy-conscious professionals who want productivity tools without data surveillance",
-      "core_loop": "Local task creation \u2192 Encrypted cross-device sync \u2192 Privacy dashboard monitoring \u2192 Secure team collaboration",
+      "core_loop": "Local task creation → Encrypted cross-device sync → Privacy dashboard monitoring → Secure team collaboration",
       "evidence_summary": "Privacy movement evidence: 19 countries banned TikTok by 2024, users actively seeking alternatives to surveillance-based productivity tools",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -475,7 +478,7 @@
       "idea_slug": "focussimple",
       "market": "ADHD-friendly focus environment",
       "target_user": "ADHD and easily distracted users who need simple, powerful focus tools without feature overwhelm",
-      "core_loop": "One-tap focus activation \u2192 Intelligent distraction blocking \u2192 Single-task focus sessions \u2192 Gentle transition support",
+      "core_loop": "One-tap focus activation → Intelligent distraction blocking → Single-task focus sessions → Gentle transition support",
       "evidence_summary": "Users with attention challenges abandoning complex focus apps due to too many options and settings",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -513,7 +516,7 @@
       "idea_slug": "burnoutwatch",
       "market": "Personal burnout monitoring app that tracks subtle...",
       "target_user": "Working professionals who struggle to recognize burnout symptoms before they become severe and impact performance",
-      "core_loop": "Daily quick energy check-ins \u2192 Track work engagement patterns \u2192 Monitor sleep and focus quality \u2192 ...",
+      "core_loop": "Daily quick energy check-ins → Track work engagement patterns → Monitor sleep and focus quality → ...",
       "evidence_summary": "Workplace research shows users experience 'fatigue that lingers no matter how much sleep you get' an...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -573,7 +576,7 @@
       "idea_slug": "energy_flow",
       "market": "Energy-based productivity",
       "target_user": "Knowledge workers seeking to optimize productivity through natural energy rhythm awareness",
-      "core_loop": "Daily energy pattern tracking \u2192 AI-powered task scheduling \u2192 Circadian-optimized notifications \u2192 Energy trend analysis",
+      "core_loop": "Daily energy pattern tracking → AI-powered task scheduling → Circadian-optimized notifications → Energy trend analysis",
       "evidence_summary": "Research on decision quality declining throughout day, users seeking energy-based scheduling to optimize mental performance",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -590,7 +593,7 @@
       "idea_slug": "mindfultech",
       "market": "Digital wellness",
       "target_user": "Digitally overwhelmed individuals seeking healthier technology relationships without additional complexity",
-      "core_loop": "Passive usage pattern analysis \u2192 Gentle intention prompts \u2192 Ambient awareness building \u2192 Progressive behavior shifts",
+      "core_loop": "Passive usage pattern analysis → Gentle intention prompts → Ambient awareness building → Progressive behavior shifts",
       "evidence_summary": "Users seeking digital wellness solutions that don't contribute to the problem of too many apps and notifications",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -628,7 +631,7 @@
       "idea_slug": "habitdots",
       "market": "Simplified habit tracking",
       "target_user": "People who failed at complex habit trackers and want pure visual progress without gamification",
-      "core_loop": "Open app \u2192 Tap dot for today \u2192 See visual progress grid \u2192 Feel satisfaction from pattern completion",
+      "core_loop": "Open app → Tap dot for today → See visual progress grid → Feel satisfaction from pattern completion",
       "evidence_summary": "App Store: 'Habitica - I don't want RPG stuff, just track if I did it' and Chrome Extension reviews wanting simpler habit tracking",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -645,7 +648,7 @@
       "idea_slug": "ruleforge",
       "market": "Simple personal automation app that creates if-the...",
       "target_user": "Busy professionals who want task automation but find existing apps too complex or requiring too much manual setup",
-      "core_loop": "Define simple if-then rules in plain language \u2192 Automate recurring decisions and tasks \u2192 Monitor rule effectiveness \u2192 ...",
+      "core_loop": "Define simple if-then rules in plain language → Automate recurring decisions and tasks → Monitor rule effectiveness → ...",
       "evidence_summary": "User complaints show productivity apps 'require me to manually assign a date and time to every singl...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -662,7 +665,7 @@
       "idea_slug": "tinywins",
       "market": "Anti-complexity habit formation",
       "target_user": "Habit-forming beginners overwhelmed by traditional habit tracking complexity",
-      "core_loop": "Pick one tiny habit \u2192 Single-tap confirmation \u2192 Invisible progress tracking \u2192 Gentle, context-aware reminders",
+      "core_loop": "Pick one tiny habit → Single-tap confirmation → Invisible progress tracking → Gentle, context-aware reminders",
       "evidence_summary": "Users report: 'All habit apps are too complicated' and 'I spend more time managing the app than doing the habits'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -679,7 +682,7 @@
       "idea_slug": "studybuddy",
       "market": "Offline-first study companion that syncs when conn...",
       "target_user": "Students in areas with poor connectivity who struggle with study apps that require constant internet access",
-      "core_loop": "Download study materials when connected \u2192 Study completely offline with notes and quizzes \u2192 Track progress locally \u2192 ...",
+      "core_loop": "Download study materials when connected → Study completely offline with notes and quizzes → Track progress locally → ...",
       "evidence_summary": "Educational research shows 'internet access is dependent on context and is a major constraint on opp...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -733,7 +736,7 @@
       "idea_slug": "creativeflow",
       "market": "Creative workflow enhancement",
       "target_user": "Freelance designers and small creative teams juggling multiple tools for each project",
-      "core_loop": "Project setup with tool integration \u2192 Unified timeline and asset tracking \u2192 In-context feedback and approvals \u2192 Version control across platforms",
+      "core_loop": "Project setup with tool integration → Unified timeline and asset tracking → In-context feedback and approvals → Version control across platforms",
       "evidence_summary": "Creative professionals reporting productivity loss from constant context switching and file management overhead",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -750,7 +753,7 @@
       "idea_slug": "choice_less",
       "market": "Decision elimination",
       "target_user": "Overwhelmed professionals seeking to reduce decision fatigue through intelligent automation",
-      "core_loop": "Choice audit and identification \u2192 Smart default setup \u2192 Automated decision execution \u2192 Outcome tracking and optimization",
+      "core_loop": "Choice audit and identification → Smart default setup → Automated decision execution → Outcome tracking and optimization",
       "evidence_summary": "Decision fatigue research showing users want apps that eliminate rather than add choices, seeking 'decision-free living' solutions",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -788,7 +791,7 @@
       "idea_slug": "ideaflow",
       "market": "Visual idea organization tool that helps creative ...",
       "target_user": "Creative professionals and researchers who think visually and struggle with linear note-taking systems",
-      "core_loop": "Capture ideas as visual nodes \u2192 Arrange thoughts spatially \u2192 Draw connections between ideas \u2192 ...",
+      "core_loop": "Capture ideas as visual nodes → Arrange thoughts spatially → Draw connections between ideas → ...",
       "evidence_summary": "Creative workers describe apps that 'generate article outlines from your scattered thoughts' and hel...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -805,7 +808,7 @@
       "idea_slug": "studyengager",
       "market": "Diversified consumer life domains",
       "target_user": "Students who abandoned flashcard apps due to boredom but still need effective spaced repetition learning",
-      "core_loop": "Progress through story-based learning adventures \u2192 Answer contextual questions as story challenges \u2192 Unlock new story chapters with learning progress",
+      "core_loop": "Progress through story-based learning adventures → Answer contextual questions as story challenges → Unlock new story chapters with learning progress",
       "evidence_summary": "Educational app reviews show students want 'alternatives to Anki less complicated' and find traditio...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -865,7 +868,7 @@
       "idea_slug": "private_vault",
       "market": "Privacy-first data management",
       "target_user": "Privacy-conscious individuals wanting secure personal data storage without cloud surveillance",
-      "core_loop": "Secure document upload \u2192 Encrypted categorization \u2192 Biometric access control \u2192 Selective sharing with encryption",
+      "core_loop": "Secure document upload → Encrypted categorization → Biometric access control → Selective sharing with encryption",
       "evidence_summary": "Privacy-first movement driving demand for secure personal data management as users seek alternatives to surveillance-based cloud storage",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -882,7 +885,7 @@
       "idea_slug": "habitlink",
       "market": "Habit formation psychology",
       "target_user": "Individuals who struggle with habit consistency due to forgetting to engage with dedicated habit tracking apps",
-      "core_loop": "Ambient cue integration \u2192 Passive habit detection \u2192 Contextual reinforcement \u2192 Background pattern optimization",
+      "core_loop": "Ambient cue integration → Passive habit detection → Contextual reinforcement → Background pattern optimization",
       "evidence_summary": "High abandonment rates of habit tracking apps due to the need to remember to use yet another app",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -936,7 +939,7 @@
       "idea_slug": "quicknote",
       "market": "Frictionless note capture",
       "target_user": "Note-takers who abandoned apps like Obsidian/Roam due to complexity and want frictionless capture",
-      "core_loop": "Open app to blank note \u2192 Start typing immediately \u2192 Notes auto-save \u2192 Swipe to start new note",
+      "core_loop": "Open app to blank note → Start typing immediately → Notes auto-save → Swipe to start new note",
       "evidence_summary": "YouTube comments: 'I just want to write things down, not build a graph' and Obsidian App Store reviews about learning curve complexity",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -953,7 +956,7 @@
       "idea_slug": "focusflow",
       "market": "Adaptive focus sessions that adjust timing and bre...",
       "target_user": "People with attention challenges who find rigid focus timers don't match their natural attention patterns",
-      "core_loop": "Start adaptive focus session \u2192 System adjusts timing based on your patterns \u2192 Smart break suggestions when attention dips \u2192 ...",
+      "core_loop": "Start adaptive focus session → System adjusts timing based on your patterns → Smart break suggestions when attention dips → ...",
       "evidence_summary": "ADHD app research shows users 'love this app' and find 'significant improvements in concentration' w...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -970,7 +973,7 @@
       "idea_slug": "contextai",
       "market": "Context-sensitive planning",
       "target_user": "Busy professionals whose days are unpredictable and don't fit rigid planning systems",
-      "core_loop": "Input daily context and constraints \u2192 AI suggests realistic plan \u2192 Track actual execution vs plan \u2192 Learn and improve future planning",
+      "core_loop": "Input daily context and constraints → AI suggests realistic plan → Track actual execution vs plan → Learn and improve future planning",
       "evidence_summary": "Users complain: 'My planner doesn't understand my life context' and 'rigid schedules break when real life happens'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -987,7 +990,7 @@
       "idea_slug": "taskmerge",
       "market": "Task consolidation app that groups related activit...",
       "target_user": "Professional workers overwhelmed by fragmented task management across multiple apps and platforms",
-      "core_loop": "Import tasks from various sources \u2192 Smart grouping by context and priority \u2192 Work on batched related tasks \u2192 ...",
+      "core_loop": "Import tasks from various sources → Smart grouping by context and priority → Work on batched related tasks → ...",
       "evidence_summary": "Workplace studies show 20% of cognitive capacity lost during context switching with average 9.5 minu...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -1004,7 +1007,7 @@
       "idea_slug": "energytrack",
       "market": "Simple energy level tracker that helps identify pa...",
       "target_user": "Busy professionals who experience energy fluctuations but struggle to identify patterns or early warning signs",
-      "core_loop": "Quick daily energy ratings \u2192 Track energy vs. sleep/work patterns \u2192 Identify energy drain sources \u2192 ...",
+      "core_loop": "Quick daily energy ratings → Track energy vs. sleep/work patterns → Identify energy drain sources → ...",
       "evidence_summary": "Burnout research shows early signs include 'persistent fatigue' and 'inability to concentrate' that ...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -1021,7 +1024,7 @@
       "idea_slug": "feelingsflow",
       "market": "Diversified consumer life domains",
       "target_user": "Busy individuals who want emotional awareness but struggle with traditional text-based journaling requirements",
-      "core_loop": "Record quick voice notes about feelings \u2192 Tag emotions with simple visual icons \u2192 Review emotional patterns through timeline",
+      "core_loop": "Record quick voice notes about feelings → Tag emotions with simple visual icons → Review emotional patterns through timeline",
       "evidence_summary": "Emotion tracking app reviews emphasize need for 'simple emotion diary app feelings' that allows 'eas...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -1081,7 +1084,7 @@
       "idea_slug": "creative_flow",
       "market": "Creative workflow management",
       "target_user": "Small creative teams and freelancers juggling multiple tools for project management",
-      "core_loop": "Project setup with asset linking \u2192 Visual timeline tracking \u2192 Inline feedback on files \u2192 Version control and approval",
+      "core_loop": "Project setup with asset linking → Visual timeline tracking → Inline feedback on files → Version control and approval",
       "evidence_summary": "Creative teams report friction from 'managing different elements with different tools' and file management becoming 'extremely overwhelming'",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -1098,7 +1101,7 @@
       "idea_slug": "vaultkeeper",
       "market": "Privacy-first alternatives",
       "target_user": "Privacy-conscious individuals who need secure document storage without cloud surveillance concerns",
-      "core_loop": "Secure document upload \u2192 Local encryption and categorization \u2192 Biometric access control \u2192 Private encrypted sync",
+      "core_loop": "Secure document upload → Local encryption and categorization → Biometric access control → Private encrypted sync",
       "evidence_summary": "Growing distrust of major cloud providers scanning documents for AI training and government compliance",
       "source_paths": {
         "run_dir": "runs/2026-01-06/app_factory_220354",
@@ -1137,7 +1140,7 @@
       "idea_slug": "momentumkeeper",
       "market": "Diversified consumer life domains",
       "target_user": "Creative professionals who struggle with inconsistent creative output and want to understand their productive patterns",
-      "core_loop": "Log daily creative work and energy levels \u2192 Identify peak creative periods \u2192 Get momentum warnings when productivity drops",
+      "core_loop": "Log daily creative work and energy levels → Identify peak creative periods → Get momentum warnings when productivity drops",
       "evidence_summary": "Creative productivity research shows need for tools that 'keep ideas flowing and projects on track w...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -1175,7 +1178,7 @@
       "idea_slug": "flowmind",
       "market": "Executive function support app designed specifical...",
       "target_user": "Adults with ADHD who struggle with executive function and need adaptive support without rigid structure requirements",
-      "core_loop": "Check current energy and focus levels \u2192 Get adaptive task suggestions \u2192 Use visual working memory aids \u2192 ...",
+      "core_loop": "Check current energy and focus levels → Get adaptive task suggestions → Use visual working memory aids → ...",
       "evidence_summary": "ADHD research shows users need apps that help with 'working memory' and 'executive function' beyond ...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -1229,7 +1232,7 @@
       "idea_slug": "simpletap",
       "market": "Large-button utility app for common daily tasks de...",
       "target_user": "Older adults frustrated with small text and complicated menus who need simple tools for daily digital tasks",
-      "core_loop": "Choose task from large, clear buttons \u2192 Complete action with minimal steps \u2192 Get simple confirmation feedback \u2192 ...",
+      "core_loop": "Choose task from large, clear buttons → Complete action with minimal steps → Get simple confirmation feedback → ...",
       "evidence_summary": "Senior usability research shows 'technology can often leave seniors feeling overwhelmed, excluded, a...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -1246,7 +1249,7 @@
       "idea_slug": "simpletools",
       "market": "Collection of essential utility functions that wor...",
       "target_user": "Privacy-conscious users frustrated with permission-heavy apps who need basic tools without data collection",
-      "core_loop": "Access utilities without permissions \u2192 Use tools completely offline \u2192 No data collection or tracking \u2192 ...",
+      "core_loop": "Access utilities without permissions → Use tools completely offline → No data collection or tracking → ...",
       "evidence_summary": "Privacy research shows 'top Android apps require 11 dangerous permissions on average' with users see...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -1263,7 +1266,7 @@
       "idea_slug": "workflow_sync",
       "market": "Creative workflow synchronization",
       "target_user": "Creative professionals and teams working across multiple design platforms and collaboration tools",
-      "core_loop": "Multi-platform file sync \u2192 Version conflict resolution \u2192 Team notification system \u2192 Project timeline tracking",
+      "core_loop": "Multi-platform file sync → Version conflict resolution → Team notification system → Project timeline tracking",
       "evidence_summary": "Creative teams frustrated by 'seamless imports, exports, file sync' challenges across Adobe, Figma, and other creative tools",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -1280,7 +1283,7 @@
       "idea_slug": "simpletimer",
       "market": "Flexible focus timing",
       "target_user": "Focus app users frustrated by rigid timers that don't accommodate real-world interruptions",
-      "core_loop": "Set simple timer \u2192 Work during session \u2192 Pause if interrupted without penalty \u2192 Resume when ready",
+      "core_loop": "Set simple timer → Work during session → Pause if interrupted without penalty → Resume when ready",
       "evidence_summary": "Chrome Extension reviews: 'StayFocusd - Timer is too rigid, real life isn't predictable' and Forest app reviews about session interruption",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -1297,7 +1300,7 @@
       "idea_slug": "escapehatch",
       "market": "Emergency stress relief",
       "target_user": "High-stress individuals who need immediate, practical tools for emotional regulation during work",
-      "core_loop": "Detect stress trigger moment \u2192 Choose quick intervention technique \u2192 Complete 30-90 second exercise \u2192 Track effectiveness for personalization",
+      "core_loop": "Detect stress trigger moment → Choose quick intervention technique → Complete 30-90 second exercise → Track effectiveness for personalization",
       "evidence_summary": "Users need: 'Quick way to reset when overwhelmed' and 'emergency stress relief that actually works in the moment'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -1314,7 +1317,7 @@
       "idea_slug": "mindspace",
       "market": "Visual workspace for ADHD users that externalizes ...",
       "target_user": "Adults with ADHD who struggle with working memory and need visual, spatial tools to manage information and tasks",
-      "core_loop": "Organize thoughts and tasks spatially \u2192 Use visual cues for memory support \u2192 Create flexible visual systems \u2192 ...",
+      "core_loop": "Organize thoughts and tasks spatially → Use visual cues for memory support → Create flexible visual systems → ...",
       "evidence_summary": "ADHD research shows users need 'visual, adaptive systems' that help with 'working memory' and execut...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -1331,7 +1334,7 @@
       "idea_slug": "mindfulbreak",
       "market": "Intentional boredom cultivation app that guides us...",
       "target_user": "Users interested in digital wellness who want structured alternatives to screen time rather than just blocking apps",
-      "core_loop": "Schedule meaningful break periods \u2192 Choose guided offline activities \u2192 Engage in intentional boredom exercises \u2192 ...",
+      "core_loop": "Schedule meaningful break periods → Choose guided offline activities → Engage in intentional boredom exercises → ...",
       "evidence_summary": "Digital detox app reviews show users appreciate apps that 'address stress, boredom, or anxiety' with...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -1348,7 +1351,7 @@
       "idea_slug": "decidepause",
       "market": "Decision delay app that implements cooling-off per...",
       "target_user": "Impulse shoppers and decision-makers who want structured delays to make more thoughtful choices",
-      "core_loop": "Set decision delay rules \u2192 Register important decisions \u2192 Enforce cooling-off periods \u2192 ...",
+      "core_loop": "Set decision delay rules → Register important decisions → Enforce cooling-off periods → ...",
       "evidence_summary": "Decision-making research shows users benefit from '24-Hour Rule' and 'setting a timer and forcing yo...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -1445,7 +1448,7 @@
       "idea_slug": "memorymate",
       "market": "Diversified consumer life domains",
       "target_user": "Adult learners who find flashcard apps boring but want effective spaced repetition for professional development",
-      "core_loop": "Chat with AI about topics you're learning \u2192 Get questions naturally woven into conversations \u2192 Review through follow-up discussions",
+      "core_loop": "Chat with AI about topics you're learning → Get questions naturally woven into conversations → Review through follow-up discussions",
       "evidence_summary": "Learning app research shows users seeking 'simple alternative to ANKI' that avoids 'endless flashcar...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -1462,7 +1465,7 @@
       "idea_slug": "focus_space",
       "market": "ADHD-friendly focus environment",
       "target_user": "ADHD professionals needing distraction-free work environment without complex productivity features",
-      "core_loop": "Distraction blocking activation \u2192 Single-task focus session \u2192 Visual progress tracking \u2192 Gentle transition reminders",
+      "core_loop": "Distraction blocking activation → Single-task focus session → Visual progress tracking → Gentle transition reminders",
       "evidence_summary": "ADHD users reporting need for 'one app, one purpose' solutions to reduce app switching friction and attention residue",
       "source_paths": {
         "run_dir": "runs/2026-01-06/run_185842",
@@ -1580,7 +1583,7 @@
       "idea_slug": "expresssafe",
       "market": "Creative sharing app with built-in identity verifi...",
       "target_user": "Digital artists who want to share work in communities free from bots, fake accounts, and algorithmic manipulation",
-      "core_loop": "Verify creator identity once \u2192 Share work in verified community \u2192 Connect with real humans only \u2192 ...",
+      "core_loop": "Verify creator identity once → Share work in verified community → Connect with real humans only → ...",
       "evidence_summary": "Creative app reviews show concerns about 'authenticity and safety' with platforms where users questi...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -1597,7 +1600,7 @@
       "idea_slug": "learnlocal",
       "market": "Community-based offline learning app that enables ...",
       "target_user": "Students in low-connectivity areas who struggle with educational apps that require constant internet access",
-      "core_loop": "Download educational content in connected areas \u2192 Share content locally with nearby students \u2192 Study collaboratively offline \u2192 ...",
+      "core_loop": "Download educational content in connected areas → Share content locally with nearby students → Study collaboratively offline → ...",
       "evidence_summary": "Educational access studies show students 'go to great lengths in search of stable Wi-Fi connection' ...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -1614,7 +1617,7 @@
       "idea_slug": "timezone",
       "market": "Personal time zone coordinator for remote workers ...",
       "target_user": "Remote workers and frequent travelers who coordinate with teams across multiple time zones and make scheduling mistakes",
-      "core_loop": "Add key contacts with time zones \u2192 Visual time overlap finder \u2192 One-tap meeting scheduling \u2192 ...",
+      "core_loop": "Add key contacts with time zones → Visual time overlap finder → One-tap meeting scheduling → ...",
       "evidence_summary": "Remote workers report 'it's impossible to keep track of everyone's local time zone all the time' and...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -1631,7 +1634,7 @@
       "idea_slug": "creativerhythm",
       "market": "Diversified consumer life domains",
       "target_user": "Artists and creatives who experience inconsistent creative output and want to optimize their creative work schedules",
-      "core_loop": "Track daily creative energy levels \u2192 Log creative work completed and quality \u2192 Identify peak creative time patterns",
+      "core_loop": "Track daily creative energy levels → Log creative work completed and quality → Identify peak creative time patterns",
       "evidence_summary": "Creative productivity research shows artists need tools to 'overcome creative blocks' and maintain '...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -1648,7 +1651,7 @@
       "idea_slug": "boredombuddy",
       "market": "Diversified consumer life domains",
       "target_user": "Users seeking digital wellness who struggle with phone-free time and need structured alternatives to scrolling",
-      "core_loop": "Select available time and current mood \u2192 Get personalized offline activity suggestions \u2192 Track completed activities and satisfaction",
+      "core_loop": "Select available time and current mood → Get personalized offline activity suggestions → Track completed activities and satisfaction",
       "evidence_summary": "Digital wellness research shows users need 'activities to get rid of boredom without smartphone' wit...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -1665,7 +1668,7 @@
       "idea_slug": "cleanplanner",
       "market": "Digital planner apps",
       "target_user": "PDF planner users who want the same clean layouts but with the convenience of a mobile app",
-      "core_loop": "Open today's clean page layout \u2192 Fill in planned items and priorities \u2192 Check off completed items \u2192 Page auto-resets for tomorrow",
+      "core_loop": "Open today's clean page layout → Fill in planned items and priorities → Check off completed items → Page auto-resets for tomorrow",
       "evidence_summary": "Gumroad/Etsy reviews: 'Wish there was an app version of this exact layout' and 'Digital planners in apps are never as clean as these PDFs'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -1682,7 +1685,7 @@
       "idea_slug": "vitalpulse",
       "market": "Energy pattern intelligence",
       "target_user": "People experiencing inconsistent energy levels who want to identify patterns without complex health tracking",
-      "core_loop": "Quick daily energy check-in \u2192 Log key activities and factors \u2192 Identify energy patterns \u2192 Get personalized energy optimization tips",
+      "core_loop": "Quick daily energy check-in → Log key activities and factors → Identify energy patterns → Get personalized energy optimization tips",
       "evidence_summary": "Users say: 'I need to understand why I'm tired all the time' and 'wish I could predict my energy crashes'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -1699,7 +1702,7 @@
       "idea_slug": "simpleutils",
       "market": "Collection of basic utility functions that work en...",
       "target_user": "Privacy-conscious users who need basic utility functions but avoid apps with excessive permission requests",
-      "core_loop": "Access utilities without any permissions \u2192 Use tools completely offline \u2192 No data collection or tracking \u2192 ...",
+      "core_loop": "Access utilities without any permissions → Use tools completely offline → No data collection or tracking → ...",
       "evidence_summary": "Research shows 'six-in-ten downloaders have chosen not to install an app when they discovered how mu...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -1716,7 +1719,7 @@
       "idea_slug": "pausespace",
       "market": "Flexible digital break app that creates intentiona...",
       "target_user": "Users seeking digital detox but frustrated with all-or-nothing blocking apps that don't fit their work schedules",
-      "core_loop": "Schedule flexible pause periods \u2192 Enter gentle offline mode \u2192 Engage with intentional boredom activities \u2192 ...",
+      "core_loop": "Schedule flexible pause periods → Enter gentle offline mode → Engage with intentional boredom activities → ...",
       "evidence_summary": "Digital detox research shows users frustrated with rigid blocking, citing 'you can't schedule sessio...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -1770,7 +1773,7 @@
       "idea_slug": "choiceless",
       "market": "Decision automation",
       "target_user": "Decision-fatigued professionals who want to eliminate mental overhead from routine choices",
-      "core_loop": "Identify recurring decisions \u2192 Set decision rules and preferences \u2192 Auto-suggest choices based on rules \u2192 Refine rules based on satisfaction",
+      "core_loop": "Identify recurring decisions → Set decision rules and preferences → Auto-suggest choices based on rules → Refine rules based on satisfaction",
       "evidence_summary": "Users report: 'Decision fatigue is killing my productivity' and 'I waste hours on trivial decisions'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -1809,7 +1812,7 @@
       "idea_slug": "quickrules",
       "market": "Voice-activated personal rule system that creates ...",
       "target_user": "Professionals who want automation benefits but find existing tools too technical or time-consuming to set up",
-      "core_loop": "Speak automation rules in natural language \u2192 System creates and activates rules \u2192 Monitor rule performance \u2192 ...",
+      "core_loop": "Speak automation rules in natural language → System creates and activates rules → Monitor rule performance → ...",
       "evidence_summary": "Productivity app users complain about 'steep learning curve' and need for apps that 'automate intell...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -1826,7 +1829,7 @@
       "idea_slug": "pausepoint",
       "market": "Micro-intervention app that creates thoughtful pau...",
       "target_user": "People who make impulsive decisions and want simple tools to pause and reflect without complex meditation practices",
-      "core_loop": "Set decision trigger categories \u2192 Get gentle pause notifications \u2192 Quick reflection prompts \u2192 ...",
+      "core_loop": "Set decision trigger categories → Get gentle pause notifications → Quick reflection prompts → ...",
       "evidence_summary": "Impulse control research shows users need 'pause points before making decisions' and value 'external...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -1864,7 +1867,7 @@
       "idea_slug": "mindfulmoments",
       "market": "Diversified consumer life domains",
       "target_user": "Mindfulness beginners who struggle with long meditation apps but want quick mental breaks throughout the day",
-      "core_loop": "Get prompted for quick mindfulness moments \u2192 Choose 1-5 minute mindfulness exercises \u2192 Complete offline breathing or awareness exercises",
+      "core_loop": "Get prompted for quick mindfulness moments → Choose 1-5 minute mindfulness exercises → Complete offline breathing or awareness exercises",
       "evidence_summary": "Digital wellness research shows users want 'digital detox activities' but need 'mindfulness and medi...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -1924,7 +1927,7 @@
       "idea_slug": "personalwiki",
       "market": "Offline knowledge management",
       "target_user": "Knowledge workers tired of cloud-dependent note apps who want reliable offline access to their information",
-      "core_loop": "Add pages for topics \u2192 Link related pages simply \u2192 Search all content offline \u2192 Information always accessible",
+      "core_loop": "Add pages for topics → Link related pages simply → Search all content offline → Information always accessible",
       "evidence_summary": "Chrome Extension reviews wanting offline knowledge tools and YouTube comments about app dependency fatigue",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -1962,7 +1965,7 @@
       "idea_slug": "createflow",
       "market": "Distraction-free creative workspace that blocks so...",
       "target_user": "Digital creators who struggle to maintain creative focus due to social media interruptions and algorithmic pressure",
-      "core_loop": "Start focused creative session \u2192 Work in distraction-free environment \u2192 Save work without sharing pressure \u2192 ...",
+      "core_loop": "Start focused creative session → Work in distraction-free environment → Save work without sharing pressure → ...",
       "evidence_summary": "Creative platform reviews emphasize need for authentic expression tools that aren't subject to algor...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -1979,7 +1982,7 @@
       "idea_slug": "privacytools",
       "market": "Audit tool that analyzes installed apps' permissio...",
       "target_user": "Privacy-conscious users who want to understand and minimize the data exposure from their installed apps",
-      "core_loop": "Scan installed apps for permissions \u2192 Get privacy risk assessment \u2192 Discover minimal-permission alternatives \u2192 ...",
+      "core_loop": "Scan installed apps for permissions → Get privacy risk assessment → Discover minimal-permission alternatives → ...",
       "evidence_summary": "Privacy research shows users concerned about 'permission abuse' and apps that 'collect and sell larg...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -1996,7 +1999,7 @@
       "idea_slug": "meetingzone",
       "market": "Smart meeting scheduler that finds optimal time sl...",
       "target_user": "Small team leaders and remote workers who struggle to find meeting times that work across different time zones",
-      "core_loop": "Input team member locations \u2192 Find overlapping work hours \u2192 Suggest optimal meeting times \u2192 ...",
+      "core_loop": "Input team member locations → Find overlapping work hours → Suggest optimal meeting times → ...",
       "evidence_summary": "Remote work coordination shows users need 'one window of overlapping times where most employees can ...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -2050,7 +2053,7 @@
       "idea_slug": "restrhythm",
       "market": "Intelligent micro-break coaching",
       "target_user": "Desk workers and remote professionals who skip breaks and experience burnout from continuous work",
-      "core_loop": "Monitor work intensity patterns \u2192 Suggest personalized micro-breaks \u2192 Track recovery effectiveness \u2192 Optimize break timing and content",
+      "core_loop": "Monitor work intensity patterns → Suggest personalized micro-breaks → Track recovery effectiveness → Optimize break timing and content",
       "evidence_summary": "Users need: 'Reminders to take breaks that aren't annoying' and 'micro-recovery that fits into busy schedules'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -2067,7 +2070,7 @@
       "idea_slug": "offlineadventure",
       "market": "Diversified consumer life domains",
       "target_user": "Digital wellness enthusiasts who want to reduce screen time but need motivation and structure for offline activities",
-      "core_loop": "Choose offline activity categories to explore \u2192 Complete activities and earn achievement badges \u2192 Track offline time and activity completion",
+      "core_loop": "Choose offline activity categories to explore → Complete activities and earn achievement badges → Track offline time and activity completion",
       "evidence_summary": "Digital detox research shows users seeking '200 activities to do instead of being on your phone' wit...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-213456",
@@ -2084,7 +2087,7 @@
       "idea_slug": "guideme",
       "market": "Step-by-step video guidance app for older adults l...",
       "target_user": "Older adults who feel anxious about technology and need patient, clear guidance for basic smartphone functions",
-      "core_loop": "Choose task from simple menu \u2192 Watch step-by-step video guide \u2192 Practice with gentle prompts \u2192 ...",
+      "core_loop": "Choose task from simple menu → Watch step-by-step video guide → Practice with gentle prompts → ...",
       "evidence_summary": "Senior app research shows older users prefer 'video tutorials' over written instructions with need f...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-201327",
@@ -2101,7 +2104,7 @@
       "idea_slug": "memestash",
       "market": "Personal meme and reaction image organizer with sm...",
       "target_user": "Heavy social media users who collect memes and reaction images but struggle to find and organize them effectively",
-      "core_loop": "Save memes from various sources \u2192 Auto-tag with AI recognition \u2192 Quick search by mood/context \u2192 ...",
+      "core_loop": "Save memes from various sources → Auto-tag with AI recognition → Quick search by mood/context → ...",
       "evidence_summary": "Content management studies show 'content scattered across departments, platforms and authoring tools...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-204537",
@@ -2161,7 +2164,7 @@
       "idea_slug": "energylog",
       "market": "Personal energy management",
       "target_user": "People who want to understand their energy patterns without complex health tracking or biometric integration",
-      "core_loop": "Rate morning energy level \u2192 Log major energy drains/gains \u2192 See weekly energy patterns \u2192 Adjust schedule based on patterns",
+      "core_loop": "Rate morning energy level → Log major energy drains/gains → See weekly energy patterns → Adjust schedule based on patterns",
       "evidence_summary": "YouTube comments about energy management and Reddit confirmation of daily energy pattern interest",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -2199,7 +2202,7 @@
       "idea_slug": "permissioncheck",
       "market": "App permission auditor that helps users understand...",
       "target_user": "Privacy-aware users who install many apps but struggle to monitor and control permission requests over time",
-      "core_loop": "Scan installed app permissions \u2192 Highlight unnecessary requests \u2192 Suggest permission changes \u2192 ...",
+      "core_loop": "Scan installed app permissions → Highlight unnecessary requests → Suggest permission changes → ...",
       "evidence_summary": "Privacy studies show users need tools to 'regularly delete unnecessary apps, revoke excessive privac...",
       "source_paths": {
         "run_dir": "runs/2026-01-07/batch-specs-210945",
@@ -2253,7 +2256,7 @@
       "idea_slug": "anchorpoints",
       "market": "Flexible routine management",
       "target_user": "People with variable schedules who want routine benefits without rigidity that breaks under life pressure",
-      "core_loop": "Define essential routine anchors \u2192 Track routine adherence vs disruptions \u2192 Adapt routines to changing circumstances \u2192 Maintain core stability through change",
+      "core_loop": "Define essential routine anchors → Track routine adherence vs disruptions → Adapt routines to changing circumstances → Maintain core stability through change",
       "evidence_summary": "Users struggle with: 'My routine falls apart constantly' and 'need something that adapts when life gets chaotic'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -2270,7 +2273,7 @@
       "idea_slug": "choicesimple",
       "market": "Decision support tools",
       "target_user": "Decision-fatigued individuals who want structured thinking tools without AI or complex analysis",
-      "core_loop": "Enter decision to make \u2192 List pros and cons simply \u2192 Rate importance of each factor \u2192 See visual summary to clarify thinking",
+      "core_loop": "Enter decision to make → List pros and cons simply → Rate importance of each factor → See visual summary to clarify thinking",
       "evidence_summary": "Twitter replies about decision fatigue and YouTube comments about daily choice overload",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -2329,7 +2332,7 @@
       "idea_slug": "attentionlab",
       "market": "Personalized attention training",
       "target_user": "Neurodivergent individuals and those with attention challenges who don't fit standard focus app approaches",
-      "core_loop": "Assess individual attention patterns \u2192 Try different focus techniques \u2192 Track effectiveness by cognitive type \u2192 Personalize attention training program",
+      "core_loop": "Assess individual attention patterns → Try different focus techniques → Track effectiveness by cognitive type → Personalize attention training program",
       "evidence_summary": "Users frustrated: 'Focus apps are one-size-fits-all' and 'need something that understands my ADHD/attention patterns'",
       "source_paths": {
         "run_dir": "runs/2026-01-07/market-batch-2026-01-07-run",
@@ -2346,7 +2349,7 @@
       "idea_slug": "gentlebreaks",
       "market": "Wellness break reminders",
       "target_user": "Screen workers who want break awareness but find existing apps too aggressive or shame-inducing",
-      "core_loop": "Set gentle reminder preferences \u2192 Receive subtle break suggestions \u2192 Choose to take break or dismiss \u2192 No tracking or guilt for skipping",
+      "core_loop": "Set gentle reminder preferences → Receive subtle break suggestions → Choose to take break or dismiss → No tracking or guilt for skipping",
       "evidence_summary": "Chrome Extension reviews wanting less aggressive break reminders and YouTube comments about notification fatigue",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -2363,7 +2366,7 @@
       "idea_slug": "mooddots",
       "market": "Simple mood awareness",
       "target_user": "People interested in mood awareness who find dedicated mental health apps too clinical or complex",
-      "core_loop": "Tap daily mood color \u2192 See mood pattern calendar \u2192 Notice trends visually \u2192 Optional brief note about day",
+      "core_loop": "Tap daily mood color → See mood pattern calendar → Notice trends visually → Optional brief note about day",
       "evidence_summary": "App Store reviews wanting simpler mood tracking and YouTube comments about mental health app complexity",
       "source_paths": {
         "run_dir": "runs/2026-01-07/diversified-signals-2026-01-07-run",
@@ -2718,7 +2721,7 @@
       "idea_slug": "paper_simple",
       "market": "Personal Admin",
       "target_user": "Adults overwhelmed by personal paperwork",
-      "core_loop": "Take photo \u2192 AI categorizes \u2192 Search by voice \u2192 Share instantly",
+      "core_loop": "Take photo → AI categorizes → Search by voice → Share instantly",
       "evidence_summary": "Document management market growing to $24.34B, users seek simplification",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2732,7 +2735,7 @@
       "idea_slug": "access_first",
       "market": "Accessibility Design",
       "target_user": "App developers wanting accessible product testing",
-      "core_loop": "Upload screens \u2192 Disabled users test \u2192 Get feedback \u2192 Iterate",
+      "core_loop": "Upload screens → Disabled users test → Get feedback → Iterate",
       "evidence_summary": "Accessibility apps fail as frustrating barriers, need real user testing",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2746,7 +2749,7 @@
       "idea_slug": "purchase_pause",
       "market": "Mindful Consumption",
       "target_user": "Online shoppers struggling with impulse purchases",
-      "core_loop": "Browser pause \u2192 Reflection prompts \u2192 Cooling timer \u2192 Decide",
+      "core_loop": "Browser pause → Reflection prompts → Cooling timer → Decide",
       "evidence_summary": "Users saved $200/month with mindful purchasing, seek impulse buying help",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2760,7 +2763,7 @@
       "idea_slug": "studio_momentum",
       "market": "Creative Workflows",
       "target_user": "Independent artists and creators wanting momentum accountability",
-      "core_loop": "Log creative work \u2192 See patterns \u2192 Celebrate streaks \u2192 Share progress",
+      "core_loop": "Log creative work → See patterns → Celebrate streaks → Share progress",
       "evidence_summary": "Creative teams need momentum tools without project management complexity",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2774,7 +2777,7 @@
       "idea_slug": "mindful_cart",
       "market": "Mindful Consumption",
       "target_user": "Online shoppers wanting intentional purchases",
-      "core_loop": "Connect cart \u2192 Review items \u2192 Need vs want analysis \u2192 Confirm/remove",
+      "core_loop": "Connect cart → Review items → Need vs want analysis → Confirm/remove",
       "evidence_summary": "Users battle shopping addiction, want mindful buying choices",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2788,7 +2791,7 @@
       "idea_slug": "trip_anchor",
       "market": "Travel",
       "target_user": "Frequent travelers overwhelmed by multiple travel apps",
-      "core_loop": "Forward emails \u2192 Single screen view \u2192 Updates \u2192 Offline access",
+      "core_loop": "Forward emails → Single screen view → Updates → Offline access",
       "evidence_summary": "Travel logistics create overwhelming experiences with myriad options",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2802,7 +2805,7 @@
       "idea_slug": "access_check",
       "market": "Accessibility",
       "target_user": "People with disabilities checking physical space accessibility",
-      "core_loop": "Search place \u2192 View user reports \u2192 Add observations \u2192 Filter by needs",
+      "core_loop": "Search place → View user reports → Add observations → Filter by needs",
       "evidence_summary": "Accessibility tools fail without real disabled user testing",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2816,7 +2819,7 @@
       "idea_slug": "call_script",
       "market": "Personal Admin",
       "target_user": "Adults with phone anxiety for administrative calls",
-      "core_loop": "Select call type \u2192 Get script \u2192 Take notes \u2192 Save outcomes",
+      "core_loop": "Select call type → Get script → Take notes → Save outcomes",
       "evidence_summary": "Users overwhelmed by bureaucratic tasks seek admin simplification",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2830,7 +2833,7 @@
       "idea_slug": "creative_trace",
       "market": "Creative Workflows",
       "target_user": "Artists wanting creative time awareness without project management",
-      "core_loop": "Start timer \u2192 Stop timer \u2192 View patterns \u2192 Celebrate streaks",
+      "core_loop": "Start timer → Stop timer → View patterns → Celebrate streaks",
       "evidence_summary": "Creatives need momentum tools without complex processes",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2844,7 +2847,7 @@
       "idea_slug": "travel_essential",
       "market": "Travel",
       "target_user": "Occasional travelers wanting simple trip preparation",
-      "core_loop": "Enter destination \u2192 Get packing list \u2192 Check off items \u2192 Departure reminder",
+      "core_loop": "Enter destination → Get packing list → Check off items → Departure reminder",
       "evidence_summary": "Travel planning described as daunting, users want simple alternatives",
       "source_path": "runs/2026-01-08/batch-specs-171643-prism-delta/stage01/stages/stage01.json"
     },
@@ -2858,7 +2861,7 @@
       "idea_slug": "wash_simple",
       "market": "Home logistics simplification",
       "target_user": "Busy adults who forget laundry timing",
-      "core_loop": "Set wash timer \u2192 get notification when ready to move \u2192 mark as done",
+      "core_loop": "Set wash timer → get notification when ready to move → mark as done",
       "evidence_summary": "Home organizing apps criticized for being too complicated",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2874,7 +2877,7 @@
       "idea_slug": "creative_dots",
       "market": "Creative output tracking",
       "target_user": "Artists and creators who need consistent practice",
-      "core_loop": "Mark todays creative work done \u2192 see visual streak \u2192 maintain momentum",
+      "core_loop": "Mark todays creative work done → see visual streak → maintain momentum",
       "evidence_summary": "Artists want tools that help save brain space for creative work",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2890,7 +2893,7 @@
       "idea_slug": "access_voice",
       "market": "Accessibility-friendly utilities",
       "target_user": "Users with vision impairments frustrated by complex accessibility apps",
-      "core_loop": "Voice command \u2192 simple action performed \u2192 audio feedback confirmation",
+      "core_loop": "Voice command → simple action performed → audio feedback confirmation",
       "evidence_summary": "TalkBack users report accessibility apps create barriers",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2906,7 +2909,7 @@
       "idea_slug": "pack_list",
       "market": "Travel preparation helpers",
       "target_user": "Travelers overwhelmed by complex packing apps",
-      "core_loop": "Select trip type \u2192 get simple checklist \u2192 check off items \u2192 done",
+      "core_loop": "Select trip type → get simple checklist → check off items → done",
       "evidence_summary": "Travel apps criticized for cluttered overwhelming interfaces",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2922,7 +2925,7 @@
       "idea_slug": "phone_plain",
       "market": "Mindful digital habits",
       "target_user": "Users seeking minimal phone experience",
-      "core_loop": "Install launcher \u2192 phone becomes boring \u2192 reduced usage naturally",
+      "core_loop": "Install launcher → phone becomes boring → reduced usage naturally",
       "evidence_summary": "Minimal phone apps gaining popularity for reducing appeal",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2938,7 +2941,7 @@
       "idea_slug": "room_check",
       "market": "Home logistics simplification",
       "target_user": "Forgetful adults who lose items around house",
-      "core_loop": "Place item \u2192 record location \u2192 search when needed \u2192 find quickly",
+      "core_loop": "Place item → record location → search when needed → find quickly",
       "evidence_summary": "Home organizing apps need straightforward approaches",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2954,7 +2957,7 @@
       "idea_slug": "sketch_snap",
       "market": "Creative output tracking",
       "target_user": "Visual artists who want to capture daily sketching progress",
-      "core_loop": "Take photo of todays sketch \u2192 add to visual timeline \u2192 see progress over time",
+      "core_loop": "Take photo of todays sketch → add to visual timeline → see progress over time",
       "evidence_summary": "Creative professionals want tools focused on creative work not admin",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2970,7 +2973,7 @@
       "idea_slug": "large_text",
       "market": "Accessibility-friendly utilities",
       "target_user": "Users with vision difficulties needing text magnification",
-      "core_loop": "Point camera at text \u2192 see enlarged text instantly \u2192 read comfortably",
+      "core_loop": "Point camera at text → see enlarged text instantly → read comfortably",
       "evidence_summary": "Accessibility apps often become barriers due to complexity",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -2986,7 +2989,7 @@
       "idea_slug": "travel_weather",
       "market": "Travel preparation helpers",
       "target_user": "Travelers who pack wrong clothes for destination weather",
-      "core_loop": "Enter destination and dates \u2192 see weather-based clothing suggestions \u2192 pack appropriately",
+      "core_loop": "Enter destination and dates → see weather-based clothing suggestions → pack appropriately",
       "evidence_summary": "Travel apps suffer from cluttered overwhelming feature sets",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -3002,7 +3005,7 @@
       "idea_slug": "app_pause",
       "market": "Mindful digital habits",
       "target_user": "Users who want to break autopilot app opening habits",
-      "core_loop": "Select distracting apps \u2192 app creates pause when opening \u2192 moment to reconsider \u2192 choose intentionally",
+      "core_loop": "Select distracting apps → app creates pause when opening → moment to reconsider → choose intentionally",
       "evidence_summary": "Apps like One Sec popular for breaking autopilot scrolling habits",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json"
@@ -3018,7 +3021,7 @@
       "idea_slug": "quick_note",
       "market": "Lightweight utility tools",
       "target_user": "People who need to capture thoughts instantly without app complexity",
-      "core_loop": "Open app \u2192 type/voice note \u2192 save instantly \u2192 done",
+      "core_loop": "Open app → type/voice note → save instantly → done",
       "evidence_summary": "Users prefer super bare bones apps over complex productivity tools",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3034,7 +3037,7 @@
       "idea_slug": "habit_dot",
       "market": "Wellness habit formation",
       "target_user": "Users wanting simple habit tracking without analytics overwhelm",
-      "core_loop": "Select single habit \u2192 mark done daily \u2192 see visual progress \u2192 maintain streak",
+      "core_loop": "Select single habit → mark done daily → see visual progress → maintain streak",
       "evidence_summary": "Streaks app praised for limiting habits to prevent overwhelming yourself",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3050,7 +3053,7 @@
       "idea_slug": "flash_simple",
       "market": "Learning practice companions",
       "target_user": "Students and learners frustrated by complex flashcard app setup",
-      "core_loop": "Type question and answer \u2192 practice immediately \u2192 mark difficulty \u2192 repeat",
+      "core_loop": "Type question and answer → practice immediately → mark difficulty → repeat",
       "evidence_summary": "Users complain flashcard apps require too much setup before learning",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3066,7 +3069,7 @@
       "idea_slug": "family_when",
       "market": "Social coordination helpers",
       "target_user": "Families tired of complex calendar apps for simple coordination",
-      "core_loop": "Ask when is everyone free \u2192 family responds \u2192 find common time \u2192 done",
+      "core_loop": "Ask when is everyone free → family responds → find common time → done",
       "evidence_summary": "Users seek simpler solutions that reduce mental load of family coordination",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3082,7 +3085,7 @@
       "idea_slug": "bookmark_clean",
       "market": "Personal data organization",
       "target_user": "People with cluttered browser bookmarks who need simple organization",
-      "core_loop": "Import bookmarks \u2192 auto-categorize \u2192 remove duplicates \u2192 export clean list",
+      "core_loop": "Import bookmarks → auto-categorize → remove duplicates → export clean list",
       "evidence_summary": "Users overwhelmed by Notion customization prefer simple organization tools",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3098,7 +3101,7 @@
       "idea_slug": "unit_convert",
       "market": "Lightweight utility tools",
       "target_user": "Users needing quick unit conversions without complex calculator apps",
-      "core_loop": "Select units \u2192 enter value \u2192 see conversion instantly \u2192 copy result",
+      "core_loop": "Select units → enter value → see conversion instantly → copy result",
       "evidence_summary": "Chrome extensions show demand for simple single-purpose utilities",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3114,7 +3117,7 @@
       "idea_slug": "word_daily",
       "market": "Learning practice companions",
       "target_user": "Vocabulary learners wanting simple daily word practice",
-      "core_loop": "Get daily word \u2192 learn definition \u2192 practice in context \u2192 mark learned",
+      "core_loop": "Get daily word → learn definition → practice in context → mark learned",
       "evidence_summary": "Learning apps criticized for complex setup vs apps that just open and start",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3130,7 +3133,7 @@
       "idea_slug": "link_save",
       "market": "Personal data organization",
       "target_user": "Users who save links but never organize or find them later",
-      "core_loop": "Save link \u2192 auto-categorize by content \u2192 search when needed \u2192 find quickly",
+      "core_loop": "Save link → auto-categorize by content → search when needed → find quickly",
       "evidence_summary": "Users prefer super bare bones apps over complex organization systems",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3146,7 +3149,7 @@
       "idea_slug": "group_split",
       "market": "Social coordination helpers",
       "target_user": "Friends who need simple bill splitting without complex expense tracking",
-      "core_loop": "Enter total amount \u2192 select who pays \u2192 see individual amounts \u2192 send payment info",
+      "core_loop": "Enter total amount → select who pays → see individual amounts → send payment info",
       "evidence_summary": "Social coordination apps need to reduce mental load with simple interfaces",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3162,7 +3165,7 @@
       "idea_slug": "water_track",
       "market": "Wellness habit formation",
       "target_user": "Users wanting simple water intake tracking without wellness app complexity",
-      "core_loop": "Tap to log water \u2192 see daily progress \u2192 get gentle reminders \u2192 track streak",
+      "core_loop": "Tap to log water → see daily progress → get gentle reminders → track streak",
       "evidence_summary": "Habit tracking apps praised for being simple enough for quick daily check-ins",
       "source_paths": [
         "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json"
@@ -3178,7 +3181,7 @@
       "idea_slug": "simplestock",
       "market": "Offline pantry inventory tracker with barcode scanning",
       "target_user": "Busy households who want to reduce food waste and avoid duplicate purchases",
-      "core_loop": "Scan barcode to add item \u2192 Set simple expiration reminder \u2192 Check inventory before shopping \u2192 Get notifications for items about to expire",
+      "core_loop": "Scan barcode to add item → Set simple expiration reminder → Check inventory before shopping → Get notifications for items about to expire",
       "evidence_summary": "App Store reviews for pantry apps show users want 'simple barcode scanner' functionality without overwhelming features. One user: 'worth trying at the free level with scanner that works great'",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3194,7 +3197,7 @@
       "idea_slug": "packeasy",
       "market": "Simple offline packing checklist app with reliable data persistence",
       "target_user": "Frequent travelers frustrated with unreliable packing apps",
-      "core_loop": "Select trip type template \u2192 Customize packing list \u2192 Check off items as packed \u2192 Save list for future trips",
+      "core_loop": "Select trip type template → Customize packing list → Check off items as packed → Save list for future trips",
       "evidence_summary": "PackPoint users complain: 'app has seriously become useless' due to data loss and forced list creation. Users want 'backup features' and reliable list persistence.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3210,7 +3213,7 @@
       "idea_slug": "pianodaily",
       "market": "Simplified piano practice companion with clear daily structure",
       "target_user": "Adult beginners who tried complex piano apps and felt overwhelmed",
-      "core_loop": "Complete daily 10-minute lesson \u2192 Practice technique exercises \u2192 Record practice session \u2192 Track weekly progress",
+      "core_loop": "Complete daily 10-minute lesson → Practice technique exercises → Record practice session → Track weekly progress",
       "evidence_summary": "Piano app users report 'some beginner lessons feel intermediate' and 'lack of structure a little overwhelming'. Need for 'proper technique guidance' without complexity.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3226,7 +3229,7 @@
       "idea_slug": "visualbell",
       "market": "Simple visual countdown timer for kids activities",
       "target_user": "Parents of children ages 4-10 who need routine structure",
-      "core_loop": "Set timer duration with simple controls \u2192 Start visual countdown \u2192 Watch colorful progress bar \u2192 Receive gentle alert when done",
+      "core_loop": "Set timer duration with simple controls → Start visual countdown → Watch colorful progress bar → Receive gentle alert when done",
       "evidence_summary": "Parents want 'simple timer apps with large, easy-to-read displays' and complain about timer apps with 'too many customization options' that are confusing for kids.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3242,7 +3245,7 @@
       "idea_slug": "cameralingo",
       "market": "Offline camera text translator with local language packs",
       "target_user": "Travelers and international students who need reliable translation without data costs",
-      "core_loop": "Download language pack once \u2192 Point camera at text \u2192 Tap to translate specific sections \u2192 Save translations for later reference",
+      "core_loop": "Download language pack once → Point camera at text → Tap to translate specific sections → Save translations for later reference",
       "evidence_summary": "Google Translate users frustrated: 'automatically blocks out the original texts' and other apps 'make you upgrade after ONE translation'. Need for reliable offline camera translation.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3258,7 +3261,7 @@
       "idea_slug": "quicksounds",
       "market": "Ad-free meme soundboard with guaranteed playback",
       "target_user": "Social media users and gamers who want quick access to meme sounds",
-      "core_loop": "Browse sound categories \u2192 Tap for instant playback \u2192 Favorite frequently used sounds \u2192 Share sounds to social apps",
+      "core_loop": "Browse sound categories → Tap for instant playback → Favorite frequently used sounds → Share sounds to social apps",
       "evidence_summary": "Soundboard users hate 'pop ups every 5 seconds' and 'TWO 15-30 second ads that you can't skip'. Want simple soundboards where 'not a single one of them would play anything' is fixed.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3274,7 +3277,7 @@
       "idea_slug": "listlite",
       "market": "Minimal grocery list app focused on simplicity",
       "target_user": "Shoppers who find current grocery apps too complicated",
-      "core_loop": "Add items to list \u2192 Check off while shopping \u2192 Items automatically move to history \u2192 Reuse items from history",
+      "core_loop": "Add items to list → Check off while shopping → Items automatically move to history → Reuse items from history",
       "evidence_summary": "Users prefer apps described as 'plain and simple app that leaves you in control. It's like a blank piece of lined paper' over apps with 'too much control' and 'steeper learning curves'.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3290,7 +3293,7 @@
       "idea_slug": "starchart",
       "market": "Simple digital star chart for kids with minimal setup",
       "target_user": "Parents of children ages 3-8 who want simple behavior tracking",
-      "core_loop": "Set simple daily tasks \u2192 Tap to give stars immediately \u2192 Watch visual progress bar fill \u2192 Celebrate weekly achievements",
+      "core_loop": "Set simple daily tasks → Tap to give stars immediately → Watch visual progress bar fill → Celebrate weekly achievements",
       "evidence_summary": "Parents say reward chart apps 'require a time-consuming set-up, and parents tend to quit halfway through'. Need apps that are 'easy to use' without overwhelming features.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3306,7 +3309,7 @@
       "idea_slug": "quickcapture",
       "market": "Ultra-fast note capture app optimized for speed",
       "target_user": "Busy professionals and students who lose ideas while opening complex note apps",
-      "core_loop": "Open app (instant to text field) \u2192 Type or dictate note \u2192 Auto-save in background \u2192 Search all notes later",
+      "core_loop": "Open app (instant to text field) → Type or dictate note → Auto-save in background → Search all notes later",
       "evidence_summary": "Users need apps for 'capture information quickly' that work offline. Note apps should focus on 'getting ideas down fast' without complex organization features that slow down capture.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
@@ -3322,11 +3325,551 @@
       "idea_slug": "dottracker",
       "market": "Minimalist habit tracker using simple dot marking",
       "target_user": "People who abandoned complex habit tracking apps but want simple progress visualization",
-      "core_loop": "Add habits with simple names \u2192 Tap to mark daily completion \u2192 See visual dot pattern emerge \u2192 Maintain streaks naturally",
+      "core_loop": "Add habits with simple names → Tap to mark daily completion → See visual dot pattern emerge → Maintain streaks naturally",
       "evidence_summary": "Users want 'simple habit tracking' without 'overwhelming workflows' that make tracking feel like work itself. Need visual progress that motivates without complexity.",
       "source_paths": [
         "runs/2026-01-08/factory-094718/stage01/stages/stage01.json"
       ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 1,
+      "score": 8.7,
+      "idea_id": "pack_simple_001",
+      "idea_name": "PackSimple",
+      "idea_slug": "pack_simple",
+      "market": "Travel packing simplification",
+      "target_user": "Frequent travelers frustrated with complex packing apps",
+      "core_loop": "Add items to packing list → Check off items as packed → Save templates for future trips → Sync across devices offline",
+      "evidence_summary": "PackPoint users complained about forced workflows and UI complexity. Users prefer straightforward solutions over bells and whistles.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 2,
+      "score": 8.5,
+      "idea_id": "simple_timer_kids_004",
+      "idea_name": "Simple Timer Kids",
+      "idea_slug": "simple_timer_kids",
+      "market": "Kids time management tools",
+      "target_user": "Parents of children aged 4-10 needing simple time management tools",
+      "core_loop": "Select pre-set timer → Start with one big button → Watch fun countdown animation → Celebrate completion",
+      "evidence_summary": "Parents seek uncomplicated, child-friendly interfaces. Timer apps succeed when fun and easy-to-use rather than feature-rich.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 3,
+      "score": 8.3,
+      "idea_id": "focus_dot_009",
+      "idea_name": "Focus Dot",
+      "idea_slug": "focus_dot",
+      "market": "Simple focus aids",
+      "target_user": "Anyone needing simple focus sessions without complex productivity systems",
+      "core_loop": "Set focus duration → Watch dot grow slowly → Complete session or stop → Track daily focus time",
+      "evidence_summary": "Focus apps are often overwhelming with features. Users prefer simple start and stop timer functionality.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 4,
+      "score": 8.2,
+      "idea_id": "creative_nudge_002",
+      "idea_name": "Creative Nudge",
+      "idea_slug": "creative_nudge",
+      "market": "Creative productivity",
+      "target_user": "Writers, artists, and creators struggling with consistent creative output",
+      "core_loop": "Receive one daily creative prompt → Complete or skip prompt → Save favorite prompts → Track creative streak",
+      "evidence_summary": "Writers need daily creative prompts and writer's block mitigation tools. Existing solutions offer too many options causing overwhelm.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 5,
+      "score": 8.1,
+      "idea_id": "quick_note_capture_007",
+      "idea_name": "Quick Note Capture",
+      "idea_slug": "quick_note_capture",
+      "market": "Note capture utilities",
+      "target_user": "Professionals and students needing immediate thought capture without app complexity",
+      "core_loop": "Open app instantly → Type or voice memo → One-tap save with timestamp → Find notes with simple search",
+      "evidence_summary": "Users value extensions that do one thing well and save time. Simple utilities consistently rated higher than complex alternatives.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 6,
+      "score": 7.9,
+      "idea_id": "home_dots_003",
+      "idea_name": "Home Dots",
+      "idea_slug": "home_dots",
+      "market": "Home organization",
+      "target_user": "Busy families needing simple household organization without complex systems",
+      "core_loop": "Set up simple household tasks → Mark tasks with colored dots → View family progress visually → Reset weekly or monthly",
+      "evidence_summary": "Home organization apps criticized for extensive customization that's overwhelming. Users want hassle-free solutions.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 7,
+      "score": 7.8,
+      "idea_id": "word_practice_006",
+      "idea_name": "Word Practice",
+      "idea_slug": "word_practice",
+      "market": "Language learning",
+      "target_user": "Language learners wanting consistent vocabulary practice without internet dependency",
+      "core_loop": "Download word packs offline → Practice 5-10 words daily → Track learning streak → Review difficult words",
+      "evidence_summary": "Language learners seek offline flashcards apps and study apps that work without internet. Current solutions require constant connectivity.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 8,
+      "score": 7.7,
+      "idea_id": "family_chore_simple_010",
+      "idea_name": "Family Chore Simple",
+      "idea_slug": "family_chore_simple",
+      "market": "Family organization",
+      "target_user": "Parents with children aged 6-14 needing straightforward chore management",
+      "core_loop": "Assign weekly chores to kids → Kids mark chores complete → Visual progress fills up → Family celebrates weekly completion",
+      "evidence_summary": "Parents seek simple chore chart apps and complain about existing apps being too complicated for family use.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 9,
+      "score": 7.6,
+      "idea_id": "meal_simple_005",
+      "idea_name": "MealSimple",
+      "idea_slug": "meal_simple",
+      "market": "Meal planning simplification",
+      "target_user": "Busy individuals overwhelmed by complex meal planning apps",
+      "core_loop": "Plan 7 meals for the week → Generate simple shopping list → Mark meals as completed → Repeat successful weeks",
+      "evidence_summary": "Meal planning apps are overwhelmingly complicated and users face decision paralysis from too many recipes.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 10,
+      "score": 7.4,
+      "idea_id": "travel_essential_008",
+      "idea_name": "Travel Essential",
+      "idea_slug": "travel_essential",
+      "market": "Travel utilities",
+      "target_user": "International travelers needing basic tools without internet dependency",
+      "core_loop": "Access offline currency converter → Use unit conversions and time zones → Reference common phrases → Check local emergency numbers",
+      "evidence_summary": "Travelers seek works on airplane apps and simple travel utilities. Current comprehensive travel apps are too complex for basic needs.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 1,
+      "score": 8.9,
+      "idea_id": "recipe_scale_coordinator_001",
+      "idea_name": "Recipe Scale Coordinator",
+      "idea_slug": "recipe_scale_coordinator",
+      "market": "Recipe scaling and shopping coordination",
+      "target_user": "Home cooks frequently adjusting recipe portions for varying family sizes or dinner guests",
+      "core_loop": "Enter recipe URL/scan → Input serving sizes → Auto-convert measurements → Generate shopping list → Track owned vs needed → Save successful combinations",
+      "evidence_summary": "Users report recipe scaling takes multiple steps in current apps. Meal planners require a lot of work when scaling. Paprika users frustrated that most actions take multiple steps.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 2,
+      "score": 8.7,
+      "idea_id": "travel_booking_sync_002",
+      "idea_name": "Travel Booking Sync",
+      "idea_slug": "travel_booking_sync",
+      "market": "Multi-traveler booking coordination",
+      "target_user": "Group travel organizers coordinating flights, hotels, and activities across multiple people with different preferences and budgets",
+      "core_loop": "Enter trip/travelers → Research/compare options → Share for voting → Track confirmations → Coordinate payments → Generate master itinerary",
+      "evidence_summary": "Travel planners use spreadsheets for booking coordination because they need central location where bookings are without searching emails and apps.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 3,
+      "score": 8.5,
+      "idea_id": "home_repair_sequence_003",
+      "idea_name": "Home Repair Sequence",
+      "idea_slug": "home_repair_sequence",
+      "market": "Sequential home maintenance and repair workflow coordination",
+      "target_user": "Homeowners managing complex repairs that involve multiple contractors, permits, and inspection sequences",
+      "core_loop": "Enter repair with photos → App suggests sequence → Track contractor quotes → Store receipts/warranties → Schedule inspections → Generate completion docs",
+      "evidence_summary": "Homeowners struggle with hunting for receipts, work orders or warranty info causing repair delays. Manual systems make users lose important documents.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 4,
+      "score": 8.3,
+      "idea_id": "family_logistics_central_004",
+      "idea_name": "Family Logistics Central",
+      "idea_slug": "family_logistics_central",
+      "market": "Weekly family logistics coordination",
+      "target_user": "Parents coordinating weekly logistics for families with multiple children, activities, and conflicting schedules",
+      "core_loop": "Input weekly activities → Identify conflicts → Generate carpool schedules → Assign responsibilities → Send reminders → Handle changes",
+      "evidence_summary": "Families struggle with dozen apps and mile-long text threads to get crew on same page. Parents juggle work and family causing organization difficulties.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 5,
+      "score": 8.1,
+      "idea_id": "offline_vocab_builder_005",
+      "idea_name": "Offline Vocab Builder",
+      "idea_slug": "offline_vocab_builder",
+      "market": "Offline vocabulary practice with spaced repetition",
+      "target_user": "Language learners with inconsistent schedules needing structured offline practice during commutes and travel",
+      "core_loop": "Download vocab packs → Practice with adaptive difficulty → Track learning streaks → Generate review sets → Sync progress when online",
+      "evidence_summary": "Language learners suffer from irregular practice leads to slow progress or burnout. Users need offline solutions for inconsistent schedules.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 6,
+      "score": 7.9,
+      "idea_id": "group_meal_coordinator_006",
+      "idea_name": "Group Meal Coordinator",
+      "idea_slug": "group_meal_coordinator",
+      "market": "Meal planning for households with dietary restrictions",
+      "target_user": "Households with multiple people having different dietary restrictions, preferences, and cooking responsibilities",
+      "core_loop": "Input dietary needs/schedules → Generate optimized meal plan → Coordinate cooking responsibilities → Create shopping list → Track assignments → Handle substitutions",
+      "evidence_summary": "Meal planners report having to edit meal plan to fit schedule, budget, and preferences across multiple people. Frustrated when recipe swaps affect entire coordination.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 7,
+      "score": 7.7,
+      "idea_id": "event_vendor_coordinator_007",
+      "idea_name": "Event Vendor Coordinator",
+      "idea_slug": "event_vendor_coordinator",
+      "market": "Multi-vendor coordination for complex events",
+      "target_user": "Event planners coordinating weddings, parties, or corporate events with multiple vendors and complex timing dependencies",
+      "core_loop": "Enter event/vendor needs → Research/compare vendors → Coordinate schedules → Track contracts/payments → Generate master timeline → Handle changes",
+      "evidence_summary": "Event planning requires manual coordination of vendor coordination, RSVP tracking, timeline management with complex dependency and payment coordination.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 8,
+      "score": 7.5,
+      "idea_id": "appliance_warranty_tracker_008",
+      "idea_name": "Appliance Warranty Tracker",
+      "idea_slug": "appliance_warranty_tracker",
+      "market": "Appliance lifecycle and warranty management",
+      "target_user": "Homeowners managing multiple appliances with warranties, maintenance schedules, and repair decisions",
+      "core_loop": "Scan serial numbers/receipts → Set maintenance reminders → Track warranties → Document repairs → Generate warranty claims → Provide replacement recommendations",
+      "evidence_summary": "Homeowners lose important receipts, forget maintenance dates, and struggle to locate warranty information when needed most causing hours of searching.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 9,
+      "score": 7.3,
+      "idea_id": "moving_timeline_coordinator_009",
+      "idea_name": "Moving Timeline Coordinator",
+      "idea_slug": "moving_timeline_coordinator",
+      "market": "Multi-phase moving process coordination",
+      "target_user": "Individuals and families managing complex moves with multiple service providers, timeline dependencies, and address change coordination",
+      "core_loop": "Enter move dates → Create inventory → Generate utility timeline → Coordinate movers → Track address changes → Monitor logistics → Verify completion",
+      "evidence_summary": "Moving requires manual coordination of room-by-room inventory, utility coordination, address changes across complex timelines with dependency management.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 10,
+      "score": 7.1,
+      "idea_id": "kids_activity_scheduler_010",
+      "idea_name": "Kids Activity Scheduler",
+      "idea_slug": "kids_activity_scheduler",
+      "market": "Children activity and carpool coordination",
+      "target_user": "Parents coordinating multiple children's activities with carpools, equipment, and multi-family scheduling",
+      "core_loop": "Enter activities/requirements → Coordinate carpools → Track equipment needs → Generate prep schedules → Handle changes → Track costs",
+      "evidence_summary": "Parents report family calendars quickly fill up with practices, recitals, birthday parties making coordination busy and overwhelming for multiple families.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ]
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 1,
+      "score": 8.7,
+      "idea_id": "pocket_ledger_001",
+      "idea_name": "PocketLedger",
+      "idea_slug": "pocket_ledger",
+      "market": "Privacy-first financial tracking",
+      "target_user": "Privacy-conscious individuals and families wanting financial control without data sharing",
+      "core_loop": [
+        "Add income/expense manually or via receipt scan",
+        "Assign to spending category/envelope",
+        "View remaining budget in real-time",
+        "Generate spending insights and trends"
+      ],
+      "evidence_summary": "Bank account linking violates ToS, creates security risks, users pay for manual alternatives",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 2,
+      "score": 8.4,
+      "idea_id": "offline_flow_002",
+      "idea_name": "OfflineFlow",
+      "idea_slug": "offline_flow",
+      "market": "Offline-first productivity",
+      "target_user": "Mobile workers and professionals in low-connectivity environments",
+      "core_loop": [
+        "Create tasks and notes offline",
+        "Organize with projects and contexts",
+        "Work seamlessly without connectivity",
+        "Sync when connection available"
+      ],
+      "evidence_summary": "Productivity apps requiring internet for basic functionality, sync failures causing data loss",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 3,
+      "score": 8.2,
+      "idea_id": "crystal_scan_003",
+      "idea_name": "CrystalScan",
+      "idea_slug": "crystal_scan",
+      "market": "High-quality document scanning",
+      "target_user": "Remote workers, students, and professionals needing high-quality document digitization",
+      "core_loop": [
+        "Scan document preserving full resolution",
+        "Apply intelligent enhancement and cropping",
+        "Organize in folders with searchable metadata",
+        "Export in multiple formats"
+      ],
+      "evidence_summary": "Document scanners reduce image quality, professionals need full resolution for official documents",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 4,
+      "score": 7.9,
+      "idea_id": "sync_guardian_004",
+      "idea_name": "SyncGuardian",
+      "idea_slug": "sync_guardian",
+      "market": "Multi-device sync reliability",
+      "target_user": "Multi-device professionals and teams needing reliable synchronization",
+      "core_loop": [
+        "Create/edit documents on any device",
+        "Automatic sync with conflict detection",
+        "Review sync status and conflicts",
+        "Restore previous versions if needed"
+      ],
+      "evidence_summary": "Note sync failures causing data loss, poor conflict resolution affecting productivity",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 5,
+      "score": 7.6,
+      "idea_id": "battery_flow_005",
+      "idea_name": "BatteryFlow",
+      "idea_slug": "battery_flow",
+      "market": "Battery-optimized mobile productivity",
+      "target_user": "Field workers and mobile professionals needing all-day device operation",
+      "core_loop": [
+        "Track time and tasks with minimal battery impact",
+        "Take notes and manage projects efficiently",
+        "Monitor battery usage and optimize settings",
+        "Sync data when charging or on WiFi"
+      ],
+      "evidence_summary": "Time tracking and productivity apps causing significant battery drain",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 6,
+      "score": 7.4,
+      "idea_id": "instant_access_006",
+      "idea_name": "InstantAccess",
+      "idea_slug": "instant_access",
+      "market": "Guest-first file sharing",
+      "target_user": "Teams needing quick file sharing without account creation",
+      "core_loop": [
+        "Share files instantly without account creation",
+        "Recipients access files via secure link",
+        "Optionally create account for organization",
+        "Unlock premium features progressively"
+      ],
+      "evidence_summary": "File sharing apps requiring excessive permissions, onboarding friction",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 7,
+      "score": 7.2,
+      "idea_id": "offline_navigator_007",
+      "idea_name": "OfflineNavigator",
+      "idea_slug": "offline_navigator",
+      "market": "Offline travel planning",
+      "target_user": "Travelers in remote areas needing reliable offline access",
+      "core_loop": [
+        "Plan trip with offline map downloads",
+        "Coordinate with group via local sync",
+        "Navigate without internet connectivity",
+        "Track expenses and share costs offline"
+      ],
+      "evidence_summary": "Travel apps failing without connectivity, need for offline itinerary access",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 8,
+      "score": 7.0,
+      "idea_id": "memory_palace_008",
+      "idea_name": "MemoryPalace",
+      "idea_slug": "memory_palace",
+      "market": "Visual content organization",
+      "target_user": "Knowledge workers and researchers managing reference information",
+      "core_loop": [
+        "Save content with visual memory cues",
+        "Organize using spatial relationships",
+        "Search using natural language patterns",
+        "Discover related content through linking"
+      ],
+      "evidence_summary": "Bookmark folders become digital graveyards, information retrieval failure",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 9,
+      "score": 6.8,
+      "idea_id": "private_expense_009",
+      "idea_name": "PrivateExpense",
+      "idea_slug": "private_expense",
+      "market": "Local expense splitting",
+      "target_user": "Roommates and groups wanting fair expense splitting without data sharing",
+      "core_loop": [
+        "Enter shared expenses manually",
+        "Add participants and contributions",
+        "Calculate splits with multiple methods",
+        "Share results via text or image"
+      ],
+      "evidence_summary": "Bill splitting apps requiring excessive permissions, privacy concerns",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 10,
+      "score": 6.5,
+      "idea_id": "local_voice_010",
+      "idea_name": "LocalVoice",
+      "idea_slug": "local_voice",
+      "market": "Private voice transcription",
+      "target_user": "Professionals in confidential environments needing meeting documentation",
+      "core_loop": [
+        "Record voice memo locally on device",
+        "Process transcription using local AI",
+        "Edit and organize transcribed content",
+        "Export notes while keeping audio private"
+      ],
+      "evidence_summary": "Voice transcription requires cloud processing, confidentiality concerns",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      }
     }
   ]
 }

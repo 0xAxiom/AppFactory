@@ -45,9 +45,22 @@ If a field is present in Stages 02–09, Stage 10 must either (a) implement it, 
 No silent skipping.
 
 **FORBIDDEN BEHAVIORS**:
-- Using generic Expo starter patterns
+- Using generic Expo starter patterns or placeholder UI
 - Using default navigation layouts if Stage 03 defines screens
 - Inventing features already specified upstream
+- Creating basic/amateur UI that doesn't reflect premium positioning
+- Ignoring Stage 03 wireframes and UX specifications
+- Ignoring Stage 08 brand identity and visual design
+- Using placeholder styles instead of implementing design systems
+- Building $3 tutorial-quality UI for $9+ premium apps
+
+**QUALITY GATE ENFORCEMENT**:
+Before any app can be marked as complete, Stage 10 MUST verify:
+- ✅ Stage 03 UX flows are visually implemented (not just structurally)
+- ✅ Stage 08 brand identity is consistently applied throughout
+- ✅ Design system matches premium positioning from Stage 04
+- ✅ UI quality justifies the specified subscription pricing
+- ✅ Visual design reflects competitive analysis from Stage 02
 - Omitting features "for simplicity" if they are defined in prior stages
 
 If Stage 10 cannot implement something as specified, it MUST:
@@ -566,8 +579,25 @@ Before code generation begins, Stage 10 MUST verify:
    - Create `builds/<idea_dir>/<build_id>/app/` directory structure
    - Initialize as fresh Expo React Native project
 
-### Phase 3: Core App Implementation
-5. **Implement App Configuration**:
+### Phase 2.5: Design System Implementation (MANDATORY)
+**CRITICAL QUALITY GATE**: Before any React Native components are built, Stage 10 MUST implement the actual design specifications from prior stages.
+
+5. **Extract and Implement Design Specifications**:
+   - Read Stage 03 UX artifacts: wireframes, interaction patterns, user flows
+   - Read Stage 08 brand artifacts: color palette, typography, visual identity
+   - Read Stage 04 pricing to ensure UI quality matches subscription positioning
+   - Create comprehensive design system in `src/design/` directory
+   - Implement actual design tokens (colors, fonts, spacing, shadows)
+   - Build reusable components that match specified brand identity
+
+6. **Visual Quality Validation**:
+   - Compare UI implementation against Stage 03 specifications
+   - Verify brand consistency with Stage 08 visual identity
+   - Ensure UI sophistication matches premium positioning from Stage 04
+   - **FAIL BUILD** if UI quality doesn't justify subscription pricing
+
+### Phase 3: Core App Implementation  
+7. **Implement App Configuration**:
    - Generate package.json with latest Expo SDK 54+ dependencies using app template
    - Create dynamic app.config.js ONLY (no static app.json) with deterministic bundle identifiers: `com.appfactory.<normalized-slug>`
    - Set up Expo configuration files (babel.config.js, metro.config.js)
@@ -660,7 +690,7 @@ Before code generation begins, Stage 10 MUST verify:
 
 ### Phase 7: Comprehensive Build Validation (MANDATORY)
 13. **Execute Automated Validation Pipeline**:
-    Following `templates/stage10_validation_procedure.md`:
+    Following the validation procedures below:
     
     a) **Dependency Resolution Validation**:
     ```bash
@@ -831,6 +861,40 @@ Stage02.product_specification.core_features[0]: "Smart Focus Sessions with AI re
 
 **Implementation Verification**: The generated app MUST demonstrate that Stages 01–09 provided the maximum possible information and Stage 10 used ALL of it.
 
+## DESIGN IMPLEMENTATION VERIFICATION (MANDATORY)
+
+Before marking any build as complete, Stage 10 MUST verify and document:
+
+### Stage 03 UX Implementation Checklist
+- ✅ **Navigation patterns** from Stage 03 are implemented (not default Expo navigation)
+- ✅ **User flows** are visually represented in the UI (not just structurally)
+- ✅ **Interaction patterns** specified in Stage 03 are implemented with proper touch targets
+- ✅ **Information architecture** is reflected in screen layout and organization
+- ✅ **Component specifications** from Stage 03 are implemented as actual React Native components
+
+### Stage 08 Brand Implementation Checklist  
+- ✅ **Color palette** from Stage 08 is implemented throughout all screens
+- ✅ **Typography system** is consistently applied (not default React Native text styles)
+- ✅ **Visual identity** is cohesively expressed across all interface elements
+- ✅ **Brand personality** is reflected in UI copy, iconography, and visual style
+- ✅ **Logo/branding elements** are properly integrated into the app interface
+
+### Premium Quality Verification
+- ✅ **UI sophistication** matches or exceeds competitor apps analyzed in Stage 02
+- ✅ **Visual design quality** justifies the subscription pricing defined in Stage 04  
+- ✅ **Professional polish** demonstrates production-ready quality, not prototype/tutorial quality
+- ✅ **Design system consistency** is maintained across all screens and components
+- ✅ **Modern UI patterns** are used (gradients, micro-interactions, premium visual hierarchy)
+
+### Implementation Documentation Required
+For each major UI component implemented, Stage 10 MUST document in `build_log.md`:
+- Which Stage 03 specification it implements
+- How Stage 08 brand guidelines are applied
+- Why specific design choices were made
+- Any deviations from specifications and why
+
+**CRITICAL**: If any checkbox cannot be completed, the build MUST fail with detailed explanation.
+
 ## FAILURE CONDITIONS (HARD STOPS)
 
 Stage 10 MUST fail and stop execution if:
@@ -842,6 +906,10 @@ Stage 10 MUST fail and stop execution if:
 - **Stage Coverage Checklist cannot be completed** (any checkbox remains unchecked)
 - **Upstream specification cannot be fully implemented** as defined in prior stages
 - **Generic fallback patterns would be required** due to insufficient upstream detail
+- **Design Implementation Verification checklist cannot be completed** (UI quality below premium standards)
+- **Visual design doesn't match subscription pricing** from Stage 04 positioning
+- **Stage 03 UX specifications ignored** in favor of generic mobile patterns
+- **Stage 08 brand identity not consistently implemented** throughout the app
 
 **Spec Compliance Failure Examples**:
 - Stage 03 defines specific onboarding flow but cannot implement due to technical limitations

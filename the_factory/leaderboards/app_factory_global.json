@@ -2,8 +2,8 @@
   "meta": {
     "version": "1.0",
     "description": "Global leaderboard ranking - best ideas across all runs",
-    "total_entries": 170,
-    "last_rebuilt": "2026-01-08T17:58:19.741712Z",
+    "total_entries": 200,
+    "last_rebuilt": "2026-01-09T08:27:22.845858Z",
     "source_file": "app_factory_all_time.json",
     "ranking_method": "score desc, run_date desc, rank asc, idea_id asc, run_id asc"
   },
@@ -43,6 +43,39 @@
       "global_rank": 1
     },
     {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 1,
+      "score": 8.9,
+      "idea_id": "recipe_scale_coordinator_001",
+      "idea_name": "Recipe Scale Coordinator",
+      "idea_slug": "recipe_scale_coordinator",
+      "market": "Recipe scaling and shopping coordination",
+      "target_user": "Home cooks frequently adjusting recipe portions for varying family sizes or dinner guests",
+      "core_loop": "Enter recipe URL/scan → Input serving sizes → Auto-convert measurements → Generate shopping list → Track owned vs needed → Save successful combinations",
+      "evidence_summary": "Users report recipe scaling takes multiple steps in current apps. Meal planners require a lot of work when scaling. Paprika users frustrated that most actions take multiple steps.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 1,
+      "global_rank": 2
+    },
+    {
       "run_id": "run_185842",
       "run_date": "2026-01-06",
       "rank": 2,
@@ -74,7 +107,112 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 2
+      "global_rank": 3
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 1,
+      "score": 8.7,
+      "idea_id": "pocket_ledger_001",
+      "idea_name": "PocketLedger",
+      "idea_slug": "pocket_ledger",
+      "market": "Privacy-first financial tracking",
+      "target_user": "Privacy-conscious individuals and families wanting financial control without data sharing",
+      "core_loop": [
+        "Add income/expense manually or via receipt scan",
+        "Assign to spending category/envelope",
+        "View remaining budget in real-time",
+        "Generate spending insights and trends"
+      ],
+      "evidence_summary": "Bank account linking violates ToS, creates security risks, users pay for manual alternatives",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 1,
+      "global_rank": 4
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 1,
+      "score": 8.7,
+      "idea_id": "pack_simple_001",
+      "idea_name": "PackSimple",
+      "idea_slug": "pack_simple",
+      "market": "Travel packing simplification",
+      "target_user": "Frequent travelers frustrated with complex packing apps",
+      "core_loop": "Add items to packing list → Check off items as packed → Save templates for future trips → Sync across devices offline",
+      "evidence_summary": "PackPoint users complained about forced workflows and UI complexity. Users prefer straightforward solutions over bells and whistles.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 1,
+      "global_rank": 5
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 2,
+      "score": 8.7,
+      "idea_id": "travel_booking_sync_002",
+      "idea_name": "Travel Booking Sync",
+      "idea_slug": "travel_booking_sync",
+      "market": "Multi-traveler booking coordination",
+      "target_user": "Group travel organizers coordinating flights, hotels, and activities across multiple people with different preferences and budgets",
+      "core_loop": "Enter trip/travelers → Research/compare options → Share for voting → Track confirmations → Coordinate payments → Generate master itinerary",
+      "evidence_summary": "Travel planners use spreadsheets for booking coordination because they need central location where bookings are without searching emails and apps.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 2,
+      "global_rank": 6
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -108,7 +246,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 3
+      "global_rank": 7
     },
     {
       "run_id": "app_factory_112152",
@@ -147,7 +285,7 @@
       "reason_to_build_now": "Strong market signal with low behavior change risk and clear value proposition",
       "reason_to_skip": "Consider market saturation and differentiation strategy",
       "run_rank": 3,
-      "global_rank": 4
+      "global_rank": 8
     },
     {
       "run_id": "run_185842",
@@ -181,7 +319,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 5
+      "global_rank": 9
     },
     {
       "run_id": "app_factory_220354",
@@ -215,7 +353,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 6
+      "global_rank": 10
     },
     {
       "run_id": "batch-specs-201327",
@@ -249,7 +387,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 7
+      "global_rank": 11
     },
     {
       "run_id": "batch-specs-213456",
@@ -283,7 +421,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 8
+      "global_rank": 12
     },
     {
       "run_id": "factory-094718",
@@ -316,7 +454,73 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 9
+      "global_rank": 13
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 2,
+      "score": 8.5,
+      "idea_id": "simple_timer_kids_004",
+      "idea_name": "Simple Timer Kids",
+      "idea_slug": "simple_timer_kids",
+      "market": "Kids time management tools",
+      "target_user": "Parents of children aged 4-10 needing simple time management tools",
+      "core_loop": "Select pre-set timer → Start with one big button → Watch fun countdown animation → Celebrate completion",
+      "evidence_summary": "Parents seek uncomplicated, child-friendly interfaces. Timer apps succeed when fun and easy-to-use rather than feature-rich.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 2,
+      "global_rank": 14
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 3,
+      "score": 8.5,
+      "idea_id": "home_repair_sequence_003",
+      "idea_name": "Home Repair Sequence",
+      "idea_slug": "home_repair_sequence",
+      "market": "Sequential home maintenance and repair workflow coordination",
+      "target_user": "Homeowners managing complex repairs that involve multiple contractors, permits, and inspection sequences",
+      "core_loop": "Enter repair with photos → App suggests sequence → Track contractor quotes → Store receipts/warranties → Schedule inspections → Generate completion docs",
+      "evidence_summary": "Homeowners struggle with hunting for receipts, work orders or warranty info causing repair delays. Manual systems make users lose important documents.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 3,
+      "global_rank": 15
     },
     {
       "run_id": "app_factory_110218",
@@ -355,7 +559,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 10
+      "global_rank": 16
     },
     {
       "run_id": "batch-specs-210945",
@@ -389,7 +593,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 11
+      "global_rank": 17
     },
     {
       "run_id": "batch-specs-170756",
@@ -427,7 +631,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 12
+      "global_rank": 18
     },
     {
       "run_id": "app_factory_220354",
@@ -461,7 +665,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 13
+      "global_rank": 19
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 2,
+      "score": 8.4,
+      "idea_id": "offline_flow_002",
+      "idea_name": "OfflineFlow",
+      "idea_slug": "offline_flow",
+      "market": "Offline-first productivity",
+      "target_user": "Mobile workers and professionals in low-connectivity environments",
+      "core_loop": [
+        "Create tasks and notes offline",
+        "Organize with projects and contexts",
+        "Work seamlessly without connectivity",
+        "Sync when connection available"
+      ],
+      "evidence_summary": "Productivity apps requiring internet for basic functionality, sync failures causing data loss",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 2,
+      "global_rank": 20
     },
     {
       "run_id": "batch-specs-204537",
@@ -495,7 +738,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 14
+      "global_rank": 21
     },
     {
       "run_id": "app_factory_112152",
@@ -534,7 +777,7 @@
       "reason_to_build_now": "Strong market signal with low behavior change risk and clear value proposition",
       "reason_to_skip": "Consider market saturation and differentiation strategy",
       "run_rank": 1,
-      "global_rank": 15
+      "global_rank": 22
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -568,7 +811,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 16
+      "global_rank": 23
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -602,7 +845,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 17
+      "global_rank": 24
     },
     {
       "run_id": "batch-specs-201250",
@@ -640,7 +883,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 18
+      "global_rank": 25
     },
     {
       "run_id": "run_185842",
@@ -674,7 +917,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 19
+      "global_rank": 26
     },
     {
       "run_id": "app_factory_220354",
@@ -708,7 +951,73 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 20
+      "global_rank": 27
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 3,
+      "score": 8.3,
+      "idea_id": "focus_dot_009",
+      "idea_name": "Focus Dot",
+      "idea_slug": "focus_dot",
+      "market": "Simple focus aids",
+      "target_user": "Anyone needing simple focus sessions without complex productivity systems",
+      "core_loop": "Set focus duration → Watch dot grow slowly → Complete session or stop → Track daily focus time",
+      "evidence_summary": "Focus apps are often overwhelming with features. Users prefer simple start and stop timer functionality.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 3,
+      "global_rank": 28
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 4,
+      "score": 8.3,
+      "idea_id": "family_logistics_central_004",
+      "idea_name": "Family Logistics Central",
+      "idea_slug": "family_logistics_central",
+      "market": "Weekly family logistics coordination",
+      "target_user": "Parents coordinating weekly logistics for families with multiple children, activities, and conflicting schedules",
+      "core_loop": "Input weekly activities → Identify conflicts → Generate carpool schedules → Assign responsibilities → Send reminders → Handle changes",
+      "evidence_summary": "Families struggle with dozen apps and mile-long text threads to get crew on same page. Parents juggle work and family causing organization difficulties.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 4,
+      "global_rank": 29
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -741,7 +1050,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 21
+      "global_rank": 30
     },
     {
       "run_id": "batch-specs-213456",
@@ -775,7 +1084,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 22
+      "global_rank": 31
     },
     {
       "run_id": "batch-specs-201327",
@@ -809,7 +1118,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 23
+      "global_rank": 32
     },
     {
       "run_id": "app_factory_220354",
@@ -843,7 +1152,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 24
+      "global_rank": 33
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 3,
+      "score": 8.2,
+      "idea_id": "crystal_scan_003",
+      "idea_name": "CrystalScan",
+      "idea_slug": "crystal_scan",
+      "market": "High-quality document scanning",
+      "target_user": "Remote workers, students, and professionals needing high-quality document digitization",
+      "core_loop": [
+        "Scan document preserving full resolution",
+        "Apply intelligent enhancement and cropping",
+        "Organize in folders with searchable metadata",
+        "Export in multiple formats"
+      ],
+      "evidence_summary": "Document scanners reduce image quality, professionals need full resolution for official documents",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 3,
+      "global_rank": 34
     },
     {
       "run_id": "factory-094718",
@@ -876,7 +1224,40 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 25
+      "global_rank": 35
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 4,
+      "score": 8.2,
+      "idea_id": "creative_nudge_002",
+      "idea_name": "Creative Nudge",
+      "idea_slug": "creative_nudge",
+      "market": "Creative productivity",
+      "target_user": "Writers, artists, and creators struggling with consistent creative output",
+      "core_loop": "Receive one daily creative prompt → Complete or skip prompt → Save favorite prompts → Track creative streak",
+      "evidence_summary": "Writers need daily creative prompts and writer's block mitigation tools. Existing solutions offer too many options causing overwhelm.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 4,
+      "global_rank": 36
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -909,7 +1290,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 26
+      "global_rank": 37
     },
     {
       "run_id": "batch-specs-170756",
@@ -947,7 +1328,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 27
+      "global_rank": 38
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -991,7 +1372,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 28
+      "global_rank": 39
     },
     {
       "run_id": "batch-specs-210945",
@@ -1025,7 +1406,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 29
+      "global_rank": 40
     },
     {
       "run_id": "app_factory_110218",
@@ -1064,7 +1445,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 30
+      "global_rank": 41
     },
     {
       "run_id": "batch-specs-201250",
@@ -1102,7 +1483,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 31
+      "global_rank": 42
     },
     {
       "run_id": "run_185842",
@@ -1136,7 +1517,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 32
+      "global_rank": 43
     },
     {
       "run_id": "app_factory_220354",
@@ -1170,7 +1551,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 33
+      "global_rank": 44
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -1201,7 +1582,73 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 34
+      "global_rank": 45
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 5,
+      "score": 8.1,
+      "idea_id": "offline_vocab_builder_005",
+      "idea_name": "Offline Vocab Builder",
+      "idea_slug": "offline_vocab_builder",
+      "market": "Offline vocabulary practice with spaced repetition",
+      "target_user": "Language learners with inconsistent schedules needing structured offline practice during commutes and travel",
+      "core_loop": "Download vocab packs → Practice with adaptive difficulty → Track learning streaks → Generate review sets → Sync progress when online",
+      "evidence_summary": "Language learners suffer from irregular practice leads to slow progress or burnout. Users need offline solutions for inconsistent schedules.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 5,
+      "global_rank": 46
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 5,
+      "score": 8.1,
+      "idea_id": "quick_note_capture_007",
+      "idea_name": "Quick Note Capture",
+      "idea_slug": "quick_note_capture",
+      "market": "Note capture utilities",
+      "target_user": "Professionals and students needing immediate thought capture without app complexity",
+      "core_loop": "Open app instantly → Type or voice memo → One-tap save with timestamp → Find notes with simple search",
+      "evidence_summary": "Users value extensions that do one thing well and save time. Simple utilities consistently rated higher than complex alternatives.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 5,
+      "global_rank": 47
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -1234,7 +1681,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 35
+      "global_rank": 48
     },
     {
       "run_id": "batch-specs-201250",
@@ -1272,7 +1719,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 1,
-      "global_rank": 36
+      "global_rank": 49
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -1306,7 +1753,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 37
+      "global_rank": 50
     },
     {
       "run_id": "batch-specs-204537",
@@ -1340,7 +1787,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 38
+      "global_rank": 51
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -1374,7 +1821,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 39
+      "global_rank": 52
     },
     {
       "run_id": "batch-specs-201327",
@@ -1408,7 +1855,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 40
+      "global_rank": 53
     },
     {
       "run_id": "app_factory_112152",
@@ -1447,7 +1894,7 @@
       "reason_to_build_now": "Strong market signal with low behavior change risk and clear value proposition",
       "reason_to_skip": "Consider market saturation and differentiation strategy",
       "run_rank": 10,
-      "global_rank": 41
+      "global_rank": 54
     },
     {
       "run_id": "run_185842",
@@ -1481,7 +1928,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 42
+      "global_rank": 55
     },
     {
       "run_id": "app_factory_220354",
@@ -1515,7 +1962,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 43
+      "global_rank": 56
     },
     {
       "run_id": "factory-094718",
@@ -1548,7 +1995,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 44
+      "global_rank": 57
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -1581,7 +2028,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 45
+      "global_rank": 58
     },
     {
       "run_id": "batch-specs-210945",
@@ -1615,7 +2062,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 46
+      "global_rank": 59
     },
     {
       "run_id": "batch-specs-170756",
@@ -1653,7 +2100,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 47
+      "global_rank": 60
     },
     {
       "run_id": "batch-specs-213456",
@@ -1687,7 +2134,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 48
+      "global_rank": 61
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -1730,7 +2177,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 49
+      "global_rank": 62
     },
     {
       "run_id": "batch-specs-201250",
@@ -1768,7 +2215,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 50
+      "global_rank": 63
     },
     {
       "run_id": "app_factory_110218",
@@ -1807,7 +2254,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 51
+      "global_rank": 64
     },
     {
       "run_id": "app_factory_220354",
@@ -1841,7 +2288,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 52
+      "global_rank": 65
     },
     {
       "run_id": "run_185842",
@@ -1875,7 +2322,112 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 53
+      "global_rank": 66
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 4,
+      "score": 7.9,
+      "idea_id": "sync_guardian_004",
+      "idea_name": "SyncGuardian",
+      "idea_slug": "sync_guardian",
+      "market": "Multi-device sync reliability",
+      "target_user": "Multi-device professionals and teams needing reliable synchronization",
+      "core_loop": [
+        "Create/edit documents on any device",
+        "Automatic sync with conflict detection",
+        "Review sync status and conflicts",
+        "Restore previous versions if needed"
+      ],
+      "evidence_summary": "Note sync failures causing data loss, poor conflict resolution affecting productivity",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 4,
+      "global_rank": 67
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 6,
+      "score": 7.9,
+      "idea_id": "group_meal_coordinator_006",
+      "idea_name": "Group Meal Coordinator",
+      "idea_slug": "group_meal_coordinator",
+      "market": "Meal planning for households with dietary restrictions",
+      "target_user": "Households with multiple people having different dietary restrictions, preferences, and cooking responsibilities",
+      "core_loop": "Input dietary needs/schedules → Generate optimized meal plan → Coordinate cooking responsibilities → Create shopping list → Track assignments → Handle substitutions",
+      "evidence_summary": "Meal planners report having to edit meal plan to fit schedule, budget, and preferences across multiple people. Frustrated when recipe swaps affect entire coordination.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 6,
+      "global_rank": 68
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 6,
+      "score": 7.9,
+      "idea_id": "home_dots_003",
+      "idea_name": "Home Dots",
+      "idea_slug": "home_dots",
+      "market": "Home organization",
+      "target_user": "Busy families needing simple household organization without complex systems",
+      "core_loop": "Set up simple household tasks → Mark tasks with colored dots → View family progress visually → Reset weekly or monthly",
+      "evidence_summary": "Home organization apps criticized for extensive customization that's overwhelming. Users want hassle-free solutions.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 6,
+      "global_rank": 69
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -1908,7 +2460,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 54
+      "global_rank": 70
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -1941,7 +2493,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 55
+      "global_rank": 71
     },
     {
       "run_id": "app_factory_112152",
@@ -1980,7 +2532,7 @@
       "reason_to_build_now": "Addresses specific user pain point with clear evidence",
       "reason_to_skip": "Lower validation score suggests market validation needed",
       "run_rank": 2,
-      "global_rank": 56
+      "global_rank": 72
     },
     {
       "run_id": "batch-specs-204537",
@@ -2014,7 +2566,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 57
+      "global_rank": 73
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -2048,7 +2600,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 58
+      "global_rank": 74
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -2082,7 +2634,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 59
+      "global_rank": 75
     },
     {
       "run_id": "batch-specs-210945",
@@ -2116,7 +2668,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 60
+      "global_rank": 76
     },
     {
       "run_id": "batch-specs-201327",
@@ -2150,7 +2702,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 61
+      "global_rank": 77
     },
     {
       "run_id": "batch-specs-213456",
@@ -2184,7 +2736,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 62
+      "global_rank": 78
     },
     {
       "run_id": "app_factory_110218",
@@ -2223,7 +2775,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 63
+      "global_rank": 79
     },
     {
       "run_id": "batch-specs-201250",
@@ -2261,7 +2813,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 64
+      "global_rank": 80
     },
     {
       "run_id": "run_185842",
@@ -2295,7 +2847,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 65
+      "global_rank": 81
     },
     {
       "run_id": "app_factory_220354",
@@ -2329,7 +2881,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 66
+      "global_rank": 82
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -2360,7 +2912,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 67
+      "global_rank": 83
     },
     {
       "run_id": "factory-094718",
@@ -2393,7 +2945,40 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 68
+      "global_rank": 84
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 7,
+      "score": 7.8,
+      "idea_id": "word_practice_006",
+      "idea_name": "Word Practice",
+      "idea_slug": "word_practice",
+      "market": "Language learning",
+      "target_user": "Language learners wanting consistent vocabulary practice without internet dependency",
+      "core_loop": "Download word packs offline → Practice 5-10 words daily → Track learning streak → Review difficult words",
+      "evidence_summary": "Language learners seek offline flashcards apps and study apps that work without internet. Current solutions require constant connectivity.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 7,
+      "global_rank": 85
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -2437,7 +3022,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 69
+      "global_rank": 86
     },
     {
       "run_id": "app_factory_110218",
@@ -2476,7 +3061,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 70
+      "global_rank": 87
     },
     {
       "run_id": "batch-specs-213456",
@@ -2510,7 +3095,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 71
+      "global_rank": 88
     },
     {
       "run_id": "batch-specs-201250",
@@ -2548,7 +3133,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 72
+      "global_rank": 89
     },
     {
       "run_id": "batch-specs-204537",
@@ -2582,7 +3167,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 73
+      "global_rank": 90
     },
     {
       "run_id": "app_factory_112152",
@@ -2621,7 +3206,7 @@
       "reason_to_build_now": "Addresses specific user pain point with clear evidence",
       "reason_to_skip": "Lower validation score suggests market validation needed",
       "run_rank": 5,
-      "global_rank": 74
+      "global_rank": 91
     },
     {
       "run_id": "batch-specs-201327",
@@ -2655,7 +3240,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 75
+      "global_rank": 92
     },
     {
       "run_id": "batch-specs-210945",
@@ -2689,7 +3274,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 76
+      "global_rank": 93
     },
     {
       "run_id": "run_185842",
@@ -2723,7 +3308,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 77
+      "global_rank": 94
     },
     {
       "run_id": "app_factory_220354",
@@ -2757,7 +3342,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 78
+      "global_rank": 95
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -2788,7 +3373,73 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 79
+      "global_rank": 96
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 7,
+      "score": 7.7,
+      "idea_id": "event_vendor_coordinator_007",
+      "idea_name": "Event Vendor Coordinator",
+      "idea_slug": "event_vendor_coordinator",
+      "market": "Multi-vendor coordination for complex events",
+      "target_user": "Event planners coordinating weddings, parties, or corporate events with multiple vendors and complex timing dependencies",
+      "core_loop": "Enter event/vendor needs → Research/compare vendors → Coordinate schedules → Track contracts/payments → Generate master timeline → Handle changes",
+      "evidence_summary": "Event planning requires manual coordination of vendor coordination, RSVP tracking, timeline management with complex dependency and payment coordination.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 7,
+      "global_rank": 97
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 8,
+      "score": 7.7,
+      "idea_id": "family_chore_simple_010",
+      "idea_name": "Family Chore Simple",
+      "idea_slug": "family_chore_simple",
+      "market": "Family organization",
+      "target_user": "Parents with children aged 6-14 needing straightforward chore management",
+      "core_loop": "Assign weekly chores to kids → Kids mark chores complete → Visual progress fills up → Family celebrates weekly completion",
+      "evidence_summary": "Parents seek simple chore chart apps and complain about existing apps being too complicated for family use.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 8,
+      "global_rank": 98
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -2821,7 +3472,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 80
+      "global_rank": 99
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -2854,7 +3505,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 81
+      "global_rank": 100
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -2888,7 +3539,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 82
+      "global_rank": 101
     },
     {
       "run_id": "batch-specs-204537",
@@ -2922,7 +3573,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 83
+      "global_rank": 102
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -2956,7 +3607,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 84
+      "global_rank": 103
     },
     {
       "run_id": "batch-specs-210945",
@@ -2990,7 +3641,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 85
+      "global_rank": 104
     },
     {
       "run_id": "batch-specs-201327",
@@ -3024,7 +3675,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 86
+      "global_rank": 105
     },
     {
       "run_id": "batch-specs-213456",
@@ -3058,7 +3709,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 87
+      "global_rank": 106
     },
     {
       "run_id": "app_factory_112152",
@@ -3097,7 +3748,7 @@
       "reason_to_build_now": "Addresses specific user pain point with clear evidence",
       "reason_to_skip": "Lower validation score suggests market validation needed",
       "run_rank": 9,
-      "global_rank": 88
+      "global_rank": 107
     },
     {
       "run_id": "app_factory_110218",
@@ -3136,7 +3787,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 89
+      "global_rank": 108
     },
     {
       "run_id": "batch-specs-170756",
@@ -3174,7 +3825,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 90
+      "global_rank": 109
     },
     {
       "run_id": "run_185842",
@@ -3208,7 +3859,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 91
+      "global_rank": 110
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 5,
+      "score": 7.6,
+      "idea_id": "battery_flow_005",
+      "idea_name": "BatteryFlow",
+      "idea_slug": "battery_flow",
+      "market": "Battery-optimized mobile productivity",
+      "target_user": "Field workers and mobile professionals needing all-day device operation",
+      "core_loop": [
+        "Track time and tasks with minimal battery impact",
+        "Take notes and manage projects efficiently",
+        "Monitor battery usage and optimize settings",
+        "Sync data when charging or on WiFi"
+      ],
+      "evidence_summary": "Time tracking and productivity apps causing significant battery drain",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 5,
+      "global_rank": 111
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -3239,7 +3929,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 92
+      "global_rank": 112
     },
     {
       "run_id": "factory-094718",
@@ -3272,7 +3962,40 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 93
+      "global_rank": 113
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 9,
+      "score": 7.6,
+      "idea_id": "meal_simple_005",
+      "idea_name": "MealSimple",
+      "idea_slug": "meal_simple",
+      "market": "Meal planning simplification",
+      "target_user": "Busy individuals overwhelmed by complex meal planning apps",
+      "core_loop": "Plan 7 meals for the week → Generate simple shopping list → Mark meals as completed → Repeat successful weeks",
+      "evidence_summary": "Meal planning apps are overwhelmingly complicated and users face decision paralysis from too many recipes.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 9,
+      "global_rank": 114
     },
     {
       "run_id": "app_factory_112152",
@@ -3311,7 +4034,7 @@
       "reason_to_build_now": "Addresses specific user pain point with clear evidence",
       "reason_to_skip": "Lower validation score suggests market validation needed",
       "run_rank": 4,
-      "global_rank": 94
+      "global_rank": 115
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -3354,7 +4077,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 95
+      "global_rank": 116
     },
     {
       "run_id": "app_factory_110218",
@@ -3393,7 +4116,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 96
+      "global_rank": 117
     },
     {
       "run_id": "batch-specs-204537",
@@ -3427,7 +4150,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 97
+      "global_rank": 118
     },
     {
       "run_id": "batch-specs-170756",
@@ -3465,7 +4188,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 98
+      "global_rank": 119
     },
     {
       "run_id": "batch-specs-201250",
@@ -3503,7 +4226,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 99
+      "global_rank": 120
     },
     {
       "run_id": "batch-specs-213456",
@@ -3537,7 +4260,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 100
+      "global_rank": 121
     },
     {
       "run_id": "batch-specs-201327",
@@ -3571,7 +4294,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 101
+      "global_rank": 122
     },
     {
       "run_id": "batch-specs-210945",
@@ -3605,7 +4328,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 102
+      "global_rank": 123
     },
     {
       "run_id": "run_185842",
@@ -3639,7 +4362,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 103
+      "global_rank": 124
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -3670,7 +4393,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 104
+      "global_rank": 125
     },
     {
       "run_id": "factory-094718",
@@ -3703,7 +4426,40 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 105
+      "global_rank": 126
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 8,
+      "score": 7.5,
+      "idea_id": "appliance_warranty_tracker_008",
+      "idea_name": "Appliance Warranty Tracker",
+      "idea_slug": "appliance_warranty_tracker",
+      "market": "Appliance lifecycle and warranty management",
+      "target_user": "Homeowners managing multiple appliances with warranties, maintenance schedules, and repair decisions",
+      "core_loop": "Scan serial numbers/receipts → Set maintenance reminders → Track warranties → Document repairs → Generate warranty claims → Provide replacement recommendations",
+      "evidence_summary": "Homeowners lose important receipts, forget maintenance dates, and struggle to locate warranty information when needed most causing hours of searching.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 8,
+      "global_rank": 127
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -3736,7 +4492,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 106
+      "global_rank": 128
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -3769,7 +4525,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 107
+      "global_rank": 129
     },
     {
       "run_id": "batch-specs-213456",
@@ -3803,7 +4559,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 108
+      "global_rank": 130
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -3837,7 +4593,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 109
+      "global_rank": 131
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -3871,7 +4627,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 110
+      "global_rank": 132
     },
     {
       "run_id": "batch-specs-204537",
@@ -3905,7 +4661,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 111
+      "global_rank": 133
     },
     {
       "run_id": "batch-specs-201327",
@@ -3939,7 +4695,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 112
+      "global_rank": 134
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -3983,7 +4739,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 113
+      "global_rank": 135
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 6,
+      "score": 7.4,
+      "idea_id": "instant_access_006",
+      "idea_name": "InstantAccess",
+      "idea_slug": "instant_access",
+      "market": "Guest-first file sharing",
+      "target_user": "Teams needing quick file sharing without account creation",
+      "core_loop": [
+        "Share files instantly without account creation",
+        "Recipients access files via secure link",
+        "Optionally create account for organization",
+        "Unlock premium features progressively"
+      ],
+      "evidence_summary": "File sharing apps requiring excessive permissions, onboarding friction",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 6,
+      "global_rank": 136
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -4014,7 +4809,40 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 114
+      "global_rank": 137
+    },
+    {
+      "run_id": "app_factory_222533",
+      "run_date": "2026-01-08",
+      "rank": 10,
+      "score": 7.4,
+      "idea_id": "travel_essential_008",
+      "idea_name": "Travel Essential",
+      "idea_slug": "travel_essential",
+      "market": "Travel utilities",
+      "target_user": "International travelers needing basic tools without internet dependency",
+      "core_loop": "Access offline currency converter → Use unit conversions and time zones → Reference common phrases → Check local emergency numbers",
+      "evidence_summary": "Travelers seek works on airplane apps and simple travel utilities. Current comprehensive travel apps are too complex for basic needs.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 10,
+      "global_rank": 138
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -4058,7 +4886,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 3,
-      "global_rank": 115
+      "global_rank": 139
     },
     {
       "run_id": "app_factory_112152",
@@ -4097,7 +4925,7 @@
       "reason_to_build_now": "Addresses specific user pain point with clear evidence",
       "reason_to_skip": "Lower validation score suggests market validation needed",
       "run_rank": 6,
-      "global_rank": 116
+      "global_rank": 140
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -4131,7 +4959,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 117
+      "global_rank": 141
     },
     {
       "run_id": "app_factory_110218",
@@ -4170,7 +4998,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 118
+      "global_rank": 142
     },
     {
       "run_id": "batch-specs-210945",
@@ -4204,7 +5032,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 119
+      "global_rank": 143
     },
     {
       "run_id": "batch-specs-204537",
@@ -4238,7 +5066,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 120
+      "global_rank": 144
     },
     {
       "run_id": "batch-specs-201250",
@@ -4276,7 +5104,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 121
+      "global_rank": 145
     },
     {
       "run_id": "batch-specs-213456",
@@ -4310,7 +5138,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 122
+      "global_rank": 146
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -4341,7 +5169,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 123
+      "global_rank": 147
     },
     {
       "run_id": "factory-094718",
@@ -4374,7 +5202,40 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 124
+      "global_rank": 148
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 9,
+      "score": 7.3,
+      "idea_id": "moving_timeline_coordinator_009",
+      "idea_name": "Moving Timeline Coordinator",
+      "idea_slug": "moving_timeline_coordinator",
+      "market": "Multi-phase moving process coordination",
+      "target_user": "Individuals and families managing complex moves with multiple service providers, timeline dependencies, and address change coordination",
+      "core_loop": "Enter move dates → Create inventory → Generate utility timeline → Coordinate movers → Track address changes → Monitor logistics → Verify completion",
+      "evidence_summary": "Moving requires manual coordination of room-by-room inventory, utility coordination, address changes across complex timelines with dependency management.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 9,
+      "global_rank": 149
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -4407,7 +5268,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 125
+      "global_rank": 150
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -4440,7 +5301,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 126
+      "global_rank": 151
     },
     {
       "run_id": "batch-specs-201250",
@@ -4478,7 +5339,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 127
+      "global_rank": 152
     },
     {
       "run_id": "app_factory_110218",
@@ -4517,7 +5378,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 128
+      "global_rank": 153
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -4551,7 +5412,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 129
+      "global_rank": 154
     },
     {
       "run_id": "batch-specs-170756",
@@ -4589,7 +5450,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 130
+      "global_rank": 155
     },
     {
       "run_id": "batch-specs-201327",
@@ -4623,7 +5484,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 131
+      "global_rank": 156
     },
     {
       "run_id": "batch-specs-210945",
@@ -4657,7 +5518,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 132
+      "global_rank": 157
     },
     {
       "run_id": "batch-specs-204537",
@@ -4691,7 +5552,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 133
+      "global_rank": 158
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -4735,7 +5596,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 134
+      "global_rank": 159
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 7,
+      "score": 7.2,
+      "idea_id": "offline_navigator_007",
+      "idea_name": "OfflineNavigator",
+      "idea_slug": "offline_navigator",
+      "market": "Offline travel planning",
+      "target_user": "Travelers in remote areas needing reliable offline access",
+      "core_loop": [
+        "Plan trip with offline map downloads",
+        "Coordinate with group via local sync",
+        "Navigate without internet connectivity",
+        "Track expenses and share costs offline"
+      ],
+      "evidence_summary": "Travel apps failing without connectivity, need for offline itinerary access",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 7,
+      "global_rank": 160
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -4766,7 +5666,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 135
+      "global_rank": 161
     },
     {
       "run_id": "factory-094718",
@@ -4799,7 +5699,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 136
+      "global_rank": 162
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -4842,7 +5742,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 5,
-      "global_rank": 137
+      "global_rank": 163
     },
     {
       "run_id": "app_factory_112152",
@@ -4881,7 +5781,7 @@
       "reason_to_build_now": "Addresses specific user pain point with clear evidence",
       "reason_to_skip": "Lower validation score suggests market validation needed",
       "run_rank": 7,
-      "global_rank": 138
+      "global_rank": 164
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -4915,7 +5815,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 139
+      "global_rank": 165
     },
     {
       "run_id": "batch-specs-213456",
@@ -4949,7 +5849,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 140
+      "global_rank": 166
     },
     {
       "run_id": "batch-specs-201327",
@@ -4983,7 +5883,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 141
+      "global_rank": 167
     },
     {
       "run_id": "batch-specs-204537",
@@ -5017,7 +5917,40 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 142
+      "global_rank": 168
+    },
+    {
+      "run_id": "app_factory_224903",
+      "run_date": "2026-01-08",
+      "rank": 10,
+      "score": 7.1,
+      "idea_id": "kids_activity_scheduler_010",
+      "idea_name": "Kids Activity Scheduler",
+      "idea_slug": "kids_activity_scheduler",
+      "market": "Children activity and carpool coordination",
+      "target_user": "Parents coordinating multiple children's activities with carpools, equipment, and multi-family scheduling",
+      "core_loop": "Enter activities/requirements → Coordinate carpools → Track equipment needs → Generate prep schedules → Handle changes → Track costs",
+      "evidence_summary": "Parents report family calendars quickly fill up with practices, recitals, birthday parties making coordination busy and overwhelming for multiple families.",
+      "source_paths": [
+        "runs/2026-01-08/app_factory_224903/stage01/stages/stage01.json"
+      ],
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 10,
+      "global_rank": 169
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -5050,7 +5983,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 143
+      "global_rank": 170
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -5083,7 +6016,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 144
+      "global_rank": 171
     },
     {
       "run_id": "batch-specs-170756",
@@ -5121,7 +6054,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 2,
-      "global_rank": 145
+      "global_rank": 172
     },
     {
       "run_id": "app_factory_110218",
@@ -5160,7 +6093,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 6,
-      "global_rank": 146
+      "global_rank": 173
     },
     {
       "run_id": "batch-specs-201250",
@@ -5198,7 +6131,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 147
+      "global_rank": 174
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -5232,7 +6165,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 148
+      "global_rank": 175
     },
     {
       "run_id": "batch-specs-210945",
@@ -5266,7 +6199,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 149
+      "global_rank": 176
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 8,
+      "score": 7.0,
+      "idea_id": "memory_palace_008",
+      "idea_name": "MemoryPalace",
+      "idea_slug": "memory_palace",
+      "market": "Visual content organization",
+      "target_user": "Knowledge workers and researchers managing reference information",
+      "core_loop": [
+        "Save content with visual memory cues",
+        "Organize using spatial relationships",
+        "Search using natural language patterns",
+        "Discover related content through linking"
+      ],
+      "evidence_summary": "Bookmark folders become digital graveyards, information retrieval failure",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 8,
+      "global_rank": 177
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -5297,7 +6269,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 150
+      "global_rank": 178
     },
     {
       "run_id": "factory-094718",
@@ -5330,7 +6302,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 151
+      "global_rank": 179
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -5375,7 +6347,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 7,
-      "global_rank": 152
+      "global_rank": 180
     },
     {
       "run_id": "app_factory_112152",
@@ -5414,7 +6386,7 @@
       "reason_to_build_now": "Addresses specific user pain point with clear evidence",
       "reason_to_skip": "Lower validation score suggests market validation needed",
       "run_rank": 8,
-      "global_rank": 153
+      "global_rank": 181
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -5448,7 +6420,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 154
+      "global_rank": 182
     },
     {
       "run_id": "batch-specs-171643-prism-delta",
@@ -5479,7 +6451,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 155
+      "global_rank": 183
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -5512,7 +6484,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 156
+      "global_rank": 184
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -5545,7 +6517,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 157
+      "global_rank": 185
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -5579,7 +6551,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 158
+      "global_rank": 186
     },
     {
       "run_id": "batch-specs-170756",
@@ -5617,7 +6589,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 8,
-      "global_rank": 159
+      "global_rank": 187
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 9,
+      "score": 6.8,
+      "idea_id": "private_expense_009",
+      "idea_name": "PrivateExpense",
+      "idea_slug": "private_expense",
+      "market": "Local expense splitting",
+      "target_user": "Roommates and groups wanting fair expense splitting without data sharing",
+      "core_loop": [
+        "Enter shared expenses manually",
+        "Add participants and contributions",
+        "Calculate splits with multiple methods",
+        "Share results via text or image"
+      ],
+      "evidence_summary": "Bill splitting apps requiring excessive permissions, privacy concerns",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 9,
+      "global_rank": 188
     },
     {
       "run_id": "factory-094718",
@@ -5650,7 +6661,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 160
+      "global_rank": 189
     },
     {
       "run_id": "batch-specs-170756",
@@ -5688,7 +6699,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 4,
-      "global_rank": 161
+      "global_rank": 190
     },
     {
       "run_id": "batch-specs-160132-meadow-spark",
@@ -5731,7 +6742,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 162
+      "global_rank": 191
     },
     {
       "run_id": "market-batch-2026-01-07-run",
@@ -5765,7 +6776,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 163
+      "global_rank": 192
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -5798,7 +6809,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 164
+      "global_rank": 193
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -5831,7 +6842,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 165
+      "global_rank": 194
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -5865,7 +6876,46 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 9,
-      "global_rank": 166
+      "global_rank": 195
+    },
+    {
+      "run_id": "app_factory_000033",
+      "run_date": "2026-01-09",
+      "rank": 10,
+      "score": 6.5,
+      "idea_id": "local_voice_010",
+      "idea_name": "LocalVoice",
+      "idea_slug": "local_voice",
+      "market": "Private voice transcription",
+      "target_user": "Professionals in confidential environments needing meeting documentation",
+      "core_loop": [
+        "Record voice memo locally on device",
+        "Process transcription using local AI",
+        "Edit and organize transcribed content",
+        "Export notes while keeping audio private"
+      ],
+      "evidence_summary": "Voice transcription requires cloud processing, confidentiality concerns",
+      "source_paths": {
+        "run_dir": "runs/2026-01-09/app_factory_000033",
+        "stage01_json": "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json"
+      },
+      "cost_profile": "unknown",
+      "backend_required": false,
+      "backend_notes": "",
+      "external_api_required": false,
+      "external_api_list": [],
+      "external_api_cost_risk": "low",
+      "ai_required": "none",
+      "ai_usage_notes": "",
+      "data_sensitivity": "low",
+      "mvp_complexity": "M",
+      "build_effort_estimate": "8h",
+      "ops_cost_estimate": "low",
+      "review_risk": "low",
+      "reason_to_build_now": "Strong market signal with clear user demand",
+      "reason_to_skip": "Market validation needed",
+      "run_rank": 10,
+      "global_rank": 196
     },
     {
       "run_id": "batch-specs-010721-3472",
@@ -5898,7 +6948,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 167
+      "global_rank": 197
     },
     {
       "run_id": "batch-specs-010718-5233",
@@ -5931,7 +6981,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 168
+      "global_rank": 198
     },
     {
       "run_id": "diversified-signals-2026-01-07-run",
@@ -5965,7 +7015,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 169
+      "global_rank": 199
     },
     {
       "run_id": "batch-specs-170756",
@@ -6003,7 +7053,7 @@
       "reason_to_build_now": "Strong market signal with clear user demand",
       "reason_to_skip": "Market validation needed",
       "run_rank": 10,
-      "global_rank": 170
+      "global_rank": 200
     }
   ]
 }

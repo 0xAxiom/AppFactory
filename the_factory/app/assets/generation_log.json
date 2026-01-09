@@ -1,0 +1,45 @@
+{
+  "generation_session": {
+    "timestamp": "2026-01-09T20:46:44Z",
+    "app_name": "App Factory Generated App",
+    "output_directory": "/Users/melted/Documents/GitHub/app factory/the_factory/app/assets",
+    "method": "sips_fallback",
+    "assets_generated": 4,
+    "assets_failed": 0
+  },
+  "generated_assets": [
+    {
+      "filename": "icon.png",
+      "dimensions": {"width": 1024, "height": 1024},
+      "file_size": 303200,
+      "sha256": "610faca39c0858cff713dd6a10b132f3e039dbda8727f04c9838e3d6d1b20cb9"
+    }
+,
+    {
+      "filename": "splash.png",
+      "dimensions": {"width": 1284, "height": 2778},
+      "file_size": 491100,
+      "sha256": "8cd134833a917853c24fb04a2e70ee64b544d1525bf03b160c5477dd4eb48405"
+    }
+,
+    {
+      "filename": "adaptive-icon.png",
+      "dimensions": {"width": 1024, "height": 1024},
+      "file_size": 303200,
+      "sha256": "610faca39c0858cff713dd6a10b132f3e039dbda8727f04c9838e3d6d1b20cb9"
+    }
+,
+    {
+      "filename": "favicon.png",
+      "dimensions": {"width": 32, "height": 32},
+      "file_size": 2535,
+      "sha256": "2842c9cb4354e16f4a4b8cda764cd1cf6643d4103ebe9e1442d731f096e205e7"
+    }
+
+  ],
+  "tools_used": {
+    "sips_available": true,
+    "sharp_available": false,
+    "platform": "Darwin"
+  }
+}
