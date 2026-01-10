@@ -2,15 +2,25 @@
   <img src="./the_factory/AppFactory.png" alt="App Factory" width="800" />
 </p>
 
-# App Factory
+# App Factory & Web3 Factory
+
+**Dual AI-Native Development Systems**
+
+This repository contains two isolated factory systems:
+- **App Factory** (`/the_factory/`) - Consumer mobile apps with subscription monetization
+- **Web3 Factory** (`/web3-factory/`) - Tokenized web apps with Solana integration (in development)
+
+---
+
+## App Factory
 
 **From idea to store-ready mobile app in one command.**
 
-App Factory is an AI-native pipeline that researches markets, validates ideas, and builds complete React Native mobile applications. Every generated app traces back to real market evidence.
+App Factory researches markets, validates ideas, and builds complete React Native mobile applications. Every generated app traces back to real market evidence.
 
-## Quick Start
+### Quick Start
 
-### Using Claude Code
+**Using Claude Code:**
 ```bash
 cd the_factory
 
@@ -19,7 +29,7 @@ build <IDEA_NAME>        # Build selected idea into complete app
 dream <your idea>        # Skip research, build any idea directly
 ```
 
-### Using the Standalone CLI
+**Using the Standalone CLI:**
 ```bash
 cd CLI
 npm install && cp .env.example .env
@@ -28,6 +38,24 @@ npm start                # Interactive menu with arrow keys
 ```
 
 The CLI runs the same pipeline using your Anthropic API key. No Claude Code subscription required.
+
+---
+
+## Web3 Factory
+
+**Transform ideas into tokenized web apps with Solana integration.**
+
+Web3 Factory validates Web3 concepts, defines token economics, and builds complete tokenized web applications with Bags SDK integration.
+
+### Quick Start
+
+```bash
+cd web3-factory
+
+web3 idea <your concept>  # Transform idea into tokenized web app
+```
+
+---
 
 ## How It Works
 
@@ -75,10 +103,12 @@ flowchart LR
 
 ## Tech Stack
 
-- **Framework**: React Native + Expo SDK 52
-- **Navigation**: Expo Router v4
-- **Monetization**: RevenueCat subscriptions
-- **Platforms**: iOS + Android
+| | App Factory | Web3 Factory |
+|--|-------------|--------------|
+| **Platform** | iOS/Android Mobile | Web Browsers |
+| **Framework** | React Native + Expo | Next.js/Vite + React |
+| **Monetization** | RevenueCat subscriptions | Solana tokens (Bags SDK) |
+| **Pipeline** | Stages 01-10 | Stages W1-W5 |
 
 ## Documentation
 
