@@ -118,7 +118,30 @@ flowchart LR
 
 ## Contributing
 
-Contributions welcome. See issues for ways to help.
+App Factory thrives on community input. Whether you're improving the pipeline, fixing bugs, or adding features, your contributions help everyone build better apps faster.
+
+**Ways to contribute:**
+- Report bugs and issues
+- Suggest improvements to pipeline stages
+- Improve documentation and templates
+- Add quality checks and validation
+- Submit pull requests
+
+**Key principles:**
+- Agent-native execution (Claude is the primary runner)
+- Filesystem truth (if it's not on disk, it didn't happen)
+- Schema validation for all outputs
+- Connected specs (every decision traces to market evidence)
+
+## Star History
+
+<a href="https://star-history.com/#MeltedMindz/AppFactory&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=MeltedMindz/AppFactory&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=MeltedMindz/AppFactory&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=MeltedMindz/AppFactory&type=Date" />
+ </picture>
+</a>
 
 ## License
 
@@ -126,4 +149,14 @@ MIT License - See LICENSE file.
 
 ---
 
-**$FACTORY** - [bags.fm/BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS](https://bags.fm/BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS)
+## $FACTORY
+
+Support the project by holding $FACTORY on Solana.
+
+**Contract Address:** `BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS`
+
+[View on Bags.fm](https://bags.fm/BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS)
+
+---
+
+**App Factory: From market research to store-ready apps in one command.**
