@@ -4,6 +4,8 @@
 
 App Factory is an end-to-end system that researches markets, generates validated app ideas, designs UX/monetization/brand, produces launch-ready specifications, and builds complete React Native mobile apps. Claude executes all stages directly within this repository without subprocess calls or hand-holding.
 
+> **Alternative: Standalone CLI** - If you prefer to use your own Anthropic API key instead of Claude Code, see the [CLI folder](../CLI/) for an interactive terminal interface that runs the same pipeline.
+
 ## 🚀 Quick Start
 
 ### Generate 10 Ranked App Ideas

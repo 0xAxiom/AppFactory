@@ -30,19 +30,36 @@ Web3 Factory validates Web3 concepts, defines token economics, and builds comple
 
 ## 🚀 Quick Start Guide
 
-### For App Factory (Mobile Apps)
+### Option 1: Using Claude Code (Interactive)
 ```bash
 cd the_factory
 
 # Generate 10 ranked mobile app ideas
 run app factory
 
-# Build a selected app  
+# Build a selected app
 build <IDEA_NAME>
 
 # Or transform any idea into an app instantly ✨
 dream your app idea here...
 ```
+
+### Option 2: Using the Standalone CLI (API Key)
+```bash
+cd CLI
+
+# Install dependencies
+npm install
+
+# Configure your Anthropic API key
+cp .env.example .env
+# Edit .env and add: ANTHROPIC_API_KEY=sk-ant-your-key
+
+# Start the interactive CLI
+npm start
+```
+
+The CLI provides the same pipeline through an interactive menu - navigate with arrow keys, select with Enter. No Claude Code subscription required, just an Anthropic API key.
 
 ### For Web3 Factory (Tokenized Web Apps)  
 ```bash
@@ -54,32 +71,46 @@ web3 idea your tokenized app idea here...
 
 ## 📊 Architecture Comparison
 
-| Aspect | App Factory | Web3 Factory |
-|--------|-------------|--------------|
-| **Target Platform** | iOS/Android Mobile | Web Browsers |
-| **Framework** | React Native + Expo | Next.js/Vite + React |
-| **Monetization** | Subscriptions (RevenueCat) | Tokens (Bags SDK) |
-| **Pipeline** | Stages 01-10 | Stages W1-W5 |
-| **Output** | Complete mobile apps | Complete web apps |
-| **Blockchain** | None | Solana |
+| Aspect | App Factory | Web3 Factory | Standalone CLI |
+|--------|-------------|--------------|----------------|
+| **Target Platform** | iOS/Android Mobile | Web Browsers | iOS/Android Mobile |
+| **Framework** | React Native + Expo | Next.js/Vite + React | React Native + Expo |
+| **Monetization** | Subscriptions (RevenueCat) | Tokens (Bags SDK) | Subscriptions (RevenueCat) |
+| **Pipeline** | Stages 01-10 | Stages W1-W5 | Stages 01-10 |
+| **Output** | Complete mobile apps | Complete web apps | Complete mobile apps |
+| **Execution** | Claude Code | Claude Code | Anthropic API Key |
+| **Interface** | Natural language commands | Natural language commands | Interactive terminal menu |
 
 ## How App Factory Works
 
-App Factory runs in stages with professional-grade enforcement gates, ensuring every build is production-ready:
+App Factory runs in stages with professional-grade enforcement gates, ensuring every build is production-ready. You can run the pipeline through **Claude Code** (interactive commands) or the **Standalone CLI** (API key):
 
 ```mermaid
 graph TD
+    %% Entry Points
+    subgraph ENTRY ["Entry Points"]
+        CC[🤖 Claude Code]
+        CLI[💻 Standalone CLI]
+    end
+
+    %% Both entry points lead to the same pipeline
+    CC --> A
+    CLI --> A
+
     %% Traditional Research Mode
     A[📝 Stage 00: Intake] --> B[🔍 Stage 01: Market Research]
     B --> C[📊 10 Ranked Ideas]
     C --> D{Choose One Idea}
     D --> E[📋 Stage 02: Product Spec]
-    
+
     %% Dream Mode ✨
     Z[✨ Raw App Idea] --> Y[🔮 Dream Stage 01: Validation]
     Y --> X[📝 Single Validated Idea]
     X --> E
-    
+
+    CC -.-> Z
+    CLI -.-> Z
+
     %% Professional Quality Gates
     E --> E1[🔒 Stage 02.5: Product Reality Gate]
     E1 --> E2[🔧 Stage 02.7: Dependency Resolution Gate]
@@ -90,23 +121,24 @@ graph TD
     I --> I1[🎯 Stage 09.5: Runtime Sanity Harness]
     I1 --> I2[🎨 Stage 10.1: Design Authenticity Check]
     I2 --> J[📱 Stage 10: Professional Enforcement Layer]
-    
+
     %% Outputs
     B --> K[📈 Global Leaderboard]
     J --> L[🚀 Production-Ready App]
-    
+
     %% Command Labels
     A -.-> |"run app factory"| B
     Z -.-> |"dream <idea>"| Y
     D -.-> |"build <idea>"| E
-    
+
     %% Styling
+    classDef entryPoint fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
     classDef dreamMode fill:#9333ea,stroke:#7c3aed,stroke-width:2px,color:#fff
     classDef traditional fill:#1f2937,stroke:#374151,stroke-width:2px,color:#fff
     classDef shared fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
-    
     classDef qualityGate fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#fff
-    
+
+    class CC,CLI entryPoint
     class Z,Y,X dreamMode
     class A,B,C,D traditional
     class E,F,G,H,I,J,L shared
@@ -136,18 +168,32 @@ graph TD
 the_factory/
 ├── CLAUDE.md                     # App Factory control plane
 ├── README.md                     # App Factory documentation
-├── templates/                    # Stage execution templates  
+├── templates/                    # Stage execution templates
 ├── schemas/                      # JSON validation schemas
 ├── runs/                         # Generated pipeline outputs
 ├── builds/                       # Built React Native apps
 └── ...                          # Core App Factory system
 ```
 
+### Standalone CLI (`/CLI/`)
+```
+CLI/
+├── README.md                     # CLI documentation
+├── src/                          # TypeScript source
+│   ├── index.ts                  # CLI entrypoint
+│   ├── interactive.ts            # Interactive menu runner
+│   ├── commands/                 # run, build, dream, doctor, list, resume
+│   ├── core/                     # API client, pipeline, stages
+│   └── ui/                       # Banner, prompts, menus
+├── .env.example                  # Environment template
+└── package.json                  # Dependencies (Anthropic SDK, etc.)
+```
+
 ### Web3 Factory (`/web3-factory/`)
 ```
 web3-factory/
 ├── CLAUDE.md                     # Web3 Factory control plane
-├── README.md                     # Web3 Factory documentation  
+├── README.md                     # Web3 Factory documentation
 ├── templates/                    # W1-W5 stage templates
 ├── schemas/                      # Web3 validation schemas
 ├── constants/                    # Bags SDK configuration
@@ -177,6 +223,32 @@ build <IDEA_NAME>
 dream your app idea here...
 ```
 *Transform any mobile app idea into a complete app in one shot!*
+
+## Standalone CLI
+
+**For users who prefer to use their own Anthropic API key instead of Claude Code:**
+
+The CLI provides an interactive menu interface with the same pipeline capabilities:
+
+```bash
+cd CLI
+npm install
+cp .env.example .env
+# Add your ANTHROPIC_API_KEY to .env
+npm start
+```
+
+### Interactive Menu Options
+| Option | Description |
+|--------|-------------|
+| **Run App Factory** | Generate 10 ranked app ideas (Stage 01) |
+| **Build an Idea** | Build a selected idea into a complete app (Stages 02-10) |
+| **Dream Mode** | Your idea → complete app (end-to-end) |
+| **List Runs & Builds** | View recent runs and builds |
+| **Resume Run** | Resume an interrupted pipeline |
+| **System Check** | Verify environment and dependencies |
+
+See [CLI/README.md](CLI/README.md) for full documentation.
 
 ## Web3 Factory Commands
 
