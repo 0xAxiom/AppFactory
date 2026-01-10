@@ -77,6 +77,9 @@ resolve_stage_template() {
         "09.5"|"stage09.5"|"runtime_sanity"|"09.5_runtime")
             echo "$CANONICAL_TEMPLATE_DIR/09.5_runtime_sanity_harness.md"
             ;;
+        "09.7"|"stage09.7"|"build_contract"|"contract_synthesis"|"09.7_build_contract")
+            echo "$CANONICAL_TEMPLATE_DIR/09.7_build_contract_synthesis.md"
+            ;;
         "10"|"stage10"|"app_builder"|"10_app"|"mobile_app")
             echo "$CANONICAL_TEMPLATE_DIR/10_app_builder.md"
             ;;
@@ -195,7 +198,7 @@ verify_template_reachability() {
     # Test primary identifiers for each stage
     local -a primary_identifiers=(
         "01" "01_dream" "02" "02.5" "02.7" "03" "04" "05" 
-        "06" "07" "08" "09" "09.5" "10" "10.1"
+        "06" "07" "08" "09" "09.5" "09.7" "10" "10.1"
     )
     
     for identifier in "${primary_identifiers[@]}"; do
@@ -292,7 +295,7 @@ generate_resolution_map() {
     echo "========================"
     echo "| Stage | Primary ID | Template File |"
     echo "|-------|------------|---------------|"
-    local -a map_stages=("01" "01_dream" "02" "02.5" "02.7" "03" "04" "05" "06" "07" "08" "09" "09.5" "10" "10.1")
+    local -a map_stages=("01" "01_dream" "02" "02.5" "02.7" "03" "04" "05" "06" "07" "08" "09" "09.5" "09.7" "10" "10.1")
     for stage in "${map_stages[@]}"; do
         local resolved=$(resolve_stage_template "$stage")
         local template_name=$(basename "$resolved" 2>/dev/null || echo "MISSING")

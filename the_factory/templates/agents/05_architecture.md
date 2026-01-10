@@ -1,7 +1,10 @@
 # Stage 05: Technical Architecture
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 05 for a SPECIFIC IDEA PACK. Design comprehensive technical architecture based on current React Native and Expo best practices.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Design comprehensive technical architecture based on current React Native and Expo best practices.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 05 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:

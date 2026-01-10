@@ -1,8 +1,18 @@
 # App Factory Control Plane
 
-**Version**: 3.1  
-**Status**: MANDATORY — CONSTITUTION FOR ALL CLAUDE OPERATIONS  
+**Version**: 3.1
+**Status**: MANDATORY — CONSTITUTION FOR ALL CLAUDE OPERATIONS
 **Applies to**: All pipeline stages, agents, and Claude interactions
+
+---
+
+## EXECUTION IDENTITY (CANONICAL DECLARATION)
+
+All pipeline stages execute as **Claude Code (Opus 4.5)** in agent-native, filesystem-authoritative execution mode.
+
+This declaration is authoritative.
+
+---
 
 ## 🎯 PURPOSE (NON-NEGOTIABLE)
 
@@ -248,8 +258,8 @@ runs/YYYY-MM-DD/<run_name>/meta/run_manifest.json
   "command_invoked": "run app factory | build <idea> | dream <idea_text>",
   "expected_idea_count": 10,
   "expected_stages_run_factory": ["01"],
-  "expected_stages_build_idea": ["02","02.5","02.7","03","04","05","06","07","08","09","09.5","10.1","10"],
-  "expected_stages_dream": ["01_dream","02","02.5","02.7","03","04","05","06","07","08","09","09.5","10.1","10"],
+  "expected_stages_build_idea": ["02","02.5","02.7","03","04","05","06","07","08","09","09.5","09.7","10.1","10"],
+  "expected_stages_dream": ["01_dream","02","02.5","02.7","03","04","05","06","07","08","09","09.5","09.7","10.1","10"],
   "expected_stage_artifacts": {
     "stage01": ["stages/stage01.json", "outputs/stage01_execution.md", "spec/01_market_research.md"],
     "stage02": ["stages/stage02.json", "outputs/stage02_execution.md", "spec/02_product_spec.md"],
@@ -263,6 +273,7 @@ runs/YYYY-MM-DD/<run_name>/meta/run_manifest.json
     "stage08": ["stages/stage08.json", "outputs/stage08_execution.md", "spec/08_brand.md"],
     "stage09": ["stages/stage09.json", "outputs/stage09_execution.md", "spec/09_release_planning.md"],
     "stage09.5": ["stages/stage09.5.json", "outputs/stage09.5_execution.md", "runtime/boot_sequence.json", "runtime/flow_validation.json", "runtime/error_scenarios.json", "runtime/sanity_checklist.md"],
+    "stage09.7": ["stages/stage09.7.json", "outputs/stage09.7_execution.md", "app/_contract/build_contract.json", "app/_contract/build_prompt.md", "app/_contract/contract_sources.json"],
     "stage10.1": ["stages/stage10.1.json", "outputs/stage10.1_execution.md", "design/authenticity_report.md", "design/implementation_plan.json", "design/visual_consistency_check.json"],
     "stage10": ["stages/stage10.json", "outputs/stage10_build.log"],
     "stage01_dream": ["stages/stage01_dream.json", "outputs/stage01_dream_execution.md", "dream_research.md"]
@@ -679,13 +690,24 @@ Each idea pack in `runs/.../ideas/<idea_dir>/` has strict isolation:
 - Do NOT touch other idea packs
 - Do NOT rebuild leaderboards during build
 
-#### Stage 10 (Build Mode)
-- Triggered by: `build app <IDEA_ID_OR_NAME>`
-- Reads: Selected idea pack's Stage 02-09 JSONs only
-- Validates: All inputs have matching meta.idea_id and meta.run_id
-- Researches: Official Expo/RevenueCat docs + category UI patterns
+#### Stage 09.7: Build Contract Synthesis (MANDATORY PRE-STAGE 10 GATE)
+**Executed AFTER Stage 09.5 and BEFORE Stage 10**:
+- Execute: `scripts/build_contract_synthesis.sh <idea_dir>`
+- Synthesize: ALL stage 02-09.5 outputs into single build contract
+- Generate: `app/_contract/build_prompt.md` (authoritative build instructions)
+- Generate: `app/_contract/build_contract.json` (normalized structured data)
+- Generate: `app/_contract/contract_sources.json` (traceability manifest)
+- Validate: `scripts/verify_build_contract_present.sh` AND `scripts/verify_build_contract_sections.sh`
+- **Hard Gate**: Stage 10 CANNOT proceed without complete, validated build contract
+
+#### Stage 10 (Build Mode - Contract Driven)
+- Triggered by: `build app <IDEA_ID_OR_NAME>` (AFTER Stage 09.7 completes)
+- **MANDATORY Gate**: Run build contract verifiers before ANY code generation
+- Reads: ONLY `app/_contract/build_prompt.md` (sole authoritative source)
+- **FORBIDDEN**: Reading individual stage JSONs (stage02.json through stage09.json)
+- Validates: Build contract completeness and traceability
 - Writes: Complete Expo app to `builds/<idea_dir>/`
-- Proves: Binding constraints from specs to implementation
+- Proves: Full implementation of contract specifications with no improvisation
 
 ---
 
@@ -718,6 +740,16 @@ Each idea pack in `runs/.../ideas/<idea_dir>/` has strict isolation:
 
 ### Build Mode (`build app <IDEA_ID_OR_NAME>`)
 **MUST verify ALL of these:**
+
+**Build Contract Artifacts (Stage 09.7)**:
+- [ ] `runs/.../ideas/<idea_dir>/stages/stage09.7.json` exists
+- [ ] `runs/.../ideas/<idea_dir>/app/_contract/build_contract.json` exists and validates
+- [ ] `runs/.../ideas/<idea_dir>/app/_contract/build_prompt.md` exists with all 14 required sections
+- [ ] `runs/.../ideas/<idea_dir>/app/_contract/contract_sources.json` exists with source traceability
+- [ ] `scripts/verify_build_contract_present.sh <idea_dir>` passes
+- [ ] `scripts/verify_build_contract_sections.sh <idea_dir>` passes
+
+**Final App Artifacts (Stage 10)**:
 - [ ] `builds/<idea_dir>/<build_id>/app/` exists with complete Expo app
 - [ ] `builds/<idea_dir>/<build_id>/app/package.json` has required dependencies  
 - [ ] `builds/<idea_dir>/<build_id>/app/src/` contains screens, components, services
@@ -725,7 +757,7 @@ Each idea pack in `runs/.../ideas/<idea_dir>/` has strict isolation:
 - [ ] `builds/<idea_dir>/<build_id>/sources.md` (research citations)
 - [ ] `runs/.../ideas/<idea_dir>/stages/stage10.json` (plan-only JSON)
 - [ ] `runs/.../ideas/<idea_dir>/outputs/stage10_build.log` (binding proof)
-- [ ] Stage 02-09 JSONs consumed correctly (boundary verification passed)
+- [ ] Build contract consumption verified (no individual stage JSON reading)
 
 **CRITICAL**: If ANY artifact is missing, Claude MUST write failure report and stop.
 

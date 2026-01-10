@@ -1,7 +1,10 @@
 # Stage 06: Builder Handoff
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 06 for a SPECIFIC IDEA PACK. Create comprehensive builder handoff specifications based on current development workflow expectations.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Create comprehensive builder handoff specifications based on current development workflow expectations.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 06 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:

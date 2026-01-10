@@ -1,7 +1,10 @@
 # Stage 04: Monetization Strategy
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 04 for a SPECIFIC IDEA PACK. Design comprehensive monetization strategy based on current market pricing and RevenueCat best practices.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Design comprehensive monetization strategy based on current market pricing and RevenueCat best practices.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 04 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:
@@ -86,6 +89,33 @@ This stage must ONLY read from:
         "purpose": "string"
       }
     },
+    "soft_paywall_strategy": {
+      "philosophy": "value_first (always demonstrate value before requesting upgrade)",
+      "trigger_model": {
+        "usage_based_triggers": ["string (e.g., 'after 3 free recordings', 'daily limit reached')"],
+        "feature_based_triggers": ["string (e.g., 'accessing export', 'advanced filters')"],
+        "timing_relative_to_onboarding": "string (how long after onboarding before paywall)"
+      },
+      "soft_gate_features": [
+        {
+          "feature_name": "string",
+          "free_preview": "string (what user can do/see without upgrading)",
+          "premium_unlock": "string (what upgrading provides)",
+          "gate_type": "usage_limit|feature_preview|convenience_unlock"
+        }
+      ],
+      "value_demonstration": {
+        "pre_paywall_experience": "string (what user accomplishes before seeing paywall)",
+        "success_moment_timing": "string (when user has positive experience)",
+        "paywall_trigger_context": "string (circumstance when paywall appears)"
+      },
+      "copy_guidelines": {
+        "tone": "helpful|encouraging|informative (NEVER aggressive)",
+        "focus": "benefits_gained (NOT features_locked)",
+        "call_to_action": "string (positive, non-pushy CTA)",
+        "dismiss_text": "string (respectful, no guilt)"
+      }
+    },
     "pricing_strategy": {
       "monthly_subscription": {
         "price": "string",
@@ -119,6 +149,22 @@ This stage must ONLY read from:
           "products": ["string"]
         }
       ],
+      "soft_gate_entitlement_mapping": {
+        "entitlement_identifier": "string (e.g., 'pro')",
+        "soft_gated_features": [
+          {
+            "feature_id": "string",
+            "entitlement_check": "string (how to check access)",
+            "free_tier_behavior": "string (what happens without entitlement)",
+            "upgrade_ui_trigger": "string (when to show upgrade prompt)"
+          }
+        ],
+        "usage_tracking": {
+          "counter_storage": "string (where usage counts are stored)",
+          "reset_behavior": "string (daily, weekly, never)",
+          "threshold_actions": ["string (what happens at each threshold)"]
+        }
+      },
       "paywall_configuration": {
         "trigger_events": ["string"],
         "presentation_style": "string", 
@@ -186,6 +232,29 @@ This stage must ONLY read from:
 10. Design entitlement system for feature gating
 11. Plan paywall triggers and presentation strategy
 12. Specify subscription management and restoration flows
+
+### Phase 3.5: Soft Paywall Strategy (MANDATORY)
+13. **Define Soft Gate Philosophy**: Value-first approach, demonstrate before monetizing
+14. **Map Soft-Gated Features**:
+    - Identify features with free previews
+    - Define usage limits and thresholds
+    - Specify what unlocks with premium
+15. **Design Trigger Model**:
+    - Usage-based triggers (after X free uses)
+    - Feature-based triggers (accessing premium feature)
+    - Timing relative to onboarding completion
+16. **Create Copy Guidelines**:
+    - Helpful, encouraging tone (NEVER aggressive)
+    - Focus on benefits gained, not features locked
+    - Respectful dismiss options
+17. **Configure Entitlement Mapping**:
+    - Map soft-gated features to entitlement checks
+    - Define free tier behavior for each feature
+    - Specify upgrade UI trigger points
+18. **Plan Usage Tracking**:
+    - Counter storage (AsyncStorage, SQLite)
+    - Reset behavior (daily, weekly, never)
+    - Threshold actions and user notifications
 
 ## RevenueCat Integration — Hard Gate (MANDATORY)
 
@@ -268,12 +337,19 @@ Stage 04 is complete when:
 - [ ] Pricing strategy based on current market research
 - [ ] Freemium model balances free value with conversion incentives
 - [ ] Subscription model complies with platform transparency requirements
+- [ ] **Soft paywall strategy fully defined** (triggers, features, copy tone)
+- [ ] **Soft-gated features mapped to entitlement checks**
+- [ ] **Usage tracking and thresholds specified**
+- [ ] **Copy guidelines ensure helpful, non-aggressive tone**
 
 ## HARD FAILURE CONDITIONS
 - Schema validation failure → Write `stage04_failure.md` and stop
 - Missing competitive pricing research → Write `stage04_failure.md` and stop
 - RevenueCat integration not properly specified → Write `stage04_failure.md` and stop
 - Pricing model violates platform requirements → Write `stage04_failure.md` and stop
+- **Missing soft paywall strategy** → Write `stage04_failure.md` and stop
+- **Soft paywall uses aggressive or guilt-inducing copy** → Write `stage04_failure.md` and stop
+- **No value demonstration before paywall trigger** → Write `stage04_failure.md` and stop
 - Boundary violation (reading from wrong idea pack) → Write `stage04_failure.md` and stop
 
 DO NOT output JSON in chat. Write all artifacts to disk and continue with Stage 05.

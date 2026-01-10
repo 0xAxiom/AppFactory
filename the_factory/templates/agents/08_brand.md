@@ -1,7 +1,10 @@
 # Stage 08: Brand Identity
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 08 for a SPECIFIC IDEA PACK. Create comprehensive brand identity specifications based on current naming trends and positioning strategies.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Create comprehensive brand identity specifications based on current naming trends and positioning strategies.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 08 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:
@@ -270,4 +273,11 @@ Stage 08 is complete when:
 - Messaging framework conflicts with subscription positioning → Write `stage08_failure.md` and stop
 - Boundary violation (reading from wrong idea pack) → Write `stage08_failure.md` and stop
 
-DO NOT output JSON in chat. Write all artifacts to disk and continue with Stage 09.
+DO NOT output JSON in chat. Write all artifacts to disk and continue with Stage 08.5 (Assets & Iconography).
+
+## DOWNSTREAM STAGE INTEGRATION
+Stage 08 outputs feed directly into Stage 08.5 (Assets & Iconography):
+- `visual_identity.color_palette` → Asset color tokens
+- `visual_identity.iconography_style` → In-app icon style system
+- `brand_applications.app_icon` → App icon design specifications
+- `brand_strategy.brand_name` → Asset labeling and generation

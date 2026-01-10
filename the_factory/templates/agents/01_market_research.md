@@ -10,7 +10,10 @@ STAGE 01 v3 RESET: Replaced complex query/lens system with IdeaMiner's evidence-
 -->
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 01 directly. Stage 01 generates market research and 10 app ideas, then STOPS. Individual idea development occurs only via `build <IDEA_ID_OR_NAME>`.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Stage 01 generates market research and 10 app ideas, then STOPS. Individual idea development occurs only via `build <IDEA_ID_OR_NAME>`.
 
 ## Leaderboard Non-Influence Rule (MANDATORY)
 

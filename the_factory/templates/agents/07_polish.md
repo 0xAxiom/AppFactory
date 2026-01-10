@@ -1,7 +1,10 @@
 # Stage 07: Polish & Quality
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 07 for a SPECIFIC IDEA PACK. Create comprehensive quality and polish specifications based on current store requirements and quality standards.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Create comprehensive quality and polish specifications based on current store requirements and quality standards.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 07 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:
@@ -147,13 +150,75 @@ This stage must ONLY read from:
         },
         "interaction_feedback": {
           "haptic_feedback": "string",
-          "visual_feedback": "string", 
+          "visual_feedback": "string",
           "audio_feedback": "string"
         },
         "error_handling": {
           "graceful_degradation": "string",
           "user_friendly_messages": "string",
           "recovery_mechanisms": "string"
+        }
+      },
+      "onboarding_polish": {
+        "micro_interactions": {
+          "screen_transitions": "string (smooth, theme-aligned animations)",
+          "progress_indicators": "dots|bars|custom (clear progress visualization)",
+          "button_feedback": "string (tap responses, loading states)",
+          "illustration_animations": "string (subtle motion for engagement)"
+        },
+        "visual_consistency": {
+          "theme_alignment": "string (onboarding feels like part of the app)",
+          "typography_hierarchy": "string (clear reading flow)",
+          "color_usage": "string (consistent with app palette)"
+        },
+        "transition_to_core_app": {
+          "completion_animation": "string (satisfying finish moment)",
+          "navigation_handoff": "string (clear path to main experience)",
+          "state_persistence": "string (remember onboarding completed)"
+        }
+      },
+      "soft_paywall_polish": {
+        "visual_hierarchy": {
+          "value_proposition_prominence": "string (benefits clearly visible)",
+          "pricing_clarity": "string (transparent, no hidden costs)",
+          "cta_design": "string (attractive but not aggressive)"
+        },
+        "trust_cues": {
+          "app_store_compliant_language": "string (auto-renew disclosure, cancel terms)",
+          "trial_messaging": "string (clear trial duration, what happens after)",
+          "restore_purchases_visibility": "string (easily accessible)"
+        },
+        "micro_interactions": {
+          "plan_selection_feedback": "string (clear selected state)",
+          "purchase_loading": "string (appropriate loading indicator)",
+          "success_celebration": "string (positive feedback on upgrade)"
+        },
+        "dismiss_experience": {
+          "close_button_visibility": "string (clear, not hidden)",
+          "dismiss_animation": "string (smooth, no guilt)",
+          "return_to_app": "string (seamless continuation)"
+        }
+      },
+      "review_prompt_polish": {
+        "timing_refinement": {
+          "post_onboarding_delay": "string (moment after onboarding, not immediate)",
+          "positive_moment_detection": "string (trigger after user success)",
+          "interruption_avoidance": "string (never during active task)"
+        },
+        "visual_presentation": {
+          "style": "modal|toast|inline (matches app aesthetic)",
+          "animation": "string (smooth appearance, not jarring)",
+          "theme_consistency": "string (uses app colors and typography)"
+        },
+        "copy_polish": {
+          "request_tone": "grateful|appreciative (never demanding)",
+          "explanation_clarity": "string (why review helps the app)",
+          "app_store_compliance": "string (follows platform review guidelines)"
+        },
+        "dismissal_behavior": {
+          "close_action": "string (easy, no guilt)",
+          "no_penalty": "string (app continues normally)",
+          "reminder_policy": "string (respect user choice, don't nag)"
         }
       },
       "content_quality": {
@@ -273,6 +338,25 @@ This stage must ONLY read from:
 15. Specify error handling and graceful degradation patterns
 16. Design user feedback and satisfaction measurement approaches
 
+### Phase 4.5: Onboarding, Paywall & Review Prompt Polish (MANDATORY)
+
+**Onboarding Polish**:
+17. **Design Micro-Interactions**: Screen transitions, progress indicators, button feedback
+18. **Ensure Visual Consistency**: Theme alignment, typography hierarchy, color usage
+19. **Polish Core-App Transition**: Completion animation, navigation handoff, state persistence
+
+**Soft Paywall Polish**:
+20. **Refine Visual Hierarchy**: Value proposition prominence, pricing clarity, CTA design
+21. **Add Trust Cues**: App Store compliant language, trial messaging, restore visibility
+22. **Design Micro-Interactions**: Plan selection feedback, purchase loading, success celebration
+23. **Perfect Dismiss Experience**: Clear close button, smooth dismiss, seamless return
+
+**Review Prompt Polish**:
+24. **Refine Timing**: Post-onboarding delay, positive moment detection, interruption avoidance
+25. **Design Visual Presentation**: Style, animation, theme consistency
+26. **Polish Copy**: Grateful tone, clear explanation, App Store compliance
+27. **Perfect Dismissal**: Easy close, no penalty, respectful reminder policy
+
 ### Phase 5: Testing & Validation Strategy
 17. Plan comprehensive automated testing coverage for critical components
 18. Define manual testing matrix covering devices, scenarios, and edge cases
@@ -316,6 +400,10 @@ Stage 07 is complete when:
 - [ ] Accessibility implementation covers all WCAG 2.1 AA requirements with platform-specific features
 - [ ] Testing strategy ensures comprehensive validation across devices and scenarios
 - [ ] Store readiness requirements address all submission guidelines and quality standards
+- [ ] **Onboarding polish defined** (micro-interactions, transitions, visual consistency)
+- [ ] **Soft paywall polish defined** (visual hierarchy, trust cues, dismiss experience)
+- [ ] **Review prompt polish defined** (timing, presentation, copy, dismissal)
+- [ ] **All polish elements use App Store compliant language**
 
 ## HARD FAILURE CONDITIONS
 - Schema validation failure → Write `stage07_failure.md` and stop
@@ -324,6 +412,10 @@ Stage 07 is complete when:
 - Accessibility requirements not comprehensively addressed → Write `stage07_failure.md` and stop
 - Testing strategy insufficient for store submission → Write `stage07_failure.md` and stop
 - **RevenueCat integration incomplete** → Write `stage07_failure.md` and stop
+- **Missing onboarding polish specifications** → Write `stage07_failure.md` and stop
+- **Missing soft paywall polish specifications** → Write `stage07_failure.md` and stop
+- **Missing review prompt polish specifications** → Write `stage07_failure.md` and stop
+- **Paywall or review prompt uses non-compliant language** → Write `stage07_failure.md` and stop
 - Boundary violation (reading from wrong idea pack) → Write `stage07_failure.md` and stop
 
 ## RevenueCat Integration — Build Failure Gate (MANDATORY)

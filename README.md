@@ -123,9 +123,11 @@ graph TD
 | 03 | UX Design + Design Contract | `stage03.json` + `uiux/` artifacts | Domain-appropriate UI/UX contracts |
 | 04 | Monetization | `stage04.json` (pricing, subscriptions, RevenueCat) | How it makes money |
 | 05-09 | Architecture & Brand | `stage05-09.json` (tech stack, polish, ASO) | How it's built and positioned |
+| **09.1** | **App Naming & Availability** | `stage09.1.json` + `naming.md` | **Web research for collision avoidance** |
+| **09.2** | **Privacy Policy Generation** | `stage09.2.json` + policy artifacts | **App Store/Play Store compliance** |
 | **09.5** | **Runtime Sanity Harness** | `stage09.5.json` (runtime validation) | **Validates complete app requirements** |
 | **10.1** | **Design Authenticity Check** | `stage10.1.json` (UI validation) | **Prevents generic/placeholder UI** |
-| **10** | **Professional Enforcement Layer** | `builds/<idea>/app/` (zero-defect app) | **NO PROBLEMS AT ALL policy** |
+| **10** | **Professional Enforcement Layer** | `builds/<idea>/app/` (zero-defect app) | **14 enforcement gates, zero-defect policy** |
 
 ## 🏭 Directory Structure
 
@@ -254,8 +256,14 @@ App Factory enforces production quality through **executable verification script
 
 #### 📋 **Asset & Dependency Enforcement**
 - **Asset Contract**: `asset_preflight_check.sh` validates all referenced assets exist or auto-generates placeholders
+- **PNG Asset Validation**: `verify_assets_are_png.sh` ensures all assets are valid PNG binaries with pixel data (not SVG content)
 - **Expo Compatibility Gate**: `verify_expo_compatibility_gate.sh` enforces dependency alignment before installation
 - **React Native Upstream Cache**: `rn_upstream_cache.sh` caches authoritative files with SHA256 integrity verification
+
+#### 📝 **Launch Readiness Enforcement**
+- **App Naming Research**: `generate_app_naming.sh` + `verify_app_naming.sh` ensures distinctive names with collision research
+- **Privacy Policy Generation**: `generate_privacy_policy.sh` + `verify_privacy_policy.sh` produces App Store/Play Store compliant policies
+- **Launch Plan Synthesis**: `generate_launch_plan.sh` + `verify_launch_plan_present.sh` condenses pipeline research into 9-section launch document
 
 #### 🎨 **Design & Quality Enforcement**  
 - **Design System Compliance**: `verify_design_system_compliance.sh` verifies design tokens, component primitives, and accessibility
@@ -492,14 +500,21 @@ the_factory/builds/01_focusflow_ai__focus_ai_001/     # Professional-grade mobil
 └── <build_id>/                                      # Immutable build output
     ├── app/                                         # Complete zero-defect Expo app
     │   ├── package.json                             # Validated Expo SDK 52 config
+    │   ├── assets/                                  # Validated PNG assets (icon, splash, adaptive-icon)
     │   ├── src/screens/                             # Domain-specific mobile screens (NO placeholders)
     │   ├── src/ui/tokens.ts                         # Design system implementation
     │   ├── src/services/purchases.js                # Environment-based RevenueCat integration
+    │   ├── assets_validation_report.md              # PNG asset validation proof
     │   └── README.md                                # Setup instructions
     ├── uiux/                                        # Design contract artifacts
     │   ├── uiux_prompt.md                           # Binding UI/UX design contract
     │   ├── design_tokens.json                       # Domain-appropriate color/typography
     │   └── component_inventory.md                   # Required UI components
+    ├── launch_plan.md                               # 9-section launch readiness document
+    ├── naming.md                                    # App name + alternates + collision research
+    ├── privacy_policy.md                            # Human-readable privacy policy
+    ├── privacy_policy.html                          # Static HTML for hosting
+    ├── privacy_policy_snippet.md                    # Store listing summary
     ├── build_log.md                                 # Professional enforcement log
     └── sources.md                                   # Research citations
 
@@ -507,7 +522,9 @@ the_factory/runs/YYYY-MM-DD/your-run-name/ideas/01_focusflow_ai__focus_ai_001/
 ├── stages/                                          # Complete stages 02-10.1 with quality gates
 │   ├── stage02.5.json                              # Product reality validation
 │   ├── stage02.7.json                              # Dependency resolution validation
-│   ├── stage09.5.json                              # Runtime sanity validation  
+│   ├── stage09.1.json                              # App naming + availability research
+│   ├── stage09.2.json                              # Privacy policy data
+│   ├── stage09.5.json                              # Runtime sanity validation
 │   ├── stage10.1.json                              # Design authenticity validation
 │   └── stage10.json                                # Professional enforcement results
 ├── technical/                                      # Technical validation artifacts
@@ -573,7 +590,11 @@ All builds go to respective `builds/<app_dir>/` directories - never fixed locati
 - **Validated Expo SDK 52 configuration** with dependency compatibility verification
 - **Environment-based RevenueCat subscription system** with functional test integration
 - **Domain-appropriate UI/UX implementation** following binding design contracts
-- **Store-submission-ready mobile application** that passes all quality gates
+- **Validated PNG assets** (icon, splash, adaptive-icon) verified as real binary PNGs with pixel data
+- **App naming report** with 8+ alternates and web research collision findings
+- **Privacy policy artifacts** (markdown, HTML, snippet) for App Store/Play Store compliance
+- **Launch plan document** condensing all pipeline research into 9 actionable sections
+- **Store-submission-ready mobile application** that passes all 14 quality gates
 - **Complete technical specifications and documentation** with quality enforcement logs
 - **Professional validation artifacts** proving zero-defect build standards
 - **Live preview capability** with QR codes for instant mobile testing

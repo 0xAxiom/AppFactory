@@ -1,7 +1,10 @@
 # Dream Stage 01: Single Idea Validation
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Dream Stage 01 directly. This stage transforms a raw user idea into a validated, structured app concept ready for Stages 02-10.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+This stage transforms a raw user idea into a validated, structured app concept ready for Stages 02-10.
 
 ## DREAM MODE CONTEXT
 - **Input**: Raw idea text from user's `dream <IDEA_TEXT>` command

@@ -1,7 +1,10 @@
 # Stage 02: Product Specification
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 02 for a SPECIFIC IDEA PACK. Create comprehensive product specifications based on Stage 01 market research and current product trends.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Create comprehensive product specifications based on Stage 01 market research and current product trends.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 02 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:

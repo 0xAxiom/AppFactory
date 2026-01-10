@@ -71,7 +71,26 @@ User Command → Stage Template → Enforcement Scripts → Output Validation
 - Documentation infrastructure integrity
 - Expo SDK compatibility evidence
 
-### 4. Asset Contract + Preflight Gate
+### 4. Build Contract Synthesis Gate
+**Script**: `scripts/build_contract_synthesis.sh`
+**Trigger**: After Stage 09.5, before Stage 10 (mandatory)
+**Enforces**:
+- All stage 02-09.5 artifacts present and valid
+- Synthesis into single authoritative build contract
+- Contract completeness with all 14 required sections
+- Web research caching and traceability manifest
+- No Stage 10 execution without complete build contract
+
+### 5. Build Contract Validation
+**Scripts**: `scripts/verify_build_contract_present.sh` + `scripts/verify_build_contract_sections.sh`
+**Trigger**: Stage 10 start (hard gate, build-blocking)
+**Enforces**:
+- Build contract artifacts exist and are complete
+- All required contract sections present with content
+- Contract sources traceability manifest valid
+- Stage 10 cannot proceed without valid contract
+
+### 6. Asset Contract + Preflight Gate
 **Script**: `scripts/asset_preflight_check.sh`
 **Trigger**: Stage 07, Stage 10 start
 **Enforces**:
@@ -111,7 +130,8 @@ User Command → Stage Template → Enforcement Scripts → Output Validation
 | 08 | `08_brand.md` | Brand identity |
 | 09 | `09_release_planning.md` | App store release planning |
 | 09.5 | `09.5_runtime_sanity_harness.md` | Runtime validation |
-| 10 | `10_app_builder.md` | **CANONICAL** - Complete Expo app building |
+| 09.7 | `09.7_build_contract_synthesis.md` | **BUILD CONTRACT** - Synthesize all stages into authoritative build instructions |
+| 10 | `10_app_builder.md` | **CANONICAL** - Complete Expo app building (contract-driven only) |
 | 10.1 | `10.1_design_authenticity_check.md` | Design validation |
 
 ### Deprecated Templates
@@ -139,6 +159,10 @@ vendor/
 ### Run-Specific Documentation Layer
 ```
 app/
+├── _contract/
+│   ├── build_contract.json     # Normalized stage data (authoritative)
+│   ├── build_prompt.md         # Complete build instructions (Stage 10 sole input)
+│   └── contract_sources.json   # Traceability manifest with SHA256
 ├── _docs/
 │   ├── INDEX.md           # Documentation manifest
 │   ├── sources.json       # Source tracking with hashes
@@ -154,10 +178,13 @@ app/
 ```
 
 ### Source-of-Truth Hierarchy
-1. **Expo SDK compatibility rules** (hard gate, build-blocking)
-2. **Locally cached vendor docs** (`vendor/expo-docs/`, `vendor/revenuecat-docs/`)
-3. **Locally cached React Native upstream** (`app/_upstream/react-native/`)
-4. **Application code**
+1. **Build Contract** (`app/_contract/build_prompt.md`) - Sole authoritative input for Stage 10
+2. **Expo SDK compatibility rules** (hard gate, build-blocking)
+3. **Locally cached vendor docs** (`vendor/expo-docs/`, `vendor/revenuecat-docs/`)
+4. **Locally cached React Native upstream** (`app/_upstream/react-native/`)
+5. **Application code**
+
+**CRITICAL**: Stage 10 reads ONLY the build contract. Individual stage JSONs are forbidden inputs.
 
 ---
 

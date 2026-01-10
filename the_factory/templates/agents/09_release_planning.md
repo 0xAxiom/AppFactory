@@ -1,7 +1,10 @@
 # Stage 09: Release Planning + ASO
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 09 for a SPECIFIC IDEA PACK. Create comprehensive release planning and ASO specifications based on current App Store optimization practices.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Create comprehensive release planning and ASO specifications based on current App Store optimization practices.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 09 can ONLY be executed via `build <IDEA_ID_OR_NAME>` command:

@@ -1,7 +1,10 @@
 # Stage 10: Mobile App Generation (Direct Build)
 
 ## AGENT-NATIVE EXECUTION
-You are Claude executing Stage 10 for a SPECIFIC IDEA PACK. Build a complete, production-ready Expo React Native app directly from the idea's specifications with strict isolation.
+
+You are Claude Code (Opus 4.5) operating under the execution identity defined in CLAUDE.md.
+
+Build a complete, production-ready Expo React Native app directly from the idea's specifications with strict isolation.
 
 ## BUILD MODE VERIFICATION (CRITICAL)
 Stage 10 can be executed via `build <IDEA_ID_OR_NAME>` command OR `dream <IDEA_TEXT>` command:
@@ -11,32 +14,310 @@ Stage 10 can be executed via `build <IDEA_ID_OR_NAME>` command OR `dream <IDEA_T
 - Assert this stage is building ONE SPECIFIC IDEA only
 - NO looping, NO batch processing, SINGLE IDEA CONTEXT ONLY
 
+## BUILD CONTRACT ENFORCEMENT (MANDATORY GATE)
+
+**BEFORE GENERATING ANY CODE**, Stage 10 MUST:
+
+1) **Verify Build Contract Exists**: 
+   - Run `scripts/verify_build_contract_present.sh <idea_dir>`
+   - Run `scripts/verify_build_contract_sections.sh <idea_dir>`
+   - Run `scripts/verify_build_prompt_is_comprehensive.sh <idea_dir>` (MANDATORY COMPREHENSIVE QUALITY GATE)
+   - **If any verifier fails**: STOP IMMEDIATELY and report exact error
+
+2) **Read ONLY the Build Contract**:
+   - Read: `runs/.../ideas/<idea_dir>/app/_contract/build_prompt.md` (SOLE AUTHORITATIVE SOURCE)
+   - Reference: `runs/.../ideas/<idea_dir>/app/_contract/build_contract.json` (for structured data)
+   - Validate: `runs/.../ideas/<idea_dir>/app/_contract/contract_sources.json` (for traceability)
+
+3) **NO STAGE-BY-STAGE READING**: 
+   - Do NOT read individual stage JSONs (stage02.json, stage03.json, etc.)
+   - Do NOT "re-infer" missing requirements from stages
+   - Do NOT improvise features not in the build contract
+
+**CRITICAL**: If build contract is incomplete or unclear, Stage 10 MUST FAIL with specific error message pointing to Build Contract Synthesis failure. NO IMPROVISATION ALLOWED.
+
+## RUNTIME ENFORCEMENT GATES (MANDATORY - NO BYPASS)
+
+**CRITICAL**: Stage 10 CANNOT mark success unless ALL enforcement scripts pass. These are hard gates, not optional checks.
+
+### ENFORCEMENT IMMUTABILITY RULE (ABSOLUTE - DO NOT MODIFY)
+
+**THIS SECTION IS IMMUTABLE. ANY CHANGE THAT WEAKENS ENFORCEMENT IS FORBIDDEN.**
+
+The following rules are FINAL and MUST NOT be:
+- Refactored into fewer gates
+- Consolidated for "efficiency"
+- Reduced in scope or coverage
+- Bypassed via environment variables or flags
+- Made conditional based on build mode
+
+**Redundancy in enforcement is INTENTIONAL.**
+
+Each gate validates a different failure mode:
+1. `validate_dependencies.sh` → Catches invented packages BEFORE npm install
+2. `build_proof_gate.sh` → Proves runtime verification ACTUALLY PASSED
+3. `verify_uiux_implementation.sh` → Prevents generic placeholder UI
+4. `generate_assets.sh` → Creates deterministic app icon, splash, adaptive icon, and in-app icons
+5. `verify_assets_present.sh` → Validates all required assets exist with correct specifications
+6. `aggregate_market_research.sh` → Ensures market research is bundled
+
+Removing ANY gate creates a category of undetected failure. This is unacceptable.
+
+**MODIFICATION PROTOCOL**: If you believe a gate should be changed:
+1. STOP - Do not modify the gate
+2. Write justification to `.audit/enforcement_change_proposal.md`
+3. Require explicit human approval before any modification
+4. Document the change and its impact thoroughly
+
+**DEFAULT BEHAVIOR**: When in doubt, keep all gates. More enforcement is always safer.
+
+### Required Enforcement Scripts (IN ORDER)
+
+**1. BEFORE Writing package.json**:
+```bash
+# Validate all dependencies exist in npm registry
+scripts/validate_dependencies.sh builds/<idea_dir>/<build_id>/app/package.json
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+```
+
+**2. AFTER App Generation (npm install)**:
+```bash
+cd builds/<idea_dir>/<build_id>/app/
+npm install 2>&1 | tee install_log.txt
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+```
+
+**3. AFTER npm install (Build Proof Gate)**:
+```bash
+# Comprehensive runtime verification
+scripts/build_proof_gate.sh builds/<idea_dir>/<build_id>/app/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script runs: npm install, expo install --check, expo-doctor, expo start
+# ALL checks must pass for build to succeed.
+```
+
+**4. AFTER Build Proof Gate (UI/UX Verification)**:
+```bash
+# Verify non-generic UI implementation
+scripts/verify_uiux_implementation.sh builds/<idea_dir>/<build_id>/app/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+```
+
+**5. AFTER UI/UX Verification (Asset Generation)**:
+```bash
+# Generate all required visual assets (app icon, splash, adaptive icon, in-app icons)
+scripts/generate_assets.sh builds/<idea_dir>/<build_id>/app/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script generates:
+#   - assets/icon.png (1024x1024)
+#   - assets/adaptive-icon-foreground.png (1024x1024)
+#   - assets/splash.png (1284x2778)
+#   - assets/favicon.png (48x48)
+#   - src/ui/icons/*.tsx (18+ icon components)
+```
+
+**6. AFTER Asset Generation (Asset Validation)**:
+```bash
+# Verify all required assets exist and meet specifications
+scripts/verify_assets_present.sh builds/<idea_dir>/<build_id>/app/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script verifies:
+#   - icon.png exists and is 1024x1024
+#   - adaptive-icon-foreground.png exists
+#   - splash.png exists with minimum dimensions
+#   - Icon set exists (minimum 12 icons)
+#   - Icons use theme color props (not hardcoded)
+#   - App config references assets correctly
+```
+
+**7. BEFORE Final Success (Market Research Aggregation)**:
+```bash
+# Aggregate market research into build output
+scripts/aggregate_market_research.sh \
+  runs/<date>/<run_id> \
+  ideas/<idea_dir> \
+  builds/<idea_dir>/<build_id>/app/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+```
+
+**8. AFTER Market Research (Launch Plan Generation)**:
+```bash
+# Generate condensed launch plan from pipeline artifacts
+scripts/generate_launch_plan.sh \
+  runs/<date>/<run_id> \
+  ideas/<idea_dir> \
+  builds/<idea_dir>/<build_id>/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script generates:
+#   - launch_plan.md (condensed launch readiness document)
+#   - launch_plan_warnings.md (if any fields missing)
+```
+
+**9. AFTER Launch Plan Generation (Launch Plan Verification)**:
+```bash
+# Verify launch plan exists and has all required sections
+scripts/verify_launch_plan_present.sh builds/<idea_dir>/<build_id>/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+```
+
+**10. AFTER Launch Plan Verification (App Naming Generation)**:
+```bash
+# Generate naming.md from stage09.1.json
+scripts/generate_app_naming.sh \
+  runs/<date>/<run_id>/ideas/<idea_dir> \
+  builds/<idea_dir>/<build_id>/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script generates:
+#   - naming.md (final name, alternates, collision research)
+```
+
+**11. AFTER App Naming Generation (App Naming Verification)**:
+```bash
+# Verify naming artifacts meet requirements
+scripts/verify_app_naming.sh \
+  runs/<date>/<run_id>/ideas/<idea_dir> \
+  builds/<idea_dir>/<build_id>/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# Validates:
+#   - Recommended name exists and <= 30 chars
+#   - At least 8 alternates provided
+#   - Web research evidence documented
+```
+
+**12. AFTER App Naming Verification (Privacy Policy Generation)**:
+```bash
+# Generate privacy policy artifacts from stage09.2.json
+scripts/generate_privacy_policy.sh \
+  runs/<date>/<run_id>/ideas/<idea_dir> \
+  builds/<idea_dir>/<build_id>/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script generates:
+#   - privacy_policy.md (human-readable, website-ready)
+#   - privacy_policy.html (static HTML for hosting)
+#   - privacy_policy_snippet.md (store listing/in-app blurb)
+```
+
+**13. AFTER Privacy Policy Generation (Privacy Policy Verification)**:
+```bash
+# Verify privacy policy artifacts exist and are valid
+scripts/verify_privacy_policy.sh builds/<idea_dir>/<build_id>/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+```
+
+**14. AFTER Asset Generation (PNG Asset Validation - CRITICAL)**:
+```bash
+# Verify all PNG assets are valid binary PNGs (not SVG content)
+scripts/verify_assets_are_png.sh builds/<idea_dir>/<build_id>/app/
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script validates:
+#   - All assets exist and exceed minimum byte threshold
+#   - PNG magic bytes present (89 50 4E 47 0D 0A 1A 0A)
+#   - MIME type is image/png (not SVG or text)
+#   - IDAT chunk present (actual pixel data)
+#   - Generates assets_validation_report.md
+```
+
+### Mandatory Proof Artifacts (ALL REQUIRED)
+
+Stage 10 MUST produce these artifacts. Missing any = BUILD FAILURE:
+
+| Artifact | Source | Required |
+|----------|--------|----------|
+| `install_log.txt` | npm install output | YES |
+| `expo_check_log.txt` | expo install --check | YES |
+| `expo_doctor_log.txt` | expo-doctor output | YES |
+| `expo_start_log.txt` | Metro boot verification | YES |
+| `build_validation_summary.json` | Build proof gate | YES |
+| `uiux_implementation_checklist.md` | UI/UX verifier | YES |
+| `assets/icon.png` | Asset generator (1024x1024) | YES |
+| `assets/adaptive-icon-foreground.png` | Asset generator (1024x1024) | YES |
+| `assets/splash.png` | Asset generator (1284x2778) | YES |
+| `src/ui/icons/Icon.tsx` | Asset generator (18+ icons) | YES |
+| `market-research.md` | Market research aggregator | YES |
+| `launch_plan.md` | Launch plan generator | YES |
+| `naming.md` | App naming generator | YES |
+| `assets_validation_report.md` | PNG asset validator | YES |
+| `privacy_policy.md` | Privacy policy generator | YES |
+| `privacy_policy.html` | Privacy policy generator | YES |
+| `privacy_policy_snippet.md` | Privacy policy generator | YES |
+| `sources.md` | Research citations | YES |
+| `build_log.md` | Execution log | YES |
+
+### Port Collision Handling (NON-INTERACTIVE)
+
+Stage 10 MUST handle port 8081 conflicts deterministically:
+```bash
+# Kill existing Metro BEFORE starting expo
+lsof -ti:8081 | xargs kill -9 2>/dev/null || true
+# Then start expo - NO interactive prompts allowed
+npx expo start --port 8081 --clear
+```
+
+If interactive input would be required → BUILD FAILS.
+
+### Enforcement Failure Protocol
+
+If ANY enforcement script fails, Stage 10 MUST:
+
+1. **STOP execution immediately** (no partial success)
+
+2. **Write failure artifact**:
+   ```
+   runs/.../ideas/<idea_dir>/meta/build_failure.md
+   ```
+
+3. **Include in failure artifact**:
+   ```markdown
+   # Stage 10 Build Failure
+
+   **Timestamp**: [ISO timestamp]
+   **Build Path**: builds/<idea_dir>/<build_id>/app/
+
+   ## Failed Gate
+   - **Script**: [script name that failed]
+   - **Exit Code**: [non-zero exit code]
+   - **Log File**: [path to captured output]
+
+   ## Error Details
+   [Exact error message from script]
+
+   ## Required Action
+   [What must be fixed before retry]
+   ```
+
+4. **DO NOT**:
+   - Create stage10.json
+   - Mark build as completed
+   - Register in build registry
+   - Claim any form of success
+
+### Definition of Done (ENFORCED)
+
+A Stage 10 build is ONLY "done" when ALL conditions are verified by enforcement scripts:
+
+| Condition | Enforcement Script | Status Required |
+|-----------|-------------------|-----------------|
+| All packages exist in npm | validate_dependencies.sh | Exit 0 |
+| npm install succeeds | build_proof_gate.sh | Exit 0 |
+| expo install --check passes | build_proof_gate.sh | Exit 0 |
+| expo-doctor passes | build_proof_gate.sh | Exit 0 |
+| Metro bundler boots | build_proof_gate.sh | Exit 0 |
+| UI is non-generic | verify_uiux_implementation.sh | Exit 0 |
+| Market research exists | aggregate_market_research.sh | Exit 0 |
+| Launch plan generated | generate_launch_plan.sh | Exit 0 |
+| Launch plan verified | verify_launch_plan_present.sh | Exit 0 |
+| App naming generated | generate_app_naming.sh | Exit 0 |
+| App naming verified | verify_app_naming.sh | Exit 0 |
+| Privacy policy generated | generate_privacy_policy.sh | Exit 0 |
+| Privacy policy verified | verify_privacy_policy.sh | Exit 0 |
+| PNG assets validated | verify_assets_are_png.sh | Exit 0 |
+| All proof artifacts present | Manual verification | All exist |
+
+**SUCCESS WITHOUT PROOF IS IMPOSSIBLE.**
+If any gate fails, the build fails. No exceptions. No workarounds.
+
 ## STANDARDS CONTRACT (MANDATORY)
 Read and comply with `standards/mobile_app_best_practices_2026.md`. Your implementation must demonstrate complete adherence to all subscription, accessibility, security, and technical requirements.
-
-## SPEC EXHAUSTION RULE (MANDATORY)
-
-Before generating ANY code, Stage 10 MUST:
-
-1) **Load and parse ALL available artifacts** for the selected idea:
-   - Stage 02: Product spec
-   - Stage 03: UX flows and IA
-   - Stage 04: Monetization
-   - Stage 05: Architecture
-   - Stage 06: Builder handoff
-   - Stage 07: Polish
-   - Stage 08: Brand
-   - Stage 09: Launch/Store readiness (if present)
-
-2) **Construct an internal "Build Plan"** that maps:
-   - Each feature → source stage(s)
-   - Each screen → Stage 03 UX definition
-   - Each monetization rule → Stage 04
-   - Each architectural choice → Stage 05
-   - Each non-functional requirement → Stage 06/07
-   - Each visual decision → Stage 08
-
-This plan does NOT need to be output, but MUST be followed.
 
 **BINDING SPECIFICATION PRINCIPLE**: 
 The entire purpose of running Stages 01–09 is to maximize the information available to Stage 10.
@@ -67,27 +348,29 @@ If Stage 10 cannot implement something as specified, it MUST:
 - Fail the build
 - Write a clear explanation of what could not be implemented and why
 
-## DIRECT SPECIFICATION CONSUMPTION (MANDATORY INPUT)
-**MUST read ONLY from this idea pack's stage artifacts:**
-- Read: `runs/.../ideas/<idea_dir>/meta/idea.json` (canonical idea definition)
+## BUILD CONTRACT CONSUMPTION (MANDATORY INPUT)
+
+**PRIMARY SOURCE (AUTHORITATIVE)**:
+- Read: `runs/.../ideas/<idea_dir>/app/_contract/build_prompt.md` 
+  - This is the SOLE AUTHORITATIVE BUILD INSTRUCTION
+  - Contains synthesized requirements from ALL upstream stages
+  - No stage-by-stage reading required or permitted
+
+**SUPPLEMENTARY SOURCES (REFERENCE ONLY)**:
+- Reference: `runs/.../ideas/<idea_dir>/app/_contract/build_contract.json` (structured data lookup)
+- Validate: `runs/.../ideas/<idea_dir>/app/_contract/contract_sources.json` (traceability verification)
 - Read: `runs/.../ideas/<idea_dir>/meta/boundary.json` (verify isolation)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage02.json` (product specifications)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage03.json` (UX design and wireframes)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage04.json` (monetization and RevenueCat)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage05.json` (technical architecture)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage06.json` (builder handoff priorities)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage07.json` (quality and polish requirements)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage08.json` (brand identity and visual design)
-- Read: `runs/.../ideas/<idea_dir>/stages/stage09.json` (ASO package and launch planning)
 
-**For Dream Mode executions:**
-- Also read: `runs/.../stage01_dream/stages/stage01_dream.json` (original validated idea)
-- Also read: `runs/.../inputs/dream_intake.md` (raw user idea for context)
+**FORBIDDEN INPUTS**: 
+- **DO NOT READ**: Individual stage JSON files (stage02.json through stage09.json)
+- **DO NOT READ**: Stage outputs directories directly
+- **DO NOT READ**: Prior stage specifications or wireframes
+- **Exception**: May read vendor documentation referenced in contract (vendor/expo-docs/, vendor/revenuecat-docs/)
 
-**BOUNDARY VALIDATION**: 
-- Verify all stage JSONs have identical run_id, idea_id, and idea_dir
-- Verify all input_stage_paths are within the correct idea pack directory
-- **If boundary violations detected**: write `stage10_failure.md` and stop immediately
+**CONTRACT VALIDATION**: 
+- Verify build contract contains ALL required sections before proceeding
+- If contract references missing or unclear requirements, FAIL BUILD immediately
+- Do NOT attempt to "fill gaps" by reading stage files directly
 
 ## OUTPUTS
 - Write: `runs/.../ideas/<idea_dir>/stages/stage10.json` (build plan with mapping proof)
@@ -281,6 +564,26 @@ Stage 10 MAY use web search for UI/UX inspiration and pattern guidance:
 - **Forbidden**: Direct code copying from random repositories
 - **Usage**: Extract style direction and interaction patterns to inform design tokens
 
+### Design Inspiration Scanning (RECOMMENDED)
+**Modern UI/UX Pattern Galleries** (Browse for cutting-edge inspiration):
+- **Figma Community**: https://www.figma.com/community/mobile-apps
+- **Uizard Templates**: https://uizard.io/templates/mobile-app-templates/
+- **Visily Templates**: https://www.visily.ai/templates/mobile-app-templates/
+- **Dribbble Mobile**: https://dribbble.com/tags/mobile-app-design
+
+**STRICT INSPIRATION RULES** (MUST FOLLOW):
+1. **INSPIRATION, NOT COPYING**: Synthesize patterns, do NOT replicate designs verbatim
+2. **THEME-FIRST FILTER**: Reject any inspiration that doesn't align with app domain from Stage 03
+3. **NO BRANDING COPYING**: Do NOT recreate another app's branding or identity
+4. **DOCUMENTED RATIONALE**: Document what patterns influenced UI decisions in uiux_implementation_checklist.md
+
+**Design Inspiration Synthesis Requirements**:
+When inspiration scanning is used, add a "Design Inspiration Synthesis" section to `uiux_implementation_checklist.md`:
+- Types of apps referenced (e.g., "modern productivity apps", "media library apps")
+- What patterns were adopted
+- How they were adapted to this app's theme
+- NO external links in final artifact
+
 ### Design Contract Enforcement
 After generating the design contract, Stage 10 MUST:
 1. **Load and Apply**: Treat uiux_prompt.md as binding authority for all UI decisions
@@ -298,6 +601,11 @@ Create complete app structure at `builds/<idea_dir>/<build_id>/app/`:
 
 ```
 builds/<idea_dir>/<build_id>/
+├── launch_plan.md           # Condensed launch readiness document (MANDATORY)
+├── naming.md                # App naming report with collision research (MANDATORY)
+├── privacy_policy.md        # Human-readable privacy policy (MANDATORY)
+├── privacy_policy.html      # Static HTML privacy policy for hosting (MANDATORY)
+├── privacy_policy_snippet.md # Store listing/in-app privacy summary (MANDATORY)
 ├── uiux/                     # UI/UX design contract (MANDATORY)
 │   ├── uiux_prompt.md       # Complete design system prompt with role + design-system
 │   └── style_brief.json     # Structured design data and references
@@ -475,6 +783,77 @@ Example: "evp-analyzer-pro" → "com.appfactory.evp.analyzer.pro"
 - **Production Toggles**: Development-only logging gated by __DEV__, lint/format scripts in package.json
 - **Subscription Compliance**: Auto-renew disclosure, cancel instructions, trial terms clear throughout paywall and subscription UI
 - **Offline Capability**: App functions when offline with cached data and graceful degradation when network unavailable
+
+### Onboarding Implementation (MANDATORY ENFORCEMENT)
+Stage 10 MUST implement the onboarding flow as defined in Stage 03:
+
+1. **Real Onboarding Screens**:
+   - Implement ALL onboarding screens specified in Stage 03 `ux_design.user_journey.onboarding_flow`
+   - Each screen must have: core message, visual elements, user action, progression trigger
+   - Visual tone MUST align with app theme (not generic/boilerplate)
+
+2. **Navigation Wiring**:
+   - Onboarding screens must be navigable via swipe/tap
+   - Progress indicators (dots/bars) must show current position
+   - Skip option available but onboarding still fully built
+   - Completion paths properly wired to main app
+
+3. **Build Failure Conditions**:
+   - ❌ Onboarding screens missing entirely → BUILD FAILS
+   - ❌ Generic copy like "Welcome to the app" without theme context → BUILD FAILS
+   - ❌ No progression/navigation between onboarding screens → BUILD FAILS
+   - ❌ Onboarding visuals don't match app theme → BUILD FAILS
+
+### Soft Paywall Implementation (MANDATORY ENFORCEMENT)
+Stage 10 MUST implement the soft paywall as defined in Stages 03 and 04:
+
+1. **Non-Blocking Placement**:
+   - Paywall appears ONLY at trigger conditions from Stage 04 `soft_paywall_strategy`
+   - Value preview shown BEFORE gating (per Stage 04 value_demonstration)
+   - Paywall is ALWAYS dismissible with clear close button
+   - No hard blocking without preview
+
+2. **RevenueCat Wiring**:
+   - Paywall fetches offerings from RevenueCat
+   - Entitlement checks gate soft features per Stage 04 `soft_gate_entitlement_mapping`
+   - Graceful fallback if RevenueCat keys not present (dev warning, not crash)
+
+3. **Copy Requirements**:
+   - Tone: Helpful/encouraging (NEVER aggressive or guilt-inducing)
+   - Focus: Benefits gained (NOT features locked)
+   - Include: Auto-renew disclosure, cancel terms, restore purchases link
+
+4. **Build Failure Conditions**:
+   - ❌ Soft paywall logic absent → BUILD FAILS
+   - ❌ Paywall blocks access without value preview → BUILD FAILS
+   - ❌ Generic copy "Upgrade to Pro" without context → BUILD FAILS
+   - ❌ Missing dismiss/close functionality → BUILD FAILS
+   - ❌ Aggressive or guilt-inducing copy → BUILD FAILS
+
+### Review Prompt Implementation (MANDATORY ENFORCEMENT)
+Stage 10 MUST implement the review prompt as defined in Stage 03:
+
+1. **Trigger Timing**:
+   - Review prompt ONLY triggered after successful onboarding completion
+   - OR at positive moment as defined in Stage 03 `review_prompt_ux`
+   - NEVER during active tasks or interrupting user flow
+
+2. **Platform Native APIs**:
+   - iOS: Use `expo-store-review` or native StoreKit Review API
+   - Android: Use native In-App Review API
+   - Gracefully handle API failure (silent degradation, not crash)
+
+3. **UX Requirements**:
+   - Request copy: Grateful and appreciative (NEVER demanding)
+   - Explanation: Clear reason why review helps
+   - Dismissible: User can close without penalty
+   - Never blocks app access
+
+4. **Build Failure Conditions**:
+   - ❌ Review prompt missing entirely → BUILD FAILS
+   - ❌ Review prompt interrupts active task → BUILD FAILS
+   - ❌ Demanding or aggressive review copy → BUILD FAILS
+   - ❌ Review prompt blocks app access on dismiss → BUILD FAILS
 
 ## JSON SCHEMA (Build Plan with Mapping Proof)
 
@@ -688,73 +1067,134 @@ Before code generation begins, Stage 10 MUST verify:
     - Verify navigation between screens works without errors
     - Check that domain-specific functionality is implemented (not just placeholders)
 
-### Phase 7: Comprehensive Build Validation (MANDATORY)
-13. **Execute Automated Validation Pipeline**:
-    Following the validation procedures below:
-    
-    a) **Dependency Resolution Validation**:
+### Phase 7: Comprehensive Build Validation (MANDATORY ENFORCEMENT GATES)
+
+**CRITICAL**: This phase executes the mandatory enforcement scripts. ALL must pass or build fails.
+
+13. **Pre-Package Dependency Validation** (GATE 1):
     ```bash
-    cd builds/<idea_dir>/<build_id>/app/
-    rm -rf node_modules package-lock.json
-    npm install  # Must complete without ERESOLVE conflicts
-    ```
-    
-    b) **Expo Module Compatibility**:
-    ```bash
-    npx expo install --check  # Must show "Dependencies are up to date"
-    npx expo install --fix   # Auto-fix any version issues
-    ```
-    
-    c) **Missing Peer Dependencies**:
-    ```bash
-    npx expo install react-native-safe-area-context react-native-screens
-    ```
-    
-    d) **Configuration Validation**:
-    ```bash
-    rm -f app.json  # Ensure only dynamic app.config.js
-    # Validate bundle identifier format
-    # Check plugin configuration
-    ```
-    
-    e) **Health Checks**:
-    ```bash
-    npx expo-doctor  # Must show "17/17 checks passed"
-    npx tsc --noEmit  # TypeScript validation
+    # BEFORE writing final package.json, validate all dependencies exist
+    scripts/validate_dependencies.sh builds/<idea_dir>/<build_id>/app/package.json
+
+    # If exit code != 0:
+    #   1. Write failure to runs/.../ideas/<idea_dir>/meta/build_failure.md
+    #   2. STOP execution immediately
+    #   3. DO NOT proceed to npm install
     ```
 
-14. **Auto-Fix Common Issues**:
-    - Remove deprecated packages (@types/react-native)
-    - Fix ESLint version conflicts (use eslint@8.x with @typescript-eslint@6.x)
-    - Remove unsupported plugin configurations
-    - Install missing peer dependencies
-    - Resolve package.json dependency conflicts
+14. **Execute Build Proof Gate** (GATE 2):
+    ```bash
+    # Run comprehensive runtime verification
+    scripts/build_proof_gate.sh builds/<idea_dir>/<build_id>/app/
 
-15. **Generate Build Validation Report**:
-    ```json
-    {
-      "timestamp": "ISO date",
-      "buildId": "hash",
-      "validation": {
-        "npmInstall": "passed|failed",
-        "expoCheck": "passed|failed", 
-        "expoDoctor": "passed|failed",
-        "typescript": "passed|failed",
-        "bundleTest": "passed|failed"
-      },
-      "autoFixes": ["list of fixes applied"],
-      "expoSdkVersion": "54.0.0",
-      "nodeVersion": "v22.x"
-    }
+    # This script automatically:
+    #   - Runs npm install (captures to install_log.txt)
+    #   - Runs expo install --check (captures to expo_check_log.txt)
+    #   - Runs expo-doctor (captures to expo_doctor_log.txt)
+    #   - Kills existing Metro on port 8081 (non-interactive)
+    #   - Runs expo start and verifies Metro boots (captures to expo_start_log.txt)
+    #   - Writes build_validation_summary.json
+
+    # If exit code != 0:
+    #   1. Write failure to runs/.../ideas/<idea_dir>/meta/build_failure.md
+    #   2. STOP execution immediately
+    #   3. DO NOT proceed to UI/UX verification
     ```
 
-16. **Write Final Artifacts**:
+15. **Execute UI/UX Verification** (GATE 3):
+    ```bash
+    # Verify non-generic UI implementation
+    scripts/verify_uiux_implementation.sh builds/<idea_dir>/<build_id>/app/
+
+    # This script verifies:
+    #   - Design tokens file exists with custom colors
+    #   - Required screens implemented (Home, Settings, Onboarding, Paywall)
+    #   - No generic placeholder content detected
+    #   - Services implemented (RevenueCat, storage)
+    #   - Onboarding screens exist and are theme-aligned
+    #   - Soft paywall logic implemented with dismiss functionality
+    #   - Review prompt implemented with proper timing
+    #   - Writes uiux_implementation_checklist.md
+
+    # If exit code != 0:
+    #   1. Write failure to runs/.../ideas/<idea_dir>/meta/build_failure.md
+    #   2. STOP execution immediately
+    #   3. DO NOT proceed to market research aggregation
+    ```
+
+15.5 **Verify Onboarding, Soft Paywall, and Review Prompt Implementation** (GATE 3.5):
+    ```bash
+    # Additional verification for mandatory UX elements
+    BUILD_DIR="builds/<idea_dir>/<build_id>/app"
+
+    # Verify onboarding screens exist
+    ls -la $BUILD_DIR/app/onboarding/ || ls -la $BUILD_DIR/src/screens/*[Oo]nboarding*
+
+    # Verify paywall has dismiss functionality
+    grep -r "dismiss\|close\|cancel" $BUILD_DIR/src/screens/*[Pp]aywall*
+
+    # Verify review prompt implementation
+    ls -la $BUILD_DIR/src/components/*[Rr]eview* || grep -r "expo-store-review\|requestReview" $BUILD_DIR/
+
+    # If any check fails:
+    #   1. Document specific missing element
+    #   2. Write failure to runs/.../ideas/<idea_dir>/meta/build_failure.md
+    #   3. STOP execution immediately
+    ```
+
+16. **Execute Market Research Aggregation** (GATE 4):
+    ```bash
+    # Aggregate market research from stage artifacts into build output
+    scripts/aggregate_market_research.sh \
+      runs/<date>/<run_id> \
+      ideas/<idea_dir> \
+      builds/<idea_dir>/<build_id>/app/
+
+    # This creates market-research.md with:
+    #   - Stage 01 market evidence
+    #   - Stage 02 differentiation
+    #   - Stage 04 monetization strategy
+    #   - Stage 08 brand identity
+    #   - Stage 09 ASO package
+
+    # If exit code != 0:
+    #   1. Write failure to runs/.../ideas/<idea_dir>/meta/build_failure.md
+    #   2. STOP execution immediately
+    #   3. DO NOT mark build as success
+    ```
+
+17. **Verify All Mandatory Artifacts Exist** (GATE 5):
+    ```bash
+    # Check all required proof artifacts are present
+    BUILD_DIR="builds/<idea_dir>/<build_id>/app"
+    REQUIRED_ARTIFACTS=(
+      "install_log.txt"
+      "expo_check_log.txt"
+      "expo_doctor_log.txt"
+      "expo_start_log.txt"
+      "build_validation_summary.json"
+      "uiux_implementation_checklist.md"
+      "market-research.md"
+      "sources.md"
+      "build_log.md"
+    )
+
+    for artifact in "${REQUIRED_ARTIFACTS[@]}"; do
+      if [[ ! -f "$BUILD_DIR/$artifact" ]]; then
+        echo "MISSING REQUIRED ARTIFACT: $artifact"
+        # Write failure and STOP
+      fi
+    done
+    ```
+
+18. **Write Final Artifacts (ONLY IF ALL GATES PASSED)**:
     - Complete stage10.json with full mapping proof and validation results
     - Write stage10_build.log with binding verification and validation details
     - Render stage10 specification markdown
+    - **This step ONLY executes if gates 1-5 all returned exit code 0**
 
-### Phase 7: Build Registry Registration  
-17. **Register Build in Global Registry**:
+### Phase 8: Build Registry Registration
+19. **Register Build in Global Registry**:
     - Import: `from appfactory.build_registry import register_pipeline_build, register_dream_build`
     - Extract app name and slug from stage08/stage09 specifications
     - Determine build mode from run metadata (pipeline vs dream)
@@ -789,20 +1229,74 @@ Before code generation begins, Stage 10 MUST verify:
    - DO NOT register build in global registry
    - Return clear error message with remediation steps
 
-### Success Criteria for Stage 10 Completion:
-✅ **UI/UX Design Contract Generated**: uiux_prompt.md and style_brief.json exist and are complete  
-✅ **Design System Implemented**: src/ui/tokens.ts and src/ui/components/ follow design contract  
-✅ **Non-Generic UI**: Home screen reflects app domain (not placeholder/generic landing page)  
-✅ **Design Archetype Match**: Final UI matches chosen design archetype (e.g. "Forensic Instrument Panel")  
-✅ **Complete User Flow**: At least one end-to-end flow works (e.g. create → list → detail → edit/delete)  
-✅ All spec constraints implemented and mapped  
-✅ npm install completes without conflicts  
-✅ expo install --check shows "Dependencies are up to date"  
-✅ expo-doctor shows "17/17 checks passed" (or documented workarounds)  
-✅ TypeScript compilation succeeds  
-✅ Build metadata generated  
-✅ App can be bundled successfully  
-✅ All validation artifacts written
+### Success Criteria for Stage 10 Completion (ENFORCED BY SCRIPTS):
+
+**ENFORCEMENT GATE REQUIREMENTS** (ALL MUST EXIT 0):
+✅ `scripts/validate_dependencies.sh` - All packages exist in npm registry
+✅ `scripts/build_proof_gate.sh` - npm install, expo check, expo-doctor, Metro boot all pass
+✅ `scripts/verify_uiux_implementation.sh` - Non-generic UI with design tokens verified
+✅ `scripts/generate_assets.sh` - App icon, splash, adaptive icon, in-app icons generated
+✅ `scripts/verify_assets_present.sh` - All assets exist and meet specifications
+✅ `scripts/aggregate_market_research.sh` - market-research.md generated in build output
+✅ `scripts/generate_launch_plan.sh` - launch_plan.md synthesized from pipeline artifacts
+✅ `scripts/verify_launch_plan_present.sh` - launch_plan.md exists with all 8 required sections
+✅ `scripts/generate_app_naming.sh` - naming.md generated from stage09.1.json
+✅ `scripts/verify_app_naming.sh` - naming artifacts valid (name <= 30 chars, 8+ alternates, research evidence)
+✅ `scripts/generate_privacy_policy.sh` - privacy policy artifacts generated from stage09.2.json
+✅ `scripts/verify_privacy_policy.sh` - privacy policy artifacts exist and are valid
+✅ `scripts/verify_assets_are_png.sh` - all PNG assets are valid binaries with pixel data
+
+**MANDATORY PROOF ARTIFACTS** (ALL MUST EXIST):
+✅ `install_log.txt` - npm install captured output
+✅ `expo_check_log.txt` - expo install --check captured output
+✅ `expo_doctor_log.txt` - expo-doctor captured output
+✅ `expo_start_log.txt` - Metro boot verification captured output
+✅ `build_validation_summary.json` - Machine-readable validation results
+✅ `uiux_implementation_checklist.md` - UI/UX quality checklist
+✅ `assets/icon.png` - App icon (1024x1024 PNG)
+✅ `assets/adaptive-icon-foreground.png` - Android adaptive icon foreground (1024x1024)
+✅ `assets/splash.png` - Splash screen (1284x2778 minimum)
+✅ `src/ui/icons/Icon.tsx` - In-app icon components (18+ icons)
+✅ `market-research.md` - Aggregated market research
+✅ `launch_plan.md` - Condensed launch readiness document (9 sections)
+✅ `naming.md` - App naming report with alternates and collision research
+✅ `assets_validation_report.md` - PNG asset validation results
+✅ `privacy_policy.md` - Human-readable privacy policy (website-ready)
+✅ `privacy_policy.html` - Static HTML privacy policy (hostable)
+✅ `privacy_policy_snippet.md` - Short privacy summary for store listing/in-app
+✅ `sources.md` - Research citations
+✅ `build_log.md` - Execution log
+
+**ADDITIONAL QUALITY REQUIREMENTS**:
+✅ **UI/UX Design Contract Generated**: uiux_prompt.md and style_brief.json exist and are complete
+✅ **Design System Implemented**: src/ui/tokens.ts and src/ui/components/ follow design contract
+✅ **Non-Generic UI**: Home screen reflects app domain (not placeholder/generic landing page)
+✅ **Design Archetype Match**: Final UI matches chosen design archetype (e.g. "Forensic Instrument Panel")
+✅ **Complete User Flow**: At least one end-to-end flow works (e.g. create → list → detail → edit/delete)
+✅ All spec constraints implemented and mapped
+✅ TypeScript compilation succeeds
+✅ Build metadata generated
+✅ App can be bundled successfully
+
+**ASSET & ICONOGRAPHY REQUIREMENTS** (ALL MANDATORY):
+✅ **App Icon Generated**: icon.png is 1024x1024 PNG, no transparency, uses brand colors
+✅ **Adaptive Icon Generated**: adaptive-icon-foreground.png is 1024x1024, respects 66% safe zone
+✅ **Splash Screen Generated**: splash.png meets 1284x2778 minimum, uses brand colors
+✅ **In-App Icons Generated**: 18+ icon components in src/ui/icons/ using react-native-svg
+✅ **Icons Use Theme Colors**: All icons accept color prop, no hardcoded hex values
+✅ **App Config References Assets**: app.json/app.config.js properly references icon, splash, adaptiveIcon
+
+**ONBOARDING, SOFT PAYWALL & REVIEW PROMPT REQUIREMENTS** (ALL MANDATORY):
+✅ **Onboarding Implemented**: 2-5 screens matching Stage 03, theme-aligned visuals, skip + completion paths
+✅ **Soft Paywall Implemented**: Non-blocking, value preview before gating, dismissible with clear close button
+✅ **Review Prompt Implemented**: Post-onboarding trigger, platform native APIs, dismissible without penalty
+✅ **No Generic Copy**: Onboarding, paywall, and review prompts all use theme-specific, helpful copy
+✅ **No Aggressive Messaging**: Paywall and review prompts are encouraging/grateful, never demanding/guilt-inducing
+✅ **Design Inspiration Documented**: If inspiration scanning used, "Design Inspiration Synthesis" section in uiux_implementation_checklist.md
+
+**IF ANY ENFORCEMENT SCRIPT RETURNS NON-ZERO EXIT CODE: BUILD FAILS.**
+**IF ANY MANDATORY ARTIFACT IS MISSING: BUILD FAILS.**
+**SUCCESS WITHOUT PROOF IS IMPOSSIBLE.**
 
 ## MANDATORY EXECUTION SEQUENCE
 
@@ -897,6 +1391,22 @@ For each major UI component implemented, Stage 10 MUST document in `build_log.md
 
 ## FAILURE CONDITIONS (HARD STOPS)
 
+### Enforcement Script Failures (IMMEDIATE BUILD FAILURE)
+Stage 10 MUST fail and stop execution if ANY enforcement script returns non-zero:
+- `scripts/validate_dependencies.sh` exits non-zero → INVENTED PACKAGES DETECTED → FAIL
+- `scripts/build_proof_gate.sh` exits non-zero → RUNTIME VERIFICATION FAILED → FAIL
+- `scripts/verify_uiux_implementation.sh` exits non-zero → GENERIC UI DETECTED → FAIL
+- `scripts/aggregate_market_research.sh` exits non-zero → MARKET RESEARCH MISSING → FAIL
+
+### Missing Proof Artifacts (IMMEDIATE BUILD FAILURE)
+Stage 10 MUST fail if ANY mandatory artifact is missing:
+- Missing `install_log.txt` → NO PROOF OF npm install → FAIL
+- Missing `expo_start_log.txt` → NO PROOF OF Metro boot → FAIL
+- Missing `build_validation_summary.json` → NO VALIDATION SUMMARY → FAIL
+- Missing `uiux_implementation_checklist.md` → NO UI/UX VERIFICATION → FAIL
+- Missing `market-research.md` → NO MARKET RESEARCH → FAIL
+
+### Other Failure Conditions
 Stage 10 MUST fail and stop execution if:
 - Any stage02-09 JSON has boundary violations (wrong run_id/idea_id)
 - Required research cannot be completed (official docs inaccessible)
