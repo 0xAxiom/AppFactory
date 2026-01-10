@@ -1,0 +1,87 @@
+{
+  "run_id": "batch-specs-201250",
+  "generated": "2026-01-07T20:12:50Z",
+  "total_ideas": 10,
+  "ideas": [
+    {
+      "rank": 1,
+      "idea_id": "mindfulspend_003", 
+      "idea_name": "MindfulSpend",
+      "idea_slug": "mindfulspend",
+      "directory": "01_mindfulspend__mindfulspend_003",
+      "validation_score": 8.4
+    },
+    {
+      "rank": 2,
+      "idea_id": "dailylingo_005",
+      "idea_name": "DailyLingo", 
+      "idea_slug": "dailylingo",
+      "directory": "02_dailylingo__dailylingo_005",
+      "validation_score": 8.2
+    },
+    {
+      "rank": 3,
+      "idea_id": "notecleanup_001",
+      "idea_name": "NoteCleanup",
+      "idea_slug": "notecleanup", 
+      "directory": "03_notecleanup__notecleanup_001",
+      "validation_score": 8.1
+    },
+    {
+      "rank": 4,
+      "idea_id": "spendwise_008",
+      "idea_name": "SpendWise",
+      "idea_slug": "spendwise",
+      "directory": "04_spendwise__spendwise_008", 
+      "validation_score": 8.0
+    },
+    {
+      "rank": 5,
+      "idea_id": "speakdaily_010",
+      "idea_name": "SpeakDaily",
+      "idea_slug": "speakdaily",
+      "directory": "05_speakdaily__speakdaily_010",
+      "validation_score": 7.9
+    },
+    {
+      "rank": 6,
+      "idea_id": "fieldflow_004", 
+      "idea_name": "FieldFlow",
+      "idea_slug": "fieldflow",
+      "directory": "06_fieldflow__fieldflow_004",
+      "validation_score": 7.8
+    },
+    {
+      "rank": 7,
+      "idea_id": "paperstash_006",
+      "idea_name": "PaperStash", 
+      "idea_slug": "paperstash",
+      "directory": "07_paperstash__paperstash_006",
+      "validation_score": 7.6
+    },
+    {
+      "rank": 8,
+      "idea_id": "fieldtap_009",
+      "idea_name": "FieldTap",
+      "idea_slug": "fieldtap", 
+      "directory": "08_fieldtap__fieldtap_009",
+      "validation_score": 7.4
+    },
+    {
+      "rank": 9,
+      "idea_id": "momentum_002",
+      "idea_name": "Momentum",
+      "idea_slug": "momentum",
+      "directory": "09_momentum__momentum_002",
+      "validation_score": 7.3
+    },
+    {
+      "rank": 10,
+      "idea_id": "creativepulse_007",
+      "idea_name": "CreativePulse",
+      "idea_slug": "creativepulse",
+      "directory": "10_creativepulse__creativepulse_007",
+      "validation_score": 7.1
+    }
+  ]
+}

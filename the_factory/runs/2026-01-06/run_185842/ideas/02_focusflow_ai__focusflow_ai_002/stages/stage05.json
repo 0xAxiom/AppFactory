@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "focusflow_ai_002", 
+    "idea_name": "FocusFlow AI",
+    "idea_dir": "02_focusflow_ai__focusflow_ai_002",
+    "source_root": "runs/2026-01-06/run_185842",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage04.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage03.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage02.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/idea.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+  },
+  "technical_architecture": {
+    "technology_stack": {
+      "framework": {
+        "react_native_version": "0.76.x",
+        "expo_sdk_version": "54",
+        "rationale": "Expo SDK 54 provides stable New Architecture support with React Native 0.76, essential for ADHD app responsiveness. New Architecture enabled by default offers performance benefits critical for real-time focus tracking and adaptive UI updates."
+      },
+      "navigation": {
+        "library": "expo-router",
+        "version": "3.x",
+        "routing_strategy": "File-based routing with typed navigation, tab-based primary structure optimized for ADHD cognitive load reduction and consistent navigation patterns"
+      },
+      "state_management": {
+        "approach": "zustand",
+        "rationale": "Zustand selected for <1KB footprint, fine-grained reactivity preventing unnecessary re-renders that disrupt ADHD focus, and optimal performance for real-time energy/task state updates",
+        "data_flow_pattern": "Reactive stores with selective subscriptions, separate stores for user data, focus sessions, and UI state to minimize cognitive interference"
+      },
+      "ui_library": {
+        "primary": "React Native Elements with Expo Components",
+        "components": ["@react-native-community/slider for energy scales", "react-native-gesture-handler for drag-drop workflows", "react-native-svg for visual task representations", "react-native-reanimated for smooth focus transitions"],
+        "customization_approach": "ADHD-optimized theme system with high contrast, large touch targets (48pt+), and cognitive load-aware color psychology"
+      }
+    },
+    "data_architecture": {
+      "local_storage": {
+        "primary": "expo_sqlite",
+        "rationale": "expo-sqlite with SQLCipher encryption protects sensitive ADHD pattern data while providing relational structure for task flows, energy correlations, and temporal analysis",
+        "data_structure": "Normalized tables: users, focus_sessions, energy_logs, task_flows, pattern_insights with foreign key relationships for efficient AI pattern analysis"
+      },
+      "cloud_sync": {
+        "approach": "firebase",
+        "rationale": "Firebase provides GDPR-compliant real-time sync for cross-device pattern continuity, essential for ADHD users switching between phone/tablet/web contexts during focus sessions",
+        "sync_strategy": "Incremental sync with conflict resolution prioritizing local data, encrypted field-level sync for sensitive ADHD insights, optimistic updates for immediate UI responsiveness"
+      },
+      "offline_capability": {
+        "strategy": "Offline-first architecture with local SQLite as source of truth, background sync when connectivity available",
+        "cached_data": ["Energy check-in history (30 days)", "Task flow definitions", "Focus session templates", "Pattern learning insights", "User preferences and accessibility settings"],
+        "conflict_resolution": "Last-write-wins for user preferences, merge strategies for cumulative data (focus time, task completion), user-prompted resolution for pattern conflicts"
+      }
+    },
+    "subscription_integration": {
+      "revenuecat_sdk": {
+        "version": "9.6.7",
+        "configuration": "Platform-specific API keys with entitlement-based access control, configured during app initialization with proper error handling and fallback to free tier",
+        "entitlement_handling": "Single 'premium_access' entitlement gates all advanced features, persistent entitlement caching with periodic validation, graceful degradation when subscription expires"
+      },
+      "purchase_flow": {
+        "presentation": "Modal paywall with ADHD-specific value proposition, dismissible design, clear pricing disclosure, and cognitive-load-friendly presentation timing",
+        "restoration": "One-tap restore functionality accessible from settings, no authentication required, clear success/failure feedback with troubleshooting guidance",
+        "error_handling": "Comprehensive error states with user-friendly messaging, retry mechanisms for network failures, support contact integration for complex issues"
+      }
+    },
+    "security_privacy": {
+      "data_encryption": {
+        "at_rest": "SQLCipher AES-256 encryption for all local ADHD pattern data with encryption key stored in Expo SecureStore",
+        "in_transit": "TLS 1.3 for all network communications, certificate pinning for Firebase connections, encrypted field-level data for sensitive insights",
+        "key_management": "Platform keystore integration via Expo SecureStore, automatic key rotation for long-term data protection, secure key derivation for database encryption"
+      },
+      "privacy_compliance": {
+        "data_minimization": "Collect only essential ADHD pattern data necessary for AI coaching functionality, user control over data granularity and retention periods",
+        "user_consent": "Granular consent system with clear explanations of ADHD data usage, opt-in analytics with meaningful benefits disclosure, easy consent withdrawal",
+        "data_export": "Complete pattern data export in standard JSON format, includes focus history, energy correlations, and AI insights with clear data ownership"
+      },
+      "api_security": {
+        "authentication": "Firebase Authentication with JWT tokens, biometric authentication support where available, secure session management with automatic timeout",
+        "authorization": "Role-based access with user/premium tiers, API endpoint protection with proper scope validation, RevenueCat webhook verification",
+        "rate_limiting": "Client-side request throttling, exponential backoff for failed requests, abuse prevention for AI analysis endpoints"
+      }
+    },
+    "performance_optimization": {
+      "app_startup": {
+        "target_time": "<2.5 seconds to first interactive screen",
+        "optimization_strategies": ["Hermès JavaScript engine for reduced startup time", "Code splitting with lazy loading for non-critical features", "Pre-loaded essential UI components", "Optimized image assets with .webp format", "Minimal initial data loading with progressive enhancement"]
+      },
+      "memory_management": {
+        "image_optimization": "react-native-fast-image for efficient caching, .webp/.avif formats, dynamic resizing for device density, lazy loading for visual task flows",
+        "component_lifecycle": "Proper cleanup of timers, subscriptions, and event listeners, memoization of expensive ADHD pattern calculations, component recycling for large task lists",
+        "memory_leaks_prevention": "Regular memory profiling during development, cleanup hooks for focus session timers, proper state management disposal"
+      },
+      "network_optimization": {
+        "caching_strategy": "Intelligent caching for pattern insights, offline-capable API responses, cache invalidation based on data freshness requirements",
+        "request_batching": "Batch energy check-ins and focus session data, minimize real-time API calls during active focus sessions",
+        "offline_queue": "Queue management for sync operations, priority queuing for user-initiated actions, background processing of pattern analysis"
+      }
+    },
+    "platform_integrations": {
+      "ios_specific": {
+        "features": ["iOS Focus Modes integration", "Siri Shortcuts for quick energy check-ins", "Home screen widgets for focus status", "HealthKit integration for sleep correlation"],
+        "apis_used": ["Intents.framework for Siri integration", "WidgetKit for home screen widgets", "Combine for reactive data streams", "UserNotifications for focus reminders"],
+        "permissions": ["Siri & Search for voice commands", "Notifications for session reminders", "HealthKit for optional sleep data", "Background App Refresh for pattern sync"]
+      },
+      "android_specific": {
+        "features": ["Digital Wellbeing API integration", "Adaptive brightness for visual comfort", "Quick Settings tile for focus mode", "Notification channels for granular control"],
+        "apis_used": ["UsageStatsManager for screen time correlation", "Accessibility Services for focus mode", "NotificationChannel for organized alerts", "WorkManager for background pattern analysis"],
+        "permissions": ["Usage Access for digital wellbeing", "Accessibility Service for focus blocking", "Notification access for custom channels", "Device admin for focus mode enforcement"]
+      },
+      "cross_platform": {
+        "shared_features": ["Core ADHD pattern analysis", "Visual task flow management", "Energy-task correlation engine", "Focus session timing and adaptation"],
+        "platform_abstractions": ["Unified notification system", "Cross-platform secure storage", "Shared analytics framework", "Common subscription management"]
+      }
+    },
+    "development_workflow": {
+      "build_system": "eas_build",
+      "testing_strategy": {
+        "unit_tests": "Jest for business logic, pattern analysis algorithms, and state management with >85% coverage for critical ADHD functionality",
+        "integration_tests": "Detox for end-to-end user flows including onboarding, energy check-in, focus sessions, and subscription management",
+        "e2e_tests": "Critical path testing for ADHD user journey: first session setup → energy matching → pattern learning → subscription conversion"
+      },
+      "deployment": {
+        "staging": "EAS Preview builds with internal TestFlight/Play Console testing, feature flag integration for gradual rollout of AI improvements",
+        "production": "EAS Production builds with staged rollout (5% → 25% → 100%), automated rollback triggers for performance regression",
+        "rollback_strategy": "Immediate rollback capability via EAS Updates for non-native changes, full build rollback for native code issues, data migration compatibility maintained"
+      }
+    }
+  }
+}

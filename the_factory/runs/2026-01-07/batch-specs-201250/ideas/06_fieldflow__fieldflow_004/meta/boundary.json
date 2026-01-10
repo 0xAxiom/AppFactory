@@ -1,0 +1,14 @@
+{
+  "run_id": "batch-specs-201250",
+  "idea_id": "fieldflow_004",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-201250/ideas/06_fieldflow__fieldflow_004/",
+    "runs/2026-01-07/batch-specs-201250/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-201250/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/*/ideas/*",
+    "runs/*/stage01/stages/stage01.json"
+  ],
+  "isolation_enforced": true
+}

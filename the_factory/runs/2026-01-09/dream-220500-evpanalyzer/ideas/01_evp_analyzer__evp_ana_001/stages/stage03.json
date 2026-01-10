@@ -1,0 +1,447 @@
+{
+  "meta": {
+    "run_id": "dream-220500-evpanalyzer",
+    "idea_id": "evp_ana_001",
+    "idea_name": "EVP Analyzer",
+    "idea_dir": "01_evp_analyzer__evp_ana_001",
+    "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.json",
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.5.json",
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.7.json"
+    ],
+    "boundary_path": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/meta/boundary.json",
+    "generated_at": "2026-01-09T22:09:00Z"
+  },
+  "ux_design": {
+    "design_philosophy": {
+      "aesthetic": "Field Equipment Minimalism",
+      "description": "Professional, technical, and calm. This is investigation equipment, not entertainment. Dark-first for night use, clean lines, purposeful data visualization.",
+      "key_principles": [
+        "Night-friendly by default (dark theme)",
+        "Data visualization is primary focus",
+        "Minimal decoration, maximum function",
+        "Technical credibility through precise UI",
+        "Calm focus over sensational excitement"
+      ]
+    },
+    "design_inspiration": {
+      "sources_consulted": [
+        "Professional audio analysis software (Audacity, Adobe Audition)",
+        "Scientific instrumentation UIs",
+        "Dark mode music production apps",
+        "Field recording equipment interfaces"
+      ],
+      "key_influences": [
+        "Waveform aesthetics from professional DAWs",
+        "Spectrogram color mappings from acoustic analysis tools",
+        "Minimal control surfaces from field recording devices",
+        "Technical typography from instrumentation displays"
+      ],
+      "design_rationale": "The UI should feel like opening a piece of professional equipment, not a consumer entertainment app. Every element serves a purpose."
+    },
+    "design_tokens": {
+      "colors": {
+        "semantic": {
+          "background": {
+            "primary": "#0D0D0F",
+            "secondary": "#161619",
+            "tertiary": "#1E1E22",
+            "elevated": "#252529"
+          },
+          "text": {
+            "primary": "#FFFFFF",
+            "secondary": "#A0A0A8",
+            "tertiary": "#6B6B73",
+            "inverse": "#0D0D0F"
+          },
+          "accent": {
+            "primary": "#00D9A5",
+            "secondary": "#00B386",
+            "muted": "#00D9A520"
+          },
+          "status": {
+            "recording": "#FF4444",
+            "anomaly": "#FFB800",
+            "success": "#00D9A5",
+            "error": "#FF4444",
+            "warning": "#FFB800"
+          },
+          "visualization": {
+            "waveform": "#00D9A5",
+            "waveformBackground": "#00D9A510",
+            "spectrogramLow": "#1A1A2E",
+            "spectrogramMid": "#4A00E0",
+            "spectrogramHigh": "#FF0080",
+            "anomalyMarker": "#FFB800",
+            "playhead": "#FFFFFF"
+          }
+        },
+        "palette": {
+          "teal": {
+            "50": "#E6FFF8",
+            "100": "#B3FFE6",
+            "200": "#80FFD4",
+            "300": "#4DFFC2",
+            "400": "#1AFFB0",
+            "500": "#00D9A5",
+            "600": "#00B386",
+            "700": "#008C68",
+            "800": "#00664A",
+            "900": "#00402D"
+          },
+          "neutral": {
+            "50": "#F5F5F7",
+            "100": "#E5E5E8",
+            "200": "#C5C5CA",
+            "300": "#A0A0A8",
+            "400": "#6B6B73",
+            "500": "#46464E",
+            "600": "#2E2E34",
+            "700": "#1E1E22",
+            "800": "#161619",
+            "900": "#0D0D0F"
+          }
+        }
+      },
+      "typography": {
+        "fontFamily": {
+          "primary": "SF Pro Display, System",
+          "mono": "SF Mono, Menlo, monospace"
+        },
+        "scale": {
+          "display": {"size": 34, "lineHeight": 41, "weight": "700", "tracking": 0.25},
+          "title1": {"size": 28, "lineHeight": 34, "weight": "700", "tracking": 0.36},
+          "title2": {"size": 22, "lineHeight": 28, "weight": "600", "tracking": 0.35},
+          "title3": {"size": 20, "lineHeight": 25, "weight": "600", "tracking": 0.38},
+          "headline": {"size": 17, "lineHeight": 22, "weight": "600", "tracking": -0.41},
+          "body": {"size": 17, "lineHeight": 22, "weight": "400", "tracking": -0.41},
+          "callout": {"size": 16, "lineHeight": 21, "weight": "400", "tracking": -0.32},
+          "subhead": {"size": 15, "lineHeight": 20, "weight": "400", "tracking": -0.24},
+          "footnote": {"size": 13, "lineHeight": 18, "weight": "400", "tracking": -0.08},
+          "caption1": {"size": 12, "lineHeight": 16, "weight": "400", "tracking": 0},
+          "caption2": {"size": 11, "lineHeight": 13, "weight": "400", "tracking": 0.07},
+          "mono": {"size": 14, "lineHeight": 18, "weight": "500", "tracking": 0}
+        }
+      },
+      "spacing": {
+        "unit": 4,
+        "scale": {
+          "xs": 4,
+          "sm": 8,
+          "md": 16,
+          "lg": 24,
+          "xl": 32,
+          "2xl": 48,
+          "3xl": 64
+        }
+      },
+      "radius": {
+        "none": 0,
+        "sm": 4,
+        "md": 8,
+        "lg": 12,
+        "xl": 16,
+        "full": 9999
+      },
+      "shadows": {
+        "none": "none",
+        "sm": "0 1px 2px rgba(0,0,0,0.5)",
+        "md": "0 4px 8px rgba(0,0,0,0.5)",
+        "lg": "0 8px 16px rgba(0,0,0,0.5)"
+      }
+    },
+    "component_inventory": {
+      "buttons": [
+        {
+          "name": "PrimaryButton",
+          "variants": ["default", "destructive"],
+          "sizes": ["md", "lg"],
+          "usage": "Primary actions like Start Investigation"
+        },
+        {
+          "name": "SecondaryButton",
+          "variants": ["default", "ghost"],
+          "sizes": ["sm", "md"],
+          "usage": "Secondary actions"
+        },
+        {
+          "name": "IconButton",
+          "variants": ["default", "ghost", "recording"],
+          "sizes": ["sm", "md", "lg"],
+          "usage": "Icon-only actions in toolbars"
+        },
+        {
+          "name": "RecordButton",
+          "variants": ["idle", "recording"],
+          "sizes": ["lg"],
+          "usage": "Main recording control"
+        }
+      ],
+      "inputs": [
+        {
+          "name": "TextInput",
+          "variants": ["default", "multiline"],
+          "usage": "Text entry for notes, location"
+        },
+        {
+          "name": "Slider",
+          "variants": ["default"],
+          "usage": "Sensitivity adjustment"
+        },
+        {
+          "name": "SegmentedControl",
+          "variants": ["default"],
+          "usage": "Toggle between options"
+        }
+      ],
+      "data_display": [
+        {
+          "name": "Waveform",
+          "variants": ["live", "static", "mini"],
+          "usage": "Audio waveform visualization"
+        },
+        {
+          "name": "Spectrogram",
+          "variants": ["full", "mini"],
+          "usage": "Frequency visualization"
+        },
+        {
+          "name": "Timeline",
+          "variants": ["default"],
+          "usage": "Playback timeline with markers"
+        },
+        {
+          "name": "AnomalyMarker",
+          "variants": ["spike", "floor_change", "silence"],
+          "usage": "Event markers on timeline"
+        },
+        {
+          "name": "SessionCard",
+          "variants": ["default", "compact"],
+          "usage": "Investigation session in list"
+        },
+        {
+          "name": "TagChip",
+          "variants": ["voice", "noise", "knock", "unknown", "other"],
+          "usage": "Tag category display"
+        }
+      ],
+      "navigation": [
+        {
+          "name": "TabBar",
+          "variants": ["default"],
+          "usage": "Bottom tab navigation"
+        },
+        {
+          "name": "Header",
+          "variants": ["default", "recording", "session"],
+          "usage": "Screen headers"
+        }
+      ],
+      "feedback": [
+        {
+          "name": "Toast",
+          "variants": ["success", "error", "info"],
+          "usage": "Brief feedback messages"
+        },
+        {
+          "name": "RecordingIndicator",
+          "variants": ["default"],
+          "usage": "Recording status pulse"
+        }
+      ]
+    },
+    "screen_designs": {
+      "home_screen": {
+        "layout": "centered_hero",
+        "sections": [
+          {"type": "header", "content": "EVP Analyzer logo + title"},
+          {"type": "hero", "content": "Large RecordButton with 'Start Investigation' label"},
+          {"type": "status", "content": "Session count and storage indicator"},
+          {"type": "recent", "content": "Last investigation quick access (if exists)"}
+        ],
+        "key_interactions": [
+          "Tap RecordButton → navigate to /record",
+          "Tap recent session → navigate to /session/[id]"
+        ]
+      },
+      "record_screen": {
+        "layout": "full_screen_recording",
+        "sections": [
+          {"type": "header", "content": "Recording duration, location name"},
+          {"type": "waveform", "content": "Live waveform (full width, 40% height)"},
+          {"type": "controls", "content": "Stop button (large), pause optional"},
+          {"type": "meters", "content": "dB level, noise floor indicator"}
+        ],
+        "key_interactions": [
+          "Tap Stop → end recording, save, navigate to session",
+          "Waveform updates in real-time at 30fps"
+        ]
+      },
+      "session_screen": {
+        "layout": "analyzer_view",
+        "sections": [
+          {"type": "header", "content": "Session title, date, location"},
+          {"type": "waveform", "content": "Full waveform with timeline"},
+          {"type": "anomalies", "content": "Anomaly markers on timeline"},
+          {"type": "spectrogram", "content": "Spectrogram below waveform (premium)"},
+          {"type": "playback", "content": "Play/pause, scrubber"},
+          {"type": "tags", "content": "Tag list below visualization"},
+          {"type": "actions", "content": "Tag, Export buttons"}
+        ],
+        "key_interactions": [
+          "Drag timeline to scrub",
+          "Tap anomaly marker to jump",
+          "Tap Tag to add annotation",
+          "Pinch to zoom timeline"
+        ]
+      },
+      "log_screen": {
+        "layout": "list_view",
+        "sections": [
+          {"type": "header", "content": "Investigation Log title"},
+          {"type": "search", "content": "Search by location/notes (optional)"},
+          {"type": "list", "content": "SessionCard list sorted by date desc"}
+        ],
+        "key_interactions": [
+          "Tap session → navigate to /session/[id]",
+          "Swipe to delete session"
+        ]
+      },
+      "settings_screen": {
+        "layout": "grouped_list",
+        "sections": [
+          {"type": "group", "title": "Recording", "items": ["Sensitivity", "Quality"]},
+          {"type": "group", "title": "General", "items": ["Haptic Feedback", "Dark Mode"]},
+          {"type": "group", "title": "Subscription", "items": ["Status", "Restore Purchases"]},
+          {"type": "group", "title": "Data", "items": ["Delete All Sessions"]},
+          {"type": "group", "title": "About", "items": ["Privacy Policy", "Terms", "Version"]}
+        ]
+      }
+    },
+    "onboarding_flow": {
+      "trigger": "First app launch",
+      "screens": [
+        {
+          "screen": 1,
+          "title": "Professional EVP Investigation",
+          "subtitle": "Your phone is now a serious investigation tool",
+          "visual": "App icon with waveform graphic",
+          "action": "Continue"
+        },
+        {
+          "screen": 2,
+          "title": "Capture Ambient Audio",
+          "subtitle": "Record sessions with noise-aware sensitivity optimized for quiet environments",
+          "visual": "Recording waveform illustration",
+          "action": "Continue"
+        },
+        {
+          "screen": 3,
+          "title": "Analyze with Precision",
+          "subtitle": "Waveform and spectrogram visualization help you find what matters",
+          "visual": "Analyzer view illustration",
+          "action": "Continue"
+        },
+        {
+          "screen": 4,
+          "title": "Enable Microphone Access",
+          "subtitle": "EVP Analyzer needs microphone access to record audio",
+          "visual": "Microphone icon",
+          "action": "Enable Microphone",
+          "system_prompt": "microphone_permission"
+        }
+      ],
+      "completion_action": "Navigate to home screen",
+      "skip_allowed": false
+    },
+    "soft_paywall_ux": {
+      "trigger": "After 3rd saved session OR when accessing premium feature",
+      "presentation": "formSheet modal",
+      "design": {
+        "header": {
+          "title": "Unlock Full Analysis",
+          "subtitle": "Get the complete investigation toolkit"
+        },
+        "features_list": [
+          {"feature": "Spectrogram Visualization", "description": "See frequency patterns over time"},
+          {"feature": "Automatic Anomaly Detection", "description": "AI-powered event detection"},
+          {"feature": "Unlimited Sessions", "description": "No limits on your investigations"},
+          {"feature": "Export & Share", "description": "Share your findings as audio files"}
+        ],
+        "pricing": {
+          "monthly": {"price": "$4.99", "period": "month", "highlight": false},
+          "annual": {"price": "$29.99", "period": "year", "highlight": true, "savings": "Save 50%"}
+        },
+        "cta": {
+          "primary": "Start Free Trial",
+          "trial_info": "7-day free trial, then $29.99/year"
+        },
+        "footer": {
+          "restore": "Restore Purchases",
+          "terms": "Terms",
+          "privacy": "Privacy Policy",
+          "dismiss": "Maybe Later"
+        }
+      },
+      "soft_gate_behavior": {
+        "spectrogram_access": "Show blurred preview with unlock overlay",
+        "anomaly_detection": "Show '3 anomalies found' with unlock to see details",
+        "export": "Show export options disabled with premium badge"
+      }
+    },
+    "review_prompt_ux": {
+      "trigger_conditions": [
+        "User has completed 5+ investigations",
+        "User has tagged 10+ clips",
+        "User has used app for 7+ days",
+        "At least 3 days since last prompt"
+      ],
+      "trigger_moment": "After completing a session (before navigating to session view)",
+      "presentation": {
+        "style": "soft_ask_first",
+        "pre_prompt": {
+          "title": "Enjoying EVP Analyzer?",
+          "message": "Your feedback helps other investigators find this tool",
+          "positive_action": "Rate App",
+          "negative_action": "Not Now"
+        },
+        "positive_flow": "Show native StoreKit/In-App Review",
+        "negative_flow": "Dismiss, don't show again for 30 days"
+      }
+    },
+    "interaction_patterns": {
+      "gestures": [
+        {"gesture": "tap", "target": "buttons", "feedback": "haptic light"},
+        {"gesture": "long_press", "target": "session", "feedback": "haptic medium", "action": "show context menu"},
+        {"gesture": "pan", "target": "timeline", "feedback": "none", "action": "scrub playback"},
+        {"gesture": "pinch", "target": "waveform", "feedback": "none", "action": "zoom timeline"},
+        {"gesture": "swipe_left", "target": "session_card", "feedback": "haptic warning", "action": "reveal delete"}
+      ],
+      "transitions": [
+        {"from": "home", "to": "record", "animation": "fullScreenModal"},
+        {"from": "log", "to": "session", "animation": "push"},
+        {"from": "session", "to": "tag", "animation": "modal"},
+        {"from": "any", "to": "paywall", "animation": "formSheet"}
+      ],
+      "loading_states": [
+        {"context": "session_loading", "display": "skeleton waveform"},
+        {"context": "spectrogram_processing", "display": "progress indicator"},
+        {"context": "export", "display": "progress bar with percentage"}
+      ]
+    },
+    "accessibility": {
+      "voiceover_labels": {
+        "RecordButton": "Start investigation recording",
+        "WaveformView": "Audio waveform visualization",
+        "AnomalyMarker": "Anomaly detected at [time]",
+        "TagChip": "[category] tag: [label]"
+      },
+      "dynamic_type": true,
+      "reduce_motion": true,
+      "minimum_contrast": "4.5:1",
+      "touch_targets": "44x44pt minimum"
+    }
+  }
+}

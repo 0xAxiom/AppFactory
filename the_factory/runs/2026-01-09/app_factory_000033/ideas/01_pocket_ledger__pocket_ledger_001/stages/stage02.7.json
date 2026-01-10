@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "run_id": "app_factory_000033",
+    "idea_id": "pocket_ledger_001",
+    "idea_name": "PocketLedger",
+    "idea_dir": "01_pocket_ledger__pocket_ledger_001",
+    "source_root": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/stages/stage02.json",
+      "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/stages/stage02.5.json"
+    ],
+    "boundary_path": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/meta/boundary.json"
+  },
+  "dependency_resolution": {
+    "navigation_strategy": {
+      "architecture": "expo-router-v4",
+      "primary_structure": "hybrid",
+      "tab_sections": ["Dashboard", "Transactions", "Envelopes", "Insights", "Settings"],
+      "navigation_depth": 3,
+      "modal_screens": ["AddTransaction", "ScanReceipt", "EnvelopeSettings", "TransactionDetails", "BudgetGoals"],
+      "accessibility_compliance": true
+    },
+    "package_strategy": {
+      "core_dependencies": [
+        {
+          "package": "expo-router",
+          "version": "^4.0.0",
+          "purpose": "File-based navigation system for React Native apps with web support",
+          "expo_compatible": true,
+          "alternative_if_incompatible": "react-navigation/native"
+        },
+        {
+          "package": "expo-sqlite",
+          "version": "^14.0.0", 
+          "purpose": "Local SQLite database for privacy-first financial data storage",
+          "expo_compatible": true,
+          "alternative_if_incompatible": "react-native-sqlite-storage"
+        },
+        {
+          "package": "expo-camera",
+          "version": "^16.0.0",
+          "purpose": "Camera integration for receipt scanning functionality",
+          "expo_compatible": true,
+          "alternative_if_incompatible": "react-native-camera"
+        },
+        {
+          "package": "expo-media-library",
+          "version": "^16.0.0",
+          "purpose": "Save receipt images to device photo library",
+          "expo_compatible": true,
+          "alternative_if_incompatible": "react-native-cameraroll"
+        },
+        {
+          "package": "expo-document-picker",
+          "version": "^12.0.0",
+          "purpose": "Allow users to import financial data from files",
+          "expo_compatible": true,
+          "alternative_if_incompatible": "react-native-document-picker"
+        },
+        {
+          "package": "expo-sharing",
+          "version": "^12.0.0",
+          "purpose": "Export budget data and reports to external apps",
+          "expo_compatible": true,
+          "alternative_if_incompatible": "react-native-share"
+        },
+        {
+          "package": "expo-haptics",
+          "version": "^13.0.0",
+          "purpose": "Tactile feedback for transaction entry and envelope interactions",
+          "expo_compatible": true,
+          "alternative_if_incompatible": "react-native-haptic-feedback"
+        }
+      ],
+      "domain_packages": [
+        {
+          "package": "react-native-chart-kit",
+          "domain": "visualization",
+          "critical": true,
+          "fallback_strategy": "Custom SVG charts using react-native-svg"
+        },
+        {
+          "package": "react-native-svg",
+          "domain": "visualization", 
+          "critical": true,
+          "fallback_strategy": "React Native built-in graphics APIs"
+        },
+        {
+          "package": "expo-image-manipulator",
+          "domain": "creative",
+          "critical": true,
+          "fallback_strategy": "Basic image processing with expo-image"
+        },
+        {
+          "package": "react-native-vision-camera",
+          "domain": "creative",
+          "critical": false,
+          "fallback_strategy": "Use expo-camera instead for basic receipt capture"
+        }
+      ],
+      "expo_sdk_compatibility": {
+        "sdk_version": "52",
+        "react_native_version": "0.76.x",
+        "all_packages_compatible": true,
+        "incompatible_packages": [],
+        "resolution_strategy": "All core dependencies verified compatible with Expo SDK 52"
+      }
+    },
+    "revenuecat_integration": {
+      "sdk_version": "^8.0.0",
+      "configuration_strategy": "environment-based",
+      "paywall_placement": ["Settings Tab", "Advanced Features", "Export Modal", "Goal Creation"],
+      "restore_flow_integration": "Settings screen with dedicated restore purchases button",
+      "testing_strategy": "sandbox"
+    }
+  },
+  "technical_validation": {
+    "navigation_conflicts": [],
+    "dependency_conflicts": [],
+    "performance_concerns": [
+      "Chart rendering performance with large transaction datasets - use pagination and virtual scrolling",
+      "SQLite query optimization for envelope balance calculations - implement proper indexing"
+    ],
+    "accessibility_issues": [],
+    "resolution_plan": [
+      "Implement virtualization for transaction lists exceeding 100 items",
+      "Add database indexing on envelope_id and date fields for transaction queries",
+      "Use React.memo for envelope component re-rendering optimization",
+      "Implement lazy loading for chart data to improve initial screen load times"
+    ]
+  },
+  "gate_result": {
+    "passed": true,
+    "confidence_score": 94,
+    "blocking_issues": [],
+    "recommendations": [
+      "Prioritize expo-camera over react-native-vision-camera for MVP to reduce complexity",
+      "Implement Progressive Web App features using Expo Router web support for broader accessibility",
+      "Consider expo-image for optimized image loading and caching of receipt photos",
+      "Plan for expo-dev-client integration during development for testing camera functionality"
+    ]
+  }
+}

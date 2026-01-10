@@ -1,0 +1,23 @@
+{
+  "run_id": "batch-specs-201327",
+  "idea_id": "flowstate_002",
+  "idea_name": "FlowState",
+  "idea_dir": "01_flowstate__flowstate_002",
+  "source_root": "runs/2026-01-07/batch-specs-201327/ideas/01_flowstate__flowstate_002/",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-201327/ideas/01_flowstate__flowstate_002/",
+    "runs/2026-01-07/batch-specs-201327/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-201327/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-07/batch-specs-201327/ideas/02_canvas__canvas_001/",
+    "runs/2026-01-07/batch-specs-201327/ideas/03_studybuddy__studybuddy_003/",
+    "runs/2026-01-07/batch-specs-201327/ideas/04_taskmerge__taskmerge_007/",
+    "runs/2026-01-07/batch-specs-201327/ideas/05_simpletap__simpletap_004/",
+    "runs/2026-01-07/batch-specs-201327/ideas/06_mindfulbreak__mindfulbreak_010/",
+    "runs/2026-01-07/batch-specs-201327/ideas/07_learnlocal__learnlocal_008/",
+    "runs/2026-01-07/batch-specs-201327/ideas/08_pausespace__pausespace_005/",
+    "runs/2026-01-07/batch-specs-201327/ideas/09_createflow__createflow_006/",
+    "runs/2026-01-07/batch-specs-201327/ideas/10_guideme__guideme_009/"
+  ]
+}

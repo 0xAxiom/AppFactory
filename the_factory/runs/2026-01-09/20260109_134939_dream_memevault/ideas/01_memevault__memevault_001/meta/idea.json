@@ -1,0 +1,20 @@
+{
+  "idea_id": "memevault_001",
+  "idea_name": "MemeVault",
+  "idea_slug": "memevault",
+  "rank": 1,
+  "validation_score": 8.2,
+  "run_id": "20260109_134939_dream_memevault",
+  "generated": "2026-01-09T13:49:39Z",
+  "description": "A clean, fast meme library app that lets users save, organize, caption, and share memes with a polished UI and subscription-gated power features",
+  "target_user": "Meme enthusiasts, social media content creators, and digital asset collectors who need efficient meme organization",
+  "core_loop": [
+    "Save meme from camera roll, screenshot, or import",
+    "Auto-tag with AI or add custom tags/captions", 
+    "Browse organized library with search and filtering",
+    "Share individual memes or curated collections",
+    "Discover trending memes from integrated feeds"
+  ],
+  "mvp_complexity": "M",
+  "subscription_fit": "Premium: unlimited storage, AI auto-tagging, advanced search, custom organization, high-quality exports, priority support"
+}

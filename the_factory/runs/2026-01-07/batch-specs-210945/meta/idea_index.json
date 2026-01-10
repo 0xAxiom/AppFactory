@@ -1,0 +1,87 @@
+{
+  "run_id": "batch-specs-210945",
+  "generated": "2026-01-07T21:09:45Z",
+  "total_ideas": 10,
+  "ideas": [
+    {
+      "rank": 1,
+      "idea_id": "thoughtcatcher_002",
+      "idea_name": "ThoughtCatcher",
+      "idea_slug": "thoughtcatcher",
+      "directory": "01_thoughtcatcher__thoughtcatcher_002",
+      "validation_score": 8.5
+    },
+    {
+      "rank": 2,
+      "idea_id": "burnoutwatch_001",
+      "idea_name": "BurnoutWatch",
+      "idea_slug": "burnoutwatch",
+      "directory": "02_burnoutwatch__burnoutwatch_001",
+      "validation_score": 8.2
+    },
+    {
+      "rank": 3,
+      "idea_id": "ideaflow_007",
+      "idea_name": "IdeaFlow",
+      "idea_slug": "ideaflow",
+      "directory": "03_ideaflow__ideaflow_007",
+      "validation_score": 8.0
+    },
+    {
+      "rank": 4,
+      "idea_id": "energytrack_006",
+      "idea_name": "EnergyTrack",
+      "idea_slug": "energytrack",
+      "directory": "04_energytrack__energytrack_006",
+      "validation_score": 7.9
+    },
+    {
+      "rank": 5,
+      "idea_id": "simpletools_004",
+      "idea_name": "SimpleTools",
+      "idea_slug": "simpletools",
+      "directory": "05_simpletools__simpletools_004",
+      "validation_score": 7.8
+    },
+    {
+      "rank": 6,
+      "idea_id": "decidepause_010",
+      "idea_name": "DecidePause",
+      "idea_slug": "decidepause",
+      "directory": "06_decidepause__decidepause_010",
+      "validation_score": 7.7
+    },
+    {
+      "rank": 7,
+      "idea_id": "timezone_003",
+      "idea_name": "TimeZone",
+      "idea_slug": "timezone",
+      "directory": "07_timezone__timezone_003",
+      "validation_score": 7.6
+    },
+    {
+      "rank": 8,
+      "idea_id": "pausepoint_005",
+      "idea_name": "PausePoint",
+      "idea_slug": "pausepoint",
+      "directory": "08_pausepoint__pausepoint_005",
+      "validation_score": 7.4
+    },
+    {
+      "rank": 9,
+      "idea_id": "meetingzone_008",
+      "idea_name": "MeetingZone",
+      "idea_slug": "meetingzone",
+      "directory": "09_meetingzone__meetingzone_008",
+      "validation_score": 7.3
+    },
+    {
+      "rank": 10,
+      "idea_id": "permissioncheck_009",
+      "idea_name": "PermissionCheck",
+      "idea_slug": "permissioncheck",
+      "directory": "10_permissioncheck__permissioncheck_009",
+      "validation_score": 7.1
+    }
+  ]
+}

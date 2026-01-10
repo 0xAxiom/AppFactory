@@ -1,0 +1,11 @@
+{
+  "run_id": "app_factory_112152",
+  "idea_id": "flexible_anchor_routines_001",
+  "idea_dir": "runs/2026-01-07/app_factory_112152/ideas/01_flexible_anchor_routines__flexible_anchor_routines_001",
+  "allowed_paths": [
+    "runs/2026-01-07/app_factory_112152/ideas/01_flexible_anchor_routines__flexible_anchor_routines_001/",
+    "runs/2026-01-07/app_factory_112152/stage01/stages/stage01.json",
+    "runs/2026-01-07/app_factory_112152/meta/idea_index.json"
+  ],
+  "forbidden_cross_contamination": true
+}

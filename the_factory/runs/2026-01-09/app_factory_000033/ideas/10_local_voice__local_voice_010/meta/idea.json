@@ -1,0 +1,10 @@
+{
+  "idea_id": "local_voice_010",
+  "name": "LocalVoice",
+  "rank": 10,
+  "validation_score": 6.5,
+  "run_id": "app_factory_000033",
+  "generated": "2026-01-09T00:01:00.000Z",
+  "description": "Voice memo transcription app with local AI processing and no cloud dependency for confidential content",
+  "target_user": "Professionals in confidential environments needing meeting documentation without external data sharing"
+}

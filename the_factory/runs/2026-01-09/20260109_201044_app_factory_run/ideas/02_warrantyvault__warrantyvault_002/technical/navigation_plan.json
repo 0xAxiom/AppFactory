@@ -1,0 +1,107 @@
+{
+  "architecture": "expo-router-v4",
+  "file_structure": {
+    "app": {
+      "_layout.tsx": "Root layout with providers (RevenueCat, Theme)",
+      "(tabs)": {
+        "_layout.tsx": "Tab navigator configuration",
+        "index.tsx": "Dashboard screen (warranty list)",
+        "add.tsx": "Add item screen",
+        "settings.tsx": "Settings and account screen"
+      },
+      "item": {
+        "[id].tsx": "Item detail screen (stack push from dashboard)"
+      },
+      "paywall.tsx": "Subscription paywall modal",
+      "camera.tsx": "Receipt camera capture modal"
+    }
+  },
+  "navigation_flows": {
+    "primary": {
+      "description": "Main tab-based navigation",
+      "tabs": [
+        {
+          "name": "Dashboard",
+          "route": "(tabs)/index",
+          "icon": "home",
+          "badge": "expiring items count"
+        },
+        {
+          "name": "Add Item",
+          "route": "(tabs)/add",
+          "icon": "plus-circle",
+          "badge": null
+        },
+        {
+          "name": "Settings",
+          "route": "(tabs)/settings",
+          "icon": "settings",
+          "badge": null
+        }
+      ]
+    },
+    "secondary": {
+      "description": "Stack navigation from tabs",
+      "stacks": [
+        {
+          "trigger": "Tap item card",
+          "from": "(tabs)/index",
+          "to": "item/[id]",
+          "type": "push"
+        }
+      ]
+    },
+    "modals": {
+      "description": "Modal screens for focused interactions",
+      "screens": [
+        {
+          "name": "Paywall",
+          "route": "paywall",
+          "trigger": "Premium feature attempt or upgrade button",
+          "dismissable": true
+        },
+        {
+          "name": "Camera",
+          "route": "camera",
+          "trigger": "Capture receipt button in add flow",
+          "dismissable": true
+        }
+      ]
+    }
+  },
+  "navigation_depth": {
+    "max_depth": 2,
+    "paths": {
+      "dashboard_to_detail": ["(tabs)/index", "item/[id]"],
+      "settings_to_paywall": ["(tabs)/settings", "paywall"],
+      "add_to_camera": ["(tabs)/add", "camera"]
+    },
+    "accessibility_compliant": true
+  },
+  "deep_linking": {
+    "enabled": true,
+    "scheme": "warrantyvault",
+    "routes": {
+      "warrantyvault://item/:id": "Open specific item detail",
+      "warrantyvault://add": "Open add item screen"
+    }
+  },
+  "header_configuration": {
+    "dashboard": {
+      "title": "WarrantyVault",
+      "headerRight": "Search icon (future)"
+    },
+    "add_item": {
+      "title": "Add Item",
+      "headerRight": null
+    },
+    "settings": {
+      "title": "Settings",
+      "headerRight": null
+    },
+    "item_detail": {
+      "title": "{{item.name}}",
+      "headerRight": "Edit button"
+    }
+  }
+}

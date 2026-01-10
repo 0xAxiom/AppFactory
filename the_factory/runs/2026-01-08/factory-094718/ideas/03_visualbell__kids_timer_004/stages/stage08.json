@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "run_id": "factory-094718",
+    "idea_id": "kids_timer_004",
+    "idea_name": "VisualBell",
+    "idea_dir": "03_visualbell__kids_timer_004",
+    "source_root": "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/",
+    "input_stage_paths": [
+      "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/stages/stage02.json",
+      "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/stages/stage03.json",
+      "runs/2026-01-8/factory-094718/ideas/03_visualbell__kids_timer_004/stages/stage07.json"
+    ],
+    "boundary_path": "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/meta/boundary.json"
+  },
+  "brand_identity": {
+    "core_identity": {
+      "app_name": "VisualBell",
+      "tagline": "Time made simple for little ones",
+      "brand_personality": "Gentle, Encouraging, Trustworthy, Playful",
+      "positioning_statement": "The only timer app designed specifically for children - making routines fun and stress-free for families"
+    },
+    "visual_identity": {
+      "color_palette": {
+        "primary_colors": {
+          "sunshine_yellow": "#FFD93D",
+          "friendly_green": "#4ADE80", 
+          "calm_blue": "#60A5FA",
+          "warm_orange": "#FB923C"
+        },
+        "supporting_colors": {
+          "soft_purple": "#A78BFA",
+          "coral_pink": "#F472B6",
+          "mint_green": "#6EE7B7",
+          "peach": "#FDBA74"
+        },
+        "neutral_colors": {
+          "warm_white": "#FFFBF5",
+          "gentle_gray": "#F3F4F6",
+          "charcoal": "#374151"
+        },
+        "safety_colors": {
+          "alert_red": "#F87171",
+          "warning_amber": "#FBBF24",
+          "success_emerald": "#10B981"
+        }
+      },
+      "typography": {
+        "primary_font": "Rounded, child-friendly sans-serif (Nunito or Comic Neue)",
+        "display_font": "Large, bold numbers for timer display",
+        "body_font": "Clear, readable text for parents",
+        "accessibility": "Minimum 16px for child readability"
+      },
+      "iconography": {
+        "style": "Rounded, friendly icons with thick strokes",
+        "approach": "Simple, recognizable symbols children understand",
+        "examples": "Clock face, play/pause buttons, star celebrations",
+        "avoid": "Sharp edges, complex details, abstract symbols"
+      },
+      "illustration_style": {
+        "approach": "Soft, rounded shapes with gentle gradients",
+        "character_design": "Friendly timer mascot (optional)",
+        "environmental": "Warm, inviting backgrounds",
+        "animation_style": "Smooth, bouncy transitions"
+      }
+    },
+    "brand_voice": {
+      "tone_attributes": [
+        "Encouraging and positive",
+        "Simple and clear",
+        "Patient and understanding", 
+        "Celebratory but not overwhelming"
+      ],
+      "communication_principles": [
+        "Use simple, child-appropriate language",
+        "Focus on achievements and progress",
+        "Provide gentle guidance without pressure",
+        "Speak to both children and parents appropriately"
+      ],
+      "example_messaging": {
+        "timer_completion": "Great job! You did it!",
+        "timer_start": "Let's count down together!",
+        "parent_facing": "Building healthy routines, one timer at a time"
+      }
+    },
+    "brand_architecture": {
+      "target_positioning": "Premium kids' utility app with family-focused design",
+      "competitive_differentiation": [
+        "Only timer specifically designed for children",
+        "Large, colorful interface vs. adult-focused apps",
+        "Safety-first approach with no ads or external content",
+        "Parent-approved design with educational benefits"
+      ],
+      "brand_pillars": [
+        "Child Safety & Privacy",
+        "Intuitive Family Design", 
+        "Routine Building Support",
+        "Joyful Learning Experience"
+      ]
+    },
+    "application_guidelines": {
+      "logo_usage": {
+        "primary_logo": "VisualBell with friendly clock icon",
+        "minimum_size": "32px for mobile app icons",
+        "clear_space": "Equal to logo height on all sides",
+        "background_requirements": "Works on light and dark backgrounds"
+      },
+      "ui_design_system": {
+        "button_styles": "Rounded rectangles with 12px radius",
+        "card_design": "Soft shadows with warm background colors",
+        "spacing_system": "Generous white space for easy touch targets",
+        "animation_timing": "Gentle, 300ms transitions"
+      },
+      "content_guidelines": {
+        "imagery": "Bright, cheerful illustrations avoiding stereotypes",
+        "copy_style": "Short, positive phrases with action words",
+        "accessibility": "High contrast ratios, screen reader friendly",
+        "localization": "Simple language easily translatable"
+      }
+    },
+    "brand_extensions": {
+      "premium_themes": [
+        "Space Adventure (rockets, planets, stars)",
+        "Ocean Friends (sea creatures, waves, coral)",
+        "Garden Party (flowers, butterflies, sunshine)",
+        "Cozy Home (pets, family activities, comfort)"
+      ],
+      "seasonal_variations": [
+        "Holiday themes with appropriate colors",
+        "Back-to-school routines focus",
+        "Summer activity timers",
+        "Winter indoor play themes"
+      ],
+      "sound_branding": [
+        "Gentle chime sequences for completion",
+        "Soft tick-tock rhythms for countdown",
+        "Celebratory musical phrases",
+        "Nature sounds for calming themes"
+      ]
+    }
+  }
+}

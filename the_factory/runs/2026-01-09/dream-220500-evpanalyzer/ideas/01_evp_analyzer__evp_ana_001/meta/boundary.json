@@ -1,0 +1,26 @@
+{
+  "idea_id": "evp_ana_001",
+  "idea_dir": "01_evp_analyzer__evp_ana_001",
+  "run_id": "dream-220500-evpanalyzer",
+  "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+  "allowed_paths": [
+    "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "runs/2026-01-09/dream-220500-evpanalyzer/stage01_dream/",
+    "runs/2026-01-09/dream-220500-evpanalyzer/meta/",
+    "standards/mobile_app_best_practices_2026.md"
+  ],
+  "forbidden_patterns": [
+    "runs/*/ideas/02_*",
+    "runs/*/ideas/03_*",
+    "runs/*/ideas/04_*",
+    "runs/*/ideas/05_*",
+    "runs/*/ideas/06_*",
+    "runs/*/ideas/07_*",
+    "runs/*/ideas/08_*",
+    "runs/*/ideas/09_*",
+    "runs/*/ideas/10_*",
+    "web3-factory/*"
+  ],
+  "isolation_enforced": true,
+  "created_at": "2026-01-09T22:05:00Z"
+}

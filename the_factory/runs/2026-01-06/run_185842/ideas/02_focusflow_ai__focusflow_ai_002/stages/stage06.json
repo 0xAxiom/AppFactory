@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "focusflow_ai_002",
+    "idea_name": "FocusFlow AI",
+    "idea_dir": "02_focusflow_ai__focusflow_ai_002",
+    "source_root": "runs/2026-01-06/run_185842",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage05.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage04.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage03.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage02.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/idea.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+  },
+  "builder_handoff": {
+    "implementation_roadmap": {
+      "development_phases": [
+        {
+          "phase": "Foundation Setup",
+          "duration": "Week 1-2",
+          "deliverables": ["Expo SDK 54 project initialization", "Zustand state management setup", "SQLite + encryption configuration", "Basic navigation structure"],
+          "acceptance_criteria": ["Project builds successfully on iOS/Android", "State management functional", "Encrypted database operational", "Navigation framework complete"]
+        },
+        {
+          "phase": "Core ADHD Features",
+          "duration": "Week 3-6", 
+          "deliverables": ["Energy check-in system", "Visual task flow mapping", "Basic focus session timer", "Pattern data collection"],
+          "acceptance_criteria": ["Energy scale functional with visual feedback", "Drag-drop task flows working", "Focus sessions track time accurately", "Data persisted locally with encryption"]
+        },
+        {
+          "phase": "AI Integration", 
+          "duration": "Week 7-10",
+          "deliverables": ["AI task matching algorithm", "Pattern learning system", "Adaptive session recommendations", "Performance optimization"],
+          "acceptance_criteria": ["AI provides relevant task suggestions", "Pattern insights generated from user data", "Session lengths adapt to user behavior", "60fps UI performance maintained"]
+        },
+        {
+          "phase": "Premium Features",
+          "duration": "Week 11-14",
+          "deliverables": ["RevenueCat subscription integration", "Premium UI features", "Cloud sync implementation", "Family sharing capabilities"],
+          "acceptance_criteria": ["Subscription flow fully functional", "Paywall properly implemented", "Data syncs across devices", "Family features working with privacy controls"]
+        },
+        {
+          "phase": "Polish & Testing",
+          "duration": "Week 15-18",
+          "deliverables": ["Comprehensive testing suite", "Accessibility compliance", "Performance optimization", "Store submission preparation"],
+          "acceptance_criteria": ["All tests pass with 85%+ coverage", "WCAG 2.1 AA compliance verified", "Performance targets met", "Store guidelines satisfied"]
+        }
+      ],
+      "critical_path": ["SQLite encryption setup", "AI pattern learning implementation", "RevenueCat integration", "Accessibility compliance testing"],
+      "risk_mitigation": ["Prototype AI algorithm early", "Test subscription flow in sandbox", "Validate accessibility with ADHD users", "Performance test on older devices"]
+    },
+    "technical_specifications": {
+      "development_environment": {
+        "required_tools": ["Node.js 20+ LTS", "Expo CLI latest", "EAS CLI for builds", "Android Studio + Xcode for testing"],
+        "expo_configuration": {
+          "sdk_version": "54",
+          "new_architecture": true,
+          "plugins": ["expo-sqlite", "expo-secure-store", "expo-router", "react-native-purchases"],
+          "build_config": "EAS Build with platform-specific API keys"
+        },
+        "testing_setup": ["Jest for unit tests", "Detox for E2E testing", "Flipper for debugging", "Reactotron for state inspection"]
+      },
+      "feature_implementation_guide": {
+        "energy_check_in": {
+          "implementation": "Custom slider component with haptic feedback, visual state indicators, data persistence to encrypted SQLite",
+          "testing_requirements": ["Unit tests for state management", "Integration tests for data persistence", "Accessibility testing for screen readers"],
+          "performance_targets": "Sub-100ms response time for immediate feedback"
+        },
+        "visual_task_flows": {
+          "implementation": "react-native-gesture-handler for drag-drop, react-native-svg for visual elements, Zustand for state management",
+          "testing_requirements": ["Gesture handling tests", "Visual component rendering tests", "State persistence validation"],
+          "performance_targets": "60fps during drag operations, optimized for complex task trees"
+        },
+        "ai_pattern_learning": {
+          "implementation": "Local ML processing with TensorFlow Lite, pattern analysis algorithms, encrypted result storage",
+          "testing_requirements": ["Algorithm accuracy validation", "Performance testing under load", "Data privacy compliance verification"],
+          "performance_targets": "Pattern analysis completion within 2 seconds, minimal battery impact"
+        }
+      }
+    },
+    "quality_assurance_framework": {
+      "testing_strategy": {
+        "unit_tests": {
+          "coverage_target": "85% minimum for business logic and ADHD-specific features",
+          "focus_areas": ["State management functions", "Pattern analysis algorithms", "Encryption/decryption operations", "Subscription entitlement checks"],
+          "tools": "Jest with React Native Testing Library"
+        },
+        "integration_tests": {
+          "critical_flows": ["User onboarding to first focus session", "Energy check-in to AI task recommendation", "Free trial to subscription conversion", "Data sync across devices"],
+          "tools": "Detox for React Native E2E testing",
+          "device_coverage": "iOS 15+ and Android API 24+ across multiple screen sizes"
+        },
+        "accessibility_testing": {
+          "requirements": "WCAG 2.1 AA compliance with ADHD-specific accommodations",
+          "testing_approach": ["Screen reader navigation testing", "High contrast mode validation", "Motor accessibility verification", "Cognitive load assessment"],
+          "validation_tools": "iOS Accessibility Inspector, Android Accessibility Scanner, manual ADHD user testing"
+        },
+        "performance_testing": {
+          "benchmarks": ["<2.5s app startup time", "60fps UI interactions", "Efficient memory usage under 150MB baseline", "<500ms database query response"],
+          "testing_tools": ["Flipper for performance profiling", "Android Studio Profiler", "Xcode Instruments", "React Native Performance monitor"],
+          "load_testing": "Extended focus sessions, large task databases, multiple pattern analysis operations"
+        }
+      },
+      "code_quality_standards": {
+        "code_review_requirements": ["TypeScript strict mode compliance", "ESLint/Prettier formatting", "Security review for encryption handling", "ADHD UX pattern compliance"],
+        "documentation_standards": "Comprehensive JSDoc for all public APIs, README with ADHD-specific setup instructions, architectural decision records",
+        "version_control": "Git flow with feature branches, semantic versioning, conventional commits for clear changelog generation"
+      }
+    },
+    "deployment_pipeline": {
+      "build_configuration": {
+        "development": "Expo development build with debug symbols, all logging enabled, sandbox RevenueCat configuration",
+        "staging": "EAS preview build with production-like settings, staging Firebase environment, internal testing distribution",
+        "production": "EAS production build with optimizations, release RevenueCat configuration, store distribution ready"
+      },
+      "release_process": {
+        "pre_release_checklist": [
+          "All tests passing with required coverage",
+          "Accessibility compliance verified",
+          "Performance benchmarks met",
+          "Security audit completed",
+          "RevenueCat subscription flow validated",
+          "Store listing assets prepared",
+          "Privacy policy and terms updated"
+        ],
+        "store_submission": {
+          "app_store_requirements": ["iOS 15+ deployment target", "Privacy nutrition labels complete", "In-app purchase metadata", "Accessibility features documented"],
+          "google_play_requirements": ["Android API 24+ target", "App bundle format", "Subscription disclosure compliance", "Privacy policy linked"],
+          "review_preparation": "Demo video showcasing ADHD-specific features, review notes explaining adaptive AI behavior"
+        }
+      },
+      "monitoring_setup": {
+        "analytics": "Firebase Analytics with custom ADHD engagement events, conversion funnel tracking",
+        "crash_reporting": "Firebase Crashlytics with proper symbolication for production debugging",
+        "performance_monitoring": "Firebase Performance with custom traces for focus session quality, AI processing time",
+        "subscription_analytics": "RevenueCat dashboard integration for revenue and churn analysis"
+      }
+    },
+    "team_requirements": {
+      "roles_needed": [
+        {
+          "role": "React Native Developer",
+          "responsibilities": "Core app implementation, state management, native module integration",
+          "skills_required": "TypeScript, React Native, Expo SDK, mobile UI patterns",
+          "adhd_considerations": "Understanding of cognitive load principles and neurodivergent design patterns"
+        },
+        {
+          "role": "AI/ML Developer",
+          "responsibilities": "Pattern learning algorithms, recommendation engine, performance optimization",
+          "skills_required": "Machine learning, data analysis, TensorFlow Lite, algorithm optimization",
+          "adhd_considerations": "Knowledge of ADHD behavioral patterns and executive function challenges"
+        },
+        {
+          "role": "QA Engineer",
+          "responsibilities": "Test planning, accessibility validation, performance testing, device compatibility",
+          "skills_required": "Mobile testing, accessibility standards, automation tools, performance analysis",
+          "adhd_considerations": "Experience testing for neurodivergent users and cognitive accessibility"
+        }
+      ],
+      "timeline_estimates": {
+        "minimum_viable_product": "12 weeks with 3-person team",
+        "full_feature_set": "18 weeks including polish and optimization",
+        "store_ready_release": "20 weeks including testing, review, and launch preparation"
+      }
+    },
+    "success_metrics": {
+      "technical_kpis": [
+        "App startup time <2.5 seconds",
+        "Focus session completion rate >80%",
+        "Zero critical crashes in production",
+        "Subscription restoration success rate >95%",
+        "Accessibility compliance score 100%"
+      ],
+      "user_experience_kpis": [
+        "Energy check-in completion <10 seconds",
+        "Task flow creation <2 minutes average",
+        "AI recommendation relevance >85% user approval",
+        "Pattern insight generation within 24 hours of sufficient data"
+      ],
+      "business_kpis": [
+        "Trial-to-paid conversion >20%",
+        "Monthly churn rate <8%",
+        "App Store rating >4.5 stars",
+        "Play Store rating >4.5 stars",
+        "Support ticket volume <5% of monthly active users"
+      ]
+    }
+  }
+}

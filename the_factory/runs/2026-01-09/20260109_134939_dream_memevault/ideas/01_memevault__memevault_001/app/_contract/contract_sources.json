@@ -1,0 +1,73 @@
+{
+  "generated": "2026-01-09T14:27:21.498007Z",
+  "synthesis_version": "1.0",
+  "total_sources": 11,
+  "sources": [
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage02.json",
+      "sha256": "f98732c52a92fc2196f8dd869617267b63142b3de86743cf0ad2f9051066a869",
+      "used_for": "Stage specifications and requirements from stage02.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage03.json",
+      "sha256": "9dfea75f4983a63e7db11cf35957cb7645fd9bc6ec6091cef0218236f93cc0c8",
+      "used_for": "Stage specifications and requirements from stage03.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage04.json",
+      "sha256": "debd49fc04482479c35ca142d3409f954494bd538d6a8dc70de2d2e563f54ed1",
+      "used_for": "Stage specifications and requirements from stage04.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage05.json",
+      "sha256": "e839d150c3d93a440875501d26c388c62e633c8ce568310d54b94dc21ee7554e",
+      "used_for": "Stage specifications and requirements from stage05.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage06.json",
+      "sha256": "aca8816dc1e0e66dc13c6b7db887f016f13ba010bcfed0036d7d361132b126eb",
+      "used_for": "Stage specifications and requirements from stage06.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage07.json",
+      "sha256": "92a737b0ca83d79ee1235c59c314a173532478ae83fb5f3a78c09ad0234eb755",
+      "used_for": "Stage specifications and requirements from stage07.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage08.json",
+      "sha256": "50f5db3546a346e4f8d71a8d8430eb861f6f721071758dbde08e089834982a8a",
+      "used_for": "Stage specifications and requirements from stage08.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage09.json",
+      "sha256": "cbeaaa92f9422cbfd680b075d6c2a21f2e653e4e2cf0cf7f9cf85f4f7f3bfd8c",
+      "used_for": "Stage specifications and requirements from stage09.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/stages/stage09.5.json",
+      "sha256": "89d3a3d7df5d30d5338479604a707ce9853362b3b4999b1793aa7911d20fe5ab",
+      "used_for": "Stage specifications and requirements from stage09.5.json",
+      "type": "stage_artifact"
+    },
+    {
+      "file_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/meta/idea.json",
+      "sha256": "8540dd9a0b13541a9155b131b6574ecdc0ffe56ceb46ce3646efb0cb907898db",
+      "used_for": "Core app concept and metadata",
+      "type": "idea_metadata"
+    },
+    {
+      "file_path": "vendor/revenuecat-docs/llms.txt",
+      "sha256": "a27925ed87967af8470fbd804246623c17f21de73cd77ffe5709673593255964",
+      "used_for": "Technical implementation guidance",
+      "type": "vendor_documentation"
+    }
+  ]
+}

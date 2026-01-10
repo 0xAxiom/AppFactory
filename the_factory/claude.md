@@ -258,8 +258,8 @@ runs/YYYY-MM-DD/<run_name>/meta/run_manifest.json
   "command_invoked": "run app factory | build <idea> | dream <idea_text>",
   "expected_idea_count": 10,
   "expected_stages_run_factory": ["01"],
-  "expected_stages_build_idea": ["02","02.5","02.7","03","04","05","06","07","08","09","09.5","09.7","10.1","10"],
-  "expected_stages_dream": ["01_dream","02","02.5","02.7","03","04","05","06","07","08","09","09.5","09.7","10.1","10"],
+  "expected_stages_build_idea": ["02","02.5","02.7","03","04","05","06","07","08","08.5","09","09.5","09.7","10.1","10"],
+  "expected_stages_dream": ["01_dream","02","02.5","02.7","03","04","05","06","07","08","08.5","09","09.5","09.7","10.1","10"],
   "expected_stage_artifacts": {
     "stage01": ["stages/stage01.json", "outputs/stage01_execution.md", "spec/01_market_research.md"],
     "stage02": ["stages/stage02.json", "outputs/stage02_execution.md", "spec/02_product_spec.md"],
@@ -271,6 +271,7 @@ runs/YYYY-MM-DD/<run_name>/meta/run_manifest.json
     "stage06": ["stages/stage06.json", "outputs/stage06_execution.md", "spec/06_builder_handoff.md"],
     "stage07": ["stages/stage07.json", "outputs/stage07_execution.md", "spec/07_polish.md"],
     "stage08": ["stages/stage08.json", "outputs/stage08_execution.md", "spec/08_brand.md"],
+    "stage08.5": ["stages/stage08.5.json", "outputs/stage08.5_execution.md", "spec/08.5_visual_identity_assets.md", "assets/asset_concept.md", "assets/assets_quality_checklist.md", "assets/svg/icon.svg", "assets/svg/adaptive-icon-foreground.svg", "assets/svg/splash.svg"],
     "stage09": ["stages/stage09.json", "outputs/stage09_execution.md", "spec/09_release_planning.md"],
     "stage09.5": ["stages/stage09.5.json", "outputs/stage09.5_execution.md", "runtime/boot_sequence.json", "runtime/flow_validation.json", "runtime/error_scenarios.json", "runtime/sanity_checklist.md"],
     "stage09.7": ["stages/stage09.7.json", "outputs/stage09.7_execution.md", "app/_contract/build_contract.json", "app/_contract/build_prompt.md", "app/_contract/contract_sources.json"],

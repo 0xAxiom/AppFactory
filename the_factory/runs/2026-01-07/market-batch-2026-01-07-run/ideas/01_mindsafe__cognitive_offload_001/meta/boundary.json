@@ -1,0 +1,23 @@
+{
+  "idea_id": "cognitive_offload_001",
+  "idea_dir": "01_mindsafe__cognitive_offload_001",
+  "run_id": "market-batch-2026-01-07-run",
+  "isolation_root": "runs/2026-01-07/market-batch-2026-01-07-run/ideas/01_mindsafe__cognitive_offload_001/",
+  "allowed_paths": [
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/01_mindsafe__cognitive_offload_001/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/stage01/stages/stage01.json",
+    "runs/2026-01-07/market-batch-2026-01-07-run/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/02_flowstate__energy_sprint_002/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/03_tinywins__minimal_habit_003/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/04_contextai__context_planner_004/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/05_escapehatch__stress_escape_005/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/06_vitalpulse__energy_tracker_006/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/07_choiceless__decision_helper_007/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/08_restrhythm__microbreak_coach_008/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/09_anchorpoints__routine_stabilizer_009/",
+    "runs/2026-01-07/market-batch-2026-01-07-run/ideas/10_attentionlab__focus_physics_010/"
+  ],
+  "created": "2026-01-07T22:31:28.451Z"
+}

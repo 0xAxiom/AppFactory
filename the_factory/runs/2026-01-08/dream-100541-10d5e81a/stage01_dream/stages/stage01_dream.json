@@ -1,0 +1,56 @@
+{
+  "exploration_config": {
+    "seed_phrase": "dream-100541-10d5e81a-evp-hunter",
+    "vectors": ["paranormal investigation tools"],
+    "research_timestamp": "2026-01-08T10:15:00.000Z",
+    "mode": "dream",
+    "raw_idea": "EVP ghost hunting app that uses the phone's microphone to record audio sessions, analyzes the recording for unusual spikes or anomalies, and automatically marks timestamps where potential EVP captures might have occurred so users can review and tag them later"
+  },
+  "market_research": {
+    "trends": [
+      {
+        "name": "Paranormal Investigation Apps",
+        "description": "Growing market for ghost hunting applications with EVP recording and analysis features",
+        "evidence": "Multiple apps like Ghost Hunter M2 (top rated), Necrophonic (4.2 rating), and EVP Hunter with positive reviews for authentic recording features",
+        "opportunity_level": "Medium"
+      },
+      {
+        "name": "Audio Analysis Technology", 
+        "description": "Advanced audio processing algorithms available for mobile devices to detect anomalies and spikes",
+        "evidence": "Professional audio analysis software includes spike detection algorithms, spectral analysis, and real-time anomaly detection capabilities",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Authenticity Demand",
+        "description": "Users strongly prefer genuine recording tools over apps with fake sounds or prerecorded voices",
+        "evidence": "Top-rated EVP apps praised for 'no fake sounds or prerecorded voices' while apps with artificial content receive one-star reviews for being 'completely fake'",
+        "opportunity_level": "High"
+      }
+    ],
+    "competition_landscape": {
+      "oversaturated": ["Basic EMF detector apps", "Fake sound generator apps", "Entertainment-focused ghost apps"],
+      "underexplored": ["Serious audio analysis for paranormal investigation", "Automated anomaly timestamp detection", "Professional-grade EVP recording with subscription features"]
+    },
+    "monetization_trends": "Paranormal investigation community willing to pay for professional-grade tools and advanced analysis features"
+  },
+  "app_ideas": [
+    {
+      "id": "evp_analyzer_001",
+      "name": "EVP Analyzer Pro",
+      "validation_score": 7.8,
+      "signal_source": "Ghost hunting apps with authentic recording features receive high ratings (Ghost Hunter M2 'most popular', EVP Hunter 'literally the only one that is just a simple electronic voice recorder'), while users consistently complain about apps with 'fake sounds' and 'prerecorded voices'",
+      "description": "Professional EVP (Electronic Voice Phenomena) recording and analysis app for paranormal investigators. Uses advanced audio processing to automatically detect anomalies, spikes, and unusual patterns in recorded sessions. Discovery Mode: Practical Utility. Ship Profile: Client-only.",
+      "target_user": "Paranormal investigators, ghost hunters, and hobbyists seeking professional-grade EVP analysis tools",
+      "pain_point_evidence": "Existing apps criticized for being 'completely fake' with artificial sounds, while users want 'straightforward recording' and 'authentic approach' without 'fake ghost noises'",
+      "core_loop": ["Start recording session with optimized audio settings", "Real-time waveform monitoring during recording", "Automatic anomaly detection and timestamp marking", "Review flagged segments and add manual tags", "Export analysis reports and audio clips"],
+      "differentiation": "Focuses on authentic audio analysis using proven spike detection algorithms rather than fake sound generation. Provides professional-grade analysis tools with automated anomaly detection.",
+      "subscription_fit": "Premium features include unlimited recording length, advanced spectral analysis, cloud storage for sessions, detailed anomaly reports, and professional export formats",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$6-9",
+        "annual_range": "$50-70",
+        "trial_strategy": "Free tier with 15-minute recording sessions and basic anomaly detection"
+      }
+    }
+  ]
+}

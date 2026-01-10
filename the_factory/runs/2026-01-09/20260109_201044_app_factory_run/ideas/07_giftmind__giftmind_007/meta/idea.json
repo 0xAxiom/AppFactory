@@ -1,0 +1,23 @@
+{
+  "idea_id": "giftmind_007",
+  "idea_name": "GiftMind",
+  "idea_slug": "giftmind",
+  "rank": 7,
+  "validation_score": 8.0,
+  "description": "Gift idea tracker and birthday reminder with cloud sync. Save gift ideas for people year-round, track what you've given, set budget limits, and get timely reminders before occasions.",
+  "target_user": "Thoughtful gift-givers who want to remember ideas throughout the year and never miss important dates",
+  "core_loop": [
+    "Add person with important dates (birthday, anniversary)",
+    "Capture gift ideas whenever inspiration strikes",
+    "Receive reminder 2 weeks before occasion",
+    "Mark gifts as purchased with spend tracking",
+    "Review gift history before next occasion"
+  ],
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$1.99-$3.99",
+    "annual_range": "$14.99-$29.99"
+  },
+  "run_id": "20260109_201044_app_factory_run",
+  "source_stage": "stage01"
+}

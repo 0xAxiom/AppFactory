@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "run_id": "diversified-signals-2026-01-07-run",
+    "idea_id": "simple_tasks_001",
+    "idea_name": "ClearTasks",
+    "idea_dir": "01_cleartasks__simple_tasks_001",
+    "source_root": "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/",
+    "input_stage_paths": [
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage02.json",
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage03.json",
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage04.json",
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage05.json",
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage06.json",
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage07.json",
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage08.json",
+      "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage09.json"
+    ],
+    "boundary_path": "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/meta/boundary.json"
+  },
+  "build_plan": {
+    "app_name": "ClearTasks",
+    "build_output_dir": "builds/01_cleartasks__simple_tasks_001",
+    "technology_stack": {
+      "framework": "React Native with Expo SDK 50",
+      "routing": "Expo Router v3",
+      "language": "TypeScript",
+      "state_management": "Zustand",
+      "subscriptions": "RevenueCat React Native SDK"
+    },
+    "key_dependencies": [
+      "expo@~50.0.0",
+      "expo-router@~3.4.0", 
+      "react-native-purchases@^7.25.0",
+      "react-native-gesture-handler@~2.14.0",
+      "zustand@^4.5.0"
+    ],
+    "screens_implemented": [
+      "index.tsx - Main task list with add/complete functionality",
+      "settings.tsx - Premium upgrade and account settings"
+    ],
+    "core_features_implemented": [
+      "Single-tap task entry with auto-focus",
+      "Swipe-to-complete gestures",
+      "Offline-first local storage",
+      "Premium task limit enforcement (20 free)",
+      "RevenueCat subscription integration",
+      "Clean minimal UI design"
+    ]
+  },
+  "constraints_mapping": {
+    "stage02_product_features": {
+      "single_tap_entry": "Implemented in app/index.tsx TextInput with autoFocus",
+      "clean_list_view": "Implemented with FlatList and minimal styling",
+      "swipe_complete": "Implemented with react-native-gesture-handler Swipeable",
+      "auto_archive": "Completed tasks filtered out of active list",
+      "offline_first": "AsyncStorage for local persistence",
+      "premium_limit": "20 task limit check before adding new tasks"
+    },
+    "stage03_ux_design": {
+      "color_palette": "Applied in StyleSheet with #2563EB primary, #FFFFFF background",
+      "typography": "System fonts with 17px task text, 20px headings",
+      "user_flows": "Add task flow: open → type → add in <3 seconds",
+      "swipe_interaction": "Right swipe reveals complete button with green background"
+    },
+    "stage04_monetization": {
+      "freemium_model": "20 free tasks, unlimited for premium",
+      "revenuecat_products": "Monthly $2.99, Annual $19.99 configured",
+      "paywall_triggers": "Alert shown when hitting 21st task"
+    },
+    "stage05_architecture": {
+      "expo_framework": "Expo SDK 50 with Router v3 file-based routing",
+      "zustand_state": "Lightweight state management for tasks and premium",
+      "asyncstorage": "Local task persistence without network dependency"
+    },
+    "stage08_brand": {
+      "app_name": "ClearTasks in app.json and all UI",
+      "color_scheme": "Blue primary (#2563EB) applied throughout",
+      "simple_messaging": "No complexity. Just tasks. - reflected in UI copy"
+    },
+    "stage09_aso": {
+      "app_title": "ClearTasks - Simple To-Do List configured in app.json",
+      "description": "Matches ASO package content in README",
+      "keywords": "Aligned with simple, minimal, productivity focus"
+    }
+  },
+  "file_manifest": [
+    {
+      "path": "builds/01_cleartasks__simple_tasks_001/package.json",
+      "purpose": "Project dependencies from Stage 05 architecture",
+      "constraint_source": "stage05.json technology_stack"
+    },
+    {
+      "path": "builds/01_cleartasks__simple_tasks_001/app.json", 
+      "purpose": "Expo configuration with ASO metadata",
+      "constraint_source": "stage09.json aso_package + stage08.json brand_identity"
+    },
+    {
+      "path": "builds/01_cleartasks__simple_tasks_001/app/index.tsx",
+      "purpose": "Main task list implementing core features",
+      "constraint_source": "stage02.json core_features + stage03.json wireframes"
+    },
+    {
+      "path": "builds/01_cleartasks__simple_tasks_001/app/settings.tsx",
+      "purpose": "Premium upgrade screen",
+      "constraint_source": "stage04.json monetization_strategy"
+    },
+    {
+      "path": "builds/01_cleartasks__simple_tasks_001/src/store/taskStore.ts",
+      "purpose": "Task state management with local storage",
+      "constraint_source": "stage05.json data_architecture"
+    },
+    {
+      "path": "builds/01_cleartasks__simple_tasks_001/src/store/premiumStore.ts",
+      "purpose": "RevenueCat subscription management", 
+      "constraint_source": "stage04.json revenuecat_integration"
+    },
+    {
+      "path": "builds/01_cleartasks__simple_tasks_001/README.md",
+      "purpose": "Setup instructions and ASO content",
+      "constraint_source": "stage09.json aso_package + all stages"
+    }
+  ]
+}

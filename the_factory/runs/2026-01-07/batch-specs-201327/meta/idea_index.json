@@ -1,0 +1,87 @@
+{
+  "run_id": "batch-specs-201327",
+  "generated": "2026-01-07T20:13:27Z",
+  "total_ideas": 10,
+  "ideas": [
+    {
+      "rank": 1,
+      "idea_id": "flowstate_002",
+      "idea_name": "FlowState",
+      "idea_slug": "flowstate",
+      "directory": "01_flowstate__flowstate_002",
+      "validation_score": 8.6
+    },
+    {
+      "rank": 2,
+      "idea_id": "canvas_001",
+      "idea_name": "Canvas",
+      "idea_slug": "canvas",
+      "directory": "02_canvas__canvas_001",
+      "validation_score": 8.3
+    },
+    {
+      "rank": 3,
+      "idea_id": "studybuddy_003",
+      "idea_name": "StudyBuddy",
+      "idea_slug": "studybuddy",
+      "directory": "03_studybuddy__studybuddy_003",
+      "validation_score": 8.1
+    },
+    {
+      "rank": 4,
+      "idea_id": "taskmerge_007",
+      "idea_name": "TaskMerge",
+      "idea_slug": "taskmerge",
+      "directory": "04_taskmerge__taskmerge_007",
+      "validation_score": 7.9
+    },
+    {
+      "rank": 5,
+      "idea_id": "simpletap_004",
+      "idea_name": "SimpleTap",
+      "idea_slug": "simpletap",
+      "directory": "05_simpletap__simpletap_004",
+      "validation_score": 7.8
+    },
+    {
+      "rank": 6,
+      "idea_id": "mindfulbreak_010",
+      "idea_name": "MindfulBreak",
+      "idea_slug": "mindfulbreak",
+      "directory": "06_mindfulbreak__mindfulbreak_010",
+      "validation_score": 7.7
+    },
+    {
+      "rank": 7,
+      "idea_id": "learnlocal_008",
+      "idea_name": "LearnLocal",
+      "idea_slug": "learnlocal",
+      "directory": "07_learnlocal__learnlocal_008",
+      "validation_score": 7.6
+    },
+    {
+      "rank": 8,
+      "idea_id": "pausespace_005",
+      "idea_name": "PauseSpace",
+      "idea_slug": "pausespace",
+      "directory": "08_pausespace__pausespace_005",
+      "validation_score": 7.5
+    },
+    {
+      "rank": 9,
+      "idea_id": "createflow_006",
+      "idea_name": "CreateFlow",
+      "idea_slug": "createflow",
+      "directory": "09_createflow__createflow_006",
+      "validation_score": 7.3
+    },
+    {
+      "rank": 10,
+      "idea_id": "guideme_009",
+      "idea_name": "GuideMe",
+      "idea_slug": "guideme",
+      "directory": "10_guideme__guideme_009",
+      "validation_score": 7.2
+    }
+  ]
+}

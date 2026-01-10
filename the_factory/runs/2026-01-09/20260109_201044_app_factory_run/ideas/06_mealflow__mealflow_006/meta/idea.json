@@ -1,0 +1,23 @@
+{
+  "idea_id": "mealflow_006",
+  "idea_name": "MealFlow",
+  "idea_slug": "mealflow",
+  "rank": 6,
+  "validation_score": 8.2,
+  "description": "Meal planning app with smart shopping list that auto-updates when plans change. Store-organized lists, serving size auto-scaling, and ingredient merging. Focus on the planning-to-shopping workflow.",
+  "target_user": "Home cooks who plan weekly meals and want seamless shopping list generation without manual updates",
+  "core_loop": [
+    "Add meals to weekly calendar",
+    "Adjust serving sizes per meal",
+    "Generate smart shopping list (merged, store-organized)",
+    "Check off items while shopping",
+    "Save successful meal weeks as templates"
+  ],
+  "mvp_complexity": "M",
+  "pricing": {
+    "monthly_range": "$3.99-$6.99",
+    "annual_range": "$29.99-$59.99"
+  },
+  "run_id": "20260109_201044_app_factory_run",
+  "source_stage": "stage01"
+}

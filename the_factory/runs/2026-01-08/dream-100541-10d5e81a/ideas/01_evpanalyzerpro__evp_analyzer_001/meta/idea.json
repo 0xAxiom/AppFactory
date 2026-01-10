@@ -1,0 +1,17 @@
+{
+  "id": "evp_analyzer_001",
+  "name": "EVP Analyzer Pro",
+  "validation_score": 7.8,
+  "rank": 1,
+  "run_id": "dream-100541-10d5e81a",
+  "run_date": "2026-01-08",
+  "description": "Professional EVP (Electronic Voice Phenomena) recording and analysis app for paranormal investigators. Uses advanced audio processing to automatically detect anomalies, spikes, and unusual patterns in recorded sessions. Discovery Mode: Practical Utility. Ship Profile: Client-only.",
+  "target_user": "Paranormal investigators, ghost hunters, and hobbyists seeking professional-grade EVP analysis tools",
+  "core_loop": ["Start recording session with optimized audio settings", "Real-time waveform monitoring during recording", "Automatic anomaly detection and timestamp marking", "Review flagged segments and add manual tags", "Export analysis reports and audio clips"],
+  "differentiation": "Focuses on authentic audio analysis using proven spike detection algorithms rather than fake sound generation. Provides professional-grade analysis tools with automated anomaly detection.",
+  "subscription_fit": "Premium features include unlimited recording length, advanced spectral analysis, cloud storage for sessions, detailed anomaly reports, and professional export formats",
+  "mvp_complexity": "M",
+  "discovery_mode": "Practical Utility",
+  "ship_profile": "Client-only",
+  "original_raw_idea": "EVP ghost hunting app that uses the phone's microphone to record audio sessions, analyzes the recording for unusual spikes or anomalies, and automatically marks timestamps where potential EVP captures might have occurred so users can review and tag them later"
+}

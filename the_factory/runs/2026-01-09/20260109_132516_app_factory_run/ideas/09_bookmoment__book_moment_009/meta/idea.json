@@ -1,0 +1,13 @@
+{
+  "idea_id": "book_moment_009",
+  "idea_name": "BookMoment",
+  "idea_slug": "bookmoment",
+  "rank": 9,
+  "validation_score": 6.9,
+  "run_id": "20260109_132516_app_factory_run",
+  "generated": "2026-01-09T13:25:16Z",
+  "description": "Minimal reading tracker that captures single meaningful quote or moment from each reading session",
+  "target_user": "Readers wanting to remember book insights without complex reading analytics",
+  "mvp_complexity": "S",
+  "subscription_fit": "Premium tier with enhanced features and analytics"
+}

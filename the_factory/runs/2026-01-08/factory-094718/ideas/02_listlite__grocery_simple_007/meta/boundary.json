@@ -1,0 +1,16 @@
+{
+  "idea_id": "grocery_simple_007",
+  "idea_dir": "02_listlite__grocery_simple_007",
+  "run_id": "factory-094718", 
+  "allowed_paths": [
+    "runs/2026-01-08/factory-094718/ideas/02_listlite__grocery_simple_007/",
+    "runs/2026-01-08/factory-094718/stage01/stages/stage01.json",
+    "runs/2026-01-08/factory-094718/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-08/factory-094718/ideas/*/",
+    "runs/*/",
+    "leaderboards/*"
+  ],
+  "isolation_enforced": true
+}

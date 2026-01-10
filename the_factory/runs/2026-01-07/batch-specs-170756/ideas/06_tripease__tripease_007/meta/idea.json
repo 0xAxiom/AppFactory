@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-170756",
+  "idea_id": "tripease_007",
+  "idea_name": "TripEase",
+  "idea_slug": "tripease",
+  "rank": 6,
+  "validation_score": 7.3,
+  "frozen_definition": {
+    "id": "tripease_007",
+    "name": "TripEase",
+    "validation_score": 7.3,
+    "signal_source": "Travel comments show 'wait until last minute to pack, total NIGHTMARE', 'left important things at home'",
+    "description": "Last-minute travel assistant that creates instant packing lists and sends location-based reminders for forgotten essentials",
+    "target_user": "Spontaneous travelers and business travelers who often pack at the last minute and forget important items",
+    "pain_point_evidence": "Users describe last-minute packing as 'total NIGHTMARE especially when catching flights'",
+    "core_loop": [
+      "Enter departure time and destination",
+      "Get instant essential items checklist",
+      "Receive location-based reminders",
+      "Check items as gathered",
+      "Get final departure checklist"
+    ],
+    "differentiation": "Optimized for speed vs. comprehensive planning, focus on essentials vs. complete travel management",
+    "subscription_fit": "Premium includes multiple trip profiles, weather alerts, and travel document reminders",
+    "mvp_complexity": "S",
+    "pricing": {
+      "monthly_range": "$1.99-$3.99",
+      "annual_range": "$14.99-$29.99",
+      "trial_strategy": "Free for basic essentials list, premium for personalization and alerts"
+    }
+  }
+}

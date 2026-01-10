@@ -1,0 +1,23 @@
+{
+  "run_id": "batch-specs-204537",
+  "idea_id": "flowmind_003",
+  "idea_name": "FlowMind",
+  "idea_dir": "04_flowmind__flowmind_003",
+  "source_root": "runs/2026-01-07/batch-specs-204537/ideas/04_flowmind__flowmind_003/",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-204537/ideas/04_flowmind__flowmind_003/",
+    "runs/2026-01-07/batch-specs-204537/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-204537/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-07/batch-specs-204537/ideas/01_authentic__authentic_001/",
+    "runs/2026-01-07/batch-specs-204537/ideas/02_ruleforge__ruleforge_002/",
+    "runs/2026-01-07/batch-specs-204537/ideas/03_focusflow__focusflow_006/",
+    "runs/2026-01-07/batch-specs-204537/ideas/05_mindspace__mindspace_009/",
+    "runs/2026-01-07/batch-specs-204537/ideas/06_expresssafe__expresssafe_007/",
+    "runs/2026-01-07/batch-specs-204537/ideas/07_simpleutils__simpleutils_004/",
+    "runs/2026-01-07/batch-specs-204537/ideas/08_quickrules__quickrules_008/",
+    "runs/2026-01-07/batch-specs-204537/ideas/09_privacytools__privacytools_010/",
+    "runs/2026-01-07/batch-specs-204537/ideas/10_memestash__memestash_005/"
+  ]
+}

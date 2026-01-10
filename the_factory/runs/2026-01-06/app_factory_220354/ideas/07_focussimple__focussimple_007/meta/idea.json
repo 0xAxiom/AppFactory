@@ -1,0 +1,18 @@
+{
+  "id": "focussimple_007",
+  "name": "FocusSimple",
+  "validation_score": 8.2,
+  "signal_source": "ADHD users: 'I need ONE app that blocks distractions without adding complexity or choice fatigue'",
+  "description": "Minimalist focus environment that eliminates distractions and choice fatigue with single-purpose simplicity",
+  "target_user": "ADHD and easily distracted users who need simple, powerful focus tools without feature overwhelm",
+  "pain_point_evidence": "Users with attention challenges abandoning complex focus apps due to too many options and settings",
+  "core_loop": ["One-tap focus activation", "Intelligent distraction blocking", "Single-task focus sessions", "Gentle transition support"],
+  "differentiation": "Radical simplicity approach - one purpose, one button, maximum focus",
+  "subscription_fit": "Premium unlocks advanced blocking, session insights, and customization options",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$6-9",
+    "annual_range": "$60-90",
+    "trial_strategy": "Free basic focus mode, premium unlocks advanced blocking and analytics"
+  }
+}

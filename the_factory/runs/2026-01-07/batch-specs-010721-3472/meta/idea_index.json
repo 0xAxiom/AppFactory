@@ -1,0 +1,87 @@
+{
+  "run_id": "batch-specs-010721-3472",
+  "generated_date": "2026-01-08T05:21:07Z",
+  "total_ideas": 10,
+  "ideas": {
+    "quick_note_001": {
+      "name": "Quick Note",
+      "slug": "quick_note",
+      "directory": "01_quick_note__quick_note_001",
+      "rank": 1,
+      "score": 8.3,
+      "market": "Lightweight utility tools"
+    },
+    "habit_dot_002": {
+      "name": "Habit Dot", 
+      "slug": "habit_dot",
+      "directory": "02_habit_dot__habit_dot_002",
+      "rank": 2,
+      "score": 8.1,
+      "market": "Wellness habit formation"
+    },
+    "flash_simple_003": {
+      "name": "Flash Simple",
+      "slug": "flash_simple", 
+      "directory": "03_flash_simple__flash_simple_003",
+      "rank": 3,
+      "score": 7.9,
+      "market": "Learning practice companions"
+    },
+    "family_when_004": {
+      "name": "Family When",
+      "slug": "family_when",
+      "directory": "04_family_when__family_when_004", 
+      "rank": 4,
+      "score": 7.7,
+      "market": "Social coordination helpers"
+    },
+    "bookmark_clean_005": {
+      "name": "Bookmark Clean",
+      "slug": "bookmark_clean",
+      "directory": "05_bookmark_clean__bookmark_clean_005",
+      "rank": 5,
+      "score": 7.5,
+      "market": "Personal data organization"
+    },
+    "unit_convert_006": {
+      "name": "Unit Convert",
+      "slug": "unit_convert",
+      "directory": "06_unit_convert__unit_convert_006",
+      "rank": 6,
+      "score": 7.3,
+      "market": "Lightweight utility tools"
+    },
+    "word_daily_007": {
+      "name": "Word Daily",
+      "slug": "word_daily",
+      "directory": "07_word_daily__word_daily_007",
+      "rank": 7,
+      "score": 7.1,
+      "market": "Learning practice companions"
+    },
+    "link_save_008": {
+      "name": "Link Save",
+      "slug": "link_save",
+      "directory": "08_link_save__link_save_008",
+      "rank": 8,
+      "score": 6.9,
+      "market": "Personal data organization"
+    },
+    "group_split_009": {
+      "name": "Group Split",
+      "slug": "group_split",
+      "directory": "09_group_split__group_split_009",
+      "rank": 9,
+      "score": 6.7,
+      "market": "Social coordination helpers"
+    },
+    "water_track_010": {
+      "name": "Water Track",
+      "slug": "water_track",
+      "directory": "10_water_track__water_track_010",
+      "rank": 10,
+      "score": 6.5,
+      "market": "Wellness habit formation"
+    }
+  }
+}

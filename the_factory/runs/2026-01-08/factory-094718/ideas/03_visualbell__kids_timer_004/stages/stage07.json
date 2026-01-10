@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "run_id": "factory-094718",
+    "idea_id": "kids_timer_004",
+    "idea_name": "VisualBell",
+    "idea_dir": "03_visualbell__kids_timer_004",
+    "source_root": "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/",
+    "input_stage_paths": [
+      "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/stages/stage02.json",
+      "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/stages/stage03.json",
+      "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/stages/stage06.json"
+    ],
+    "boundary_path": "runs/2026-01-08/factory-094718/ideas/03_visualbell__kids_timer_004/meta/boundary.json"
+  },
+  "quality_standards": {
+    "performance_requirements": {
+      "target_metrics": {
+        "app_launch_time": "< 2 seconds (critical for impatient children)",
+        "timer_accuracy": "±100ms precision (meets parental expectations)",
+        "animation_framerate": "60 FPS (smooth visual feedback for kids)",
+        "memory_usage": "< 50MB (efficient on older devices families use)",
+        "battery_consumption": "Minimal impact during timer sessions"
+      },
+      "optimization_strategies": [
+        "Preload timer animations and sound files",
+        "Use efficient React Native timer implementations",
+        "Optimize image assets for multiple screen densities",
+        "Implement proper cleanup for timer intervals"
+      ]
+    },
+    "accessibility_requirements": {
+      "compliance_level": "WCAG 2.1 AA + Kids-Specific Enhancements",
+      "key_features": [
+        "Large touch targets (minimum 44px) suitable for small fingers",
+        "High contrast colors for visual clarity",
+        "VoiceOver/TalkBack support for visually impaired children",
+        "Simple language and clear visual hierarchy",
+        "No flashing elements that could trigger seizures",
+        "Audio cues compatible with hearing aids"
+      ],
+      "testing_requirements": [
+        "Test with children ages 4-10 for usability",
+        "Verify accessibility with assistive technologies",
+        "Color blindness testing with deuteranopia simulation",
+        "Motor skills testing with various finger sizes"
+      ]
+    },
+    "child_safety_requirements": {
+      "privacy_protection": [
+        "No data collection from children under 13",
+        "COPPA compliance verification",
+        "Parental consent flows for any data storage",
+        "Local-only operation with no external connections"
+      ],
+      "content_safety": [
+        "No advertising or external links",
+        "Age-appropriate visual design and language",
+        "No social features or user-generated content",
+        "Safe default sound levels to protect hearing"
+      ],
+      "parental_controls": [
+        "Timer duration limits (configurable by parents)",
+        "Volume controls accessible to parents",
+        "Simple parental settings without complexity",
+        "Clear privacy policy in parent-friendly language"
+      ]
+    },
+    "user_experience_quality": {
+      "engagement_principles": [
+        "Immediate visual feedback for all interactions",
+        "Celebratory animations when timer completes",
+        "Gentle, non-startling alert sounds",
+        "Consistent visual language throughout app"
+      ],
+      "simplicity_requirements": [
+        "Maximum 3 taps to start any timer",
+        "No complex menus or settings screens",
+        "Visual icons instead of text where possible",
+        "Forgiving interface that prevents accidental actions"
+      ],
+      "emotional_design": [
+        "Encouraging, positive visual design",
+        "Stress-free timer experience",
+        "Builds routine confidence in children",
+        "Celebrates completion without overstimulation"
+      ]
+    },
+    "technical_quality_gates": {
+      "code_standards": [
+        "TypeScript strict mode for reliability",
+        "Comprehensive error boundary implementation",
+        "Timer state persistence across app backgrounding",
+        "Proper cleanup of audio and animation resources"
+      ],
+      "testing_requirements": [
+        "Unit tests for timer logic accuracy",
+        "Integration tests for audio-visual synchronization",
+        "Device testing on iOS and Android",
+        "Parent and child usability testing sessions"
+      ],
+      "security_requirements": [
+        "No network requests or external dependencies",
+        "Secure local storage for timer presets",
+        "App Store and Google Play compliance",
+        "Regular security audit of dependencies"
+      ]
+    }
+  }
+}

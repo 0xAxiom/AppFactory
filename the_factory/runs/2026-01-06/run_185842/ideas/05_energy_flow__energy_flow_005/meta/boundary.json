@@ -1,0 +1,22 @@
+{
+  "run_id": "run_185842",
+  "idea_id": "energy_flow_005", 
+  "idea_dir": "05_energy_flow__energy_flow_005",
+  "allowed_paths": [
+    "runs/2026-01-06/run_185842/ideas/05_energy_flow__energy_flow_005/",
+    "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+    "runs/2026-01-06/run_185842/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-06/run_185842/ideas/01_*",
+    "runs/2026-01-06/run_185842/ideas/02_*", 
+    "runs/2026-01-06/run_185842/ideas/03_*",
+    "runs/2026-01-06/run_185842/ideas/04_*",
+    "runs/2026-01-06/run_185842/ideas/06_*",
+    "runs/2026-01-06/run_185842/ideas/07_*",
+    "runs/2026-01-06/run_185842/ideas/08_*",
+    "runs/2026-01-06/run_185842/ideas/09_*",
+    "runs/2026-01-06/run_185842/ideas/10_*"
+  ],
+  "isolation_enforcement": "STRICT"
+}

@@ -1,0 +1,23 @@
+{
+  "idea_id": "carecal_009",
+  "idea_name": "CareCal",
+  "idea_slug": "carecal",
+  "rank": 9,
+  "validation_score": 7.8,
+  "description": "Unified care calendar for pets, plants, and home maintenance. One app to track watering schedules, vet appointments, filter changes, and seasonal tasks. Cross-category care management.",
+  "target_user": "Busy households juggling pet care, plant care, and home maintenance who want one system instead of multiple apps",
+  "core_loop": [
+    "Add care items (pets, plants, appliances, vehicles)",
+    "Set care schedules (daily feeding, weekly watering, annual service)",
+    "Receive unified daily care checklist",
+    "Mark tasks complete across categories",
+    "See upcoming care needs on calendar view"
+  ],
+  "mvp_complexity": "M",
+  "pricing": {
+    "monthly_range": "$3.99-$6.99",
+    "annual_range": "$29.99-$59.99"
+  },
+  "run_id": "20260109_201044_app_factory_run",
+  "source_stage": "stage01"
+}

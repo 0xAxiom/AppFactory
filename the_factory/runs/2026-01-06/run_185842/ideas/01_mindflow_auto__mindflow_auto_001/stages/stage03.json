@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "mindflow_auto_001",
+    "idea_name": "MindFlow Auto",
+    "idea_dir": "01_mindflow_auto__mindflow_auto_001",
+    "source_root": "/Users/melted/Documents/GitHub/app factory/runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage02.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/idea.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/boundary.json"
+  },
+  "ux_design": {
+    "user_journey": {
+      "onboarding_flow": [
+        {
+          "step": "1",
+          "screen": "Welcome",
+          "user_action": "Tap 'Start Autopilot'",
+          "content": "Welcome to your autopilot for daily decisions. We'll learn your preferences and automate routine choices.",
+          "goal": "Set expectation that app reduces decisions rather than adds complexity"
+        },
+        {
+          "step": "2", 
+          "screen": "Permission Request",
+          "user_action": "Grant calendar access (optional)",
+          "content": "Connect your calendar to automate morning routines around your schedule",
+          "goal": "Enable schedule-aware automation while maintaining guest-first approach"
+        },
+        {
+          "step": "3",
+          "screen": "Decision Style Setup",
+          "user_action": "Quick preference taps (3-4 questions)",
+          "content": "How do you prefer to start your day? Are you a morning person? Prefer structured or flexible routines?",
+          "goal": "Minimal initial preference gathering to start automation immediately"
+        },
+        {
+          "step": "4",
+          "screen": "First Automation Preview",
+          "user_action": "View generated morning routine",
+          "content": "Here's your first automated morning routine - it will get better as we learn",
+          "goal": "Show immediate value and set expectation of improvement over time"
+        }
+      ],
+      "core_usage_flow": [
+        {
+          "step": "1",
+          "screen": "Morning Dashboard",
+          "user_action": "View generated routine",
+          "content": "Your personalized morning routine based on today's schedule and weather",
+          "goal": "Start day without decision fatigue"
+        },
+        {
+          "step": "2",
+          "screen": "Decision Logging",
+          "user_action": "One-tap log decisions throughout day",
+          "content": "Quick decision capture with simple category buttons",
+          "goal": "Effortless tracking for AI learning"
+        },
+        {
+          "step": "3",
+          "screen": "Evening Reflection",
+          "user_action": "2-minute guided review",
+          "content": "Rate today's automated decisions and adjust preferences",
+          "goal": "Optimize future automation through feedback"
+        },
+        {
+          "step": "4",
+          "screen": "Next Day Preview",
+          "user_action": "Quick preview and approve",
+          "content": "Tomorrow's planned automation based on your feedback",
+          "goal": "Build confidence in automated decisions"
+        }
+      ]
+    },
+    "information_architecture": {
+      "primary_navigation": {
+        "type": "tab",
+        "sections": ["Today", "Decisions", "Insights", "Settings"],
+        "rationale": "Tab navigation provides constant access to key functions while maintaining simplicity - critical for reducing cognitive load"
+      },
+      "content_hierarchy": {
+        "levels": ["Daily Automation", "Decision Tracking", "Learning Insights", "Configuration"],
+        "organization_principle": "Present-to-future temporal flow with immediate actions prioritized over configuration"
+      }
+    },
+    "wireframes": {
+      "home_screen": {
+        "layout": "Single scrollable feed with large automation cards and minimal chrome",
+        "primary_cta": "View Today's Automation (prominent top card)",
+        "secondary_elements": ["Quick decision log floating button", "Weather context strip", "Calendar integration badge"],
+        "accessibility_notes": "44pt touch targets, high contrast cards, VoiceOver labels for all automation elements"
+      },
+      "core_feature_screens": [
+        {
+          "screen_name": "Today Dashboard",
+          "purpose": "Display current day's automated decisions and routines",
+          "layout": "Vertical card stack with large, readable automation suggestions",
+          "key_elements": ["Morning routine card", "Decision automation prompts", "Progress indicators", "Weather/calendar context"],
+          "accessibility_notes": "Dynamic Type support up to 200%, semantic colors for status, clear headings structure"
+        },
+        {
+          "screen_name": "Decision Logger",
+          "purpose": "Effortless capture of decisions made for AI learning",
+          "layout": "Large button grid with category-based decision types",
+          "key_elements": ["Pre-defined decision categories", "Quick custom entry", "Decision complexity slider", "Context tags"],
+          "accessibility_notes": "Minimum 48dp touch targets, voice control alternatives, haptic feedback confirmation"
+        },
+        {
+          "screen_name": "Evening Reflection",
+          "purpose": "Quick feedback loop to improve automation quality",
+          "layout": "Progressive disclosure wizard with simple rating system",
+          "key_elements": ["Today's automation review", "Satisfaction ratings", "Quick preference adjustments", "Tomorrow preview"],
+          "accessibility_notes": "Screen reader compatible ratings, alternative to gesture-based input, clear progress indication"
+        },
+        {
+          "screen_name": "Automation Insights",
+          "purpose": "Show decision patterns and automation improvement",
+          "layout": "Simple data visualization with decision fatigue trends",
+          "key_elements": ["Decision load charts", "Automation success rates", "Time saved metrics", "Pattern recognition"],
+          "accessibility_notes": "Alt text for charts, sonified data representation, table alternatives to visual graphs"
+        }
+      ]
+    },
+    "interaction_patterns": {
+      "primary_actions": {
+        "action": "Automation approval/modification",
+        "interaction": "Single tap to approve, long press for options, swipe for alternatives",
+        "feedback": "Immediate visual confirmation, subtle haptics, voice feedback for accessibility"
+      },
+      "navigation_gestures": ["Tab switching via swipe", "Card dismissal", "Pull-to-refresh for updated automation"],
+      "accessibility_alternatives": ["Voice control for all interactions", "Switch control navigation", "Assistive touch compatibility"]
+    },
+    "visual_design_direction": {
+      "brand_personality": "Calm, intelligent, trustworthy - like a helpful personal assistant that gets smarter over time",
+      "color_strategy": {
+        "primary": "#4A90E2 (calm blue) with 4.8:1 contrast ratio on white backgrounds",
+        "secondary": "#7ED321 (success green), #F5A623 (attention amber)",
+        "accessibility_compliant": true
+      },
+      "typography": {
+        "primary_font": "SF Pro (iOS) / Roboto (Android) - system fonts for familiarity and accessibility",
+        "scale_factor": "Dynamic Type scaling from 17pt to 34pt minimum, supports 200% scaling",
+        "readability_notes": "High contrast headings, generous line spacing, short line lengths for comprehension"
+      }
+    },
+    "accessibility_requirements": {
+      "wcag_compliance": "WCAG 2.1 AA",
+      "screen_reader_support": [
+        "VoiceOver (iOS) - semantic labels for all automation elements",
+        "TalkBack (Android) - logical reading order for decision flows", 
+        "Live regions for automation updates and feedback"
+      ],
+      "motor_accessibility": [
+        "Minimum 44pt touch targets (iOS) / 48dp (Android)",
+        "Voice control alternatives for all gestures",
+        "Switch control compatibility with clear focus indicators"
+      ],
+      "visual_accessibility": [
+        "4.5:1 contrast ratios for normal text, 3:1 for large text",
+        "Motion reduction support for users with vestibular disorders",
+        "Alternative text for all meaningful images and automation visualizations"
+      ],
+      "cognitive_accessibility": [
+        "Simple, consistent navigation patterns",
+        "Progressive disclosure to prevent information overload",
+        "Clear feedback for all actions and automation states",
+        "Familiar interaction patterns from platform standards"
+      ]
+    }
+  }
+}

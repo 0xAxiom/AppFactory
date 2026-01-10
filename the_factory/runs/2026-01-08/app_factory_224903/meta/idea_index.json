@@ -1,0 +1,77 @@
+{
+  "run_id": "app_factory_224903",
+  "run_date": "2026-01-08T22:49:03Z",
+  "idea_count": 10,
+  "ideas": {
+    "recipe_scale_coordinator_001": {
+      "rank": 1,
+      "name": "Recipe Scale Coordinator",
+      "slug": "recipe_scale_coordinator",
+      "directory": "01_recipe_scale_coordinator__recipe_scale_coordinator_001",
+      "validation_score": 8.9
+    },
+    "travel_booking_sync_002": {
+      "rank": 2,
+      "name": "Travel Booking Sync",
+      "slug": "travel_booking_sync", 
+      "directory": "02_travel_booking_sync__travel_booking_sync_002",
+      "validation_score": 8.7
+    },
+    "home_repair_sequence_003": {
+      "rank": 3,
+      "name": "Home Repair Sequence",
+      "slug": "home_repair_sequence",
+      "directory": "03_home_repair_sequence__home_repair_sequence_003",
+      "validation_score": 8.5
+    },
+    "family_logistics_central_004": {
+      "rank": 4,
+      "name": "Family Logistics Central",
+      "slug": "family_logistics_central",
+      "directory": "04_family_logistics_central__family_logistics_central_004",
+      "validation_score": 8.3
+    },
+    "offline_vocab_builder_005": {
+      "rank": 5,
+      "name": "Offline Vocab Builder",
+      "slug": "offline_vocab_builder", 
+      "directory": "05_offline_vocab_builder__offline_vocab_builder_005",
+      "validation_score": 8.1
+    },
+    "group_meal_coordinator_006": {
+      "rank": 6,
+      "name": "Group Meal Coordinator",
+      "slug": "group_meal_coordinator",
+      "directory": "06_group_meal_coordinator__group_meal_coordinator_006",
+      "validation_score": 7.9
+    },
+    "event_vendor_coordinator_007": {
+      "rank": 7,
+      "name": "Event Vendor Coordinator",
+      "slug": "event_vendor_coordinator",
+      "directory": "07_event_vendor_coordinator__event_vendor_coordinator_007", 
+      "validation_score": 7.7
+    },
+    "appliance_warranty_tracker_008": {
+      "rank": 8,
+      "name": "Appliance Warranty Tracker",
+      "slug": "appliance_warranty_tracker",
+      "directory": "08_appliance_warranty_tracker__appliance_warranty_tracker_008",
+      "validation_score": 7.5
+    },
+    "moving_timeline_coordinator_009": {
+      "rank": 9,
+      "name": "Moving Timeline Coordinator",
+      "slug": "moving_timeline_coordinator",
+      "directory": "09_moving_timeline_coordinator__moving_timeline_coordinator_009",
+      "validation_score": 7.3
+    },
+    "kids_activity_scheduler_010": {
+      "rank": 10,
+      "name": "Kids Activity Scheduler",
+      "slug": "kids_activity_scheduler",
+      "directory": "10_kids_activity_scheduler__kids_activity_scheduler_010",
+      "validation_score": 7.1
+    }
+  }
+}

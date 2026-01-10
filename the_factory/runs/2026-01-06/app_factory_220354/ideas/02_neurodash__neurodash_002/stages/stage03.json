@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "run_id": "app_factory_220354",
+    "idea_id": "neurodash_002",
+    "idea_name": "NeuroDash",
+    "idea_dir": "02_neurodash__neurodash_002",
+    "source_root": "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/",
+    "input_stage_paths": [
+      "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/stages/stage02.json",
+      "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/meta/idea.json",
+      "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/meta/boundary.json"
+  },
+  "ux_design": {
+    "user_journey": {
+      "onboarding_flow": [
+        {
+          "step": "1",
+          "screen": "Welcome & Value Proposition",
+          "user_action": "Tap 'Start Adapting' or hear value prop via VoiceOver",
+          "content": "Welcome to NeuroDash - productivity that adapts to your brain. Quick 2-minute setup to personalize your experience.",
+          "goal": "Communicate core value without overwhelming with features"
+        },
+        {
+          "step": "2", 
+          "screen": "Energy Check-In Introduction",
+          "user_action": "Try first energy check-in with guided tutorial",
+          "content": "Let's start with how you're feeling right now. This helps NeuroDash suggest the right tasks for your current capacity.",
+          "goal": "Immediate value demonstration through core feature trial"
+        },
+        {
+          "step": "3",
+          "screen": "Adaptive Task Demo",
+          "user_action": "See personalized task suggestions based on energy level",
+          "content": "Based on your energy, here are tasks that match your current capacity. You can always change these later.",
+          "goal": "Show adaptive intelligence in action"
+        },
+        {
+          "step": "4",
+          "screen": "Optional Account Creation",
+          "user_action": "Choose to continue as guest or create account for sync",
+          "content": "Continue exploring as a guest, or create an account to save your patterns across devices.",
+          "goal": "Guest-first experience with optional progressive registration"
+        }
+      ],
+      "core_usage_flow": [
+        {
+          "step": "1",
+          "screen": "Energy Check-In",
+          "user_action": "Quick energy level selection (voice or tap)",
+          "content": "How's your energy? Low/Medium/High with optional context note",
+          "goal": "Capture current cognitive capacity with minimal friction"
+        },
+        {
+          "step": "2",
+          "screen": "Adaptive Dashboard",
+          "user_action": "View energy-appropriate task suggestions",
+          "content": "Tasks filtered and prioritized based on current energy and historical patterns",
+          "goal": "Present actionable, capacity-matched productivity options"
+        },
+        {
+          "step": "3",
+          "screen": "Task Interaction",
+          "user_action": "Start task, modify, or reschedule without guilt",
+          "content": "Flexible task engagement with effort recognition and gentle rescheduling",
+          "goal": "Enable productivity without pressure or shame"
+        },
+        {
+          "step": "4",
+          "screen": "Pattern Recognition",
+          "user_action": "Review insights about personal productivity patterns",
+          "content": "Visual insights showing energy patterns and optimal timing for different tasks",
+          "goal": "Build self-awareness and optimize future productivity"
+        }
+      ]
+    },
+    "information_architecture": {
+      "primary_navigation": {
+        "type": "tab",
+        "sections": ["Energy", "Tasks", "Focus", "Patterns", "Settings"],
+        "rationale": "Bottom tab navigation follows platform conventions and keeps core features accessible in thumb zone. Energy-first ordering emphasizes adaptive nature."
+      },
+      "content_hierarchy": {
+        "levels": ["Energy State", "Contextual Tasks", "Focus Tools", "Pattern Insights", "Configuration"],
+        "organization_principle": "Energy-driven hierarchy where all content adapts to current cognitive capacity, with progressive disclosure based on user comfort level"
+      }
+    },
+    "wireframes": {
+      "home_screen": {
+        "layout": "Energy indicator at top (large, visual), followed by 3-4 energy-appropriate task suggestions, quick focus session button, and gentle progress celebration",
+        "primary_cta": "Energy check-in button (large, accessible, voice-enabled)",
+        "secondary_elements": ["Current task suggestions", "Quick focus timer", "Pattern streak counter", "Settings access"],
+        "accessibility_notes": "High contrast energy indicators, minimum 44pt touch targets, VoiceOver labels for all elements, haptic feedback for confirmations"
+      },
+      "core_feature_screens": [
+        {
+          "screen_name": "Energy Check-In",
+          "purpose": "Capture current cognitive capacity with minimal friction",
+          "layout": "Large visual energy scale (Low/Medium/High) with color coding, optional voice note button, and historical pattern context",
+          "key_elements": ["Visual energy slider", "Voice input button", "Optional text context", "Previous pattern indicator", "Quick confirmation"],
+          "accessibility_notes": "High contrast color coding, voice input primary option, large touch targets ≥44pt, clear focus indicators"
+        },
+        {
+          "screen_name": "Adaptive Tasks",
+          "purpose": "Present capacity-appropriate task suggestions without overwhelming",
+          "layout": "Energy-filtered task list with cognitive load indicators, duration estimates, and gentle modification options",
+          "key_elements": ["Task priority based on energy", "Cognitive load icons", "Duration estimates", "One-tap reschedule", "Effort tracking"],
+          "accessibility_notes": "Clear task hierarchy, semantic headings, swipe actions with confirmation, reduced motion options"
+        },
+        {
+          "screen_name": "Flexible Focus",
+          "purpose": "Adaptive focus sessions that match current attention capacity",
+          "layout": "Variable timer with energy-based recommendations, gentle progress tracking, and adaptive break suggestions",
+          "key_elements": ["Adaptive timer lengths", "Energy-based break intervals", "Gentle progress tracking", "Session completion celebration"],
+          "accessibility_notes": "Audio and visual progress indicators, pause/resume accessibility, vibration patterns for transitions"
+        },
+        {
+          "screen_name": "Pattern Dashboard",
+          "purpose": "Visual insights into personal productivity patterns without judgment",
+          "layout": "Energy pattern visualization, optimal timing suggestions, and effort celebration rather than completion tracking",
+          "key_elements": ["Weekly energy patterns", "Optimal task timing", "Effort recognition", "Pattern insights", "Goal adaptation"],
+          "accessibility_notes": "Data visualization with alt text, high contrast charts, voice description of patterns available"
+        }
+      ]
+    },
+    "interaction_patterns": {
+      "primary_actions": {
+        "action": "Energy check-in",
+        "interaction": "Voice command, large touch target, or slider gesture",
+        "feedback": "Immediate visual and haptic confirmation with interface adaptation"
+      },
+      "navigation_gestures": ["Swipe between energy-filtered views", "Pull to refresh energy state", "Long press for voice options"],
+      "accessibility_alternatives": ["Voice commands for all gestures", "Switch control support", "Large touch target alternatives"]
+    },
+    "visual_design_direction": {
+      "brand_personality": "Calm, adaptive, supportive companion that celebrates effort over perfection. Visual language emphasizes flexibility and reduces anxiety through gentle, consistent design.",
+      "color_strategy": {
+        "primary": "Energy-adaptive color system: Calm blue for low energy (contrast 4.8:1), warm orange for medium (contrast 5.2:1), vibrant green for high (contrast 4.7:1)",
+        "secondary": "Neutral grays for secondary content, soft accent colors for celebrations",
+        "accessibility_compliant": true
+      },
+      "typography": {
+        "primary_font": "SF Pro for iOS, Roboto for Android (system fonts)",
+        "scale_factor": "Supports Dynamic Type scaling 100%-200% with readable hierarchy",
+        "readability_notes": "Minimum 17pt body text, generous line spacing, left-aligned for dyslexia accessibility"
+      }
+    },
+    "accessibility_requirements": {
+      "wcag_compliance": "WCAG 2.1 AA",
+      "screen_reader_support": ["Complete VoiceOver compatibility", "Semantic heading structure", "Descriptive labels for all interactive elements", "Voice descriptions of visual patterns"],
+      "motor_accessibility": ["Touch targets ≥44pt iOS/48dp Android", "Switch control support", "Voice control primary option", "Generous spacing between elements"],
+      "visual_accessibility": ["High contrast ratios ≥4.5:1", "Reduced motion options", "Color-blind friendly palettes", "Text scaling up to 200%"],
+      "cognitive_accessibility": ["Simple navigation paths", "Progressive disclosure", "Consistent interaction patterns", "Gentle error recovery", "Effort celebration over completion pressure"]
+    }
+  }
+}

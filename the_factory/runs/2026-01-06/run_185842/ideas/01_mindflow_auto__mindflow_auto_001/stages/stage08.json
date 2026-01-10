@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "mindflow_auto_001",
+    "idea_name": "MindFlow Auto",
+    "idea_dir": "01_mindflow_auto__mindflow_auto_001",
+    "source_root": "/Users/melted/Documents/GitHub/app factory/runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage07.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage06.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage05.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage04.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage03.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage02.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/idea.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/boundary.json"
+  },
+  "brand_identity": {
+    "brand_strategy": {
+      "brand_name": {
+        "final_name": "MindFlow Auto",
+        "rationale": "Combines mental clarity (Mind), effortless movement (Flow), and automation (Auto). Suggests the app helps thoughts and decisions flow naturally without friction.",
+        "alternatives_considered": ["DecisionEase", "AutoMind", "FlowState", "ChoiceFlow"],
+        "trademark_considerations": "Unique combination, low risk of conflict. 'MindFlow' + 'Auto' creates distinctive compound name."
+      },
+      "brand_positioning": {
+        "value_proposition": "The only productivity app that gets simpler over time by automating your daily decisions",
+        "differentiation_strategy": "Position against complexity-adding tools like Notion/Todoist by emphasizing decision reduction rather than feature addition",
+        "target_audience_alignment": "Busy professionals seeking cognitive relief rather than more productivity features to manage",
+        "competitive_distinction": "Autopilot for daily choices vs manual task management systems"
+      },
+      "brand_personality": {
+        "core_attributes": ["Calm", "Intelligent", "Trustworthy", "Effortless", "Adaptive"],
+        "tone_of_voice": "Supportive and knowledgeable without being patronizing. Like a wise personal assistant who learns your preferences.",
+        "communication_style": "Clear, concise, non-judgmental. Focuses on what the app does for you, not what you need to do for the app.",
+        "emotional_appeal": "Relief from decision fatigue, confidence in automated choices, sense of mental clarity and flow"
+      }
+    },
+    "visual_identity": {
+      "logo_concept": {
+        "design_direction": "Abstract flowing symbol representing smooth decision flow and mental clarity",
+        "symbol_meaning": "Interconnected flowing lines suggesting seamless thought processes and automated pathways",
+        "scalability_considerations": "Simple enough for app icons, recognizable at 16px, works in monochrome",
+        "platform_adaptations": "iOS rounded square format, Android adaptive icon with background/foreground layers"
+      },
+      "color_palette": {
+        "primary_colors": [
+          {
+            "color_name": "Flow Blue",
+            "hex_value": "#4A90E2",
+            "usage": "Primary brand color, main CTAs, active states",
+            "accessibility_rating": "4.8:1 contrast on white backgrounds"
+          },
+          {
+            "color_name": "Mind White",
+            "hex_value": "#FFFFFF",
+            "usage": "Primary background, cards, clean space",
+            "accessibility_rating": "Baseline for contrast calculations"
+          },
+          {
+            "color_name": "Auto Gray",
+            "hex_value": "#F8F9FA",
+            "usage": "Secondary backgrounds, subtle divisions",
+            "accessibility_rating": "High contrast with text colors"
+          }
+        ],
+        "secondary_colors": [
+          {
+            "color_name": "Success Green",
+            "hex_value": "#7ED321",
+            "usage": "Automation success, completed decisions, positive feedback"
+          },
+          {
+            "color_name": "Attention Amber",
+            "hex_value": "#F5A623",
+            "usage": "Decisions requiring input, gentle notifications"
+          },
+          {
+            "color_name": "Alert Red",
+            "hex_value": "#D0021B",
+            "usage": "Errors, failed automation, critical issues"
+          }
+        ],
+        "color_strategy": "Calming blue foundation with functional accent colors. Avoids overwhelming decision-fatigued users with complex palettes."
+      },
+      "typography": {
+        "primary_typeface": {
+          "font_family": "SF Pro (iOS) / Roboto (Android)",
+          "weights_used": ["Regular", "Medium", "Semibold"],
+          "rationale": "Platform-native fonts ensure familiarity and optimal accessibility support"
+        },
+        "secondary_typeface": {
+          "font_family": "SF Pro Rounded (iOS) / Google Sans (Android)",
+          "usage": "Automation cards, friendly messaging, onboarding"
+        },
+        "hierarchy_system": "Clear size hierarchy from 34pt headings to 15pt captions with consistent line height ratios"
+      },
+      "iconography_style": {
+        "icon_approach": "Minimal line icons with subtle rounded corners",
+        "style_characteristics": ["Clean outlines", "Consistent stroke weight", "Friendly rounded elements", "Meaningful symbolism"],
+        "consistency_guidelines": "24px base grid, 2px stroke weight, consistent visual metaphors for automation concepts"
+      }
+    },
+    "brand_applications": {
+      "app_icon": {
+        "concept": "Stylized flowing lines forming a subtle 'M' shape, suggesting mind flow and automation pathways",
+        "design_elements": ["Flowing gradient from Flow Blue to lighter blue", "Clean white space", "Simple geometric form"],
+        "platform_variations": "iOS: Rounded square with subtle shadow. Android: Adaptive icon with white background layer",
+        "size_adaptations": "Maintains clarity from 1024px down to 16px notification size"
+      },
+      "in_app_branding": {
+        "header_treatment": "Clean typography with subtle Flow Blue accents, minimal visual weight",
+        "button_styling": "Rounded corners, Flow Blue primary, subtle shadows, clear hierarchy",
+        "card_design": "White cards with subtle shadows, generous whitespace, Flow Blue accent lines",
+        "illustration_style": "Simple line illustrations focusing on automation concepts, calming and non-distracting"
+      },
+      "store_presence": {
+        "app_store_presentation": "Clean screenshots emphasizing automation benefits, calm color palette",
+        "screenshot_branding": "Consistent Flow Blue highlighting, minimal text overlays, focus on UI clarity",
+        "promotional_graphics": "Feature graphics showing before/after decision complexity reduction"
+      }
+    },
+    "messaging_framework": {
+      "core_messages": {
+        "primary_tagline": "Your autopilot for daily decisions",
+        "value_statements": [
+          "Reduces decision fatigue through intelligent automation",
+          "Gets simpler over time as AI learns your preferences",
+          "Provides mental clarity without adding complexity"
+        ],
+        "feature_descriptions": [
+          "Morning routines that adapt to your schedule",
+          "Smart choice elimination for daily decisions",
+          "Evening reflection that improves tomorrow's automation"
+        ]
+      },
+      "content_voice": {
+        "writing_style": "Conversational yet professional, supportive without being pushy",
+        "vocabulary_guidelines": "Simple, clear language. Avoid productivity jargon. Focus on benefits over features.",
+        "accessibility_language": "Plain language principles, active voice, short sentences for cognitive accessibility"
+      },
+      "marketing_messages": {
+        "app_store_description": "Stop deciding what to have for breakfast, what to wear, or which route to take. MindFlow Auto learns your preferences and automates routine decisions so you can focus on what matters.",
+        "social_media_voice": "Helpful tips about decision fatigue, automation benefits, mental clarity insights",
+        "user_communication": "Encouraging progress updates, gentle automation suggestions, celebration of reduced decision load"
+      }
+    },
+    "brand_guidelines": {
+      "usage_standards": {
+        "logo_usage_rules": ["Minimum clear space of 2x logo height", "Never stretch or distort", "Maintain contrast requirements"],
+        "color_usage_guidelines": ["Primary blue for CTAs only", "Maintain accessibility ratios", "Use secondary colors sparingly"],
+        "typography_standards": ["Consistent line height ratios", "Proper heading hierarchy", "Dynamic Type compliance"]
+      },
+      "accessibility_compliance": {
+        "color_contrast_standards": "All text meets 4.5:1 ratio, UI elements meet 3:1",
+        "text_readability": "Generous line spacing, appropriate font sizes, clear visual hierarchy",
+        "inclusive_language": "Person-first language, avoid ableist assumptions, clear and simple communication"
+      },
+      "consistency_maintenance": {
+        "brand_audit_criteria": ["Color usage compliance", "Typography hierarchy adherence", "Voice consistency"],
+        "update_procedures": "Design system updates require accessibility testing and cross-platform validation",
+        "quality_control": "Regular brand compliance reviews, user feedback integration, accessibility audits"
+      }
+    }
+  }
+}

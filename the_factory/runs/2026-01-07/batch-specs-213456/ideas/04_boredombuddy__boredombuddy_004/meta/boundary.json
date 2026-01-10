@@ -1,0 +1,12 @@
+{
+  "idea_id": "boredombuddy_004",
+  "run_id": "batch-specs-213456",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-213456/ideas/04_boredombuddy__boredombuddy_004/",
+    "runs/2026-01-07/batch-specs-213456/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-213456/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/**/ideas/*/"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "grocery_simple_007",
+  "name": "ListLite",
+  "validation_score": 8.5,
+  "rank": 2,
+  "run_id": "factory-094718",
+  "run_date": "2026-01-08",
+  "description": "Minimal grocery list app focused on simplicity. Discovery Mode: Practical Utility. Ship Profile: Client-only. Just a digital notepad optimized for shopping lists with smart suggestions.",
+  "target_user": "Shoppers who find current grocery apps too complicated",
+  "core_loop": ["Add items to list", "Check off while shopping", "Items automatically move to history", "Reuse items from history"],
+  "differentiation": "Eliminates all complex features like meal planning, coupons, and store maps. Pure shopping list functionality.",
+  "subscription_fit": "Cloud sync across devices, shared family lists, and unlimited list history",
+  "mvp_complexity": "S",
+  "discovery_mode": "Practical Utility",
+  "ship_profile": "Client-only"
+}

@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "focusflow_ai_002",
+    "idea_name": "FocusFlow AI",
+    "idea_dir": "02_focusflow_ai__focusflow_ai_002",
+    "source_root": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage06.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage05.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+  },
+  "quality_polish": {
+    "performance_optimization": {
+      "startup_performance": {
+        "target_metrics": {
+          "cold_start_time": "<2 seconds (ADHD attention sensitivity)",
+          "warm_start_time": "<800ms", 
+          "first_meaningful_paint": "<1.5 seconds"
+        },
+        "optimization_strategies": [
+          "Lazy loading for non-critical UI components",
+          "Preloaded visual assets for energy check-in interface",
+          "Optimized AI model loading for task suggestions"
+        ],
+        "measurement_approach": "Performance testing on mid-range devices with ADHD user feedback"
+      },
+      "runtime_performance": {
+        "ui_responsiveness": {
+          "target_fps": "60fps during focus sessions",
+          "scroll_performance": "Smooth scrolling in task board with visual feedback",
+          "animation_smoothness": "Gentle transitions optimized for sensory sensitivity"
+        },
+        "memory_management": {
+          "peak_memory_limit": "<150MB on average devices",
+          "memory_leak_prevention": ["Proper cleanup of focus session timers", "AI model memory optimization"],
+          "garbage_collection_optimization": "Minimal GC during focus sessions"
+        },
+        "network_efficiency": {
+          "request_optimization": "Offline-first with background sync",
+          "caching_strategy": "Local storage for patterns, cloud sync for backup",
+          "offline_behavior": "Core functionality works without internet"
+        }
+      }
+    },
+    "accessibility_implementation": {
+      "screen_reader_support": {
+        "voiceover_ios": {
+          "element_labeling": "Descriptive labels for all energy states and task elements",
+          "navigation_order": "Logical flow matching visual hierarchy",
+          "custom_actions": ["Quick task completion", "Energy level adjustment", "Focus session control"]
+        },
+        "talkback_android": {
+          "content_descriptions": "Clear descriptions for visual task indicators", 
+          "navigation_logic": "Simplified navigation for ADHD users",
+          "live_regions": "Real-time updates for focus session progress"
+        }
+      },
+      "visual_accessibility": {
+        "color_contrast": {
+          "minimum_ratios": "4.5:1 normal, 3:1 large text with ADHD-optimized color choices",
+          "validation_process": "Testing with colorblind ADHD users",
+          "alternative_indicators": "Shape and size coding in addition to color"
+        },
+        "text_scaling": {
+          "dynamic_type_support": "Up to 200% scaling with layout reflow",
+          "layout_adaptation": "Maintains visual hierarchy at all scales",
+          "readability_preservation": "OpenDyslexic font option available"
+        }
+      },
+      "motor_accessibility": {
+        "touch_targets": {
+          "minimum_size": "48dp with 56dp for primary actions", 
+          "spacing_requirements": "8dp minimum between interactive elements",
+          "alternative_inputs": "Voice control for hands-free operation during hyperfocus"
+        },
+        "gesture_alternatives": {
+          "voice_control": "Complete app control via voice commands",
+          "switch_control": "iOS Switch Control and Android Switch Access support",
+          "assistive_touch": "Customizable gesture shortcuts for common actions"
+        }
+      }
+    },
+    "user_experience_polish": {
+      "interface_refinement": {
+        "visual_consistency": {
+          "design_system_adherence": "Consistent ADHD-optimized visual patterns",
+          "component_standardization": "Reusable components with sensory considerations",
+          "brand_consistency": "ADHD-positive visual identity throughout"
+        },
+        "interaction_feedback": {
+          "haptic_feedback": "Gentle haptics for confirmations, optional for sensitivity",
+          "visual_feedback": "Clear state changes with smooth transitions", 
+          "audio_feedback": "Optional audio cues with volume/type customization"
+        },
+        "error_handling": {
+          "graceful_degradation": "Fallbacks when AI suggestions unavailable",
+          "user_friendly_messages": "Positive, non-judgmental error messages",
+          "recovery_mechanisms": "Easy correction paths without data loss"
+        }
+      },
+      "content_quality": {
+        "copywriting": {
+          "tone_consistency": "Encouraging, neurodivergent-positive language",
+          "clarity_standards": "Plain language with visual support",
+          "localization_readiness": "Cultural sensitivity for neurodiversity"
+        },
+        "visual_assets": {
+          "image_optimization": "Compressed assets for fast loading",
+          "icon_consistency": "Clear, recognizable symbols throughout",
+          "illustration_standards": "Calming, ADHD-friendly visual style"
+        }
+      }
+    },
+    "testing_validation": {
+      "automated_testing": {
+        "unit_test_coverage": {
+          "target_percentage": "85% with focus on AI logic and accessibility",
+          "critical_components": ["Energy pattern recognition", "Task matching algorithm", "Focus session management"],
+          "testing_framework": "Jest with React Native Testing Library"
+        },
+        "integration_testing": {
+          "api_integration": "AI service integration with offline fallbacks",
+          "subscription_flows": "RevenueCat integration testing",
+          "data_persistence": "Local storage and cloud sync validation"
+        },
+        "ui_testing": {
+          "critical_user_flows": ["Energy check-in to task suggestion", "Focus session completion", "Task board interaction"],
+          "accessibility_testing": "Automated a11y testing with manual validation",
+          "cross_device_validation": "Testing on devices with various screen sizes and capabilities"
+        }
+      },
+      "manual_testing": {
+        "device_matrix": {
+          "ios_devices": ["iPhone 12", "iPhone 15 Pro", "iPad Air"],
+          "android_devices": ["Pixel 6", "Samsung Galaxy S24", "OnePlus 11"],
+          "os_versions": ["iOS 15+", "Android 11+"]
+        },
+        "scenario_testing": {
+          "edge_cases": ["Network interruption during sync", "Low battery during focus session", "Memory pressure scenarios"],
+          "error_conditions": ["AI service unavailable", "Data corruption recovery", "Invalid energy pattern data"],
+          "network_conditions": ["Offline usage", "Slow connection", "Intermittent connectivity"]
+        }
+      }
+    },
+    "store_readiness": {
+      "submission_requirements": {
+        "ios_app_store": {
+          "metadata_completeness": ["ADHD-focused description", "Accessibility feature callouts", "Privacy-first messaging"],
+          "screenshot_requirements": "Visual workflows demonstrating ADHD adaptations",
+          "privacy_compliance": "Clear data usage for AI pattern learning",
+          "content_rating": "4+ with mental health support messaging"
+        },
+        "google_play": {
+          "store_listing_optimization": "ADHD and productivity keywords",
+          "content_policy_compliance": "Mental health sensitivity guidelines",
+          "target_api_level": "API 33+ with accessibility feature support",
+          "app_bundle_requirements": "Optimized AAB with feature modules"
+        }
+      },
+      "quality_gates": {
+        "performance_validation": ["Startup time under 2s", "60fps focus sessions", "Memory usage within limits"],
+        "accessibility_validation": ["WCAG 2.1 AA compliance", "ADHD-specific accommodations", "Screen reader compatibility"],
+        "subscription_validation": ["RevenueCat integration", "Family sharing", "Restore purchases"],
+        "content_review": ["Positive ADHD representation", "Inclusive language", "Evidence-based features"]
+      }
+    }
+  }
+}

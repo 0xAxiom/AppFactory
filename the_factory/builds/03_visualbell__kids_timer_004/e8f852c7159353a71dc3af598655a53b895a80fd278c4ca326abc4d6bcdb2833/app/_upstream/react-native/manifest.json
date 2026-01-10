@@ -1,0 +1,11 @@
+{
+  "rn_running_on_simulator_ios": {
+    "source_repo": "facebook/react-native",
+    "source_ref": "main",
+    "source_path": "docs/running-on-simulator-ios.md",
+    "local_path": "rn_running-on-simulator-ios.html", 
+    "downloaded_at_iso": "2026-01-09T19:30:00Z",
+    "sha256": "292a8711888e24843c7d0b182cfa2b7efb50ddee2f65847dc333d2d06c964ef6",
+    "reason": "Stage 10 - iOS simulator setup and device management for Expo projects"
+  }
+}

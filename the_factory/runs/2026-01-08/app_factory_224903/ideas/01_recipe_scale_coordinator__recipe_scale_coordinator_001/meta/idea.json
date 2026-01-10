@@ -1,0 +1,11 @@
+{
+  "id": "recipe_scale_coordinator_001",
+  "name": "Recipe Scale Coordinator", 
+  "rank": 1,
+  "validation_score": 8.9,
+  "description": "Recipe scaling and shopping coordinator for cooking larger/smaller portions. Trigger: Kitchen + unexpected guests + existing recipe. Discovery Mode: Practical Utility | Ship Profile: Client-only",
+  "target_user": "Home cooks frequently adjusting recipe portions for varying family sizes or dinner guests",
+  "run_id": "app_factory_224903",
+  "run_date": "2026-01-08T22:49:03Z",
+  "frozen_timestamp": "2026-01-08T22:49:03Z"
+}

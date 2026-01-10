@@ -1,0 +1,13 @@
+{
+  "idea_id": "meal_quick_010",
+  "idea_name": "MealQuick",
+  "idea_slug": "mealquick",
+  "rank": 10,
+  "validation_score": 6.7,
+  "run_id": "20260109_132516_app_factory_run",
+  "generated": "2026-01-09T13:25:16Z",
+  "description": "Simple meal suggestion app with 15-minute recipe database filtered by available ingredients and dietary preferences",
+  "target_user": "Busy professionals needing quick, healthy meal ideas without complex meal planning",
+  "mvp_complexity": "S",
+  "subscription_fit": "Premium tier with enhanced features and analytics"
+}

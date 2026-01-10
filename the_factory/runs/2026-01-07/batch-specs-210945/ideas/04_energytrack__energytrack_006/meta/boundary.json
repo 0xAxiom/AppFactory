@@ -1,0 +1,23 @@
+{
+  "run_id": "batch-specs-210945",
+  "idea_id": "energytrack_006",
+  "idea_name": "EnergyTrack",
+  "idea_dir": "04_energytrack__energytrack_006",
+  "source_root": "runs/2026-01-07/batch-specs-210945/ideas/04_energytrack__energytrack_006/",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-210945/ideas/04_energytrack__energytrack_006/",
+    "runs/2026-01-07/batch-specs-210945/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-210945/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-07/batch-specs-210945/ideas/01_thoughtcatcher__thoughtcatcher_002/",
+    "runs/2026-01-07/batch-specs-210945/ideas/02_burnoutwatch__burnoutwatch_001/",
+    "runs/2026-01-07/batch-specs-210945/ideas/03_ideaflow__ideaflow_007/",
+    "runs/2026-01-07/batch-specs-210945/ideas/05_simpletools__simpletools_004/",
+    "runs/2026-01-07/batch-specs-210945/ideas/06_decidepause__decidepause_010/",
+    "runs/2026-01-07/batch-specs-210945/ideas/07_timezone__timezone_003/",
+    "runs/2026-01-07/batch-specs-210945/ideas/08_pausepoint__pausepoint_005/",
+    "runs/2026-01-07/batch-specs-210945/ideas/09_meetingzone__meetingzone_008/",
+    "runs/2026-01-07/batch-specs-210945/ideas/10_permissioncheck__permissioncheck_009/"
+  ]
+}

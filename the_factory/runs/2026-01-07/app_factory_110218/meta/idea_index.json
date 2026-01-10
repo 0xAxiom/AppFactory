@@ -1,0 +1,87 @@
+{
+  "run_id": "app_factory_110218",
+  "run_date": "2026-01-07",
+  "total_ideas": 10,
+  "ideas": [
+    {
+      "rank": 1,
+      "idea_id": "contextual_learning_001",
+      "idea_name": "Contextual Learning",
+      "idea_slug": "contextual_learning",
+      "directory": "01_contextual_learning__contextual_learning_001",
+      "score": 8.5
+    },
+    {
+      "rank": 2,
+      "idea_id": "simple_writing_streaks_002", 
+      "idea_name": "Simple Writing Streaks",
+      "idea_slug": "simple_writing_streaks",
+      "directory": "02_simple_writing_streaks__simple_writing_streaks_002",
+      "score": 7.8
+    },
+    {
+      "rank": 3,
+      "idea_id": "emotion_context_journal_003",
+      "idea_name": "Emotion Context Journal", 
+      "idea_slug": "emotion_context_journal",
+      "directory": "03_emotion_context_journal__emotion_context_journal_003",
+      "score": 8.2
+    },
+    {
+      "rank": 4,
+      "idea_id": "content_ready_prep_004",
+      "idea_name": "Content Ready Prep",
+      "idea_slug": "content_ready_prep", 
+      "directory": "04_content_ready_prep__content_ready_prep_004",
+      "score": 7.3
+    },
+    {
+      "rank": 5,
+      "idea_id": "focus_pattern_tracker_005",
+      "idea_name": "Focus Pattern Tracker",
+      "idea_slug": "focus_pattern_tracker",
+      "directory": "05_focus_pattern_tracker__focus_pattern_tracker_005", 
+      "score": 7.6
+    },
+    {
+      "rank": 6,
+      "idea_id": "simple_habit_dots_006",
+      "idea_name": "Simple Habit Dots",
+      "idea_slug": "simple_habit_dots",
+      "directory": "06_simple_habit_dots__simple_habit_dots_006",
+      "score": 7.1
+    },
+    {
+      "rank": 7,
+      "idea_id": "learning_momentum_007",
+      "idea_name": "Learning Momentum",
+      "idea_slug": "learning_momentum", 
+      "directory": "07_learning_momentum__learning_momentum_007",
+      "score": 7.9
+    },
+    {
+      "rank": 8,
+      "idea_id": "creative_block_helper_008",
+      "idea_name": "Creative Block Helper",
+      "idea_slug": "creative_block_helper",
+      "directory": "08_creative_block_helper__creative_block_helper_008",
+      "score": 7.4
+    },
+    {
+      "rank": 9,
+      "idea_id": "reflection_guide_009",
+      "idea_name": "Reflection Guide",
+      "idea_slug": "reflection_guide",
+      "directory": "09_reflection_guide__reflection_guide_009",
+      "score": 7.7
+    },
+    {
+      "rank": 10,
+      "idea_id": "micro_skill_builder_010",
+      "idea_name": "Micro Skill Builder",
+      "idea_slug": "micro_skill_builder",
+      "directory": "10_micro_skill_builder__micro_skill_builder_010",
+      "score": 8.0
+    }
+  ]
+}

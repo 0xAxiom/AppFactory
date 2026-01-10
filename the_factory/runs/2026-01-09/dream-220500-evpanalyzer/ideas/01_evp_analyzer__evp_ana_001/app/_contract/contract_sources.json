@@ -1,0 +1,69 @@
+{
+  "contract_sources": {
+    "stage02": {
+      "path": "stages/stage02.json",
+      "consumed": ["product_specification", "feature_specification", "user_flows"],
+      "mapped_to": ["screens", "features", "onboarding"]
+    },
+    "stage02.5": {
+      "path": "stages/stage02.5.json",
+      "consumed": ["domain_model", "mvp_scope"],
+      "mapped_to": ["data_model", "free_vs_premium"]
+    },
+    "stage02.7": {
+      "path": "stages/stage02.7.json",
+      "consumed": ["navigation_plan", "dependency_plan", "compatibility_matrix"],
+      "mapped_to": ["screens", "dependencies", "permissions"]
+    },
+    "stage03": {
+      "path": "stages/stage03.json",
+      "consumed": ["design_tokens", "component_inventory", "onboarding_flow", "soft_paywall_ux"],
+      "mapped_to": ["design_tokens", "components", "onboarding", "paywall"]
+    },
+    "stage04": {
+      "path": "stages/stage04.json",
+      "consumed": ["pricing", "entitlements", "revenuecat_integration"],
+      "mapped_to": ["subscription"]
+    },
+    "stage05": {
+      "path": "stages/stage05.json",
+      "consumed": ["stack", "services", "data_flow"],
+      "mapped_to": ["technical_stack", "architecture"]
+    },
+    "stage06": {
+      "path": "stages/stage06.json",
+      "consumed": ["implementation_order", "critical_paths"],
+      "mapped_to": ["build_phases"]
+    },
+    "stage07": {
+      "path": "stages/stage07.json",
+      "consumed": ["onboarding_polish", "soft_paywall_polish", "haptic_feedback"],
+      "mapped_to": ["polish_requirements"]
+    },
+    "stage08": {
+      "path": "stages/stage08.json",
+      "consumed": ["brand_name", "color_palette", "messaging_framework"],
+      "mapped_to": ["app_identity", "design_tokens", "store_assets"]
+    },
+    "stage08.5": {
+      "path": "stages/stage08.5.json",
+      "consumed": ["app_icon", "splash_screen", "in_app_icons"],
+      "mapped_to": ["assets_required"]
+    },
+    "stage09": {
+      "path": "stages/stage09.json",
+      "consumed": ["aso_package", "privacy_policy"],
+      "mapped_to": ["store_metadata"]
+    },
+    "stage09.5": {
+      "path": "stages/stage09.5.json",
+      "consumed": ["boot_sequence", "critical_flows", "sanity_checklist"],
+      "mapped_to": ["boot_sequence", "validation"]
+    }
+  },
+  "traceability": {
+    "all_stages_consumed": true,
+    "no_orphan_requirements": true,
+    "contract_complete": true
+  }
+}

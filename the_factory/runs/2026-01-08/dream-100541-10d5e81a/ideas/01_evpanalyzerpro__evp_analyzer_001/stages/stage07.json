@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "run_id": "dream-100541-10d5e81a",
+    "idea_id": "evp_analyzer_001",
+    "idea_name": "EVP Analyzer Pro",
+    "idea_dir": "01_evpanalyzerpro__evp_analyzer_001",
+    "source_root": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/",
+    "input_stage_paths": [
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/stages/stage06.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/stages/stage05.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+  },
+  "polish_and_quality": {
+    "user_experience_polish": {
+      "interaction_refinements": "Professional audio interface with precise touch controls for timeline scrubbing. Haptic feedback for recording state changes and anomaly detection events. Gesture-based waveform navigation with pinch-to-zoom and drag-to-select. Smooth transitions between analysis screens maintaining investigation workflow continuity.",
+      "animation_strategy": "Minimal, purposeful animations supporting professional aesthetic. Real-time waveform rendering with smooth scrolling during playback. Subtle fade animations for UI state changes. Reduced motion alternatives for accessibility. All animations respect system animation preferences and battery optimization.",
+      "micro_interactions": "Audio level meters with real-time visual feedback during recording. Anomaly detection markers with subtle highlight animations. Touch feedback for precise audio controls. Visual confirmation for export and sharing actions. Professional loading indicators for analysis operations.",
+      "loading_states": "Skeleton loading for session lists and analysis results. Progressive loading for audio waveform rendering. Clear progress indicators for export operations and cloud sync. Graceful degradation during network failures with retry options. Professional spinners for analysis operations with estimated completion time."
+    },
+    "performance_optimization": {
+      "startup_optimization": "App launch optimization targeting < 2 seconds to first interactive screen. Lazy loading of audio processing modules. Preloaded essential components for immediate session creation. Bundle splitting to reduce initial load time. Performance monitoring with Firebase Performance for optimization tracking.",
+      "memory_management": "Efficient audio buffer management for extended recording sessions. Proper cleanup of audio resources and event listeners. Image optimization with vector graphics where possible. Component lifecycle management preventing memory leaks. Background memory usage optimization for long investigation sessions.",
+      "battery_efficiency": "Power-optimized audio processing algorithms with configurable quality settings. Intelligent CPU usage during background analysis. Background processing optimization for extended field investigations. Thermal management to prevent CPU throttling during intensive analysis. Battery usage monitoring and user feedback.",
+      "network_optimization": "Offline-first architecture minimizing network dependency. Efficient cloud sync for premium users with compressed data transfer. Request batching for analytics and crash reporting. Intelligent retry mechanisms for network failures. Data usage optimization for cellular connections during field work."
+    },
+    "quality_assurance": {
+      "testing_strategy": "Comprehensive testing covering unit tests for audio algorithms, integration tests for subscription flows, E2E tests for critical user journeys, accessibility testing with assistive technologies, performance testing on minimum spec devices, and beta testing with paranormal investigators.",
+      "bug_tracking": "Systematic bug tracking with priority based on impact on investigation workflow. Critical bugs affecting audio recording or analysis treated as P0. User-reported issues from beta testing prioritized by frequency and impact. Regression testing for audio processing changes. Issue reproduction with specific device and OS combinations.",
+      "user_acceptance_criteria": "Professional investigators can complete full investigation workflow without technical barriers. Audio recording quality meets professional standards. Analysis results are accurate and reproducible. Export functionality produces professional-quality evidence files. Subscription flow is transparent and easily manageable.",
+      "release_criteria": "All critical user journeys tested and working. Audio quality verified on target devices. Subscription integration tested in sandbox and production. Accessibility compliance verified with assistive technologies. Performance targets met on minimum spec devices. Privacy and security requirements validated."
+    },
+    "accessibility_enhancements": {
+      "screen_reader_support": "Complete VoiceOver and TalkBack support with semantic labeling for audio interface elements. Audio analysis results announced with descriptive information. Timeline navigation accessible via screen reader with timestamp announcements. Anomaly detection results clearly communicated through audio descriptions.",
+      "keyboard_navigation": "Full keyboard navigation support for all interactive elements. Audio timeline scrubbing accessible via arrow keys. Tab order optimized for investigation workflow. Keyboard shortcuts for common actions like recording start/stop and anomaly marking. Switch control support for motor accessibility needs.",
+      "color_contrast": "WCAG 2.1 AA compliance with 4.5:1 contrast ratios throughout the interface. High contrast mode support with alternative color schemes. Audio waveform visualization optimized for color accessibility. Clear visual distinction for different anomaly types without relying solely on color coding.",
+      "text_scaling": "Dynamic Type support up to 200% scaling while maintaining interface functionality. Text scaling tested with complex audio interface layouts. Responsive design ensuring touch targets remain accessible at all scaling levels. Professional terminology clearly explained for accessibility."
+    }
+  },
+  "standards_compliance": {
+    "subscription_store_compliance": "Complete RevenueCat integration with transparent pricing, proper subscription management, and platform-compliant restoration flows. All subscription UI follows App Store and Google Play guidelines with clear cancellation information and auto-renewal disclosure.",
+    "accessibility_design": "Full WCAG 2.1 AA compliance with comprehensive screen reader support, keyboard navigation, high contrast support, and Dynamic Type scaling. Professional audio interface accessible through multiple interaction methods including assistive technologies.",
+    "privacy_analytics": "Privacy-first analytics with minimal data collection, no audio content transmission, and user control over data sharing. GDPR/CCPA compliance with clear privacy controls and local-first data processing for sensitive investigation materials.",
+    "testing_release_readiness": "Comprehensive QA process including automated testing, accessibility validation, performance verification, subscription flow testing, and beta testing with target users. Release criteria ensure professional-grade quality suitable for serious paranormal investigation work."
+  }
+}

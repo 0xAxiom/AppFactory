@@ -1,6 +1,4 @@
-# Generated artifacts
-runs/
-builds/
+# Generated artifacts (runs/ and builds/ are tracked intentionally)
 app/_docs/
 app/_assets/
 app/_upstream/

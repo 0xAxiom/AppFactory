@@ -1,0 +1,18 @@
+{
+  "id": "familyhub_003",
+  "name": "FamilyHub",
+  "validation_score": 8.3,
+  "signal_source": "Parent forums: 'I have 6 different apps just to manage my family's schedule and I'm still missing things'",
+  "description": "Unified family logistics platform that consolidates scheduling, tasks, communications, and coordination into one intuitive interface",
+  "target_user": "Busy families with children aged 5-18 struggling with coordination across multiple platforms and activities",
+  "pain_point_evidence": "Parents reporting decision fatigue from managing separate apps for calendar, chores, allowances, school communications, and activity schedules",
+  "core_loop": ["Unified family calendar", "Smart task delegation", "Automatic reminder coordination", "Family achievement tracking"],
+  "differentiation": "Single app replacement for 5-8 family management tools with smart coordination features",
+  "subscription_fit": "Family plan pricing with value scaling by household size and complexity",
+  "mvp_complexity": "L",
+  "pricing": {
+    "monthly_range": "$15-20",
+    "annual_range": "$150-200",
+    "trial_strategy": "30-day family trial with onboarding support"
+  }
+}

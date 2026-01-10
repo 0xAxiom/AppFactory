@@ -1,0 +1,13 @@
+{
+  "idea_id": "water_simple_008",
+  "idea_name": "WaterSimple",
+  "idea_slug": "watersimple",
+  "rank": 8,
+  "validation_score": 7.1,
+  "run_id": "20260109_132516_app_factory_run",
+  "generated": "2026-01-09T13:25:16Z",
+  "description": "Single-purpose water intake tracker with cup-size presets and daily goal visualization",
+  "target_user": "People wanting to improve hydration without complex health tracking features",
+  "mvp_complexity": "S",
+  "subscription_fit": "Premium tier with enhanced features and analytics"
+}

@@ -1,0 +1,11 @@
+{
+  "run_id": "app_factory_110218",
+  "idea_id": "focus_pattern_tracker_005",
+  "idea_dir": "runs/2026-01-07/app_factory_110218/ideas/05_focus_pattern_tracker__focus_pattern_tracker_005",
+  "allowed_paths": [
+    "runs/2026-01-07/app_factory_110218/ideas/05_focus_pattern_tracker__focus_pattern_tracker_005/",
+    "runs/2026-01-07/app_factory_110218/stage01/stages/stage01.json",
+    "runs/2026-01-07/app_factory_110218/meta/idea_index.json"
+  ],
+  "forbidden_cross_contamination": true
+}

@@ -1,0 +1,11 @@
+{
+  "idea_id": "app_pause_010",
+  "run_id": "batch-specs-010718-5233",
+  "idea_dir": "10_app_pause__app_pause_010",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-010718-5233/ideas/10_app_pause__app_pause_010/",
+    "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-010718-5233/meta/idea_index.json"
+  ],
+  "isolation_enforced": true
+}

@@ -1,0 +1,24 @@
+{
+  "id": "simpletools_004",
+  "name": "SimpleTools",
+  "validation_score": 7.8,
+  "signal_source": "Privacy research shows 'top Android apps require 11 dangerous permissions on average' with users seeking 'less invasive options'",
+  "description": "Collection of essential utility functions that work completely offline without requesting any device permissions",
+  "target_user": "Privacy-conscious users frustrated with permission-heavy apps who need basic tools without data collection",
+  "pain_point_evidence": "Users avoid apps when 'a beauty app asks access to your phone's microphone' and seek tools that don't 'compromise your privacy and expose sensitive data'",
+  "core_loop": [
+    "Access utilities without permissions",
+    "Use tools completely offline",
+    "No data collection or tracking",
+    "Simple single-purpose functions",
+    "Share privacy-first approach"
+  ],
+  "differentiation": "Zero permissions vs. permission-heavy utilities, privacy-first design from ground up",
+  "subscription_fit": "Premium includes expanded utility library and priority feature development",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$1.99-$3.99",
+    "annual_range": "$14.99-$29.99",
+    "trial_strategy": "Free core utilities, premium for expanded toolkit and advanced features"
+  }
+}

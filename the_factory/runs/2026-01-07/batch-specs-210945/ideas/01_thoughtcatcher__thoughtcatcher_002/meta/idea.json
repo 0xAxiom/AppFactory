@@ -1,0 +1,24 @@
+{
+  "id": "thoughtcatcher_002",
+  "name": "ThoughtCatcher",
+  "validation_score": 8.5,
+  "signal_source": "Note-taking users report 'mental clutter is a big-time creativity killer' and need apps that 'transform scattered thoughts into actionable plans'",
+  "description": "Brain dump app that captures random thoughts instantly and uses simple AI to suggest connections and next actions",
+  "target_user": "Creative professionals and knowledge workers overwhelmed by scattered ideas who struggle with traditional note organization",
+  "pain_point_evidence": "Users describe need to 'dump anything and rest assured you'll find it easily later' with 'beautifully organized notes' from brain dumps",
+  "core_loop": [
+    "Instant thought capture via text/voice",
+    "AI suggests related previous thoughts",
+    "Simple connection drawing",
+    "Convert thoughts to action items",
+    "Quick search and retrieval"
+  ],
+  "differentiation": "Capture-first vs. organize-first, focuses on thought flow rather than rigid structure",
+  "subscription_fit": "Premium includes unlimited storage, advanced AI connections, and multi-device sync",
+  "mvp_complexity": "L",
+  "pricing": {
+    "monthly_range": "$4.99-$7.99",
+    "annual_range": "$39.99-$69.99",
+    "trial_strategy": "Free basic capture, premium for AI features and unlimited storage"
+  }
+}

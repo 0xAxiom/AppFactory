@@ -1,0 +1,24 @@
+{
+  "id": "burnoutwatch_001",
+  "name": "BurnoutWatch",
+  "validation_score": 8.2,
+  "signal_source": "Workplace research shows users experience 'fatigue that lingers no matter how much sleep you get' and need 'early warning systems for burnout'",
+  "description": "Personal burnout monitoring app that tracks subtle energy and engagement patterns to provide early exhaustion warnings",
+  "target_user": "Working professionals who struggle to recognize burnout symptoms before they become severe and impact performance",
+  "pain_point_evidence": "Users report 'difficulties in focusing and making decisions' as early signs that are 'usually combined with both physical tiredness and emotional exhaustion'",
+  "core_loop": [
+    "Daily quick energy check-ins",
+    "Track work engagement patterns",
+    "Monitor sleep and focus quality",
+    "Get gentle early warning alerts",
+    "Access simple recovery suggestions"
+  ],
+  "differentiation": "Personal early detection vs. enterprise monitoring, focuses on prevention rather than treatment",
+  "subscription_fit": "Premium includes advanced pattern analysis, personalized recovery plans, and team sharing features",
+  "mvp_complexity": "M",
+  "pricing": {
+    "monthly_range": "$6.99-$9.99",
+    "annual_range": "$59.99-$89.99",
+    "trial_strategy": "Free basic tracking, premium for advanced analytics and recovery plans"
+  }
+}

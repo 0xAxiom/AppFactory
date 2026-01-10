@@ -1,0 +1,15 @@
+{
+  "idea_id": "learnlocal_008",
+  "idea_name": "LearnLocal",
+  "stages": {
+    "stage02": {"status": "pending", "last_updated": null},
+    "stage03": {"status": "pending", "last_updated": null},
+    "stage04": {"status": "pending", "last_updated": null},
+    "stage05": {"status": "pending", "last_updated": null},
+    "stage06": {"status": "pending", "last_updated": null},
+    "stage07": {"status": "pending", "last_updated": null},
+    "stage08": {"status": "pending", "last_updated": null},
+    "stage09": {"status": "pending", "last_updated": null},
+    "stage10": {"status": "not_applicable", "last_updated": null}
+  }
+}

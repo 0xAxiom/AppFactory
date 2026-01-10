@@ -1,0 +1,16 @@
+{
+  "idea_id": "pack_simple_001",
+  "run_id": "app_factory_222533",
+  "boundary_path": "runs/2026-01-08/app_factory_222533/ideas/01_pack_simple__pack_simple_001/",
+  "allowed_paths": [
+    "runs/2026-01-08/app_factory_222533/ideas/01_pack_simple__pack_simple_001/",
+    "runs/2026-01-08/app_factory_222533/stage01/stages/stage01.json",
+    "runs/2026-01-08/app_factory_222533/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-08/app_factory_222533/ideas/02_*",
+    "runs/2026-01-08/app_factory_222533/ideas/03_*",
+    "runs/*/"
+  ],
+  "isolation_enforced": true
+}

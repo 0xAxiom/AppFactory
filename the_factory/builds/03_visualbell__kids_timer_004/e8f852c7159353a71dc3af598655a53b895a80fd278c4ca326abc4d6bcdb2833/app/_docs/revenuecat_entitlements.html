@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RevenueCat Entitlements and Feature Gating - Cached Documentation</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>RevenueCat Entitlements and Feature Gating</h1>
+    
+    <h2>Entitlements Overview</h2>
+    <ul>
+        <li>Represent a level of access or features users can unlock in an app</li>
+        <li>Scoped to a project and typically unlocked after purchasing a product</li>
+        <li>Most apps have one entitlement, but multiple are possible</li>
+    </ul>
+    
+    <h2>Key Characteristics</h2>
+    <ul>
+        <li><strong>Purpose:</strong> "Entitlements are used to ensure a user has appropriate access to content based on their purchases"</li>
+        <li>Shared across all apps in the same project</li>
+        <li>Can be attached to multiple products</li>
+        <li>Products can unlock multiple entitlements</li>
+    </ul>
+    
+    <h2>Creating Entitlements</h2>
+    <ol>
+        <li>Go to Product catalog > Entitlements tab</li>
+        <li>Click "+ New entitlement"</li>
+        <li>Create a unique identifier (e.g., "pro")</li>
+    </ol>
+    
+    <h2>Checking Entitlement Status</h2>
+    <ul>
+        <li>Use RevenueCat SDK's `getCustomerInfo` method</li>
+        <li>If entitlement is active, unlock content</li>
+        <li>If inactive, display a paywall</li>
+    </ul>
+    
+    <h2>Feature Gating Implementation Rules</h2>
+    <ul>
+        <li><strong>Gate by Entitlements only:</strong> Never check products directly</li>
+        <li><strong>Check at runtime:</strong> Always verify current entitlement status</li>
+        <li><strong>Handle offline:</strong> Cache entitlement status for offline access</li>
+        <li><strong>Prevent bypass:</strong> No deep-link or navigation bypass of paywalls</li>
+        <li><strong>Graceful fallback:</strong> Provide basic functionality if entitlement check fails</li>
+    </ul>
+    
+    <h2>Restore Purchases</h2>
+    <ul>
+        <li><strong>Provide restore purchases UI:</strong> Required for App Store compliance</li>
+        <li><strong>Handle restore failures:</strong> Network errors, no previous purchases</li>
+        <li><strong>Update entitlements:</strong> Refresh customer info after restore</li>
+    </ul>
+    
+    <h2>Best Practices</h2>
+    <ul>
+        <li>Attach relevant products to entitlements</li>
+        <li>Consider product type when mapping entitlements</li>
+        <li>Ensure new products are added to appropriate entitlements</li>
+    </ul>
+</body>
+</html>

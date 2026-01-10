@@ -1,0 +1,91 @@
+{
+  "buildPath": "builds/01_evpanalyzerpro__evp_analyzer_001/31f6c9775c238de5/app",
+  "commands": {
+    "expo_config": {
+      "command": "npx expo config --type public",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  name: \u001b[32m'EVP Analyzer Pro'\u001b[39m,\n  slug: \u001b[32m'evp-analyzer-pro'\u001b[39m,\n  version: \u001b[32m'1.0.0'\u001b[39m,\n  description: \u001b[90mundefined\u001b[39m,\n  sdkVersion: \u001b[32m'50.0.0'\u001b[39m,\n  platforms: [\n    \u001b[32m'ios'\u001b[39m,\n    \u001b[32m'android'\u001b[39m\n  ],\n  extra: {\n    revenueCatIosKey: \u001b[90mundefined\u001b[39m,\n    revenueCatAndroidKey: \u001b[90mundefined\u001b[39m\n  }\n}",
+      "success": true
+    },
+    "expo_doctor": {
+      "command": "npx expo-doctor",
+      "returncode": 1,
+      "stderr": "npm warn exec The following package was not found and will be installed: expo-doctor@1.17.14\n5 checks failed, indicating possible issues with the project.",
+      "stdout": "Running 15 checks on your project...\n10/15 checks passed. 5 checks failed. Possible issues detected:\nUse the --verbose flag to see more details about passed checks.\n\n\u2716 Check Expo config for common issues\nYou have an app.json file in your project, but your app.config.js is not using the values from it.\nAdvice:\nRemove the static app.json, or use its values in your dynamic app.config.js. Learn more: https://docs.expo.dev/workflow/configuration\n\n\u2716 Check dependencies for packages that should not be installed directly\nThe package  \"@types/react-native\" should not be installed directly in your project, as types are included with the \"react-native\" package.\nAdvice:\nRemove these packages from your package.json.\n\n\u2716 Check that required peer dependencies are installed\nMissing peer dependency: react-native-safe-area-context\nRequired by: expo-router, react-native-elements\nMissing peer dependency: react-native-screens\nRequired by: expo-router\nAdvice:\nInstall missing required peer dependencies with \"npx expo install react-native-safe-area-context react-native-screens\"\nYour app may crash outside of Expo Go without these dependencies. Native module peer dependencies must be installed directly.\n\n\u2716 Check that native modules use compatible support package versions for installed Expo SDK\nExpected package @expo/config-plugins@^7.8.0\nFound invalid:\n  @expo/config-plugins@8.0.11\n  (for more info, run: npm why @expo/config-plugins)\nExpected package @expo/prebuild-config@^6.7.0\nFound invalid:\n  @expo/prebuild-config@7.0.9\n  (for more info, run: npm why @expo/prebuild-config)\nAdvice:\nUpgrade dependencies that are using the invalid package versions.\n\n\u2716 Check that packages match versions required by installed Expo SDK\nThe following packages should be updated for best compatibility with the installed expo version:\n  expo-router@3.5.24 - expected version: ~3.4.10\nYour project may not work correctly until you install the correct versions of the packages.\nFound outdated dependencies\nAdvice:\nUse 'npx expo install --check' to review and upgrade your dependencies.\nTo ignore specific packages, add them to \"expo.install.exclude\" in package.json. Learn more: https://expo.fyi/dependency-validation",
+      "success": false
+    },
+    "expo_install_check": {
+      "command": "npx expo install --check",
+      "returncode": 1,
+      "stderr": "The following packages should be updated for best compatibility with the installed expo version:\n  expo-router@3.5.24 - expected version: ~3.4.10\nYour project may not work correctly until you install the correct versions of the packages.\nFound outdated dependencies",
+      "stdout": "",
+      "success": false
+    },
+    "expo_version": {
+      "command": "npx expo --version",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "0.17.13",
+      "success": true
+    }
+  },
+  "dependencies": {
+    "expoModules": [
+      "expo-av",
+      "expo-blur",
+      "expo-constants",
+      "expo-crypto",
+      "expo-dev-client",
+      "expo-file-system",
+      "expo-font",
+      "expo-haptics",
+      "expo-linear-gradient",
+      "expo-linking",
+      "expo-router",
+      "expo-secure-store",
+      "expo-sqlite",
+      "expo-status-bar"
+    ],
+    "issues": [
+      "Hardcoded version for expo-av: ~13.10.4 (should use expo install)",
+      "Hardcoded version for expo-blur: ~12.9.1 (should use expo install)",
+      "Hardcoded version for expo-constants: ~15.4.0 (should use expo install)",
+      "Hardcoded version for expo-crypto: ~12.8.0 (should use expo install)",
+      "Hardcoded version for expo-dev-client: ~3.3.0 (should use expo install)",
+      "Hardcoded version for expo-file-system: ~16.0.6 (should use expo install)",
+      "Hardcoded version for expo-font: ~11.10.0 (should use expo install)",
+      "Hardcoded version for expo-haptics: ~12.8.0 (should use expo install)",
+      "Hardcoded version for expo-linear-gradient: ~12.7.0 (should use expo install)",
+      "Hardcoded version for expo-linking: ~6.2.2 (should use expo install)",
+      "Hardcoded version for expo-secure-store: ~12.8.1 (should use expo install)",
+      "Hardcoded version for expo-sqlite: ~13.4.0 (should use expo install)",
+      "Hardcoded version for expo-status-bar: ~1.11.1 (should use expo install)"
+    ],
+    "strategy": "expo-install-compatibility"
+  },
+  "errors": [],
+  "expo": {
+    "config": null,
+    "sdkVersion": null,
+    "version": "0.17.13"
+  },
+  "nodeVersion": "v24.2.0",
+  "npmVersion": "11.4.2",
+  "packageManager": "npm",
+  "validatedAt": "2026-01-08T13:50:05.164342",
+  "validation": {
+    "appJsonExists": true,
+    "expoInstallCheck": false,
+    "hasMandatoryFiles": true,
+    "hasValidAndroidPackage": true,
+    "hasValidBundleIdentifier": true,
+    "packageJsonExists": true
+  },
+  "warnings": [
+    "Bundle identifier 'com.evpanalyzer.pro' doesn't follow com.appfactory.* pattern",
+    "Android package 'com.evpanalyzer.pro' doesn't follow com.appfactory.* pattern",
+    "Could not parse expo config JSON",
+    "Expo install check failed - dependencies may be incompatible"
+  ]
+}

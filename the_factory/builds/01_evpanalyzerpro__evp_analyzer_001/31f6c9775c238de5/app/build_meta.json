@@ -1,0 +1,26 @@
+{
+  "expoSdkVersion": "54.0.0",
+  "expoCliVersion": "latest",
+  "nodeVersion": "v22.x",
+  "createdAt": "2025-01-09T00:00:00.000Z",
+  "buildId": "31f6c9775c238de5",
+  "idea": {
+    "runId": "evp_analyzer_001",
+    "ideaId": "evp_analyzer_001",
+    "ideaName": "EVP Analyzer Pro"
+  },
+  "dependencies": "upgraded_to_sdk54",
+  "generation": {
+    "method": "app-factory-stage10",
+    "templateVersion": "3.1",
+    "sdkUpgradeApplied": true,
+    "bundleIdentifier": "com.appfactory.evpanalyzerpro",
+    "platforms": ["ios", "android"]
+  },
+  "upgrade": {
+    "from": "SDK 50",
+    "to": "SDK 54",
+    "upgradedAt": "2025-01-09T00:00:00.000Z",
+    "reason": "Manual upgrade for dashboard testing compatibility"
+  }
+}

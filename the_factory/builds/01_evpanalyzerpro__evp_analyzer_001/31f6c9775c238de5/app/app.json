@@ -1,0 +1,64 @@
+{
+  "name": "EVP Analyzer Pro",
+  "slug": "evp-analyzer-pro",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "icon": "./assets/icon.png",
+  "userInterfaceStyle": "automatic",
+  "splash": {
+    "image": "./assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#1a1a1a"
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ],
+  "ios": {
+    "supportsTablet": true,
+    "bundleIdentifier": "com.appfactory.evpanalyzerpro"
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
+      "backgroundColor": "#1a1a1a"
+    },
+    "package": "com.appfactory.evpanalyzerpro"
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
+  },
+  "scheme": "evp-analyzer-pro",
+  "plugins": [
+    "expo-router"
+  ],
+  "extra": {
+    "eas": {
+      "projectId": "PLACEHOLDER_EAS_PROJECT_ID"
+    },
+    "router": {}
+  },
+  "_internal": {
+    "isDebug": false,
+    "projectRoot": "/Users/melted/Documents/GitHub/app factory/the_factory/builds/01_evpanalyzerpro__evp_analyzer_001/31f6c9775c238de5/app",
+    "dynamicConfigPath": "/Users/melted/Documents/GitHub/app factory/the_factory/builds/01_evpanalyzerpro__evp_analyzer_001/31f6c9775c238de5/app/app.config.js",
+    "staticConfigPath": "/Users/melted/Documents/GitHub/app factory/the_factory/builds/01_evpanalyzerpro__evp_analyzer_001/31f6c9775c238de5/app/app.json",
+    "packageJsonPath": "/Users/melted/Documents/GitHub/app factory/the_factory/builds/01_evpanalyzerpro__evp_analyzer_001/31f6c9775c238de5/app/package.json"
+  },
+  "sdkVersion": "54.0.0",
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "expo": {
+    "ios": {
+      "bundleIdentifier": "com.appfactory.evpanalyzerpro"
+    },
+    "android": {
+      "package": "com.appfactory.evpanalyzerpro"
+    },
+    "name": "EVP Analyzer Pro",
+    "slug": "evpanalyzerpro",
+    "version": "1.0.0",
+    "sdkVersion": "54.0.0"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "run_id": "dream-220500-evpanalyzer",
+    "idea_id": "evp_ana_001",
+    "idea_name": "EVP Analyzer",
+    "idea_dir": "01_evp_analyzer__evp_ana_001",
+    "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.json",
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage03.json"
+    ],
+    "boundary_path": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/meta/boundary.json",
+    "generated_at": "2026-01-09T22:10:00Z"
+  },
+  "monetization_strategy": {
+    "model": "freemium_subscription",
+    "pricing": {
+      "monthly": {
+        "price_usd": 4.99,
+        "product_id": "evp_analyzer_monthly",
+        "trial_days": 0
+      },
+      "annual": {
+        "price_usd": 29.99,
+        "product_id": "evp_analyzer_annual",
+        "trial_days": 7,
+        "savings_percent": 50,
+        "highlighted": true
+      }
+    },
+    "entitlements": {
+      "evp_pro": {
+        "description": "Full EVP Analyzer Pro access",
+        "features": [
+          "spectrogram_view",
+          "anomaly_detection",
+          "unlimited_sessions",
+          "audio_export",
+          "advanced_settings"
+        ]
+      }
+    },
+    "free_tier": {
+      "limitations": {
+        "max_sessions": 3,
+        "max_tags_per_session": 5,
+        "spectrogram": false,
+        "anomaly_detection": false,
+        "export": false
+      },
+      "available_features": [
+        "investigation_recording",
+        "waveform_analyzer",
+        "basic_tagging",
+        "investigation_log"
+      ]
+    },
+    "premium_tier": {
+      "unlocks": [
+        {
+          "feature": "Spectrogram Visualization",
+          "description": "See frequency patterns over time with color-coded heatmap"
+        },
+        {
+          "feature": "Automatic Anomaly Detection",
+          "description": "AI-powered detection of frequency spikes and audio anomalies"
+        },
+        {
+          "feature": "Unlimited Sessions",
+          "description": "No limits on saved investigations"
+        },
+        {
+          "feature": "Export & Share",
+          "description": "Export clips as WAV files for sharing or analysis"
+        },
+        {
+          "feature": "Advanced Sensitivity Settings",
+          "description": "Fine-tune detection thresholds for your environment"
+        }
+      ]
+    },
+    "soft_paywall_strategy": {
+      "triggers": [
+        {
+          "trigger": "session_limit_reached",
+          "condition": "User attempts to save 4th session",
+          "action": "Show paywall with session limit messaging"
+        },
+        {
+          "trigger": "premium_feature_tap",
+          "condition": "User taps spectrogram, anomaly markers, or export",
+          "action": "Show paywall with feature-specific messaging"
+        }
+      ],
+      "soft_gate_behavior": {
+        "spectrogram": {
+          "gate_type": "blur_preview",
+          "display": "Blurred spectrogram with 'Unlock Pro' overlay"
+        },
+        "anomaly_detection": {
+          "gate_type": "count_tease",
+          "display": "Show 'X anomalies found' badge with lock icon"
+        },
+        "export": {
+          "gate_type": "disabled_with_badge",
+          "display": "Export button disabled with 'Pro' badge"
+        }
+      },
+      "value_first_philosophy": "Show users the VALUE of premium features before asking them to pay. They see that anomalies exist, that the spectrogram has data, that export is possible—they just need to unlock it."
+    },
+    "revenuecat_integration": {
+      "api_key_ios": "REVENUECAT_API_KEY_IOS",
+      "api_key_android": "REVENUECAT_API_KEY_ANDROID",
+      "offering_id": "evp_pro_offering",
+      "entitlement_id": "evp_pro",
+      "products": [
+        {
+          "identifier": "evp_analyzer_monthly",
+          "type": "subscription",
+          "period": "P1M"
+        },
+        {
+          "identifier": "evp_analyzer_annual",
+          "type": "subscription",
+          "period": "P1Y"
+        }
+      ],
+      "soft_gate_entitlement_mapping": {
+        "spectrogram_view": "evp_pro",
+        "anomaly_detection": "evp_pro",
+        "unlimited_sessions": "evp_pro",
+        "audio_export": "evp_pro"
+      }
+    },
+    "subscription_lifecycle": {
+      "purchase_flow": [
+        "User hits paywall trigger",
+        "Paywall modal presented",
+        "User selects plan (monthly/annual)",
+        "RevenueCat purchase flow initiated",
+        "Success: Grant entitlement, dismiss paywall",
+        "Failure: Show error, allow retry or dismiss"
+      ],
+      "restore_flow": [
+        "User taps 'Restore Purchases' in paywall or settings",
+        "RevenueCat restorePurchases called",
+        "Success: Grant entitlement, show confirmation",
+        "Failure: Show 'No purchases found' message"
+      ],
+      "expiration_handling": [
+        "Check entitlement status on app launch",
+        "If expired: Revert to free tier gracefully",
+        "Saved sessions remain accessible (read-only for >3)",
+        "Show upgrade prompt on premium feature attempt"
+      ]
+    },
+    "analytics_events": [
+      {"event": "paywall_presented", "properties": ["trigger_type", "session_count"]},
+      {"event": "paywall_dismissed", "properties": ["trigger_type"]},
+      {"event": "subscription_started", "properties": ["product_id", "trial"]},
+      {"event": "subscription_renewed", "properties": ["product_id"]},
+      {"event": "subscription_cancelled", "properties": ["product_id"]},
+      {"event": "restore_attempted", "properties": []},
+      {"event": "restore_succeeded", "properties": ["product_id"]},
+      {"event": "restore_failed", "properties": ["error_type"]}
+    ]
+  }
+}

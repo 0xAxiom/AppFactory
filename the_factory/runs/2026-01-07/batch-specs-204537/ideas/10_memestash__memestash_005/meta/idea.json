@@ -1,0 +1,24 @@
+{
+  "id": "memestash_005",
+  "name": "MemeStash",
+  "validation_score": 7.2,
+  "signal_source": "Content management studies show 'content scattered across departments, platforms and authoring tools makes ongoing management difficult'",
+  "description": "Personal meme and reaction image organizer with smart tagging and quick search for social sharing",
+  "target_user": "Heavy social media users who collect memes and reaction images but struggle to find and organize them effectively",
+  "pain_point_evidence": "Users face 'content scattered across multiple platforms' with 'unnecessary duplication and difficult review and collaboration'",
+  "core_loop": [
+    "Save memes from various sources",
+    "Auto-tag with AI recognition",
+    "Quick search by mood/context",
+    "Share directly to social platforms",
+    "Build personal reaction library"
+  ],
+  "differentiation": "Personal curation vs. public sharing, smart organization vs. chronological storage",
+  "subscription_fit": "Premium includes unlimited storage, advanced tagging, and cross-device sync",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$1.99-$3.99",
+    "annual_range": "$14.99-$29.99",
+    "trial_strategy": "Free basic storage, premium for unlimited and sync features"
+  }
+}

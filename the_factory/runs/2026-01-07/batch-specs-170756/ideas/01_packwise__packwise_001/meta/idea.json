@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-170756",
+  "idea_id": "packwise_001",
+  "idea_name": "PackWise",
+  "idea_slug": "packwise",
+  "rank": 1,
+  "validation_score": 8.2,
+  "frozen_definition": {
+    "id": "packwise_001",
+    "name": "PackWise",
+    "validation_score": 8.2,
+    "signal_source": "Travel blog comments: 'hate packing and hate lists so inevitably either forget something or bring too much', 'need to pack like a few weeks before travel or forget stuff'",
+    "description": "Smart travel packing assistant that learns from your past trips and suggests personalized packing lists based on destination, weather, and trip type",
+    "target_user": "Frequent travelers who stress about packing and consistently forget essential items",
+    "pain_point_evidence": "Users report 'total NIGHTMARE' packing experiences, forgetting important items, and bringing unnecessary extras",
+    "core_loop": [
+      "Input trip details (destination, duration, activities)",
+      "Receive personalized packing checklist",
+      "Check off items as packed",
+      "Add/remove items for future trips",
+      "Get weather and activity-based suggestions"
+    ],
+    "differentiation": "Learns from user's actual packing patterns rather than generic templates, focuses on reducing packing anxiety vs. complex travel planning",
+    "subscription_fit": "Premium features include unlimited trips, weather integration, collaborative packing for families, and smart notifications",
+    "mvp_complexity": "M",
+    "pricing": {
+      "monthly_range": "$4.99-$6.99",
+      "annual_range": "$39.99-$59.99",
+      "trial_strategy": "Free for 3 trips, then subscription for unlimited trips and premium features"
+    }
+  }
+}

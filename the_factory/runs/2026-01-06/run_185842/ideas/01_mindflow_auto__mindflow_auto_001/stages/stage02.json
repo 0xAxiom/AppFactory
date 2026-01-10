@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "mindflow_auto_001",
+    "idea_name": "MindFlow Auto",
+    "idea_dir": "01_mindflow_auto__mindflow_auto_001",
+    "source_root": "/Users/melted/Documents/GitHub/app factory/runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/idea.json",
+      "runs/2026-01-06/run_185842/stage01/stages/stage01.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/boundary.json"
+  },
+  "product_specification": {
+    "app_concept": {
+      "name": "MindFlow Auto",
+      "tagline": "Your AI-powered autopilot for daily decisions",
+      "category": "Productivity & Lifestyle",
+      "core_value_proposition": "Eliminate decision fatigue by automating routine choices through intelligent AI that learns your preferences and handles daily planning tasks"
+    },
+    "target_users": {
+      "primary": {
+        "segment": "Busy professionals experiencing decision fatigue",
+        "pain_points": [
+          "Decision paralysis from managing multiple productivity apps",
+          "Mental exhaustion from daily routine planning decisions",
+          "Attention residue from constant app switching",
+          "Overwhelm from having too many choices throughout the day"
+        ],
+        "goals": [
+          "Reduce cognitive load in daily decision-making",
+          "Automate routine planning without losing control",
+          "Increase productivity through simplified workflows",
+          "Achieve better work-life balance through automation"
+        ],
+        "demographics": "Working professionals aged 25-45, tech-savvy, earning $50K+, likely dealing with high-demand jobs and complex personal schedules"
+      },
+      "secondary": {
+        "segment": "ADHD-diagnosed individuals seeking adaptive productivity systems",
+        "pain_points": [
+          "Traditional productivity tools don't accommodate ADHD cognitive patterns",
+          "Struggles with executive function and decision implementation",
+          "Need for visual and adaptive planning systems"
+        ],
+        "goals": [
+          "Find productivity tools that work with ADHD brain patterns",
+          "Reduce executive function burden",
+          "Maintain consistency in routines and habits"
+        ]
+      }
+    },
+    "core_features": {
+      "mvp_features": [
+        {
+          "name": "Morning Routine Generator",
+          "description": "AI creates optimized morning routines based on schedule, weather, and personal preferences",
+          "user_story": "As a busy professional, I want my morning routine automatically planned so I can start my day without decision fatigue",
+          "acceptance_criteria": [
+            "Generates 3-5 task routine based on available time",
+            "Adapts to calendar events and weather conditions",
+            "Learns from user feedback and modifications",
+            "Provides backup options for disruptions"
+          ],
+          "complexity_estimate": "M"
+        },
+        {
+          "name": "Smart Choice Elimination",
+          "description": "System learns preferences and makes routine decisions automatically (clothing, meals, routes)",
+          "user_story": "As someone who gets overwhelmed by daily choices, I want my preferences learned and decisions made for me",
+          "acceptance_criteria": [
+            "Tracks choice patterns and user feedback",
+            "Automatically suggests outfit combinations",
+            "Learns meal preferences and dietary restrictions",
+            "Optimizes commute routes based on patterns"
+          ],
+          "complexity_estimate": "L"
+        },
+        {
+          "name": "Decision Tracker",
+          "description": "Logs daily decisions made and tracks decision fatigue patterns",
+          "user_story": "As a user wanting to understand my decision patterns, I want to see when and how I make decisions",
+          "acceptance_criteria": [
+            "Simple one-tap logging of decisions made",
+            "Categories decisions by type and complexity",
+            "Shows decision fatigue patterns over time",
+            "Provides insights on peak decision times"
+          ],
+          "complexity_estimate": "S"
+        },
+        {
+          "name": "Evening Reflection & Optimization",
+          "description": "Brief daily check-in to refine preferences and plan tomorrow's automation",
+          "user_story": "As a user of automation, I want to quickly review and adjust my preferences to improve future decisions",
+          "acceptance_criteria": [
+            "2-3 minute guided reflection session",
+            "Rate satisfaction with automated decisions",
+            "Adjust preferences for next day",
+            "Preview tomorrow's planned automation"
+          ],
+          "complexity_estimate": "M"
+        }
+      ],
+      "premium_features": [
+        {
+          "name": "Advanced AI Decision Models",
+          "description": "More sophisticated AI that considers complex factors like energy levels, emotional state, and long-term goals",
+          "justification": "Provides significantly more personalized and intelligent automation worth recurring subscription"
+        },
+        {
+          "name": "Family Household Automation",
+          "description": "Coordinate decisions for family members including meal planning, scheduling, and shared responsibilities",
+          "justification": "Extends value to entire household, increasing willingness to pay for family coordination features"
+        },
+        {
+          "name": "Unlimited Decision Profiles",
+          "description": "Create separate automation profiles for different contexts (work travel, vacation, weekends, etc.)",
+          "justification": "Advanced users need multiple contexts for complex lifestyles"
+        },
+        {
+          "name": "Deep Integrations",
+          "description": "Connect with calendar, weather, fitness apps, smart home devices for comprehensive automation",
+          "justification": "Seamless ecosystem integration provides substantial convenience value"
+        }
+      ]
+    },
+    "success_metrics": {
+      "user_engagement": {
+        "daily_active_users": "70% DAU (high for productivity apps due to routine nature)",
+        "session_length": "3-5 minutes average (brief by design to reduce cognitive load)",
+        "retention_rate": "85% 7-day, 65% 30-day (strong habit formation through automation)"
+      },
+      "business_metrics": {
+        "conversion_to_paid": "15% trial-to-paid conversion (above average for productivity apps)",
+        "monthly_revenue_per_user": "$4.50 ARPU (from $9.99 monthly, accounting for annual discounts)",
+        "churn_rate": "5% monthly churn (low due to habit formation and automation dependency)"
+      }
+    },
+    "competitive_analysis": {
+      "direct_competitors": [
+        {
+          "name": "Todoist",
+          "strengths": ["Strong task management", "Cross-platform sync", "Natural language processing"],
+          "weaknesses": ["Requires manual input", "Doesn't reduce decision fatigue", "Complex interface"],
+          "differentiation": "MindFlow Auto reduces decisions while Todoist increases task management complexity"
+        },
+        {
+          "name": "Any.do",
+          "strengths": ["Clean interface", "Voice input", "Calendar integration"],
+          "weaknesses": ["Limited automation", "Basic AI capabilities", "Subscription required for core features"],
+          "differentiation": "MindFlow Auto automates decisions vs Any.do's manual task organization"
+        },
+        {
+          "name": "Notion",
+          "strengths": ["Highly customizable", "All-in-one workspace", "Template system"],
+          "weaknesses": ["Overwhelming complexity", "Steep learning curve", "Increases rather than reduces decision fatigue"],
+          "differentiation": "MindFlow Auto eliminates choices while Notion multiplies configuration options"
+        }
+      ],
+      "positioning": "The only productivity app that gets simpler over time as it learns to automate your routine decisions, positioned as an 'autopilot for daily choices' rather than another task management tool"
+    }
+  }
+}

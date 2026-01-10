@@ -1,0 +1,87 @@
+{
+  "run_id": "batch-specs-170756",
+  "generated": "2026-01-07T17:07:56Z",
+  "total_ideas": 10,
+  "ideas": [
+    {
+      "rank": 1,
+      "idea_id": "packwise_001", 
+      "idea_name": "PackWise",
+      "idea_slug": "packwise",
+      "directory": "01_packwise__packwise_001",
+      "validation_score": 8.2
+    },
+    {
+      "rank": 2,
+      "idea_id": "subclarity_005",
+      "idea_name": "SubClarity", 
+      "idea_slug": "subclarity",
+      "directory": "02_subclarity__subclarity_005",
+      "validation_score": 8.5
+    },
+    {
+      "rank": 3,
+      "idea_id": "retainify_003",
+      "idea_name": "Retainify",
+      "idea_slug": "retainify", 
+      "directory": "03_retainify__retainify_003",
+      "validation_score": 8.0
+    },
+    {
+      "rank": 4,
+      "idea_id": "studystack_009",
+      "idea_name": "StudyStack",
+      "idea_slug": "studystack",
+      "directory": "04_studystack__studystack_009", 
+      "validation_score": 7.7
+    },
+    {
+      "rank": 5,
+      "idea_id": "minimind_006",
+      "idea_name": "MiniMind",
+      "idea_slug": "minimind",
+      "directory": "05_minimind__minimind_006",
+      "validation_score": 7.6
+    },
+    {
+      "rank": 6,
+      "idea_id": "tripease_007", 
+      "idea_name": "TripEase",
+      "idea_slug": "tripease",
+      "directory": "06_tripease__tripease_007",
+      "validation_score": 7.3
+    },
+    {
+      "rank": 7,
+      "idea_id": "memecache_002",
+      "idea_name": "MemeCache", 
+      "idea_slug": "memecache",
+      "directory": "07_memecache__memecache_002",
+      "validation_score": 7.1
+    },
+    {
+      "rank": 8,
+      "idea_id": "memomood_008",
+      "idea_name": "MemoMood",
+      "idea_slug": "memomood",
+      "directory": "08_memomood__memomood_008",
+      "validation_score": 6.9
+    },
+    {
+      "rank": 9,
+      "idea_id": "posturepal_004",
+      "idea_name": "PosturePal",
+      "idea_slug": "posturepal", 
+      "directory": "09_posturepal__posturepal_004",
+      "validation_score": 6.8
+    },
+    {
+      "rank": 10,
+      "idea_id": "sitsmart_010",
+      "idea_name": "SitSmart",
+      "idea_slug": "sitsmart",
+      "directory": "10_sitsmart__sitsmart_010",
+      "validation_score": 6.5
+    }
+  ]
+}

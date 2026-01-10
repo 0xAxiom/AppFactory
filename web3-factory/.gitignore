@@ -24,9 +24,7 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Web3 Factory specific
-runs/
-builds/
+# Web3 Factory specific (runs/ and builds/ are tracked intentionally)
 web3-builds/
 
 # Temporary files

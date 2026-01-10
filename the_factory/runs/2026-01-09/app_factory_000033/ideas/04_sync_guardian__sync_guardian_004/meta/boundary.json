@@ -1,0 +1,11 @@
+{
+  "idea_id": "sync_guardian_004",
+  "run_id": "app_factory_000033",
+  "boundary_path": "runs/2026-01-09/app_factory_000033/ideas/04_sync_guardian__sync_guardian_004/",
+  "allowed_paths": [
+    "runs/2026-01-09/app_factory_000033/ideas/04_sync_guardian__sync_guardian_004/",
+    "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json",
+    "runs/2026-01-09/app_factory_000033/meta/idea_index.json"
+  ],
+  "isolation_enforced": true
+}

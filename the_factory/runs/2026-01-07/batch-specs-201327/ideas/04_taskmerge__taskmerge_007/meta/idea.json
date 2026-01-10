@@ -1,0 +1,18 @@
+{
+  "id": "taskmerge_007",
+  "name": "TaskMerge",
+  "validation_score": 7.9,
+  "signal_source": "Workplace studies show 20% of cognitive capacity lost during context switching with average 9.5 minutes to regain productive workflow",
+  "description": "Task consolidation app that groups related activities to minimize context switching and maintain cognitive flow",
+  "target_user": "Professional workers overwhelmed by fragmented task management across multiple apps and platforms",
+  "pain_point_evidence": "Research shows workers spend 59 minutes daily searching for information across different apps with 44% unable to track work duplication",
+  "core_loop": ["Import tasks from various sources", "Smart grouping by context and priority", "Work on batched related tasks", "Minimize tool switching during work blocks", "Track efficiency improvements"],
+  "differentiation": "Task batching vs. linear task management, focuses on cognitive efficiency over feature richness",
+  "subscription_fit": "Premium includes advanced integrations, team coordination, and detailed productivity analytics",
+  "mvp_complexity": "L",
+  "pricing": {
+    "monthly_range": "$7.99-$11.99",
+    "annual_range": "$69.99-$99.99",
+    "trial_strategy": "Free basic batching, premium for integrations and team features"
+  }
+}

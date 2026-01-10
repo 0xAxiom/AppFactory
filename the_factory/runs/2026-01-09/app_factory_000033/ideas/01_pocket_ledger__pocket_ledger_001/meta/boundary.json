@@ -1,0 +1,11 @@
+{
+  "idea_id": "pocket_ledger_001",
+  "run_id": "app_factory_000033",
+  "boundary_path": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/",
+  "allowed_paths": [
+    "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/",
+    "runs/2026-01-09/app_factory_000033/stage01/stages/stage01.json",
+    "runs/2026-01-09/app_factory_000033/meta/idea_index.json"
+  ],
+  "isolation_enforced": true
+}

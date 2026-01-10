@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "run_id": "dream-220500-evpanalyzer",
+    "idea_id": "evp_ana_001",
+    "idea_name": "EVP Analyzer",
+    "idea_dir": "01_evp_analyzer__evp_ana_001",
+    "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.json",
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage03.json",
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage04.json"
+    ],
+    "boundary_path": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/meta/boundary.json",
+    "generated_at": "2026-01-09T22:17:00Z"
+  },
+  "runtime_flow_verification": {
+    "boot_sequence": {
+      "steps": [
+        {"step": 1, "action": "App launches", "expected": "Splash screen displays"},
+        {"step": 2, "action": "Check first launch flag", "expected": "AsyncStorage.getItem('hasOnboarded')"},
+        {"step": 3, "action": "If first launch", "expected": "Navigate to /onboarding"},
+        {"step": 4, "action": "If returning user", "expected": "Navigate to /(tabs)/index"},
+        {"step": 5, "action": "Initialize RevenueCat", "expected": "Purchases.configure with API key"},
+        {"step": 6, "action": "Check entitlement status", "expected": "Update subscription context"},
+        {"step": 7, "action": "Load user settings", "expected": "AsyncStorage.getItem('settings')"}
+      ],
+      "timeout": "3 seconds to interactive"
+    },
+    "critical_flows": [
+      {
+        "flow_name": "Start Investigation",
+        "entry_point": "Home screen RecordButton tap",
+        "steps": [
+          {"action": "Tap RecordButton", "navigation": "/record"},
+          {"action": "Check microphone permission", "fallback": "Show permission request"},
+          {"action": "Initialize AudioService", "expected": "Recording ready"},
+          {"action": "Start recording", "expected": "Waveform renders at 30fps"},
+          {"action": "Tap Stop", "expected": "Recording ends, session saves"},
+          {"action": "Navigate to session", "navigation": "/session/[id]"}
+        ],
+        "success_criteria": "Recording saved with waveform data"
+      },
+      {
+        "flow_name": "Analyze Session",
+        "entry_point": "Session screen load",
+        "steps": [
+          {"action": "Load session from storage", "expected": "Session data retrieved"},
+          {"action": "Render waveform", "expected": "Static waveform displays"},
+          {"action": "Generate spectrogram (if premium)", "expected": "Spectrogram renders or shows gate"},
+          {"action": "Run anomaly detection (if premium)", "expected": "Markers appear or shows gate"},
+          {"action": "Enable playback", "expected": "Play button functional"}
+        ],
+        "success_criteria": "Waveform visible, playback works"
+      },
+      {
+        "flow_name": "Premium Feature Gate",
+        "entry_point": "Tap gated feature without subscription",
+        "steps": [
+          {"action": "Tap spectrogram/anomaly/export", "expected": "Check entitlement"},
+          {"action": "If not entitled", "navigation": "/paywall"},
+          {"action": "Show paywall", "expected": "Pricing and features displayed"},
+          {"action": "If purchase", "expected": "RevenueCat purchase flow"},
+          {"action": "On success", "expected": "Grant entitlement, dismiss paywall, unlock feature"}
+        ],
+        "success_criteria": "Feature unlocked after purchase"
+      },
+      {
+        "flow_name": "Session Limit Gate",
+        "entry_point": "Attempt to save 4th session without subscription",
+        "steps": [
+          {"action": "Stop recording", "expected": "Check session count"},
+          {"action": "If count >= 3 and not premium", "navigation": "/paywall"},
+          {"action": "Show paywall with session limit message", "expected": "Upgrade messaging"},
+          {"action": "If purchase", "expected": "Save session, unlock unlimited"},
+          {"action": "If dismiss", "expected": "Session not saved, notify user"}
+        ],
+        "success_criteria": "Session limit enforced correctly"
+      }
+    ],
+    "error_scenarios": [
+      {
+        "scenario": "Microphone permission denied",
+        "trigger": "User denies or has denied microphone access",
+        "expected_behavior": "Show full-screen permission request with settings link",
+        "recovery": "User grants permission in settings, app detects and proceeds"
+      },
+      {
+        "scenario": "Storage full",
+        "trigger": "Device storage insufficient for new recording",
+        "expected_behavior": "Show alert before recording starts",
+        "recovery": "User deletes sessions or frees space"
+      },
+      {
+        "scenario": "Recording interrupted",
+        "trigger": "Phone call, app killed, crash",
+        "expected_behavior": "Save recording up to interruption point",
+        "recovery": "User can access partial session"
+      },
+      {
+        "scenario": "Network error during purchase",
+        "trigger": "No internet during subscription purchase",
+        "expected_behavior": "Show error toast with retry option",
+        "recovery": "User retries when connected"
+      }
+    ],
+    "sanity_checklist": [
+      {"check": "App launches without crash", "priority": "critical"},
+      {"check": "Onboarding completes and persists", "priority": "critical"},
+      {"check": "Recording starts and stops", "priority": "critical"},
+      {"check": "Waveform renders during recording", "priority": "critical"},
+      {"check": "Session saves and loads", "priority": "critical"},
+      {"check": "Playback works", "priority": "critical"},
+      {"check": "Subscription purchase flow works", "priority": "critical"},
+      {"check": "Premium features gate correctly", "priority": "critical"},
+      {"check": "Session limit enforced", "priority": "high"},
+      {"check": "Tags can be added and saved", "priority": "high"},
+      {"check": "Export produces valid WAV file", "priority": "high"},
+      {"check": "Settings persist across launches", "priority": "medium"},
+      {"check": "Haptic feedback fires", "priority": "low"}
+    ]
+  }
+}

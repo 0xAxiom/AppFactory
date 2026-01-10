@@ -1,0 +1,15 @@
+{
+  "idea_id": "choice_less_008",
+  "idea_name": "ChoiceLess",
+  "run_id": "run_185842",
+  "rank": 8,
+  "validation_score": 8.0,
+  "description": "Decision elimination app that automates recurring choices through smart defaults, reducing daily cognitive load for routine decisions",
+  "target_user": "Overwhelmed professionals seeking to reduce decision fatigue through intelligent automation",
+  "core_loop": ["Choice audit and identification", "Smart default setup", "Automated decision execution", "Outcome tracking and optimization"],
+  "differentiation": "Only app focused on eliminating decisions rather than organizing them; AI-powered default optimization",
+  "subscription_fit": "Unlimited automated choices, advanced AI learning, family decision profiles, integration with shopping and scheduling",
+  "mvp_complexity": "M",
+  "source_stage01": "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+  "frozen_timestamp": "2026-01-06T18:58:42Z"
+}

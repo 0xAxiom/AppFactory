@@ -1,0 +1,243 @@
+{
+  "expo_sdk_target": {
+    "version": "52",
+    "react_native_version": "0.76.x",
+    "minimum_supported_version": "51"
+  },
+  "core_dependencies": {
+    "navigation": {
+      "expo-router": {
+        "version": "^4.0.0",
+        "purpose": "File-based navigation with web support",
+        "critical": true,
+        "installation_notes": "Primary navigation solution, replaces react-navigation"
+      }
+    },
+    "data_storage": {
+      "expo-sqlite": {
+        "version": "^14.0.0",
+        "purpose": "Local-first financial data storage",
+        "critical": true,
+        "installation_notes": "Provides privacy-compliant local database"
+      },
+      "expo-secure-store": {
+        "version": "^13.0.0",
+        "purpose": "Secure storage for encryption keys and user preferences",
+        "critical": true,
+        "installation_notes": "Required for secure local data encryption"
+      }
+    },
+    "camera_functionality": {
+      "expo-camera": {
+        "version": "^16.0.0",
+        "purpose": "Receipt camera capture",
+        "critical": true,
+        "installation_notes": "Camera permissions required, dev client needed for testing"
+      },
+      "expo-image-manipulator": {
+        "version": "^12.0.0",
+        "purpose": "Receipt image processing and optimization",
+        "critical": true,
+        "installation_notes": "Reduces image size and enhances OCR accuracy"
+      }
+    },
+    "file_system": {
+      "expo-file-system": {
+        "version": "^17.0.0",
+        "purpose": "Local file management for receipts and data export",
+        "critical": true,
+        "installation_notes": "Built into Expo SDK, no additional setup required"
+      },
+      "expo-document-picker": {
+        "version": "^12.0.0", 
+        "purpose": "Import financial data from CSV and other formats",
+        "critical": false,
+        "installation_notes": "Premium feature for data import"
+      },
+      "expo-sharing": {
+        "version": "^12.0.0",
+        "purpose": "Export budget reports and data backups",
+        "critical": false,
+        "installation_notes": "Required for data export functionality"
+      }
+    },
+    "user_experience": {
+      "expo-haptics": {
+        "version": "^13.0.0",
+        "purpose": "Tactile feedback for envelope interactions",
+        "critical": false,
+        "installation_notes": "Enhances mobile user experience"
+      },
+      "expo-status-bar": {
+        "version": "^2.0.0",
+        "purpose": "Status bar styling and control",
+        "critical": false,
+        "installation_notes": "Consistent status bar appearance"
+      }
+    }
+  },
+  "visualization_dependencies": {
+    "charting": {
+      "react-native-chart-kit": {
+        "version": "^6.12.0",
+        "purpose": "Spending trend charts and budget visualizations",
+        "critical": true,
+        "expo_compatibility": "Compatible with Expo SDK 52",
+        "fallback": "Custom SVG-based charts using react-native-svg"
+      },
+      "react-native-svg": {
+        "version": "^15.0.0",
+        "purpose": "SVG graphics for custom charts and envelope icons",
+        "critical": true,
+        "expo_compatibility": "Fully supported in Expo",
+        "installation_notes": "Required dependency for chart-kit"
+      }
+    },
+    "icons_and_graphics": {
+      "@expo/vector-icons": {
+        "version": "^14.0.0",
+        "purpose": "Consistent icon set throughout the application",
+        "critical": true,
+        "expo_compatibility": "Built into Expo SDK",
+        "installation_notes": "No additional installation required"
+      },
+      "expo-image": {
+        "version": "^1.0.0",
+        "purpose": "Optimized image loading and caching for receipt photos",
+        "critical": false,
+        "expo_compatibility": "New in SDK 50+, fully supported",
+        "installation_notes": "Replaces Image component for better performance"
+      }
+    }
+  },
+  "subscription_dependencies": {
+    "revenuecat": {
+      "react-native-purchases": {
+        "version": "^8.0.0",
+        "purpose": "Subscription management and paywall presentation",
+        "critical": true,
+        "expo_compatibility": "Requires development build, not supported in Expo Go",
+        "installation_notes": "Configure with environment-based API keys"
+      }
+    }
+  },
+  "ocr_dependencies": {
+    "text_recognition": {
+      "expo-image-picker": {
+        "version": "^15.0.0",
+        "purpose": "Alternative receipt capture method",
+        "critical": false,
+        "expo_compatibility": "Fully supported",
+        "installation_notes": "Fallback for devices without camera access"
+      },
+      "@react-native-ml-kit/text-recognition": {
+        "version": "^2.0.0",
+        "purpose": "On-device OCR for receipt text extraction",
+        "critical": true,
+        "expo_compatibility": "Requires development build",
+        "installation_notes": "Provides privacy-compliant local OCR processing"
+      }
+    }
+  },
+  "development_dependencies": {
+    "testing": {
+      "jest-expo": {
+        "version": "~51.0.0",
+        "purpose": "Unit testing framework for Expo projects",
+        "critical": false,
+        "installation_notes": "Configured for Expo SDK testing environment"
+      },
+      "@testing-library/react-native": {
+        "version": "^12.0.0",
+        "purpose": "Component testing utilities",
+        "critical": false,
+        "installation_notes": "Essential for UI component testing"
+      }
+    },
+    "type_safety": {
+      "typescript": {
+        "version": "^5.3.0",
+        "purpose": "Type safety and developer experience",
+        "critical": true,
+        "installation_notes": "Required for maintainable codebase"
+      },
+      "@expo/config-plugins": {
+        "version": "^8.0.0",
+        "purpose": "Custom native configuration",
+        "critical": false,
+        "installation_notes": "Required for advanced camera and ML kit configuration"
+      }
+    }
+  },
+  "performance_optimization": {
+    "state_management": {
+      "@reduxjs/toolkit": {
+        "version": "^2.0.0",
+        "purpose": "Global state management for envelopes and transactions",
+        "critical": false,
+        "installation_notes": "Alternative to Context API for complex state"
+      },
+      "zustand": {
+        "version": "^4.4.0",
+        "purpose": "Lightweight state management alternative",
+        "critical": false,
+        "installation_notes": "Simpler alternative to Redux for local state"
+      }
+    },
+    "data_optimization": {
+      "react-query": {
+        "version": "^5.0.0",
+        "purpose": "SQLite query caching and optimization",
+        "critical": false,
+        "installation_notes": "Improves database query performance"
+      }
+    }
+  },
+  "compatibility_matrix": {
+    "expo_sdk_52": {
+      "all_core_dependencies": "✅ Compatible",
+      "chart_kit": "✅ Compatible",
+      "revenuecat": "✅ Compatible (requires dev build)",
+      "ml_kit_ocr": "✅ Compatible (requires dev build)",
+      "camera_functionality": "✅ Compatible"
+    },
+    "react_native_076": {
+      "all_expo_packages": "✅ Compatible",
+      "third_party_packages": "✅ Verified compatible",
+      "new_architecture": "🔄 Partial support (not required for MVP)"
+    }
+  },
+  "installation_strategy": {
+    "phase_1_mvp": [
+      "expo-router",
+      "expo-sqlite", 
+      "expo-secure-store",
+      "expo-camera",
+      "react-native-svg",
+      "react-native-chart-kit",
+      "@expo/vector-icons"
+    ],
+    "phase_2_ocr": [
+      "expo-image-manipulator",
+      "@react-native-ml-kit/text-recognition"
+    ],
+    "phase_3_premium": [
+      "react-native-purchases",
+      "expo-document-picker",
+      "expo-sharing"
+    ],
+    "development_tools": [
+      "typescript",
+      "jest-expo",
+      "@testing-library/react-native"
+    ]
+  },
+  "potential_conflicts": {
+    "identified_conflicts": [],
+    "resolution_strategies": [
+      "Use Expo development build for packages requiring native code",
+      "Implement gradual rollout of OCR features to test stability",
+      "Monitor bundle size impact of chart libraries"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "idea_id": "sleep_wind_006",
+  "idea_name": "SleepWind",
+  "idea_slug": "sleepwind",
+  "rank": 6,
+  "validation_score": 7.5,
+  "run_id": "20260109_132516_app_factory_run",
+  "generated": "2026-01-09T13:25:16Z",
+  "description": "Progressive sleep preparation app with 3-stage wind-down routine: dim lights reminder, device away, breathing countdown",
+  "target_user": "People struggling with sleep hygiene who find sleep apps too complex or stimulating",
+  "mvp_complexity": "S",
+  "subscription_fit": "Premium tier with enhanced features and analytics"
+}

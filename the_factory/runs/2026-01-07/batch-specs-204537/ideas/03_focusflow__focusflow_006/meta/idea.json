@@ -1,0 +1,24 @@
+{
+  "id": "focusflow_006",
+  "name": "FocusFlow",
+  "validation_score": 7.9,
+  "signal_source": "ADHD app research shows users 'love this app' and find 'significant improvements in concentration' with adaptive focus tools",
+  "description": "Adaptive focus sessions that adjust timing and break patterns based on user attention and energy levels",
+  "target_user": "People with attention challenges who find rigid focus timers don't match their natural attention patterns",
+  "pain_point_evidence": "Users report traditional focus apps 'don't help users recover from interruptions' and 'it takes ~23 minutes to refocus after being sidetracked'",
+  "core_loop": [
+    "Start adaptive focus session",
+    "System adjusts timing based on your patterns",
+    "Smart break suggestions when attention dips",
+    "Track focus quality over time",
+    "Build personalized attention rhythms"
+  ],
+  "differentiation": "Adaptive timing vs. fixed intervals, pattern learning vs. rigid structure",
+  "subscription_fit": "Premium includes advanced pattern analysis and integration with other productivity tools",
+  "mvp_complexity": "M",
+  "pricing": {
+    "monthly_range": "$4.99-$7.99",
+    "annual_range": "$39.99-$69.99",
+    "trial_strategy": "Free basic sessions, premium for adaptive features and analytics"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-170756",
+  "idea_id": "memecache_002",
+  "idea_name": "MemeCache",
+  "idea_slug": "memecache",
+  "rank": 7,
+  "validation_score": 7.1,
+  "frozen_definition": {
+    "id": "memecache_002",
+    "name": "MemeCache",
+    "validation_score": 7.1,
+    "signal_source": "Digital organization research shows users struggle with 'too messy' photo libraries and 'can't find' specific content when needed",
+    "description": "Visual meme organization app with AI-powered tagging, mood-based categories, and instant search for the perfect meme reaction",
+    "target_user": "Active social media users who save hundreds of memes but struggle to find the right one when needed",
+    "pain_point_evidence": "Users report digital meme collections become unmanageable, leading to frustration when seeking specific memes for conversations",
+    "core_loop": [
+      "Save memes from any app/browser",
+      "Auto-categorize by mood, topic, format",
+      "Search by text, emotion, or visual similarity",
+      "Share directly to messaging apps",
+      "Create custom collections for specific contexts"
+    ],
+    "differentiation": "Focus purely on meme organization vs. general photo management, uses humor-specific AI categorization",
+    "subscription_fit": "Premium includes unlimited storage, advanced search, custom categories, and cross-device sync",
+    "mvp_complexity": "M",
+    "pricing": {
+      "monthly_range": "$2.99-$4.99",
+      "annual_range": "$24.99-$39.99",
+      "trial_strategy": "Free for up to 100 memes, premium for unlimited storage and advanced features"
+    }
+  }
+}

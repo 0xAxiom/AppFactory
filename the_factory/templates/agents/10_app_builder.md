@@ -217,6 +217,22 @@ scripts/verify_assets_are_png.sh builds/<idea_dir>/<build_id>/app/
 #   - Generates assets_validation_report.md
 ```
 
+**15. AFTER PNG Validation (Visual Identity Quality - BUILD-BLOCKING)**:
+```bash
+# Verify Stage 08.5 visual identity meets professional standards
+scripts/verify_visual_identity_quality.sh runs/<date>/<run_id>/ideas/<idea_dir>
+# Exit code MUST be 0. If non-zero: STOP and write failure artifact.
+# This script validates (BUILD-BLOCKING failures):
+#   - asset_concept.md exists with domain relevance documentation
+#   - SVG sources exist (icon.svg, adaptive-icon-foreground.svg, splash.svg)
+#   - No embedded raster images in SVGs
+#   - Icon is NOT typography-only (or has explicit justification)
+#   - PNG files exceed minimum size thresholds (not placeholders)
+#   - Splash is NOT flat color + centered logo only
+#   - Quality checklist indicates PASS
+#   - Generates quality_validation_report.md
+```
+
 ### Mandatory Proof Artifacts (ALL REQUIRED)
 
 Stage 10 MUST produce these artifacts. Missing any = BUILD FAILURE:
@@ -237,11 +253,25 @@ Stage 10 MUST produce these artifacts. Missing any = BUILD FAILURE:
 | `launch_plan.md` | Launch plan generator | YES |
 | `naming.md` | App naming generator | YES |
 | `assets_validation_report.md` | PNG asset validator | YES |
+| `quality_validation_report.md` | Visual identity quality verifier | YES |
 | `privacy_policy.md` | Privacy policy generator | YES |
 | `privacy_policy.html` | Privacy policy generator | YES |
 | `privacy_policy_snippet.md` | Privacy policy generator | YES |
 | `sources.md` | Research citations | YES |
 | `build_log.md` | Execution log | YES |
+
+### Stage 08.5 Required Artifacts (Pre-Build Validation)
+
+Stage 10 MUST verify these Stage 08.5 artifacts exist BEFORE build:
+
+| Artifact | Location | Required |
+|----------|----------|----------|
+| `asset_concept.md` | runs/.../ideas/<idea_dir>/assets/ | YES |
+| `assets_quality_checklist.md` | runs/.../ideas/<idea_dir>/assets/ | YES |
+| `icon.svg` | runs/.../ideas/<idea_dir>/assets/svg/ | YES |
+| `adaptive-icon-foreground.svg` | runs/.../ideas/<idea_dir>/assets/svg/ | YES |
+| `splash.svg` | runs/.../ideas/<idea_dir>/assets/svg/ | YES |
+| `stage08.5.json` | runs/.../ideas/<idea_dir>/stages/ | YES |
 
 ### Port Collision Handling (NON-INTERACTIVE)
 
@@ -311,6 +341,7 @@ A Stage 10 build is ONLY "done" when ALL conditions are verified by enforcement 
 | Privacy policy generated | generate_privacy_policy.sh | Exit 0 |
 | Privacy policy verified | verify_privacy_policy.sh | Exit 0 |
 | PNG assets validated | verify_assets_are_png.sh | Exit 0 |
+| Visual identity quality | verify_visual_identity_quality.sh | Exit 0 |
 | All proof artifacts present | Manual verification | All exist |
 
 **SUCCESS WITHOUT PROOF IS IMPOSSIBLE.**

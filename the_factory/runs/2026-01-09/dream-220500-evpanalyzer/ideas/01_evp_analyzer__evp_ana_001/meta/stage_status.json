@@ -1,0 +1,91 @@
+{
+  "idea_id": "evp_ana_001",
+  "idea_dir": "01_evp_analyzer__evp_ana_001",
+  "run_id": "dream-220500-evpanalyzer",
+  "mode": "dream",
+  "status": "built",
+  "build_id": "build_20260109_220500",
+  "build_path": "builds/01_evp_analyzer__evp_ana_001/build_20260109_220500/app/",
+  "stages": {
+    "stage01_dream": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:05:00Z",
+      "artifacts": [
+        "stage01_dream/stages/stage01_dream.json",
+        "stage01_dream/outputs/stage01_dream_execution.md",
+        "stage01_dream/dream_research.md"
+      ]
+    },
+    "stage02": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:08:00Z",
+      "artifacts": ["stages/stage02.json", "spec/02_product_spec.md"]
+    },
+    "stage02.5": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:10:00Z",
+      "artifacts": ["stages/stage02.5.json", "product/core_loop.md", "product/domain_model.json"]
+    },
+    "stage02.7": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:12:00Z",
+      "artifacts": ["stages/stage02.7.json", "technical/navigation_plan.json", "technical/dependency_plan.json"]
+    },
+    "stage03": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:14:00Z",
+      "artifacts": ["stages/stage03.json", "spec/03_ux_design.md", "uiux/design_tokens.json"]
+    },
+    "stage04": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:16:00Z",
+      "artifacts": ["stages/stage04.json", "spec/04_monetization.md"]
+    },
+    "stage05": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:18:00Z",
+      "artifacts": ["stages/stage05.json", "spec/05_architecture.md"]
+    },
+    "stage06": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:20:00Z",
+      "artifacts": ["stages/stage06.json", "spec/06_builder_handoff.md"]
+    },
+    "stage07": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:22:00Z",
+      "artifacts": ["stages/stage07.json", "spec/07_polish.md"]
+    },
+    "stage08": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:24:00Z",
+      "artifacts": ["stages/stage08.json", "spec/08_brand.md"]
+    },
+    "stage08.5": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:26:00Z",
+      "artifacts": ["stages/stage08.5.json"]
+    },
+    "stage09": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:28:00Z",
+      "artifacts": ["stages/stage09.json", "spec/09_release_planning.md"]
+    },
+    "stage09.5": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:30:00Z",
+      "artifacts": ["stages/stage09.5.json", "runtime/boot_sequence.json", "runtime/flow_validation.json", "runtime/sanity_checklist.md"]
+    },
+    "stage09.7": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:32:00Z",
+      "artifacts": ["stages/stage09.7.json", "app/_contract/build_contract.json", "app/_contract/build_prompt.md", "app/_contract/contract_sources.json"]
+    },
+    "stage10": {
+      "status": "completed",
+      "completed_at": "2026-01-09T22:40:00Z",
+      "artifacts": ["stages/stage10.json", "outputs/stage10_build.log"]
+    }
+  },
+  "updated_at": "2026-01-09T22:40:00Z"
+}

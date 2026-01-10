@@ -1,0 +1,11 @@
+{
+  "idea_id": "family_when_004",
+  "run_id": "batch-specs-010721-3472",
+  "idea_dir": "04_family_when__family_when_004",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-010721-3472/ideas/04_family_when__family_when_004/",
+    "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-010721-3472/meta/idea_index.json"
+  ],
+  "isolation_enforced": true
+}

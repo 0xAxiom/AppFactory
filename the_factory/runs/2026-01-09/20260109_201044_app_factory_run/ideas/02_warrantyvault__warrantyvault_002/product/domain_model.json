@@ -1,0 +1,125 @@
+{
+  "domain": "WarrantyVault",
+  "version": "1.0.0",
+  "entities": {
+    "Item": {
+      "description": "A purchased product being tracked for warranty coverage",
+      "fields": {
+        "id": { "type": "string", "format": "uuid", "required": true },
+        "name": { "type": "string", "maxLength": 100, "required": true },
+        "category": {
+          "type": "enum",
+          "values": ["electronics", "appliances", "furniture", "vehicles", "other"],
+          "required": true
+        },
+        "purchaseDate": { "type": "date", "required": true },
+        "warrantyMonths": { "type": "integer", "min": 1, "max": 120, "required": true },
+        "warrantyEndDate": { "type": "date", "computed": true },
+        "price": { "type": "number", "min": 0, "required": false },
+        "retailer": { "type": "string", "maxLength": 100, "required": false },
+        "manufacturer": { "type": "string", "maxLength": 100, "required": false },
+        "notes": { "type": "string", "maxLength": 500, "required": false },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true }
+      },
+      "computations": {
+        "warrantyEndDate": "purchaseDate + warrantyMonths",
+        "daysRemaining": "warrantyEndDate - today",
+        "status": "daysRemaining > 30 ? 'active' : daysRemaining > 0 ? 'expiring' : 'expired'"
+      },
+      "indexes": ["category", "warrantyEndDate", "status"]
+    },
+    "Receipt": {
+      "description": "Digital proof of purchase image",
+      "fields": {
+        "id": { "type": "string", "format": "uuid", "required": true },
+        "itemId": { "type": "string", "format": "uuid", "required": true, "foreignKey": "Item.id" },
+        "imageUri": { "type": "string", "required": true },
+        "capturedAt": { "type": "timestamp", "required": true }
+      },
+      "constraints": {
+        "onePerItem": true
+      }
+    },
+    "ProductPhoto": {
+      "description": "Photo of the actual product",
+      "fields": {
+        "id": { "type": "string", "format": "uuid", "required": true },
+        "itemId": { "type": "string", "format": "uuid", "required": true, "foreignKey": "Item.id" },
+        "imageUri": { "type": "string", "required": true },
+        "capturedAt": { "type": "timestamp", "required": true }
+      },
+      "constraints": {
+        "onePerItem": true
+      }
+    },
+    "Alert": {
+      "description": "Scheduled warranty expiration notification",
+      "fields": {
+        "id": { "type": "string", "format": "uuid", "required": true },
+        "itemId": { "type": "string", "format": "uuid", "required": true, "foreignKey": "Item.id" },
+        "daysBeforeExpiration": { "type": "integer", "default": 30, "required": true },
+        "scheduledDate": { "type": "date", "computed": true },
+        "triggered": { "type": "boolean", "default": false },
+        "dismissed": { "type": "boolean", "default": false }
+      },
+      "computations": {
+        "scheduledDate": "Item.warrantyEndDate - daysBeforeExpiration"
+      }
+    },
+    "Category": {
+      "description": "Predefined item groupings",
+      "type": "static",
+      "values": [
+        { "id": "electronics", "name": "Electronics", "icon": "laptop" },
+        { "id": "appliances", "name": "Appliances", "icon": "washer" },
+        { "id": "furniture", "name": "Furniture", "icon": "chair" },
+        { "id": "vehicles", "name": "Vehicles", "icon": "car" },
+        { "id": "other", "name": "Other", "icon": "box" }
+      ]
+    }
+  },
+  "relationships": [
+    {
+      "from": "Item",
+      "to": "Receipt",
+      "type": "hasOne",
+      "optional": true
+    },
+    {
+      "from": "Item",
+      "to": "ProductPhoto",
+      "type": "hasOne",
+      "optional": true
+    },
+    {
+      "from": "Item",
+      "to": "Alert",
+      "type": "hasMany"
+    },
+    {
+      "from": "Item",
+      "to": "Category",
+      "type": "belongsTo"
+    }
+  ],
+  "aggregates": {
+    "Dashboard": {
+      "sections": [
+        { "name": "expiringSoon", "filter": "status == 'expiring'", "sort": "warrantyEndDate ASC" },
+        { "name": "active", "filter": "status == 'active'", "sort": "warrantyEndDate ASC" },
+        { "name": "expired", "filter": "status == 'expired'", "sort": "warrantyEndDate DESC" }
+      ]
+    },
+    "CategoryView": {
+      "groupBy": "category",
+      "count": "items per category"
+    }
+  },
+  "storage": {
+    "type": "local",
+    "technology": "SQLite or AsyncStorage",
+    "images": "local filesystem",
+    "sync": "premium feature (cloud backup)"
+  }
+}

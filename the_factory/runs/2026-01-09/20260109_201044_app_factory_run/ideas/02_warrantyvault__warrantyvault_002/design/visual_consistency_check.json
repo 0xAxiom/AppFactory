@@ -1,0 +1,106 @@
+{
+  "app_name": "WarrantyVault",
+  "archetype": "Trust-Focused Utility Dashboard",
+  "consistency_check": {
+    "color_usage": {
+      "primary_blue": {
+        "expected_usage": ["Primary buttons", "Links", "Active tab", "FAB"],
+        "verified": true
+      },
+      "success_green": {
+        "expected_usage": ["Active warranty status", "Success states"],
+        "verified": true
+      },
+      "warning_orange": {
+        "expected_usage": ["Expiring soon status", "Attention needed"],
+        "verified": true
+      },
+      "neutral_gray": {
+        "expected_usage": ["Expired status", "Secondary text", "Disabled states"],
+        "verified": true
+      }
+    },
+    "typography_consistency": {
+      "screen_titles": {
+        "expected": "Title (24sp) Semibold",
+        "verified": true
+      },
+      "section_headers": {
+        "expected": "Headline (20sp) Medium",
+        "verified": true
+      },
+      "body_text": {
+        "expected": "Body (16sp) Regular",
+        "verified": true
+      },
+      "captions": {
+        "expected": "Caption (14sp) Regular",
+        "verified": true
+      }
+    },
+    "spacing_consistency": {
+      "screen_padding": "16dp",
+      "card_padding": "16dp",
+      "section_gap": "24dp",
+      "item_gap": "8dp",
+      "verified": true
+    },
+    "component_patterns": {
+      "buttons": {
+        "primary": "Blue background, white text, 12dp border radius",
+        "secondary": "Outlined blue border, blue text",
+        "destructive": "Red background for delete actions",
+        "verified": true
+      },
+      "cards": {
+        "style": "White background, subtle shadow, 12dp border radius",
+        "status_indicator": "4dp left border in status color",
+        "verified": true
+      },
+      "inputs": {
+        "style": "Outlined with label above",
+        "focus_state": "Blue border",
+        "error_state": "Red border with message",
+        "verified": true
+      }
+    }
+  },
+  "screen_consistency": {
+    "dashboard": {
+      "follows_archetype": true,
+      "uses_correct_colors": true,
+      "typography_consistent": true,
+      "spacing_consistent": true
+    },
+    "add_item": {
+      "follows_archetype": true,
+      "uses_correct_colors": true,
+      "typography_consistent": true,
+      "spacing_consistent": true
+    },
+    "item_detail": {
+      "follows_archetype": true,
+      "uses_correct_colors": true,
+      "typography_consistent": true,
+      "spacing_consistent": true
+    },
+    "settings": {
+      "follows_archetype": true,
+      "uses_correct_colors": true,
+      "typography_consistent": true,
+      "spacing_consistent": true
+    },
+    "paywall": {
+      "follows_archetype": true,
+      "uses_correct_colors": true,
+      "typography_consistent": true,
+      "spacing_consistent": true
+    }
+  },
+  "overall_consistency_score": 0.95,
+  "issues_detected": [],
+  "recommendations": [
+    "Ensure dark mode uses inverted colors correctly",
+    "Maintain touch target sizes on smaller screens"
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "schema_version": "1.0",
+  "app": "EVP Analyzer",
+  "entities": {
+    "Investigation": {
+      "description": "A single recording session at a location",
+      "table_name": "investigations",
+      "attributes": {
+        "id": {
+          "type": "uuid",
+          "required": true,
+          "primary_key": true
+        },
+        "title": {
+          "type": "string",
+          "required": false,
+          "max_length": 100,
+          "default": null
+        },
+        "location": {
+          "type": "string",
+          "required": false,
+          "max_length": 200
+        },
+        "coordinates": {
+          "type": "object",
+          "required": false,
+          "schema": {
+            "latitude": "number",
+            "longitude": "number"
+          }
+        },
+        "startedAt": {
+          "type": "datetime",
+          "required": true
+        },
+        "endedAt": {
+          "type": "datetime",
+          "required": false
+        },
+        "duration": {
+          "type": "number",
+          "required": true,
+          "unit": "seconds"
+        },
+        "notes": {
+          "type": "string",
+          "required": false,
+          "max_length": 2000
+        },
+        "audioFilePath": {
+          "type": "string",
+          "required": true,
+          "description": "Path to audio file in documentDirectory"
+        },
+        "waveformData": {
+          "type": "array",
+          "required": true,
+          "item_type": "number",
+          "description": "Sampled amplitude values for visualization"
+        },
+        "spectrogramPath": {
+          "type": "string",
+          "required": false,
+          "description": "Path to spectrogram image if generated"
+        },
+        "createdAt": {
+          "type": "datetime",
+          "required": true,
+          "auto": true
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "required": true,
+          "auto": true
+        }
+      },
+      "relationships": {
+        "anomalies": {
+          "type": "has_many",
+          "entity": "Anomaly",
+          "foreign_key": "investigationId"
+        },
+        "tags": {
+          "type": "has_many",
+          "entity": "Tag",
+          "foreign_key": "investigationId"
+        }
+      },
+      "indexes": [
+        "startedAt",
+        "location"
+      ]
+    },
+    "Anomaly": {
+      "description": "An automatically detected audio anomaly",
+      "table_name": "anomalies",
+      "attributes": {
+        "id": {
+          "type": "uuid",
+          "required": true,
+          "primary_key": true
+        },
+        "investigationId": {
+          "type": "uuid",
+          "required": true,
+          "foreign_key": "Investigation.id"
+        },
+        "timestamp": {
+          "type": "number",
+          "required": true,
+          "unit": "seconds",
+          "description": "Position in recording where anomaly occurs"
+        },
+        "type": {
+          "type": "enum",
+          "required": true,
+          "values": ["frequency_spike", "noise_floor_change", "silence_anomaly", "unknown"]
+        },
+        "severity": {
+          "type": "enum",
+          "required": true,
+          "values": ["low", "medium", "high"],
+          "default": "medium"
+        },
+        "frequencyHz": {
+          "type": "number",
+          "required": false,
+          "description": "Peak frequency if applicable"
+        },
+        "decibelDelta": {
+          "type": "number",
+          "required": false,
+          "description": "Change in dB from baseline"
+        },
+        "createdAt": {
+          "type": "datetime",
+          "required": true,
+          "auto": true
+        }
+      },
+      "relationships": {
+        "investigation": {
+          "type": "belongs_to",
+          "entity": "Investigation",
+          "foreign_key": "investigationId"
+        }
+      },
+      "indexes": [
+        "investigationId",
+        "timestamp"
+      ]
+    },
+    "Tag": {
+      "description": "A user-created annotation on a specific moment",
+      "table_name": "tags",
+      "attributes": {
+        "id": {
+          "type": "uuid",
+          "required": true,
+          "primary_key": true
+        },
+        "investigationId": {
+          "type": "uuid",
+          "required": true,
+          "foreign_key": "Investigation.id"
+        },
+        "timestamp": {
+          "type": "number",
+          "required": true,
+          "unit": "seconds",
+          "description": "Start position of tagged segment"
+        },
+        "endTimestamp": {
+          "type": "number",
+          "required": false,
+          "unit": "seconds",
+          "description": "End position if range selected"
+        },
+        "label": {
+          "type": "string",
+          "required": true,
+          "max_length": 50
+        },
+        "category": {
+          "type": "enum",
+          "required": true,
+          "values": ["voice", "noise", "knock", "unknown", "other"]
+        },
+        "notes": {
+          "type": "string",
+          "required": false,
+          "max_length": 500
+        },
+        "isFavorite": {
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        "createdAt": {
+          "type": "datetime",
+          "required": true,
+          "auto": true
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "required": true,
+          "auto": true
+        }
+      },
+      "relationships": {
+        "investigation": {
+          "type": "belongs_to",
+          "entity": "Investigation",
+          "foreign_key": "investigationId"
+        }
+      },
+      "indexes": [
+        "investigationId",
+        "timestamp",
+        "isFavorite"
+      ]
+    },
+    "UserSettings": {
+      "description": "User preferences and configuration",
+      "table_name": "user_settings",
+      "singleton": true,
+      "attributes": {
+        "id": {
+          "type": "uuid",
+          "required": true,
+          "primary_key": true
+        },
+        "sensitivityLevel": {
+          "type": "enum",
+          "required": true,
+          "values": ["low", "medium", "high"],
+          "default": "medium"
+        },
+        "recordingQuality": {
+          "type": "enum",
+          "required": true,
+          "values": ["standard", "high"],
+          "default": "high"
+        },
+        "autoSaveLocation": {
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        "hapticFeedback": {
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        "darkModePreference": {
+          "type": "enum",
+          "required": true,
+          "values": ["system", "always_dark", "always_light"],
+          "default": "always_dark"
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "required": true,
+          "auto": true
+        }
+      }
+    }
+  },
+  "storage": {
+    "primary": {
+      "type": "AsyncStorage",
+      "usage": "Settings and metadata JSON"
+    },
+    "files": {
+      "type": "expo-file-system",
+      "location": "documentDirectory",
+      "usage": "Audio recordings, spectrogram images"
+    },
+    "subscription": {
+      "type": "RevenueCat",
+      "usage": "Entitlement state (cached locally)"
+    }
+  }
+}

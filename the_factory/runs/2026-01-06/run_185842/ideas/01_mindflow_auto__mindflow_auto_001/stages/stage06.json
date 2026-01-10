@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "mindflow_auto_001",
+    "idea_name": "MindFlow Auto",
+    "idea_dir": "01_mindflow_auto__mindflow_auto_001",
+    "source_root": "/Users/melted/Documents/GitHub/app factory/runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage05.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage04.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage03.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/stages/stage02.json",
+      "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/idea.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/01_mindflow_auto__mindflow_auto_001/meta/boundary.json"
+  },
+  "builder_handoff": {
+    "implementation_priorities": {
+      "phase_1_mvp": {
+        "features": [
+          "Basic decision logging with SQLite storage",
+          "Morning routine generation with simple AI",
+          "Tab navigation with Today/Decisions/Settings screens",
+          "RevenueCat subscription integration",
+          "Local preference storage and learning"
+        ],
+        "acceptance_criteria": [
+          "Users can log decisions in under 3 taps",
+          "Morning routines generate based on calendar and weather",
+          "Subscription flow works end-to-end with test products",
+          "App works offline for core decision logging",
+          "Onboarding completes in under 3 minutes"
+        ],
+        "estimated_effort": "8-10 weeks development time",
+        "critical_dependencies": [
+          "Expo SDK 55 setup with New Architecture",
+          "RevenueCat account and product configuration",
+          "Firebase project setup for premium users",
+          "Weather API key and calendar permission handling"
+        ]
+      },
+      "phase_2_enhancement": {
+        "features": [
+          "Advanced AI decision patterns",
+          "Family member coordination",
+          "Smart home integrations",
+          "Cross-device sync for premium users",
+          "Advanced analytics and insights"
+        ],
+        "rationale": "Premium features that justify subscription while building on MVP foundation",
+        "success_metrics": [
+          "15%+ trial to paid conversion",
+          "4% monthly churn rate or lower",
+          "70%+ daily active user retention"
+        ]
+      }
+    },
+    "technical_requirements": {
+      "development_environment": {
+        "node_version": "18.x LTS",
+        "expo_cli_version": "@expo/cli@0.18.x",
+        "required_tools": ["Xcode 15+", "Android Studio 2024.1+", "EAS CLI", "Git"],
+        "setup_instructions": [
+          "Install Expo CLI and EAS CLI globally",
+          "Clone repository and run npm install",
+          "Setup iOS simulator and Android emulator",
+          "Configure environment variables for development"
+        ]
+      },
+      "dependency_management": {
+        "package_manager": "npm",
+        "critical_dependencies": [
+          "react-native-purchases@9.6.7",
+          "expo-sqlite@13.x",
+          "expo-router@4.1.x",
+          "@react-native-firebase/app@20.x"
+        ],
+        "version_constraints": [
+          "React Native 0.83 (via Expo SDK 55)",
+          "Node.js 18.x for compatibility",
+          "Minimum iOS 15.1, Android API 24"
+        ]
+      },
+      "build_configuration": {
+        "eas_config": "Development, staging, and production build profiles with proper code signing",
+        "environment_variables": [
+          "REVENUECAT_APPLE_API_KEY",
+          "REVENUECAT_GOOGLE_API_KEY", 
+          "FIREBASE_CONFIG",
+          "WEATHER_API_KEY"
+        ],
+        "build_profiles": [
+          "development: Development builds with debugging",
+          "preview: Internal testing builds", 
+          "production: Store release builds"
+        ]
+      }
+    },
+    "quality_requirements": {
+      "testing_strategy": {
+        "unit_test_coverage": "80%+ coverage for automation algorithms and decision logic",
+        "critical_user_flows": [
+          "Complete onboarding flow",
+          "Decision logging and pattern recognition",
+          "Subscription purchase and restoration",
+          "Morning routine generation and modification"
+        ],
+        "testing_framework": "Jest for unit tests, React Native Testing Library for components, Detox for E2E",
+        "test_environment_setup": "Separate test Firebase project, RevenueCat test environment, mock weather data"
+      },
+      "performance_criteria": {
+        "app_startup_time": "Under 2 seconds cold start on mid-range devices",
+        "memory_usage_limits": "Under 150MB peak memory usage during normal operation",
+        "network_efficiency": "Graceful offline operation, batched sync when online",
+        "battery_impact": "Minimal background processing, efficient location and calendar access"
+      },
+      "accessibility_validation": {
+        "screen_reader_testing": "Complete VoiceOver/TalkBack navigation for all critical flows",
+        "keyboard_navigation": "Full keyboard navigation support for Android",
+        "color_contrast_validation": "All UI elements meet 4.5:1 contrast ratio requirement",
+        "dynamic_type_testing": "Layout remains functional at 200% text scaling"
+      }
+    },
+    "deployment_specification": {
+      "development_builds": {
+        "testing_process": "Weekly development builds for internal testing team",
+        "stakeholder_review": "Bi-weekly demo sessions with product stakeholders",
+        "feedback_integration": "GitHub issues for bug tracking, feature feedback collection via TestFlight/Internal Testing"
+      },
+      "store_preparation": {
+        "ios_requirements": {
+          "app_store_connect_setup": "App record creation, subscription products configured, privacy labels completed",
+          "submission_checklist": [
+            "App metadata and screenshots prepared",
+            "Privacy policy and terms of service finalized",
+            "Age rating completed (likely 4+ for productivity)",
+            "Subscription auto-renewal terms clearly disclosed"
+          ],
+          "review_preparation": "Test account with subscription access, demo video for complex AI features"
+        },
+        "android_requirements": {
+          "play_console_setup": "App bundle upload, subscription products configured, store listing optimized",
+          "submission_checklist": [
+            "Content rating questionnaire completed",
+            "Target API level 35 compliance",
+            "App bundle size optimization",
+            "Play subscription policy compliance"
+          ],
+          "review_preparation": "Internal testing track with 20+ testers for 14+ days before production"
+        }
+      },
+      "monitoring_setup": {
+        "analytics_configuration": "Firebase Analytics for user behavior, custom events for decision patterns",
+        "crash_reporting": "Firebase Crashlytics with symbolication for React Native crashes",
+        "performance_monitoring": "Firebase Performance for network and startup time monitoring"
+      }
+    },
+    "documentation_requirements": {
+      "technical_documentation": {
+        "architecture_overview": "System architecture diagram, data flow documentation, AI decision logic explanation",
+        "api_documentation": "Firebase Security Rules documentation, RevenueCat integration guide",
+        "setup_guide": "Development environment setup, deployment process, troubleshooting guide"
+      },
+      "user_documentation": {
+        "feature_documentation": "In-app help system, decision logging best practices, automation customization guide",
+        "troubleshooting_guide": "Common issues and solutions, subscription restoration help",
+        "privacy_policy": "GDPR-compliant privacy policy covering decision data collection and usage",
+        "terms_of_service": "Subscription terms, AI automation disclaimers, data processing agreements"
+      }
+    },
+    "maintenance_planning": {
+      "update_strategy": {
+        "ota_updates": "EAS Update for JavaScript-only changes, A/B testing for new features",
+        "binary_updates": "Monthly store updates for native features, quarterly major releases",
+        "version_planning": "Semantic versioning aligned with feature releases and subscription updates"
+      },
+      "monitoring_alerts": {
+        "error_thresholds": "Crash rate >1%, subscription failure rate >5%, AI automation failure >10%",
+        "performance_degradation": "App startup time >3 seconds, memory usage >200MB",
+        "subscription_issues": "RevenueCat webhook failures, payment processing errors"
+      },
+      "support_preparation": {
+        "user_support_channels": "In-app help system, email support, FAQ documentation",
+        "escalation_procedures": "Technical support for subscription issues, AI automation problems",
+        "known_issues_tracking": "Public status page for service issues, proactive user communication"
+      }
+    }
+  }
+}

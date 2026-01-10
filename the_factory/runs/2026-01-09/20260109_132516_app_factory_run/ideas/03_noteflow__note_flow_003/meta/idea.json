@@ -1,0 +1,13 @@
+{
+  "idea_id": "note_flow_003",
+  "idea_name": "NoteFlow",
+  "idea_slug": "noteflow",
+  "rank": 3,
+  "validation_score": 8.1,
+  "run_id": "20260109_132516_app_factory_run",
+  "generated": "2026-01-09T13:25:16Z",
+  "description": "Single-stream note-taking app that automatically organizes notes by temporal context without folders or tags",
+  "target_user": "Knowledge workers frustrated with complex note organization systems",
+  "mvp_complexity": "S",
+  "subscription_fit": "Premium tier with enhanced features and analytics"
+}

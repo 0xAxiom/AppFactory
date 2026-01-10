@@ -1,0 +1,92 @@
+{
+  "appName": "VisualBell - Kids Timer",
+  "slug": "visualbell",
+  "genre": "child-friendly utility timer",
+  "moodKeywords": ["encouraging", "gentle", "trustworthy", "playful", "calming", "bright"],
+  "designArchetype": "Child-First Visual Timer Interface",
+  "palette": {
+    "bg": "#FFFBF5",
+    "fg": "#374151", 
+    "primary": "#FFD93D",
+    "secondary": "#4ADE80",
+    "accent": "#60A5FA",
+    "surface": "#F3F4F6",
+    "warning": "#FB923C",
+    "error": "#F87171",
+    "success": "#10B981",
+    "muted": "#9CA3AF"
+  },
+  "typography": {
+    "primary": "System",
+    "fallbacks": ["system-ui", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+    "sizes": {
+      "timer": 72,
+      "heading": 32,
+      "body": 18,
+      "caption": 14
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 32,
+    "2xl": 48,
+    "3xl": 64,
+    "4xl": 80
+  },
+  "borderRadius": {
+    "small": 8,
+    "medium": 16,
+    "large": 24,
+    "full": 9999
+  },
+  "shadows": {
+    "subtle": "0 2px 8px rgba(0, 0, 0, 0.06)",
+    "card": "0 4px 16px rgba(0, 0, 0, 0.08)",
+    "float": "0 8px 24px rgba(0, 0, 0, 0.12)",
+    "modal": "0 16px 32px rgba(0, 0, 0, 0.16)",
+    "glow": "0 0 20px rgba(255, 217, 61, 0.3)"
+  },
+  "components": {
+    "buttonStyle": "Large touch targets (64px+ height) with gentle rounded corners, immediate haptic feedback, child-scale sizing",
+    "cardStyle": "Soft elevation with warm backgrounds, generous padding for visual breathing room",
+    "inputStyle": "Extra-large interactive elements (32px+ thumbs), high-contrast visual feedback",
+    "navigationStyle": "Minimal, gesture-based child navigation with hidden parent controls via long-press"
+  },
+  "childCentricFeatures": {
+    "touchTargets": "Minimum 64px, preferably 80px+ for primary actions",
+    "visualFeedback": "Immediate scaling, color changes, and haptic confirmation",
+    "errorPrevention": "Confirmation dialogs, easy undo, forgiving interactions",
+    "focusManagement": "Single primary action visible, minimal cognitive load"
+  },
+  "references": [
+    {
+      "name": "WCAG 2.1 AA Guidelines",
+      "notes": "Touch target sizes, color contrast ratios, screen reader accessibility"
+    },
+    {
+      "name": "Apple Human Interface Guidelines - Designing for Kids",
+      "notes": "Child-appropriate interaction patterns and safety considerations"
+    },
+    {
+      "name": "Material Design - Accessibility",
+      "notes": "Minimum touch target sizes and visual feedback patterns"
+    },
+    {
+      "name": "Stage 03 UX Design Specification",
+      "notes": "Child-centered design principles and interaction patterns for ages 4-10"
+    },
+    {
+      "name": "Stage 08 Brand Identity",
+      "notes": "Sunshine yellow primary colors and encouraging brand personality"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "boundary_path": "runs/2026-01-07/batch-specs-160132-meadow-spark/ideas/02_grocery_loop__grocery_loop_006/",
+  "allowed_reads": [
+    "runs/2026-01-07/batch-specs-160132-meadow-spark/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-160132-meadow-spark/meta/idea_index.json"
+  ],
+  "isolation_enforcement": "active"
+}

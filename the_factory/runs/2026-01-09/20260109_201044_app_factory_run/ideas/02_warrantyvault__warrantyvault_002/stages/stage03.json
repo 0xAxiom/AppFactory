@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "run_id": "20260109_201044_app_factory_run",
+    "idea_id": "warrantyvault_002",
+    "idea_name": "WarrantyVault",
+    "idea_dir": "02_warrantyvault__warrantyvault_002",
+    "source_root": "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/",
+    "input_stage_paths": [
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage02.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/meta/idea.json"
+    ],
+    "boundary_path": "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/meta/boundary.json"
+  },
+  "ux_design": {
+    "user_journey": {
+      "onboarding_flow": [
+        {
+          "step": "1",
+          "screen": "Welcome",
+          "user_action": "View intro",
+          "content": "App logo, tagline 'Never lose a warranty claim again', single CTA",
+          "goal": "Establish value proposition"
+        },
+        {
+          "step": "2",
+          "screen": "Value Props",
+          "user_action": "Swipe through 3 cards",
+          "content": "Track warranties, Get alerts before expiration, Access receipts instantly",
+          "goal": "Communicate core benefits"
+        },
+        {
+          "step": "3",
+          "screen": "Permissions",
+          "user_action": "Grant camera and notification access",
+          "content": "Explain why permissions are needed with clear skip option",
+          "goal": "Acquire necessary permissions"
+        },
+        {
+          "step": "4",
+          "screen": "First Item Prompt",
+          "user_action": "Tap 'Add Your First Item'",
+          "content": "Empty state with encouraging message and prominent add button",
+          "goal": "Drive first item creation for activation"
+        }
+      ],
+      "core_usage_flow": [
+        {
+          "step": "1",
+          "screen": "Dashboard",
+          "user_action": "View warranty status overview",
+          "content": "Sections: Expiring Soon, Active, Expired with item cards",
+          "goal": "Quick status awareness"
+        },
+        {
+          "step": "2",
+          "screen": "Add Item",
+          "user_action": "Capture receipt and enter details",
+          "content": "Camera capture, form fields, category picker, save button",
+          "goal": "Add item with minimal friction"
+        },
+        {
+          "step": "3",
+          "screen": "Item Detail",
+          "user_action": "View full item information",
+          "content": "Product info, countdown timer, receipt viewer, edit/delete actions",
+          "goal": "Access documentation for claims"
+        },
+        {
+          "step": "4",
+          "screen": "Settings",
+          "user_action": "Configure app and manage subscription",
+          "content": "Notification settings, upgrade to premium, restore purchases, about",
+          "goal": "Customize experience and convert to premium"
+        }
+      ]
+    },
+    "information_architecture": {
+      "primary_navigation": {
+        "type": "tab",
+        "sections": ["Dashboard", "Add Item", "Settings"],
+        "rationale": "Simple 3-tab structure keeps focus on core actions. Dashboard is primary destination, Add is always accessible, Settings contains secondary features."
+      },
+      "content_hierarchy": {
+        "levels": [
+          "Tab level: Dashboard, Add, Settings",
+          "Section level: Expiring, Active, Expired on Dashboard",
+          "Item level: Individual warranty cards",
+          "Detail level: Full item view with documents"
+        ],
+        "organization_principle": "Status-based grouping prioritizes items needing attention (expiring) over stable items (active)"
+      }
+    },
+    "wireframes": {
+      "home_screen": {
+        "layout": "Vertical scroll with collapsible sections. Top: Search/filter (future). Section headers with counts. Item cards in each section. FAB for quick add.",
+        "primary_cta": "Floating Action Button (Add Item) - always visible",
+        "secondary_elements": ["Section expand/collapse", "Pull to refresh", "Item tap to detail", "Category filter chips"],
+        "accessibility_notes": "Section headers are semantic headings. Item cards have full accessibility labels including days remaining. FAB has tooltip."
+      },
+      "core_feature_screens": [
+        {
+          "screen_name": "Add Item",
+          "purpose": "Capture receipt and warranty information",
+          "layout": "Full-screen form with camera preview at top, scrollable form below",
+          "key_elements": ["Camera/gallery toggle", "Product name input", "Date picker", "Warranty duration selector", "Category picker", "Optional fields collapsible", "Save button sticky at bottom"],
+          "accessibility_notes": "Form labels properly associated. Required fields clearly marked. Error messages announced to screen reader."
+        },
+        {
+          "screen_name": "Item Detail",
+          "purpose": "View complete warranty information and documentation",
+          "layout": "Scrollable detail view with receipt image hero, countdown prominent, info cards below",
+          "key_elements": ["Receipt image with zoom", "Days remaining countdown", "Product information card", "Purchase details card", "Edit button in header", "Delete with confirmation"],
+          "accessibility_notes": "Image has detailed alt text. Countdown announced as 'X days remaining'. Actions in logical tab order."
+        },
+        {
+          "screen_name": "Settings",
+          "purpose": "App configuration and subscription management",
+          "layout": "Grouped list with sections: Account, Notifications, About",
+          "key_elements": ["Upgrade to Premium banner", "Notification toggle", "Restore purchases", "Privacy policy", "Terms of service", "App version"],
+          "accessibility_notes": "Toggles have clear on/off state announced. Links open in-app browser or external."
+        },
+        {
+          "screen_name": "Paywall",
+          "purpose": "Present subscription offering",
+          "layout": "Modal with benefits list, pricing cards, legal disclosures",
+          "key_elements": ["Feature comparison list", "Monthly/Annual toggle", "Price with billing interval", "Subscribe button", "Restore purchases link", "Terms and cancellation info", "Dismiss button"],
+          "accessibility_notes": "Prices clearly announced. Selected plan indicated. Dismiss button prominent and labeled."
+        }
+      ]
+    },
+    "interaction_patterns": {
+      "primary_actions": {
+        "action": "Add new item",
+        "interaction": "Tap FAB → full-screen add form with camera",
+        "feedback": "Haptic on FAB tap, success toast on save, item appears in dashboard"
+      },
+      "navigation_gestures": [
+        "Tap to navigate (primary)",
+        "Swipe back to return (stack navigation)",
+        "Pull to refresh dashboard",
+        "Pinch to zoom receipt images"
+      ],
+      "accessibility_alternatives": [
+        "All gestures have tap alternatives",
+        "Reduce motion respects system setting",
+        "Voice control labels on all interactive elements"
+      ]
+    },
+    "visual_design_direction": {
+      "brand_personality": "Trustworthy, organized, protective. Like a digital filing cabinet that works for you.",
+      "color_strategy": {
+        "primary": "#2563EB (Blue-600) - Trust, reliability. 4.5:1 contrast on white",
+        "secondary": "#059669 (Emerald-600) - Protection, success",
+        "accessibility_compliant": true
+      },
+      "typography": {
+        "primary_font": "System font (SF Pro on iOS, Roboto on Android)",
+        "scale_factor": "Dynamic Type support up to 200%",
+        "readability_notes": "Body text minimum 16pt, headings use semibold weight, line height 1.5 for body"
+      }
+    },
+    "accessibility_requirements": {
+      "wcag_compliance": "WCAG 2.1 AA",
+      "screen_reader_support": [
+        "All images have descriptive alt text",
+        "Form fields have associated labels",
+        "Status changes announced",
+        "Navigation state communicated"
+      ],
+      "motor_accessibility": [
+        "Touch targets minimum 44pt (iOS) / 48dp (Android)",
+        "No time-limited interactions",
+        "Single-tap for all primary actions"
+      ],
+      "visual_accessibility": [
+        "4.5:1 contrast ratio minimum",
+        "Color not sole indicator of status",
+        "Support for increased text sizes",
+        "Dark mode support"
+      ],
+      "cognitive_accessibility": [
+        "Clear, simple language",
+        "Consistent navigation patterns",
+        "Confirmation for destructive actions",
+        "Progress indicators for multi-step flows"
+      ]
+    }
+  }
+}

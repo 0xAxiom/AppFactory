@@ -1,0 +1,16 @@
+{
+  "idea_id": "evp_analyzer_001",
+  "idea_dir": "01_evpanalyzerpro__evp_analyzer_001",
+  "run_id": "dream-100541-10d5e81a",
+  "allowed_paths": [
+    "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/",
+    "runs/2026-01-08/dream-100541-10d5e81a/stage01_dream/stages/stage01_dream.json",
+    "runs/2026-01-08/dream-100541-10d5e81a/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-08/dream-100541-10d5e81a/ideas/*/",
+    "runs/*/",
+    "leaderboards/*"
+  ],
+  "isolation_enforced": true
+}

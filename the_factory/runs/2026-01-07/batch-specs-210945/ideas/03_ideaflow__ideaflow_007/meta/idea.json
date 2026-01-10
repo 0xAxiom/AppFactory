@@ -1,0 +1,24 @@
+{
+  "id": "ideaflow_007",
+  "name": "IdeaFlow",
+  "validation_score": 8.0,
+  "signal_source": "Creative workers describe apps that 'generate article outlines from your scattered thoughts' and help 'visually organize and connect ideas'",
+  "description": "Visual idea organization tool that helps creative professionals connect scattered thoughts through spatial arrangement",
+  "target_user": "Creative professionals and researchers who think visually and struggle with linear note-taking systems",
+  "pain_point_evidence": "Users report traditional apps don't 'let me see my thoughts, no matter how scattered they are at first' and need 'visual manipulation with ease'",
+  "core_loop": [
+    "Capture ideas as visual nodes",
+    "Arrange thoughts spatially",
+    "Draw connections between ideas",
+    "Group related concepts",
+    "Export organized idea maps"
+  ],
+  "differentiation": "Spatial thinking vs. linear notes, visual organization over text-based systems",
+  "subscription_fit": "Premium includes unlimited idea maps, team collaboration, and advanced export formats",
+  "mvp_complexity": "M",
+  "pricing": {
+    "monthly_range": "$5.99-$8.99",
+    "annual_range": "$49.99-$79.99",
+    "trial_strategy": "Free basic mapping, premium for unlimited maps and collaboration"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "run_id": "app_factory_000033",
+    "idea_id": "pocket_ledger_001",
+    "idea_name": "PocketLedger",
+    "idea_dir": "01_pocket_ledger__pocket_ledger_001",
+    "source_root": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/stages/stage06.json"
+    ],
+    "boundary_path": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/meta/boundary.json"
+  },
+  "quality_standards": {
+    "performance_requirements": {
+      "app_launch_time": "< 3 seconds cold start",
+      "navigation_responsiveness": "< 300ms transition times",
+      "database_query_performance": "< 100ms for standard operations",
+      "memory_usage": "< 150MB peak memory usage"
+    },
+    "accessibility_standards": {
+      "wcag_compliance": "WCAG 2.1 AA compliance for all UI elements",
+      "platform_accessibility": "Full VoiceOver and TalkBack support",
+      "touch_targets": "Minimum 44x44pt touch targets for all interactive elements",
+      "color_contrast": "4.5:1 minimum contrast ratio for all text"
+    },
+    "privacy_standards": {
+      "data_handling": "All financial data remains local by default",
+      "encryption": "AES-256 encryption for sensitive data",
+      "user_consent": "Clear consent for optional cloud backup features",
+      "transparency": "Open source privacy policy with technical implementation details"
+    }
+  },
+  "testing_requirements": {
+    "code_coverage": "Minimum 80% test coverage for critical financial logic",
+    "device_testing": "Testing across iPhone 12+, Android API 28+, various screen sizes",
+    "security_testing": "Penetration testing for data encryption and local storage security",
+    "performance_testing": "Load testing with 10,000+ transactions per user scenario"
+  },
+  "refinement_plan": {
+    "iteration_cycles": [
+      "Alpha: Core functionality testing with internal team",
+      "Beta: Limited user testing with privacy-conscious early adopters",
+      "Release Candidate: Performance optimization and polish",
+      "Production: Gradual rollout with monitoring and feedback collection"
+    ]
+  }
+}

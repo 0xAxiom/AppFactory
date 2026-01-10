@@ -1,0 +1,10 @@
+{
+  "idea_id": "offline_flow_002",
+  "name": "OfflineFlow",
+  "rank": 2,
+  "validation_score": 8.4,
+  "run_id": "app_factory_000033",
+  "generated": "2026-01-09T00:01:00.000Z",
+  "description": "Task manager and note-taking app with true offline-first design and optional peer-to-peer sync",
+  "target_user": "Mobile workers and professionals in low-connectivity environments wanting reliable productivity tools"
+}

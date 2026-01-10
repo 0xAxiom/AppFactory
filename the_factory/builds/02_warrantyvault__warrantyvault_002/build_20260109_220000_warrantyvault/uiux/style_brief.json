@@ -1,0 +1,60 @@
+{
+  "appName": "WarrantyVault",
+  "slug": "warrantyvault",
+  "genre": "utility/home-management",
+  "moodKeywords": ["trustworthy", "protective", "organized", "professional", "reliable"],
+  "designArchetype": "Trust-Focused Utility Dashboard",
+  "palette": {
+    "bg": "#F9FAFB",
+    "fg": "#1F2937",
+    "primary": "#2563EB",
+    "secondary": "#059669",
+    "warning": "#EA580C",
+    "accent": "#3B82F6",
+    "error": "#EF4444",
+    "muted": "#6B7280",
+    "border": "#E5E7EB",
+    "surface": "#FFFFFF"
+  },
+  "typography": {
+    "primary": "System",
+    "fallbacks": ["SF Pro", "Roboto", "-apple-system", "BlinkMacSystemFont"]
+  },
+  "components": {
+    "buttonStyle": "Solid primary with rounded corners, ghost secondary",
+    "cardStyle": "White elevated cards with status-colored left border",
+    "inputStyle": "Outlined with floating label, blue focus state",
+    "navigationStyle": "Bottom tabs with icon + label, large title headers"
+  },
+  "statusIndicators": {
+    "active": {
+      "color": "#059669",
+      "icon": "shield-check",
+      "label": "Active"
+    },
+    "expiring": {
+      "color": "#EA580C",
+      "icon": "clock",
+      "label": "Expiring Soon"
+    },
+    "expired": {
+      "color": "#6B7280",
+      "icon": "x-circle",
+      "label": "Expired"
+    }
+  },
+  "references": [
+    {
+      "name": "Apple Files App",
+      "notes": "Clean utility aesthetic, status-based organization"
+    },
+    {
+      "name": "Google Keep",
+      "notes": "Card-based content organization, color-coded categories"
+    },
+    {
+      "name": "1Password",
+      "notes": "Trust-focused branding, vault metaphor"
+    }
+  ]
+}

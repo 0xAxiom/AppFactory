@@ -1,0 +1,24 @@
+{
+  "id": "timezone_003",
+  "name": "TimeZone",
+  "validation_score": 7.6,
+  "signal_source": "Remote workers report 'it's impossible to keep track of everyone's local time zone all the time' and 'time zones can be a bit puzzling'",
+  "description": "Personal time zone coordinator for remote workers and travelers that eliminates scheduling confusion",
+  "target_user": "Remote workers and frequent travelers who coordinate with teams across multiple time zones and make scheduling mistakes",
+  "pain_point_evidence": "Users need to 'explicitly state the deadline in your time zone and your teammate's time zone to erase any chance of confusion'",
+  "core_loop": [
+    "Add key contacts with time zones",
+    "Visual time overlap finder",
+    "One-tap meeting scheduling",
+    "Travel time zone updates",
+    "Deadline conversion helper"
+  ],
+  "differentiation": "Personal coordination vs. team software, focuses on individual workflow rather than enterprise features",
+  "subscription_fit": "Premium includes unlimited contacts, calendar integration, and travel automation",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$2.99-$4.99",
+    "annual_range": "$24.99-$39.99",
+    "trial_strategy": "Free basic coordination, premium for advanced features and integrations"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "app_name": "WarrantyVault",
+  "validation_status": "PASSED",
+  "primary_flows": [
+    {
+      "flow_id": "add_item",
+      "flow_name": "Add New Item",
+      "screens_touched": ["Dashboard", "Add Item", "Camera Modal"],
+      "steps": [
+        {"step": 1, "action": "Tap FAB or Add tab", "expected": "Add Item screen opens"},
+        {"step": 2, "action": "Tap camera area", "expected": "Camera modal opens or gallery picker"},
+        {"step": 3, "action": "Capture/select photo", "expected": "Photo displayed in preview"},
+        {"step": 4, "action": "Enter product name", "expected": "Text input accepts value"},
+        {"step": 5, "action": "Select purchase date", "expected": "Date picker allows selection"},
+        {"step": 6, "action": "Choose warranty duration", "expected": "Duration selector works"},
+        {"step": 7, "action": "Select category", "expected": "Category picker shows options"},
+        {"step": 8, "action": "Tap Save", "expected": "Item saved, navigate to Dashboard"},
+        {"step": 9, "action": "Verify item appears", "expected": "Item in correct status section"}
+      ],
+      "data_written": ["Item object to AsyncStorage", "Receipt image to filesystem"],
+      "validation_result": "COMPLETE",
+      "placeholder_checks": {
+        "ui_placeholders": false,
+        "logic_placeholders": false,
+        "data_placeholders": false
+      }
+    },
+    {
+      "flow_id": "view_item",
+      "flow_name": "View Item Detail",
+      "screens_touched": ["Dashboard", "Item Detail"],
+      "steps": [
+        {"step": 1, "action": "Tap item card", "expected": "Navigate to Item Detail"},
+        {"step": 2, "action": "View receipt image", "expected": "Image displays correctly"},
+        {"step": 3, "action": "Tap image", "expected": "Image zooms for detail view"},
+        {"step": 4, "action": "View countdown", "expected": "Days remaining displayed"},
+        {"step": 5, "action": "View details", "expected": "All item fields visible"}
+      ],
+      "data_read": ["Item from AsyncStorage by ID", "Image from filesystem"],
+      "validation_result": "COMPLETE",
+      "placeholder_checks": {
+        "ui_placeholders": false,
+        "logic_placeholders": false,
+        "data_placeholders": false
+      }
+    },
+    {
+      "flow_id": "upgrade_subscription",
+      "flow_name": "Upgrade to Premium",
+      "screens_touched": ["Settings", "Paywall"],
+      "steps": [
+        {"step": 1, "action": "Navigate to Settings", "expected": "Settings screen displays"},
+        {"step": 2, "action": "Tap Upgrade button", "expected": "Paywall modal opens"},
+        {"step": 3, "action": "View offerings", "expected": "Monthly/Annual options displayed"},
+        {"step": 4, "action": "Select plan", "expected": "Plan highlighted"},
+        {"step": 5, "action": "Tap Subscribe", "expected": "StoreKit/Play Billing dialog"},
+        {"step": 6, "action": "Complete purchase", "expected": "Entitlement granted"},
+        {"step": 7, "action": "Close paywall", "expected": "Return to Settings, premium active"}
+      ],
+      "data_written": ["Entitlement cached locally"],
+      "validation_result": "COMPLETE",
+      "placeholder_checks": {
+        "ui_placeholders": false,
+        "logic_placeholders": false,
+        "data_placeholders": false
+      }
+    },
+    {
+      "flow_id": "item_limit_trigger",
+      "flow_name": "Hit Item Limit",
+      "screens_touched": ["Dashboard", "Add Item", "Paywall"],
+      "steps": [
+        {"step": 1, "action": "Have 10 items", "expected": "Free tier limit reached"},
+        {"step": 2, "action": "Attempt to add 11th", "expected": "Paywall appears"},
+        {"step": 3, "action": "View limit message", "expected": "Explains 10-item limit"},
+        {"step": 4, "action": "Dismiss or subscribe", "expected": "Returns to appropriate state"}
+      ],
+      "data_read": ["Item count from AsyncStorage", "Entitlement from RevenueCat"],
+      "validation_result": "COMPLETE",
+      "placeholder_checks": {
+        "ui_placeholders": false,
+        "logic_placeholders": false,
+        "data_placeholders": false
+      }
+    },
+    {
+      "flow_id": "restore_purchases",
+      "flow_name": "Restore Purchases",
+      "screens_touched": ["Settings", "Paywall"],
+      "steps": [
+        {"step": 1, "action": "Navigate to Settings", "expected": "Settings screen displays"},
+        {"step": 2, "action": "Tap Restore Purchases", "expected": "Loading indicator"},
+        {"step": 3, "action": "RevenueCat restore", "expected": "API call made"},
+        {"step": 4, "action": "View result", "expected": "Success or no purchases found"}
+      ],
+      "data_written": ["Entitlement updated if found"],
+      "validation_result": "COMPLETE",
+      "placeholder_checks": {
+        "ui_placeholders": false,
+        "logic_placeholders": false,
+        "data_placeholders": false
+      }
+    }
+  ],
+  "edge_case_coverage": {
+    "empty_state": "Dashboard shows empty vault illustration with Add prompt",
+    "expired_items": "Items in Expired section with gray styling",
+    "permission_denied": "Graceful fallback for camera/notification permissions",
+    "offline_mode": "All core features work without network"
+  }
+}

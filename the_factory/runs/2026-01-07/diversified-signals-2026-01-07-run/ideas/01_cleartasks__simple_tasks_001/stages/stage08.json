@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "run_id": "diversified-signals-2026-01-07-run",
+    "idea_id": "simple_tasks_001",
+    "idea_name": "ClearTasks", 
+    "idea_dir": "01_cleartasks__simple_tasks_001",
+    "source_root": "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/",
+    "input_stage_paths": ["runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/stages/stage07.json"],
+    "boundary_path": "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/01_cleartasks__simple_tasks_001/meta/boundary.json"
+  },
+  "brand_identity": {
+    "visual_identity": {
+      "app_icon": "Minimalist checkmark in circle, primary blue (#2563EB)",
+      "color_scheme": "Clean blue primary, neutral grays, minimal palette",
+      "typography": "System fonts (SF Pro/Roboto), emphasis on readability"
+    },
+    "brand_voice": {
+      "personality": "Simple, focused, no-nonsense productivity",
+      "tone": "Encouraging but not pushy, clarity over cleverness", 
+      "messaging": "Get things done without the complexity"
+    },
+    "app_name_rationale": "ClearTasks - immediately communicates simplicity and task focus"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "idea_id": "pack_list_004",
+  "run_id": "batch-specs-010718-5233",
+  "idea_dir": "04_pack_list__pack_list_004",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-010718-5233/ideas/04_pack_list__pack_list_004/",
+    "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-010718-5233/meta/idea_index.json"
+  ],
+  "isolation_enforced": true
+}

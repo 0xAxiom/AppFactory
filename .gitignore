@@ -1,13 +1,7 @@
 # App Factory Production Gitignore
 # Conservative approach: better to ignore too much than leak sensitive data
 
-# Generated pipeline artifacts - NEVER commit these
-# runs/ contains all pipeline execution outputs
-# builds/ contains generated React Native apps  
-runs/
-builds/
-the_factory/runs/
-the_factory/builds/
+# Pipeline execution logs (but NOT runs/ or builds/ - we want those tracked)
 **/outputs/
 *.log
 *.tmp
@@ -81,5 +75,4 @@ dashboard/public/leaderboard.json
 preview/node_modules/
 preview/.runtime/
 preview/dist/
-preview/*.logweb3-factory/runs/
-web3-factory/builds/
+preview/*.log

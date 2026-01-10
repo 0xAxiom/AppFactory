@@ -1,0 +1,196 @@
+{
+  "stage_metadata": {
+    "stage_id": "02",
+    "run_id": "20260109_134939_dream_memevault",
+    "idea_id": "memevault_001",
+    "idea_name": "MemeVault",
+    "idea_dir": "01_memevault__memevault_001",
+    "source_root": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/",
+    "execution_timestamp": "2026-01-09T13:49:39Z",
+    "input_stage_paths": [
+      "runs/2026-01-09/20260109_134939_dream_memevault/stage01_dream/stages/stage01_dream.json",
+      "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/meta/idea.json"
+    ],
+    "boundary_path": "runs/2026-01-09/20260109_134939_dream_memevault/ideas/01_memevault__memevault_001/meta/boundary.json"
+  },
+  "product_definition": {
+    "core_value_proposition": "The fastest, cleanest way to save, organize, and find memes with AI-powered tagging and professional-grade organization features",
+    "target_user_segments": [
+      {
+        "segment": "Casual Meme Enthusiasts", 
+        "size_estimate": "Large",
+        "pain_points": ["Losing favorite memes", "Scattered storage across platforms", "Can't find specific memes when needed"],
+        "willingness_to_pay": "Low to Medium"
+      },
+      {
+        "segment": "Content Creators",
+        "size_estimate": "Medium", 
+        "pain_points": ["Need quick access to meme templates", "Organizing content libraries", "Efficient workflow for social media"],
+        "willingness_to_pay": "High"
+      },
+      {
+        "segment": "Social Media Managers",
+        "size_estimate": "Small but High Value",
+        "pain_points": ["Professional asset management", "Team collaboration on meme libraries", "Brand-safe content curation"],
+        "willingness_to_pay": "Very High"
+      }
+    ],
+    "problem_solution_fit": {
+      "core_problem": "Memes get lost in camera rolls, saved across multiple apps, and become impossible to find when needed",
+      "solution_approach": "Dedicated meme library with AI-powered organization, advanced search, and subscription-tier professional features",
+      "evidence": "Users report meme libraries 'spiral out of control fast' and current solutions are either creation-focused or storage-focused, not both"
+    }
+  },
+  "feature_specification": {
+    "mvp_features": [
+      {
+        "feature": "Meme Import & Save",
+        "description": "Save memes from camera roll, screenshots, share sheet, or direct camera capture",
+        "user_story": "As a user, I want to quickly save memes from any source so I don't lose them",
+        "acceptance_criteria": ["Import from camera roll", "Save from share sheet", "Quick camera capture", "Batch import support"],
+        "priority": "Critical"
+      },
+      {
+        "feature": "Smart Organization",
+        "description": "AI-powered auto-tagging with custom tags, folders, and collections",
+        "user_story": "As a user, I want my memes automatically organized so I can find them easily",
+        "acceptance_criteria": ["Auto-tag with AI", "Custom tag creation", "Folder organization", "Collection curation"],
+        "priority": "Critical"
+      },
+      {
+        "feature": "Advanced Search",
+        "description": "Search by tags, text in image, date, source, or custom metadata",
+        "user_story": "As a user, I want to quickly find specific memes using various search criteria",
+        "acceptance_criteria": ["Tag-based search", "OCR text search", "Date filtering", "Source tracking"],
+        "priority": "High"
+      },
+      {
+        "feature": "Sharing & Export",
+        "description": "Share individual memes or collections with customizable quality and formats",
+        "user_story": "As a user, I want to easily share my favorite memes or curated collections",
+        "acceptance_criteria": ["Individual meme sharing", "Collection sharing", "Quality options", "Format options"],
+        "priority": "High"
+      },
+      {
+        "feature": "Caption Management",
+        "description": "Add, edit, and search custom captions for memes",
+        "user_story": "As a user, I want to add context or notes to my memes for better organization",
+        "acceptance_criteria": ["Custom captions", "Caption search", "Caption editing", "Bulk caption operations"],
+        "priority": "Medium"
+      }
+    ],
+    "premium_features": [
+      {
+        "feature": "Unlimited Storage",
+        "description": "Remove 100-meme limit for free tier",
+        "justification": "Primary subscription driver for power users"
+      },
+      {
+        "feature": "AI Auto-Tagging",
+        "description": "Advanced AI recognition for automatic content-based tagging",
+        "justification": "Significant time-saver for organization"
+      },
+      {
+        "feature": "Advanced Search & Filters",
+        "description": "OCR text search, similarity search, and complex filter combinations",
+        "justification": "Professional workflow efficiency"
+      },
+      {
+        "feature": "Custom Organization Systems",
+        "description": "Unlimited folders, collections, and custom metadata fields",
+        "justification": "Power user organization needs"
+      },
+      {
+        "feature": "High-Quality Export",
+        "description": "Original quality preservation and bulk export options",
+        "justification": "Content creator workflow requirements"
+      },
+      {
+        "feature": "Cloud Sync & Backup",
+        "description": "Cross-device sync and automatic backup to cloud storage",
+        "justification": "Data safety and multi-device workflows"
+      }
+    ],
+    "excluded_features": [
+      {
+        "feature": "Meme Generation/Creation",
+        "reason": "Out of scope for MVP - focus on library/organization, not creation"
+      },
+      {
+        "feature": "Social Features",
+        "reason": "Avoid complexity of user-generated content and social networking"
+      },
+      {
+        "feature": "Meme Trading/Marketplace",
+        "reason": "Avoid financial transaction complexity"
+      }
+    ]
+  },
+  "technical_requirements": {
+    "platform_support": ["iOS", "Android"],
+    "minimum_versions": {
+      "ios": "iOS 14.0+",
+      "android": "Android API 21+ (5.0)"
+    },
+    "performance_targets": {
+      "app_launch": "< 2 seconds",
+      "meme_load": "< 1 second for grid view",
+      "search_results": "< 0.5 seconds",
+      "import_time": "< 3 seconds per meme"
+    },
+    "storage_requirements": {
+      "local_cache": "100MB base + user content",
+      "cloud_storage": "Integration with RevenueCat for subscription management"
+    },
+    "ai_integration": {
+      "image_recognition": "On-device ML for basic tagging, cloud ML for advanced features",
+      "text_recognition": "OCR for meme text extraction",
+      "content_moderation": "Basic inappropriate content filtering"
+    }
+  },
+  "business_model": {
+    "subscription_tiers": [
+      {
+        "tier": "Free",
+        "price": "$0",
+        "features": ["100 meme limit", "Basic folders", "Standard sharing", "Basic search"],
+        "target": "Casual users and trial experience"
+      },
+      {
+        "tier": "Pro Monthly", 
+        "price": "$4.99/month",
+        "features": ["Unlimited storage", "AI auto-tagging", "Advanced search", "High-quality export", "Cloud sync"],
+        "target": "Regular users and content creators"
+      },
+      {
+        "tier": "Pro Annual",
+        "price": "$34.99/year", 
+        "features": ["All Pro features", "Priority support", "Early feature access"],
+        "target": "Power users with 30% annual savings"
+      }
+    ],
+    "monetization_strategy": "Freemium with clear upgrade path through storage and AI feature limitations",
+    "revenue_projections": {
+      "target_conversion_rate": "8-12% free to paid",
+      "average_revenue_per_user": "$3.50/month",
+      "customer_acquisition_cost": "$15-25"
+    }
+  },
+  "success_metrics": {
+    "user_engagement": [
+      "Daily active users (target: 40% of MAU)",
+      "Average session length (target: 3-5 minutes)",
+      "Memes saved per user per week (target: 10+)"
+    ],
+    "business_metrics": [
+      "Free to paid conversion rate (target: 10%)",
+      "Monthly churn rate (target: <5%)",
+      "Net Promoter Score (target: >50)"
+    ],
+    "product_metrics": [
+      "Search success rate (target: >90%)",
+      "Import success rate (target: >95%)",
+      "App store rating (target: >4.5)"
+    ]
+  }
+}

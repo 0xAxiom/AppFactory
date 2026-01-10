@@ -1,0 +1,23 @@
+{
+  "idea_id": "warrantyvault_002",
+  "idea_name": "WarrantyVault",
+  "idea_slug": "warrantyvault",
+  "rank": 2,
+  "validation_score": 8.9,
+  "description": "Home warranty and receipt tracker with expiration alerts. Scan receipts, auto-extract warranty dates, store product manuals, and get reminded before coverage expires.",
+  "target_user": "Homeowners and renters with valuable appliances, electronics, and furniture who want to protect their purchases",
+  "core_loop": [
+    "Scan receipt or manually add purchase",
+    "Auto-extract warranty period and product details",
+    "Store digital copy of receipt and manual",
+    "Receive alert 30 days before warranty expires",
+    "Access documentation for warranty claims"
+  ],
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$2.99-$4.99",
+    "annual_range": "$24.99-$39.99"
+  },
+  "run_id": "20260109_201044_app_factory_run",
+  "source_stage": "stage01"
+}

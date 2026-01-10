@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-170756",
+  "idea_id": "retainify_003",
+  "idea_name": "Retainify",
+  "idea_slug": "retainify",
+  "rank": 3,
+  "validation_score": 8.0,
+  "frozen_definition": {
+    "id": "retainify_003",
+    "name": "Retainify",
+    "validation_score": 8.0,
+    "signal_source": "Educational studies show students 'spend hours studying, only to forget everything days later' and 'rereading same material over and over, never really stuck'",
+    "description": "Gentle spaced repetition app that sends non-intrusive review reminders for any content you're learning, without complex flashcard creation",
+    "target_user": "Students and lifelong learners frustrated with poor retention despite significant study time investment",
+    "pain_point_evidence": "Research shows dramatic retention drops without review, students report exhaustion from cramming with poor results",
+    "core_loop": [
+      "Snap photo or type key concept learned",
+      "Get gentle reminder notification after optimal interval",
+      "Quick 30-second review",
+      "Mark as remembered or needs review",
+      "Adaptive scheduling based on performance"
+    ],
+    "differentiation": "Effortless capture vs. complex flashcard creation, focuses on gentle nudges vs. aggressive testing",
+    "subscription_fit": "Premium includes unlimited concepts, advanced scheduling, study analytics, and cross-device sync",
+    "mvp_complexity": "M",
+    "pricing": {
+      "monthly_range": "$5.99-$7.99",
+      "annual_range": "$49.99-$69.99",
+      "trial_strategy": "Free for 20 concepts, premium for unlimited and advanced features"
+    }
+  }
+}

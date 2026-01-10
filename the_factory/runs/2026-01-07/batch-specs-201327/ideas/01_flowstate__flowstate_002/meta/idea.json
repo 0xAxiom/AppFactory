@@ -1,0 +1,18 @@
+{
+  "id": "flowstate_002",
+  "name": "FlowState",
+  "validation_score": 8.6,
+  "signal_source": "Productivity research shows employees lose 3.3 hours weekly to app switching, with 56% reporting performance impact from context switching",
+  "description": "Single-session focus environment that consolidates essential work functions to eliminate context switching during deep work",
+  "target_user": "Knowledge workers who struggle with productivity loss due to constant app switching and digital interruptions",
+  "pain_point_evidence": "Workers toggle between apps 1,200 times daily, with 45% saying app switching makes them less productive and 43% finding it mentally exhausting",
+  "core_loop": ["Launch unified work session", "Access consolidated tools in single interface", "Block external interruptions automatically", "Track focus quality metrics", "Celebrate uninterrupted work periods"],
+  "differentiation": "Session-based focus vs. app blocking, consolidates tools rather than restricting access",
+  "subscription_fit": "Premium includes team coordination, advanced integrations, and detailed focus analytics",
+  "mvp_complexity": "L",
+  "pricing": {
+    "monthly_range": "$8.99-$12.99",
+    "annual_range": "$79.99-$119.99",
+    "trial_strategy": "Free individual sessions, premium for team features and integrations"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "simpletap_004",
+  "name": "SimpleTap",
+  "validation_score": 7.8,
+  "signal_source": "Senior usability research shows 'technology can often leave seniors feeling overwhelmed, excluded, and even anxious' with complex interfaces",
+  "description": "Large-button utility app for common daily tasks designed specifically for older adults who struggle with complex interfaces",
+  "target_user": "Older adults frustrated with small text and complicated menus who need simple tools for daily digital tasks",
+  "pain_point_evidence": "Current apps feature 'illegible text, tiny targets' with 'complicated jargon' that may frustrate senior users",
+  "core_loop": ["Choose task from large, clear buttons", "Complete action with minimal steps", "Get simple confirmation feedback", "Access help through video tutorials", "Save favorite actions for quick access"],
+  "differentiation": "Senior-first design vs. age-agnostic interfaces, prioritizes clarity over feature density",
+  "subscription_fit": "Premium includes family sharing, advanced help features, and priority customer support",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$2.99-$4.99",
+    "annual_range": "$24.99-$39.99",
+    "trial_strategy": "Free basic functions, premium for family features and enhanced support"
+  }
+}

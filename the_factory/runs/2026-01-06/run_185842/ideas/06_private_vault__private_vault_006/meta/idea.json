@@ -1,0 +1,15 @@
+{
+  "idea_id": "private_vault_006",
+  "idea_name": "PrivateVault",
+  "run_id": "run_185842",
+  "rank": 6,
+  "validation_score": 7.9,
+  "description": "Encrypted personal data manager for storing sensitive documents, passwords, and personal information with local control and optional encrypted sync",
+  "target_user": "Privacy-conscious individuals wanting secure personal data storage without cloud surveillance",
+  "core_loop": ["Secure document upload", "Encrypted categorization", "Biometric access control", "Selective sharing with encryption"],
+  "differentiation": "Local-first architecture with user-controlled encryption keys; no data access by service provider",
+  "subscription_fit": "Advanced encryption algorithms, unlimited storage, family vaults, secure sharing features",
+  "mvp_complexity": "M",
+  "source_stage01": "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+  "frozen_timestamp": "2026-01-06T18:58:42Z"
+}

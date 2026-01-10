@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "run_id": "app_factory_000033",
+    "idea_id": "pocket_ledger_001",
+    "idea_name": "PocketLedger",
+    "idea_dir": "01_pocket_ledger__pocket_ledger_001",
+    "source_root": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/stages/stage05.json"
+    ],
+    "boundary_path": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/meta/boundary.json"
+  },
+  "implementation_specifications": {
+    "project_structure": {
+      "expo_configuration": "Expo managed workflow with development build for camera and RevenueCat features",
+      "navigation_setup": "Expo Router v4 with file-based routing, bottom tab navigation with modal screens",
+      "state_management": "Zustand for global state, React Query for database query optimization"
+    },
+    "database_implementation": {
+      "schema_design": "Normalized SQLite schema with envelopes, transactions, budgets, and goals tables",
+      "indexing_strategy": "Composite indexes on envelope_id + date for fast transaction queries",
+      "migration_support": "Database versioning with automated migration scripts for updates"
+    },
+    "feature_implementation_order": [
+      "Core database setup and envelope CRUD operations",
+      "Basic transaction entry and envelope assignment",
+      "Navigation structure and UI components",
+      "Receipt camera integration and basic OCR",
+      "Analytics and insights visualization",
+      "RevenueCat subscription integration",
+      "Data export and backup functionality"
+    ],
+    "security_implementation": {
+      "encryption_setup": "expo-secure-store for encryption keys, AES-256 for sensitive data",
+      "privacy_controls": "Guest-first authentication, optional biometric app lock",
+      "data_export": "Encrypted JSON export with user-controlled backup destinations"
+    }
+  },
+  "testing_strategy": {
+    "unit_testing": "Jest with React Testing Library for component testing",
+    "integration_testing": "Database operation testing with SQLite memory database",
+    "e2e_testing": "Detox for critical user flow testing on physical devices",
+    "performance_testing": "Flipper integration for performance monitoring and optimization"
+  }
+}

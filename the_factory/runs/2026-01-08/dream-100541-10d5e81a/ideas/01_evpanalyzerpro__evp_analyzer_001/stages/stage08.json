@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "run_id": "dream-100541-10d5e81a",
+    "idea_id": "evp_analyzer_001",
+    "idea_name": "EVP Analyzer Pro",
+    "idea_dir": "01_evpanalyzerpro__evp_analyzer_001",
+    "source_root": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/",
+    "input_stage_paths": [
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/stages/stage07.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/stages/stage02.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+  },
+  "brand_and_marketing": {
+    "brand_identity": {
+      "brand_positioning": "Premium professional tool for serious paranormal investigators - the industry standard for authentic EVP analysis. Positioned as the professional-grade alternative to entertainment-focused paranormal apps, offering scientific rigor and evidence-quality documentation capabilities.",
+      "brand_personality": "Scientific, reliable, professional, authentic, precise. Embodies the serious investigator's commitment to evidence-based research while respecting the mystery and significance of paranormal investigation. Trustworthy tool for professionals who stake their reputation on accurate documentation.",
+      "unique_value_proposition": "The only mobile app providing authentic, professional-grade EVP analysis with automatic anomaly detection and evidence-quality export formats. Replaces $300+ hardware with superior mobile convenience while maintaining scientific integrity and professional credibility.",
+      "brand_voice": "Professional yet approachable, scientific without being intimidating, respectful of the investigation community's expertise. Confident in capabilities without overstating or making supernatural claims. Educational tone that elevates the practice of paranormal investigation."
+    },
+    "visual_identity": {
+      "logo_concept": "Modern, minimalist design featuring audio waveform element integrated with subtle paranormal investigation symbolism. Clean typography suggesting precision instruments. Dark/light variants for professional applications. Scalable design working at app icon size and full logo presentations.",
+      "color_palette": "Primary: Deep blue (#1565C0) suggesting reliability and professionalism. Accent: Amber/Orange (#FF9800) for anomaly highlighting and calls-to-action. Supporting: Rich blacks (#121212) and high-contrast whites (#FFFFFF). All colors selected for WCAG AA accessibility compliance and professional aesthetics.",
+      "typography": "Primary: Clean, modern sans-serif with excellent legibility at small sizes (Inter, SF Pro, Roboto). Secondary: Monospace font for technical data and timestamps. Typography hierarchy supports both professional documentation and mobile interface requirements with full Dynamic Type support.",
+      "iconography_style": "Minimal, precise line icons suggesting professional audio equipment and scientific instruments. Consistent stroke width and corner radius. Icons focus on functionality over decoration, maintaining professional aesthetic while being immediately recognizable at small sizes.",
+      "app_icon_concept": "Stylized audio waveform with subtle anomaly spike, professional color scheme, clean design that stands out in app stores while conveying audio analysis purpose. Variants optimized for different icon sizes and contexts (home screen, settings, notifications)."
+    },
+    "messaging_strategy": {
+      "core_messages": [
+        "Professional-grade EVP analysis in your pocket",
+        "Authentic investigation tools for serious researchers", 
+        "Replace expensive hardware with superior mobile analysis",
+        "Evidence-quality documentation and export capabilities",
+        "Trusted by professional paranormal investigators",
+        "Scientific approach to supernatural investigation"
+      ],
+      "target_audience_messaging": "Professional investigators: Emphasize cost savings, evidence quality, and professional credibility. Serious hobbyists: Focus on learning proper techniques and building credible evidence collection. Audio professionals: Highlight advanced analysis capabilities and export quality.",
+      "competitive_differentiation": "Only professional mobile EVP analysis tool with authentic algorithms (no fake sounds or entertainment features). Professional export formats unlike consumer apps. Subscription model supporting ongoing development unlike one-time purchase entertainment apps. Scientific credibility over entertainment value.",
+      "emotional_positioning": "Empowers serious investigators with professional tools, building confidence in their investigation process. Respects the significance and mystery of paranormal investigation while providing scientific rigor. Creates sense of professional community among serious practitioners."
+    },
+    "marketing_channels": {
+      "primary_channels": [
+        "Paranormal investigation forums and communities",
+        "YouTube paranormal investigation channels", 
+        "Ghost hunting equipment retailers",
+        "Professional paranormal investigator associations",
+        "Audio analysis and recording communities",
+        "App Store and Google Play Store optimization"
+      ],
+      "content_strategy": "Educational content demonstrating proper EVP analysis techniques, case studies from professional investigations, tutorials on evidence documentation, comparisons with hardware alternatives. Focus on building credibility and demonstrating authentic value rather than sensational content.",
+      "influencer_strategy": "Partner with respected paranormal investigators and ghost hunting teams to demonstrate professional usage. Collaborate with audio professionals to validate analysis capabilities. Avoid entertainment-focused influencers in favor of credible, evidence-based practitioners.",
+      "community_building": "Build community of serious practitioners sharing techniques and case studies. Professional user forum for investigation methodology discussion. Educational resources and training materials for proper EVP analysis. Recognition program for quality evidence documentation."
+    }
+  },
+  "standards_compliance": {
+    "subscription_store_compliance": "Professional brand presentation supporting subscription model with clear value communication. Marketing materials emphasize ongoing professional development and feature updates justifying subscription model. Transparent pricing presentation in all marketing channels.",
+    "accessibility_design": "All marketing materials and brand elements designed with accessibility in mind. High contrast color schemes, readable typography, and alternative text for visual elements. Brand guidelines ensure accessibility compliance across all touchpoints.",
+    "privacy_analytics": "Marketing strategy emphasizes privacy-first approach and local data processing. Brand messaging highlights user control over sensitive investigation data. Marketing materials comply with privacy regulations while building trust with professional investigation community.",
+    "testing_release_readiness": "Brand and marketing materials ready for app store submission and professional presentation. Marketing copy tested with target audience for clarity and appeal. Brand elements optimized for various marketing channels and store presentation requirements."
+  }
+}

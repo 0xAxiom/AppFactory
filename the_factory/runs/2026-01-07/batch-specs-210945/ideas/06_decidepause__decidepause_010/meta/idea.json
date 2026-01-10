@@ -1,0 +1,24 @@
+{
+  "id": "decidepause_010",
+  "name": "DecidePause",
+  "validation_score": 7.7,
+  "signal_source": "Decision-making research shows users benefit from '24-Hour Rule' and 'setting a timer and forcing yourself to wait before acting on impulse'",
+  "description": "Decision delay app that implements cooling-off periods for important choices and purchases",
+  "target_user": "Impulse shoppers and decision-makers who want structured delays to make more thoughtful choices",
+  "pain_point_evidence": "Users find 'after 10 minutes, the urge subsides, or you gain a better perspective on the decision' with time-based interventions",
+  "core_loop": [
+    "Set decision delay rules",
+    "Register important decisions",
+    "Enforce cooling-off periods",
+    "Provide reflection prompts during delays",
+    "Track decision quality improvements"
+  ],
+  "differentiation": "Structured delays vs. general mindfulness, decision-specific rather than broad impulse control",
+  "subscription_fit": "Premium includes custom delay rules, decision analytics, and family sharing features",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$2.99-$4.99",
+    "annual_range": "$24.99-$39.99",
+    "trial_strategy": "Free basic delays, premium for custom rules and analytics"
+  }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expo Install --check Behavior - Cached Documentation</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Expo Install --check Behavior</h1>
+    
+    <h2>Key Characteristics</h2>
+    <ul>
+        <li>Helps install React Native packages with version compatibility</li>
+        <li>Ensures packages work with the currently installed version of `react-native`</li>
+    </ul>
+    
+    <h2>Version Validation Features</h2>
+    <ul>
+        <li><strong>--check flag:</strong> Validates installed package versions</li>
+        <li><strong>--fix flag:</strong> Automatically updates packages to compatible versions</li>
+    </ul>
+    
+    <h2>Command Examples</h2>
+    <pre>
+npx expo install expo-camera
+npx expo install typescript expo-sms
+npx expo install --check
+npx expo install --fix
+    </pre>
+    
+    <h2>Compatibility Rules</h2>
+    <ul>
+        <li>Checks package versions against a list of known working combinations</li>
+        <li>Supports multiple package managers: bun, npm, pnpm, yarn</li>
+        <li>Can exclude specific packages from version checking via `expo.install.exclude` in package.json</li>
+    </ul>
+    
+    <h2>Package Manager Selection</h2>
+    <ul>
+        <li>Automatically detects package manager based on lockfile</li>
+        <li>Can force a specific package manager with flags like `--npm`, `--yarn`, etc.</li>
+    </ul>
+    
+    <h2>Critical Principle</h2>
+    <blockquote>
+        <strong>React Native is not backwards compatible</strong> - expo install carefully manages package versions to ensure compatibility.
+    </blockquote>
+    
+    <h2>Expected Version Authority</h2>
+    <ul>
+        <li>The output of `npx expo install --check` is authoritative</li>
+        <li>Expected versions listed must be respected</li>
+        <li>Mismatches indicate potential runtime issues</li>
+        <li>Use `--fix` to align to expected versions</li>
+    </ul>
+</body>
+</html>

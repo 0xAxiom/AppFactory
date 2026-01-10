@@ -1,0 +1,18 @@
+{
+  "id": "pausespace_005",
+  "name": "PauseSpace",
+  "validation_score": 7.5,
+  "signal_source": "Digital detox research shows users frustrated with rigid blocking, citing 'you can't schedule sessions' and inflexible time periods",
+  "description": "Flexible digital break app that creates intentional boredom periods with customizable scheduling and gentle re-engagement",
+  "target_user": "Users seeking digital detox but frustrated with all-or-nothing blocking apps that don't fit their work schedules",
+  "pain_point_evidence": "Users complain 'I don't need my apps to be blocked for 24 hours' and want scheduled focus periods that adapt to daily rhythms",
+  "core_loop": ["Schedule flexible pause periods", "Enter gentle offline mode", "Engage with intentional boredom activities", "Gradually re-engage with purpose", "Track mindful usage patterns"],
+  "differentiation": "Flexible scheduling vs. rigid blocking, focuses on mindful re-engagement over complete restriction",
+  "subscription_fit": "Premium includes advanced scheduling, mindfulness content, and usage analytics",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$3.99-$5.99",
+    "annual_range": "$29.99-$49.99",
+    "trial_strategy": "Free basic scheduling, premium for advanced features and content"
+  }
+}

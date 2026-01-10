@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "run_id": "20260109_201044_app_factory_run",
+    "idea_id": "warrantyvault_002",
+    "idea_name": "WarrantyVault",
+    "idea_dir": "02_warrantyvault__warrantyvault_002",
+    "source_root": "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/",
+    "input_stage_paths": [
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage02.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage03.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage04.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage05.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage06.json"
+    ],
+    "boundary_path": "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/meta/boundary.json"
+  },
+  "quality_polish": {
+    "performance_optimization": {
+      "startup_performance": {
+        "target_metrics": {
+          "cold_start_time": "< 2.0 seconds on mid-range device",
+          "warm_start_time": "< 1.0 seconds",
+          "first_meaningful_paint": "< 1.5 seconds to visible dashboard"
+        },
+        "optimization_strategies": [
+          "Use Hermes engine (default in Expo SDK 52)",
+          "Lazy load Settings and Paywall screens",
+          "Load AsyncStorage items in parallel with initial render",
+          "Minimize bundle size with tree shaking",
+          "Defer non-critical initialization (analytics, notifications setup)",
+          "Use React.memo for static components"
+        ],
+        "measurement_approach": "Firebase Performance Monitoring traces from cold start to first interactive. Track P50 and P90 startup times across device types."
+      },
+      "runtime_performance": {
+        "ui_responsiveness": {
+          "target_fps": "60fps",
+          "scroll_performance": "Virtualized FlatList with getItemLayout for fixed-height items. Window size optimized for visible items plus buffer.",
+          "animation_smoothness": "Use native driver for all animations. Avoid layout-triggering animations. Test with 100+ items."
+        },
+        "memory_management": {
+          "peak_memory_limit": "< 150MB typical usage, < 300MB with large image set",
+          "memory_leak_prevention": [
+            "Clean up event listeners in useEffect cleanup",
+            "Cancel pending image loads on unmount",
+            "Clear large objects from memory when screens unmount",
+            "Use weak references for image cache"
+          ],
+          "garbage_collection_optimization": "Avoid large object allocations in render. Reuse data structures. Profile with React DevTools."
+        },
+        "network_efficiency": {
+          "request_optimization": "Minimal network in free tier (local only). Premium sync batches updates. Compress image uploads.",
+          "caching_strategy": "AsyncStorage for item data. expo-file-system for images. 5-minute subscription status cache.",
+          "offline_behavior": "Full functionality offline for free tier. Premium sync queued when offline, processed on reconnect."
+        }
+      }
+    },
+    "accessibility_implementation": {
+      "screen_reader_support": {
+        "voiceover_ios": {
+          "element_labeling": "All interactive elements have accessibilityLabel. Images have descriptive alt text. Form inputs have accessibilityHint.",
+          "navigation_order": "Logical reading order: header → content sections → action buttons. Tab navigation announced.",
+          "custom_actions": [
+            "Dashboard items: 'View details' action",
+            "Item detail: 'Edit' and 'Delete' actions",
+            "Countdown: announces days remaining"
+          ]
+        },
+        "talkback_android": {
+          "content_descriptions": "All View elements with onPress have contentDescription. ImageView descriptions match iOS.",
+          "navigation_logic": "accessibilityLiveRegion for status changes. accessibilityTraversalBefore/After where needed.",
+          "live_regions": "Item count changes announced. Countdown updates announced. Save confirmation announced."
+        }
+      },
+      "visual_accessibility": {
+        "color_contrast": {
+          "minimum_ratios": "4.5:1 normal, 3:1 large text",
+          "validation_process": "All color combinations validated with contrast checker. Primary blue #2563EB on white = 4.5:1. Status colors verified.",
+          "alternative_indicators": "Status uses color + icon + label. Expiring items have clock icon. Expired items have X icon."
+        },
+        "text_scaling": {
+          "dynamic_type_support": "up to 200% scaling",
+          "layout_adaptation": "Flexible layouts that reflow. Avoid fixed-height containers. Test at all text sizes.",
+          "readability_preservation": "Minimum 16sp body text. Line height 1.5. Adequate spacing between elements."
+        }
+      },
+      "motor_accessibility": {
+        "touch_targets": {
+          "minimum_size": "44pt iOS, 48dp Android",
+          "spacing_requirements": "Minimum 8dp spacing between touch targets to prevent accidental taps.",
+          "alternative_inputs": "Support external keyboard navigation. Voice Control compatible labels."
+        },
+        "gesture_alternatives": {
+          "voice_control": "All buttons have Voice Control-compatible labels. No gesture-only interactions.",
+          "switch_control": "Compatible with iOS Switch Control. Logical navigation order.",
+          "assistive_touch": "Single-tap for all primary actions. No required multi-finger gestures."
+        }
+      }
+    },
+    "user_experience_polish": {
+      "interface_refinement": {
+        "visual_consistency": {
+          "design_system_adherence": "All components follow design tokens (colors, spacing, typography). No ad-hoc styling.",
+          "component_standardization": "Reusable Button, Card, Input, Modal components. Consistent styling across screens.",
+          "brand_consistency": "Primary blue throughout. Vault icon in key locations. Trust-conveying visual language."
+        },
+        "interaction_feedback": {
+          "haptic_feedback": "Light haptic on FAB tap. Success haptic on save. Selection haptic on tab switch (iOS).",
+          "visual_feedback": "Button press states. Loading spinners. Success/error toasts. Skeleton loading for images.",
+          "audio_feedback": "None by default. System sounds for notifications only."
+        },
+        "error_handling": {
+          "graceful_degradation": "Camera unavailable: fallback to gallery. Notifications denied: in-app alerts only. Network error: retry with clear message.",
+          "user_friendly_messages": "Plain language error messages. 'Something went wrong' with actionable next step. No technical jargon.",
+          "recovery_mechanisms": "Retry buttons for transient errors. Clear data recovery path. Support contact for persistent issues."
+        }
+      },
+      "content_quality": {
+        "copywriting": {
+          "tone_consistency": "Friendly, helpful, trustworthy. 'Your warranty is safe with us.' Active voice. Second person (you/your).",
+          "clarity_standards": "Simple language (6th grade reading level). Short sentences. Clear CTAs. No jargon.",
+          "localization_readiness": "All strings externalized. Date/time formatting locale-aware. RTL layout support ready."
+        },
+        "visual_assets": {
+          "image_optimization": "Receipt images compressed to max 1MB. WebP format where supported. Progressive loading.",
+          "icon_consistency": "SF Symbols on iOS, Material Icons on Android. Consistent weight and style throughout.",
+          "illustration_standards": "Simple vault illustration for empty state. Consistent color palette with brand."
+        }
+      }
+    },
+    "testing_validation": {
+      "automated_testing": {
+        "unit_test_coverage": {
+          "target_percentage": ">= 80% for business logic",
+          "critical_components": [
+            "Date calculation utilities (days until expiration)",
+            "Item validation (required fields, date logic)",
+            "Storage helpers (save, load, update, delete)",
+            "Notification scheduling logic",
+            "Entitlement checking helpers"
+          ],
+          "testing_framework": "Jest with React Native Testing Library"
+        },
+        "integration_testing": {
+          "api_integration": "RevenueCat SDK mocked for unit tests. Sandbox environment for integration tests.",
+          "subscription_flows": "Test purchase, restore, entitlement check, feature gating with mocked SDK.",
+          "data_persistence": "Test save/load cycle. Verify data integrity after app restart simulation."
+        },
+        "ui_testing": {
+          "critical_user_flows": [
+            "Add first item with camera capture",
+            "View dashboard with multiple items",
+            "Tap item to see detail",
+            "Hit item limit and see paywall",
+            "Complete mock purchase",
+            "Restore purchases"
+          ],
+          "accessibility_testing": "Automated a11y checks with React Native Testing Library. Manual VoiceOver/TalkBack walkthrough.",
+          "cross_device_validation": "Test on iPhone SE (small screen), iPhone 15 Pro Max (large screen), Pixel 5, Galaxy S21."
+        }
+      },
+      "manual_testing": {
+        "device_matrix": {
+          "ios_devices": ["iPhone SE (2nd gen)", "iPhone 13", "iPhone 15 Pro", "iPad (10th gen)"],
+          "android_devices": ["Pixel 5", "Pixel 7", "Galaxy S21", "Galaxy A53"],
+          "os_versions": ["iOS 15", "iOS 16", "iOS 17", "Android 11", "Android 12", "Android 13", "Android 14"]
+        },
+        "scenario_testing": {
+          "edge_cases": [
+            "Add 10 items (free limit)",
+            "Add 11th item (paywall trigger)",
+            "Long product name (text truncation)",
+            "Very old purchase date",
+            "Warranty already expired"
+          ],
+          "error_conditions": [
+            "Camera permission denied",
+            "Notification permission denied",
+            "Network offline during sync",
+            "RevenueCat configuration error",
+            "Storage full"
+          ],
+          "network_conditions": [
+            "Full offline mode",
+            "Slow 3G connection",
+            "Intermittent connectivity",
+            "Airplane mode toggle"
+          ]
+        }
+      }
+    },
+    "store_readiness": {
+      "submission_requirements": {
+        "ios_app_store": {
+          "metadata_completeness": [
+            "App name: WarrantyVault",
+            "Subtitle: Never lose a warranty claim",
+            "Category: Utilities",
+            "Keywords optimized for discoverability",
+            "Description with feature highlights",
+            "What's New for updates"
+          ],
+          "screenshot_requirements": "6.5 inch (iPhone 15 Pro Max) required. 5.5 inch (iPhone 8 Plus) required. iPad optional. 5 screenshots per size minimum.",
+          "privacy_compliance": "Privacy Policy URL. App Privacy labels accurate. No tracking without ATT consent.",
+          "content_rating": "4+ (no objectionable content)"
+        },
+        "google_play": {
+          "store_listing_optimization": "Title, short description, full description optimized. Feature graphic 1024x500. Screenshots for phone and tablet.",
+          "content_policy_compliance": "Data Safety section complete. No policy violations. Subscription disclosure in description.",
+          "target_api_level": "API 34 (Android 14) or current required level",
+          "app_bundle_requirements": "AAB format. Under 150MB. Signed with upload key."
+        }
+      },
+      "quality_gates": {
+        "performance_validation": [
+          "Cold start < 2 seconds on reference devices",
+          "No jank in scrolling (60fps)",
+          "Memory usage within limits",
+          "No ANRs or excessive battery drain"
+        ],
+        "accessibility_validation": [
+          "VoiceOver walkthrough complete",
+          "TalkBack walkthrough complete",
+          "Color contrast verified",
+          "Dynamic Type tested at 200%"
+        ],
+        "subscription_validation": [
+          "Purchase flow tested in sandbox",
+          "Restore purchases verified",
+          "Entitlement gating working",
+          "Paywall displays correctly"
+        ],
+        "content_review": [
+          "All copy reviewed for clarity",
+          "No placeholder text remaining",
+          "Legal links functional",
+          "No inappropriate content"
+        ],
+        "revenuecat_integration_validation": {
+          "hard_gate_checklist": [
+            "SDK properly installed and configured",
+            "Initialization with environment keys verified",
+            "Entitlement model consistently implemented",
+            "Paywall accessible from required locations",
+            "Purchase and restore flows functional",
+            "Premium features properly gated",
+            "Debug confirmation working",
+            "Empty offerings handled gracefully"
+          ],
+          "testing_scenarios": [
+            "Purchase flow with successful payment",
+            "Purchase flow with user cancellation",
+            "Restore purchases for existing subscriber",
+            "Feature access with active entitlement",
+            "Feature blocking without entitlement",
+            "Empty offerings error handling"
+          ],
+          "failure_criteria": "Missing any hard gate requirement causes build failure"
+        }
+      }
+    }
+  }
+}

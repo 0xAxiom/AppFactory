@@ -1,0 +1,321 @@
+{
+  "meta": {
+    "run_id": "dream-220500-evpanalyzer",
+    "idea_id": "evp_ana_001",
+    "idea_name": "EVP Analyzer",
+    "idea_dir": "01_evp_analyzer__evp_ana_001",
+    "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.json",
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.5.json"
+    ],
+    "boundary_path": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/meta/boundary.json",
+    "generated_at": "2026-01-09T22:08:00Z"
+  },
+  "technical_planning": {
+    "navigation_plan": {
+      "framework": "expo-router",
+      "version": "^4.0.0",
+      "structure": {
+        "type": "tabs_with_stack",
+        "description": "Tab-based navigation with stack modals for recording and analysis"
+      },
+      "routes": [
+        {
+          "path": "/",
+          "component": "HomeScreen",
+          "type": "tab",
+          "tab_label": "Investigate",
+          "tab_icon": "mic",
+          "description": "Investigation dashboard with start recording button"
+        },
+        {
+          "path": "/log",
+          "component": "LogScreen",
+          "type": "tab",
+          "tab_label": "Log",
+          "tab_icon": "list",
+          "description": "Investigation history list"
+        },
+        {
+          "path": "/settings",
+          "component": "SettingsScreen",
+          "type": "tab",
+          "tab_label": "Settings",
+          "tab_icon": "settings",
+          "description": "App settings and preferences"
+        },
+        {
+          "path": "/record",
+          "component": "RecordScreen",
+          "type": "stack_modal",
+          "presentation": "fullScreenModal",
+          "description": "Active recording with live waveform"
+        },
+        {
+          "path": "/session/[id]",
+          "component": "SessionScreen",
+          "type": "stack",
+          "description": "Session detail with waveform analyzer"
+        },
+        {
+          "path": "/session/[id]/spectrogram",
+          "component": "SpectrogramScreen",
+          "type": "stack",
+          "description": "Full spectrogram view (premium)"
+        },
+        {
+          "path": "/session/[id]/tag",
+          "component": "TagScreen",
+          "type": "stack_modal",
+          "presentation": "modal",
+          "description": "Add/edit tag on selected clip"
+        },
+        {
+          "path": "/session/[id]/export",
+          "component": "ExportScreen",
+          "type": "stack_modal",
+          "presentation": "modal",
+          "description": "Export options for clip/session"
+        },
+        {
+          "path": "/onboarding",
+          "component": "OnboardingScreen",
+          "type": "stack_modal",
+          "presentation": "fullScreenModal",
+          "description": "First-launch onboarding flow"
+        },
+        {
+          "path": "/paywall",
+          "component": "PaywallScreen",
+          "type": "stack_modal",
+          "presentation": "formSheet",
+          "description": "Soft paywall presentation"
+        }
+      ],
+      "file_structure": [
+        "app/_layout.tsx (root layout with providers)",
+        "app/(tabs)/_layout.tsx (tab navigator)",
+        "app/(tabs)/index.tsx (home/investigate)",
+        "app/(tabs)/log.tsx (investigation log)",
+        "app/(tabs)/settings.tsx (settings)",
+        "app/record.tsx (recording modal)",
+        "app/session/[id]/index.tsx (session detail)",
+        "app/session/[id]/spectrogram.tsx (spectrogram view)",
+        "app/session/[id]/tag.tsx (tag modal)",
+        "app/session/[id]/export.tsx (export modal)",
+        "app/onboarding.tsx (onboarding flow)",
+        "app/paywall.tsx (subscription paywall)"
+      ]
+    },
+    "dependency_plan": {
+      "expo_sdk_version": "52",
+      "react_native_version": "0.76",
+      "core_dependencies": [
+        {
+          "package": "expo",
+          "version": "~52.0.0",
+          "purpose": "Expo SDK core"
+        },
+        {
+          "package": "expo-router",
+          "version": "~4.0.0",
+          "purpose": "File-based routing"
+        },
+        {
+          "package": "react-native",
+          "version": "0.76.x",
+          "purpose": "React Native core (Expo SDK 52 compatible)"
+        }
+      ],
+      "audio_dependencies": [
+        {
+          "package": "expo-av",
+          "version": "~15.0.0",
+          "purpose": "Audio recording and playback",
+          "expo_install": true
+        },
+        {
+          "package": "@siteed/expo-audio-studio",
+          "version": "^1.0.0",
+          "purpose": "Advanced audio analysis and spectrogram extraction",
+          "expo_install": false
+        },
+        {
+          "package": "react-native-audio-waveform",
+          "version": "^1.0.0",
+          "purpose": "Native waveform visualization",
+          "expo_install": false,
+          "requires_native": true
+        }
+      ],
+      "storage_dependencies": [
+        {
+          "package": "expo-file-system",
+          "version": "~18.0.0",
+          "purpose": "File storage for audio recordings",
+          "expo_install": true
+        },
+        {
+          "package": "@react-native-async-storage/async-storage",
+          "version": "^2.0.0",
+          "purpose": "Metadata and settings storage",
+          "expo_install": true
+        }
+      ],
+      "monetization_dependencies": [
+        {
+          "package": "react-native-purchases",
+          "version": "^8.0.0",
+          "purpose": "RevenueCat SDK for subscriptions",
+          "expo_install": false,
+          "requires_configuration": ["REVENUECAT_API_KEY_IOS", "REVENUECAT_API_KEY_ANDROID"]
+        }
+      ],
+      "ui_dependencies": [
+        {
+          "package": "react-native-svg",
+          "version": "^15.0.0",
+          "purpose": "SVG rendering for waveform and icons",
+          "expo_install": true
+        },
+        {
+          "package": "react-native-reanimated",
+          "version": "~3.16.0",
+          "purpose": "Smooth animations",
+          "expo_install": true
+        },
+        {
+          "package": "react-native-gesture-handler",
+          "version": "~2.20.0",
+          "purpose": "Gesture handling for timeline scrubbing",
+          "expo_install": true
+        },
+        {
+          "package": "expo-haptics",
+          "version": "~14.0.0",
+          "purpose": "Haptic feedback",
+          "expo_install": true
+        },
+        {
+          "package": "expo-linear-gradient",
+          "version": "~14.0.0",
+          "purpose": "Gradient backgrounds",
+          "expo_install": true
+        }
+      ],
+      "utility_dependencies": [
+        {
+          "package": "expo-location",
+          "version": "~18.0.0",
+          "purpose": "GPS location tagging",
+          "expo_install": true
+        },
+        {
+          "package": "expo-sharing",
+          "version": "~13.0.0",
+          "purpose": "Share sheet for exports",
+          "expo_install": true
+        },
+        {
+          "package": "uuid",
+          "version": "^10.0.0",
+          "purpose": "UUID generation for entities",
+          "expo_install": false
+        },
+        {
+          "package": "date-fns",
+          "version": "^3.0.0",
+          "purpose": "Date formatting",
+          "expo_install": false
+        }
+      ],
+      "dev_dependencies": [
+        {
+          "package": "typescript",
+          "version": "~5.3.0",
+          "purpose": "TypeScript support"
+        },
+        {
+          "package": "@types/react",
+          "version": "~18.2.0",
+          "purpose": "React type definitions"
+        },
+        {
+          "package": "eslint",
+          "version": "^8.0.0",
+          "purpose": "Code linting"
+        },
+        {
+          "package": "prettier",
+          "version": "^3.0.0",
+          "purpose": "Code formatting"
+        }
+      ]
+    },
+    "compatibility_matrix": {
+      "minimum_ios_version": "15.0",
+      "minimum_android_api": 26,
+      "minimum_android_version": "8.0",
+      "target_ios_version": "17.0",
+      "target_android_api": 34,
+      "permissions_required": [
+        {
+          "platform": "both",
+          "permission": "RECORD_AUDIO",
+          "purpose": "Record ambient audio for EVP analysis",
+          "required": true
+        },
+        {
+          "platform": "both",
+          "permission": "ACCESS_FINE_LOCATION",
+          "purpose": "Tag investigation location",
+          "required": false
+        },
+        {
+          "platform": "ios",
+          "permission": "NSMicrophoneUsageDescription",
+          "purpose_string": "EVP Analyzer needs microphone access to record audio for paranormal investigation",
+          "required": true
+        },
+        {
+          "platform": "ios",
+          "permission": "NSLocationWhenInUseUsageDescription",
+          "purpose_string": "EVP Analyzer can tag your investigation location for your records",
+          "required": false
+        }
+      ],
+      "device_features": [
+        {
+          "feature": "microphone",
+          "required": true,
+          "fallback": "Cannot use app without microphone"
+        },
+        {
+          "feature": "gps",
+          "required": false,
+          "fallback": "Manual location entry"
+        },
+        {
+          "feature": "haptics",
+          "required": false,
+          "fallback": "Disable haptic feedback"
+        }
+      ],
+      "known_limitations": [
+        {
+          "limitation": "Background audio on iOS requires audio session configuration",
+          "mitigation": "Configure AVAudioSession for background recording"
+        },
+        {
+          "limitation": "Spectrogram processing intensive on older devices",
+          "mitigation": "Post-processing only, not real-time"
+        },
+        {
+          "limitation": "Large recordings consume storage",
+          "mitigation": "60-minute session limit, storage warnings"
+        }
+      ]
+    }
+  }
+}

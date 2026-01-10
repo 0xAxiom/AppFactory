@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-170756",
+  "idea_id": "studystack_009",
+  "idea_name": "StudyStack",
+  "idea_slug": "studystack",
+  "rank": 4,
+  "validation_score": 7.7,
+  "frozen_definition": {
+    "id": "studystack_009",
+    "name": "StudyStack",
+    "validation_score": 7.7,
+    "signal_source": "Learning app research shows students 'forget everything during exam' due to cramming, need better retention without complexity",
+    "description": "Micro-review app that converts any study material into 30-second daily review sessions with adaptive timing",
+    "target_user": "Students who want better retention but find traditional spaced repetition apps too complex or time-consuming",
+    "pain_point_evidence": "Students report cramming 'makes you exhausted and forget everything during exam'",
+    "core_loop": [
+      "Capture study material with camera or notes",
+      "Receive daily 30-second review prompts",
+      "Mark understanding level",
+      "Get adaptive review scheduling",
+      "Track retention progress"
+    ],
+    "differentiation": "Micro-review format vs. lengthy study sessions, adaptive without complex setup",
+    "subscription_fit": "Premium includes unlimited material, cross-device sync, and detailed analytics",
+    "mvp_complexity": "M",
+    "pricing": {
+      "monthly_range": "$4.99-$6.99",
+      "annual_range": "$39.99-$59.99",
+      "trial_strategy": "Free for 10 review items, premium for unlimited and analytics"
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "focusflow_ai_002",
+    "idea_name": "FocusFlow AI",
+    "idea_dir": "02_focusflow_ai__focusflow_ai_002", 
+    "source_root": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage07.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage06.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+  },
+  "brand_identity": {
+    "brand_strategy": {
+      "brand_name": {
+        "final_name": "FocusFlow AI",
+        "rationale": "Combines 'focus' (primary benefit) with 'flow' (ADHD hyperfocus state) and AI (adaptive technology)",
+        "alternatives_considered": ["FlowState", "ADHDFlow", "FocusAdapt", "BrainFlow"],
+        "trademark_considerations": "Clear for mobile app registration, distinctive in productivity space"
+      },
+      "brand_positioning": {
+        "value_proposition": "The only AI that understands your ADHD brain and works with your natural patterns",
+        "differentiation_strategy": "ADHD-positive technology that celebrates neurodivergence rather than trying to 'fix' it",
+        "target_audience_alignment": "Adults with ADHD who are tired of productivity tools that don't understand their brains",
+        "competitive_distinction": "First productivity app explicitly designed for ADHD brain patterns with positive representation"
+      },
+      "brand_personality": {
+        "core_attributes": ["Adaptive", "Understanding", "Empowering", "Calm", "Intelligent"],
+        "tone_of_voice": "Encouraging friend who 'gets it' - supportive without being condescending",
+        "communication_style": "Direct, clear language with warmth and humor about ADHD experiences",
+        "emotional_appeal": "Validation and empowerment for ADHD individuals who've struggled with traditional tools"
+      }
+    },
+    "visual_identity": {
+      "logo_concept": {
+        "design_direction": "Flowing geometric shapes that represent adaptive patterns and brain connectivity",
+        "symbol_meaning": "Interconnected nodes that reorganize themselves, symbolizing adaptive ADHD thinking",
+        "scalability_considerations": "Clean lines that work at 16px app icon size and large marketing displays",
+        "platform_adaptations": "iOS rounded corners, Android adaptive icons, with consistent core symbol"
+      },
+      "color_palette": {
+        "primary_colors": [
+          {
+            "color_name": "Focus Flow Blue",
+            "hex_value": "#4A90E2",
+            "usage": "Primary brand color, focus states, call-to-action buttons",
+            "accessibility_rating": "AAA compliant (4.8:1 contrast on white)"
+          },
+          {
+            "color_name": "Energy Calm Green", 
+            "hex_value": "#7ED321",
+            "usage": "Positive feedback, completion states, energy indicators",
+            "accessibility_rating": "AA compliant (4.5:1 contrast on white)"
+          },
+          {
+            "color_name": "Gentle Purple",
+            "hex_value": "#9013FE", 
+            "usage": "Rest periods, reflection, premium features",
+            "accessibility_rating": "AAA compliant (5.2:1 contrast on white)"
+          }
+        ],
+        "secondary_colors": [
+          {
+            "color_name": "Warm Amber",
+            "hex_value": "#FFD93D",
+            "usage": "Low energy states, gentle guidance"
+          },
+          {
+            "color_name": "Organizing Orange",
+            "hex_value": "#FF9500", 
+            "usage": "Scattered energy states, structuring support"
+          },
+          {
+            "color_name": "Hyperfocus Pink",
+            "hex_value": "#FF2D92",
+            "usage": "High energy states, energy management alerts"
+          }
+        ],
+        "color_strategy": "ADHD-informed color psychology avoiding overstimulation while providing clear state communication"
+      },
+      "typography": {
+        "primary_typeface": {
+          "font_family": "SF Pro Display (iOS) / Product Sans (Android)",
+          "weights_used": ["Regular", "Medium", "Semibold"],
+          "rationale": "Platform-native fonts optimized for readability with ADHD considerations"
+        },
+        "secondary_typeface": {
+          "font_family": "OpenDyslexic (accessibility option)",
+          "usage": "Alternative font for users with dyslexia or reading difficulties"
+        },
+        "hierarchy_system": "Clear size distinctions with generous line spacing for ADHD visual processing"
+      },
+      "iconography_style": {
+        "icon_approach": "Outlined style with optional filled states for active elements",
+        "style_characteristics": ["Clean geometry", "Consistent stroke width", "Clear symbolism", "Minimal cognitive load"],
+        "consistency_guidelines": "All icons follow 24dp grid with 2dp stroke weight for optimal ADHD recognition"
+      }
+    },
+    "brand_applications": {
+      "app_icon": {
+        "concept": "Flowing interconnected shapes suggesting adaptive AI and brain connectivity",
+        "design_elements": ["Curved flowing lines", "Gradient suggesting energy states", "Minimal geometric forms"],
+        "platform_variations": "iOS: Rounded corners, drop shadow; Android: Adaptive icon with solid background",
+        "size_adaptations": "Recognizable from 16px to 1024px with detail scaling appropriately"
+      },
+      "in_app_branding": {
+        "header_treatment": "Clean typography with energy state color accents",
+        "button_styling": "Rounded corners, generous padding, clear state changes",
+        "card_design": "Soft shadows, ample whitespace, color-coded categories",
+        "illustration_style": "Gentle, abstract representations of focus states and energy patterns"
+      },
+      "store_presence": {
+        "app_store_presentation": "ADHD-positive imagery showing diverse users in successful focus states",
+        "screenshot_branding": "Consistent visual hierarchy emphasizing calm, organized interfaces",
+        "promotional_graphics": "Warm, inclusive imagery celebrating neurodivergent productivity styles"
+      }
+    },
+    "messaging_framework": {
+      "core_messages": {
+        "primary_tagline": "AI that gets your ADHD brain",
+        "value_statements": [
+          "Work with your brain, not against it",
+          "Focus that adapts to you", 
+          "Productivity for the beautifully ADHD mind"
+        ],
+        "feature_descriptions": [
+          "Energy-aware AI that matches tasks to your mental state",
+          "Visual workflows that make sense to ADHD thinking",
+          "Gentle focus sessions that prevent burnout"
+        ]
+      },
+      "content_voice": {
+        "writing_style": "Conversational, validating, and empowering with subtle humor about ADHD experiences",
+        "vocabulary_guidelines": "Avoid clinical/medical language; use person-first and strength-based terminology",
+        "accessibility_language": "Plain language principles with clear structure and scannable content"
+      },
+      "marketing_messages": {
+        "app_store_description": "Finally, a productivity app that understands how your ADHD brain actually works. FocusFlow AI adapts to your energy patterns, suggests the right tasks at the right time, and helps you achieve focus without fighting your natural rhythms.",
+        "social_media_voice": "Your ADHD-positive tech friend sharing wins, tips, and solidarity",
+        "user_communication": "Celebrating small wins, normalizing ADHD experiences, providing practical support"
+      }
+    },
+    "brand_guidelines": {
+      "usage_standards": {
+        "logo_usage_rules": [
+          "Minimum clear space equal to logo height on all sides",
+          "Never distort proportions or change colors",
+          "Use approved color combinations only",
+          "Maintain accessibility contrast ratios"
+        ],
+        "color_usage_guidelines": [
+          "Always test color combinations for ADHD accessibility",
+          "Use color plus additional indicators (shape, position, text)",
+          "Provide alternative visual cues for colorblind users"
+        ],
+        "typography_standards": [
+          "Maintain generous line spacing for ADHD readability",
+          "Never use all caps for body text",
+          "Provide OpenDyslexic option where technically feasible"
+        ]
+      },
+      "accessibility_compliance": {
+        "color_contrast_standards": "WCAG AAA preferred (7:1), minimum AA (4.5:1) with ADHD testing",
+        "text_readability": "Support up to 200% text scaling with layout preservation",
+        "inclusive_language": "Person-first language, strength-based framing, avoid stigmatizing terms"
+      },
+      "consistency_maintenance": {
+        "brand_audit_criteria": [
+          "ADHD-positive representation in all materials",
+          "Accessibility compliance across all touchpoints",
+          "Consistent neurodivergent-affirming messaging"
+        ],
+        "update_procedures": "Quarterly review with ADHD community feedback integration",
+        "quality_control": "All brand applications tested with neurodivergent focus groups"
+      }
+    }
+  }
+}

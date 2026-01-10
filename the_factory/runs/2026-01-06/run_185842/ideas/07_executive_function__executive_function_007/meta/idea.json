@@ -1,0 +1,15 @@
+{
+  "idea_id": "executive_function_007",
+  "idea_name": "ExecutiveFunction Pro",
+  "run_id": "run_185842",
+  "rank": 7,
+  "validation_score": 8.4,
+  "description": "Executive function support app with visual task breakdown, working memory aids, and cognitive load management for neurodivergent users",
+  "target_user": "Adults with ADHD, autism, or other executive function challenges seeking cognitive support tools",
+  "core_loop": ["Task breakdown with visual aids", "Working memory support", "Cognitive load assessment", "Achievement tracking and motivation"],
+  "differentiation": "Specifically designed for executive dysfunction; focuses on cognitive support rather than traditional productivity methods",
+  "subscription_fit": "Advanced cognitive assessments, unlimited projects, family/caregiver sharing, professional therapist integration",
+  "mvp_complexity": "M",
+  "source_stage01": "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+  "frozen_timestamp": "2026-01-06T18:58:42Z"
+}

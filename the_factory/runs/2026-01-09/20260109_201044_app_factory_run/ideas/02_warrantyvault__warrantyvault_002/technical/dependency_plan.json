@@ -1,0 +1,116 @@
+{
+  "expo_configuration": {
+    "sdk_version": "52",
+    "workflow": "managed",
+    "platforms": ["ios", "android"]
+  },
+  "dependencies": {
+    "navigation": {
+      "expo-router": {
+        "version": "^4.0.0",
+        "purpose": "File-based navigation",
+        "installation": "npx expo install expo-router",
+        "notes": "Requires specific app.json configuration"
+      }
+    },
+    "media": {
+      "expo-image-picker": {
+        "version": "~16.0.0",
+        "purpose": "Camera and photo gallery access",
+        "installation": "npx expo install expo-image-picker",
+        "permissions": ["camera", "media-library"],
+        "notes": "Request permissions before use"
+      },
+      "expo-file-system": {
+        "version": "~18.0.0",
+        "purpose": "Local file storage for images",
+        "installation": "npx expo install expo-file-system",
+        "notes": "Use documentDirectory for persistent storage"
+      }
+    },
+    "notifications": {
+      "expo-notifications": {
+        "version": "~0.29.0",
+        "purpose": "Local push notifications",
+        "installation": "npx expo install expo-notifications",
+        "permissions": ["notifications"],
+        "notes": "Schedule local notifications for alerts"
+      }
+    },
+    "storage": {
+      "@react-native-async-storage/async-storage": {
+        "version": "^2.0.0",
+        "purpose": "Key-value storage for structured data",
+        "installation": "npx expo install @react-native-async-storage/async-storage",
+        "notes": "Use for items, settings, app state"
+      }
+    },
+    "monetization": {
+      "react-native-purchases": {
+        "version": "^8.0.0",
+        "purpose": "RevenueCat subscription SDK",
+        "installation": "npx expo install react-native-purchases",
+        "configuration": {
+          "api_key_ios": "Environment variable: REVENUECAT_API_KEY_IOS",
+          "api_key_android": "Environment variable: REVENUECAT_API_KEY_ANDROID",
+          "entitlement_id": "premium"
+        },
+        "notes": "Initialize in app entry point"
+      }
+    },
+    "utilities": {
+      "date-fns": {
+        "version": "^3.0.0",
+        "purpose": "Date manipulation and formatting",
+        "installation": "npm install date-fns",
+        "notes": "Use for warranty date calculations"
+      },
+      "uuid": {
+        "version": "^9.0.0",
+        "purpose": "Generate unique identifiers",
+        "installation": "npm install uuid",
+        "notes": "Use for item IDs"
+      }
+    },
+    "ui": {
+      "expo-status-bar": {
+        "version": "~2.0.0",
+        "purpose": "Status bar control",
+        "installation": "Included with Expo SDK",
+        "notes": "Control status bar appearance"
+      },
+      "@expo/vector-icons": {
+        "version": "^14.0.0",
+        "purpose": "Icon library",
+        "installation": "Included with Expo SDK",
+        "notes": "Use Ionicons or MaterialIcons"
+      }
+    }
+  },
+  "dev_dependencies": {
+    "typescript": "^5.0.0",
+    "@types/react": "~18.2.0",
+    "@types/uuid": "^9.0.0"
+  },
+  "installation_order": [
+    "expo-router",
+    "expo-image-picker",
+    "expo-file-system",
+    "expo-notifications",
+    "@react-native-async-storage/async-storage",
+    "react-native-purchases",
+    "date-fns",
+    "uuid"
+  ],
+  "permissions_required": {
+    "ios": {
+      "NSCameraUsageDescription": "WarrantyVault needs camera access to photograph receipts",
+      "NSPhotoLibraryUsageDescription": "WarrantyVault needs photo library access to select receipt images"
+    },
+    "android": {
+      "CAMERA": true,
+      "READ_EXTERNAL_STORAGE": true,
+      "POST_NOTIFICATIONS": true
+    }
+  }
+}

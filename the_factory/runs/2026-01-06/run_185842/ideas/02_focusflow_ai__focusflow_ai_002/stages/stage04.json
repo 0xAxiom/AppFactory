@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "run_id": "run_185842",
+    "idea_id": "focusflow_ai_002",
+    "idea_name": "FocusFlow AI",
+    "idea_dir": "02_focusflow_ai__focusflow_ai_002",
+    "source_root": "runs/2026-01-06/run_185842",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage03.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage02.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/idea.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+  },
+  "monetization_strategy": {
+    "business_model": {
+      "model_type": "Freemium Subscription",
+      "rationale": "ADHD users need to experience adaptive focus patterns before committing to subscription. Freemium allows immediate value demonstration while AI coaching and advanced features justify premium upgrade.",
+      "free_tier": {
+        "features": [
+          "Basic energy check-in (5 per day)",
+          "Simple visual task mapping (3 active projects)",
+          "Standard focus sessions (25-minute fixed blocks)",
+          "Basic pattern insights (weekly summaries only)",
+          "Core accessibility features"
+        ],
+        "limitations": [
+          "No AI-powered task matching",
+          "Limited focus session customization",
+          "No family/team sharing",
+          "Basic focus environments only",
+          "No export capabilities"
+        ],
+        "purpose": "Demonstrate core ADHD-adaptive concepts and allow users to experience visual workflow benefits before upgrade decision"
+      }
+    },
+    "pricing_strategy": {
+      "monthly_subscription": {
+        "price": "$7.99",
+        "positioning": "Premium ADHD productivity with advanced AI coaching",
+        "target_market": "Working professionals with ADHD seeking specialized executive function support"
+      },
+      "annual_subscription": {
+        "price": "$59.99",
+        "discount_percentage": "37%",
+        "positioning": "Best value for long-term ADHD pattern learning and optimization"
+      },
+      "trial_strategy": {
+        "duration": "21 days",
+        "trial_type": "full_access",
+        "conversion_tactics": [
+          "Progressive AI learning showcases during trial",
+          "Personalized pattern insights after day 7",
+          "Success milestone celebrations",
+          "Gentle conversion reminders at days 14 and 19",
+          "Exit survey with discount offer for hesitant users"
+        ]
+      }
+    },
+    "revenuecat_integration": {
+      "products": [
+        {
+          "product_id": "focusflow_monthly_premium",
+          "type": "auto_renewable_subscription",
+          "price": "$7.99",
+          "duration": "P1M",
+          "grace_period": "P3D"
+        },
+        {
+          "product_id": "focusflow_annual_premium", 
+          "type": "auto_renewable_subscription",
+          "price": "$59.99",
+          "duration": "P1Y",
+          "grace_period": "P7D"
+        }
+      ],
+      "entitlements": [
+        {
+          "identifier": "premium_access",
+          "products": ["focusflow_monthly_premium", "focusflow_annual_premium"]
+        }
+      ],
+      "paywall_configuration": {
+        "trigger_events": [
+          "Attempt to access AI task matching",
+          "Try to create 4th project",
+          "Request advanced focus session customization",
+          "Access pattern export features",
+          "Trial expiration (soft reminder)"
+        ],
+        "presentation_style": "Modal with clear value proposition and ADHD-specific benefits",
+        "dismissal_rules": [
+          "Always dismissible with visible X button",
+          "Returns to free tier functionality",
+          "No forced loops or recurring blocks"
+        ]
+      }
+    },
+    "conversion_optimization": {
+      "value_demonstration": {
+        "onboarding_hooks": [
+          "Interactive energy-task matching demo",
+          "Visual workflow creation tutorial",
+          "Immediate AI suggestion preview",
+          "ADHD-specific benefit explanations throughout"
+        ],
+        "progressive_feature_unlock": [
+          "Day 3: Advanced AI suggestions preview",
+          "Day 7: Personalized pattern insights",
+          "Day 14: Team sharing demonstration",
+          "Day 18: Full feature comparison chart"
+        ],
+        "social_proof_elements": [
+          "ADHD community testimonials",
+          "Neurodivergent user success stories",
+          "Pattern learning effectiveness stats",
+          "Clinical research references (where applicable)"
+        ]
+      },
+      "retention_strategy": {
+        "engagement_features": [
+          "Daily energy check-in streaks",
+          "Weekly pattern learning achievements",
+          "Focus milestone celebrations",
+          "Adaptive session length optimization",
+          "Community challenges (premium)"
+        ],
+        "churn_prevention": [
+          "Usage pattern analysis with re-engagement prompts",
+          "Personalized feature recommendation",
+          "ADHD-specific productivity tips",
+          "Temporary discount offers for lapsed users",
+          "Exit survey with immediate issue resolution"
+        ],
+        "winback_campaigns": [
+          "Pattern data preservation during inactive periods",
+          "Feature update notifications",
+          "Special event pricing (ADHD Awareness Month)",
+          "Improved AI coaching announcements"
+        ]
+      }
+    },
+    "revenue_projections": {
+      "target_metrics": {
+        "monthly_active_users": "15,000 (6 months post-launch)",
+        "trial_conversion_rate": "22% (above industry average due to ADHD-specific value)",
+        "monthly_churn_rate": "7% (strong retention from habit formation)",
+        "projected_mrr_year_1": "$24,500 (conservative estimate with growth trajectory)"
+      },
+      "pricing_experiments": [
+        {
+          "hypothesis": "21-day trial converts better than 7-day for ADHD users due to habit formation needs",
+          "test_description": "A/B test 21-day vs 14-day vs 7-day trial periods measuring conversion rate and retention",
+          "success_criteria": "Higher trial-to-paid conversion and 6-month retention rate"
+        },
+        {
+          "hypothesis": "AI coaching value justifies premium pricing in $7-9 range for ADHD market",
+          "test_description": "Price testing between $6.99, $7.99, and $8.99 monthly pricing with value messaging",
+          "success_criteria": "Optimal revenue per user without significant conversion impact"
+        },
+        {
+          "hypothesis": "Family sharing feature increases annual subscription preference",
+          "test_description": "Test family plan positioning and pricing impact on annual vs monthly choice",
+          "success_criteria": "Increased annual subscription rate and higher lifetime value per user"
+        }
+      ]
+    }
+  }
+}

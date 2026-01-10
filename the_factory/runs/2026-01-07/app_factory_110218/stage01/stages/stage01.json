@@ -1,0 +1,223 @@
+{
+  "exploration_config": {
+    "seed_phrase": "app-factory-812590-beacon-meadow",
+    "vectors": ["spaced repetition alternatives", "creator habit accountability", "emotional regulation journaling", "low-friction publishing prep"],
+    "research_timestamp": "2026-01-07T18:02:18Z",
+    "non_repetition_check": "Reviewed 40 existing ideas from global leaderboard. No direct overlaps with learning-specific or creator-focused tools. Existing ideas center on general productivity and ADHD management."
+  },
+  "market_research": {
+    "trends": [
+      {
+        "name": "Spaced repetition complexity barrier",
+        "description": "Traditional spaced repetition apps either too complex (Anki setup overhead) or too shallow (pre-made flashcards without context)",
+        "evidence": "HN users: 'software tends to be ugly and/or too complicated' and 'preparing cards is big overhead'. Expert analysis shows apps provide 'ready-to-use flashcards without context'.",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Creator-specific habit tracking gap",
+        "description": "General habit apps limit features behind paywalls and lack creator-specific metrics like writing streaks and project progress",
+        "evidence": "App store reviews: 'hitting a roadblock with free version' and 'limit to number of tasks EVEN WITH PREMIUM'. YouTube writers want 'daily word counts, writing streaks, project progress'.",
+        "opportunity_level": "Medium"
+      },
+      {
+        "name": "Emotional journaling depth vs simplicity",
+        "description": "Current apps either too simple (Daylio's 5 moods) or overwhelmingly complex, users want guided depth without complexity",
+        "evidence": "Daylio reviews: 'Five moods don't capture full nuance' and 'want more note templates'. Mental health professionals note 'people may find general tracking limited'.",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Multi-platform publishing friction",
+        "description": "Content creators frustrated by multi-step workflows and platform-specific formatting requirements",
+        "evidence": "2024-2025 reviews show 'too many steps in publishing workflow' and 'complicated workflow issues'. Creators want 'streamlined processes for multi-platform distribution'.",
+        "opportunity_level": "Medium"
+      }
+    ],
+    "competition_landscape": {
+      "oversaturated": ["General productivity apps", "Basic habit trackers", "Simple mood tracking"],
+      "underexplored": ["Learning retention without complexity", "Creator-specific accountability", "Guided emotional processing", "Platform-agnostic content prep"]
+    },
+    "monetization_trends": "Evidence shows users willing to pay for specialized tools that solve specific workflow problems. Subscription resistance mainly for artificial feature limits rather than genuine value delivery."
+  },
+  "app_ideas": [
+    {
+      "id": "contextual_learning_001",
+      "name": "Contextual Learning",
+      "validation_score": 8.5,
+      "signal_source": "HN discussion: 'ready-to-use flashcards without context won't work' and 'most important thing is to create multiple contexts for word you want to learn'",
+      "description": "Learning app that helps users create personal contexts for information instead of pre-made flashcards, focusing on meaningful connections",
+      "target_user": "Students and lifelong learners frustrated with traditional spaced repetition complexity but wanting effective retention",
+      "pain_point_evidence": "Users report 'preparing cards is big overhead' and 'once you fall behind you're done' with traditional SRS. Need 'multiple contexts' for effective learning.",
+      "core_loop": ["Input new concept or fact", "Guided creation of 3 personal contexts/connections", "Daily review of context relationships", "Adaptive scheduling based on recall confidence"],
+      "differentiation": "Focuses on context creation rather than flashcard repetition, client-side learning without complex algorithms",
+      "subscription_fit": "Monthly access to guided context templates, progress tracking across subjects, and adaptive learning insights",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$4.99-7.99",
+        "annual_range": "$39.99-59.99",
+        "trial_strategy": "14-day free trial with full access to context creation tools"
+      }
+    },
+    {
+      "id": "simple_writing_streaks_002",
+      "name": "Simple Writing Streaks",
+      "validation_score": 7.8,
+      "signal_source": "YouTube writing community: 'need simple writing apps that focus on essentials' and 'want daily word counts, writing streaks, project progress'",
+      "description": "Distraction-free writing habit tracker focused exclusively on streaks, word counts, and project momentum for creators",
+      "target_user": "Creative writers and content creators who need accountability without complex project management features",
+      "pain_point_evidence": "Writers report 'hitting roadblock with free version' of habit apps and want 'writing habit trackers that integrate with creative workflow'",
+      "core_loop": ["Set daily writing goal", "Track writing session with simple timer", "Log word count and project progress", "Maintain streak visualization and project momentum"],
+      "differentiation": "Creator-specific metrics instead of generic habits, offline-first with simple progress visualization",
+      "subscription_fit": "Premium insights on writing patterns, goal progression analytics, and project completion estimates",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$2.99-4.99",
+        "annual_range": "$24.99-39.99",
+        "trial_strategy": "30-day free trial with all tracking features"
+      }
+    },
+    {
+      "id": "emotion_context_journal_003",
+      "name": "Emotion Context Journal",
+      "validation_score": 8.2,
+      "signal_source": "Daylio reviews: 'Five moods don't capture full nuance' and 'want more note templates'. Mental health feedback: 'may find general tracking limited'",
+      "description": "Guided emotional journaling with contextual prompts that help users understand emotional patterns without overwhelming complexity",
+      "target_user": "People seeking deeper emotional awareness than basic mood tracking but intimidated by complex therapeutic frameworks",
+      "pain_point_evidence": "Users find current apps 'too simple' or want 'more note templates'. Professional assessment: 'people with mental health issues may find general tracking limited'",
+      "core_loop": ["Daily emotion check-in with guided prompts", "Context creation around triggers and responses", "Pattern recognition through simple visualizations", "Weekly reflection with personalized insights"],
+      "differentiation": "Guided emotional depth without therapeutic complexity, focuses on context over categories",
+      "subscription_fit": "Advanced pattern insights, personalized prompt generation, and guided reflection frameworks",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$6.99-9.99",
+        "annual_range": "$49.99-79.99",
+        "trial_strategy": "7-day free trial with basic prompting system"
+      }
+    },
+    {
+      "id": "content_ready_prep_004",
+      "name": "Content Ready Prep",
+      "validation_score": 7.3,
+      "signal_source": "Creator reviews: 'too many steps in publishing workflow' and 'want streamlined processes for multi-platform distribution'",
+      "description": "Single-app content preparation that formats and optimizes posts for multiple social platforms before publishing",
+      "target_user": "Content creators frustrated by platform-specific formatting requirements and multi-step publishing workflows",
+      "pain_point_evidence": "Users report 'complicated workflow issues in social media management' and 'too many steps' for multi-platform content",
+      "core_loop": ["Create content in universal format", "Preview across platform layouts", "Generate platform-optimized versions", "Export ready-to-post content packages"],
+      "differentiation": "Preparation focus rather than publishing, works with existing tools instead of replacing them",
+      "subscription_fit": "Advanced formatting templates, analytics integration, and bulk content processing",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$9.99-14.99",
+        "annual_range": "$89.99-129.99",
+        "trial_strategy": "14-day free trial with basic platform templates"
+      }
+    },
+    {
+      "id": "focus_pattern_tracker_005",
+      "name": "Focus Pattern Tracker",
+      "validation_score": 7.6,
+      "signal_source": "Productivity app reviews showing users want 'simple focus tracking' without 'complicated features that overwhelm'",
+      "description": "Minimal focus session tracker that learns personal productivity patterns without complex time management features",
+      "target_user": "Knowledge workers who want to understand their focus patterns but are overwhelmed by complex productivity systems",
+      "pain_point_evidence": "Users find productivity apps 'either too simple or too complex' and want focus insights without 'overwhelming features'",
+      "core_loop": ["Start simple focus session timer", "Rate session quality after completion", "Track environmental factors and energy", "View pattern insights weekly"],
+      "differentiation": "Pattern learning over time management, focuses on personal insights rather than productivity optimization",
+      "subscription_fit": "Advanced pattern analytics, environmental correlation insights, and focus improvement suggestions",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$3.99-5.99",
+        "annual_range": "$29.99-49.99",
+        "trial_strategy": "21-day free trial to establish pattern baseline"
+      }
+    },
+    {
+      "id": "simple_habit_dots_006",
+      "name": "Simple Habit Dots",
+      "validation_score": 7.1,
+      "signal_source": "Habit app reviews: 'limit to number of tasks EVEN WITH PREMIUM' and users want 'simple tracking without artificial limits'",
+      "description": "Visual habit tracking using colored dots and simple patterns, no limits on number of habits tracked",
+      "target_user": "People who want visual habit tracking without subscription limitations or complex goal-setting features",
+      "pain_point_evidence": "Users frustrated by 'artificial limits' in free versions and 'hitting roadblock' with feature restrictions",
+      "core_loop": ["Add habit with chosen color", "Tap dot to mark completion", "View visual calendar pattern", "Celebrate streak milestones"],
+      "differentiation": "Unlimited habits without subscription, purely visual approach without gamification complexity",
+      "subscription_fit": "Pattern analytics, habit correlation insights, and data export features",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$1.99-3.99",
+        "annual_range": "$19.99-29.99",
+        "trial_strategy": "Forever free core features, premium for analytics"
+      }
+    },
+    {
+      "id": "learning_momentum_007",
+      "name": "Learning Momentum",
+      "validation_score": 7.9,
+      "signal_source": "Educational app reviews: users want 'learning progress that doesn't punish falling behind' and 'momentum tracking without shame'",
+      "description": "Learning progress tracker that emphasizes momentum and comeback rather than perfect streaks or daily requirements",
+      "target_user": "Adult learners who want to track learning progress without the guilt and pressure of daily habit requirements",
+      "pain_point_evidence": "Users report 'once you fall behind you're done' with traditional systems and want 'progress tracking without daily pressure'",
+      "core_loop": ["Log learning activity when it happens", "Track momentum rather than streaks", "Celebrate restart efforts after breaks", "View long-term learning trajectory"],
+      "differentiation": "Momentum-focused rather than streak-focused, embraces learning inconsistency as normal",
+      "subscription_fit": "Advanced momentum analytics, learning pattern insights, and goal progression tracking",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$3.99-5.99",
+        "annual_range": "$29.99-49.99",
+        "trial_strategy": "30-day free trial to establish momentum baseline"
+      }
+    },
+    {
+      "id": "creative_block_helper_008",
+      "name": "Creative Block Helper",
+      "validation_score": 7.4,
+      "signal_source": "Creative community feedback: 'need tools for writer's block' and 'want simple creative prompts that actually help'",
+      "description": "Simple creative prompt generator that helps overcome blocks without overwhelming users with complex creative frameworks",
+      "target_user": "Creative professionals experiencing blocks who want helpful prompts without complex creative methodology training",
+      "pain_point_evidence": "Creators report needing 'block mitigation tools' and 'simple creative prompts' rather than 'complex creative systems'",
+      "core_loop": ["Request prompt when feeling blocked", "Engage with simple creative exercise", "Track what types of prompts help most", "Build personal prompt library"],
+      "differentiation": "Block-specific focus rather than general creativity, learns user preferences over time",
+      "subscription_fit": "Personalized prompt generation, block pattern analysis, and custom prompt creation tools",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$2.99-4.99",
+        "annual_range": "$24.99-39.99",
+        "trial_strategy": "14-day free trial with core prompt library"
+      }
+    },
+    {
+      "id": "reflection_guide_009",
+      "name": "Reflection Guide",
+      "validation_score": 7.7,
+      "signal_source": "Mental health app reviews: users want 'guided reflection without therapy complexity' and 'self-reflection tools that aren't overwhelming'",
+      "description": "Guided daily reflection app that helps users process experiences without requiring therapeutic framework knowledge",
+      "target_user": "People wanting deeper self-understanding through reflection but intimidated by complex therapeutic or journaling systems",
+      "pain_point_evidence": "Users seek 'self-reflection scaffolding' and report feeling overwhelmed by 'complex therapeutic frameworks' in existing apps",
+      "core_loop": ["Daily guided reflection prompt", "Simple framework for processing experiences", "Pattern recognition over time", "Weekly insights summary"],
+      "differentiation": "Reflection focus rather than mood tracking, accessible guidance without therapeutic training requirements",
+      "subscription_fit": "Personalized reflection paths, deeper pattern insights, and guided reflection framework customization",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$4.99-7.99",
+        "annual_range": "$39.99-59.99",
+        "trial_strategy": "7-day free trial with guided reflection introduction"
+      }
+    },
+    {
+      "id": "micro_skill_builder_010",
+      "name": "Micro Skill Builder",
+      "validation_score": 8.0,
+      "signal_source": "Learning app feedback: 'want skill practice without overwhelming courses' and 'micro-learning that builds real competence'",
+      "description": "5-minute daily skill building sessions that focus on incremental competence rather than course completion",
+      "target_user": "Busy professionals who want to build skills incrementally without committing to lengthy courses or complex learning systems",
+      "pain_point_evidence": "Users want 'micro-learning delivery' but find current options 'either too shallow or too demanding' for busy schedules",
+      "core_loop": ["Choose skill to practice", "Complete 5-minute guided exercise", "Track competence progression", "Unlock next micro-skill level"],
+      "differentiation": "Competence-focused rather than content-focused, designed for busy schedule integration",
+      "subscription_fit": "Advanced skill tracks, personalized progression paths, and competence assessment tools",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$5.99-8.99",
+        "annual_range": "$49.99-79.99",
+        "trial_strategy": "14-day free trial with starter skill tracks"
+      }
+    }
+  ]
+}

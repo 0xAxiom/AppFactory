@@ -1,0 +1,217 @@
+{
+  "market_research": {
+    "trends": [
+      {
+        "name": "Productivity App Fatigue",
+        "description": "Users overwhelmed by managing multiple productivity tools, creating decision paralysis and attention residue",
+        "evidence": "App overload creating 'graveyards of productivity apps' on home screens causing mental chaos - Fluidwave 2024",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Privacy-First Movement", 
+        "description": "Growing demand for apps that don't rely on surveillance monetization due to data collection concerns",
+        "evidence": "19 countries banned TikTok by 2024 due to privacy concerns, new generation of privacy-focused platforms emerging - Confinity 2024",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Creative Workflow Fragmentation",
+        "description": "Creative teams frustrated by managing work across multiple disconnected tools causing friction and delays",
+        "evidence": "Creative work no longer linear, teams operate across multiple tools creating friction and reducing quality - Hive 2024",
+        "opportunity_level": "Medium"
+      },
+      {
+        "name": "ADHD-Aware Design",
+        "description": "Recognition that traditional productivity tools fail neurodivergent users who need adaptive, visual systems",
+        "evidence": "ADHD as disorder of 'doing what you know' - possess knowledge but brain struggles to follow through - Fluidwave 2024",
+        "opportunity_level": "High"
+      }
+    ],
+    "competition_landscape": {
+      "oversaturated": ["General productivity apps", "Note-taking apps", "Basic task managers"],
+      "underexplored": ["Decision automation tools", "Privacy-first productivity", "ADHD-specific design", "Energy-based scheduling"]
+    },
+    "monetization_trends": "Subscription fatigue driving demand for consolidated tools that replace multiple paid apps"
+  },
+  "app_ideas": [
+    {
+      "id": "mindflow_auto_001",
+      "name": "MindFlow Auto",
+      "validation_score": 8.7,
+      "signal_source": "Decision fatigue research showing 'every app switch leaves attention residue' and users seeking single automation source",
+      "description": "AI-powered decision automation app that reduces daily choice overload through intelligent scheduling, meal planning, and routine optimization",
+      "target_user": "Busy professionals experiencing decision fatigue and productivity app overwhelm",
+      "pain_point_evidence": "Users report phone screens becoming 'graveyards of productivity apps' causing mental chaos and reduced decision quality throughout day",
+      "core_loop": ["Morning routine auto-generation", "Smart choice elimination", "Evening reflection and optimization", "Weekly pattern learning"],
+      "differentiation": "Focuses on reducing decisions rather than adding more choices; AI learns patterns to automate routine decisions",
+      "subscription_fit": "Premium AI models, advanced automation rules, unlimited decision profiles, family sharing for household automation",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$9.99",
+        "annual_range": "$79.99",
+        "trial_strategy": "14-day free trial with basic automation features"
+      }
+    },
+    {
+      "id": "focusflow_ai_002",
+      "name": "FocusFlow AI",
+      "validation_score": 8.9,
+      "signal_source": "ADHD research showing 'disorder of doing what you know' and need for visual, adaptive systems that don't demand rigid adherence",
+      "description": "ADHD-optimized focus management app with visual task flows, energy-based scheduling, and adaptive interface that changes based on attention patterns",
+      "target_user": "Adults with ADHD seeking executive function support without overwhelming structure",
+      "pain_point_evidence": "Traditional productivity tools demanding strict schedules ignore reality that energy and focus shift constantly in ADHD brains",
+      "core_loop": ["Energy level check-in", "AI-suggested task matching", "Focus session with adaptive breaks", "Pattern learning and adjustment"],
+      "differentiation": "Adapts to ADHD brain patterns instead of fighting them; visual workflows that match cognitive processing style",
+      "subscription_fit": "Advanced AI coaching, unlimited projects, family/team sharing, premium focus soundscapes and visual themes",
+      "mvp_complexity": "L",
+      "pricing": {
+        "monthly_range": "$12.99",
+        "annual_range": "$99.99",
+        "trial_strategy": "21-day free trial (longer to accommodate ADHD trial patterns)"
+      }
+    },
+    {
+      "id": "secureflow_003",
+      "name": "SecureFlow",
+      "validation_score": 8.2,
+      "signal_source": "Privacy movement evidence: 19 countries banned TikTok by 2024, users actively seeking alternatives to surveillance-based productivity tools",
+      "description": "Privacy-first productivity suite with local data storage, encrypted sync, and subscription model that doesn't rely on data harvesting",
+      "target_user": "Privacy-conscious professionals who want productivity tools without data surveillance",
+      "pain_point_evidence": "Users expressing distrust of big tech data collection, seeking apps that 'don't participate' in surveillance capitalism",
+      "core_loop": ["Local task creation", "Encrypted cross-device sync", "Privacy dashboard monitoring", "Secure team collaboration"],
+      "differentiation": "Zero data collection business model; all processing happens locally with optional encrypted sync",
+      "subscription_fit": "Premium sync across unlimited devices, team collaboration features, advanced encryption options",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$8.99",
+        "annual_range": "$69.99",
+        "trial_strategy": "30-day free trial with local features, sync requires subscription"
+      }
+    },
+    {
+      "id": "creative_flow_004",
+      "name": "CreativeFlow",
+      "validation_score": 7.8,
+      "signal_source": "Creative teams report friction from 'managing different elements with different tools' and file management becoming 'extremely overwhelming'",
+      "description": "Unified creative workflow app integrating file management, version control, team feedback, and project tracking for design teams",
+      "target_user": "Small creative teams and freelancers juggling multiple tools for project management",
+      "pain_point_evidence": "Creative work no longer linear, teams operate across multiple tools creating friction that slows execution and reduces quality",
+      "core_loop": ["Project setup with asset linking", "Visual timeline tracking", "Inline feedback on files", "Version control and approval"],
+      "differentiation": "Built specifically for creative workflows; integrates with existing tools rather than replacing them",
+      "subscription_fit": "Unlimited storage, advanced integrations (Adobe, Figma), team collaboration, client portal access",
+      "mvp_complexity": "L",
+      "pricing": {
+        "monthly_range": "$15.99",
+        "annual_range": "$149.99",
+        "trial_strategy": "14-day free trial with 1GB storage, full team features"
+      }
+    },
+    {
+      "id": "energy_flow_005",
+      "name": "EnergyFlow",
+      "validation_score": 8.1,
+      "signal_source": "Research on decision quality declining throughout day, users seeking energy-based scheduling to optimize mental performance",
+      "description": "Circadian productivity app that schedules tasks based on personal energy patterns, avoiding high-cognitive work during low-energy periods",
+      "target_user": "Knowledge workers seeking to optimize productivity through natural energy rhythm awareness",
+      "pain_point_evidence": "Decision fatigue research shows decision quality reduces as day progresses, need for automated energy-aware scheduling",
+      "core_loop": ["Daily energy pattern tracking", "AI-powered task scheduling", "Circadian-optimized notifications", "Energy trend analysis"],
+      "differentiation": "First app to prioritize energy management over time management; scientific approach to personal productivity optimization",
+      "subscription_fit": "Advanced analytics, unlimited energy profiles, family sharing, integration with health apps and wearables",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$11.99",
+        "annual_range": "$89.99",
+        "trial_strategy": "14-day free trial with basic energy tracking"
+      }
+    },
+    {
+      "id": "private_vault_006",
+      "name": "PrivateVault",
+      "validation_score": 7.9,
+      "signal_source": "Privacy-first movement driving demand for secure personal data management as users seek alternatives to surveillance-based cloud storage",
+      "description": "Encrypted personal data manager for storing sensitive documents, passwords, and personal information with local control and optional encrypted sync",
+      "target_user": "Privacy-conscious individuals wanting secure personal data storage without cloud surveillance",
+      "pain_point_evidence": "Growing distrust of big tech data practices, users want to 'break free from digital surveillance' and control their data",
+      "core_loop": ["Secure document upload", "Encrypted categorization", "Biometric access control", "Selective sharing with encryption"],
+      "differentiation": "Local-first architecture with user-controlled encryption keys; no data access by service provider",
+      "subscription_fit": "Advanced encryption algorithms, unlimited storage, family vaults, secure sharing features",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$7.99",
+        "annual_range": "$59.99",
+        "trial_strategy": "30-day free trial with 500MB storage limit"
+      }
+    },
+    {
+      "id": "executive_function_007",
+      "name": "ExecutiveFunction Pro",
+      "validation_score": 8.4,
+      "signal_source": "ADHD community feedback about task paralysis and need for visual, flexible systems that adapt to changing mental states",
+      "description": "Executive function support app with visual task breakdown, working memory aids, and cognitive load management for neurodivergent users",
+      "target_user": "Adults with ADHD, autism, or other executive function challenges seeking cognitive support tools",
+      "pain_point_evidence": "Task paralysis targeting action not perception - users aware of what to do but feel 'physically incapable' of starting",
+      "core_loop": ["Task breakdown with visual aids", "Working memory support", "Cognitive load assessment", "Achievement tracking and motivation"],
+      "differentiation": "Specifically designed for executive dysfunction; focuses on cognitive support rather than traditional productivity methods",
+      "subscription_fit": "Advanced cognitive assessments, unlimited projects, family/caregiver sharing, professional therapist integration",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$13.99",
+        "annual_range": "$119.99",
+        "trial_strategy": "21-day free trial with full cognitive support features"
+      }
+    },
+    {
+      "id": "choice_less_008",
+      "name": "ChoiceLess",
+      "validation_score": 8.0,
+      "signal_source": "Decision fatigue research showing users want apps that eliminate rather than add choices, seeking 'decision-free living' solutions",
+      "description": "Decision elimination app that automates recurring choices through smart defaults, reducing daily cognitive load for routine decisions",
+      "target_user": "Overwhelmed professionals seeking to reduce decision fatigue through intelligent automation",
+      "pain_point_evidence": "Users seeking 'decision-free living' and tools that support journey away from constant choice-making",
+      "core_loop": ["Choice audit and identification", "Smart default setup", "Automated decision execution", "Outcome tracking and optimization"],
+      "differentiation": "Only app focused on eliminating decisions rather than organizing them; AI-powered default optimization",
+      "subscription_fit": "Unlimited automated choices, advanced AI learning, family decision profiles, integration with shopping and scheduling",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$9.99",
+        "annual_range": "$79.99",
+        "trial_strategy": "14-day free trial with 10 automated decisions"
+      }
+    },
+    {
+      "id": "focus_space_009",
+      "name": "FocusSpace",
+      "validation_score": 7.6,
+      "signal_source": "ADHD users reporting need for 'one app, one purpose' solutions to reduce app switching friction and attention residue",
+      "description": "Minimalist focus environment that blocks distractions and provides single-purpose workspace with ADHD-friendly visual design",
+      "target_user": "ADHD professionals needing distraction-free work environment without complex productivity features",
+      "pain_point_evidence": "App switching leaves attention residue, ADHD users need simplified interfaces that don't overwhelm cognitive processing",
+      "core_loop": ["Distraction blocking activation", "Single-task focus session", "Visual progress tracking", "Gentle transition reminders"],
+      "differentiation": "Extreme minimalism designed for ADHD attention patterns; focuses on environment rather than task management",
+      "subscription_fit": "Advanced blocking rules, unlimited focus sessions, cross-device sync, premium soundscapes and themes",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$6.99",
+        "annual_range": "$49.99",
+        "trial_strategy": "14-day free trial with basic blocking features"
+      }
+    },
+    {
+      "id": "workflow_sync_010",
+      "name": "WorkflowSync",
+      "validation_score": 7.7,
+      "signal_source": "Creative teams frustrated by 'seamless imports, exports, file sync' challenges across Adobe, Figma, and other creative tools",
+      "description": "Creative workflow synchronization app that maintains file consistency and collaboration across multiple design tools and platforms",
+      "target_user": "Creative professionals and teams working across multiple design platforms and collaboration tools",
+      "pain_point_evidence": "Creative workflow management problems stem from managing different elements with different tools, causing overwhelming file management",
+      "core_loop": ["Multi-platform file sync", "Version conflict resolution", "Team notification system", "Project timeline tracking"],
+      "differentiation": "Focuses on sync and consistency rather than replacing tools; works with existing creative software",
+      "subscription_fit": "Unlimited file sync, advanced version control, team collaboration, premium integrations with professional tools",
+      "mvp_complexity": "L",
+      "pricing": {
+        "monthly_range": "$14.99",
+        "annual_range": "$139.99",
+        "trial_strategy": "14-day free trial with 3 project sync"
+      }
+    }
+  ]
+}

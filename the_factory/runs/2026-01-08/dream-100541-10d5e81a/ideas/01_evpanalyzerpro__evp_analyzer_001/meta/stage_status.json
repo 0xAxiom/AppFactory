@@ -1,0 +1,9 @@
+{
+  "idea_id": "evp_analyzer_001",
+  "idea_name": "EVP Analyzer Pro", 
+  "run_id": "dream-100541-10d5e81a",
+  "status": "building",
+  "stages_completed": ["01_dream", "02", "03", "04", "05", "06", "07", "08", "09"],
+  "stages_available": ["02", "03", "04", "05", "06", "07", "08", "09", "10"],
+  "last_updated": "2026-01-08T10:15:00.000Z"
+}

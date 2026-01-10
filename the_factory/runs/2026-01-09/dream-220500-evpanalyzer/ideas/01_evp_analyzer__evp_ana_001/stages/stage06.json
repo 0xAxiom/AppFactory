@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "run_id": "dream-220500-evpanalyzer",
+    "idea_id": "evp_ana_001",
+    "idea_name": "EVP Analyzer",
+    "idea_dir": "01_evp_analyzer__evp_ana_001",
+    "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage05.json"
+    ],
+    "boundary_path": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/meta/boundary.json",
+    "generated_at": "2026-01-09T22:12:00Z"
+  },
+  "builder_handoff": {
+    "implementation_order": [
+      {"phase": 1, "name": "Foundation", "items": ["Expo project setup", "Design tokens", "Icon components", "Base layout"]},
+      {"phase": 2, "name": "Core Services", "items": ["AudioService", "StorageService", "Session data model"]},
+      {"phase": 3, "name": "Recording Flow", "items": ["RecordScreen", "Live waveform", "Session save"]},
+      {"phase": 4, "name": "Analysis Views", "items": ["SessionScreen", "Waveform analyzer", "Timeline", "Playback"]},
+      {"phase": 5, "name": "Premium Features", "items": ["Spectrogram", "Anomaly detection", "Export"]},
+      {"phase": 6, "name": "Monetization", "items": ["RevenueCat integration", "Paywall", "Feature gates"]},
+      {"phase": 7, "name": "Polish", "items": ["Onboarding", "Settings", "Haptics", "Accessibility"]}
+    ],
+    "critical_paths": [
+      "Recording must work reliably before anything else",
+      "Waveform visualization is core credibility feature",
+      "Subscription gates must be bulletproof"
+    ],
+    "api_keys_required": [
+      {"key": "REVENUECAT_API_KEY_IOS", "purpose": "iOS subscription handling"},
+      {"key": "REVENUECAT_API_KEY_ANDROID", "purpose": "Android subscription handling"}
+    ],
+    "testing_requirements": [
+      "Record/playback on physical devices (simulator mic limited)",
+      "Subscription flow with sandbox accounts",
+      "Background recording on iOS",
+      "Long recordings (30+ minutes)"
+    ]
+  }
+}

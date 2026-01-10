@@ -1,0 +1,11 @@
+{
+  "id": "pack_simple_001",
+  "name": "PackSimple",
+  "rank": 1,
+  "validation_score": 8.7,
+  "description": "Dead-simple packing app that focuses solely on creating and checking off items. Discovery Mode: Practical Utility | Ship Profile: Client-only",
+  "target_user": "Frequent travelers frustrated with complex packing apps",
+  "run_id": "app_factory_222533",
+  "run_date": "2026-01-08T22:25:33Z",
+  "frozen_timestamp": "2026-01-08T22:25:33Z"
+}

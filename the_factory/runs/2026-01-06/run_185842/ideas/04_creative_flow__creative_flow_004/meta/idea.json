@@ -1,0 +1,15 @@
+{
+  "idea_id": "creative_flow_004",
+  "idea_name": "CreativeFlow",
+  "run_id": "run_185842",
+  "rank": 4,
+  "validation_score": 7.8,
+  "description": "Unified creative workflow app integrating file management, version control, team feedback, and project tracking for design teams",
+  "target_user": "Small creative teams and freelancers juggling multiple tools for project management",
+  "core_loop": ["Project setup with asset linking", "Visual timeline tracking", "Inline feedback on files", "Version control and approval"],
+  "differentiation": "Built specifically for creative workflows; integrates with existing tools rather than replacing them",
+  "subscription_fit": "Unlimited storage, advanced integrations (Adobe, Figma), team collaboration, client portal access",
+  "mvp_complexity": "L",
+  "source_stage01": "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+  "frozen_timestamp": "2026-01-06T18:58:42Z"
+}

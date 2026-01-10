@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-201250",
+  "idea_id": "fieldtap_009",
+  "idea_name": "FieldTap",
+  "idea_slug": "fieldtap",
+  "rank": 8,
+  "validation_score": 7.4,
+  "frozen_definition": {
+    "id": "fieldtap_009",
+    "name": "FieldTap",
+    "validation_score": 7.4,
+    "signal_source": "Field worker complaints: 'construction teams don't have time to learn ropes of complex tools' and need 'simple, work on-site'",
+    "description": "Single-tap job tracking for field workers that requires no setup or training to start using immediately",
+    "target_user": "Blue-collar workers who need basic job tracking without learning complex software or dealing with complicated interfaces",
+    "pain_point_evidence": "Workers report apps that 'complicate and add time to every job' with 'dated interface not intuitive'",
+    "core_loop": [
+      "Single tap to start job timer",
+      "Auto-detect location and project",
+      "Simple photo capture with timestamps",
+      "One-tap completion with basic notes",
+      "Automatic simple timesheet generation"
+    ],
+    "differentiation": "Zero-setup approach vs. configuration-heavy tools, optimized for immediate use without training",
+    "subscription_fit": "Premium includes team coordination, detailed reporting, and payroll integration",
+    "mvp_complexity": "M",
+    "pricing": {
+      "monthly_range": "$4.99-$7.99",
+      "annual_range": "$39.99-$69.99",
+      "trial_strategy": "Free for individual use, premium for team features and advanced reporting"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "creativeflow_005",
+  "name": "CreativeFlow",
+  "validation_score": 8.0,
+  "signal_source": "Design community: 'I lose 2 hours a day just switching between Figma, Slack, Notion, and file management'",
+  "description": "Unified creative project workspace that integrates design tools, feedback, and project management in one context-aware interface",
+  "target_user": "Freelance designers and small creative teams juggling multiple tools for each project",
+  "pain_point_evidence": "Creative professionals reporting productivity loss from constant context switching and file management overhead",
+  "core_loop": ["Project setup with tool integration", "Unified timeline and asset tracking", "In-context feedback and approvals", "Version control across platforms"],
+  "differentiation": "First creative workspace designed around projects rather than individual tools",
+  "subscription_fit": "Tiered pricing based on project volume and team collaboration features",
+  "mvp_complexity": "L",
+  "pricing": {
+    "monthly_range": "$20-30",
+    "annual_range": "$200-300",
+    "trial_strategy": "Free single project tier, premium unlocks unlimited projects and team features"
+  }
+}

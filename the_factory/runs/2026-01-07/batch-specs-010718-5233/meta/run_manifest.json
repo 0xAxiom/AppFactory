@@ -1,0 +1,89 @@
+{
+  "run_id": "batch-specs-010718-5233",
+  "run_name": "batch-specs-010718-5233",
+  "date": "2026-01-08T02:07:18Z",
+  "command_invoked": "run app factory",
+  "expected_idea_count": 10,
+  "expected_stages_run_factory": ["01"],
+  "expected_stages_build_idea": ["02","03","04","05","06","07","08","09","10"],
+  "expected_stage_artifacts": {
+    "stage01": ["stages/stage01.json", "outputs/stage01_execution.md", "spec/01_market_research.md"]
+  },
+  "idea_index_path": "meta/idea_index.json",
+  "leaderboard_paths": ["leaderboards/app_factory_all_time.json", "leaderboards/app_factory_global.json"],
+  "builds_root": "builds/",
+  "per_idea": {
+    "wash_simple_001": {
+      "idea_dir": "01_wash_simple__wash_simple_001",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "creative_dots_002": {
+      "idea_dir": "02_creative_dots__creative_dots_002",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "access_voice_003": {
+      "idea_dir": "03_access_voice__access_voice_003",
+      "status": "unbuilt", 
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "pack_list_004": {
+      "idea_dir": "04_pack_list__pack_list_004",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "phone_plain_005": {
+      "idea_dir": "05_phone_plain__phone_plain_005",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "room_check_006": {
+      "idea_dir": "06_room_check__room_check_006",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "sketch_snap_007": {
+      "idea_dir": "07_sketch_snap__sketch_snap_007",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "large_text_008": {
+      "idea_dir": "08_large_text__large_text_008",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "travel_weather_009": {
+      "idea_dir": "09_travel_weather__travel_weather_009",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    },
+    "app_pause_010": {
+      "idea_dir": "10_app_pause__app_pause_010",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": ["stages/stage02.json through stage10.json"],
+      "build_id": null
+    }
+  },
+  "run_status": "completed",
+  "failure": null
+}

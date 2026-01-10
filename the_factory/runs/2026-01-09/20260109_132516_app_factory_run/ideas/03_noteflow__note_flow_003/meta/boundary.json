@@ -1,0 +1,17 @@
+{
+  "boundary_enforcement": {
+    "run_id": "20260109_132516_app_factory_run",
+    "idea_id": "note_flow_003", 
+    "idea_dir": "03_noteflow__note_flow_003",
+    "allowed_paths": [
+      "runs/2026-01-09/20260109_132516_app_factory_run/ideas/03_noteflow__note_flow_003/",
+      "runs/2026-01-09/20260109_132516_app_factory_run/stage01/stages/stage01.json",
+      "runs/2026-01-09/20260109_132516_app_factory_run/meta/idea_index.json"
+    ],
+    "forbidden_paths": [
+      "runs/*/ideas/*/",
+      "leaderboards/*",
+      "runs/*/stage01/*"
+    ]
+  }
+}

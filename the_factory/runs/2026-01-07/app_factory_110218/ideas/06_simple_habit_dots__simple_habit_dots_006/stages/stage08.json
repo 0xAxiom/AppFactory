@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "run_id": "app_factory_110218",
+    "idea_id": "simple_habit_dots_006",
+    "idea_name": "Simple Habit Dots",
+    "idea_dir": "06_simple_habit_dots__simple_habit_dots_006",
+    "source_root": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/",
+    "input_stage_paths": ["runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/stages/stage07.json"],
+    "boundary_path": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/boundary.json"
+  },
+  "brand": {
+    "app_name": "Simple Habit Dots",
+    "tagline": "Visual habit tracking, no limits",
+    "color_scheme": "Calm blues and greens with user-customizable habit colors",
+    "design_philosophy": "Clean, minimal, encouraging without overwhelming complexity",
+    "icon_concept": "Minimalist dot pattern representing habit completion"
+  }
+}

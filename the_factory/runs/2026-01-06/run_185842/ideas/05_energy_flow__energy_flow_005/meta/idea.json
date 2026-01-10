@@ -1,0 +1,15 @@
+{
+  "idea_id": "energy_flow_005",
+  "idea_name": "EnergyFlow",
+  "run_id": "run_185842",
+  "rank": 5,
+  "validation_score": 8.1,
+  "description": "Circadian productivity app that schedules tasks based on personal energy patterns, avoiding high-cognitive work during low-energy periods",
+  "target_user": "Knowledge workers seeking to optimize productivity through natural energy rhythm awareness",
+  "core_loop": ["Daily energy pattern tracking", "AI-powered task scheduling", "Circadian-optimized notifications", "Energy trend analysis"],
+  "differentiation": "First app to prioritize energy management over time management; scientific approach to personal productivity optimization",
+  "subscription_fit": "Advanced analytics, unlimited energy profiles, family sharing, integration with health apps and wearables",
+  "mvp_complexity": "M",
+  "source_stage01": "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+  "frozen_timestamp": "2026-01-06T18:58:42Z"
+}

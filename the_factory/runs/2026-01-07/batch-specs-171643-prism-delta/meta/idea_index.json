@@ -1,0 +1,87 @@
+{
+  "run_id": "batch-specs-171643-prism-delta",
+  "run_date": "2026-01-08T17:16:43Z",
+  "total_ideas": 10,
+  "ideas": [
+    {
+      "rank": 1,
+      "idea_id": "paper_simple_001",
+      "idea_name": "Paper Simple",
+      "idea_slug": "paper_simple",
+      "directory": "01_paper_simple__paper_simple_001",
+      "validation_score": 8.1
+    },
+    {
+      "rank": 2,
+      "idea_id": "access_first_003",
+      "idea_name": "AccessFirst", 
+      "idea_slug": "access_first",
+      "directory": "03_access_first__access_first_003",
+      "validation_score": 7.8
+    },
+    {
+      "rank": 3,
+      "idea_id": "purchase_pause_005",
+      "idea_name": "Purchase Pause",
+      "idea_slug": "purchase_pause", 
+      "directory": "05_purchase_pause__purchase_pause_005",
+      "validation_score": 7.7
+    },
+    {
+      "rank": 4,
+      "idea_id": "studio_momentum_002",
+      "idea_name": "Studio Momentum",
+      "idea_slug": "studio_momentum",
+      "directory": "02_studio_momentum__studio_momentum_002", 
+      "validation_score": 7.6
+    },
+    {
+      "rank": 5,
+      "idea_id": "mindful_cart_010",
+      "idea_name": "Mindful Cart",
+      "idea_slug": "mindful_cart",
+      "directory": "10_mindful_cart__mindful_cart_010",
+      "validation_score": 7.5
+    },
+    {
+      "rank": 6,
+      "idea_id": "trip_anchor_004",
+      "idea_name": "Trip Anchor",
+      "idea_slug": "trip_anchor",
+      "directory": "04_trip_anchor__trip_anchor_004",
+      "validation_score": 7.4
+    },
+    {
+      "rank": 7,
+      "idea_id": "access_check_008",
+      "idea_name": "AccessCheck",
+      "idea_slug": "access_check",
+      "directory": "08_access_check__access_check_008",
+      "validation_score": 7.3
+    },
+    {
+      "rank": 8,
+      "idea_id": "call_script_006",
+      "idea_name": "Call Script",
+      "idea_slug": "call_script", 
+      "directory": "06_call_script__call_script_006",
+      "validation_score": 7.2
+    },
+    {
+      "rank": 9,
+      "idea_id": "creative_trace_007",
+      "idea_name": "Creative Trace",
+      "idea_slug": "creative_trace",
+      "directory": "07_creative_trace__creative_trace_007",
+      "validation_score": 7.0
+    },
+    {
+      "rank": 10,
+      "idea_id": "travel_essential_009",
+      "idea_name": "Travel Essential",
+      "idea_slug": "travel_essential",
+      "directory": "09_travel_essential__travel_essential_009",
+      "validation_score": 6.9
+    }
+  ]
+}

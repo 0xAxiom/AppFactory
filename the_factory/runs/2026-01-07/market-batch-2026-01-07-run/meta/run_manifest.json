@@ -1,0 +1,18 @@
+{
+  "run_id": "market-batch-2026-01-07-run",
+  "run_name": "market-batch-2026-01-07-run", 
+  "date": "2026-01-07T22:31:28.451Z",
+  "command_invoked": "run app factory",
+  "expected_idea_count": 10,
+  "expected_stages_run_factory": ["01"],
+  "expected_stages_build_idea": ["02","03","04","05","06","07","08","09","10"],
+  "expected_stage_artifacts": {
+    "stage01": ["stages/stage01.json", "outputs/stage01_execution.md", "spec/01_market_research.md"]
+  },
+  "idea_index_path": "meta/idea_index.json",
+  "leaderboard_paths": ["leaderboards/app_factory_all_time.json", "leaderboards/app_factory_all_time.csv"],
+  "builds_root": "builds/",
+  "per_idea": {},
+  "run_status": "completed",
+  "failure": null
+}

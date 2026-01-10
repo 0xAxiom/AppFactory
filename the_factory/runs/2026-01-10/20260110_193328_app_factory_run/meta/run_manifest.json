@@ -1,0 +1,60 @@
+{
+  "run_id": "20260110_193328_app_factory_run",
+  "run_name": "20260110_193328_app_factory_run",
+  "date": "2026-01-10T19:33:28.715Z",
+  "command_invoked": "run",
+  "expected_idea_count": 10,
+  "expected_stages_run_factory": [
+    "01"
+  ],
+  "expected_stages_build_idea": [
+    "02",
+    "02.5",
+    "02.7",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "08.5",
+    "09",
+    "09.1",
+    "09.2",
+    "09.5",
+    "09.7",
+    "10.1",
+    "10"
+  ],
+  "expected_stages_dream": [
+    "01_dream",
+    "02",
+    "02.5",
+    "02.7",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "08.5",
+    "09",
+    "09.1",
+    "09.2",
+    "09.5",
+    "09.7",
+    "10.1",
+    "10"
+  ],
+  "idea_index_path": "meta/idea_index.json",
+  "builds_root": "builds/",
+  "per_idea": {},
+  "run_status": "failed",
+  "failure": {
+    "stage": "01",
+    "error": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWzFpXYaSbuHHGScxGm4z\"}"
+  },
+  "stages_completed": [],
+  "inputs_hash": "2501521ddb02d8b6",
+  "model": "claude-sonnet-4-20250514"
+}

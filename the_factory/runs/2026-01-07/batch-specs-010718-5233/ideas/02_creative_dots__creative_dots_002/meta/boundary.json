@@ -1,0 +1,11 @@
+{
+  "idea_id": "creative_dots_002",
+  "run_id": "batch-specs-010718-5233",
+  "idea_dir": "02_creative_dots__creative_dots_002",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-010718-5233/ideas/02_creative_dots__creative_dots_002/",
+    "runs/2026-01-07/batch-specs-010718-5233/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-010718-5233/meta/idea_index.json"
+  ],
+  "isolation_enforced": true
+}

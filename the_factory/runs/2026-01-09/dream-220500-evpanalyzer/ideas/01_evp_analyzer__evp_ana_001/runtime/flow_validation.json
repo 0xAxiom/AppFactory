@@ -1,0 +1,9 @@
+{
+  "flows_validated": [
+    {"flow": "Start Investigation", "status": "defined", "entry": "RecordButton tap"},
+    {"flow": "Analyze Session", "status": "defined", "entry": "Session screen load"},
+    {"flow": "Premium Feature Gate", "status": "defined", "entry": "Gated feature tap"},
+    {"flow": "Session Limit Gate", "status": "defined", "entry": "4th session save"}
+  ],
+  "all_flows_covered": true
+}

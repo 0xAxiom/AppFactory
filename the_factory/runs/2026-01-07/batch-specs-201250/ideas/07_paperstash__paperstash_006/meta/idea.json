@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-201250",
+  "idea_id": "paperstash_006",
+  "idea_name": "PaperStash",
+  "idea_slug": "paperstash",
+  "rank": 7,
+  "validation_score": 7.6,
+  "frozen_definition": {
+    "id": "paperstash_006",
+    "name": "PaperStash",
+    "validation_score": 7.6,
+    "signal_source": "Note-taking app complaints about 'work well initially but become problematic as note collections grow' and difficulty with retrieval",
+    "description": "Digital shoebox for random notes and thoughts that prioritizes simple storage and powerful search over organization structure",
+    "target_user": "Note-takers overwhelmed by organizational systems who just want to dump thoughts and find them later",
+    "pain_point_evidence": "Users struggle with notes being 'fragmented and scattered across different folders and tags'",
+    "core_loop": [
+      "Quick note capture without categories",
+      "Powerful full-text search",
+      "Smart suggestions based on content",
+      "Optional simple tagging",
+      "Archive old notes automatically"
+    ],
+    "differentiation": "Anti-organization approach vs. complex folder systems, prioritizes capture and search over structure",
+    "subscription_fit": "Premium includes unlimited notes, advanced search filters, and cross-device sync",
+    "mvp_complexity": "S",
+    "pricing": {
+      "monthly_range": "$2.99-$4.99",
+      "annual_range": "$24.99-$39.99",
+      "trial_strategy": "Free for up to 200 notes, premium for unlimited storage and advanced search"
+    }
+  }
+}

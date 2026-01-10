@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "run_id": "run_185842", 
+    "idea_id": "focusflow_ai_002",
+    "idea_name": "FocusFlow AI",
+    "idea_dir": "02_focusflow_ai__focusflow_ai_002",
+    "source_root": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/",
+    "input_stage_paths": [
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage08.json",
+      "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/stages/stage07.json"
+    ],
+    "boundary_path": "runs/2026-01-06/run_185842/ideas/02_focusflow_ai__focusflow_ai_002/meta/boundary.json"
+  },
+  "release_planning": {
+    "launch_strategy": {
+      "release_approach": "soft_launch",
+      "target_timeline": {
+        "development_completion": "Q2 2026",
+        "testing_phase": "6 weeks beta with ADHD community",
+        "store_submission": "July 2026", 
+        "public_launch": "August 2026"
+      },
+      "launch_phases": [
+        {
+          "phase_name": "Alpha Testing",
+          "duration": "4 weeks",
+          "objectives": ["Core functionality validation", "ADHD-specific feature testing", "Performance optimization"],
+          "success_criteria": ["<2s startup time", "Positive ADHD tester feedback", "Core workflows functional"]
+        },
+        {
+          "phase_name": "Beta Launch", 
+          "duration": "6 weeks",
+          "objectives": ["Community feedback integration", "Accessibility validation", "Revenue model testing"],
+          "success_criteria": ["500+ beta users", "4.5+ rating", "Subscription conversion >15%"]
+        },
+        {
+          "phase_name": "Soft Launch",
+          "duration": "8 weeks", 
+          "objectives": ["Market fit validation", "Support system testing", "Feature usage analytics"],
+          "success_criteria": ["2000+ downloads", "Positive store reviews", "Customer support efficiency"]
+        }
+      ]
+    },
+    "aso_package": {
+      "ios_app_store": {
+        "app_name": "FocusFlow AI: ADHD Productivity",
+        "subtitle": "AI that gets your ADHD brain",
+        "keywords": "ADHD,focus,productivity,AI,neurodivergent,attention,executive function,task management",
+        "description": "Finally, a productivity app designed specifically for ADHD minds. FocusFlow AI adapts to your unique energy patterns and attention cycles, suggesting the right tasks at the right time. Features energy-aware task matching, visual workflows, adaptive focus sessions, and hyperfocus protection. Built with ADHD research and community feedback.",
+        "primary_category": "Productivity", 
+        "secondary_category": "Health & Fitness",
+        "screenshots_plan": [
+          {
+            "title": "Energy Check-In",
+            "description": "Quick visual assessment of current focus state",
+            "visual_focus": "Colorful energy selector with clear ADHD-friendly design",
+            "device_type": "iPhone 15 Pro"
+          },
+          {
+            "title": "AI Task Suggestions", 
+            "description": "Personalized recommendations based on energy state",
+            "visual_focus": "Card-based layout showing task-energy matching",
+            "device_type": "iPhone 15"
+          },
+          {
+            "title": "Adaptive Focus Timer",
+            "description": "Flexible sessions that protect against hyperfocus burnout", 
+            "visual_focus": "Calming timer interface with progress visualization",
+            "device_type": "iPhone 15 Pro"
+          }
+        ],
+        "app_preview_concept": "30-second video showing complete workflow from energy check-in to successful task completion"
+      },
+      "android_play_store": {
+        "app_name": "FocusFlow AI: ADHD Productivity Helper",
+        "short_description": "AI-powered productivity for ADHD brains. Works with your patterns, not against them.",
+        "full_description": "Tired of productivity apps that don't understand how your ADHD brain works? FocusFlow AI is different. Our adaptive technology learns your unique attention patterns and energy cycles to suggest the perfect tasks at the perfect time. Features include energy-aware AI matching, visual task workflows, hyperfocus protection, and accessibility built from the ground up. Join thousands of ADHD adults who've found their productivity flow.",
+        "category": "Productivity",
+        "feature_graphic_concept": "Flowing visual showing diverse ADHD users in successful focus states",
+        "screenshots_plan": [
+          {
+            "title": "Visual Task Board",
+            "description": "Kanban-style interface optimized for ADHD visual processing", 
+            "visual_focus": "Colorful task cards with clear visual hierarchy"
+          },
+          {
+            "title": "Focus Analytics", 
+            "description": "Pattern recognition to optimize your productivity",
+            "visual_focus": "Clean charts showing energy patterns and focus trends"
+          }
+        ]
+      },
+      "keyword_strategy": {
+        "primary_keywords": ["ADHD productivity", "focus app", "neurodivergent tools", "attention management"],
+        "secondary_keywords": ["executive function", "ADHD planner", "adaptive AI", "visual task management"],
+        "long_tail_keywords": ["productivity app for ADHD adults", "focus timer for neurodivergent", "ADHD-friendly task manager"],
+        "competitor_analysis": "Positioning against general productivity apps while avoiding medical claims",
+        "keyword_difficulty_assessment": "Medium competition in ADHD space, high in general productivity"
+      }
+    },
+    "marketing_launch_plan": {
+      "pre_launch": {
+        "audience_building": [
+          "ADHD TikTok and Instagram community engagement",
+          "Productivity and neurodivergent podcast sponsorships", 
+          "ADHD coach and therapist partnership program",
+          "Beta tester community building in ADHD Facebook groups"
+        ],
+        "content_preparation": [
+          "ADHD productivity tip content series",
+          "Behind-the-scenes development with ADHD team members",
+          "Educational content about ADHD and technology",
+          "User story collection from beta testers"
+        ],
+        "press_outreach": "ADHD advocacy organizations, neurodiversity publications, productivity blogs",
+        "beta_testing_program": "Invite-only beta with ADHD community leaders and advocates"
+      },
+      "launch_day": {
+        "announcement_strategy": "Coordinated launch across ADHD communities with authentic personal stories",
+        "social_media_campaign": "#ADHDProductivityThatWorks hashtag with user testimonials",
+        "pr_activities": ["ADHD podcast interviews", "Neurodiversity conference presentations", "Mental health blog features"],
+        "community_engagement": "Live Q&A sessions in ADHD Facebook groups and Discord servers"
+      },
+      "post_launch": {
+        "user_onboarding_optimization": "Continuous A/B testing of onboarding with ADHD user feedback",
+        "feedback_collection": "In-app feedback, community forums, regular user interviews",
+        "iteration_planning": "Monthly feature updates based on ADHD community needs",
+        "growth_marketing": ["Referral program for ADHD users", "Healthcare provider partnerships", "ADHD coach affiliate program"]
+      }
+    },
+    "success_metrics_and_kpis": {
+      "download_targets": {
+        "first_week": "1,000 downloads",
+        "first_month": "5,000 downloads", 
+        "first_quarter": "25,000 downloads"
+      },
+      "engagement_metrics": {
+        "day_1_retention": "75% (high due to ADHD-specific value)",
+        "day_7_retention": "45% (above category average)",
+        "day_30_retention": "25% (strong for productivity category)",
+        "session_length": "8-12 minutes average (appropriate for ADHD attention)"
+      },
+      "monetization_targets": {
+        "trial_conversion_rate": "18% (premium ADHD features drive conversion)",
+        "revenue_per_user": "$78 annual average",
+        "monthly_recurring_revenue": "$50K by month 6"
+      },
+      "store_performance": {
+        "app_store_rating": "4.6+ (ADHD community satisfaction)",
+        "review_velocity": "50+ reviews per month",
+        "keyword_ranking_targets": ["Top 5 for 'ADHD productivity'", "Top 10 for 'focus app'", "Top 15 for 'neurodivergent tools'"]
+      }
+    },
+    "risk_mitigation": {
+      "potential_risks": [
+        {
+          "risk": "ADHD community backlash over commercialization",
+          "probability": "medium", 
+          "impact": "high",
+          "mitigation_strategy": "Transparent development process, community involvement, authentic ADHD team representation"
+        },
+        {
+          "risk": "App Store medical claims rejection",
+          "probability": "low",
+          "impact": "high", 
+          "mitigation_strategy": "Careful marketing language avoiding medical claims, focus on productivity benefits"
+        },
+        {
+          "risk": "Low initial adoption due to niche market",
+          "probability": "medium",
+          "impact": "medium",
+          "mitigation_strategy": "Strong community partnerships, word-of-mouth focus, authentic user testimonials"
+        }
+      ],
+      "contingency_plans": [
+        {
+          "scenario": "Poor initial app store ratings",
+          "response_plan": "Rapid iteration based on feedback, personal outreach to disappointed users, feature priority adjustment",
+          "decision_criteria": "If rating drops below 4.0 for more than a week"
+        },
+        {
+          "scenario": "Competitive app with better ADHD features launches",
+          "response_plan": "Accelerate roadmap development, strengthen community relationships, highlight unique AI capabilities",
+          "decision_criteria": "If competitor gains >10% market share in 3 months"
+        }
+      ]
+    },
+    "post_launch_roadmap": {
+      "immediate_updates": [
+        {
+          "update_type": "Feature Enhancement",
+          "timeline": "Month 2-3",
+          "rationale": "Add calendar integration based on user feedback"
+        },
+        {
+          "update_type": "Accessibility Improvement", 
+          "timeline": "Month 1-2",
+          "rationale": "Enhanced voice control based on beta accessibility testing"
+        }
+      ],
+      "feature_pipeline": [
+        {
+          "feature": "Team/Family Sharing with ADHD awareness",
+          "priority": "high",
+          "estimated_timeline": "Q4 2026", 
+          "user_value": "Collaborative planning for ADHD families and work teams"
+        },
+        {
+          "feature": "Integration with ADHD therapy apps",
+          "priority": "medium",
+          "estimated_timeline": "Q1 2027",
+          "user_value": "Holistic ADHD support ecosystem integration"
+        },
+        {
+          "feature": "Advanced pattern recognition and coaching",
+          "priority": "high", 
+          "estimated_timeline": "Q2 2027",
+          "user_value": "Deeper AI insights and personalized productivity coaching"
+        }
+      ],
+      "platform_expansion": {
+        "additional_platforms": ["iPad app optimization", "Apple Watch companion", "Web app for desktop"],
+        "international_markets": ["Canada", "UK", "Australia (English-speaking ADHD communities first)"],
+        "localization_plan": "Cultural adaptation of ADHD representation and productivity concepts"
+      }
+    }
+  }
+}

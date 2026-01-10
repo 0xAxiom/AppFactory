@@ -1,0 +1,15 @@
+{
+  "idea_id": "focus_space_009",
+  "idea_name": "FocusSpace",
+  "run_id": "run_185842",
+  "rank": 9,
+  "validation_score": 7.6,
+  "description": "Minimalist focus environment that blocks distractions and provides single-purpose workspace with ADHD-friendly visual design",
+  "target_user": "ADHD professionals needing distraction-free work environment without complex productivity features",
+  "core_loop": ["Distraction blocking activation", "Single-task focus session", "Visual progress tracking", "Gentle transition reminders"],
+  "differentiation": "Extreme minimalism designed for ADHD attention patterns; focuses on environment rather than task management",
+  "subscription_fit": "Advanced blocking rules, unlimited focus sessions, cross-device sync, premium soundscapes and themes",
+  "mvp_complexity": "S",
+  "source_stage01": "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+  "frozen_timestamp": "2026-01-06T18:58:42Z"
+}

@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "run_id": "dream-100541-10d5e81a",
+    "idea_id": "evp_analyzer_001",
+    "idea_name": "EVP Analyzer Pro",
+    "idea_dir": "01_evpanalyzerpro__evp_analyzer_001",
+    "source_root": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/",
+    "input_stage_paths": [
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/stages/stage03.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/stages/stage02.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/idea.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+  },
+  "monetization_strategy": {
+    "business_model": {
+      "revenue_model": "Subscription",
+      "pricing_strategy": "Freemium with professional tier subscription targeting serious paranormal investigators willing to pay for professional-grade analysis tools",
+      "value_justification": "Professional investigators currently spend $300+ on dedicated EVP recording equipment. Our app provides superior analysis capabilities for $49.99/year, offering significant cost savings with enhanced functionality including automatic anomaly detection, professional export formats, and cloud session management.",
+      "competitor_pricing_analysis": "Audio analysis apps range from $4.99/month (Spectral Analysis Pro) to $19.99/month (professional audio tools). Paranormal investigation apps are typically $0.99-$4.99 one-time but lack professional features. Our $4.99/month ($49.99/year) pricing positions us as premium professional tool while remaining accessible to serious hobbyists."
+    },
+    "subscription_tiers": [
+      {
+        "tier_name": "EVP Pro",
+        "price_monthly": "$4.99",
+        "price_annual": "$49.99",
+        "features_included": [
+          "Unlimited recording length (vs 5-minute free limit)",
+          "Advanced spectral analysis with frequency domain visualization",
+          "Cloud session backup and cross-device sync",
+          "Professional export formats (WAV, FLAC) with metadata",
+          "Batch anomaly analysis across multiple sessions",
+          "Priority customer support with investigation guidance",
+          "No ads or promotional content"
+        ],
+        "target_user_segment": "Professional paranormal investigators, serious hobbyists, and audio professionals requiring authentic anomaly detection tools"
+      }
+    ],
+    "trial_strategy": {
+      "trial_type": "Free trial + Freemium",
+      "trial_duration": "14 days full access",
+      "trial_limitations": "After trial: 5-minute recording limit, local storage only, basic export formats (MP3), watermarked analysis reports, no batch processing",
+      "conversion_strategy": "Demonstrate professional value through 14-day trial allowing full investigation workflow experience. Free tier maintains core functionality for casual users while creating clear upgrade value for professional features. Convert on professional limitations: extended sessions, cloud backup, and export quality."
+    },
+    "revenuecat_integration": {
+      "product_configuration": "Single subscription product 'evp_pro_subscription' with monthly ($4.99) and annual ($49.99) variants. Annual offers 17% discount. 3-day grace period for billing issues. Configured in RevenueCat dashboard with proper App Store and Google Play product IDs.",
+      "entitlement_structure": "Primary entitlement 'pro_features' unlocks all premium functionality. Single entitlement model simplifies feature gating and user experience. Entitlement checks performed at app launch, feature access, and after purchase completion.",
+      "purchase_flow": "Paywall triggered on recording limit reached, advanced feature access, or manual upgrade from settings. Uses RevenueCat Paywall UI with configured offering. Handles purchase success, cancellation, and error states with appropriate user feedback and retry options.",
+      "restoration_strategy": "Prominent 'Restore Purchases' button on paywall and subscription management screen. Uses RevenueCat restorePurchases() method with error handling for network failures, invalid receipts, and account mismatches. Clear success/failure messaging."
+    }
+  },
+  "standards_compliance": {
+    "subscription_store_compliance": "RevenueCat SDK integration handles all subscription logic with proper App Store and Google Play compliance. Clear auto-renewal disclosure on paywall. Subscription management links provided. Restore Purchases functionality prominently available. No custom billing or alternative payment methods.",
+    "accessibility_design": "Paywall follows WCAG 2.1 AA with high contrast pricing display and minimum touch targets. Screen reader support for subscription terms and pricing. Dynamic Type scaling for subscription interface. Clear cancellation instructions accessible via screen reader.",
+    "privacy_analytics": "RevenueCat handles subscription analytics with minimal PII collection. Purchase events tracked through Firebase Analytics without exposing personal subscription details. Privacy Policy clearly describes subscription data usage. No cross-app tracking for subscription features.",
+    "testing_release_readiness": "Subscription flow tested in sandbox environments for both iOS and Android. Purchase, restoration, and cancellation flows verified. Edge cases tested including network failures, expired trials, and billing issues. RevenueCat configuration validated with test transactions."
+  }
+}

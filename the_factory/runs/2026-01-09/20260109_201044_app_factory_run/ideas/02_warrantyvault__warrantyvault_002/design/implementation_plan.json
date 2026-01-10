@@ -1,0 +1,107 @@
+{
+  "app_name": "WarrantyVault",
+  "implementation_priority": [
+    {
+      "order": 1,
+      "component": "App Shell",
+      "files": ["app/_layout.tsx", "app/(tabs)/_layout.tsx"],
+      "description": "Root providers and tab navigation setup",
+      "dependencies": []
+    },
+    {
+      "order": 2,
+      "component": "Context Providers",
+      "files": ["src/contexts/ItemsContext.tsx", "src/contexts/SubscriptionContext.tsx", "src/contexts/PreferencesContext.tsx"],
+      "description": "State management for items, subscription, and preferences",
+      "dependencies": ["AsyncStorage", "react-native-purchases"]
+    },
+    {
+      "order": 3,
+      "component": "Design Tokens",
+      "files": ["src/theme/colors.ts", "src/theme/typography.ts", "src/theme/spacing.ts"],
+      "description": "Centralized design system values",
+      "dependencies": []
+    },
+    {
+      "order": 4,
+      "component": "Base Components",
+      "files": ["src/components/Button.tsx", "src/components/Card.tsx", "src/components/Input.tsx"],
+      "description": "Reusable UI primitives with brand styling",
+      "dependencies": ["Design Tokens"]
+    },
+    {
+      "order": 5,
+      "component": "Item Card",
+      "files": ["src/components/ItemCard.tsx"],
+      "description": "Dashboard item display with thumbnail, name, status badge",
+      "dependencies": ["Base Components", "Design Tokens"]
+    },
+    {
+      "order": 6,
+      "component": "Status Section",
+      "files": ["src/components/StatusSection.tsx"],
+      "description": "Collapsible section header with item count",
+      "dependencies": ["Base Components"]
+    },
+    {
+      "order": 7,
+      "component": "Dashboard Screen",
+      "files": ["app/(tabs)/index.tsx"],
+      "description": "Main screen with status-grouped item list and FAB",
+      "dependencies": ["ItemCard", "StatusSection", "ItemsContext"]
+    },
+    {
+      "order": 8,
+      "component": "Add Item Screen",
+      "files": ["app/(tabs)/add.tsx"],
+      "description": "Camera picker and form for new item creation",
+      "dependencies": ["expo-image-picker", "Input", "ItemsContext"]
+    },
+    {
+      "order": 9,
+      "component": "Item Detail Screen",
+      "files": ["app/item/[id].tsx"],
+      "description": "Full item view with receipt image and countdown",
+      "dependencies": ["ItemsContext", "Image zoom capability"]
+    },
+    {
+      "order": 10,
+      "component": "Settings Screen",
+      "files": ["app/(tabs)/settings.tsx"],
+      "description": "Configuration and subscription management",
+      "dependencies": ["SubscriptionContext", "PreferencesContext"]
+    },
+    {
+      "order": 11,
+      "component": "Paywall",
+      "files": ["app/paywall.tsx", "src/components/Paywall.tsx"],
+      "description": "Subscription offering modal with RevenueCat",
+      "dependencies": ["react-native-purchases", "SubscriptionContext"]
+    },
+    {
+      "order": 12,
+      "component": "Notification Service",
+      "files": ["src/services/notifications.ts"],
+      "description": "Local notification scheduling for expiration alerts",
+      "dependencies": ["expo-notifications"]
+    }
+  ],
+  "component_specifications": {
+    "ItemCard": {
+      "props": ["item: Item", "onPress: () => void"],
+      "layout": "Horizontal with thumbnail left, details right",
+      "status_indicator": "Left border color based on status",
+      "countdown_display": "Badge with days remaining"
+    },
+    "StatusSection": {
+      "props": ["title: string", "count: number", "color: string", "children: ReactNode"],
+      "layout": "Collapsible header with chevron icon",
+      "default_state": "Expiring expanded, others collapsed"
+    },
+    "Paywall": {
+      "props": ["visible: boolean", "onClose: () => void", "trigger: 'settings' | 'limit' | 'feature'"],
+      "layout": "Modal with benefits list, plan toggle, CTA button",
+      "required_elements": "Restore purchases link, terms link, dismiss button"
+    }
+  }
+}

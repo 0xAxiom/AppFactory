@@ -1,0 +1,19 @@
+{
+  "validatedAt": "2026-01-09T19:32:11-08:00",
+  "appDirectory": "/Users/melted/Documents/GitHub/app factory/the_factory/builds/01_memevault__memevault_001/memevault_working",
+  "overall": "passed",
+  "checks": {
+    "npmInstall": "passed",
+    "expoCheck": "passed",
+    "expoDoctor": "completed",
+    "expoStart": "passed"
+  },
+  "logs": {
+    "install": "install_log.txt",
+    "expoCheck": "expo_check_log.txt",
+    "expoDoctor": "expo_doctor_log.txt",
+    "expoStart": "expo_start_log.txt"
+  },
+  "nodeVersion": "v24.2.0",
+  "npmVersion": "11.4.2"
+}

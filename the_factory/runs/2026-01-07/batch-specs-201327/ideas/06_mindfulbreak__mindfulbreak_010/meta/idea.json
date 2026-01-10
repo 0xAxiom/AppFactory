@@ -1,0 +1,18 @@
+{
+  "id": "mindfulbreak_010",
+  "name": "MindfulBreak",
+  "validation_score": 7.7,
+  "signal_source": "Digital detox app reviews show users appreciate apps that 'address stress, boredom, or anxiety' with 76% of Americans considering digital detox",
+  "description": "Intentional boredom cultivation app that guides users through productive offline activities during digital breaks",
+  "target_user": "Users interested in digital wellness who want structured alternatives to screen time rather than just blocking apps",
+  "pain_point_evidence": "Digital detox users seek apps that provide 'mindfulness practices' and help with 'boredom management' during offline periods",
+  "core_loop": ["Schedule meaningful break periods", "Choose guided offline activities", "Engage in intentional boredom exercises", "Reflect on mental clarity gained", "Build sustainable digital wellness habits"],
+  "differentiation": "Positive offline engagement vs. negative restriction, focuses on what to do instead of what not to do",
+  "subscription_fit": "Premium includes advanced activity library, progress tracking, and personalized recommendations",
+  "mvp_complexity": "S",
+  "pricing": {
+    "monthly_range": "$2.99-$4.99",
+    "annual_range": "$24.99-$39.99",
+    "trial_strategy": "Free basic activities, premium for expanded library and tracking features"
+  }
+}

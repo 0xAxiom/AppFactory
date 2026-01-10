@@ -1,0 +1,24 @@
+{
+  "id": "ruleforge_002",
+  "name": "RuleForge",
+  "validation_score": 8.1,
+  "signal_source": "User complaints show productivity apps 'require me to manually assign a date and time to every single entry' and 'do zero of the heavy lifting for me'",
+  "description": "Simple personal automation app that creates if-then rules for daily tasks without requiring technical knowledge",
+  "target_user": "Busy professionals who want task automation but find existing apps too complex or requiring too much manual setup",
+  "pain_point_evidence": "Users report 'steep learning curve' and 'too many features can be overwhelming' with existing automation tools",
+  "core_loop": [
+    "Define simple if-then rules in plain language",
+    "Automate recurring decisions and tasks",
+    "Monitor rule effectiveness",
+    "Adjust rules based on results",
+    "Share rule templates with others"
+  ],
+  "differentiation": "Plain language rule creation vs. technical automation, focuses on simplicity over power",
+  "subscription_fit": "Premium includes unlimited rules, advanced triggers, and cloud sync across devices",
+  "mvp_complexity": "L",
+  "pricing": {
+    "monthly_range": "$6.99-$9.99",
+    "annual_range": "$59.99-$89.99",
+    "trial_strategy": "Free basic rules, premium for unlimited automation and cloud features"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "contract_version": "1.0",
+  "generated_at": "2026-01-09T22:18:00Z",
+  "idea_id": "evp_ana_001",
+  "app_name": "EVP Analyzer",
+
+  "technical_stack": {
+    "framework": "Expo SDK 52",
+    "navigation": "Expo Router 4.x",
+    "language": "TypeScript",
+    "state_management": "React Context",
+    "subscriptions": "RevenueCat"
+  },
+
+  "screens": [
+    {"route": "/(tabs)/index", "name": "HomeScreen", "type": "tab"},
+    {"route": "/(tabs)/log", "name": "LogScreen", "type": "tab"},
+    {"route": "/(tabs)/settings", "name": "SettingsScreen", "type": "tab"},
+    {"route": "/record", "name": "RecordScreen", "type": "modal"},
+    {"route": "/session/[id]", "name": "SessionScreen", "type": "stack"},
+    {"route": "/session/[id]/spectrogram", "name": "SpectrogramScreen", "type": "stack"},
+    {"route": "/session/[id]/tag", "name": "TagScreen", "type": "modal"},
+    {"route": "/session/[id]/export", "name": "ExportScreen", "type": "modal"},
+    {"route": "/onboarding", "name": "OnboardingScreen", "type": "modal"},
+    {"route": "/paywall", "name": "PaywallScreen", "type": "modal"}
+  ],
+
+  "features": {
+    "free": ["recording", "waveform", "basic_tagging", "investigation_log"],
+    "premium": ["spectrogram", "anomaly_detection", "unlimited_sessions", "export"]
+  },
+
+  "subscription": {
+    "offering_id": "evp_pro_offering",
+    "entitlement_id": "evp_pro",
+    "products": [
+      {"id": "evp_analyzer_monthly", "price": 4.99, "period": "month"},
+      {"id": "evp_analyzer_annual", "price": 29.99, "period": "year", "trial_days": 7}
+    ]
+  },
+
+  "design_tokens": {
+    "background_primary": "#0D0D0F",
+    "accent_primary": "#00D9A5",
+    "status_recording": "#FF4444",
+    "status_anomaly": "#FFB800"
+  },
+
+  "assets_required": [
+    {"type": "app_icon", "path": "assets/icon.png", "size": "1024x1024"},
+    {"type": "adaptive_foreground", "path": "assets/adaptive-icon-foreground.png", "size": "1024x1024"},
+    {"type": "splash", "path": "assets/splash.png", "size": "1284x2778"},
+    {"type": "icons", "path": "src/ui/icons/", "count": 18}
+  ],
+
+  "dependencies": {
+    "core": ["expo", "expo-router", "react-native"],
+    "audio": ["expo-av", "@siteed/expo-audio-studio", "react-native-audio-waveform"],
+    "storage": ["expo-file-system", "@react-native-async-storage/async-storage"],
+    "monetization": ["react-native-purchases"],
+    "ui": ["react-native-svg", "react-native-reanimated", "expo-haptics"]
+  }
+}

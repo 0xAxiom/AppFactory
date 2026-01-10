@@ -1,0 +1,15 @@
+{
+  "idea_id": "workflow_sync_010",
+  "idea_name": "WorkflowSync",
+  "run_id": "run_185842",
+  "rank": 10,
+  "validation_score": 7.7,
+  "description": "Creative workflow synchronization app that maintains file consistency and collaboration across multiple design tools and platforms",
+  "target_user": "Creative professionals and teams working across multiple design platforms and collaboration tools",
+  "core_loop": ["Multi-platform file sync", "Version conflict resolution", "Team notification system", "Project timeline tracking"],
+  "differentiation": "Focuses on sync and consistency rather than replacing tools; works with existing creative software",
+  "subscription_fit": "Unlimited file sync, advanced version control, team collaboration, premium integrations with professional tools",
+  "mvp_complexity": "L",
+  "source_stage01": "runs/2026-01-06/run_185842/stage01/stages/stage01.json",
+  "frozen_timestamp": "2026-01-06T18:58:42Z"
+}

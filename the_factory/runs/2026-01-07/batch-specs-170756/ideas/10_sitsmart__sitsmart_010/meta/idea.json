@@ -1,0 +1,32 @@
+{
+  "run_id": "batch-specs-170756",
+  "idea_id": "sitsmart_010",
+  "idea_name": "SitSmart",
+  "idea_slug": "sitsmart",
+  "rank": 10,
+  "validation_score": 6.5,
+  "frozen_definition": {
+    "id": "sitsmart_010",
+    "name": "SitSmart",
+    "validation_score": 6.5,
+    "signal_source": "Posture app complaints of 'camera doesn't face me directly', 'only see front view', need solutions for varied office setups",
+    "description": "Phone-based posture trainer that works with any camera angle using AI to understand your specific setup and body position",
+    "target_user": "Remote workers with non-standard desk setups who can't use traditional posture apps due to camera positioning",
+    "pain_point_evidence": "Users report accuracy problems with 'camera off to the side' and apps that 'only see front view'",
+    "core_loop": [
+      "Calibrate app to your specific desk setup",
+      "Get posture feedback adapted to your camera angle",
+      "Receive gentle correction prompts",
+      "Track improvement over time",
+      "Get personalized workspace suggestions"
+    ],
+    "differentiation": "Adaptive to non-standard setups vs. requiring perfect camera positioning",
+    "subscription_fit": "Premium includes multiple workspace profiles, detailed analytics, and ergonomic coaching",
+    "mvp_complexity": "M",
+    "pricing": {
+      "monthly_range": "$3.99-$5.99",
+      "annual_range": "$29.99-$49.99",
+      "trial_strategy": "Free basic posture feedback, premium for multi-setup and coaching"
+    }
+  }
+}

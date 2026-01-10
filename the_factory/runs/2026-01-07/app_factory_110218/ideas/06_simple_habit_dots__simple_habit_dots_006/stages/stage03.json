@@ -1,0 +1,183 @@
+{
+  "meta": {
+    "run_id": "app_factory_110218",
+    "idea_id": "simple_habit_dots_006",
+    "idea_name": "Simple Habit Dots",
+    "idea_dir": "06_simple_habit_dots__simple_habit_dots_006",
+    "source_root": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/",
+    "input_stage_paths": [
+      "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/stages/stage02.json",
+      "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/idea.json",
+      "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/boundary.json"
+  },
+  "ux_design": {
+    "user_journey": {
+      "onboarding_flow": [
+        {
+          "step": "Welcome",
+          "screen": "Welcome Screen",
+          "user_action": "View introduction and tap 'Get Started'",
+          "content": "Simple visual habit tracking with colored dots. No limits, no complexity.",
+          "goal": "Establish value proposition of unlimited simple tracking"
+        },
+        {
+          "step": "Create First Habit",
+          "screen": "Add Habit Screen",
+          "user_action": "Enter habit name and choose color",
+          "content": "What habit would you like to track? Choose a color for your dots.",
+          "goal": "Immediate engagement with core feature"
+        },
+        {
+          "step": "Mark First Completion",
+          "screen": "Home Screen with Calendar",
+          "user_action": "Tap to mark today complete for their first habit",
+          "content": "Tap the dot to mark today complete. See your progress grow!",
+          "goal": "Experience core interaction and visual feedback"
+        },
+        {
+          "step": "Explore Calendar",
+          "screen": "Calendar View",
+          "user_action": "Swipe through calendar months, view dot patterns",
+          "content": "Your progress appears as colored dots. Build beautiful patterns!",
+          "goal": "Understand visual progress tracking"
+        }
+      ],
+      "core_usage_flow": [
+        {
+          "step": "Daily Check-in",
+          "screen": "Home Screen",
+          "user_action": "Open app to see today's habits",
+          "content": "Quick overview of today's habits with tap targets",
+          "goal": "Fast daily habit marking"
+        },
+        {
+          "step": "Mark Completion",
+          "screen": "Home Screen",
+          "user_action": "Tap dot to toggle completion state",
+          "content": "Single tap marks complete, second tap undoes",
+          "goal": "Effortless habit tracking"
+        },
+        {
+          "step": "View Progress",
+          "screen": "Calendar View",
+          "user_action": "Switch between monthly/yearly views",
+          "content": "Calendar grid showing colored dots and streak patterns",
+          "goal": "Visual progress motivation"
+        },
+        {
+          "step": "Manage Habits",
+          "screen": "Habits List",
+          "user_action": "Add new habits or edit existing ones",
+          "content": "List of all habits with colors and streak counts",
+          "goal": "Habit management without limits"
+        }
+      ]
+    },
+    "information_architecture": {
+      "primary_navigation": {
+        "type": "tab",
+        "sections": ["Today", "Calendar", "Habits", "Insights"],
+        "rationale": "Tab bar provides instant access to core functions following iOS conventions. Today for quick daily actions, Calendar for progress visualization, Habits for management, Insights for premium analytics."
+      },
+      "content_hierarchy": {
+        "levels": ["Daily View (Today tab)", "Calendar Grid (Calendar tab)", "Habit Management (Habits tab)", "Analytics (Insights tab)"],
+        "organization_principle": "Task-oriented hierarchy from immediate daily actions to long-term analysis, supporting both quick check-ins and deeper reflection"
+      }
+    },
+    "wireframes": {
+      "home_screen": {
+        "layout": "Today view with large, tappable habit cards in vertical list. Each card shows habit name, colored dot for today, and current streak count.",
+        "primary_cta": "Colored dots for each habit - tap to toggle completion",
+        "secondary_elements": ["Add new habit button", "Date header", "Motivational streak messages"],
+        "accessibility_notes": "Minimum 44pt tap targets, high contrast dot colors, VoiceOver labels for streak counts and completion status"
+      },
+      "core_feature_screens": [
+        {
+          "screen_name": "Calendar View",
+          "purpose": "Visual progress tracking with monthly/yearly calendar grid",
+          "layout": "Calendar grid with colored dots for completed days, navigation controls for switching months/years",
+          "key_elements": ["Month/Year toggle", "Calendar grid with dots", "Habit filter options", "Streak indicators"],
+          "accessibility_notes": "Large calendar cells (minimum 44pt), clear date labeling, VoiceOver support for reading completion patterns"
+        },
+        {
+          "screen_name": "Add/Edit Habit",
+          "purpose": "Create or modify habit tracking configuration",
+          "layout": "Simple form with habit name input, color picker grid, and save/cancel buttons",
+          "key_elements": ["Text input for habit name", "Color picker with accessibility labels", "Save/Cancel buttons"],
+          "accessibility_notes": "Color picker includes text labels, form validation with clear error states, keyboard navigation support"
+        },
+        {
+          "screen_name": "Habits Management",
+          "purpose": "Overview and management of all tracked habits",
+          "layout": "List of habits with colored indicators, streak counts, and management actions",
+          "key_elements": ["Habit list with color coding", "Streak counters", "Reorder handles", "Delete/edit actions"],
+          "accessibility_notes": "Swipe actions with VoiceOver support, clear visual hierarchy, consistent interaction patterns"
+        },
+        {
+          "screen_name": "Premium Analytics",
+          "purpose": "Advanced insights for subscription users",
+          "layout": "Charts and visualizations showing habit correlations and patterns",
+          "key_elements": ["Progress charts", "Correlation matrices", "Export options", "Trend analysis"],
+          "accessibility_notes": "Chart data available in table format, clear data descriptions, alternative text for visualizations"
+        }
+      ]
+    },
+    "interaction_patterns": {
+      "primary_actions": {
+        "action": "Mark habit complete/incomplete",
+        "interaction": "Single tap on colored dot",
+        "feedback": "Immediate visual state change with subtle animation, haptic feedback on iOS"
+      },
+      "navigation_gestures": ["Swipe between calendar months", "Pull to refresh daily view", "Long press for quick habit editing"],
+      "accessibility_alternatives": ["VoiceOver gesture equivalents", "Switch Control support", "Voice Control commands for habit marking"]
+    },
+    "visual_design_direction": {
+      "brand_personality": "Clean, calming, and encouraging. Minimal interface that celebrates progress without overwhelming complexity. Focus on gentle motivation rather than aggressive gamification.",
+      "color_strategy": {
+        "primary": "Calm blues and greens for UI elements (4.5:1 contrast ratio minimum), user-selected colors for habit dots with automatic contrast adjustment",
+        "secondary": "Soft grays for backgrounds and inactive states, ensuring accessibility across all user-selected color combinations",
+        "accessibility_compliant": true
+      },
+      "typography": {
+        "primary_font": "San Francisco (iOS system font) for platform consistency",
+        "scale_factor": "Dynamic Type support with text scaling from -3 to +5 accessibility sizes",
+        "readability_notes": "Minimum 17pt body text, 34pt headlines, clear hierarchy with sufficient line spacing"
+      }
+    },
+    "accessibility_requirements": {
+      "wcag_compliance": "WCAG 2.1 AA",
+      "screen_reader_support": [
+        "VoiceOver labels for all habit completion states",
+        "Calendar date and completion status announcements", 
+        "Streak count and progress descriptions",
+        "Clear navigation landmarks and headers"
+      ],
+      "motor_accessibility": [
+        "Minimum 44pt touch targets for all interactive elements",
+        "Gesture alternatives for all swipe actions",
+        "Switch Control support for navigation",
+        "Reduced motion options for animations"
+      ],
+      "visual_accessibility": [
+        "High contrast mode support (7:1 ratios)",
+        "Color-blind friendly habit color options",
+        "Dynamic Type scaling up to 200%",
+        "Dark mode with appropriate contrast adjustments"
+      ],
+      "cognitive_accessibility": [
+        "Simple, consistent interaction patterns",
+        "Clear visual hierarchy with obvious next steps",
+        "Gentle error states with helpful guidance",
+        "Optional reduced complexity mode hiding advanced features"
+      ]
+    }
+  },
+  "standards_compliance": {
+    "accessibility_design": "All interactive elements meet 44pt minimum touch target size, color combinations achieve WCAG 2.1 AA contrast ratios (4.5:1 minimum), VoiceOver support for all functionality including calendar navigation and habit status",
+    "subscription_ux": "Premium features clearly distinguished with 'Pro' labels, upgrade prompts appear contextually when accessing analytics, paywall follows honest disclosure with clear feature descriptions and pricing",
+    "platform_integration": "Tab bar navigation follows iOS conventions, Dynamic Type support for accessibility, native iOS controls used throughout, respects system settings for dark mode and reduced motion",
+    "inclusive_design": "Support for reduced motion preferences, high contrast mode, voice control commands, switch control navigation, and dynamic text scaling up to 200% while maintaining usability"
+  }
+}

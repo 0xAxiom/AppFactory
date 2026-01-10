@@ -1,0 +1,217 @@
+{
+  "exploration_config": {
+    "seed_phrase": "factory-132516-lunar-ocean",
+    "vectors": ["Progressive Skill Building", "Simplicity Over Features", "Value-First Monetization", "Decision Simplification"],
+    "research_timestamp": "2026-01-09T13:25:16Z",
+    "non_repetition_check": "Evidence-first validation performed; no leaderboard content used."
+  },
+  "market_research": {
+    "trends": [
+      {
+        "name": "Adaptive Learning Progression",
+        "description": "Users abandon apps when progression moves too fast for individual skill level",
+        "evidence": "Fitness trainers report 'on-demand sessions tend to be too fast for beginners'; meditation apps split focus with guidance complexity",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Feature Minimalism Movement", 
+        "description": "Users prefer simple, focused tools over complex feature-rich applications",
+        "evidence": "Users report 'tired of maintaining productivity tools rather than using them'; 'spent more time configuring than building habits'",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Value-Before-Payment Models",
+        "description": "Subscription apps fail when core value is hidden behind paywall",
+        "evidence": "42.4% of users cite cost concerns; 'content behind paywall prevents habit formation before subscribing'",
+        "opportunity_level": "Medium"
+      }
+    ],
+    "competition_landscape": {
+      "oversaturated": ["complex productivity suites", "feature-heavy habit trackers", "guided meditation apps with extensive libraries"],
+      "underexplored": ["adaptive progression systems", "minimal-interface wellness tools", "skill-building apps with personal pace adjustment"]
+    },
+    "monetization_trends": "Users willing to pay for apps that prove value through free core functionality before subscription commitment"
+  },
+  "app_ideas": [
+    {
+      "id": "breath_pace_001",
+      "name": "BreathPace",
+      "validation_score": 8.7,
+      "signal_source": "Meditation apps 'split focus between breath and voice guidance'; 'sessions too long for beginners'",
+      "description": "Simple breathing exercise app that adapts session length and complexity based on user completion patterns, starting with 30-second exercises",
+      "target_user": "Meditation beginners overwhelmed by complex guided apps",
+      "pain_point_evidence": "Users report focus-splitting issues with guided meditation and abandoning practice due to unsustainable session length",
+      "core_loop": ["Open app", "Select current stress level (1-5)", "Follow visual breathing guide (no audio)", "Complete adaptive-length session", "Rate session difficulty", "Receive next session recommendation"],
+      "differentiation": "Audio-free visual breathing guidance with adaptive session length based on completion patterns",
+      "subscription_fit": "Premium: extended session library, stress pattern analytics, Apple Health integration",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$4.99",
+        "annual_range": "$29.99", 
+        "trial_strategy": "Free core breathing exercises; 7-day premium trial"
+      }
+    },
+    {
+      "id": "move_micro_002",
+      "name": "MoveMicro",
+      "validation_score": 8.4,
+      "signal_source": "Fitness apps 'too fast for beginners'; 'one-size-fits-all doesn't work'; users pause videos frequently",
+      "description": "Micro-workout app with 2-5 minute exercises that adapts difficulty based on completion rate and user feedback",
+      "target_user": "Fitness beginners intimidated by standard 20-30 minute workout apps",
+      "pain_point_evidence": "Trainers observe on-demand sessions move too fast; users report generic programs don't match fitness levels",
+      "core_loop": ["Select available time (2-10 minutes)", "Choose fitness goal (strength/cardio/flexibility)", "Complete adaptive micro-workout", "Rate exercise difficulty", "App adjusts next session intensity"],
+      "differentiation": "Ultra-short workouts with real-time difficulty adaptation based on user feedback",
+      "subscription_fit": "Premium: workout history analytics, equipment-free routine expansion, progress photo timeline",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$6.99",
+        "annual_range": "$39.99",
+        "trial_strategy": "Free basic 2-minute workouts; 14-day premium trial"
+      }
+    },
+    {
+      "id": "note_flow_003", 
+      "name": "NoteFlow",
+      "validation_score": 8.1,
+      "signal_source": "Users 'tired of maintaining productivity tools rather than using them'; 'difficulty deciding where content belongs'",
+      "description": "Single-stream note-taking app that automatically organizes notes by temporal context without folders or tags",
+      "target_user": "Knowledge workers frustrated with complex note organization systems",
+      "pain_point_evidence": "Users report spending more time organizing than creating; decision fatigue about note placement reduces efficiency",
+      "core_loop": ["Add note with quick voice/text input", "App auto-timestamps and contexts note", "Search or scroll chronological timeline", "Link related notes with simple gesture", "Export note clusters when needed"],
+      "differentiation": "Zero-organization note-taking with automatic temporal and contextual grouping",
+      "subscription_fit": "Premium: unlimited notes, voice transcription, cross-device sync, export formats",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$3.99",
+        "annual_range": "$24.99",
+        "trial_strategy": "Free up to 100 notes; 10-day premium trial"
+      }
+    },
+    {
+      "id": "habit_simple_004",
+      "name": "HabitSimple", 
+      "validation_score": 7.9,
+      "signal_source": "Habit apps with 'too many bells and whistles'; users 'spent more time configuring than building habits'",
+      "description": "Three-button habit tracker: did it, skipped it, forgot it. No setup, categories, or streaks - just daily completion tracking",
+      "target_user": "People wanting to build simple daily habits without complex tracking systems",
+      "pain_point_evidence": "Users report configuration complexity prevents actual habit formation; seeking simple tracking alternatives",
+      "core_loop": ["Add habit with single tap", "Daily check-in with three-button choice", "View simple weekly completion pattern", "Receive encouragement after 3-day patterns", "Add new habit when ready"],
+      "differentiation": "Absolutely minimal interface with no configuration, streaks, or categories",
+      "subscription_fit": "Premium: habit pattern insights, gentle reminder notifications, data export",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$2.99",
+        "annual_range": "$19.99",
+        "trial_strategy": "Free up to 3 habits; 21-day premium trial"
+      }
+    },
+    {
+      "id": "focus_timer_005",
+      "name": "FocusTimer",
+      "validation_score": 7.7,
+      "signal_source": "Productivity apps create 'decision fatigue'; users want 'simple rather than complex alternatives'",
+      "description": "Single-purpose focus timer with three preset durations: 15, 25, or 45 minutes. No customization, just start and focus",
+      "target_user": "Remote workers and students needing simple focus sessions without complex time management",
+      "pain_point_evidence": "Users overwhelmed by productivity app options seek minimal alternatives; timer complexity reduces usage",
+      "core_loop": ["Select preset time duration", "Tap start with optional background sound", "Focus during session", "Receive gentle completion notification", "Log session completion with simple rating"],
+      "differentiation": "Absolutely minimal Pomodoro-style timer with no customization or complexity",
+      "subscription_fit": "Premium: focus session history, weekly focus patterns, ambient sound library",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$1.99",
+        "annual_range": "$12.99",
+        "trial_strategy": "Free basic timer; 30-day premium trial"
+      }
+    },
+    {
+      "id": "sleep_wind_006",
+      "name": "SleepWind",
+      "validation_score": 7.5,
+      "signal_source": "Meditation apps 'too much talking'; users need 'simple rather than guided' sleep aids",
+      "description": "Progressive sleep preparation app with 3-stage wind-down routine: dim lights reminder, device away, breathing countdown",
+      "target_user": "People struggling with sleep hygiene who find sleep apps too complex or stimulating",
+      "pain_point_evidence": "Sleep meditation apps over-stimulate with guidance; users seek simple wind-down structure",
+      "core_loop": ["Set desired sleep time", "Receive first wind-down reminder (30 min before)", "Complete simple preparation checklist", "Start breathing countdown timer", "Track sleep quality next morning"],
+      "differentiation": "Structured wind-down process without audio content or complex sleep tracking", 
+      "subscription_fit": "Premium: custom wind-down timing, sleep pattern analysis, smart alarm",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$3.99",
+        "annual_range": "$24.99",
+        "trial_strategy": "Free basic wind-down; 14-day premium trial"
+      }
+    },
+    {
+      "id": "photo_snap_007",
+      "name": "PhotoSnap",
+      "validation_score": 7.3,
+      "signal_source": "Photo editing apps cause 'decision paralysis with numerous options'; beginners overwhelmed by filter choices",
+      "description": "One-tap photo enhancement with single 'make better' button that applies contextual improvements without filter selection",
+      "target_user": "Casual photographers overwhelmed by complex photo editing options",
+      "pain_point_evidence": "Novice photographers experience decision paralysis with filter abundance; prefer simple enhancement",
+      "core_loop": ["Take or select photo", "Tap 'enhance' button for automatic improvement", "Save or share enhanced photo", "View before/after comparison", "Rate enhancement quality"],
+      "differentiation": "Zero-decision photo enhancement with AI-powered contextual improvements",
+      "subscription_fit": "Premium: unlimited enhancements, batch processing, high-resolution exports",
+      "mvp_complexity": "M",
+      "pricing": {
+        "monthly_range": "$4.99",
+        "annual_range": "$29.99",
+        "trial_strategy": "Free 10 enhancements/month; 7-day premium trial"
+      }
+    },
+    {
+      "id": "water_simple_008",
+      "name": "WaterSimple",
+      "validation_score": 7.1, 
+      "signal_source": "Habit tracking apps 'too many features confuse beginners'; users want 'simple daily tracking'",
+      "description": "Single-purpose water intake tracker with cup-size presets and daily goal visualization",
+      "target_user": "People wanting to improve hydration without complex health tracking features",
+      "pain_point_evidence": "Health apps overwhelm users with multiple metrics; simple hydration tracking requested frequently",
+      "core_loop": ["Select cup size from three presets", "Tap to log water intake", "View daily progress visualization", "Receive gentle hydration reminders", "Review weekly hydration patterns"],
+      "differentiation": "Exclusively water tracking with no other health metrics or complexity",
+      "subscription_fit": "Premium: hydration pattern analysis, smart reminder timing, Apple Health sync",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$2.99",
+        "annual_range": "$19.99",
+        "trial_strategy": "Free basic tracking; 30-day premium trial"
+      }
+    },
+    {
+      "id": "book_moment_009",
+      "name": "BookMoment",
+      "validation_score": 6.9,
+      "signal_source": "Reading apps 'too complex for simple tracking'; users want 'progress without overwhelming features'",
+      "description": "Minimal reading tracker that captures single meaningful quote or moment from each reading session",
+      "target_user": "Readers wanting to remember book insights without complex reading analytics",
+      "pain_point_evidence": "Reading tracking apps overwhelm with statistics; users seek simple memory aids for meaningful content",
+      "core_loop": ["Log reading session start", "Save favorite quote or insight with quick note", "View chronological reading timeline", "Search saved quotes and moments", "Rate book when finished"],
+      "differentiation": "Focus on capturing meaningful reading moments rather than reading statistics",
+      "subscription_fit": "Premium: unlimited books, quote sharing, reading pattern insights",
+      "mvp_complexity": "S",
+      "pricing": {
+        "monthly_range": "$2.99",
+        "annual_range": "$19.99",
+        "trial_strategy": "Free up to 5 books; 21-day premium trial"
+      }
+    },
+    {
+      "id": "meal_quick_010",
+      "name": "MealQuick",
+      "validation_score": 6.7,
+      "signal_source": "Nutrition apps 'too complicated for simple meal planning'; users want 'quick meal ideas without complexity'",
+      "description": "Simple meal suggestion app with 15-minute recipe database filtered by available ingredients and dietary preferences",
+      "target_user": "Busy professionals needing quick, healthy meal ideas without complex meal planning",
+      "pain_point_evidence": "Meal planning apps overwhelm with features; users seek simple recipe suggestions for quick cooking",
+      "core_loop": ["Input available ingredients from preset list", "Select dietary preference", "Receive 3 quick recipe suggestions", "Choose recipe and start cooking timer", "Rate recipe for future recommendations"],
+      "differentiation": "Exclusively quick recipes (under 15 minutes) with minimal ingredient requirements",
+      "subscription_fit": "Premium: expanded recipe database, shopping list generation, nutrition info",
+      "mvp_complexity": "M", 
+      "pricing": {
+        "monthly_range": "$4.99",
+        "annual_range": "$29.99",
+        "trial_strategy": "Free 20 recipe views/month; 14-day premium trial"
+      }
+    }
+  ]
+}

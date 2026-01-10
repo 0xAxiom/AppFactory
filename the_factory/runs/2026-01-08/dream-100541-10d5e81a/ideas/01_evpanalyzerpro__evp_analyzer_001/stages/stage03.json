@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "run_id": "dream-100541-10d5e81a",
+    "idea_id": "evp_analyzer_001",
+    "idea_name": "EVP Analyzer Pro",
+    "idea_dir": "01_evpanalyzerpro__evp_analyzer_001",
+    "source_root": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/",
+    "input_stage_paths": [
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/stages/stage02.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/idea.json",
+      "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+    ],
+    "boundary_path": "runs/2026-01-08/dream-100541-10d5e81a/ideas/01_evpanalyzerpro__evp_analyzer_001/meta/boundary.json"
+  },
+  "ux_design": {
+    "information_architecture": {
+      "navigation_structure": "Tab-based navigation with 4 primary sections: Sessions (home), Analysis, Library, Settings. Bottom tab bar follows iOS and Material Design patterns for immediate access to core functionality.",
+      "screen_hierarchy": [
+        "Sessions (Home) - New recording and session management",
+        "Analysis - Real-time and post-recording analysis tools", 
+        "Library - Historical sessions and tagged anomalies",
+        "Settings - Audio configuration and premium features",
+        "Session Detail - Individual session playback and tagging",
+        "Anomaly Detail - Focused anomaly review and annotation",
+        "Premium Upgrade - Subscription onboarding and management"
+      ],
+      "user_flow_patterns": "Guest-first experience with immediate value. Primary flow: Home > New Session > Record > Auto-detect anomalies > Review in Analysis. Secondary flows: Library browsing, Settings configuration, Premium upgrade at natural upgrade moments."
+    },
+    "wireframes": [
+      {
+        "screen_name": "Sessions Home",
+        "layout_description": "Prominent 'New Session' CTA at top, followed by recent sessions list with metadata (date, duration, anomaly count). Clean, professional layout optimized for quick session creation and management.",
+        "key_components": ["New Session button (primary CTA)", "Recent Sessions list", "Session metadata cards", "Quick stats summary", "Settings access"],
+        "interaction_patterns": "Large touch targets for primary actions. Swipe actions on session cards for delete/share. Pull-to-refresh for session updates.",
+        "accessibility_considerations": "New Session button minimum 44pt/48dp. VoiceOver labels for all session metadata. High contrast session cards with semantic colors for status."
+      },
+      {
+        "screen_name": "Recording Session",
+        "layout_description": "Central waveform visualization with real-time anomaly markers. Recording controls (start/stop/pause) prominently placed. Real-time level meters and recording status clearly visible.",
+        "key_components": ["Live waveform display", "Recording controls", "Anomaly detection markers", "Level meters", "Session timer", "Settings quick access"],
+        "interaction_patterns": "Single tap to start/stop recording. Long press for additional options. Gesture-based waveform navigation.",
+        "accessibility_considerations": "Audio feedback for recording state changes. VoiceOver announcements for anomaly detection. High contrast waveform visualization."
+      },
+      {
+        "screen_name": "Analysis Review",
+        "layout_description": "Detailed waveform with timestamp scrubbing, anomaly segments highlighted. Playback controls and segment isolation tools. Tagging interface for manual annotations.",
+        "key_components": ["Detailed waveform view", "Playback controls", "Anomaly timeline", "Manual tagging tools", "Audio segment isolation", "Export options"],
+        "interaction_patterns": "Pinch-to-zoom waveform. Tap anomaly markers for quick navigation. Drag to select audio segments for review.",
+        "accessibility_considerations": "Keyboard navigation for timeline scrubbing. Screen reader support for anomaly descriptions. Touch targets for precise audio control."
+      },
+      {
+        "screen_name": "Library Browse",
+        "layout_description": "Organized list/grid view of all sessions with search and filter capabilities. Quick preview of session highlights and tagged anomalies.",
+        "key_components": ["Session browser", "Search functionality", "Filter controls", "Session previews", "Anomaly highlights", "Batch operations"],
+        "interaction_patterns": "Search-first navigation. Filter by date range, location, anomaly count. Long press for batch selection.",
+        "accessibility_considerations": "Search field with clear labels. Filter options announced clearly. Grid/list toggle for different accessibility needs."
+      },
+      {
+        "screen_name": "Premium Paywall",
+        "layout_description": "Clean value proposition with feature comparison. Transparent pricing display with clear benefits. Easy dismissal and restoration options.",
+        "key_components": ["Feature comparison table", "Pricing plans", "Value proposition", "Social proof", "Subscription CTA", "Restore purchases"],
+        "interaction_patterns": "Clear pricing presentation with no dark patterns. Easy cancellation information. Restore purchases prominently available.",
+        "accessibility_considerations": "High contrast pricing text. Clear subscription terms. VoiceOver support for all pricing information and legal disclosures."
+      }
+    ],
+    "design_system": {
+      "color_scheme": "Professional dark theme with scientific precision aesthetic. Primary colors: Deep blue (#1565C0) and orange (#FF9800) for contrast. Backgrounds use rich blacks (#121212) with high contrast text (#FFFFFF). WCAG AA compliant 4.5:1 contrast ratios throughout.",
+      "typography": "System fonts (SF Pro on iOS, Roboto on Android) with full Dynamic Type support. Clear hierarchy: H1 24pt/semibold, H2 20pt/medium, Body 16pt/regular, Caption 12pt/regular. Scales appropriately up to 200% for accessibility.",
+      "component_library": "Material 3 baseline with iOS adaptations. Consistent button styles, form elements, and card layouts. Professional aesthetic avoiding entertainment/gaming visual language. Focus on data clarity and precision.",
+      "responsive_approach": "Adaptive layouts for phone/tablet orientations. Component scaling for different screen sizes. Touch target optimization for various device sizes maintaining minimum accessibility standards."
+    }
+  },
+  "standards_compliance": {
+    "subscription_store_compliance": "RevenueCat integration for all subscription handling. Clear pricing display on paywall with auto-renewal disclosure. Restore Purchases functionality prominently available. Premium features clearly distinguished with upgrade prompts at natural moments.",
+    "accessibility_design": "WCAG 2.1 AA compliance with 4.5:1 contrast ratios tested throughout. Minimum 44pt iOS/48dp Android touch targets. Full VoiceOver/TalkBack support with semantic labels. Dynamic Type support up to 200% scaling. Reduced motion alternatives for animations.",
+    "privacy_analytics": "Firebase Analytics with minimal data collection. No cross-app tracking or unnecessary identifiers. Privacy Policy linked in-app settings. Clear data usage disclosure for audio processing (local-only by default). User control over analytics opt-out.",
+    "testing_release_readiness": "Accessibility testing with screen readers and scaling. Subscription flow testing in sandbox environments. Multi-device testing across iOS/Android. Beta testing with target users (paranormal investigators). Performance testing for audio processing efficiency."
+  }
+}

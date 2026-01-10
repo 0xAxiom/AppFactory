@@ -1,0 +1,17 @@
+{
+  "idea_id": "mood_dot_010",
+  "run_id": "diversified-signals-2026-01-07-run",
+  "idea_dir": "10_mooddots__mood_dot_010",
+  "source_root": "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/10_mooddots__mood_dot_010/",
+  "allowed_paths": [
+    "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/10_mooddots__mood_dot_010/",
+    "runs/2026-01-07/diversified-signals-2026-01-07-run/stage01/stages/stage01.json",
+    "runs/2026-01-07/diversified-signals-2026-01-07-run/meta/idea_index.json"
+  ],
+  "forbidden_paths": [
+    "runs/2026-01-07/diversified-signals-2026-01-07-run/ideas/",
+    "Other run directories",
+    "Stage JSON files outside boundary"
+  ],
+  "created": "2026-01-07T22:33:14.712Z"
+}

@@ -1,0 +1,89 @@
+{
+  "run_id": "batch-specs-160132-meadow-spark",
+  "run_name": "batch-specs-160132-meadow-spark",
+  "date": "2026-01-07T16:01:32Z",
+  "command_invoked": "run app factory",
+  "expected_idea_count": 10,
+  "expected_stages_run_factory": ["01"],
+  "expected_stages_build_idea": ["02","03","04","05","06","07","08","09","10"],
+  "expected_stage_artifacts": {
+    "stage01": ["stages/stage01.json", "outputs/stage01_execution.md", "spec/01_market_research.md"]
+  },
+  "idea_index_path": "meta/idea_index.json",
+  "leaderboard_paths": ["leaderboards/app_factory_all_time.json", "leaderboards/app_factory_global.json"],
+  "builds_root": "builds/",
+  "per_idea": {
+    "simple_meals_001": {
+      "idea_dir": "01_simple_meal_rotation__simple_meals_001",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "grocery_loop_006": {
+      "idea_dir": "02_grocery_loop__grocery_loop_006", 
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "big_button_life_002": {
+      "idea_dir": "03_big_button_life_manager__big_button_life_002",
+      "status": "unbuilt", 
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "one_tap_home_004": {
+      "idea_dir": "04_one_tap_home_automation__one_tap_home_004",
+      "status": "unbuilt",
+      "stages_completed": ["01"], 
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "simple_reminders_008": {
+      "idea_dir": "05_simple_reminders_plus__simple_reminders_008",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "quick_creative_log_003": {
+      "idea_dir": "06_quick_creative_log__quick_creative_log_003", 
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "travel_essentials_010": {
+      "idea_dir": "07_travel_essentials__travel_essentials_010",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "trip_stack_005": {
+      "idea_dir": "08_trip_stack__trip_stack_005",
+      "status": "unbuilt", 
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "pocket_portfolio_007": {
+      "idea_dir": "09_pocket_portfolio__pocket_portfolio_007",
+      "status": "unbuilt",
+      "stages_completed": ["01"],
+      "missing_artifacts": [],
+      "build_id": null
+    },
+    "daily_wins_log_009": {
+      "idea_dir": "10_daily_wins_log__daily_wins_log_009",
+      "status": "unbuilt",
+      "stages_completed": ["01"], 
+      "missing_artifacts": [],
+      "build_id": null
+    }
+  },
+  "run_status": "completed",
+  "failure": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "learnlocal_008",
+  "name": "LearnLocal",
+  "validation_score": 7.6,
+  "signal_source": "Educational access studies show students 'go to great lengths in search of stable Wi-Fi connection' with connectivity as major learning barrier",
+  "description": "Community-based offline learning app that enables students to share downloaded educational content locally without internet",
+  "target_user": "Students in low-connectivity areas who struggle with educational apps that require constant internet access",
+  "pain_point_evidence": "Students report missing 'key portions of sessions due to technical glitches' with limited options for stable internet connections",
+  "core_loop": ["Download educational content in connected areas", "Share content locally with nearby students", "Study collaboratively offline", "Sync progress when connection available", "Access community-generated offline resources"],
+  "differentiation": "Peer-to-peer offline sharing vs. centralized online delivery, builds learning communities around connectivity constraints",
+  "subscription_fit": "Premium includes priority content access, advanced collaboration tools, and expanded storage",
+  "mvp_complexity": "L",
+  "pricing": {
+    "monthly_range": "$3.99-$6.99",
+    "annual_range": "$29.99-$59.99",
+    "trial_strategy": "Free basic content sharing, premium for advanced features and priority content"
+  }
+}

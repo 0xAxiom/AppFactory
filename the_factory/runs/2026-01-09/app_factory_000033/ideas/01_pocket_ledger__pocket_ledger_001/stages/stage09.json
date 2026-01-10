@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "run_id": "app_factory_000033",
+    "idea_id": "pocket_ledger_001",
+    "idea_name": "PocketLedger",
+    "idea_dir": "01_pocket_ledger__pocket_ledger_001",
+    "source_root": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/stages/stage08.json"
+    ],
+    "boundary_path": "runs/2026-01-09/app_factory_000033/ideas/01_pocket_ledger__pocket_ledger_001/meta/boundary.json"
+  },
+  "release_strategy": {
+    "launch_timeline": {
+      "alpha_release": "Internal testing phase focusing on core envelope functionality",
+      "beta_release": "Limited user testing with privacy-focused early adopters",
+      "soft_launch": "Regional launch in privacy-conscious markets (EU, Canada)",
+      "global_launch": "Worldwide availability with full marketing campaign"
+    },
+    "app_store_optimization": {
+      "primary_keywords": [
+        "envelope budgeting",
+        "privacy budget app",
+        "local budget tracker",
+        "receipt scanning budget",
+        "bank-free budgeting"
+      ],
+      "app_store_listing": {
+        "title": "PocketLedger: Privacy Envelope Budget",
+        "subtitle": "Budget tracking without bank account linking",
+        "description": "Take control of your budget with envelope method budgeting that keeps your financial data private. No bank accounts required.",
+        "screenshots": "Focus on envelope interface, receipt scanning, privacy messaging"
+      }
+    },
+    "marketing_strategy": {
+      "target_channels": [
+        "Privacy-focused communities",
+        "Personal finance blogs",
+        "Budgeting method forums",
+        "App review sites focusing on financial privacy"
+      ],
+      "content_marketing": [
+        "Privacy vs convenience in financial apps",
+        "Envelope budgeting method guides",
+        "Financial data security education"
+      ]
+    }
+  },
+  "success_metrics": {
+    "user_acquisition": {
+      "target_downloads": "10,000 downloads in first 3 months",
+      "conversion_rate": "15% free-to-premium conversion",
+      "retention_rate": "70% 30-day retention"
+    },
+    "business_metrics": {
+      "revenue_target": "$50,000 MRR within 12 months",
+      "customer_acquisition_cost": "< $25 per premium subscriber",
+      "lifetime_value": "> $200 per premium subscriber"
+    }
+  }
+}

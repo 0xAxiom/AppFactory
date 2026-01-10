@@ -1,0 +1,122 @@
+{
+  "app_name": "WarrantyVault",
+  "target_boot_time_ms": 2000,
+  "initialization_order": [
+    {
+      "order": 1,
+      "step": "Environment Setup",
+      "location": "App.tsx",
+      "async": false,
+      "critical": true,
+      "actions": [
+        "Load environment variables",
+        "Set debug mode flag",
+        "Initialize error tracking"
+      ],
+      "estimated_time_ms": 50
+    },
+    {
+      "order": 2,
+      "step": "RevenueCat Initialization",
+      "location": "App.tsx useEffect",
+      "async": true,
+      "critical": false,
+      "actions": [
+        "Configure with platform-specific API key",
+        "Enable debug logs in development",
+        "Set anonymous user ID"
+      ],
+      "estimated_time_ms": 200,
+      "fallback": "App continues without subscription features"
+    },
+    {
+      "order": 3,
+      "step": "Theme Loading",
+      "location": "contexts/ThemeContext.tsx",
+      "async": false,
+      "critical": false,
+      "actions": [
+        "Load design tokens",
+        "Detect system color scheme",
+        "Apply theme"
+      ],
+      "estimated_time_ms": 20,
+      "fallback": "Use default light theme"
+    },
+    {
+      "order": 4,
+      "step": "Navigation Setup",
+      "location": "app/_layout.tsx",
+      "async": false,
+      "critical": true,
+      "actions": [
+        "Register all routes",
+        "Set up tab navigator",
+        "Configure linking"
+      ],
+      "estimated_time_ms": 100
+    },
+    {
+      "order": 5,
+      "step": "Data Loading",
+      "location": "contexts/ItemsContext.tsx",
+      "async": true,
+      "critical": false,
+      "actions": [
+        "Read items from AsyncStorage",
+        "Parse JSON data",
+        "Populate items state"
+      ],
+      "estimated_time_ms": 150,
+      "fallback": "Start with empty items array"
+    },
+    {
+      "order": 6,
+      "step": "Preferences Loading",
+      "location": "contexts/PreferencesContext.tsx",
+      "async": true,
+      "critical": false,
+      "actions": [
+        "Read preferences from AsyncStorage",
+        "Apply notification settings",
+        "Set default values if missing"
+      ],
+      "estimated_time_ms": 50,
+      "fallback": "Use default preferences"
+    },
+    {
+      "order": 7,
+      "step": "Subscription Status Check",
+      "location": "contexts/SubscriptionContext.tsx",
+      "async": true,
+      "critical": false,
+      "actions": [
+        "Fetch customer info from RevenueCat",
+        "Check active entitlements",
+        "Cache subscription state"
+      ],
+      "estimated_time_ms": 300,
+      "fallback": "Assume free tier, check again later"
+    },
+    {
+      "order": 8,
+      "step": "First Render",
+      "location": "app/(tabs)/index.tsx",
+      "async": false,
+      "critical": true,
+      "actions": [
+        "Render Dashboard skeleton",
+        "Display items when loaded",
+        "Show FAB for adding items"
+      ],
+      "estimated_time_ms": 200
+    }
+  ],
+  "parallel_initialization": {
+    "group_1": ["RevenueCat Initialization", "Theme Loading"],
+    "group_2": ["Data Loading", "Preferences Loading"],
+    "group_3": ["Subscription Status Check"]
+  },
+  "total_estimated_time_ms": 1070,
+  "buffer_for_variance_ms": 500
+}

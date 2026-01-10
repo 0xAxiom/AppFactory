@@ -1,0 +1,194 @@
+{
+  "meta": {
+    "run_id": "20260109_201044_app_factory_run",
+    "idea_id": "warrantyvault_002",
+    "idea_name": "WarrantyVault",
+    "idea_dir": "02_warrantyvault__warrantyvault_002",
+    "source_root": "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/",
+    "input_stage_paths": [
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage02.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage03.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage04.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage05.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage06.json",
+      "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/stages/stage07.json"
+    ],
+    "boundary_path": "runs/2026-01-09/20260109_201044_app_factory_run/ideas/02_warrantyvault__warrantyvault_002/meta/boundary.json"
+  },
+  "brand_identity": {
+    "brand_strategy": {
+      "brand_name": {
+        "final_name": "WarrantyVault",
+        "rationale": "Combines 'Warranty' (clear purpose) with 'Vault' (security, protection, permanence). Communicates core value of safeguarding warranty information. Memorable, professional, and descriptive.",
+        "alternatives_considered": [
+          "WarrantyKeeper - Less distinctive, generic keeper suffix",
+          "GuaranteeGuard - Alliterative but complex spelling",
+          "ClaimSafe - Focus on claims narrows perceived value",
+          "ReceiptVault - Too focused on receipts, misses warranty angle"
+        ],
+        "trademark_considerations": "Common words combined in distinctive way. Initial trademark search shows no direct conflicts in app category. Full clearance recommended before launch."
+      },
+      "brand_positioning": {
+        "value_proposition": "Protect your purchases by tracking warranty expiration dates with timely reminders and organized documentation for claims. Never lose $400+ on expired warranties again.",
+        "differentiation_strategy": "Focused simplicity. Unlike broad home inventory apps that do many things adequately, WarrantyVault does one thing exceptionally well: warranty lifecycle management.",
+        "target_audience_alignment": "Homeowners 30-55 who own valuable purchases and want peace of mind. They value organization but don't have time for complex systems.",
+        "competitive_distinction": "Simpler than Under My Roof ($34.99/year), more warranty-focused than MyItems, more affordable than Sortly ($24/month). Sweet spot of functionality and price."
+      },
+      "brand_personality": {
+        "core_attributes": ["Trustworthy", "Organized", "Protective", "Efficient", "Approachable"],
+        "tone_of_voice": "Friendly expert. Like a helpful friend who happens to be great at organizing. Professional but warm, confident but not condescending.",
+        "communication_style": "Clear and direct. Short sentences. Active voice. Benefit-focused (outcomes over features). Reassuring without being patronizing.",
+        "emotional_appeal": "Peace of mind. Relief from worry. Satisfaction of being prepared. Pride in being organized."
+      }
+    },
+    "visual_identity": {
+      "logo_concept": {
+        "design_direction": "Modern vault door with subtle shield element. Circular form for app icon versatility. Clean lines suggesting organization and security.",
+        "symbol_meaning": "Vault represents security and protection. The circular door evokes a safe or vault. Interior elements suggest organized storage. Overall feeling of 'your warranties are safe here.'",
+        "scalability_considerations": "Works at 1024px (store icon) down to 29px (small iOS icon). Simplified version for smallest sizes removes interior detail.",
+        "platform_adaptations": "iOS: Rounded corners per platform spec. Android: Adaptive icon with foreground element and brand color background."
+      },
+      "color_palette": {
+        "primary_colors": [
+          {
+            "color_name": "Vault Blue",
+            "hex_value": "#2563EB",
+            "usage": "Primary actions, headers, key interactive elements, brand recognition",
+            "accessibility_rating": "4.5:1 on white (AAA for large text, AA for normal text)"
+          },
+          {
+            "color_name": "Protection Green",
+            "hex_value": "#059669",
+            "usage": "Success states, active warranty status, positive confirmations",
+            "accessibility_rating": "4.5:1 on white (AA compliant)"
+          }
+        ],
+        "secondary_colors": [
+          {
+            "color_name": "Warning Orange",
+            "hex_value": "#EA580C",
+            "usage": "Expiring soon status, attention-needed states"
+          },
+          {
+            "color_name": "Neutral Gray",
+            "hex_value": "#6B7280",
+            "usage": "Expired items, secondary text, inactive states"
+          },
+          {
+            "color_name": "Background Light",
+            "hex_value": "#F9FAFB",
+            "usage": "Page backgrounds, card surfaces (light mode)"
+          },
+          {
+            "color_name": "Background Dark",
+            "hex_value": "#111827",
+            "usage": "Page backgrounds, card surfaces (dark mode)"
+          }
+        ],
+        "color_strategy": "Trust and protection through blue. Growth and security through green. Urgency through warm tones. Clean neutrals for content focus. Full dark mode support."
+      },
+      "typography": {
+        "primary_typeface": {
+          "font_family": "System fonts (SF Pro on iOS, Roboto on Android)",
+          "weights_used": ["Regular (400)", "Medium (500)", "Semibold (600)", "Bold (700)"],
+          "rationale": "System fonts ensure optimal rendering, performance, and accessibility. Native feel on each platform. No custom font loading required."
+        },
+        "secondary_typeface": {
+          "font_family": "System monospace for data display",
+          "usage": "Countdown timers, dates, numeric data where precision matters"
+        },
+        "hierarchy_system": "Display (32sp) for hero content. Title (24sp) for screen headers. Headline (20sp) for section headers. Body (16sp) for content. Caption (14sp) for secondary. Minimum (12sp) for legal only."
+      },
+      "iconography_style": {
+        "icon_approach": "Platform-native icon sets (SF Symbols on iOS, Material Icons on Android)",
+        "style_characteristics": ["Outlined style (not filled)", "Medium weight", "Consistent stroke width", "Rounded corners"],
+        "consistency_guidelines": "All icons from platform-native sets. Same visual weight throughout. Consistent sizing (24dp default, 20dp compact, 32dp prominent)."
+      }
+    },
+    "brand_applications": {
+      "app_icon": {
+        "concept": "Circular vault door on brand blue background. Simplified shield/lock element centered. Clean, recognizable at small sizes. Professional appearance in app grid.",
+        "design_elements": ["Circular vault door outline", "Centered shield/lock symbol", "Vault Blue (#2563EB) background", "White foreground elements"],
+        "platform_variations": "iOS: Single layer with rounded corners. Android: Adaptive icon with foreground layer (white vault) and background layer (blue fill).",
+        "size_adaptations": "Full detail at 512px+. Simplified vault at 128px. Minimal symbol at 48px and below."
+      },
+      "in_app_branding": {
+        "header_treatment": "App name in navigation bar on key screens. Vault icon as favicon equivalent. Minimal header to maximize content space.",
+        "button_styling": "Primary: Vault Blue with white text, rounded corners. Secondary: Outlined with blue border. Destructive: Red with clear warning style.",
+        "card_design": "White cards (light mode) with subtle shadow. Rounded corners (12dp). Status indicator stripe on left edge (green/orange/gray).",
+        "illustration_style": "Simple line illustrations in brand blue. Vault imagery for empty states. Friendly, not corporate. Subtle animation for delight."
+      },
+      "store_presence": {
+        "app_store_presentation": "Clean screenshots with device frames. Feature highlights with benefit-focused callouts. Consistent brand blue throughout.",
+        "screenshot_branding": "Minimal top bar with tagline. App UI as hero. Bottom caption with feature benefit. White/blue color scheme.",
+        "promotional_graphics": "Feature graphic (Android): Vault illustration with tagline on blue gradient. App previews emphasize simplicity and organization."
+      }
+    },
+    "messaging_framework": {
+      "core_messages": {
+        "primary_tagline": "Never lose a warranty claim again",
+        "value_statements": [
+          "Track warranties effortlessly",
+          "Get reminded before they expire",
+          "Access receipts when you need them",
+          "Protect $400+ in warranty value annually"
+        ],
+        "feature_descriptions": [
+          "Quick Add: Snap a receipt, save in seconds",
+          "Smart Alerts: Know before warranties expire",
+          "Organized Dashboard: See all your warranties at a glance",
+          "Secure Storage: Your data, protected locally"
+        ]
+      },
+      "content_voice": {
+        "writing_style": "Conversational but competent. Second person (you/your). Active voice. Present tense. Short sentences. Benefit-focused.",
+        "vocabulary_guidelines": "Plain language (6th grade reading level). Avoid jargon. 'Warranty' not 'guarantee.' 'Alert' not 'notification.' 'Track' not 'monitor.'",
+        "accessibility_language": "Inclusive pronouns. No idioms that don't translate. Clear button labels. Descriptive link text."
+      },
+      "marketing_messages": {
+        "app_store_description": "Stop losing money on expired warranties. WarrantyVault helps you track warranty expiration dates, store receipts, and get reminded before it's too late. Add items in seconds. See what's expiring. Access documentation instantly. Free to start, upgrade for unlimited items and cloud backup.",
+        "social_media_voice": "Helpful tips about warranty protection. Relatable moments ('That moment when you find the receipt...'). No hard selling. Community-focused.",
+        "user_communication": "Email: Friendly and helpful. Push: Clear and actionable. In-app: Encouraging and supportive. Error: Apologetic and solution-focused."
+      }
+    },
+    "brand_guidelines": {
+      "usage_standards": {
+        "logo_usage_rules": [
+          "Minimum clear space: 1/4 of logo height on all sides",
+          "Minimum size: 24px height for digital",
+          "Never stretch, rotate, or modify proportions",
+          "Use on white, light gray, or brand blue backgrounds only"
+        ],
+        "color_usage_guidelines": [
+          "Primary blue for main actions and brand moments",
+          "Green for positive/success states only",
+          "Orange for warning/attention states",
+          "Gray for inactive/secondary elements",
+          "Maintain consistent color meaning throughout"
+        ],
+        "typography_standards": [
+          "Use system fonts only (no custom fonts)",
+          "Maintain type hierarchy consistently",
+          "Minimum 16sp for body text",
+          "Maximum 200% scale for accessibility"
+        ]
+      },
+      "accessibility_compliance": {
+        "color_contrast_standards": "All text meets 4.5:1 minimum. Large text meets 3:1. Interactive elements have visible focus states.",
+        "text_readability": "System fonts for optimal rendering. Adequate line height (1.5). Responsive to Dynamic Type. No text in images.",
+        "inclusive_language": "Gender-neutral language. No cultural assumptions. Clear, simple vocabulary. Translations reviewed for cultural appropriateness."
+      },
+      "consistency_maintenance": {
+        "brand_audit_criteria": [
+          "Color usage matches brand palette",
+          "Typography follows hierarchy",
+          "Icons from approved sources",
+          "Messaging matches voice guidelines",
+          "Accessibility standards maintained"
+        ],
+        "update_procedures": "Brand changes documented in changelog. Design tokens updated in codebase. Screenshots refreshed for store listings.",
+        "quality_control": "Design review for new features. Accessibility testing for visual changes. Consistency check in PR reviews."
+      }
+    }
+  }
+}

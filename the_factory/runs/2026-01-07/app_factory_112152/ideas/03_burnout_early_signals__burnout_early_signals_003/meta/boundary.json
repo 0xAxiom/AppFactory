@@ -1,0 +1,11 @@
+{
+  "run_id": "app_factory_112152",
+  "idea_id": "burnout_early_signals_003",
+  "idea_dir": "runs/2026-01-07/app_factory_112152/ideas/03_burnout_early_signals__burnout_early_signals_003",
+  "allowed_paths": [
+    "runs/2026-01-07/app_factory_112152/ideas/03_burnout_early_signals__burnout_early_signals_003/",
+    "runs/2026-01-07/app_factory_112152/stage01/stages/stage01.json",
+    "runs/2026-01-07/app_factory_112152/meta/idea_index.json"
+  ],
+  "forbidden_cross_contamination": true
+}

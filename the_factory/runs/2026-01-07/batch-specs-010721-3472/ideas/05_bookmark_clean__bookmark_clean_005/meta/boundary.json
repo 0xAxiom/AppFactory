@@ -1,0 +1,11 @@
+{
+  "idea_id": "bookmark_clean_005",
+  "run_id": "batch-specs-010721-3472",
+  "idea_dir": "05_bookmark_clean__bookmark_clean_005",
+  "allowed_paths": [
+    "runs/2026-01-07/batch-specs-010721-3472/ideas/05_bookmark_clean__bookmark_clean_005/",
+    "runs/2026-01-07/batch-specs-010721-3472/stage01/stages/stage01.json",
+    "runs/2026-01-07/batch-specs-010721-3472/meta/idea_index.json"
+  ],
+  "isolation_enforced": true
+}

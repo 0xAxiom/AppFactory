@@ -1,0 +1,15 @@
+{
+  "idea_id": "wash_simple_001",
+  "idea_name": "Wash Simple",
+  "idea_slug": "wash_simple",
+  "rank": 1,
+  "score": 8.2,
+  "market": "Home logistics simplification",
+  "target_user": "Busy adults who forget laundry timing",
+  "core_loop": "Set wash timer → get notification when ready to move → mark as done",
+  "evidence_summary": "Home organizing apps criticized for being 'too complicated' and users want 'straightforward' simple tools without overwhelming features",
+  "subscription_rationale": "Premium: Multiple timer profiles, family sharing, smart home integration",
+  "mvp_complexity": "S",
+  "source_run": "batch-specs-010718-5233",
+  "generated_date": "2026-01-08T02:07:18Z"
+}

@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "run_id": "app_factory_220354",
+    "idea_id": "neurodash_002",
+    "idea_name": "NeuroDash",
+    "idea_dir": "02_neurodash__neurodash_002",
+    "source_root": "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/",
+    "input_stage_paths": [
+      "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/meta/idea.json",
+      "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/meta/boundary.json",
+      "runs/2026-01-06/app_factory_220354/stage01/stages/stage01.json"
+    ],
+    "boundary_path": "runs/2026-01-06/app_factory_220354/ideas/02_neurodash__neurodash_002/meta/boundary.json"
+  },
+  "product_specification": {
+    "app_concept": {
+      "name": "NeuroDash",
+      "tagline": "Productivity that adapts to your brain",
+      "category": "Productivity",
+      "core_value_proposition": "The first productivity app designed specifically for fluctuating executive function, adapting task suggestions and structure to match your real-time energy levels and cognitive capacity"
+    },
+    "target_users": {
+      "primary": {
+        "segment": "Adults with ADHD, autism, or other neurodivergent conditions aged 22-45",
+        "pain_points": [
+          "Rigid productivity systems that assume consistent cognitive capacity",
+          "Guilt and shame when unable to complete traditional to-do lists",
+          "Time blindness and difficulty estimating task duration",
+          "Executive dysfunction that varies daily or within the same day",
+          "Overwhelm from complex productivity system setup and maintenance"
+        ],
+        "goals": [
+          "Complete meaningful work without fighting against their brain",
+          "Build sustainable productivity habits that adapt to their capacity",
+          "Reduce productivity-related anxiety and self-criticism",
+          "Gain insight into their personal productivity patterns",
+          "Maintain progress even during low-energy periods"
+        ],
+        "demographics": "Working adults, students, entrepreneurs; 65% female, primarily knowledge workers in tech, creative industries, and consulting"
+      },
+      "secondary": {
+        "segment": "Neurotypical individuals experiencing burnout, chronic illness, or high-stress periods",
+        "pain_points": [
+          "Traditional productivity apps feel too rigid during difficult periods",
+          "Difficulty maintaining productivity during health fluctuations",
+          "Need for more compassionate self-management tools"
+        ],
+        "goals": [
+          "Maintain productivity during challenging life circumstances",
+          "Develop more flexible and sustainable work habits",
+          "Reduce stress from productivity expectations"
+        ]
+      }
+    },
+    "core_features": {
+      "mvp_features": [
+        {
+          "name": "Energy Check-In System",
+          "description": "Quick daily/hourly energy and focus capacity assessment using visual scales and voice input",
+          "user_story": "As a neurodivergent user, I want to quickly communicate my current cognitive capacity so the app can adjust suggestions accordingly",
+          "acceptance_criteria": [
+            "1-3 tap energy level selection (Low/Medium/High)",
+            "Optional voice note for context",
+            "Visual energy indicators using color and icons",
+            "Historical energy pattern tracking"
+          ],
+          "complexity_estimate": "S"
+        },
+        {
+          "name": "Adaptive Task Suggestions",
+          "description": "AI-powered task recommendations that match current energy levels and historical patterns",
+          "user_story": "As someone with executive dysfunction, I want task suggestions that match my current capacity so I can be productive without overwhelming myself",
+          "acceptance_criteria": [
+            "Energy-appropriate task filtering",
+            "Duration estimates based on user patterns",
+            "Cognitive load indicators for each task",
+            "Alternative versions of tasks for different energy levels"
+          ],
+          "complexity_estimate": "M"
+        },
+        {
+          "name": "Flexible Focus Sessions",
+          "description": "Customizable focus periods that adapt length and break frequency based on current capacity",
+          "user_story": "As an ADHD user, I want focus sessions that adjust to my fluctuating attention span so I can maintain productivity without forced rigid timing",
+          "acceptance_criteria": [
+            "Variable session lengths (5-90 minutes)",
+            "Automatic break reminders based on energy level",
+            "Gentle transition warnings",
+            "Session completion celebration regardless of duration"
+          ],
+          "complexity_estimate": "M"
+        },
+        {
+          "name": "Pattern Recognition Dashboard",
+          "description": "Visual insights showing personal productivity patterns, energy trends, and optimal timing",
+          "user_story": "As a neurodivergent person, I want to understand my productivity patterns so I can work with my brain instead of against it",
+          "acceptance_criteria": [
+            "Weekly/monthly energy pattern visualization",
+            "Optimal task timing suggestions",
+            "Progress tracking that accounts for capacity variations",
+            "Celebration of effort, not just completion"
+          ],
+          "complexity_estimate": "M"
+        },
+        {
+          "name": "Gentle Task Management",
+          "description": "Task organization with flexible deadlines, effort recognition, and shame-free rescheduling",
+          "user_story": "As someone who struggles with traditional task lists, I want a system that recognizes my effort and allows flexibility without guilt",
+          "acceptance_criteria": [
+            "One-tap task rescheduling without guilt messages",
+            "Effort tracking alongside completion tracking",
+            "Visual progress indicators that show partial completion",
+            "Automatic task breakdown suggestions for overwhelming items"
+          ],
+          "complexity_estimate": "M"
+        }
+      ],
+      "premium_features": [
+        {
+          "name": "Advanced Pattern Analytics",
+          "description": "Detailed insights, predictive capacity modeling, and personalized optimization recommendations",
+          "justification": "Provides ongoing value through continuous pattern learning and personalized coaching"
+        },
+        {
+          "name": "Health Data Integration",
+          "description": "Connects with sleep, exercise, and health apps to correlate physical health with cognitive capacity",
+          "justification": "Subscription-worthy feature that provides comprehensive life pattern analysis"
+        },
+        {
+          "name": "AI Productivity Coach",
+          "description": "Personalized coaching messages, motivation strategies, and adaptive goal setting",
+          "justification": "Ongoing AI coaching provides continuous value and personalization"
+        },
+        {
+          "name": "Team Coordination Tools",
+          "description": "Capacity sharing with trusted partners, collaborative energy-aware planning",
+          "justification": "Professional/relationship value that justifies monthly payment"
+        },
+        {
+          "name": "Advanced Voice Features",
+          "description": "Voice-to-task creation, verbal pattern analysis, and hands-free operation",
+          "justification": "Reduces cognitive load significantly, premium accessibility feature"
+        }
+      ]
+    },
+    "success_metrics": {
+      "user_engagement": {
+        "daily_active_users": "Target 60%+ DAU (higher than typical 45% due to supportive, non-shame-based design)",
+        "session_length": "8-12 minutes average (quick check-ins + focused work, not endless app usage)",
+        "retention_rate": "65% 30-day retention (vs industry 20% for productivity apps)"
+      },
+      "business_metrics": {
+        "conversion_to_paid": "18% conversion rate (higher than typical 15% due to strong product-market fit)",
+        "monthly_revenue_per_user": "$12-15 based on pricing research and value perception",
+        "churn_rate": "8% monthly churn (lower than typical 12% due to adaptive, supportive approach)"
+      }
+    },
+    "competitive_analysis": {
+      "direct_competitors": [
+        {
+          "name": "Tiimo",
+          "strengths": ["Visual timeline design", "ADHD-expert co-designed", "Strong brand recognition"],
+          "weaknesses": ["Rigid scheduling", "Limited energy adaptation", "Calendar-focused rather than capacity-aware"],
+          "differentiation": "NeuroDash adapts to real-time capacity while Tiimo assumes consistent executive function"
+        },
+        {
+          "name": "Amazing Marvin",
+          "strengths": ["High customization", "ADHD community adoption", "Flexible methodology support"],
+          "weaknesses": ["Complex setup", "Overwhelms users with choices", "Lacks AI assistance"],
+          "differentiation": "NeuroDash provides intelligent defaults and AI guidance vs requiring manual configuration"
+        },
+        {
+          "name": "TickTick",
+          "strengths": ["Gamification", "Focus features", "Achievement system"],
+          "weaknesses": ["Neurotypical assumptions", "Binary completion tracking", "Guilt-inducing reminders"],
+          "differentiation": "NeuroDash celebrates effort and adapts to capacity vs fixed reward systems"
+        }
+      ],
+      "positioning": "NeuroDash is the first productivity companion that truly understands neurodivergent cognition, providing adaptive structure that works with your brain's natural patterns rather than forcing rigid systems. Unlike traditional productivity apps that assume consistent capacity, NeuroDash adapts in real-time to your energy levels and executive function fluctuations."
+    }
+  }
+}

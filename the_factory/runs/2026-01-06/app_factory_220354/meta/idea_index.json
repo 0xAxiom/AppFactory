@@ -1,0 +1,76 @@
+{
+  "run_id": "app_factory_220354",
+  "timestamp": "2026-01-06T22:04:16Z",
+  "ideas": {
+    "quickflow_auto_001": {
+      "name": "QuickFlow",
+      "slug": "quickflow_auto",
+      "rank": 1,
+      "score": 8.5,
+      "directory": "01_quickflow_auto__quickflow_auto_001"
+    },
+    "neurodash_002": {
+      "name": "NeuroDash",
+      "slug": "neurodash",
+      "rank": 2,
+      "score": 9.1,
+      "directory": "02_neurodash__neurodash_002"
+    },
+    "familyhub_003": {
+      "name": "FamilyHub",
+      "slug": "familyhub",
+      "rank": 3,
+      "score": 8.3,
+      "directory": "03_familyhub__familyhub_003"
+    },
+    "vaultkeeper_004": {
+      "name": "VaultKeeper",
+      "slug": "vaultkeeper",
+      "rank": 4,
+      "score": 7.8,
+      "directory": "04_vaultkeeper__vaultkeeper_004"
+    },
+    "creativeflow_005": {
+      "name": "CreativeFlow",
+      "slug": "creativeflow",
+      "rank": 5,
+      "score": 8.0,
+      "directory": "05_creativeflow__creativeflow_005"
+    },
+    "energyrhythm_006": {
+      "name": "EnergyRhythm",
+      "slug": "energyrhythm",
+      "rank": 6,
+      "score": 8.7,
+      "directory": "06_energyrhythm__energyrhythm_006"
+    },
+    "focussimple_007": {
+      "name": "FocusSimple",
+      "slug": "focussimple",
+      "rank": 7,
+      "score": 8.2,
+      "directory": "07_focussimple__focussimple_007"
+    },
+    "habitlink_008": {
+      "name": "HabitLink",
+      "slug": "habitlink",
+      "rank": 8,
+      "score": 7.9,
+      "directory": "08_habitlink__habitlink_008"
+    },
+    "workflowbridge_009": {
+      "name": "WorkflowBridge",
+      "slug": "workflowbridge",
+      "rank": 9,
+      "score": 8.4,
+      "directory": "09_workflowbridge__workflowbridge_009"
+    },
+    "mindfultech_010": {
+      "name": "MindfulTech",
+      "slug": "mindfultech",
+      "rank": 10,
+      "score": 8.1,
+      "directory": "10_mindfultech__mindfultech_010"
+    }
+  }
+}

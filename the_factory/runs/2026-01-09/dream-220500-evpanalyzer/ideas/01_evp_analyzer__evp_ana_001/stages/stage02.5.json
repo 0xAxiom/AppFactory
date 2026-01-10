@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "run_id": "dream-220500-evpanalyzer",
+    "idea_id": "evp_ana_001",
+    "idea_name": "EVP Analyzer",
+    "idea_dir": "01_evp_analyzer__evp_ana_001",
+    "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage02.json"
+    ],
+    "boundary_path": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/meta/boundary.json",
+    "generated_at": "2026-01-09T22:07:00Z"
+  },
+  "core_loop": {
+    "loop_name": "Investigation Cycle",
+    "loop_description": "Users capture, analyze, and document paranormal investigations in a satisfying cycle that builds their investigation log over time",
+    "loop_stages": [
+      {
+        "stage": "CAPTURE",
+        "action": "Start investigation recording",
+        "user_motivation": "Curiosity about location, desire to document",
+        "system_response": "Live waveform visualization, recording indicator",
+        "emotional_payoff": "Anticipation, focus, seriousness"
+      },
+      {
+        "stage": "DISCOVER",
+        "action": "Notice anomalies (automatic or manual)",
+        "user_motivation": "Finding something interesting",
+        "system_response": "Anomaly markers appear, visual highlights",
+        "emotional_payoff": "Excitement, validation, curiosity"
+      },
+      {
+        "stage": "ANALYZE",
+        "action": "Review waveform/spectrogram, replay clips",
+        "user_motivation": "Understanding what was captured",
+        "system_response": "Visual analysis tools, loop playback",
+        "emotional_payoff": "Insight, investigation satisfaction"
+      },
+      {
+        "stage": "DOCUMENT",
+        "action": "Tag, annotate, add notes",
+        "user_motivation": "Building evidence, remembering findings",
+        "system_response": "Tags saved, session updated",
+        "emotional_payoff": "Accomplishment, ownership, credibility"
+      },
+      {
+        "stage": "ACCUMULATE",
+        "action": "View growing investigation log",
+        "user_motivation": "Seeing progress, building portfolio",
+        "system_response": "Session added to log, stats update",
+        "emotional_payoff": "Pride, mastery, investment"
+      }
+    ],
+    "loop_frequency": "Per investigation session (variable: daily to weekly)",
+    "retention_drivers": [
+      "Growing investigation log creates investment",
+      "Each location is unique opportunity",
+      "Tagged clips become personal evidence collection",
+      "Premium features unlock deeper analysis capability"
+    ]
+  },
+  "domain_model": {
+    "entities": [
+      {
+        "entity_name": "Investigation",
+        "description": "A single recording session at a location",
+        "attributes": [
+          {"name": "id", "type": "uuid", "required": true},
+          {"name": "title", "type": "string", "required": false},
+          {"name": "location", "type": "string", "required": false},
+          {"name": "coordinates", "type": "object", "required": false},
+          {"name": "startedAt", "type": "datetime", "required": true},
+          {"name": "endedAt", "type": "datetime", "required": false},
+          {"name": "duration", "type": "number", "required": true},
+          {"name": "notes", "type": "string", "required": false},
+          {"name": "audioFilePath", "type": "string", "required": true},
+          {"name": "waveformData", "type": "array", "required": true},
+          {"name": "spectrogramPath", "type": "string", "required": false}
+        ],
+        "relationships": [
+          {"to": "Anomaly", "type": "has_many"},
+          {"to": "Tag", "type": "has_many"}
+        ]
+      },
+      {
+        "entity_name": "Anomaly",
+        "description": "An automatically detected audio anomaly",
+        "attributes": [
+          {"name": "id", "type": "uuid", "required": true},
+          {"name": "investigationId", "type": "uuid", "required": true},
+          {"name": "timestamp", "type": "number", "required": true},
+          {"name": "type", "type": "enum", "values": ["frequency_spike", "noise_floor_change", "silence_anomaly", "unknown"]},
+          {"name": "severity", "type": "enum", "values": ["low", "medium", "high"]},
+          {"name": "frequencyHz", "type": "number", "required": false},
+          {"name": "decibelDelta", "type": "number", "required": false}
+        ],
+        "relationships": [
+          {"to": "Investigation", "type": "belongs_to"}
+        ]
+      },
+      {
+        "entity_name": "Tag",
+        "description": "A user-created annotation on a specific moment",
+        "attributes": [
+          {"name": "id", "type": "uuid", "required": true},
+          {"name": "investigationId", "type": "uuid", "required": true},
+          {"name": "timestamp", "type": "number", "required": true},
+          {"name": "endTimestamp", "type": "number", "required": false},
+          {"name": "label", "type": "string", "required": true},
+          {"name": "category", "type": "enum", "values": ["voice", "noise", "knock", "unknown", "other"]},
+          {"name": "notes", "type": "string", "required": false},
+          {"name": "isFavorite", "type": "boolean", "required": true, "default": false}
+        ],
+        "relationships": [
+          {"to": "Investigation", "type": "belongs_to"}
+        ]
+      },
+      {
+        "entity_name": "UserSettings",
+        "description": "User preferences and configuration",
+        "attributes": [
+          {"name": "id", "type": "uuid", "required": true},
+          {"name": "sensitivityLevel", "type": "enum", "values": ["low", "medium", "high"], "default": "medium"},
+          {"name": "recordingQuality", "type": "enum", "values": ["standard", "high"], "default": "high"},
+          {"name": "autoSaveLocation", "type": "boolean", "default": true},
+          {"name": "hapticFeedback", "type": "boolean", "default": true},
+          {"name": "darkModePreference", "type": "enum", "values": ["system", "always_dark", "always_light"], "default": "always_dark"}
+        ]
+      },
+      {
+        "entity_name": "Subscription",
+        "description": "User's subscription status via RevenueCat",
+        "attributes": [
+          {"name": "isActive", "type": "boolean", "required": true},
+          {"name": "entitlements", "type": "array", "required": true},
+          {"name": "expiresAt", "type": "datetime", "required": false}
+        ]
+      }
+    ],
+    "storage_strategy": {
+      "primary": "AsyncStorage for settings and metadata",
+      "audio_files": "expo-file-system documentDirectory",
+      "subscription": "RevenueCat SDK (cached locally)"
+    }
+  },
+  "mvp_scope": {
+    "in_scope": [
+      "Investigation Mode Recording with live waveform",
+      "Post-recording waveform analyzer with timeline",
+      "Basic anomaly detection (frequency spikes only)",
+      "Manual tagging with 5 categories",
+      "Investigation log with session list",
+      "Basic export (WAV format)",
+      "Onboarding flow (4 screens)",
+      "Soft paywall after 3 sessions",
+      "Settings screen with sensitivity control"
+    ],
+    "out_of_scope_v1": [
+      "Real-time spectrogram during recording (post-processing only)",
+      "Multiple audio format exports (WAV only for MVP)",
+      "Cloud backup/sync",
+      "Social sharing features",
+      "Team/collaboration features",
+      "External hardware integration (EMF devices)",
+      "Voice interpretation AI"
+    ],
+    "deferred_enhancements": [
+      "Advanced anomaly detection (noise floor, silence patterns)",
+      "M4A export format",
+      "Spectrogram image export",
+      "Session search and filtering",
+      "Custom tag categories"
+    ]
+  }
+}

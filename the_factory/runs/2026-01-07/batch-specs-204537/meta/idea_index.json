@@ -1,0 +1,87 @@
+{
+  "run_id": "batch-specs-204537",
+  "generated": "2026-01-07T20:45:37Z",
+  "total_ideas": 10,
+  "ideas": [
+    {
+      "rank": 1,
+      "idea_id": "authentic_001",
+      "idea_name": "Authentic",
+      "idea_slug": "authentic",
+      "directory": "01_authentic__authentic_001",
+      "validation_score": 8.4
+    },
+    {
+      "rank": 2,
+      "idea_id": "ruleforge_002",
+      "idea_name": "RuleForge",
+      "idea_slug": "ruleforge",
+      "directory": "02_ruleforge__ruleforge_002",
+      "validation_score": 8.1
+    },
+    {
+      "rank": 3,
+      "idea_id": "focusflow_006",
+      "idea_name": "FocusFlow",
+      "idea_slug": "focusflow",
+      "directory": "03_focusflow__focusflow_006",
+      "validation_score": 7.9
+    },
+    {
+      "rank": 4,
+      "idea_id": "flowmind_003",
+      "idea_name": "FlowMind",
+      "idea_slug": "flowmind",
+      "directory": "04_flowmind__flowmind_003",
+      "validation_score": 7.8
+    },
+    {
+      "rank": 5,
+      "idea_id": "mindspace_009",
+      "idea_name": "MindSpace",
+      "idea_slug": "mindspace",
+      "directory": "05_mindspace__mindspace_009",
+      "validation_score": 7.7
+    },
+    {
+      "rank": 6,
+      "idea_id": "expresssafe_007",
+      "idea_name": "ExpressSafe",
+      "idea_slug": "expresssafe",
+      "directory": "06_expresssafe__expresssafe_007",
+      "validation_score": 7.6
+    },
+    {
+      "rank": 7,
+      "idea_id": "simpleutils_004",
+      "idea_name": "SimpleUtils",
+      "idea_slug": "simpleutils",
+      "directory": "07_simpleutils__simpleutils_004",
+      "validation_score": 7.5
+    },
+    {
+      "rank": 8,
+      "idea_id": "quickrules_008",
+      "idea_name": "QuickRules",
+      "idea_slug": "quickrules",
+      "directory": "08_quickrules__quickrules_008",
+      "validation_score": 7.4
+    },
+    {
+      "rank": 9,
+      "idea_id": "privacytools_010",
+      "idea_name": "PrivacyTools",
+      "idea_slug": "privacytools",
+      "directory": "09_privacytools__privacytools_010",
+      "validation_score": 7.3
+    },
+    {
+      "rank": 10,
+      "idea_id": "memestash_005",
+      "idea_name": "MemeStash",
+      "idea_slug": "memestash",
+      "directory": "10_memestash__memestash_005",
+      "validation_score": 7.2
+    }
+  ]
+}

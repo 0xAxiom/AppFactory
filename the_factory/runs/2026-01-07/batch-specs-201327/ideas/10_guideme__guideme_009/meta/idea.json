@@ -1,0 +1,18 @@
+{
+  "id": "guideme_009",
+  "name": "GuideMe",
+  "validation_score": 7.2,
+  "signal_source": "Senior app research shows older users prefer 'video tutorials' over written instructions with need for 'simple, familiar, and unambiguous language'",
+  "description": "Step-by-step video guidance app for older adults learning to use smartphones and basic digital services",
+  "target_user": "Older adults who feel anxious about technology and need patient, clear guidance for basic smartphone functions",
+  "pain_point_evidence": "Seniors struggle with 'complicated jargon' and need 'short instructions to avoid overwhelming cognitive effort'",
+  "core_loop": ["Choose task from simple menu", "Watch step-by-step video guide", "Practice with gentle prompts", "Get encouragement and confirmation", "Build confidence through repeated success"],
+  "differentiation": "Video-first learning vs. text-based help, designed specifically for senior learning patterns",
+  "subscription_fit": "Premium includes personalized learning paths, family sharing, and priority support",
+  "mvp_complexity": "M",
+  "pricing": {
+    "monthly_range": "$4.99-$7.99",
+    "annual_range": "$39.99-$69.99",
+    "trial_strategy": "Free basic videos, premium for personalized paths and family features"
+  }
+}

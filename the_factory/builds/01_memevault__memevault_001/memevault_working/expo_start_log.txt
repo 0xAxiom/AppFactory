@@ -1,0 +1,19 @@
+=== expo start test started at 2026-01-09T19:32:08-08:00 ===
+Port: 8081
+Timeout: 60s
+
+Starting project at /Users/melted/Documents/GitHub/app factory/the_factory/builds/01_memevault__memevault_001/memevault_working
+Starting Metro Bundler
+warning: Bundler cache is empty, rebuilding (this may take a minute)
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+Recrawled this watch 13 times, most recently because:
+MustScanSubDirs UserDroppedTo resolve, please review the information on
+https://facebook.github.io/watchman/docs/troubleshooting.html#recrawl
+To clear this warning, run:
+`watchman watch-del '/Users/melted/Documents/GitHub/app factory' ; watchman watch-project '/Users/melted/Documents/GitHub/app factory'`
+
+
+=== Checking final state at 2026-01-09T19:32:10-08:00 ===
+Metro bundler: RUNNING on port 8081
+STATUS: PASSED

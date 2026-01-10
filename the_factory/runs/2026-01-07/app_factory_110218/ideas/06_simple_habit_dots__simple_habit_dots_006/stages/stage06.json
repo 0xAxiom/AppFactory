@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "run_id": "app_factory_110218",
+    "idea_id": "simple_habit_dots_006",
+    "idea_name": "Simple Habit Dots",
+    "idea_dir": "06_simple_habit_dots__simple_habit_dots_006",
+    "source_root": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/",
+    "input_stage_paths": ["runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/stages/stage05.json"],
+    "boundary_path": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/boundary.json"
+  },
+  "builder_handoff": {
+    "core_features": ["Unlimited habit tracking", "Visual dot calendar", "Streak visualization", "Offline-first storage"],
+    "premium_features": ["Advanced analytics", "Data export", "Cloud sync"],
+    "technical_requirements": ["SQLite database", "RevenueCat integration", "Expo Router navigation", "TypeScript implementation"]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "run_id": "app_factory_110218",
+    "idea_id": "simple_habit_dots_006",
+    "idea_name": "Simple Habit Dots",
+    "idea_dir": "06_simple_habit_dots__simple_habit_dots_006",
+    "source_root": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/",
+    "input_stage_paths": [
+      "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/idea.json",
+      "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/boundary.json",
+      "runs/2026-01-07/app_factory_110218/stage01/stages/stage01.json"
+    ],
+    "boundary_path": "runs/2026-01-07/app_factory_110218/ideas/06_simple_habit_dots__simple_habit_dots_006/meta/boundary.json"
+  },
+  "product_specification": {
+    "overview": {
+      "problem_statement": "Current habit tracking apps frustrate users with artificial limits on habit counts in free versions, complex gamification that becomes overwhelming, and unreliable data syncing causing lost progress",
+      "solution_approach": "Unlimited visual habit tracking using colored dots with offline-first architecture and simple one-tap completion, keeping core features forever free",
+      "value_proposition": "Unlimited visual habit tracking using colored dots without artificial restrictions or complex features",
+      "target_audience": "Habit tracking enthusiasts and neurodivergent users frustrated by app limitations and complex interfaces"
+    },
+    "core_features": [
+      {
+        "feature_name": "Unlimited Habit Creation",
+        "description": "Create and track unlimited habits without restrictions or upgrade prompts",
+        "user_story": "As a user, I want to add as many habits as I need to track without hitting artificial limits",
+        "priority": "High",
+        "mvp_inclusion": true,
+        "technical_complexity": "S"
+      },
+      {
+        "feature_name": "Visual Dot Calendar",
+        "description": "Calendar view showing colored dots for habit completion with clear streak patterns",
+        "user_story": "As a user, I want to see my habit progress in a visual calendar using colored dots",
+        "priority": "High",
+        "mvp_inclusion": true,
+        "technical_complexity": "M"
+      },
+      {
+        "feature_name": "Simple Tap Tracking",
+        "description": "One-tap habit completion marking with visual feedback and undo capability",
+        "user_story": "As a user, I want to mark habits complete with a single tap",
+        "priority": "High",
+        "mvp_inclusion": true,
+        "technical_complexity": "S"
+      },
+      {
+        "feature_name": "Streak Visualization",
+        "description": "Simple streak counter with milestone celebrations without overwhelming gamification",
+        "user_story": "As a user, I want to see my current and best streaks clearly",
+        "priority": "Medium",
+        "mvp_inclusion": true,
+        "technical_complexity": "S"
+      },
+      {
+        "feature_name": "Offline-First Data Storage",
+        "description": "All data stored locally without internet dependency or sync failures",
+        "user_story": "As a user, I want my habit data to work reliably offline",
+        "priority": "High",
+        "mvp_inclusion": true,
+        "technical_complexity": "S"
+      },
+      {
+        "feature_name": "Pattern Analytics",
+        "description": "Advanced insights into habit patterns and correlations for premium users",
+        "user_story": "As a premium user, I want deeper insights into my habit patterns",
+        "priority": "Medium",
+        "mvp_inclusion": false,
+        "technical_complexity": "M"
+      },
+      {
+        "feature_name": "Data Export",
+        "description": "Export habit data to CSV or other formats for external analysis",
+        "user_story": "As a power user, I want to export my data for external analysis",
+        "priority": "Low",
+        "mvp_inclusion": false,
+        "technical_complexity": "S"
+      }
+    ],
+    "user_personas": [
+      {
+        "persona_name": "Habit Tracking Enthusiast",
+        "demographics": "Adults 25-45 focused on self-improvement and building consistent routines",
+        "pain_points": [
+          "Artificial limits on number of habits in free versions",
+          "Complex gamification and RPG elements getting overwhelming",
+          "Data syncing problems and widget failures",
+          "Premium subscription required for basic unlimited tracking"
+        ],
+        "goals": [
+          "Track multiple habits without paying monthly fees",
+          "Simple visual progress tracking",
+          "Reliable data saving without sync issues",
+          "Clean interface without overwhelming features"
+        ],
+        "usage_patterns": "Daily 2-3 minute check-ins to mark habit completion and view progress patterns"
+      },
+      {
+        "persona_name": "Neurodivergent User",
+        "demographics": "Users with ADHD, autism, or other neurodivergent conditions needing flexible tracking",
+        "pain_points": [
+          "Rigid daily completion requirements",
+          "Habits tied to specific days rather than flexible schedules",
+          "Complex interfaces with steep learning curves"
+        ],
+        "goals": [
+          "Flexible habit scheduling that accommodates varying routines",
+          "Simple visual feedback without pressure",
+          "Offline-first tracking without internet dependency"
+        ],
+        "usage_patterns": "Irregular check-ins based on personal schedule and energy levels, focusing on visual progress patterns"
+      }
+    ]
+  },
+  "standards_compliance": {
+    "subscription_store_compliance": "Clear distinction between forever-free core features (unlimited habit tracking) and premium analytics features, ensuring subscription provides ongoing value without artificial limits",
+    "accessibility_design": "Large tap targets for habit marking, high contrast dot visualization, support for VoiceOver and screen readers, customizable text sizes",
+    "privacy_analytics": "All habit data stored locally on device by default, analytics data collection optional and clearly disclosed, no personal data shared without explicit consent",
+    "testing_release_readiness": "Comprehensive testing of offline functionality, data persistence across app updates, and subscription flow validation before store submission"
+  }
+}

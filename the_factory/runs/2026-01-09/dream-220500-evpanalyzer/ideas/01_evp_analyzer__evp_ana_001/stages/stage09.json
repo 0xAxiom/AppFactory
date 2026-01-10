@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "run_id": "dream-220500-evpanalyzer",
+    "idea_id": "evp_ana_001",
+    "idea_name": "EVP Analyzer",
+    "idea_dir": "01_evp_analyzer__evp_ana_001",
+    "source_root": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/",
+    "input_stage_paths": [
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage08.json",
+      "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/stages/stage04.json"
+    ],
+    "boundary_path": "runs/2026-01-09/dream-220500-evpanalyzer/ideas/01_evp_analyzer__evp_ana_001/meta/boundary.json",
+    "generated_at": "2026-01-09T22:16:00Z"
+  },
+  "release_planning": {
+    "aso_package": {
+      "app_name": "EVP Analyzer - Ghost Detector",
+      "subtitle": "Professional Paranormal Investigation",
+      "keywords": ["EVP", "ghost", "paranormal", "investigation", "recorder", "analyzer", "spirit", "detector", "audio", "waveform"],
+      "description": {
+        "short": "Turn your phone into a professional EVP investigation tool with real audio analysis.",
+        "long": "EVP Analyzer is a professional-grade paranormal investigation tool that transforms your phone into serious field equipment.\n\nUnlike novelty ghost apps filled with random word generators and fake sensors, EVP Analyzer provides REAL audio analysis tools:\n\n• WAVEFORM VISUALIZATION - See your audio in real-time with precise amplitude display\n• SPECTROGRAM ANALYSIS - Visualize frequency patterns over time\n• ANOMALY DETECTION - Automatic detection of unusual audio events\n• INVESTIGATION LOG - Track sessions by location and date\n• TAGGING & NOTES - Document your findings with detailed annotations\n• EXPORT & SHARE - Save clips for further analysis\n\nDesigned for serious investigators who want signal over noise. Dark, minimal interface optimized for field use.\n\nEVP Analyzer Pro unlocks:\n- Spectrogram visualization\n- Automatic anomaly detection\n- Unlimited saved sessions\n- Audio export\n\nThis is field equipment, not a haunted house toy."
+      },
+      "category": "Entertainment",
+      "secondary_category": "Utilities"
+    },
+    "store_assets": {
+      "screenshots": [
+        {"screen": "Recording", "caption": "Record with live waveform visualization"},
+        {"screen": "Session Analysis", "caption": "Analyze recordings with precision"},
+        {"screen": "Spectrogram", "caption": "See frequency patterns in detail"},
+        {"screen": "Investigation Log", "caption": "Track your investigations"},
+        {"screen": "Anomaly Detection", "caption": "Automatic event detection"}
+      ],
+      "preview_video": false,
+      "promotional_text": "Professional EVP investigation for serious researchers"
+    },
+    "privacy_policy": {
+      "data_collected": ["Audio recordings (stored locally only)", "Optional location data", "Subscription status"],
+      "data_not_collected": ["Personal information", "Analytics on recording content", "Audio uploads"],
+      "data_usage": "All data stored locally on device. Subscription handled via App Store/Play Store.",
+      "policy_url": "https://evpanalyzer.app/privacy"
+    },
+    "age_rating": {
+      "ios": "4+",
+      "android": "Everyone",
+      "content_warnings": []
+    },
+    "launch_checklist": [
+      "RevenueCat products configured",
+      "App Store Connect app created",
+      "Google Play Console app created",
+      "Privacy policy published",
+      "Terms of service published",
+      "Screenshots prepared",
+      "App icon finalized",
+      "TestFlight beta tested",
+      "Internal testing on Play Store"
+    ]
+  }
+}
