@@ -1,0 +1,12 @@
+{
+  "idea_id": "dosewatch_007",
+  "run_id": "app_factory_032255",
+  "idea_dir": "07_dosewatch__dosewatch_007",
+  "source_root": "runs/2026-01-11/app_factory_032255/ideas/07_dosewatch__dosewatch_007/",
+  "allowed_paths": [
+    "runs/2026-01-11/app_factory_032255/ideas/07_dosewatch__dosewatch_007/",
+    "runs/2026-01-11/app_factory_032255/stage01/stages/stage01.json",
+    "runs/2026-01-11/app_factory_032255/meta/idea_index.json"
+  ],
+  "forbidden_pattern": "runs/2026-01-11/app_factory_032255/ideas/(?!07_dosewatch__dosewatch_007)"
+}

@@ -1,0 +1,525 @@
+{
+  "meta": {
+    "run_id": "app_factory_032255",
+    "stage": "01",
+    "generated_at": "2026-01-11T03:30:00Z",
+    "version": "3.0"
+  },
+  "exploration_config": {
+    "seed_phrase": "factory-032316-river-spark",
+    "vectors": [
+      "home-ownership-maintenance-tracking",
+      "vehicle-care-service-logging",
+      "pet-care-organization-reminders",
+      "personal-finance-expense-splitting",
+      "plant-care-watering-scheduling",
+      "warranty-receipt-document-management",
+      "medication-adherence-caregiver-alerts",
+      "meal-planning-simplification",
+      "field-service-route-optimization",
+      "sustainability-tracking-compliance"
+    ],
+    "research_timestamp": "2026-01-11T03:25:00Z",
+    "non_repetition_check": "Evidence-first validation performed; no leaderboard content used during ideation."
+  },
+  "market_research": {
+    "trends": [
+      {
+        "name": "Offline-First Mobile Apps",
+        "description": "34% of global mobile users regularly face connectivity disruptions. Apps with offline capabilities stand out in crowded marketplaces.",
+        "evidence": "Statista reports 34% connectivity issues; Gartner forecasts 65% of enterprise apps will have offline features by end of 2025",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Subscription Fatigue Counter-Trend",
+        "description": "Users increasingly frustrated with subscription-only apps, seeking one-time purchase or freemium alternatives with clear value",
+        "evidence": "App store reviews consistently cite 'subscription not worth it' as complaint; free alternatives gaining traction",
+        "opportunity_level": "Medium"
+      },
+      {
+        "name": "Caregiver Technology",
+        "description": "Family caregivers managing medications for elderly relatives need confirmation systems, not just reminders",
+        "evidence": "Research shows apps have 'difficulty in navigation, poor visibility, lack of transparency' for elderly; 93% find Medisafe user-friendly",
+        "opportunity_level": "High"
+      },
+      {
+        "name": "Document-Centric Home Management",
+        "description": "Paper-based tracking systems fail homeowners - lost receipts, forgotten dates, missing warranty info",
+        "evidence": "HomeLogbook survey: manual systems 'impossible to maintain consistent schedules'",
+        "opportunity_level": "High"
+      }
+    ],
+    "competition_landscape": {
+      "oversaturated": [
+        "General habit tracking",
+        "Generic to-do lists",
+        "Social fitness apps",
+        "Photo editing apps"
+      ],
+      "underexplored": [
+        "Offline-first maintenance tracking",
+        "Caregiver medication confirmation",
+        "Warranty document management",
+        "Plant care with backdating"
+      ]
+    },
+    "monetization_trends": "Subscription models dominate but require clear ongoing value. Apps with tiered freemium (basic free, premium unlock) show 89% higher conversion from 3-star to 4-star ratings. RevenueCat integration standard for iOS/Android subscription management."
+  },
+  "ideas": [
+    {
+      "idea_id": "homekeep_001",
+      "idea_name": "HomeKeep",
+      "tagline": "Never miss a maintenance task or lose a home document again",
+      "description": "Comprehensive home maintenance tracker with document storage, recurring task reminders, and warranty expiration alerts. Offline-first architecture ensures data is never lost.",
+      "target_user": "Homeowners managing maintenance schedules and home-related documents",
+      "market": "Home Ownership & Maintenance",
+      "problem_statement": "Paper-based tracking systems cause homeowners to lose receipts, forget maintenance dates, and struggle to locate warranty information when needed most",
+      "core_loop": [
+        "User scans receipt or document with camera",
+        "App extracts key data (date, vendor, warranty period)",
+        "App schedules maintenance reminder based on item type",
+        "User receives notification when maintenance due",
+        "User marks task complete and logs any notes"
+      ],
+      "evidence": {
+        "sources": [
+          "HomeLogbook research: 'Paper-based tracking creates multiple problems'",
+          "App store reviews cite 'lost receipts' and 'forgotten warranty' as pain points",
+          "Home maintenance app market growing with 'integration of financial tracking + scheduling' demand"
+        ],
+        "quotes": [
+          "Manual systems make it nearly impossible to maintain consistent schedules",
+          "Most people lose hundreds of dollars yearly on warranties they forgot they had"
+        ],
+        "workaround_evidence": "Users currently use spreadsheets, paper folders, or general-purpose note apps"
+      },
+      "subscription_viability": {
+        "free_tier": "5 documents, 10 maintenance tasks, basic reminders",
+        "premium_value": "Unlimited storage, smart scheduling, document OCR, family sharing",
+        "recurring_need": "Ongoing home ownership requires continuous tracking"
+      },
+      "mvp_scope": "Document scanning, manual entry, reminder system, offline storage",
+      "validation_score": 8.5,
+      "ideaminer_scores": {
+        "pain_intensity": 16,
+        "frequency": 12,
+        "monetization_signals": 12,
+        "competition_saturation": 11,
+        "mvp_feasibility": 9,
+        "distribution": 7,
+        "retention": 9,
+        "mobile_fit": 4
+      }
+    },
+    {
+      "idea_id": "carlog_002",
+      "idea_name": "CarLog",
+      "tagline": "Your vehicle's complete service history in your pocket",
+      "description": "Simple vehicle maintenance tracker with receipt scanning, service reminders, and offline-first storage. No account required, data stays on device.",
+      "target_user": "Car owners who want to track maintenance without complex apps",
+      "market": "Vehicle Maintenance & Ownership",
+      "problem_statement": "Existing car maintenance apps have poor support, data loss issues, and sync problems between devices",
+      "core_loop": [
+        "User adds vehicle with basic info (make, model, mileage)",
+        "User logs service with receipt photo or manual entry",
+        "App calculates next service based on mileage/time intervals",
+        "User receives reminder before service due",
+        "User exports history when selling vehicle"
+      ],
+      "evidence": {
+        "sources": [
+          "Simply Auto reviews: 'STAY AWAY! No support at all'",
+          "Loggy reviews: 'App is dead. Lost all entries. No product support'",
+          "Forum discussion: 'Vehicle maintenance records app recommendations?'"
+        ],
+        "quotes": [
+          "I can not sync between multiple drivers. I have tried to contact for support for months and received 0 response",
+          "Their file structure doesn't match what they stated in the guide"
+        ],
+        "workaround_evidence": "Users keep paper logs in glove box or use basic spreadsheets"
+      },
+      "subscription_viability": {
+        "free_tier": "1 vehicle, basic logging, local storage",
+        "premium_value": "Multiple vehicles, cloud backup, family sharing, export reports",
+        "recurring_need": "Ongoing vehicle ownership requires continuous logging"
+      },
+      "mvp_scope": "Vehicle profiles, service logging, receipt photos, mileage reminders",
+      "validation_score": 8.2,
+      "ideaminer_scores": {
+        "pain_intensity": 15,
+        "frequency": 10,
+        "monetization_signals": 11,
+        "competition_saturation": 13,
+        "mvp_feasibility": 10,
+        "distribution": 7,
+        "retention": 8,
+        "mobile_fit": 4
+      }
+    },
+    {
+      "idea_id": "petpulse_003",
+      "idea_name": "PetPulse",
+      "tagline": "Organize your pet's health, feeding, and care in one place",
+      "description": "Pet care organizer with medication reminders, feeding schedules, vet records, and weight tracking. Simple interface designed for busy pet owners.",
+      "target_user": "Pet owners managing multiple care aspects (feeding, meds, vet visits)",
+      "market": "Pet Care & Health",
+      "problem_statement": "Pet owners juggle multiple care tasks without centralized tracking - medications, feeding schedules, vet appointments, vaccinations",
+      "core_loop": [
+        "User adds pet profile with basic health info",
+        "User sets recurring care tasks (feeding, medication, grooming)",
+        "App sends reminders at scheduled times",
+        "User marks tasks complete with optional notes",
+        "User reviews pet's care history before vet visits"
+      ],
+      "evidence": {
+        "sources": [
+          "Pet app market: $157 billion US pet spending projected 2025",
+          "User request: 'What do you need an app to do? Keep track of vet appointments, when to give meds'",
+          "MeasuringU pet UX study: top complaints about cluttered interfaces"
+        ],
+        "quotes": [
+          "I wish it was more friendly as far as rebuying went and locating past purchases",
+          "Looking after pets while juggling a busy schedule can be challenging"
+        ],
+        "workaround_evidence": "Users rely on phone calendar, paper notes, or memory"
+      },
+      "subscription_viability": {
+        "free_tier": "1 pet, basic reminders, local storage",
+        "premium_value": "Multiple pets, vet record export, medication interaction alerts, family sharing",
+        "recurring_need": "Pet care is ongoing responsibility throughout pet's life"
+      },
+      "mvp_scope": "Pet profiles, task reminders, basic health logging, offline storage",
+      "validation_score": 7.8,
+      "ideaminer_scores": {
+        "pain_intensity": 14,
+        "frequency": 14,
+        "monetization_signals": 10,
+        "competition_saturation": 10,
+        "mvp_feasibility": 9,
+        "distribution": 8,
+        "retention": 9,
+        "mobile_fit": 4
+      }
+    },
+    {
+      "idea_id": "splittrack_004",
+      "idea_name": "SplitTrack",
+      "tagline": "Finally, an expense tracker that handles split transactions",
+      "description": "Budget tracker focused on the #1 user request: splitting transactions across multiple categories. Simple, offline-first, no bank connection required.",
+      "target_user": "Budget-conscious individuals frustrated with category limitations in existing apps",
+      "market": "Personal Finance & Budgeting",
+      "problem_statement": "Expense tracking apps don't allow splitting one transaction between multiple categories (e.g., grocery receipt with household items)",
+      "core_loop": [
+        "User enters transaction amount",
+        "User splits amount across multiple categories",
+        "App updates category budgets in real-time",
+        "User views spending breakdown by category",
+        "User adjusts budgets based on patterns"
+      ],
+      "evidence": {
+        "sources": [
+          "Money Manager app review: 'A couple things I wish this app had - split transaction between categories'",
+          "Budget App review: 'I wish for option for total monthly spend to sync with sum of all categories'",
+          "Design expert: 'Tracking non-trackable transactions remains a challenge'"
+        ],
+        "quotes": [
+          "When rent includes multiple sub-categories, users have to create several individual transactions",
+          "I wish it had more category options"
+        ],
+        "workaround_evidence": "Users create multiple manual entries or skip categorization entirely"
+      },
+      "subscription_viability": {
+        "free_tier": "Basic tracking, 10 categories, current month",
+        "premium_value": "Unlimited categories, historical data, export, recurring transactions",
+        "recurring_need": "Monthly budgeting is ongoing financial behavior"
+      },
+      "mvp_scope": "Transaction entry, split allocation, category management, monthly view",
+      "validation_score": 7.6,
+      "ideaminer_scores": {
+        "pain_intensity": 13,
+        "frequency": 14,
+        "monetization_signals": 10,
+        "competition_saturation": 8,
+        "mvp_feasibility": 10,
+        "distribution": 7,
+        "retention": 9,
+        "mobile_fit": 5
+      }
+    },
+    {
+      "idea_id": "plantminder_005",
+      "idea_name": "PlantMinder",
+      "tagline": "Water your plants on time, every time",
+      "description": "Plant care app with the ability to backdate watering (unlike competitors), comprehensive offline plant database, and smart reminder scheduling.",
+      "target_user": "Indoor plant enthusiasts who struggle to remember watering schedules",
+      "market": "Plant Care & Home Gardening",
+      "problem_statement": "Plant care apps don't allow backdating watering entries, have limited plant databases, and poor reminder customization",
+      "core_loop": [
+        "User adds plant from database or custom entry",
+        "App suggests watering schedule based on plant type",
+        "User logs watering (can backdate if forgot to log)",
+        "App adjusts next reminder based on actual watering",
+        "User views care history and plant health trends"
+      ],
+      "evidence": {
+        "sources": [
+          "Plant Watering Reminder review: 'I wish you could tell the app the day you watered, even after the fact'",
+          "Planta review: 'Doesn't work well as database for unique plants, only common ones'",
+          "User request: 'Prompt questions about current condition when adding plant'"
+        ],
+        "quotes": [
+          "It only allows you to select 'today' so if you forget to update when you watered you are toast",
+          "Don't need reminders on when to water but it doesn't have unique plants"
+        ],
+        "workaround_evidence": "Users keep paper logs or rely on memory"
+      },
+      "subscription_viability": {
+        "free_tier": "5 plants, basic reminders, common plant database",
+        "premium_value": "Unlimited plants, full database, care tips, seasonal adjustments",
+        "recurring_need": "Plant care requires ongoing attention throughout plant lifecycle"
+      },
+      "mvp_scope": "Plant profiles, backdatable logging, customizable reminders, offline database",
+      "validation_score": 7.4,
+      "ideaminer_scores": {
+        "pain_intensity": 12,
+        "frequency": 12,
+        "monetization_signals": 9,
+        "competition_saturation": 10,
+        "mvp_feasibility": 10,
+        "distribution": 8,
+        "retention": 8,
+        "mobile_fit": 5
+      }
+    },
+    {
+      "idea_id": "warrantyvault_006",
+      "idea_name": "WarrantyVault",
+      "tagline": "Never lose a warranty again",
+      "description": "Warranty and receipt organizer with manual entry support, expiration reminders, and secure document storage. No subscription required for basic features.",
+      "target_user": "Consumers who want to track product warranties and protect purchase investments",
+      "market": "Document Management & Consumer Protection",
+      "problem_statement": "Warranty tracking apps don't allow manual entry, have limited free tiers, and lack proper notification support",
+      "core_loop": [
+        "User scans receipt or enters warranty manually",
+        "App extracts or stores purchase date and warranty period",
+        "User receives reminder before warranty expires",
+        "User accesses warranty info when needed for claims",
+        "User archives expired warranties for records"
+      ],
+      "evidence": {
+        "sources": [
+          "MrReceipt review: 'Doesn't allow you to manually enter device data'",
+          "Home Contents review: 'Doesn't have notification support'",
+          "Industry stat: 'Most people lose hundreds yearly on warranties they forgot they had'"
+        ],
+        "quotes": [
+          "Limited to 25 entries in the free version",
+          "You have to open the app and check for the warranty period manually"
+        ],
+        "workaround_evidence": "Users keep receipts in folders, use spreadsheets, or just forget"
+      },
+      "subscription_viability": {
+        "free_tier": "25 warranties, basic reminders, local storage",
+        "premium_value": "Unlimited storage, smart OCR, cloud backup, claim assistance templates",
+        "recurring_need": "Continuous product purchases require ongoing warranty tracking"
+      },
+      "mvp_scope": "Manual entry, receipt scanning, expiration reminders, offline storage",
+      "validation_score": 7.2,
+      "ideaminer_scores": {
+        "pain_intensity": 13,
+        "frequency": 8,
+        "monetization_signals": 11,
+        "competition_saturation": 12,
+        "mvp_feasibility": 10,
+        "distribution": 6,
+        "retention": 7,
+        "mobile_fit": 5
+      }
+    },
+    {
+      "idea_id": "dosewatch_007",
+      "idea_name": "DoseWatch",
+      "tagline": "Medication reminders with caregiver peace of mind",
+      "description": "Simple medication reminder app designed for elderly users with large buttons, high contrast, and family notification when doses are missed.",
+      "target_user": "Elderly individuals and their family caregivers managing medication adherence",
+      "market": "Healthcare & Medication Management",
+      "problem_statement": "Medication apps have poor navigation, low visibility, and lack confirmation systems for remote caregivers",
+      "core_loop": [
+        "Caregiver sets up medication schedule (simple wizard)",
+        "User receives large, clear reminder notifications",
+        "User taps to confirm medication taken",
+        "Caregiver receives alert if confirmation not received",
+        "Both can view adherence history"
+      ],
+      "evidence": {
+        "sources": [
+          "PMC research: 'Three main issues - difficulty in navigation, poor visibility, lack of transparency'",
+          "Caregiver quote: 'Millions of digital devices, none user friendly enough for my mother'",
+          "Medisafe study: 'Missed doses dropped from 46% to 5% with reminders'"
+        ],
+        "quotes": [
+          "When your elderly parent lives alone, you need more than just a reminder—you need confirmation",
+          "84% of FDA-approved applications contained security threats"
+        ],
+        "workaround_evidence": "Families use phone calls, pill organizers, or daily visits to confirm"
+      },
+      "subscription_viability": {
+        "free_tier": "3 medications, basic reminders, local storage",
+        "premium_value": "Unlimited meds, caregiver linking, adherence reports, refill reminders",
+        "recurring_need": "Chronic medication management is lifelong need"
+      },
+      "mvp_scope": "Large UI, simple reminders, caregiver alerts, confirmation tracking",
+      "validation_score": 7.0,
+      "ideaminer_scores": {
+        "pain_intensity": 17,
+        "frequency": 14,
+        "monetization_signals": 8,
+        "competition_saturation": 7,
+        "mvp_feasibility": 8,
+        "distribution": 6,
+        "retention": 8,
+        "mobile_fit": 4
+      }
+    },
+    {
+      "idea_id": "mealflow_008",
+      "idea_name": "MealFlow",
+      "tagline": "Simple weekly meal planning without the complexity",
+      "description": "Straightforward meal planner focused on weekly planning with grocery list generation. No complicated recipes, no dietary tracking—just simple meal organization.",
+      "target_user": "Busy individuals who want basic meal planning without overwhelming features",
+      "market": "Meal Planning & Food Organization",
+      "problem_statement": "Meal planning apps are too complicated, focus on specific diets, or don't cover all meals for the week",
+      "core_loop": [
+        "User views week calendar with meal slots",
+        "User adds meals (custom or from favorites)",
+        "App generates grocery list from planned meals",
+        "User checks off items while shopping",
+        "User repeats favorite meal plans"
+      ],
+      "evidence": {
+        "sources": [
+          "MadeFrank review: 'Services are either too complicated, focused on specific diet, or don't cover all meals'",
+          "General trend: users want simplification over feature bloat",
+          "Offline-first demand for grocery shopping in stores with poor signal"
+        ],
+        "quotes": [
+          "Meal plan services are either too complicated or focused on a specific diet",
+          "Users want apps that 'just do what they say, and do it well'"
+        ],
+        "workaround_evidence": "Users write lists on paper or use generic note apps"
+      },
+      "subscription_viability": {
+        "free_tier": "Current week planning, basic grocery list",
+        "premium_value": "Meal history, recipe saving, pantry tracking, family sharing",
+        "recurring_need": "Weekly meal planning is continuous household task"
+      },
+      "mvp_scope": "Week view, meal slots, grocery list, favorites",
+      "validation_score": 6.8,
+      "ideaminer_scores": {
+        "pain_intensity": 11,
+        "frequency": 14,
+        "monetization_signals": 9,
+        "competition_saturation": 8,
+        "mvp_feasibility": 10,
+        "distribution": 7,
+        "retention": 8,
+        "mobile_fit": 5
+      }
+    },
+    {
+      "idea_id": "serviceroute_009",
+      "idea_name": "ServiceRoute",
+      "tagline": "Optimize your service calls, maximize your day",
+      "description": "Route optimization for solo field service professionals. Plan daily stops, track job completion, and invoice from the field—all offline-capable.",
+      "target_user": "Solo contractors and field service professionals (plumbers, electricians, cleaners)",
+      "market": "Field Service & Small Business",
+      "problem_statement": "Field service professionals waste 15-25% of time on inefficient routing and lack mobile-friendly job tracking",
+      "core_loop": [
+        "User adds day's service stops with addresses",
+        "App optimizes route order for efficiency",
+        "User navigates to each stop with turn-by-turn",
+        "User marks job complete with notes/photos",
+        "User generates invoice from job details"
+      ],
+      "evidence": {
+        "sources": [
+          "Field service forum analysis: 'Route optimization major opportunity to increase daily capacity'",
+          "Industry research: 'Inefficient routing wastes 15-25% of budgets'",
+          "Micro-SaaS trend: 'Hyper-niche utilities that solve single painful problem'"
+        ],
+        "quotes": [
+          "Route optimization is consistently discussed as major opportunity",
+          "The best app ideas are hyper-niche utilities solving single painful problems"
+        ],
+        "workaround_evidence": "Contractors manually plan routes or use consumer GPS apps"
+      },
+      "subscription_viability": {
+        "free_tier": "5 stops/day, basic routing, local storage",
+        "premium_value": "Unlimited stops, job history, invoicing, customer database",
+        "recurring_need": "Daily route planning is core business operation"
+      },
+      "mvp_scope": "Stop entry, route optimization, job tracking, offline capability",
+      "validation_score": 6.5,
+      "ideaminer_scores": {
+        "pain_intensity": 14,
+        "frequency": 13,
+        "monetization_signals": 11,
+        "competition_saturation": 9,
+        "mvp_feasibility": 7,
+        "distribution": 5,
+        "retention": 7,
+        "mobile_fit": 4
+      }
+    },
+    {
+      "idea_id": "carboncounter_010",
+      "idea_name": "CarbonCounter",
+      "tagline": "Simple sustainability tracking for small businesses",
+      "description": "Lightweight carbon footprint and ESG tracker for small businesses facing compliance requirements. Track emissions, generate reports, no enterprise complexity.",
+      "target_user": "Small business owners needing basic sustainability reporting",
+      "market": "Sustainability & ESG Compliance",
+      "problem_statement": "ESG reporting requirements are expanding to SMBs but enterprise tools are too complex and expensive",
+      "core_loop": [
+        "User logs business activities (travel, utilities, purchases)",
+        "App calculates carbon footprint from inputs",
+        "User views emissions breakdown and trends",
+        "User generates compliance report for stakeholders",
+        "User sets reduction goals and tracks progress"
+      ],
+      "evidence": {
+        "sources": [
+          "Market analysis: 'By 2026, most Fortune 500 must disclose sustainability metrics, SMBs left behind'",
+          "Underserved niche report: 'ESG Compliance for SMBs - tracking manually is overwhelming'",
+          "Trend: 'Lightweight compliance SaaS shines for SMBs'"
+        ],
+        "quotes": [
+          "Tracking carbon emissions, water usage, and labor compliance manually is overwhelming",
+          "ESG reporting is no longer optional"
+        ],
+        "workaround_evidence": "SMBs use spreadsheets or ignore requirements until audited"
+      },
+      "subscription_viability": {
+        "free_tier": "Basic tracking, 1 report/quarter",
+        "premium_value": "Full reporting, benchmarking, multi-location, audit support",
+        "recurring_need": "Ongoing compliance reporting required by regulations"
+      },
+      "mvp_scope": "Activity logging, carbon calculations, basic reports",
+      "validation_score": 6.2,
+      "ideaminer_scores": {
+        "pain_intensity": 12,
+        "frequency": 8,
+        "monetization_signals": 12,
+        "competition_saturation": 13,
+        "mvp_feasibility": 7,
+        "distribution": 5,
+        "retention": 6,
+        "mobile_fit": 3
+      }
+    }
+  ],
+  "standards_compliance": {
+    "excluded_categories_check": "PASS - No ideas in dating, gambling, crypto, medical diagnosis, regulated financial, or 18+ categories",
+    "subscription_model_check": "PASS - All ideas have clear subscription value proposition with RevenueCat integration path",
+    "offline_first_bias": "PASS - All ideas designed with offline-first architecture as default"
+  }
+}

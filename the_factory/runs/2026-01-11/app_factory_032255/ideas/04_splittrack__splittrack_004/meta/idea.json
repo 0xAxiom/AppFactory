@@ -1,0 +1,12 @@
+{
+  "idea_id": "splittrack_004",
+  "idea_name": "SplitTrack",
+  "rank": 4,
+  "tagline": "Finally, an expense tracker that handles split transactions",
+  "description": "Budget tracker focused on the #1 user request: splitting transactions across multiple categories. Simple, offline-first, no bank connection required.",
+  "target_user": "Budget-conscious individuals frustrated with category limitations in existing apps",
+  "market": "Personal Finance & Budgeting",
+  "validation_score": 7.6,
+  "run_id": "app_factory_032255",
+  "source_stage": "stage01"
+}

@@ -2,146 +2,208 @@
   <img src="./the_factory/AppFactory.png" alt="App Factory" width="800" />
 </p>
 
-# App Factory & Web3 Factory
+# App Factory
 
-**Dual AI-Native Development Systems**
-
-This repository contains two isolated factory systems:
-- **App Factory** (`/the_factory/`) - Consumer mobile apps with subscription monetization
-- **Web3 Factory** (`/web3-factory/`) - Tokenized web apps with Solana integration (in development)
+**Describe the app you want. Claude builds it.**
 
 ---
 
-## App Factory
+## Changelog
 
-**From idea to store-ready mobile app in one command.**
+**v4.1 (January 2026)** - Mandatory research and ASO
+- **Market research** - every build includes written market analysis
+- **Competitor analysis** - documented competitive landscape
+- **ASO metadata** - ready-to-paste App Store copy
 
-App Factory researches markets, validates ideas, and builds complete React Native mobile applications. Every generated app traces back to real market evidence.
-
-### Quick Start
-
-**Using Claude Code:**
-```bash
-cd the_factory
-
-run app factory          # Generate 10 ranked app ideas
-build <IDEA_NAME>        # Build selected idea into complete app
-dream <your idea>        # Skip research, build any idea directly
-```
-
-**Using the Standalone CLI:**
-```bash
-cd CLI
-npm install && cp .env.example .env
-# Add ANTHROPIC_API_KEY=sk-ant-your-key to .env
-npm start                # Interactive menu with arrow keys
-```
-
-The CLI runs the same pipeline using your Anthropic API key. No Claude Code subscription required.
-
----
-
-## Web3 Factory
-
-**Transform ideas into tokenized web apps with Solana integration.**
-
-Web3 Factory validates Web3 concepts, defines token economics, and builds complete tokenized web applications with Bags SDK integration.
-
-### Quick Start
-
-```bash
-cd web3-factory
-
-web3 idea <your concept>  # Transform idea into tokenized web app
-```
+**v4.0 (January 2026)** - Single-mode refactor
+- **No commands required** - describe your app, get a working build
+- **Ralph Mode** - adversarial QA ensures every build meets quality standards
+- **Streamlined repo** - removed legacy orchestration, kept only what matters
 
 ---
 
 ## How It Works
 
-```mermaid
-flowchart LR
-    subgraph entry [" "]
-        A[Claude Code]
-        B[Standalone CLI]
-    end
+1. Open Claude Code in the `the_factory/` directory
+2. Describe the app you want in plain English
+3. Claude researches the market and builds it end-to-end
+4. Get a complete Expo app with research and ASO in `builds/<app-slug>/`
 
-    A --> C[Pipeline]
-    B --> C
+No commands. No configuration. No pipeline stages to manage.
 
-    C --> D[Stage 01: Research]
-    D --> E[10 Ranked Ideas]
-    E --> F{Select One}
-    F --> G[Stages 02-10]
-    G --> H[Store-Ready App]
+---
 
-    I[Dream Mode] --> J[Skip to Build]
-    J --> G
+## Example
+
+**You type:**
+```
+A meditation app with guided sessions, ambient sounds, and streak tracking
 ```
 
-| Stage | What Happens |
-|-------|--------------|
-| 01 | Market research generates 10 ranked app ideas |
-| 02-09 | Product spec, UX design, monetization, architecture, brand |
-| 10 | Professional enforcement layer builds zero-defect Expo app |
+**You get:**
+```
+builds/meditation-app/
+├── package.json
+├── app.config.js
+├── src/
+│   ├── screens/
+│   │   ├── OnboardingScreen.tsx
+│   │   ├── HomeScreen.tsx
+│   │   ├── SessionScreen.tsx
+│   │   ├── PaywallScreen.tsx
+│   │   └── SettingsScreen.tsx
+│   ├── components/
+│   ├── services/
+│   │   └── purchases.ts
+│   └── ui/
+├── assets/
+│   ├── icon.png
+│   └── splash.png
+├── research/                     # Market intelligence
+│   ├── market_research.md        # Market size, trends, demographics
+│   ├── competitor_analysis.md    # Competitor breakdown
+│   └── positioning.md            # Differentiation strategy
+├── aso/                          # App Store Optimization
+│   ├── app_title.txt             # Store title (max 30 chars)
+│   ├── subtitle.txt              # Store subtitle (max 30 chars)
+│   ├── description.md            # Full store description
+│   └── keywords.txt              # ASO keywords (max 100 chars)
+├── privacy_policy.md
+├── launch_plan.md
+└── README.md
+```
 
-## What You Get
+Ready to run with `npx expo start`.
 
-**After building:**
-- Complete Expo React Native app with TypeScript
-- RevenueCat subscription integration
-- Store-ready assets, privacy policy, launch plan
-- Passes 14 quality gates before completion
+---
 
-## Repository Structure
+## What Gets Built
+
+Every build includes:
+
+### App Code
+| Feature | Description |
+|---------|-------------|
+| **Expo + TypeScript** | iOS and Android from one codebase |
+| **RevenueCat** | Subscription monetization built-in |
+| **Onboarding** | 2-4 screen welcome flow |
+| **Paywall** | Premium upgrade screen |
+| **Settings** | Subscription management, privacy, support |
+| **Local Storage** | SQLite for data, AsyncStorage for preferences |
+
+### Market Research (Mandatory)
+| File | Contents |
+|------|----------|
+| `research/market_research.md` | Market size, trends, demographics, pain points |
+| `research/competitor_analysis.md` | Direct/indirect competitors, gaps to exploit |
+| `research/positioning.md` | Unique value proposition, differentiation |
+
+### App Store Optimization (Mandatory)
+| File | Contents |
+|------|----------|
+| `aso/app_title.txt` | Optimized App Store title |
+| `aso/subtitle.txt` | App Store subtitle |
+| `aso/description.md` | Full App Store description |
+| `aso/keywords.txt` | ASO keywords for App Store Connect |
+
+### Launch Materials
+| File | Contents |
+|------|----------|
+| `privacy_policy.md` | Privacy policy for store compliance |
+| `launch_plan.md` | Launch checklist and timeline |
+
+---
+
+## Quality Assurance
+
+Every build goes through **Ralph Mode** - an adversarial QA process:
+
+1. Ralph reviews the build critically
+2. Verifies all code, research, and ASO artifacts
+3. Identifies issues that would block shipping
+4. Builder fixes the issues
+5. Repeat until quality standards met (max 3 iterations)
+
+A build only succeeds when Ralph approves it. **Missing or thin research/ASO is a blocking failure.**
+
+---
+
+## Defaults
+
+When you don't specify details, App Factory assumes:
+
+| Aspect | Default |
+|--------|---------|
+| Monetization | Freemium with $4.99/mo subscription |
+| Data storage | Local-only (offline-first) |
+| Backend | None required |
+| Authentication | Guest-first (no login) |
+| Platform | iOS + Android |
+
+---
+
+## Technology Stack
+
+| Component | Technology |
+|-----------|------------|
+| Framework | Expo SDK 54+ |
+| Language | TypeScript |
+| Navigation | Expo Router v4 |
+| Monetization | RevenueCat |
+| Storage | expo-sqlite |
+
+---
+
+## Repo Map
 
 ```
-/the_factory/     # App Factory - mobile apps with subscriptions
-/CLI/             # Standalone CLI - same pipeline, your API key
-/web3-factory/    # Web3 Factory - tokenized web apps (in development)
+the_factory/
+├── claude.md              # Constitution - defines single-mode behavior
+├── README.md              # App Factory documentation
+├── templates/
+│   ├── system/            # Core execution templates
+│   │   ├── dream_spec_author.md   # Expands input to spec
+│   │   └── ralph_polish_loop.md   # QA process
+│   └── app_template/      # Expo scaffolding
+├── builds/                # Generated apps go here
+├── runs/                  # Execution artifacts
+├── vendor/                # Cached Expo/RevenueCat docs
+│   ├── expo-docs/         # Expo SDK documentation
+│   └── revenuecat-docs/   # RevenueCat documentation
+├── scripts/               # Helper utilities
+│   ├── build_proof_gate.sh
+│   ├── generate_assets.sh
+│   └── generate_privacy_policy.sh
+└── standards/             # Quality standards
+    ├── mobile_app_best_practices_2026.md
+    └── research_policy.md
 ```
 
-## Tech Stack
+---
 
-| | App Factory | Web3 Factory |
-|--|-------------|--------------|
-| **Platform** | iOS/Android Mobile | Web Browsers |
-| **Framework** | React Native + Expo | Next.js/Vite + React |
-| **Monetization** | RevenueCat subscriptions | Solana tokens (Bags SDK) |
-| **Pipeline** | Stages 01-10 | Stages W1-W5 |
+## Running Your App
 
-## Documentation
+```bash
+cd the_factory/builds/<app-slug>
+npm install
+npx expo start
+```
 
-- [App Factory Details](the_factory/README.md) - Full pipeline documentation
-- [CLI Documentation](CLI/README.md) - Standalone CLI setup and usage
-- [Web3 Factory](web3-factory/README.md) - Tokenized web apps (in development)
+Press `i` for iOS simulator or `a` for Android emulator.
 
-## Contributing
+---
 
-App Factory thrives on community input. Whether you're improving the pipeline, fixing bugs, or adding features, your contributions help everyone build better apps faster.
+## Getting Started
 
-**Ways to contribute:**
-- Report bugs and issues
-- Suggest improvements to pipeline stages
-- Improve documentation and templates
-- Add quality checks and validation
-- Submit pull requests
+1. Clone this repository
+2. Open `the_factory/` in Claude Code
+3. Describe the app you want
+4. Wait for the build to complete
+5. Run your app from `builds/`
 
-**Key principles:**
-- Agent-native execution (Claude is the primary runner)
-- Filesystem truth (if it's not on disk, it didn't happen)
-- Schema validation for all outputs
-- Connected specs (every decision traces to market evidence)
+That's it.
 
-## Star History
-
-<a href="https://star-history.com/#MeltedMindz/AppFactory&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=MeltedMindz/AppFactory&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=MeltedMindz/AppFactory&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=MeltedMindz/AppFactory&type=Date" />
- </picture>
-</a>
+---
 
 ## License
 
@@ -159,4 +221,4 @@ Support the project by holding $FACTORY on Solana.
 
 ---
 
-**App Factory: From market research to store-ready apps in one command.**
+**App Factory v4.1** - Describe what you want. Get a working app with research and ASO.

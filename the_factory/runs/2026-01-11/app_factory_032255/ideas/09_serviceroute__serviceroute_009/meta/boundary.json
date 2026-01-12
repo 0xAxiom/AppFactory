@@ -1,0 +1,12 @@
+{
+  "idea_id": "serviceroute_009",
+  "run_id": "app_factory_032255",
+  "idea_dir": "09_serviceroute__serviceroute_009",
+  "source_root": "runs/2026-01-11/app_factory_032255/ideas/09_serviceroute__serviceroute_009/",
+  "allowed_paths": [
+    "runs/2026-01-11/app_factory_032255/ideas/09_serviceroute__serviceroute_009/",
+    "runs/2026-01-11/app_factory_032255/stage01/stages/stage01.json",
+    "runs/2026-01-11/app_factory_032255/meta/idea_index.json"
+  ],
+  "forbidden_pattern": "runs/2026-01-11/app_factory_032255/ideas/(?!09_serviceroute__serviceroute_009)"
+}

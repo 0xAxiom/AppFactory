@@ -1,0 +1,12 @@
+{
+  "idea_id": "dosewatch_007",
+  "idea_name": "DoseWatch",
+  "rank": 7,
+  "tagline": "Medication reminders with caregiver peace of mind",
+  "description": "Simple medication reminder app designed for elderly users with large buttons, high contrast, and family notification when doses are missed.",
+  "target_user": "Elderly individuals and their family caregivers managing medication adherence",
+  "market": "Healthcare & Medication Management",
+  "validation_score": 7.0,
+  "run_id": "app_factory_032255",
+  "source_stage": "stage01"
+}

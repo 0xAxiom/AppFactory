@@ -1,0 +1,12 @@
+{
+  "idea_id": "plantminder_005",
+  "idea_name": "PlantMinder",
+  "rank": 5,
+  "tagline": "Water your plants on time, every time",
+  "description": "Plant care app with the ability to backdate watering (unlike competitors), comprehensive offline plant database, and smart reminder scheduling.",
+  "target_user": "Indoor plant enthusiasts who struggle to remember watering schedules",
+  "market": "Plant Care & Home Gardening",
+  "validation_score": 7.4,
+  "run_id": "app_factory_032255",
+  "source_stage": "stage01"
+}
