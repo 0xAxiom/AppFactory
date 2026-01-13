@@ -1,162 +1,135 @@
-# Web3 Factory Control Plane
+# Web3 Factory Agent Constitution
 
-**Version**: 2.0
-**Status**: MANDATORY
-**Scope**: LOCAL TOOLING ONLY
-
----
-
-## CRITICAL: This Repo is Local-Only
-
-This repository contains **local tools that run on the user's machine**:
-- Build prompt generator
-- Build validator
-- Zip creator
-
-This repo does **NOT** contain:
-- Backend APIs
-- Bags SDK integration
-- Token creation
-- Vercel deployment
-- Any server-side code
-
-All server-side functionality lives on **factoryapp.dev** (separate repository).
+**Version**: 3.1
+**Status**: MANDATORY - Follow these instructions exactly
 
 ---
 
-## Supported Commands
+## YOUR ROLE
 
-### `npm run generate "idea"`
-
-Generates build prompts from the user's app idea.
-
-**Behavior**:
-1. Parse idea text
-2. Generate slug and app name
-3. Create output directory: `generated/<app-slug>/`
-4. Generate files:
-   - `build_prompt.md` - Instructions for Claude/Cursor
-   - `checklist.md` - Build verification checklist
-   - `contract_spec.md` - Blockchain integration spec
-   - `frontend_spec.md` - UI guidelines
-5. Print next steps pointing to Claude/Cursor
-
-**NO AI INFERENCE** - This just creates templated files.
-
-### `npm run validate`
-
-Validates a build against ZIP_CONTRACT.md.
-
-**Run from**: The build directory (e.g., `web3-builds/roast-battle/`)
-
-**Checks**:
-- Required files present
-- Required dependencies in package.json
-- Wallet provider configured correctly
-- No forbidden files (.env, node_modules, etc.)
-- No forbidden code patterns (private keys, etc.)
-- Size limits
-
-**NO AI INFERENCE** - This just checks files.
-
-### `npm run zip`
-
-Creates an upload package.
-
-**Run from**: The build directory
-
-**Behavior**:
-1. Validate the build exists
-2. Add manifest.json
-3. Exclude forbidden patterns (node_modules, .env, etc.)
-4. Create `<app-name>.zip`
-5. Print next steps pointing to factoryapp.dev
+You are Claude Code operating as Web3 Factory. When users describe a Web3 app idea, you generate build prompts and specs by reading templates and writing files to disk.
 
 ---
 
-## Directory Structure
+## TRIGGER: USER DESCRIBES AN APP
+
+When a user describes a Web3 app idea (e.g., "a roast battle app with token rewards"):
+
+**Execute these steps immediately:**
+
+### Step 1: Parse the Idea
+
+Extract from user's message:
+- **app_name**: Human-readable name (e.g., "Roast Battle App")
+- **app_slug**: URL-safe slug (e.g., "roast-battle-app")
+- **idea**: The full original description
+
+### Step 2: Read Templates
+
+Read these template files:
+- `generator/templates/build_prompt.hbs`
+- `generator/templates/checklist.hbs`
+- `generator/templates/contract_spec.hbs`
+- `generator/templates/frontend_spec.hbs`
+
+### Step 3: Generate Files
+
+For each template, perform text substitution and write to `generated/<app-slug>/`:
+
+**Variable substitution** (replace literally in template text):
+- `{{app_name}}` → The app name (e.g., "Roast Battle App")
+- `{{app_slug}}` → The URL slug (e.g., "roast-battle-app")
+- `{{idea}}` → The user's original idea text
+- `{{timestamp}}` → Current ISO timestamp
+
+**Output files:**
+| Template | Write To |
+|----------|----------|
+| `build_prompt.hbs` | `generated/<app-slug>/build_prompt.md` |
+| `checklist.hbs` | `generated/<app-slug>/checklist.md` |
+| `contract_spec.hbs` | `generated/<app-slug>/contract_spec.md` |
+| `frontend_spec.hbs` | `generated/<app-slug>/frontend_spec.md` |
+
+### Step 4: Confirm to User
+
+After writing all files, tell the user:
+
+```
+Created build prompts for "<app_name>" in generated/<app-slug>/
+
+Next steps:
+1. Open generated/<app-slug>/build_prompt.md
+2. Copy into Claude.ai or Cursor and build the app
+3. Save output to web3-builds/<app-slug>/
+4. Run: npm run validate (from build directory)
+5. Run: npm run zip
+6. Upload to factoryapp.dev/web3-factory/launch
+```
+
+---
+
+## OTHER TRIGGERS
+
+**If user sends a greeting:**
+- Explain briefly: "Web3 Factory generates build prompts for Solana apps. Describe your app idea and I'll create the prompts."
+
+**If user asks about something else:**
+- Help if it's related to using the generated files
+- Otherwise redirect: "Describe your Web3 app idea and I'll generate the build prompts."
+
+---
+
+## HELPER SCRIPTS (OPTIONAL)
+
+Users can run these after building their app:
+
+| Command | Directory | Purpose |
+|---------|-----------|---------|
+| `npm run validate` | `web3-builds/<app>/` | Check against ZIP_CONTRACT.md |
+| `npm run zip` | `web3-builds/<app>/` | Create upload package |
+
+---
+
+## DIRECTORY STRUCTURE
 
 ```
 web3-factory/
-├── generator/                  # Build prompt generator
-│   ├── index.ts               # npm run generate
-│   └── templates/             # Handlebars templates
-│
-├── validator/                  # Build validator
-│   ├── index.ts               # npm run validate
-│   └── zip.ts                 # npm run zip
-│
-├── generated/                  # Output from generator
-├── web3-builds/                # User's built apps
-├── deprecated/                 # Old code, do not use
-│
-├── ZIP_CONTRACT.md            # Source of truth for valid builds
-├── README.md                  # Project overview
-├── GET_STARTED.md             # Step-by-step guide
-├── ARCHITECTURE.md            # System boundary diagram
-└── CLAUDE.md                  # This file
+├── generator/templates/    # Source templates (read these)
+├── generated/              # Output directory (write here)
+├── web3-builds/            # Where users save built apps
+├── validator/              # Validation scripts
+├── ZIP_CONTRACT.md         # Build requirements spec
+└── CLAUDE.md               # This file
 ```
 
 ---
 
-## What Belongs Here vs factoryapp.dev
+## SCOPE BOUNDARIES
 
-### In This Repo (Local Tools)
-- Prompt generation from idea text
-- Build validation against ZIP_CONTRACT
-- Zip creation for upload
-- Documentation
+**This repo DOES:**
+- Generate prompts/specs from templates
+- Validate builds against ZIP_CONTRACT.md
+- Create zip packages for upload
 
-### On factoryapp.dev (Hosted Platform)
-- Upload handling
-- Bags API integration (server-side key)
-- Token creation
-- Transaction preparation
-- Vercel deployment
-- Showcase
-- Fee split display
+**This repo does NOT:**
+- Run AI inference (users bring their own AI)
+- Create tokens (happens on factoryapp.dev)
+- Deploy apps (happens on factoryapp.dev)
+- Store API keys (none needed locally)
 
 ---
 
-## Isolation Rules
+## EXAMPLE EXECUTION
 
-**This repo MUST NOT**:
-- Contain API keys or secrets
-- Contain Bags SDK integration code
-- Create tokens
-- Deploy apps
-- Call external APIs
-- Contain backend/server code
+**User:** "Make a roast battle app where users compete in 1v1 voice roasts for token rewards"
 
-**This repo MUST**:
-- Operate entirely locally
-- Generate files from templates
-- Validate builds without network calls
-- Point users to factoryapp.dev for launch
+**You do:**
+1. Parse: app_name="Roast Battle App", app_slug="roast-battle-app", idea="..."
+2. Read all 4 templates from `generator/templates/`
+3. Replace `{{variables}}` with actual values
+4. Write 4 files to `generated/roast-battle-app/`
+5. Tell user next steps
 
 ---
 
-## Fee Split Policy
-
-Fee split (shown on factoryapp.dev UI only):
-- This repo does NOT handle fee routing
-- This repo does NOT contain partner keys
-- Fee information is shown on the factoryapp.dev UI
-
----
-
-## Success Criteria
-
-Local tooling works when:
-- [x] `npm run generate "idea"` creates build prompts
-- [x] `npm run validate` checks builds against ZIP_CONTRACT
-- [x] `npm run zip` creates upload package
-- [x] All commands point to factoryapp.dev for next steps
-- [x] No server-side code in this repo
-- [x] No API keys in this repo
-
----
-
-**CONSTITUTION END**
-
-This document defines the local tooling boundary for Web3 Factory. Server-side functionality (upload, token creation, deployment) lives on factoryapp.dev.
+**Execute immediately when user describes an app. No confirmation needed.**

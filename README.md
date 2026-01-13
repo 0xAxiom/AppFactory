@@ -6,12 +6,13 @@
 
 **Describe the app you want. Claude builds it.**
 
-This repository contains two app builders:
+This repository contains three builders:
 
 | Builder | What It Makes | Tech Stack |
 |---------|---------------|------------|
 | [**the_factory/**](./the_factory/) | Mobile apps | Expo + React Native |
 | [**web3-factory/**](./web3-factory/) | Web3 apps with tokens | Next.js + Solana |
+| [**agent-factory/**](./agent-factory/) | AI agent scaffolds | Node.js + TypeScript |
 
 ---
 
@@ -19,20 +20,53 @@ This repository contains two app builders:
 
 Build Web3 apps and launch Solana tokens with **zero platform AI cost**.
 
-> **This is NOT a CLI tool.** Web3 Factory is a prompt-based pipeline. You run prompts in Claude or Cursor — no apps are built by running commands here.
+**Fast path:**
+```
+Open web3-factory/ in Claude Code or Cursor
+Type: "Make a roast battle app with token rewards"
+→ Prompts and specs generated automatically
+```
 
 **How it works:**
 
-1. Open the prompt files in `web3-factory/`
-2. Copy the prompts into Claude, Cursor, or your local agent
-3. Build the app using your own AI tools
-4. Use helper scripts to validate structure and create a zip
-5. Upload to [factoryapp.dev](https://factoryapp.dev/web3-factory/launch)
-6. Connect wallet, sign transaction, launch!
+1. Clone this repo and open `web3-factory/` in Claude Code or Cursor
+2. Describe your Web3 app idea in one sentence
+3. The agent generates build prompts and specs automatically
+4. Open the generated `build_prompt.md` in your AI tool
+5. Build the app following the prompt instructions
+6. Use helper scripts to validate and zip your build
+7. Upload to [factoryapp.dev](https://factoryapp.dev/web3-factory/launch)
+8. Connect wallet, sign transaction, launch!
 
-**No AI runs in this repo.** The repo provides prompts, specs, and validation helpers. Your AI tool does the building.
+**This is an agent-driven pipeline.** You type your idea, the repo generates prompts. Your AI tool builds the app.
 
 See [web3-factory/README.md](./web3-factory/README.md) for full docs.
+
+---
+
+## Agent Factory (New)
+
+Build AI agent scaffolds with **zero platform inference cost**.
+
+**Fast path:**
+```
+Open agent-factory/ in Claude Code or Cursor
+Type: "Build an agent that summarizes YouTube videos"
+→ Complete scaffold generated automatically
+```
+
+**How it works:**
+
+1. Clone this repo and open `agent-factory/` in Claude Code or Cursor
+2. Describe your agent idea in one sentence
+3. Answer 3 questions (name, description, env vars)
+4. Get a complete scaffold in `outputs/<agent-name>/`
+5. Run `npm run zip` to package
+6. Upload to [factoryapp.dev](https://factoryapp.dev)
+
+**This is an agent-driven pipeline.** You type your idea, Claude generates the scaffold. You bring your own API keys.
+
+See [agent-factory/README.md](./agent-factory/README.md) for full docs.
 
 ---
 
@@ -42,6 +76,7 @@ Build mobile apps with a single description.
 
 ```bash
 cd the_factory
+claude
 # Describe your app to Claude
 # Get a complete Expo app with research + ASO
 ```
