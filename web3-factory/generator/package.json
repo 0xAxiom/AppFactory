@@ -1,0 +1,17 @@
+{
+  "name": "@web3-factory/generator",
+  "version": "1.0.0",
+  "description": "Build prompt generator for Web3 Factory",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "generate": "tsx index.ts"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "@types/node": "^20.10.0"
+  }
+}

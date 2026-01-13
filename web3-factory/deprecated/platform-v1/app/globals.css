@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #0a0a0b;
+  --bg-surface: #111113;
+  --bg-elevated: #1a1a1d;
+  --bg-hover: #222226;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --border: #27272a;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+}
+
+/* Wallet adapter style overrides */
+.wallet-adapter-button {
+  background-color: var(--accent) !important;
+}
+
+.wallet-adapter-button:hover {
+  background-color: var(--accent-hover) !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  background-color: var(--bg-surface) !important;
+}

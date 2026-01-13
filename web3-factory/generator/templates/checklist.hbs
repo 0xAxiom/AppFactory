@@ -1,0 +1,107 @@
+# Build Checklist: {{app_name}}
+
+Use this checklist to ensure your build is complete before uploading.
+
+---
+
+## Project Setup
+
+- [ ] Created `{{app_slug}}/` directory
+- [ ] Initialized with `package.json`
+- [ ] TypeScript configured (`tsconfig.json`)
+- [ ] Tailwind CSS configured (`tailwind.config.ts`)
+- [ ] Next.js configured (`next.config.js`)
+
+## Core Files
+
+- [ ] `src/app/layout.tsx` - Root layout with Providers
+- [ ] `src/app/page.tsx` - Homepage
+- [ ] `src/app/providers.tsx` - Wallet + context providers
+- [ ] `src/app/globals.css` - Tailwind imports + global styles
+
+## Wallet Integration
+
+- [ ] `@solana/wallet-adapter-react` installed
+- [ ] `@solana/wallet-adapter-react-ui` installed
+- [ ] `@solana/wallet-adapter-wallets` installed
+- [ ] `@solana/web3.js` installed
+- [ ] `@solana/spl-token` installed
+- [ ] Providers wrap the app correctly
+- [ ] Wallet connect button present and working
+
+## Token Integration
+
+- [ ] `src/config/constants.ts` with TOKEN_MINT placeholder
+- [ ] `src/hooks/useTokenBalance.ts` hook implemented
+- [ ] Token balance displays in UI (wallet connected)
+- [ ] Fee routing constants defined
+
+## UI Components
+
+- [ ] Base components in `src/components/ui/`
+- [ ] Wallet components in `src/components/wallet/`
+- [ ] Feature components organized by feature
+- [ ] Dark mode styling applied
+- [ ] Responsive on mobile and desktop
+
+## Pages
+
+- [ ] Homepage complete with core functionality
+- [ ] All feature pages implemented
+- [ ] Profile page with wallet info
+- [ ] Navigation between pages works
+
+## Testing Locally
+
+- [ ] `npm install` completes without errors
+- [ ] `npm run dev` starts without errors
+- [ ] App loads at http://localhost:3000
+- [ ] No console errors in browser
+- [ ] Wallet connects successfully
+- [ ] Core features work (with mock data if needed)
+
+## Environment Variables
+
+- [ ] `.env.example` created with required vars
+- [ ] `NEXT_PUBLIC_SOLANA_RPC_URL` documented
+- [ ] `NEXT_PUBLIC_SOLANA_NETWORK` documented
+- [ ] `NEXT_PUBLIC_TOKEN_MINT` documented (placeholder)
+
+## Documentation
+
+- [ ] `README.md` with setup instructions
+- [ ] Instructions for backend requirements (if any)
+- [ ] Clear comments in complex code sections
+
+---
+
+## Ready to Validate?
+
+Run these commands:
+
+```bash
+cd {{app_slug}}
+npm install
+npm run validate   # Runs automated checks
+npm run zip        # Creates upload package
+```
+
+---
+
+## Common Issues
+
+**Wallet adapter error:**
+Make sure you're NOT using BackpackWalletAdapter (it causes issues).
+Only use PhantomWalletAdapter and SolflareWalletAdapter.
+
+**Token balance not showing:**
+This is normal - the token doesn't exist yet.
+Balance will show after launch.
+
+**TypeScript errors:**
+Run `npx tsc --noEmit` to see all errors.
+Fix them before validating.
+
+---
+
+**Checklist complete? Time to validate and upload!**

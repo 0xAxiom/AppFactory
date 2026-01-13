@@ -6,6 +6,48 @@
 
 **Describe the app you want. Claude builds it.**
 
+This repository contains two app builders:
+
+| Builder | What It Makes | Tech Stack |
+|---------|---------------|------------|
+| [**the_factory/**](./the_factory/) | Mobile apps | Expo + React Native |
+| [**web3-factory/**](./web3-factory/) | Web3 apps with tokens | Next.js + Solana |
+
+---
+
+## Web3 Factory (New)
+
+Build Web3 apps and launch Solana tokens with **zero platform AI cost**.
+
+```bash
+cd web3-factory
+npm run generate "a roast battle app with token rewards"
+# Copy output into Claude/Cursor, build locally, validate, zip, upload
+```
+
+**How it works:**
+1. Generate build prompts locally (no AI)
+2. Build with your own Claude/Cursor
+3. Validate and zip locally
+4. Upload to [factoryapp.dev](https://factoryapp.dev/web3-factory/launch)
+5. Connect wallet, sign transaction, launch!
+
+**web3-factory/ contains local tools only.** Uploads and token launches happen on factoryapp.dev.
+
+See [web3-factory/README.md](./web3-factory/README.md) for full docs.
+
+---
+
+## App Factory (Mobile)
+
+Build mobile apps with a single description.
+
+```bash
+cd the_factory
+# Describe your app to Claude
+# Get a complete Expo app with research + ASO
+```
+
 ---
 
 ## Changelog
