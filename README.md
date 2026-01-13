@@ -19,20 +19,18 @@ This repository contains two app builders:
 
 Build Web3 apps and launch Solana tokens with **zero platform AI cost**.
 
-```bash
-cd web3-factory
-npm run generate "a roast battle app with token rewards"
-# Copy output into Claude/Cursor, build locally, validate, zip, upload
-```
+> **This is NOT a CLI tool.** Web3 Factory is a prompt-based pipeline. You run prompts in Claude or Cursor — no apps are built by running commands here.
 
 **How it works:**
-1. Generate build prompts locally (no AI)
-2. Build with your own Claude/Cursor
-3. Validate and zip locally
-4. Upload to [factoryapp.dev](https://factoryapp.dev/web3-factory/launch)
-5. Connect wallet, sign transaction, launch!
 
-**web3-factory/ contains local tools only.** Uploads and token launches happen on factoryapp.dev.
+1. Open the prompt files in `web3-factory/`
+2. Copy the prompts into Claude, Cursor, or your local agent
+3. Build the app using your own AI tools
+4. Use helper scripts to validate structure and create a zip
+5. Upload to [factoryapp.dev](https://factoryapp.dev/web3-factory/launch)
+6. Connect wallet, sign transaction, launch!
+
+**No AI runs in this repo.** The repo provides prompts, specs, and validation helpers. Your AI tool does the building.
 
 See [web3-factory/README.md](./web3-factory/README.md) for full docs.
 
