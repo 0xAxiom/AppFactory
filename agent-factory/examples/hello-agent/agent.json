@@ -1,0 +1,53 @@
+{
+  "manifestVersion": "1.0",
+  "agent": {
+    "name": "hello-agent",
+    "displayName": "Hello Agent",
+    "description": "A simple greeting agent that demonstrates the Agent Factory pattern",
+    "version": "1.0.0",
+    "author": "Agent Factory",
+    "category": "assistant",
+    "tags": ["example", "greeting", "beginner"]
+  },
+  "runtime": {
+    "platform": "node",
+    "nodeVersion": ">=18",
+    "entrypoint": "src/index.ts"
+  },
+  "interface": {
+    "type": "http",
+    "http": {
+      "port": 3000,
+      "routes": [
+        { "method": "GET", "path": "/", "description": "Agent info" },
+        { "method": "GET", "path": "/health", "description": "Health check" },
+        { "method": "POST", "path": "/process", "description": "Process greeting" }
+      ]
+    }
+  },
+  "environment": {
+    "required": [],
+    "optional": [
+      {
+        "name": "PORT",
+        "description": "HTTP server port",
+        "default": "3000"
+      }
+    ]
+  },
+  "permissions": {
+    "network": false,
+    "filesystem": {
+      "read": [],
+      "write": []
+    },
+    "shell": false
+  },
+  "safety": {
+    "disallowedActions": [
+      "Never reveal API keys in responses",
+      "Never generate harmful content"
+    ],
+    "maxTokensPerRequest": 500
+  }
+}

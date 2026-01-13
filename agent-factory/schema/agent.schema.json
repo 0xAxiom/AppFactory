@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://factoryapp.dev/schemas/agent/v1",
+  "title": "Agent Factory Manifest",
+  "description": "Declarative specification for an AI agent scaffold",
+  "type": "object",
+  "required": [
+    "manifestVersion",
+    "agent",
+    "runtime",
+    "interface",
+    "permissions"
+  ],
+  "properties": {
+    "manifestVersion": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Version of the Agent Factory manifest schema"
+    },
+    "agent": {
+      "type": "object",
+      "required": ["name", "description", "category"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 50,
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Unique identifier for the agent (lowercase, hyphens only)"
+        },
+        "displayName": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Human-readable name for display"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500,
+          "description": "What does this agent do? (plain English)"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "default": "1.0.0",
+          "description": "Semantic version of the agent"
+        },
+        "author": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Creator or organization name"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "assistant",
+            "automation",
+            "data",
+            "developer",
+            "writing",
+            "research",
+            "custom"
+          ],
+          "description": "Primary category for showcase listing"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "maxItems": 5,
+          "description": "Optional tags for discoverability"
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["platform", "entrypoint"],
+      "properties": {
+        "platform": {
+          "type": "string",
+          "enum": ["node"],
+          "description": "Runtime platform (node only in v1)"
+        },
+        "nodeVersion": {
+          "type": "string",
+          "pattern": "^>=?[0-9]+",
+          "default": ">=18",
+          "description": "Required Node.js version"
+        },
+        "entrypoint": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_/.-]+\\.(js|ts)$",
+          "description": "Relative path to main file from project root"
+        }
+      }
+    },
+    "interface": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["chat", "http", "cli"],
+          "description": "How users interact with this agent"
+        },
+        "chat": {
+          "type": "object",
+          "properties": {
+            "systemPrompt": {
+              "type": "string",
+              "maxLength": 5000,
+              "description": "Default system prompt (can be overridden)"
+            },
+            "greeting": {
+              "type": "string",
+              "maxLength": 500,
+              "description": "Initial message shown to user"
+            }
+          },
+          "description": "Chat-specific configuration"
+        },
+        "http": {
+          "type": "object",
+          "properties": {
+            "port": {
+              "type": "integer",
+              "minimum": 1024,
+              "maximum": 65535,
+              "default": 3000,
+              "description": "Default port (user can override)"
+            },
+            "routes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["method", "path"],
+                "properties": {
+                  "method": {
+                    "type": "string",
+                    "enum": ["GET", "POST", "PUT", "DELETE"]
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Declared HTTP endpoints"
+            }
+          },
+          "description": "HTTP server configuration"
+        },
+        "cli": {
+          "type": "object",
+          "properties": {
+            "commands": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "args": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "description": "Declared CLI commands"
+            }
+          },
+          "description": "CLI-specific configuration"
+        }
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z_][a-z0-9_]*$",
+            "description": "Tool identifier (snake_case)"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300,
+            "description": "What this tool does"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "JSON Schema for tool parameters"
+          },
+          "requiresEnv": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Environment variable NAMES this tool needs (not values!)"
+          }
+        }
+      },
+      "description": "Tools this agent can use (declaration only - builder implements)"
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "description"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9_]*$",
+                "description": "Environment variable name (SCREAMING_SNAKE_CASE)"
+              },
+              "description": {
+                "type": "string",
+                "description": "What this variable is for"
+              },
+              "example": {
+                "type": "string",
+                "description": "Example format (never real values!)"
+              }
+            }
+          },
+          "description": "Required environment variables (names only, never values!)"
+        },
+        "optional": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "description"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9_]*$"
+              },
+              "description": {
+                "type": "string"
+              },
+              "default": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Optional environment variables"
+        }
+      },
+      "description": "Environment variable declarations (NEVER include actual secrets!)"
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "network": {
+          "type": "boolean",
+          "default": false,
+          "description": "Does this agent need network access?"
+        },
+        "filesystem": {
+          "type": "object",
+          "properties": {
+            "read": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Paths the agent can read from"
+            },
+            "write": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Paths the agent can write to"
+            }
+          },
+          "description": "Filesystem access requirements"
+        },
+        "shell": {
+          "type": "boolean",
+          "default": false,
+          "description": "Does this agent need to run shell commands? (DANGEROUS)"
+        }
+      },
+      "description": "Permission declarations (deny-by-default)"
+    },
+    "safety": {
+      "type": "object",
+      "properties": {
+        "disallowedActions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Actions this agent should never perform"
+        },
+        "maxTokensPerRequest": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 100000,
+          "description": "Limit on tokens per LLM call"
+        },
+        "requiresHumanApproval": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Actions that require human confirmation"
+        }
+      },
+      "description": "Safety constraints and guardrails"
+    }
+  },
+  "additionalProperties": false
+}

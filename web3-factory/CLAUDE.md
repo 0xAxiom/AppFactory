@@ -61,8 +61,8 @@ Next steps:
 1. Open generated/<app-slug>/build_prompt.md
 2. Copy into Claude.ai or Cursor and build the app
 3. Save output to web3-builds/<app-slug>/
-4. Run: npm run validate (from build directory)
-5. Run: npm run zip
+4. Run: npm run validate (REQUIRED - from build directory)
+5. Run: npm run zip (REQUIRED)
 6. Upload to factoryapp.dev/web3-factory/launch
 ```
 
@@ -79,14 +79,14 @@ Next steps:
 
 ---
 
-## HELPER SCRIPTS (OPTIONAL)
+## REQUIRED STEPS (After Building)
 
-Users can run these after building their app:
+Users MUST run these before uploading:
 
 | Command | Directory | Purpose |
 |---------|-----------|---------|
-| `npm run validate` | `web3-builds/<app>/` | Check against ZIP_CONTRACT.md |
-| `npm run zip` | `web3-builds/<app>/` | Create upload package |
+| `npm run validate` | `web3-builds/<app>/` | Check against ZIP_CONTRACT.md (REQUIRED) |
+| `npm run zip` | `web3-builds/<app>/` | Create upload package (REQUIRED) |
 
 ---
 

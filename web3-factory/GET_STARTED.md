@@ -13,17 +13,15 @@ Build and launch your Web3 app in 30 minutes.
 
 ---
 
-## Fast Path (Recommended)
-
-**Open this folder in Claude Code and describe your app:**
+## Fast Path
 
 ```
-Open web3-factory/ in Claude Code
-Type: "Make a roast battle app where users compete for token rewards"
-→ Prompts generated automatically in generated/roast-battle-app/
+1. Open web3-factory/ in Claude Code or Cursor
+2. Type: "Make a roast battle app where users compete for token rewards"
+3. Agent generates prompts in generated/roast-battle-app/
+4. Build app using build_prompt.md in your AI tool
+5. Validate (REQUIRED) → Zip (REQUIRED) → Upload to factoryapp.dev
 ```
-
-That's it. The agent reads templates, substitutes your app details, and writes the prompt files.
 
 ---
 
@@ -31,21 +29,11 @@ That's it. The agent reads templates, substitutes your app details, and writes t
 
 ### Phase 1: Generate Prompts
 
-**Option A: Agent Mode (Recommended)**
-
 1. Open `web3-factory/` in Claude Code or Cursor
-2. Describe your Web3 app idea
-3. Agent generates files in `generated/<your-app>/`
+2. Describe your Web3 app idea in plain English
+3. Agent generates files automatically in `generated/<app-slug>/`
 
-**Option B: CLI Mode**
-
-```bash
-cd web3-factory
-npm install
-npm run generate "a roast battle app where users compete for token rewards"
-```
-
-Either way, you get:
+**Output:**
 ```
 generated/<app-slug>/
 ├── build_prompt.md      # Full build instructions
@@ -83,11 +71,13 @@ Open http://localhost:3000 and verify:
 
 ---
 
-### Phase 4: Validate & Package
+### Phase 4: Validate (REQUIRED)
 
 ```bash
 npm run validate
 ```
+
+**This step is REQUIRED.** You cannot upload without passing validation.
 
 You should see:
 ```
@@ -103,16 +93,21 @@ You should see:
   NEXT STEP: npm run zip
 ```
 
-Then package for upload:
+If validation fails, fix the issues listed and run again.
+
+---
+
+### Phase 5: Package (REQUIRED)
+
 ```bash
 npm run zip
 ```
 
-This creates `<your-app>.zip` ready for upload.
+**This step is REQUIRED.** Creates `<your-app>.zip` for upload.
 
 ---
 
-### Phase 5: Launch
+### Phase 6: Launch
 
 1. Go to [factoryapp.dev/web3-factory/launch](https://factoryapp.dev/web3-factory/launch)
 2. Upload your `.zip` file
@@ -160,11 +155,12 @@ Must be under 50 MB. Remove:
 
 | Phase | Where | What |
 |-------|-------|------|
-| 1 | web3-factory/ | Generate prompts (agent or CLI) |
+| 1 | web3-factory/ | Describe app → agent generates prompts |
 | 2 | Claude.ai/Cursor | Build app with AI |
 | 3 | web3-builds/app/ | Test locally |
-| 4 | web3-builds/app/ | Validate & zip |
-| 5 | factoryapp.dev | Upload & launch |
+| 4 | web3-builds/app/ | Validate (REQUIRED) |
+| 5 | web3-builds/app/ | Zip (REQUIRED) |
+| 6 | factoryapp.dev | Upload & launch |
 
 ---
 

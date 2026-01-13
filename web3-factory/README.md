@@ -22,8 +22,9 @@ The agent generates build prompts and specs automatically in `generated/<app-slu
 2. **Describe** your Web3 app idea in one sentence
 3. **Agent generates** prompts and specs in `generated/<app-slug>/`
 4. **Build** using the generated `build_prompt.md` in your AI tool
-5. **Validate** your build with helper scripts
-6. **Upload** to factoryapp.dev to launch
+5. **Validate** your build (REQUIRED)
+6. **Zip** your build (REQUIRED)
+7. **Upload** to factoryapp.dev to launch
 
 **This is an agent-driven pipeline.** You describe, the agent generates. Your AI builds.
 
@@ -58,12 +59,12 @@ Then upload to [factoryapp.dev/web3-factory/launch](https://factoryapp.dev/web3-
 
 ---
 
-## Helper Scripts
+## Required Steps (Before Upload)
 
 | Command | Run From | Purpose |
 |---------|----------|---------|
-| `npm run validate` | `web3-builds/<app>/` | Validate build structure |
-| `npm run zip` | `web3-builds/<app>/` | Create upload package |
+| `npm run validate` | `web3-builds/<app>/` | Validate build (REQUIRED) |
+| `npm run zip` | `web3-builds/<app>/` | Create upload package (REQUIRED) |
 
 ---
 

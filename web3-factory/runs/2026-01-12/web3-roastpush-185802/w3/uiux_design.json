@@ -1,0 +1,157 @@
+{
+  "stage": "W3",
+  "design_identity": {
+    "domain_alignment": "Competitive entertainment gaming with comedy/roast battle focus. Design draws from esports energy, comedy club atmosphere, and viral TikTok aesthetics. Not generic Web3/DeFi blue but entertainment-first with fire/neon energy.",
+    "visual_theme": {
+      "primary_colors": [
+        "#FF4500",
+        "#FF6B35",
+        "#1A1A2E",
+        "#16213E",
+        "#0F3460",
+        "#E94560"
+      ],
+      "typography": {
+        "primary_font": "Inter (UI) + Bebas Neue (headings)",
+        "heading_style": "Bold, uppercase, tight tracking for impact and energy",
+        "body_style": "Regular weight, generous line height for readability in dark mode"
+      },
+      "aesthetic_direction": "playful"
+    },
+    "brand_direction": "High-energy competitive entertainment that makes users feel like they're in a comedy arena. Bold, confident, slightly irreverent. The app should feel like walking into a packed comedy club meets esports tournament - electric atmosphere, crowd energy, and spotlight moments."
+  },
+  "component_system": {
+    "core_components": [
+      {
+        "name": "BattleArena",
+        "purpose": "Main battle interface showing two opponents, timer, and live action",
+        "behavior": "Full-screen during battles. Shows player avatars facing each other, countdown timer, current prompt, and live audio waveform visualization. Emoji reactions float up from bottom."
+      },
+      {
+        "name": "MatchmakingLoader",
+        "purpose": "Animated search state while finding opponent",
+        "behavior": "Pulsing fire animation with 'Finding worthy opponent...' text. Shows estimated wait time. Plays tension-building audio. Cancel button available."
+      },
+      {
+        "name": "LeaderboardCard",
+        "purpose": "Display ranked player with stats",
+        "behavior": "Shows rank number, avatar, username, win rate, total earnings. Top 3 have special gold/silver/bronze styling with flame effects. Tap to view profile."
+      },
+      {
+        "name": "RoastPromptCard",
+        "purpose": "Display AI-generated roast prompt for current round",
+        "behavior": "Appears with dramatic reveal animation. Large readable text on dark card. Timer bar shows remaining time. Glows orange when time running low."
+      },
+      {
+        "name": "ClipPreview",
+        "purpose": "Vertical video preview of generated battle clip",
+        "behavior": "9:16 aspect ratio card showing thumbnail. Play button overlay. Share icons for TikTok/Reels/X. View count and reaction summary displayed."
+      },
+      {
+        "name": "EmojiReactionBar",
+        "purpose": "Live reaction input during battles",
+        "behavior": "Horizontal bar of reaction emojis (fire, skull, crying-laughing, etc). Tap sends reaction that floats up on screen. Shows real-time count of each reaction type."
+      },
+      {
+        "name": "TokenBalanceDisplay",
+        "purpose": "Show user's ROAST token balance",
+        "behavior": "Compact display in header showing ROAST icon and balance. Tap to expand to full wallet view with deposit/withdraw options. Pulses green on earnings."
+      },
+      {
+        "name": "BattleResultModal",
+        "purpose": "Post-battle outcome display",
+        "behavior": "Full-screen modal with winner announcement, AI judge commentary, score breakdown, ROAST earnings/losses, and clip share CTA. Confetti animation for wins."
+      }
+    ],
+    "web3_components": [
+      {
+        "name": "WalletConnectButton",
+        "purpose": "Solana wallet connection interface",
+        "web3_function": "Connect/disconnect Phantom, Solflare, or other Solana wallets",
+        "user_interaction": "Single tap opens wallet selector modal. Shows connected state with truncated address. Tap connected state for wallet options menu."
+      },
+      {
+        "name": "EntryFeeSelector",
+        "purpose": "Select battle entry tier and confirm transaction",
+        "web3_function": "Prepare and sign ROAST token transfer for battle entry",
+        "user_interaction": "Tier buttons (Bronze/Silver/Gold/Diamond) with ROAST amounts. Selected tier highlights. Confirm button triggers wallet signing. Clear fee display before confirmation."
+      },
+      {
+        "name": "TipButton",
+        "purpose": "Send ROAST tip to performer",
+        "web3_function": "Execute ROAST token transfer to another user's wallet",
+        "user_interaction": "Floating action button during spectating. Tap shows quick tip amounts (1/5/10/50 ROAST). Custom amount option. Wallet signs on confirmation."
+      },
+      {
+        "name": "EarningsWithdrawPanel",
+        "purpose": "Withdraw earned ROAST to external wallet",
+        "web3_function": "Transfer ROAST from app balance to connected wallet",
+        "user_interaction": "Available in profile/wallet section. Shows available balance. Amount input with max button. Network fee estimate shown. Confirm triggers signing."
+      }
+    ],
+    "layout_strategy": {
+      "information_hierarchy": "Battle action is always primary - full screen during matches. Navigation is bottom tab bar (Home/Battle/Leaderboard/Clips/Profile). Token balance always visible in header but not dominant.",
+      "navigation_pattern": "Bottom tab navigation with 5 tabs. Battle tab is center and prominent (larger icon). Push into battle arena goes full screen hiding tabs. Back gesture or button returns to tabbed view.",
+      "responsive_approach": "Mobile-first vertical design (primary). Tablet shows side panels for chat/reactions during battles. Desktop adds spectator gallery sidebar. All breakpoints maintain battle arena as focal point."
+    }
+  },
+  "interaction_patterns": {
+    "primary_actions": [
+      {
+        "action_name": "Start Quick Match",
+        "trigger_method": "Large CTA button on home screen or battle tab. Single tap initiates matchmaking.",
+        "feedback_pattern": "Button animates to loading state. Transitions to full-screen matchmaking with fire animation and audio. Haptic feedback on match found."
+      },
+      {
+        "action_name": "Deliver Roast",
+        "trigger_method": "Hold-to-record button during battle round or text input for text mode",
+        "feedback_pattern": "Audio waveform visualizes recording. Timer counts down. Release to submit. AI processing spinner. Score reveal with dramatic animation."
+      },
+      {
+        "action_name": "React with Emoji",
+        "trigger_method": "Tap emoji in reaction bar during live battle",
+        "feedback_pattern": "Emoji floats up screen from tap position. Counter increments. Subtle haptic pulse. Audience sees same emoji in their view."
+      },
+      {
+        "action_name": "Share Clip",
+        "trigger_method": "Tap share button on clip preview. Select destination platform.",
+        "feedback_pattern": "Native share sheet opens or direct deep link to TikTok/Instagram/X with pre-populated caption. Success toast on completion."
+      }
+    ],
+    "wallet_integration_ux": {
+      "connection_flow": "Non-blocking wallet prompt on first entry action (not on app load). 'Connect to Battle' button clearly explains why wallet needed. Multi-wallet support via adapter modal. Connected state persists across sessions.",
+      "transaction_signing": "Clear pre-signing modal showing: action description, ROAST amount, network fee estimate. 'Confirm in wallet' instruction with wallet app icon. Loading state during signing. Success/failure toast with tx link.",
+      "state_display": "Header shows wallet state: disconnected (Connect button), connecting (spinner), connected (truncated address + balance). Balance updates optimistically on actions, confirms on chain."
+    },
+    "error_handling": {
+      "error_display_strategy": "Non-modal toast notifications for recoverable errors. Full-screen error state only for critical failures (network down, wallet disconnected mid-battle). Friendly copy with action button.",
+      "recovery_patterns": "Retry button for network failures. 'Reconnect Wallet' for wallet errors. Auto-retry background operations with exponential backoff. Manual refresh pull-to-reload on list views.",
+      "user_guidance": "Error messages include: what happened, why it matters, how to fix. Example: 'Transaction failed - Your wallet rejected the signature. Tap to try again.' Never show raw error codes to users."
+    }
+  },
+  "web3_integration": {
+    "blockchain_state_display": "ROAST balance shown in header - updates optimistically then confirms. Leaderboard ranks fetched fresh on view with skeleton loading. Battle results posted onchain shown with checkmark and tx link. Earnings history shows pending vs confirmed.",
+    "transaction_feedback": "Three-stage feedback: (1) 'Confirm in wallet' with wallet icon, (2) 'Processing...' with spinner after signature, (3) 'Success!' or 'Failed' toast with details. Long transactions show progress bar estimate. All txs have 'View on Explorer' link.",
+    "progressive_disclosure": "New users see 'Connect Wallet' without technical jargon. Wallet addresses truncated (FxK3...7hG2). Transaction details collapsed by default, expandable for power users. Gas fees shown as 'Network fee' in ROAST equivalent."
+  },
+  "technical_requirements": {
+    "css_framework": "tailwind",
+    "component_library": "radix-ui",
+    "responsive_breakpoints": {
+      "mobile": "0-639px (primary, vertical focus)",
+      "tablet": "640-1023px (side panels enabled)",
+      "desktop": "1024px+ (full spectator experience)"
+    }
+  },
+  "accessibility": {
+    "color_contrast_compliance": true,
+    "keyboard_navigation": true,
+    "screen_reader_support": true,
+    "aria_labels_strategy": "All interactive elements have descriptive aria-labels. Live regions announce battle events, scores, and transaction states. Focus management returns to logical position after modals."
+  },
+  "validation": {
+    "design_authenticity": true,
+    "web3_integration_natural": true,
+    "production_ready": true
+  }
+}

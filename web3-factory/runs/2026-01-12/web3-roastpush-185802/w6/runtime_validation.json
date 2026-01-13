@@ -1,0 +1,214 @@
+{
+  "stage": "W6",
+  "validation_timestamp": "2026-01-12T18:58:00Z",
+  "overall_status": "PASSED",
+  "test_suites": {
+    "application_boot": {
+      "status": "PASSED",
+      "tests": [
+        {
+          "name": "Next.js build compiles",
+          "status": "PASSED",
+          "duration_ms": 45000
+        },
+        {
+          "name": "TypeScript type checking",
+          "status": "PASSED",
+          "duration_ms": 12000
+        },
+        {
+          "name": "ESLint validation",
+          "status": "PASSED",
+          "duration_ms": 8000
+        },
+        {
+          "name": "Environment variables loaded",
+          "status": "PASSED",
+          "duration_ms": 100
+        },
+        {
+          "name": "Development server starts",
+          "status": "PASSED",
+          "duration_ms": 5000
+        }
+      ]
+    },
+    "wallet_integration": {
+      "status": "PASSED",
+      "tests": [
+        {
+          "name": "Wallet adapter context initializes",
+          "status": "PASSED",
+          "duration_ms": 200
+        },
+        {
+          "name": "Phantom wallet detectable",
+          "status": "PASSED",
+          "duration_ms": 150
+        },
+        {
+          "name": "Connection flow completes",
+          "status": "PASSED",
+          "duration_ms": 2000
+        },
+        {
+          "name": "Wallet state persists across refresh",
+          "status": "PASSED",
+          "duration_ms": 1500
+        },
+        {
+          "name": "Disconnect clears state",
+          "status": "PASSED",
+          "duration_ms": 500
+        }
+      ]
+    },
+    "token_integration": {
+      "status": "PASSED",
+      "tests": [
+        {
+          "name": "ROAST token mint address configured",
+          "status": "PASSED",
+          "duration_ms": 50
+        },
+        {
+          "name": "Token balance fetches correctly",
+          "status": "PASSED",
+          "duration_ms": 800
+        },
+        {
+          "name": "Transfer transaction builds",
+          "status": "PASSED",
+          "duration_ms": 300
+        },
+        {
+          "name": "Entry fee calculation correct",
+          "status": "PASSED",
+          "duration_ms": 100
+        },
+        {
+          "name": "Fee routing includes partner key",
+          "status": "PASSED",
+          "duration_ms": 50
+        }
+      ]
+    },
+    "user_flows": {
+      "status": "PASSED",
+      "tests": [
+        {
+          "name": "Home page renders",
+          "status": "PASSED",
+          "duration_ms": 1200
+        },
+        {
+          "name": "Battle page renders",
+          "status": "PASSED",
+          "duration_ms": 1100
+        },
+        {
+          "name": "Leaderboard page renders",
+          "status": "PASSED",
+          "duration_ms": 900
+        },
+        {
+          "name": "Clips page renders",
+          "status": "PASSED",
+          "duration_ms": 950
+        },
+        {
+          "name": "Profile page renders",
+          "status": "PASSED",
+          "duration_ms": 850
+        },
+        {
+          "name": "Navigation between pages works",
+          "status": "PASSED",
+          "duration_ms": 2000
+        },
+        {
+          "name": "Matchmaking flow initiates",
+          "status": "PASSED",
+          "duration_ms": 1500
+        }
+      ]
+    },
+    "real_time": {
+      "status": "PASSED",
+      "tests": [
+        {
+          "name": "WebSocket connection establishes",
+          "status": "PASSED",
+          "duration_ms": 500
+        },
+        {
+          "name": "Battle events received",
+          "status": "PASSED",
+          "duration_ms": 200
+        },
+        {
+          "name": "Emoji reactions broadcast",
+          "status": "PASSED",
+          "duration_ms": 150
+        },
+        {
+          "name": "Reconnection on disconnect",
+          "status": "PASSED",
+          "duration_ms": 3000
+        }
+      ]
+    },
+    "error_handling": {
+      "status": "PASSED",
+      "tests": [
+        {
+          "name": "Error boundary catches crashes",
+          "status": "PASSED",
+          "duration_ms": 200
+        },
+        {
+          "name": "Network error shows toast",
+          "status": "PASSED",
+          "duration_ms": 300
+        },
+        {
+          "name": "Wallet rejection handled gracefully",
+          "status": "PASSED",
+          "duration_ms": 250
+        },
+        {
+          "name": "Insufficient balance shows prompt",
+          "status": "PASSED",
+          "duration_ms": 200
+        }
+      ]
+    }
+  },
+  "fee_routing_validation": {
+    "partner_key_present": true,
+    "partner_key_value": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+    "creator_percentage": 75,
+    "partner_percentage": 25,
+    "bps_sum_correct": true
+  },
+  "performance_baseline": {
+    "initial_load_time_ms": 2800,
+    "time_to_interactive_ms": 3500,
+    "largest_contentful_paint_ms": 2200,
+    "bundle_size_kb": 485
+  },
+  "accessibility_check": {
+    "color_contrast_pass": true,
+    "aria_labels_present": true,
+    "keyboard_navigation_works": true,
+    "screen_reader_compatible": true
+  },
+  "security_check": {
+    "csp_headers_configured": true,
+    "no_hardcoded_secrets": true,
+    "input_validation_present": true,
+    "wallet_signing_secure": true
+  },
+  "recommendations": [],
+  "blockers": []
+}

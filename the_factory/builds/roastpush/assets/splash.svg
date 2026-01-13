@@ -1,0 +1,9 @@
+<svg width="1284" height="2778" viewBox="0 0 1284 2778" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1284" height="2778" fill="#0D0D0D"/>
+  <circle cx="642" cy="1200" r="200" fill="#1A1A1A"/>
+  <path d="M642 1050 L690 1180 L642 1150 L594 1180 Z" fill="#FF4500"/>
+  <ellipse cx="642" cy="1250" rx="100" ry="130" fill="#FF4500" opacity="0.8"/>
+  <ellipse cx="642" cy="1280" rx="70" ry="100" fill="#FF6B35" opacity="0.9"/>
+  <ellipse cx="642" cy="1310" rx="40" ry="60" fill="#FFB84D"/>
+  <text x="642" y="1550" text-anchor="middle" fill="#FF4500" font-family="Arial Black, sans-serif" font-size="72" font-weight="bold">RoastPush</text>
+</svg>

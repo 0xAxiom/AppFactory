@@ -8,17 +8,20 @@ This repo contains LOCAL-ONLY tools. The hosted platform (factoryapp.dev) is in 
 
 ## What's In This Repo
 
-### Generator (Complete)
-- [x] `generator/index.ts` - Entrypoint for `npm run generate`
+### Agent Constitution (Complete)
+- [x] `CLAUDE.md` - Agent constitution for prompt generation
+- [x] Agent reads templates, substitutes variables, writes output files
+- [x] No CLI required for generation
+
+### Templates (Complete)
 - [x] `generator/templates/build_prompt.hbs` - Build instructions
 - [x] `generator/templates/checklist.hbs` - Verification checklist
 - [x] `generator/templates/contract_spec.hbs` - Blockchain spec
 - [x] `generator/templates/frontend_spec.hbs` - UI guidelines
-- [x] `generator/package.json` - Dependencies
 
 ### Validator (Complete)
-- [x] `validator/index.ts` - Entrypoint for `npm run validate`
-- [x] `validator/zip.ts` - Entrypoint for `npm run zip`
+- [x] `validator/index.ts` - Entrypoint for `npm run validate` (REQUIRED)
+- [x] `validator/zip.ts` - Entrypoint for `npm run zip` (REQUIRED)
 - [x] Enforces ZIP_CONTRACT.md exactly
 - [x] Clear pass/fail output
 - [x] Points to factoryapp.dev for upload
@@ -31,7 +34,7 @@ This repo contains LOCAL-ONLY tools. The hosted platform (factoryapp.dev) is in 
 - [x] Size limits
 
 ### Documentation (Complete)
-- [x] `README.md` - Clear local-only scope
+- [x] `README.md` - Clear agent-first scope
 - [x] `GET_STARTED.md` - Step-by-step guide
 - [x] `ARCHITECTURE.md` - System boundary diagram
 - [x] `IMPLEMENTATION_CHECKLIST.md` - This file
@@ -53,19 +56,15 @@ These belong on factoryapp.dev (separate repository):
 
 ---
 
-## Commands
+## User Flow
 
-```bash
-# Generate build prompts
-npm run generate "your app idea"
-
-# Validate build (run from build dir)
-npm run validate
-
-# Create zip (run from build dir)
-npm run zip
-
-# Upload at: https://factoryapp.dev/web3-factory/launch
+```
+1. Open web3-factory/ in Claude Code or Cursor
+2. Describe app idea → Agent generates prompts
+3. Build app using generated prompts in your AI tool
+4. npm run validate (REQUIRED)
+5. npm run zip (REQUIRED)
+6. Upload at: https://factoryapp.dev/web3-factory/launch
 ```
 
 ---

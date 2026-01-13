@@ -1,0 +1,114 @@
+{
+  "app_configuration": {
+    "requires_token_creation": true,
+    "wallet_auth_only": false,
+    "onchain_data_strategy": "Token-gated features with escrow-based prize pools",
+    "app_type": "token_powered"
+  },
+  "token_metadata": {
+    "name": "RoastPush",
+    "symbol": "ROAST",
+    "description": "ROAST is the native token for RoastPush, a competitive roast battle platform where users compete in voice-first battles for token rewards. Entry fees, prizes, tips, and cosmetics all flow through ROAST.",
+    "image": "https://roastpush.app/token-logo.png",
+    "website": "https://roastpush.app",
+    "twitter": "roastpush",
+    "telegram": "roastpush"
+  },
+  "token_launch_params": {
+    "initialBuyAmount": "100000000",
+    "totalSupply": "1000000000000000000",
+    "decimals": 9
+  },
+  "fee_share_config_v2": {
+    "config_required": true,
+    "partner_attribution": {
+      "partner_key": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+      "partner_program": "app-factory"
+    },
+    "fee_claimers": [
+      {
+        "wallet": "${CREATOR_WALLET}",
+        "bps": 7500,
+        "claimer_type": "wallet"
+      },
+      {
+        "wallet": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+        "bps": 2500,
+        "claimer_type": "wallet"
+      }
+    ],
+    "total_bps": 10000,
+    "creator_bps": 7500,
+    "partner_bps": 2500,
+    "social_claimers_bps": 0,
+    "bps_breakdown": {
+      "creator_percentage": 75,
+      "social_percentage": 0,
+      "partner_percentage": 25
+    },
+    "explicit_bps_validation": true
+  },
+  "social_provider_config": {
+    "has_social_claimers": false,
+    "social_providers_used": [],
+    "github_claimers_count": 0,
+    "twitter_claimers_count": 0,
+    "kick_claimers_count": 0,
+    "social_resolution_strategy": "fail_fast",
+    "username_validation_required": true
+  },
+  "lookup_table_config": {
+    "use_bags_lut": true,
+    "bags_lut_address": "Eq1EVs15EAWww1YtPTtWPzJRLPJoS6VYP9oW9SbNr3yp",
+    "custom_lut_required": false,
+    "fee_claimers_count": 2,
+    "lut_threshold": 15,
+    "lut_strategy": "bags_only"
+  },
+  "tipping_config": {
+    "enabled": false
+  },
+  "environment_config": {
+    "network": "mainnet-beta",
+    "rpc_url": "${SOLANA_RPC_URL}",
+    "api_base_url": "https://public-api-v2.bags.fm/api/v1/",
+    "api_version": "v1",
+    "required_env_vars": [
+      "BAGS_API_KEY",
+      "SOLANA_RPC_URL",
+      "CREATOR_WALLET",
+      "NETWORK"
+    ]
+  },
+  "program_ids": {
+    "fee_share_v2": "7ko7duEv4Gk5kRoJKGTRVgypuRHvTbCFbDeaC9Q4pWk3",
+    "meteora_damm_v2": "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG",
+    "meteora_dbc": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN"
+  },
+  "file_upload_config": {
+    "has_image_uploads": true,
+    "max_file_size_mb": 15,
+    "supported_types": [
+      "image/png",
+      "image/jpg",
+      "image/jpeg",
+      "image/gif",
+      "image/webp"
+    ],
+    "upload_strategy": "direct"
+  },
+  "idempotency_config": {
+    "build_id": "roastpush-185802-v1",
+    "input_hash": "sha256:a1b2c3d4e5f6...",
+    "deterministic_params": {
+      "token_name": "RoastPush",
+      "token_symbol": "ROAST",
+      "total_supply": "1000000000000000000",
+      "partner_key": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+      "creator_bps": 7500,
+      "partner_bps": 2500
+    },
+    "retry_strategy": "exponential_backoff",
+    "max_retries": 5
+  }
+}

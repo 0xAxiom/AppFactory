@@ -1,6 +1,6 @@
 # Web3 Factory Architecture
 
-## Version 3.0 - Local Tooling + Hosted Platform
+## Version 3.1 - Agent-First Local Tooling
 
 ---
 
@@ -11,9 +11,9 @@
 │  YOUR MACHINE (web3-factory repo)                                           │
 │                                                                             │
 │  Local-only tooling:                                                        │
-│  - Prompt generator (npm run generate)                                      │
-│  - Build validator (npm run validate)                                       │
-│  - Zip creator (npm run zip)                                                │
+│  - Agent constitution (CLAUDE.md) → generates prompts/specs                 │
+│  - Build validator (REQUIRED before upload)                                 │
+│  - Zip creator (REQUIRED before upload)                                     │
 │                                                                             │
 │  No backend. No AI inference. No API keys.                                  │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -41,11 +41,12 @@
 
 | Component | Purpose |
 |-----------|---------|
-| `generator/` | Creates build prompts from user's idea |
+| `CLAUDE.md` | Agent constitution - generates prompts when user describes app |
+| `generator/templates/` | Handlebars templates for prompt generation |
 | `validator/` | Validates builds against ZIP_CONTRACT.md |
 | `validator/zip.ts` | Creates upload package |
 | `ZIP_CONTRACT.md` | Source of truth for valid builds |
-| `generated/` | Output from generator |
+| `generated/` | Output from agent generation |
 | `web3-builds/` | Where users save their builds |
 
 ---
@@ -68,44 +69,67 @@ All of the above live on **factoryapp.dev** (separate repository).
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 1: LOCAL BUILD (Your machine)                                         │
+│  PHASE 1: GENERATE PROMPTS (Agent-driven)                                    │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  1. npm run generate "your app idea"                                         │
-│     └─> Creates: generated/your-app/                                         │
+│  1. Open web3-factory/ in Claude Code or Cursor                              │
+│                                                                              │
+│  2. Describe your app idea                                                   │
+│     Example: "Make a roast battle app with token rewards"                    │
+│                                                                              │
+│  3. Agent generates files automatically                                      │
+│     └─> Creates: generated/<app-slug>/                                       │
 │         - build_prompt.md                                                    │
 │         - checklist.md                                                       │
 │         - contract_spec.md                                                   │
 │         - frontend_spec.md                                                   │
 │                                                                              │
-│  2. Copy build_prompt.md into Claude/Cursor                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  PHASE 2: BUILD APP (Your AI tool)                                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  4. Copy build_prompt.md into Claude.ai or Cursor                            │
 │     └─> AI generates your Next.js app (YOUR AI credits)                      │
 │                                                                              │
-│  3. Save output to web3-builds/your-app/                                     │
+│  5. Save output to web3-builds/<app-slug>/                                   │
 │                                                                              │
-│  4. npm run validate                                                         │
+│  6. Test locally: npm install && npm run dev                                 │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  PHASE 3: VALIDATE & PACKAGE (REQUIRED)                                      │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  7. npm run validate (REQUIRED)                                              │
 │     └─> Checks build against ZIP_CONTRACT.md                                 │
+│     └─> MUST PASS before proceeding                                          │
 │                                                                              │
-│  5. npm run zip                                                              │
-│     └─> Creates: your-app.zip                                                │
+│  8. npm run zip (REQUIRED)                                                   │
+│     └─> Creates: <app-slug>.zip                                              │
+│     └─> MUST complete before upload                                          │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     │ Take your zip to:
                                     ▼
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 2: LAUNCH (factoryapp.dev)                                            │
+│  PHASE 4: LAUNCH (factoryapp.dev)                                            │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  6. Go to factoryapp.dev/web3-factory/launch                                 │
+│  9. Go to factoryapp.dev/web3-factory/launch                                 │
 │                                                                              │
-│  7. Upload your-app.zip                                                      │
+│  10. Upload <app-slug>.zip                                                   │
 │                                                                              │
-│  8. Fill token metadata (name, ticker, description)                          │
+│  11. Fill token metadata (name, ticker, description)                         │
 │                                                                              │
-│  9. Connect Solana wallet                                                    │
+│  12. Connect Solana wallet                                                   │
 │                                                                              │
-│  10. Sign transaction                                                        │
+│  13. Sign transaction                                                        │
 │      - Token created via Bags API                                            │
 │      - App deployed to Vercel                                                │
 │      - Listed on showcase                                                    │
@@ -119,31 +143,27 @@ All of the above live on **factoryapp.dev** (separate repository).
 
 ```
 web3-factory/
-├── generator/                  # Build prompt generator
-│   ├── index.ts               # npm run generate
-│   ├── package.json
+├── CLAUDE.md                  # Agent constitution (generates prompts)
+│
+├── generator/                 # Templates for prompt generation
 │   └── templates/             # Handlebars templates
 │       ├── build_prompt.hbs
 │       ├── checklist.hbs
 │       ├── contract_spec.hbs
 │       └── frontend_spec.hbs
 │
-├── validator/                  # Build validator + zipper
-│   ├── index.ts               # npm run validate
-│   └── zip.ts                 # npm run zip
+├── validator/                 # Build validation + packaging
+│   ├── index.ts              # npm run validate (REQUIRED)
+│   └── zip.ts                # npm run zip (REQUIRED)
 │
-├── generated/                  # Output from generator (gitignored)
+├── generated/                # Output from agent (gitignored)
 │
-├── web3-builds/                # User's built apps (gitignored)
+├── web3-builds/              # User's built apps (gitignored)
 │
-├── deprecated/                 # Old code, do not use
-│   └── platform-v1/           # Was incorrectly placed here
-│
-├── ZIP_CONTRACT.md            # Source of truth for valid builds
-├── ARCHITECTURE.md            # This file
-├── GET_STARTED.md             # Step-by-step guide
-├── README.md                  # Project overview
-├── CLAUDE.md                  # Control plane (for pipeline mode)
+├── ZIP_CONTRACT.md           # Source of truth for valid builds
+├── ARCHITECTURE.md           # This file
+├── GET_STARTED.md            # Step-by-step guide
+├── README.md                 # Project overview
 └── package.json
 ```
 
@@ -190,21 +210,18 @@ src/app/globals.css
 
 ---
 
-## Commands
+## Required Commands (After Building)
 
 ```bash
-# Generate build prompts (no AI)
-cd web3-factory
-npm run generate "your app idea"
+# From web3-builds/<your-app>/ directory:
 
-# Validate your build (run from build directory)
-cd web3-builds/your-app
+# REQUIRED: Validate your build
 npm run validate
 
-# Create upload zip (run from build directory)
+# REQUIRED: Create upload package
 npm run zip
 
-# Upload at: https://factoryapp.dev/web3-factory/launch
+# Then upload at: https://factoryapp.dev/web3-factory/launch
 ```
 
 ---
@@ -227,7 +244,7 @@ Fee split is shown on the factoryapp.dev UI.
 
 | Concern | Location | Reason |
 |---------|----------|--------|
-| Build prompts | Local | No cloud cost |
+| Prompt generation | Local (agent) | No cloud cost |
 | AI inference | User's Claude/Cursor | User pays their own AI |
 | Validation | Local | No cloud cost |
 | API keys | factoryapp.dev only | Security |
@@ -238,5 +255,5 @@ The local tools do everything that doesn't need secrets or server infrastructure
 
 ---
 
-**Document Version:** 3.0
+**Document Version:** 3.1
 **Last Updated:** 2026-01-12
