@@ -2,34 +2,47 @@
 
 **Mobile App Pipeline** | Part of [App Factory](../README.md)
 
-Describe a mobile app in plain language. Get a complete, store-ready Expo React Native application with market research and App Store optimization.
+Describe a mobile app idea—even a vague one. Get a complete, **publishable** Expo React Native application with monetization, market research, App Store optimization, and launch marketing materials.
 
 ---
 
-## Who Is This For?
-
-- Indie developers who want to ship mobile apps fast
-- Entrepreneurs validating app ideas
-- Developers who want research + ASO included automatically
-
-**Not for you if:** You need a web app (use [web3-factory](../web3-factory/)) or an AI agent (use [agent-factory](../agent-factory/))
-
----
-
-## Quickstart
+## How to Start (Important)
 
 ```bash
 cd the_factory
 claude
-# Type: "A meditation app with guided sessions and streak tracking"
-# Wait for build to complete (5-15 minutes)
-# Run your app:
-cd builds/<app-slug>
-npm install
-npx expo start
 ```
 
-Press `i` for iOS simulator or `a` for Android emulator.
+Then type your app idea. Even something vague:
+
+```
+I want to make an app where you fly a plane
+```
+
+Claude will:
+1. **Normalize your intent** → "A flight simulation game with realistic physics, multiple aircraft, mission-based progression, and premium planes via RevenueCat"
+2. **Plan** → Comprehensive 9-section implementation plan
+3. **Build** → Complete Expo React Native app, milestone by milestone
+4. **Integrate RevenueCat** → Monetization with meaningful premium features
+5. **Generate** → Research, ASO, and marketing materials
+6. **QA** → Ralph loops until ≥97% quality per milestone
+
+No scripts. No commands. No stopping. No asking you to write a better prompt.
+
+**Output:** A store-ready app in `builds/<app-slug>/`
+
+---
+
+## What "Done" Means
+
+Your build is complete when:
+
+1. **Code runs**: `npm install && npx expo start` works
+2. **RevenueCat integrated**: Monetization SDK configured with paywall
+3. **Quality passes**: Ralph QA reaches ≥97% on each milestone
+4. **All deliverables exist**: research/, aso/, marketing/, docs
+
+Claude won't stop until all of this is done. No demos. No toys. No half-products.
 
 ---
 
@@ -39,67 +52,62 @@ Press `i` for iOS simulator or `a` for Android emulator.
 builds/<app-slug>/
 ├── package.json              # Dependencies
 ├── app.config.js             # Expo configuration
+├── app/                      # Expo Router screens
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   ├── home.tsx
+│   ├── paywall.tsx
+│   └── settings.tsx
 ├── src/
-│   ├── screens/              # All app screens
 │   ├── components/           # Reusable components
 │   ├── services/             # RevenueCat, storage
+│   ├── hooks/                # Custom hooks
 │   └── ui/                   # Design system
 ├── assets/
 │   ├── icon.png              # App icon (1024x1024)
 │   └── splash.png            # Splash screen
-├── research/                 # Market intelligence
-│   ├── market_research.md    # Market analysis
-│   ├── competitor_analysis.md# Competitor breakdown
-│   └── positioning.md        # Positioning strategy
+│
+├── research/                 # Market Intelligence
+│   ├── market_research.md    # Market size, trends, opportunities
+│   ├── competitor_analysis.md# Direct/indirect competitors
+│   └── positioning.md        # Unique value proposition
+│
 ├── aso/                      # App Store Optimization
 │   ├── app_title.txt         # Store title (max 30 chars)
 │   ├── subtitle.txt          # Store subtitle (max 30 chars)
-│   ├── description.md        # Full description
-│   └── keywords.txt          # ASO keywords
+│   ├── description.md        # Full App Store description
+│   └── keywords.txt          # ASO keywords (max 100 chars)
+│
+├── marketing/                # Launch Materials
+│   ├── launch_thread.md      # Twitter/X thread (10+ tweets)
+│   ├── landing_copy.md       # Landing page copy
+│   ├── press_kit.md          # Press one-pager
+│   └── social_assets.md      # Social media descriptions
+│
 ├── README.md                 # Project overview
-├── RUNBOOK.md                # Exact steps to run locally
-├── TESTING.md                # How to verify it works
-├── LAUNCH_CHECKLIST.md       # Pre/post-launch checks
-├── privacy_policy.md         # Privacy policy
-└── launch_plan.md            # Launch timeline
+├── RUNBOOK.md                # Copy-paste run commands
+├── TESTING.md                # Smoke test checklist
+├── LAUNCH_CHECKLIST.md       # Pre-launch steps
+└── privacy_policy.md         # Privacy policy
+```
+
+**Execution artifacts** (in `runs/`):
+```
+runs/YYYY-MM-DD/build-<timestamp>/
+├── inputs/
+│   ├── user_prompt.md        # Your original idea (raw)
+│   └── normalized_prompt.md  # Upgraded product intent
+├── planning/plan.md          # Implementation plan
+└── polish/                   # Ralph QA reports
+    ├── ralph_report_*.md
+    └── ralph_final_verdict.md
 ```
 
 ---
 
-## Full Walkthrough
+## Running Your App
 
-### Step 1: Describe Your App
-
-Open Claude Code in this directory and describe your app:
-
-```
-A habit tracking app that uses dots to show completion streaks,
-with gentle reminders and a clean minimalist design
-```
-
-The more detail you provide, the more tailored the result. But even one sentence works.
-
-### Step 2: Wait for the Build
-
-Claude will:
-1. Research the market for your app category
-2. Analyze competitors
-3. Write a comprehensive specification
-4. Build the complete Expo app
-5. Run adversarial QA (Ralph Mode)
-6. Deliver the finished app
-
-This takes 5-15 minutes depending on complexity.
-
-### Step 3: Review the Output
-
-Check the `builds/<app-slug>/` directory:
-- Read `README.md` for project overview
-- Read `RUNBOOK.md` for exact run instructions
-- Check `research/` for market intelligence
-- Check `aso/` for App Store copy
-
-### Step 4: Run the App
+After Claude finishes:
 
 ```bash
 cd builds/<app-slug>
@@ -107,33 +115,66 @@ npm install
 npx expo start
 ```
 
-Expected output:
+Press `i` for iOS simulator or `a` for Android emulator.
+
+---
+
+## The Build Process
+
+When you describe an app, Claude automatically:
+
+1. **Normalizes** - Upgrades your raw idea into a publishable product intent
+2. **Plans** - Creates comprehensive implementation plan with monetization flow
+3. **Builds** - Implements milestone by milestone
+4. **QA** - Runs Ralph quality loop after each milestone (must reach ≥97%)
+5. **Finalizes** - Completes all deliverables and confirms success
+
+**Milestones:**
+1. Project scaffold (config, dependencies)
+2. Core screens (navigation, main UI)
+3. Feature implementation (core functionality)
+4. Monetization (RevenueCat SDK, paywall, premium gating)
+5. Polish (onboarding, icons, assets)
+6. Research, marketing & ASO (all artifacts)
+
+**Intent Normalization Example:**
+
+Your input:
 ```
-› Metro waiting on exp://192.168.x.x:8081
-› Scan the QR code above with Expo Go (Android) or the Camera app (iOS)
-› Press a │ open Android
-› Press i │ open iOS simulator
-› Press w │ open web
+I want to make an app where you fly a plane
 ```
 
-Press `i` for iOS or `a` for Android.
+Claude normalizes to:
+```
+Product: SkyPilot
+Pitch: Master the skies in a realistic flight simulator with stunning visuals
 
-### Step 5: Verify It Works
+Core Loop: Select mission → Fly aircraft → Complete objectives → Unlock rewards
 
-Follow `TESTING.md` in your generated project to run smoke tests:
-- App loads without crash
-- Onboarding flow completes
-- Main functionality works
-- Paywall displays correctly
+Free Tier: 3 starter aircraft, tutorial missions, basic environments
+Premium ($4.99/mo): All 12 aircraft, advanced missions, all environments, no ads
 
-### Step 6: Prepare for Launch
+Visual: Realistic 3D cockpit views, dynamic weather, day/night cycles
+```
 
-Follow `LAUNCH_CHECKLIST.md`:
-- [ ] App runs on physical device
-- [ ] RevenueCat products configured (if using subscriptions)
-- [ ] Privacy policy URL hosted
-- [ ] App Store assets ready (screenshots, preview video)
-- [ ] ASO copy reviewed and customized
+This normalized intent drives all planning, building, and deliverables.
+
+---
+
+## Quality Assurance
+
+Every build includes **Ralph Mode** - automatic adversarial QA:
+
+- Reviews each milestone against checklist
+- Fixes issues automatically
+- Loops until ≥97% quality reached
+- Must pass on research, ASO, AND marketing
+
+**Quality threshold (≥97%):**
+- ALL critical items must pass
+- At most 3% non-critical items can fail
+- Zero runtime errors
+- No placeholder content
 
 ---
 
@@ -146,90 +187,52 @@ Follow `LAUNCH_CHECKLIST.md`:
 | Navigation | Expo Router v4 |
 | Monetization | RevenueCat |
 | Storage | expo-sqlite + AsyncStorage |
-| Styling | Custom design system |
+| State | Zustand or React Context |
 
 ---
 
 ## Defaults
 
-When you don't specify details, the pipeline assumes:
+When you don't specify:
 
 | Aspect | Default |
 |--------|---------|
-| Monetization | Freemium with $4.99/mo subscription |
+| Monetization | Freemium: $4.99/mo or $29.99/yr |
 | Data storage | Local-only (offline-first) |
-| Backend | None required |
+| Backend | None |
 | Authentication | Guest-first (no login) |
 | Platform | iOS + Android |
 
 ---
 
-## Quality Assurance
-
-Every build goes through **Ralph Mode** - an adversarial QA process:
-
-1. Ralph reviews the build critically
-2. Verifies all code, research, and ASO artifacts
-3. Identifies issues that block shipping
-4. Builder fixes issues
-5. Repeat until quality standards met (max 3 iterations)
-
-A build only succeeds when Ralph approves it.
-
-**Blocking failures:**
-- Missing or thin research
-- Missing or generic ASO copy
-- App crashes on startup
-- Missing required screens (onboarding, paywall, settings)
-
----
-
-## Factory Ready Checklist
-
-This pipeline follows the [Factory Ready Standard](../docs/FACTORY_READY_STANDARD.md).
-
-| Gate | How to Verify |
-|------|---------------|
-| **Build** | `npm install` completes without errors |
-| **Run** | `npx expo start` shows Metro bundler |
-| **Test** | App loads in simulator without crash |
-| **Validate** | `./scripts/build_proof_gate.sh builds/<app-slug>` |
-| **Launch Ready** | All docs present (README, RUNBOOK, TESTING, LAUNCH_CHECKLIST) |
-
----
-
 ## Troubleshooting
 
-### "npm install fails with peer dependency error"
-
+### npm install fails
 ```bash
 npm install --legacy-peer-deps
 ```
 
-### "Expo start shows 'Command not found'"
-
+### Expo won't start
 ```bash
-npm install -g expo-cli
-# or use npx:
-npx expo start
+npx expo start --clear
 ```
 
-### "App crashes immediately on launch"
+### App crashes
+1. Check Metro for red errors
+2. Verify dependencies installed
+3. See `RUNBOOK.md` in build directory
 
-1. Check Metro bundler for red errors
-2. Look for missing imports or typos
-3. Verify all dependencies installed
-4. Try clearing cache: `npx expo start --clear`
+---
 
-### "Simulator doesn't launch"
+## Internal Scripts (Debug/CI Only)
 
-**iOS:** Open Xcode > Preferences > Locations > Command Line Tools (select version)
+The `scripts/` directory contains helper utilities for debugging and CI. **Normal users don't need these** - just use `claude`.
 
-**Android:** Ensure Android Studio and emulator are installed, ANDROID_HOME is set
-
-### "Research files are thin or generic"
-
-This is a Ralph Mode failure. Check `runs/.../polish/ralph_report_*.md` for specific issues. The build will re-run until research meets quality bar.
+| Script | Purpose |
+|--------|---------|
+| `build_proof_gate.sh` | CI validation |
+| `ralph/ralph.sh` | Debug: manual Ralph |
+| `auto_plan_build.sh` | Debug: standalone planning |
 
 ---
 
@@ -237,47 +240,17 @@ This is a Ralph Mode failure. Check `runs/.../polish/ralph_report_*.md` for spec
 
 ```
 the_factory/
-├── claude.md              # Constitution (defines behavior)
-├── README.md              # This file
+├── CLAUDE.md             # Constitution (Claude's instructions)
+├── README.md             # This file
 ├── templates/
-│   ├── system/            # Core execution templates
-│   │   ├── dream_spec_author.md   # Spec generation
-│   │   └── ralph_polish_loop.md   # QA process
-│   └── app_template/      # Expo scaffolding
-├── builds/                # Generated apps
-├── runs/                  # Execution artifacts
-├── vendor/                # Cached documentation
-│   ├── expo-docs/         # Expo SDK docs
-│   └── revenuecat-docs/   # RevenueCat docs
-├── scripts/               # Helper utilities
-│   ├── build_proof_gate.sh    # Build validation
-│   ├── generate_assets.sh     # Asset generation
-│   └── generate_privacy_policy.sh
-└── standards/             # Quality standards
-    ├── mobile_app_best_practices_2026.md
-    └── research_policy.md
+│   ├── system/           # Execution templates
+│   └── app_template/     # Expo scaffolding
+├── builds/               # Generated apps (output)
+├── runs/                 # Execution artifacts
+├── scripts/              # Debug/CI helpers
+├── standards/            # Quality standards
+└── vendor/               # Cached documentation
 ```
-
----
-
-## PASS/FAIL Criteria
-
-### PASS
-- [ ] App builds without errors (`npm install` + `npx expo start`)
-- [ ] App runs in simulator without crash
-- [ ] All required screens present (onboarding, home, paywall, settings)
-- [ ] Research artifacts contain substantive content (not placeholders)
-- [ ] ASO artifacts ready to paste into App Store Connect
-- [ ] Privacy policy present and complete
-- [ ] Ralph Mode issued PASS verdict
-
-### FAIL
-- [ ] Build errors during npm install
-- [ ] App crashes on startup
-- [ ] Missing required screens
-- [ ] Research contains placeholders or generic content
-- [ ] ASO copy is thin or templated
-- [ ] Ralph Mode issued FAIL after 3 iterations
 
 ---
 
@@ -285,8 +258,7 @@ the_factory/
 
 - **Root README:** [../README.md](../README.md)
 - **Factory Ready Standard:** [../docs/FACTORY_READY_STANDARD.md](../docs/FACTORY_READY_STANDARD.md)
-- **Launchpad Overview:** [../docs/LAUNCHPAD_OVERVIEW.md](../docs/LAUNCHPAD_OVERVIEW.md)
 
 ---
 
-**the_factory v4.1** - Describe your app. Get a working mobile app with research and ASO.
+**the_factory v7.0** — `cd the_factory && claude` → describe your idea → get a publishable product.

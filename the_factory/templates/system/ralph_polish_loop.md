@@ -97,6 +97,14 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - [ ] ASO copy would pass App Store review (no policy violations)
 - [ ] ASO is specific to this app (not generic)
 
+### 8. Marketing Artifacts (MANDATORY - BLOCKING)
+- [ ] `marketing/launch_thread.md` exists (10+ tweet thread)
+- [ ] `marketing/landing_copy.md` exists (headline + body copy)
+- [ ] `marketing/press_kit.md` exists (one-pager for press)
+- [ ] `marketing/social_assets.md` exists (social media descriptions)
+- [ ] Marketing content is specific to this app (not templated)
+- [ ] Marketing copy is compelling and ready to post
+
 ---
 
 ## RALPH REPORT FORMAT
@@ -189,6 +197,7 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - Spec Compliance: [1-5]
 - Research Quality: [1-5]
 - ASO Quality: [1-5]
+- Marketing Quality: [1-5]
 
 ## [If PASS] Approval
 This build meets App Factory quality standards and is approved for shipping.
@@ -272,10 +281,11 @@ The build directory must exist at `builds/<app-slug>/` with:
 - assets/ directory
 - research/ directory with all 3 required files
 - aso/ directory with all 4 required files
+- marketing/ directory with all 4 required files
 
 If the build directory is incomplete, Ralph FAILS immediately with "Incomplete Build" verdict.
 
-**Research and ASO are BLOCKING requirements.** A build without complete research/ and aso/ directories cannot pass, regardless of code quality.
+**Research, ASO, and Marketing are BLOCKING requirements.** A build without complete research/, aso/, and marketing/ directories cannot pass, regardless of code quality.
 
 ---
 

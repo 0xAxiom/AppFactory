@@ -1,0 +1,68 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-01-14T05:56:59.759Z",
+  "project": {
+    "name": "hello-agent",
+    "pipeline": "agent-factory",
+    "path": "/Users/melted/Documents/GitHub/app factory/agent-factory/examples/hello-agent"
+  },
+  "gates": {
+    "build": {
+      "status": "pass",
+      "checks": [
+        {
+          "name": "package.json exists",
+          "passed": true
+        },
+        {
+          "name": "agent.json valid",
+          "passed": true
+        },
+        {
+          "name": "src/ directory exists",
+          "passed": true
+        }
+      ]
+    },
+    "run": {
+      "status": "not_checked",
+      "note": "Run npm run dev to verify"
+    },
+    "test": {
+      "status": "not_checked",
+      "note": "Run curl http://localhost:8080/health to verify"
+    },
+    "validate": {
+      "status": "pass",
+      "file_count": 6,
+      "total_size_kb": 9,
+      "errors": []
+    },
+    "package": {
+      "status": "pass",
+      "note": "Push to GitHub for launchpad import"
+    },
+    "launch_ready": {
+      "status": "pass",
+      "checks": [
+        {
+          "name": "No forbidden files",
+          "passed": true
+        },
+        {
+          "name": "Size under limit",
+          "passed": true
+        }
+      ]
+    },
+    "token_integration": {
+      "status": "disabled",
+      "note": "Token integration not enabled for this agent"
+    }
+  },
+  "overall": "PASS",
+  "next_steps": [
+    "Push to GitHub",
+    "Prepare for Factory Launchpad (coming soon)"
+  ]
+}

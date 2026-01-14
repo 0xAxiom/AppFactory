@@ -240,7 +240,7 @@ function writeFactoryReadyJson(projectPath, passed, result) {
     },
     overall: passed ? 'PASS' : 'FAIL',
     next_steps: passed
-      ? ['Push to GitHub', 'Import on factoryapp.dev (Repo Mode)']
+      ? ['Push to GitHub', 'Prepare for Factory Launchpad (coming soon)']
       : ['Fix errors listed above', 'Run npm run validate again']
   };
 

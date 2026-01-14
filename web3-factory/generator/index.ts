@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 /**
- * Web3 Factory Build Prompt Generator
+ * Web3 Factory Internal Prompt Generator
  *
- * Generates build instructions for users to run locally with their own AI.
- * NO AI INFERENCE - just creates prompt files.
+ * INTERNAL USE ONLY - This is NOT the primary build path.
+ * The primary path is for Claude to build complete apps directly.
  *
- * Usage: npm run generate "your app idea"
+ * This tool generates intermediate prompt files that can be used
+ * for debugging or manual workflows. It is NOT the default output.
+ *
+ * Usage: npm run generate "your app idea" (internal/debug only)
  */
 
 import fs from 'fs';
@@ -122,16 +125,10 @@ async function generate(config: GeneratorConfig): Promise<void> {
 
   // Print next steps
   console.log('\n' + '='.repeat(60));
-  console.log('\n  SUCCESS: Build prompts generated.\n');
-  console.log('  NEXT STEPS:');
-  console.log(`  1. Open: ${fullOutputDir}/build_prompt.md`);
-  console.log('  2. Copy the entire contents');
-  console.log('  3. Paste into Claude or Cursor');
-  console.log('  4. Let AI generate your app');
-  console.log(`  5. Save output to: web3-builds/${appSlug}/`);
-  console.log('  6. Run: npm run validate');
-  console.log('  7. Run: npm run zip');
-  console.log('  8. Upload to: https://factoryapp.dev/web3-factory/launch\n');
+  console.log('\n  INTERNAL: Prompt files generated.\n');
+  console.log('  NOTE: This is an internal/debug tool.');
+  console.log('  The primary path is to use Claude to build apps directly.\n');
+  console.log(`  Output: ${fullOutputDir}/`);
   console.log('='.repeat(60) + '\n');
 }
 
@@ -143,21 +140,15 @@ async function main(): Promise<void> {
 
   if (args.length === 0) {
     console.log(`
-Web3 Factory Build Prompt Generator
+Web3 Factory Internal Prompt Generator
 
-Usage:
+INTERNAL USE ONLY - This is not the primary build path.
+The primary path is: cd web3-factory && claude "your app idea"
+
+Usage (internal/debug):
   npm run generate "your app idea"
 
-Examples:
-  npm run generate "a roast battle app with 1v1 voice battles"
-  npm run generate "a meme coin voting platform"
-  npm run generate "a tipping app for streamers"
-
-This generates build prompts that you run locally with Claude or Cursor.
-No AI is used by this command - it just creates instruction files.
-
-After building, validate and zip your app, then upload to:
-  https://factoryapp.dev/web3-factory/launch
+This generates intermediate prompt files for debugging or manual workflows.
 `);
     process.exit(0);
   }

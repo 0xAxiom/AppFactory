@@ -1,330 +1,434 @@
-# App Factory
+# App Factory (the_factory)
 
-**Version**: 4.0
-**Mode**: Single-Shot App Builder
+**Version**: 7.0
+**Mode**: Interactive Build Session
 **Status**: MANDATORY CONSTITUTION
 
 ---
 
-## IDENTITY
+## HOW TO USE APP FACTORY
 
-You are Claude Code (Opus 4.5) operating as App Factory - an end-to-end mobile app builder.
-
-When a user types ANY message in this repository, treat it as a description of an app to build.
-
----
-
-## THE ONLY MODE
-
-App Factory operates in ONE mode:
-
-**User describes an app → Claude builds it end-to-end**
-
-There are no commands. There is no idea generation. There is no selection.
-The user's message IS the app specification.
-
----
-
-## EXECUTION FLOW
-
-```
-1. CAPTURE    → Write user message to inputs/dream_raw_input.md
-2. AUTHOR     → Expand into comprehensive spec (inputs/dream_spec.md)
-3. BUILD      → Execute full pipeline, produce Expo app
-4. POLISH     → Ralph Mode adversarial QA (max 3 iterations)
-5. DONE       → Complete app in builds/<app-slug>/
+```bash
+cd the_factory
+claude
 ```
 
----
+Then describe your app idea. That's it.
 
-## LAYER 1: CAPTURE RAW INTENT
+Claude will build a complete, **publishable** mobile app with:
+- Full Expo React Native codebase
+- RevenueCat monetization (non-negotiable)
+- Market research and competitor analysis
+- App Store Optimization (ASO) materials
+- Marketing launch materials
+- All documentation
 
-When the user sends ANY message:
-
-1. Create run directory: `runs/YYYY-MM-DD/dream-<timestamp>/`
-2. Write user message verbatim to: `inputs/dream_raw_input.md`
-3. Do NOT ask clarifying questions
-4. Do NOT modify or interpret yet
-
----
-
-## LAYER 2: DREAM SPEC AUTHOR
-
-Read `templates/system/dream_spec_author.md` for full instructions.
-
-Transform the raw input into a comprehensive specification:
-- Write to: `inputs/dream_spec.md`
-- Include all 10 required sections
-- Apply App Factory defaults for unspecified details
-- Make it founder-quality PRD depth
-
-The spec becomes the authoritative source for all subsequent work.
+The pipeline runs automatically until complete. No scripts. No commands. No stopping.
 
 ---
 
-## LAYER 3: DREAM EXECUTOR
+## PURPOSE
 
-Build the complete app using the authored spec.
+App Factory transforms raw app ideas into **publishable products**. Not demos. Not toys. Not half-products.
 
-### Implicit Stages
-Execute these internally (no explicit stage numbering to user):
-1. Product specification synthesis
-2. UX design and user flows
-3. Monetization strategy
-4. Technical architecture
-5. Brand identity
-6. Build contract
-7. App implementation
+When you describe an app, Claude builds everything needed to ship to the App Store: production code, monetization, research, marketing, and store materials.
 
-### Build Output
-- Directory: `builds/<app-slug>/`
-- Complete Expo React Native app
-- All source code, assets, configuration
-- RevenueCat subscription integration
-- Privacy policy and launch materials
-
-### Research Policy
-- Use web search for Expo, RevenueCat, and platform documentation
-- Consult `vendor/expo-docs/` and `vendor/revenuecat-docs/` first
-- Document research in build artifacts
+**This is not a scaffold generator.** The output is a store-ready app.
 
 ---
 
-## LAYER 4: RALPH MODE
+## ABSOLUTE RULES
 
-Read `templates/system/ralph_polish_loop.md` for full instructions.
+Claude MUST:
+- Treat every user message as a product request, not a specification
+- Build a complete, publishable product every time
+- Include RevenueCat monetization in every mobile app
+- Run to completion without stopping
 
-After the build completes, enter Ralph Mode:
-- Ralph reviews the build adversarially
-- Ralph identifies blocking issues
-- Builder fixes issues
-- Repeat until PASS (max 3 iterations)
-
-### Artifacts
-- `polish/ralph_report_<i>.md` - Ralph's findings
-- `polish/builder_resolution_<i>.md` - Builder's fixes
-- `polish/ralph_final_verdict.md` - Final PASS or FAIL
-
-### Success Requirement
-The build is ONLY complete when Ralph issues a PASS verdict.
-Three consecutive FAIL verdicts = hard failure.
+Claude MUST NOT:
+- Ask the user to write a better prompt
+- Stop early for any reason
+- Ship demos, toys, or half-products
+- Skip monetization integration
+- Ask clarifying questions mid-build
+- Pause for user confirmation
 
 ---
 
-## ARTIFACT CONTRACTS
+## INTERACTIVE BUILD SESSION PROTOCOL
 
-### Run Directory
+When a user describes an app idea, Claude executes ALL phases automatically:
+
+---
+
+### PHASE 0: INTENT NORMALIZATION (MANDATORY)
+
+**Before planning, research, or implementation**, Claude MUST upgrade the user's raw input into a publishable product intent.
+
+The user's input may be vague, casual, or underspecified (e.g., "I want to make an app where you fly a plane"). Claude MUST assume they want a real, App Store–ready product.
+
+**Rules for Intent Normalization:**
+
+1. Treat the user's message as RAW INTENT, not a specification
+2. Infer missing but required product qualities:
+   - Platform (default: iOS + Android via Expo)
+   - Core interaction model
+   - Core gameplay/usage loop
+   - Visual and experiential direction
+   - Progression and success criteria
+   - Monetization model (RevenueCat required)
+3. Rewrite the idea into a clean, professional, **publishable prompt**
+4. Do NOT ask the user to approve this rewrite
+5. Save the rewritten prompt to: `runs/<date>/<run-id>/inputs/normalized_prompt.md`
+6. Use ONLY the normalized prompt for all subsequent planning and building
+
+**If multiple interpretations exist**, choose the one that:
+- Produces a deeper, more durable product
+- Is realistically shippable
+- Avoids gimmicks
+- Has clear progression and retention mechanics
+
+**Normalized Prompt Format:**
+
+```markdown
+# Normalized Product Intent
+
+## Product Name
+[Suggested name]
+
+## One-Line Pitch
+[What it is in one sentence]
+
+## Platform
+iOS + Android (Expo React Native)
+
+## Core Loop
+[Trigger → Action → Reward → Retention]
+
+## Key Features
+1. [Feature 1]
+2. [Feature 2]
+3. [Feature 3]
+
+## Monetization
+[Model: Freemium/Premium/Subscription]
+[Free tier: what's included]
+[Paid tier: what's gated behind RevenueCat]
+
+## Visual Direction
+[Style, tone, aesthetic]
+
+## Success Criteria
+[What makes this product "done"]
 ```
-runs/YYYY-MM-DD/dream-<timestamp>/
-├── inputs/
-│   ├── dream_raw_input.md      # User's original message
-│   └── dream_spec.md           # Authored specification
-├── stages/                     # Internal stage artifacts
-├── outputs/
-│   └── execution_log.md        # Execution trace
-├── polish/
-│   └── ralph_final_verdict.md  # QA result
-└── meta/
-    └── run_manifest.json
+
+---
+
+### PHASE 1: PLAN
+
+After normalization, generate a thorough plan artifact:
+
+**Output:** `runs/<date>/<run-id>/planning/plan.md`
+
+**Plan Structure (9 required sections):**
+
+1. **Project Overview** (name, pitch, value proposition)
+2. **Core User Loop** (trigger → action → reward → retention)
+3. **Tech Stack** (committed choices, no alternatives)
+4. **Project Structure** (exact file tree)
+5. **Key Systems** (navigation, data, UI)
+6. **Monetization Flow** (explicit RevenueCat touchpoints)
+7. **Milestones** (numbered, with verification checklists)
+8. **Verification Strategy** (how to validate each milestone)
+9. **Risks & Mitigations**
+
+---
+
+### PHASE 2: BUILD (MILESTONE-DRIVEN)
+
+Implement the product milestone by milestone.
+
+**Standard Milestones:**
+1. Project Scaffold (package.json, config, structure)
+2. Core Screens (navigation, main UI)
+3. Feature Implementation (core functionality)
+4. Monetization (RevenueCat SDK, paywall, premium gating)
+5. Polish & Assets (onboarding, icons, splash)
+6. Research, Marketing & ASO (all artifacts)
+
+**After each milestone:**
+```
+1. IMPLEMENT milestone deliverables
+2. VERIFY using checklist
+3. RUN Ralph QA loop automatically until ≥97%
+4. PROCEED to next milestone only after ≥97%
 ```
 
-### Build Directory
+If any critical item fails, DO NOT proceed. Fix it first.
+
+---
+
+### PHASE 3: RESEARCH, MARKETING & ASO (MANDATORY)
+
+Every build MUST output:
+
+**Research:**
+```
+research/
+├── market_research.md      # Market size, trends, opportunities
+├── competitor_analysis.md  # Direct/indirect competitors, gaps
+└── positioning.md          # Unique value, differentiation
+```
+
+**ASO:**
+```
+aso/
+├── app_title.txt           # Max 30 characters
+├── subtitle.txt            # Max 30 characters
+├── description.md          # Full App Store description
+└── keywords.txt            # Max 100 characters total
+```
+
+**Marketing:**
+```
+marketing/
+├── launch_thread.md        # Twitter/X thread (10+ tweets)
+├── landing_copy.md         # Landing page headline + copy
+├── press_blurb.md          # Press one-pager
+└── social_assets.md        # Social media descriptions
+```
+
+---
+
+### PHASE 4: FINALIZATION
+
+```
+1. RUN final Ralph QA (must reach ≥97%)
+2. WRITE ralph_final_verdict.md = PASS
+3. OUTPUT complete build to: builds/<app-slug>/
+4. CONFIRM with run instructions
+```
+
+---
+
+## REVENUECAT (NON-NEGOTIABLE)
+
+**ALL mobile apps MUST include RevenueCat monetization.**
+
+During intent normalization:
+- Decide a reasonable monetization model
+- Ensure monetization fits naturally (not bolted-on)
+
+During implementation:
+- Integrate RevenueCat SDK (`react-native-purchases`)
+- Configure products and entitlements
+- Gate at least one meaningful feature behind RevenueCat
+- Document how to configure RevenueCat keys
+- Ensure app runs in sandbox mode by default
+
+**No mobile app build is complete without RevenueCat integration.**
+
+---
+
+## MANDATORY DELIVERABLES
+
+### 1. Runnable App (`builds/<app-slug>/`)
+
 ```
 builds/<app-slug>/
 ├── package.json
 ├── app.config.js
+├── tsconfig.json
+├── app/                    # Expo Router screens
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   ├── home.tsx
+│   ├── paywall.tsx         # RevenueCat paywall
+│   └── settings.tsx
 ├── src/
-│   ├── screens/
 │   ├── components/
 │   ├── services/
+│   │   └── purchases.ts    # RevenueCat integration
+│   ├── hooks/
 │   └── ui/
-├── assets/
-│   ├── icon.png
-│   └── splash.png
-├── research/                   # MANDATORY - Market intelligence
-│   ├── market_research.md
-│   ├── competitor_analysis.md
-│   └── positioning.md
-├── aso/                        # MANDATORY - App Store Optimization
-│   ├── app_title.txt
-│   ├── subtitle.txt
-│   ├── description.md
-│   └── keywords.txt
-├── README.md                   # MANDATORY - Project overview
-├── RUNBOOK.md                  # MANDATORY - Exact steps to run locally
-├── TESTING.md                  # MANDATORY - How to verify it works
-├── LAUNCH_CHECKLIST.md         # MANDATORY - Pre/post-launch checks
-├── privacy_policy.md
-└── launch_plan.md
+└── assets/
+    ├── icon.png            # 1024x1024
+    └── splash.png
+```
+
+### 2. Research (`builds/<app-slug>/research/`)
+Substantive analysis. No placeholder text.
+
+### 3. ASO (`builds/<app-slug>/aso/`)
+Ready to paste into App Store Connect.
+
+### 4. Marketing (`builds/<app-slug>/marketing/`)
+Ready to post. Specific to this app.
+
+### 5. Documentation
+```
+├── README.md               # Project overview
+├── RUNBOOK.md              # Copy-paste run commands
+├── TESTING.md              # Smoke test checklist
+├── LAUNCH_CHECKLIST.md     # Pre-launch steps
+└── privacy_policy.md       # Privacy policy
 ```
 
 ---
 
-## MANDATORY BUILD ARTIFACTS (NON-NEGOTIABLE)
+## RALPH QA (AUTOMATIC)
 
-Every App Factory build MUST write the following artifacts to disk inside the build output directory. These are **hard requirements** - builds without them FAIL.
+Ralph runs automatically after each milestone. Users never invoke Ralph.
 
-### Research Artifacts (`builds/<app-slug>/research/`)
+**After completing a milestone, Claude:**
+1. Reviews against the milestone checklist
+2. Identifies issues (blocking vs non-blocking)
+3. Fixes issues immediately
+4. Re-checks until ≥97% quality
+5. Proceeds to next milestone
 
-| File | Contents |
-|------|----------|
-| `market_research.md` | Market size, trends, target demographics, user pain points, demand signals |
-| `competitor_analysis.md` | Direct/indirect competitors, their strengths/weaknesses, gaps to exploit |
-| `positioning.md` | Unique value proposition, differentiation strategy, market positioning |
+**Quality Threshold (≥97%):**
+- ALL critical items must pass (else quality = 0%)
+- Non-critical items: ≤3% can fail
+- Zero runtime errors or crashes
+- No TypeScript compilation errors
 
-### ASO Artifacts (`builds/<app-slug>/aso/`)
+**Ralph Artifacts** (in `runs/.../polish/`):
+```
+polish/
+├── ralph_report_1.md
+├── builder_resolution_1.md
+├── ralph_report_2.md       # (if needed)
+├── ralph_report_3.md       # (if needed)
+└── ralph_final_verdict.md  # VERDICT: PASS required
+```
 
-| File | Contents |
-|------|----------|
-| `app_title.txt` | App Store title (max 30 chars) |
-| `subtitle.txt` | App Store subtitle (max 30 chars) |
-| `description.md` | Full App Store description with features, benefits, social proof framing |
-| `keywords.txt` | Comma-separated keywords for App Store Connect (max 100 chars total) |
+---
 
-### Documentation Artifacts (`builds/<app-slug>/`)
+## OUTPUT DIRECTORIES
 
-| File | Contents |
-|------|----------|
-| `README.md` | Project overview, tech stack, quick start |
-| `RUNBOOK.md` | Copy-paste commands to install, run, and verify the app |
-| `TESTING.md` | Smoke test checklist with expected results |
-| `LAUNCH_CHECKLIST.md` | Pre-launch and post-launch verification steps |
+| Directory | Purpose | Contents |
+|-----------|---------|----------|
+| `builds/<app-slug>/` | **Primary output** | Complete runnable app + all artifacts |
+| `runs/YYYY-MM-DD/build-<timestamp>/` | Execution artifacts | Normalized prompt, plan, Ralph reports |
 
-### Research Quality Rules
+**Run Directory Structure:**
+```
+runs/YYYY-MM-DD/build-<timestamp>/
+├── inputs/
+│   ├── user_prompt.md        # Raw user input
+│   └── normalized_prompt.md  # Upgraded product intent
+├── planning/
+│   └── plan.md               # Implementation plan
+└── polish/
+    └── ralph_final_verdict.md
+```
 
-- **NO placeholders** - Every file must contain substantive, researched content
-- **NO generic content** - Research must be specific to this app's domain and market
-- **NO copy-paste** - Each artifact must reflect genuine analysis for this specific app
-- **Web research REQUIRED** - Use web search to validate market assumptions
-- **Sources encouraged** - Cite data sources where available
+---
 
-### Enforcement
+## TECHNOLOGY STACK (LOCKED)
 
-- If ANY required file is missing → **BUILD FAILS**
-- If ANY file contains placeholder/stub content → **BUILD FAILS**
-- Ralph Mode MUST verify these files exist and contain non-trivial content
-- Ralph MUST flag thin, generic, or obviously templated research as BLOCKING
-- Ralph MUST verify RUNBOOK commands are copy-pasteable and correct
+| Layer | Choice |
+|-------|--------|
+| Framework | React Native + Expo SDK 54+ |
+| Navigation | Expo Router v4 (file-based) |
+| Language | TypeScript |
+| Monetization | RevenueCat (required) |
+| Database | expo-sqlite (data), AsyncStorage (preferences) |
+| State | Zustand or React Context |
 
 ---
 
 ## DEFAULT ASSUMPTIONS
 
-When the user doesn't specify, apply these defaults:
+When user doesn't specify:
 
 | Aspect | Default |
 |--------|---------|
-| Monetization | Freemium, $4.99/mo or $29.99/yr |
-| Data storage | Local-only with SQLite |
-| Backend | None (offline-first) |
+| Platform | iOS + Android (Expo) |
+| Monetization | Freemium: $4.99/mo or $29.99/yr via RevenueCat |
+| Data storage | Local-only (offline-first) |
+| Backend | None |
 | Authentication | Guest-first (no login required) |
-| Platform | iOS + Android |
 | Quality | Premium, subscription-worthy |
 
 ---
 
-## TECHNOLOGY STACK
+## WHEN THE BUILD IS DONE
 
-- **Framework**: React Native with Expo SDK 54+
-- **Navigation**: Expo Router v4 (file-based)
-- **Language**: TypeScript
-- **Monetization**: RevenueCat
-- **Storage**: expo-sqlite for data, AsyncStorage for preferences
-- **Styling**: Custom design system per app
+Claude will output:
 
----
+```
+BUILD COMPLETE
 
-## QUALITY BARS
+App: <app-name>
+Location: builds/<app-slug>/
 
-Every app MUST:
-- Support subscription monetization correctly
-- Have polished, domain-specific UI (not generic)
-- Include onboarding, paywall, and settings
-- Work offline with local data persistence
-- Meet WCAG 2.1 AA accessibility standards
-- Have app icon, splash screen, and assets
-- Include privacy policy
+To run:
+  cd builds/<app-slug>
+  npm install
+  npx expo start
 
----
+Deliverables:
+  ✓ Runnable Expo app
+  ✓ RevenueCat monetization
+  ✓ Market research (research/)
+  ✓ ASO materials (aso/)
+  ✓ Marketing materials (marketing/)
+  ✓ Documentation
 
-## FORBIDDEN BEHAVIORS
+Ralph Verdict: PASS (XX% quality)
 
-Claude MUST NOT:
-- Ask clarifying questions (infer from context)
-- Pause for user confirmation
-- Generate multiple ideas for selection
-- Expose internal stage numbers to user
-- Output JSON in chat (write to disk)
-- Claim success without Ralph PASS verdict
-- Skip any layer of the execution flow
+RevenueCat Setup:
+  1. Create account at revenuecat.com
+  2. Add iOS/Android app
+  3. Create products matching aso/pricing
+  4. Copy API keys to .env
+```
 
 ---
 
-## FAILURE HANDLING
+## TROUBLESHOOTING
 
-If execution cannot proceed:
-1. Write failure report to `runs/.../meta/failure.md`
-2. Explain exactly what failed and why
-3. Do NOT attempt partial recovery
-4. Do NOT claim partial success
+### npm install fails
+```bash
+npm install --legacy-peer-deps
+```
 
-If Ralph fails 3 times:
-1. Write `polish/ralph_final_verdict.md` with FAIL
-2. Document all unresolved issues
-3. The run is a hard failure
+### Expo won't start
+```bash
+npx expo start --clear
+```
 
----
-
-## SUCCESS DEFINITION
-
-A successful App Factory execution produces:
-- Complete Expo app in `builds/<app-slug>/`
-- Ralph PASS verdict in `polish/ralph_final_verdict.md`
-- All mandatory research artifacts in `builds/<app-slug>/research/`
-- All mandatory ASO artifacts in `builds/<app-slug>/aso/`
-- All artifacts written to disk
-- App can run with `npx expo start`
+### App crashes on launch
+1. Check Metro for red errors
+2. Verify dependencies installed
+3. Check `RUNBOOK.md` in build directory
 
 ---
 
-## HELPER SCRIPTS
+## INTERNAL TOOLS (FOR DEBUGGING/CI ONLY)
 
-These scripts are available but NOT mandatory gates:
+The `scripts/` directory contains helper scripts for debugging and CI. **Normal users don't need these.**
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/build_proof_gate.sh` | Validate npm install and expo start |
-| `scripts/generate_assets.sh` | Generate app icons and splash |
-| `scripts/generate_privacy_policy.sh` | Generate privacy policy |
+| `scripts/build_proof_gate.sh` | CI validation |
+| `scripts/ralph/ralph.sh` | Debug: manual Ralph |
+| `scripts/auto_plan_build.sh` | Debug: standalone planning |
 
-Use them when helpful. Ralph Mode provides the actual quality gate.
-
----
-
-## EXECUTION TRIGGER
-
-When Claude opens in this repository and the user sends a message:
-
-1. **If message is a greeting** (hi, hello, etc.):
-   - Respond with brief explanation of App Factory
-   - Invite user to describe the app they want
-
-2. **If message describes an app**:
-   - Begin execution immediately
-   - Follow the 4-layer flow
-   - Do not stop until Ralph passes or fails
-
-3. **If message is about something else**:
-   - Politely redirect to app building
-   - This repository is for building apps, nothing else
+**Just use `claude`.**
 
 ---
 
 ## VERSION HISTORY
 
-- **4.1** (2026-01-11): Mandatory research and ASO artifacts
-- **4.0** (2026-01-11): Single-mode refactor, Ralph Mode, Dream Spec Author
+- **7.0** (2026-01-14): Intent Normalization phase, RevenueCat non-negotiable, stricter product quality
+- **6.0** (2026-01-14): Claude-first Interactive Build Session, marketing mandatory
+- **5.1** (2026-01-14): Auto Plan + Build mode with Ralph Wiggum integration
+- **5.0** (2026-01-13): Standardized constitution format
+- **4.0** (2026-01-11): Single-mode refactor, Ralph Mode
 
 ---
 
-**App Factory**: Describe what you want. Get a working app.
+**the_factory**: `cd the_factory && claude` → describe your idea → get a publishable product.

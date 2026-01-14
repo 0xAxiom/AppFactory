@@ -1,6 +1,6 @@
 # Factory Architecture
 
-## Version 4.0 - Agent-First Local Tooling
+## Version 6.0 - Full Build Factory
 
 ---
 
@@ -10,28 +10,11 @@
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │  YOUR MACHINE (web3-factory repo)                                           │
 │                                                                             │
-│  Local-only tooling:                                                        │
-│  - Agent constitution (CLAUDE.md) → generates prompts/specs                 │
-│  - Build validator (REQUIRED before upload)                                 │
-│  - Zip creator (REQUIRED before upload)                                     │
+│  Local tooling:                                                             │
+│  - Agent constitution (CLAUDE.md) → builds complete apps                    │
+│  - Build validator → verifies output meets contract                         │
 │                                                                             │
-│  No backend. No AI inference. No API keys.                                  │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │ Upload (when launchpad opens)
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  FACTORY LAUNCHPAD (coming soon)                                            │
-│                                                                             │
-│  Server-side:                                                               │
-│  - Upload handler                                                           │
-│  - Token creation (if enabled)                                              │
-│  - Transaction preparation                                                  │
-│  - Vercel deployment                                                        │
-│  - Showcase database                                                        │
-│                                                                             │
-│  This repo does NOT contain the hosted platform.                            │
-│  Platform code lives in a separate repository.                              │
+│  Output: Complete, runnable Next.js applications                            │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -41,26 +24,10 @@
 
 | Component | Purpose |
 |-----------|---------|
-| `CLAUDE.md` | Agent constitution - generates prompts when user describes app |
-| `generator/templates/` | Handlebars templates for prompt generation |
-| `validator/` | Validates builds against ZIP_CONTRACT.md |
-| `validator/zip.ts` | Creates upload package |
-| `ZIP_CONTRACT.md` | Source of truth for valid builds |
-| `generated/` | Output from agent generation |
-| `web3-builds/` | Where users save their builds |
-
----
-
-## This Repo Does NOT Contain
-
-- Backend API
-- Upload handling
-- Token creation
-- Vercel deployment
-- Showcase
-- Database
-
-All of the above will be handled by the **Factory Launchpad** (separate repository).
+| `CLAUDE.md` | Agent constitution - defines full-build contract |
+| `validator/index.ts` | Validates builds (fails on prompt packs) |
+| `web3-builds/` | Output directory for built applications |
+| `generated/` | Internal/intermediate artifacts (not primary output) |
 
 ---
 
@@ -68,79 +35,90 @@ All of the above will be handled by the **Factory Launchpad** (separate reposito
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 1: GENERATE PROMPTS (Agent-driven)                                    │
+│  BUILD COMPLETE APPLICATION                                                  │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  1. Open web3-factory/ in Claude Code or Cursor                              │
+│  1. Open web3-factory/ in Claude Code                                        │
 │                                                                              │
 │  2. Describe your app idea                                                   │
 │     Example: "Make a roast battle app"                                       │
 │                                                                              │
-│  3. Agent asks: "Do you want token integration?"                             │
+│  3. Claude asks: "Do you want token integration?"                            │
 │     - Yes → includes wallet/token code                                       │
 │     - No → standard Next.js app                                              │
 │                                                                              │
-│  4. Agent generates files automatically                                      │
-│     └─> Creates: generated/<app-slug>/                                       │
-│         - build_prompt.md                                                    │
-│         - checklist.md                                                       │
-│         - token_spec.md (if tokens enabled)                                  │
-│         - frontend_spec.md                                                   │
+│  4. Claude builds complete application                                       │
+│     └─> Creates: web3-builds/<app-slug>/                                     │
+│         - package.json (with dev, build scripts)                             │
+│         - tsconfig.json                                                      │
+│         - next.config.js                                                     │
+│         - src/app/ (complete React components)                               │
+│         - README.md                                                          │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 2: BUILD APP (Your AI tool)                                           │
+│  VERIFY & RUN                                                                │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  5. Copy build_prompt.md into Claude.ai or Cursor                            │
-│     └─> AI generates your Next.js app (YOUR AI credits)                      │
+│  5. Install dependencies                                                     │
+│     cd web3-builds/<app-slug>                                                │
+│     npm install                                                              │
 │                                                                              │
-│  6. Save output to web3-builds/<app-slug>/                                   │
+│  6. Run development server                                                   │
+│     npm run dev                                                              │
+│     Open http://localhost:3000                                               │
 │                                                                              │
-│  7. Test locally: npm install && npm run dev                                 │
+│  7. Build for production                                                     │
+│     npm run build                                                            │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 3: VALIDATE & PACKAGE (REQUIRED)                                      │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  8. npm run validate (REQUIRED)                                              │
-│     └─> Checks build against ZIP_CONTRACT.md                                 │
-│     └─> Detects if token integration is present                              │
-│     └─> MUST PASS before proceeding                                          │
-│                                                                              │
-│  9. npm run zip (REQUIRED)                                                   │
-│     └─> Creates: <app-slug>.zip                                              │
-│     └─> MUST complete before upload                                          │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │ Take your zip to:
-                                    ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 4: PREPARE FOR LAUNCH (Factory Launchpad - coming soon)               │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  At this stage:                                                              │
-│                                                                              │
-│  10. Push to GitHub                                                          │
-│                                                                              │
-│  11. Prepare project metadata                                                │
-│                                                                              │
-│  12. If token-enabled: Prepare token metadata (name, ticker, description)    │
-│                                                                              │
-│  When the Factory Launchpad opens:                                           │
-│  - Import from GitHub                                                        │
-│  - Token created (if enabled)                                                │
-│  - App deployed                                                              │
-│  - Add contract address to your .env (if token-enabled)                      │
+│  8. (Optional) Validate                                                      │
+│     npx tsx ../../validator/index.ts                                         │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Output Contract
+
+All builds MUST produce a runnable Next.js application with:
+
+### Required Files
+```
+web3-builds/<app-slug>/
+├── package.json          # REQUIRED - with dev AND build scripts
+├── tsconfig.json         # REQUIRED
+├── next.config.js        # REQUIRED
+├── tailwind.config.ts    # REQUIRED
+├── postcss.config.js     # REQUIRED
+├── .env.example          # REQUIRED
+├── README.md             # REQUIRED
+└── src/app/
+    ├── layout.tsx        # REQUIRED
+    ├── page.tsx          # REQUIRED
+    ├── providers.tsx     # REQUIRED
+    └── globals.css       # REQUIRED
+```
+
+### Required npm Scripts
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  }
+}
+```
+
+### Forbidden Outputs
+
+Validation FAILS if:
+- Output is a prompt pack (only .md files, no package.json)
+- Missing src/app/ directory
+- Missing dev or build scripts
+- Output in `generated/` instead of `web3-builds/`
 
 ---
 
@@ -148,123 +126,59 @@ All of the above will be handled by the **Factory Launchpad** (separate reposito
 
 ```
 web3-factory/
-├── CLAUDE.md                  # Agent constitution (generates prompts)
-│
-├── generator/                 # Templates for prompt generation
-│   └── templates/             # Handlebars templates
-│       ├── build_prompt.hbs
-│       ├── checklist.hbs
-│       ├── token_spec.hbs     # Only generated if tokens enabled
-│       └── frontend_spec.hbs
-│
-├── validator/                 # Build validation + packaging
-│   ├── index.ts              # npm run validate (REQUIRED)
-│   └── zip.ts                # npm run zip (REQUIRED)
-│
-├── generated/                # Output from agent (gitignored)
-│
-├── web3-builds/              # User's built apps (gitignored)
-│
-├── ZIP_CONTRACT.md           # Source of truth for valid builds
-├── ARCHITECTURE.md           # This file
-├── README.md                 # Project overview
-└── package.json
+├── CLAUDE.md               # Agent constitution (full-build contract)
+├── README.md               # Project overview
+├── ARCHITECTURE.md         # This file
+├── GET_STARTED.md          # User guide
+├── validator/
+│   └── index.ts            # Build validator (enforces contract)
+├── web3-builds/            # Built applications (PRIMARY OUTPUT)
+│   └── <app-slug>/         # Complete runnable Next.js app
+└── generated/              # Internal artifacts (NOT primary output)
 ```
 
 ---
 
-## ZIP Contract v2.0
+## Validation
 
-All builds must comply with `ZIP_CONTRACT.md`. Key requirements:
-
-### Required Files (All Apps)
-```
-package.json          (at root)
-tsconfig.json
-next.config.js
-tailwind.config.ts
-postcss.config.js
-.env.example
-src/app/layout.tsx
-src/app/page.tsx
-src/app/providers.tsx
-src/app/globals.css
-```
-
-### Required Core Dependencies
-```json
-{
-  "next": "^14.0.0",
-  "react": "^18.0.0",
-  "react-dom": "^18.0.0"
-}
-```
-
-### Optional Dependencies (Token-Enabled Apps)
-```json
-{
-  "@solana/wallet-adapter-react": "^0.15.0",
-  "@solana/wallet-adapter-react-ui": "^0.9.0",
-  "@solana/wallet-adapter-wallets": "^0.19.0",
-  "@solana/web3.js": "^1.90.0"
-}
-```
-
-### Forbidden
-- `node_modules/`
-- `.git/`
-- `.env`
-- Private key patterns in code
-
-### Size Limits
-- Max 50 MB compressed
-- Max 10 MB per file
-- Max 10,000 files
-
----
-
-## Required Commands (After Building)
+The validator enforces the full-build contract:
 
 ```bash
-# From web3-builds/<your-app>/ directory:
-
-# REQUIRED: Validate your build
-npm run validate
-
-# REQUIRED: Create upload package
-npm run zip
-
-# Then push to GitHub and prepare for launch
+cd web3-builds/<app-slug>
+npx tsx ../../validator/index.ts
 ```
 
----
-
-## What Will Happen on the Factory Launchpad
-
-When the launchpad opens, it will handle:
-
-1. **Upload** - Receives and validates zip
-2. **Token Creation** - Creates token on Solana (if enabled)
-3. **Transaction** - Prepares serialized transaction for wallet signing
-4. **Deployment** - Pushes to GitHub, triggers Vercel deploy
-5. **Showcase** - Stores app metadata, displays draft/deployed status
+Checks performed:
+1. **Full Build Verification** - Fails if output is prompt pack
+2. **Required Scripts** - Requires dev AND build scripts
+3. **Required Files** - All config and source files present
+4. **Core Dependencies** - next, react, react-dom installed
+5. **Security Patterns** - No private keys or secrets
+6. **Forbidden Files** - No .env, node_modules, .next
 
 ---
 
-## Why This Separation?
+## Technology Stack
 
-| Concern | Location | Reason |
-|---------|----------|--------|
-| Prompt generation | Local (agent) | No cloud cost |
-| AI inference | User's Claude/Cursor | User pays their own AI |
-| Validation | Local | No cloud cost |
-| API keys | Factory Launchpad only | Security |
-| Token creation | Factory Launchpad | Requires server-side keys |
-| Deployment | Factory Launchpad | Requires Vercel token |
-
-The local tools do everything that doesn't need secrets or server infrastructure.
+| Component | Technology |
+|-----------|------------|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| State | Zustand |
+| Blockchain | Solana (optional) |
 
 ---
 
-**Document Version:** 4.0
+## Integrity Rule
+
+**Documentation MUST match enforcement.**
+
+- CLAUDE.md says "full build" → validator rejects prompt packs
+- CLAUDE.md says "runnable app" → npm run dev MUST work
+- If they diverge, the code is wrong, not the documentation
+
+---
+
+**Document Version:** 6.0
 **Last Updated:** 2026-01-13

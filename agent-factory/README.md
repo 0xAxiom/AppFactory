@@ -2,7 +2,7 @@
 
 **AI Agent Pipeline** | Part of [App Factory](../README.md)
 
-Describe an AI agent in plain English. Get a complete scaffold generated automatically. Prepare for deployment.
+Describe an AI agent idea. Get a complete, production-ready scaffold.
 
 ---
 
@@ -21,167 +21,89 @@ Describe an AI agent in plain English. Get a complete scaffold generated automat
 ```bash
 cd agent-factory
 claude
-# Type: "Build an agent that summarizes YouTube videos"
-# Answer 3 questions (name, description, env vars)
-# Answer: "Do you want token integration?" → no (default) or yes
-# Scaffold appears in outputs/<agent-name>/
-# Test locally:
-cd outputs/<agent-name>
+```
+
+**You:** "Build an agent that summarizes YouTube videos"
+
+**Claude:**
+1. Normalizes your intent into a product specification
+2. Writes comprehensive agent spec with all requirements
+3. Researches competitors and positioning
+4. Asks 4 questions (name, description, env vars, token integration)
+5. Generates complete agent in `outputs/youtube-summarizer/`
+6. Runs Ralph Polish Loop until quality passes
+
+**When done:**
+```bash
+cd outputs/youtube-summarizer
 npm install
 npm run dev
 curl http://localhost:8080/health
-# Push to GitHub when ready for deployment
 ```
 
 ---
 
-## Full Walkthrough
+## What Happens When You Describe an Agent
 
-### Step 1: Describe Your Agent
+### Before (What you say)
+> "Build an agent that summarizes YouTube videos"
 
-Open Claude Code in this directory and describe your agent:
+### After (What Claude builds)
 
-```
-Build an agent that summarizes YouTube videos
-```
+Claude transforms this into a complete product:
 
-### Step 2: Answer Questions
+> "A YouTube video summarization agent that accepts video URLs, extracts transcripts, and generates concise summaries using LLM inference. Features structured output with key points, timestamps, and takeaways. Includes health monitoring, graceful error handling, structured logging, and configurable summary length. Designed for developer integration via REST API."
 
-Claude will ask:
+Then Claude:
+1. Writes a 10-section technical spec
+2. Researches competitors and positioning
+3. Generates complete Node.js/TypeScript agent
+4. Runs quality assurance until it passes
 
-1. **Name**: "What should I call this agent?" → `youtube-summarizer`
-2. **Description**: "In one sentence, what does it do?" → `Summarizes YouTube videos into key points`
-3. **Environment Variables**: "What API keys does it need?" → `OPENAI_API_KEY` or `none`
-4. **Token Integration**: "Do you want token integration for rewards/payments?" → `no` (default) or `yes`
+---
 
-### Step 3: Review Generated Scaffold
-
-Check `outputs/<agent-name>/`:
+## The Pipeline
 
 ```
-outputs/youtube-summarizer/
-├── agent.json          # Agent manifest
-├── package.json        # Dependencies
-├── tsconfig.json       # TypeScript config
-├── src/
-│   └── index.ts        # HTTP server code
-├── AGENT_SPEC.md       # Agent specification
-├── RUNBOOK.md          # Run instructions
-├── TESTING.md          # Test instructions
-├── LAUNCH_CHECKLIST.md # Pre-launch checks
-├── FACTORY_IMPORT.md   # Import instructions
-└── .env.example        # Environment template (if needed)
+PHASE 0: Intent Normalization  → Upgrade "build agent that..." to product spec
+PHASE 1: Dream Spec Author     → 10-section comprehensive specification
+PHASE 2: Research & Position   → Market research, competitors, positioning
+PHASE 3: Generate              → Complete Node.js/TypeScript agent
+PHASE 4: Ralph Polish Loop     → QA until ≥97% quality (max 3 iterations)
 ```
-
-### Step 4: Test Locally (Recommended)
-
-```bash
-cd outputs/<agent-name>
-npm install
-npm run dev
-```
-
-Expected output:
-```
-youtube-summarizer v1.0.0 running at http://localhost:8080
-
-Endpoints:
-  GET  /         - Info
-  GET  /health   - Health check
-  POST /process  - Process input
-```
-
-Test the health endpoint:
-```bash
-curl http://localhost:8080/health
-```
-
-Expected output:
-```json
-{"status":"ok","name":"youtube-summarizer","version":"1.0.0"}
-```
-
-### Step 5: Validate Build (Recommended)
-
-```bash
-npm run validate
-```
-
-Expected output:
-```
-Validating: /path/to/outputs/youtube-summarizer
-
-PASSED
-  Files: 8
-  Size: 12.3 KB
-
-Wrote: factory_ready.json
-```
-
-### Step 6: Push to GitHub
-
-```bash
-cd outputs/<agent-name>
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/your-username/your-agent
-git push -u origin main
-```
-
-### Step 7: Prepare for Deployment
-
-**The Factory Launchpad is not yet publicly live.**
-
-At this stage, ensure your project is ready for when launch access opens:
-
-1. All validation checks pass (`npm run validate`)
-2. Code pushed to GitHub repository
-3. Project metadata prepared (name, description, optional token details)
-
-When the Factory Launchpad opens, you will be able to import your project from GitHub and deploy it.
-
-### Token Configuration (When Launched)
-
-If you enabled token integration, after launching you will:
-
-1. Receive a contract address from the launchpad
-2. Add to your project's `.env`:
-
-```bash
-TOKEN_CONTRACT_ADDRESS=<your-contract-address>
-```
-
-3. Push update and redeploy to activate token features
 
 ---
 
 ## What Gets Generated
 
-### Without Token Integration (Default)
-
 ```
-outputs/<agent-name>/
-├── agent.json          # Agent manifest
-├── package.json        # Dependencies
-├── tsconfig.json       # TypeScript config
+outputs/youtube-summarizer/
+├── agent.json              # Agent manifest
+├── package.json            # npm scripts: build, start, dev
+├── tsconfig.json           # TypeScript config
 ├── src/
-│   └── index.ts        # HTTP server
-├── AGENT_SPEC.md       # Specification
-├── RUNBOOK.md          # Run instructions
-├── TESTING.md          # Test instructions
-├── LAUNCH_CHECKLIST.md # Launch checks
-├── FACTORY_IMPORT.md   # Import guide
-└── .env.example        # Environment template
+│   ├── index.ts            # HTTP server with endpoints
+│   └── lib/
+│       ├── logger.ts       # Structured JSON logging
+│       └── errors.ts       # Error handling utilities
+├── research/
+│   ├── market_research.md  # Market opportunity
+│   ├── competitor_analysis.md # Existing solutions
+│   └── positioning.md      # Differentiation strategy
+├── AGENT_SPEC.md           # Agent specification
+├── RUNBOOK.md              # Run instructions
+├── TESTING.md              # Test instructions
+├── LAUNCH_CHECKLIST.md     # Pre-launch checks
+├── DEPLOYMENT.md           # Deployment guide
+└── .env.example            # Environment template
 ```
 
 ### With Token Integration
 
 Adds:
-- Token balance check endpoint
-- Token configuration in constants
-- `TOKEN_INTEGRATION.md` with setup instructions
-- `src/lib/token.ts` with token utilities
+- `TOKEN_INTEGRATION.md` - Token setup guide
+- `src/lib/token.ts` - Token utilities
+- Token balance checking endpoint
 
 ---
 
@@ -193,46 +115,136 @@ Adds:
 | Language | TypeScript |
 | Interface | HTTP (REST) |
 | Port | 8080 (default) |
+| Logging | Structured JSON |
+| Error Handling | Typed error classes |
 
 ---
 
-## Token Integration Details
+## API Endpoints
+
+Every agent includes:
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/` | Agent info and available endpoints |
+| GET | `/health` | Health check with uptime |
+| POST | `/process` | Process input and return response |
+
+### Example Usage
+
+```bash
+# Health check
+curl http://localhost:8080/health
+
+# Process input
+curl -X POST http://localhost:8080/process \
+  -H "Content-Type: application/json" \
+  -d '{"input": "https://youtube.com/watch?v=..."}'
+```
+
+---
+
+## Token Integration
 
 Token integration is **completely optional**.
 
-### When to Skip Token Integration
-
+### When to Skip
 - Building a free utility agent
 - MVP without monetization
 - Internal tools
 
-### When to Enable Token Integration
-
+### When to Enable
 - Agent charges per request
 - Agent rewards users with tokens
 - Agent gates features based on holdings
 
-### How Token Integration Works
+---
 
-1. **During generation:** Answer "yes" to token question
-2. **After generation:** Token endpoint and hooks included
-3. **At launch:** Configure token details and receive contract address
-4. **After launch:** Paste contract address into config
-5. **After redeploy:** Token features active
+## Quality Standards
+
+Every agent must pass Ralph's quality checklist:
+
+### Build Quality
+- `npm install` completes without errors
+- `npm run build` compiles TypeScript
+- `npm run dev` starts server
+
+### Agent Quality
+- `/health` returns 200 with status
+- `/process` accepts input and returns response
+- Structured logging on all requests
+- Graceful error handling
+
+### Research Quality
+- Substantive market research (not placeholder)
+- Real competitors named and analyzed
+- Clear differentiation strategy
 
 ---
 
-## Factory Ready Checklist
+## Verification Commands
 
-This pipeline follows the [Factory Ready Standard](../docs/FACTORY_READY_STANDARD.md).
+```bash
+cd outputs/<agent-name>
 
-| Gate | How to Verify |
-|------|---------------|
-| **Build** | `npm install` succeeds |
-| **Run** | `npm run dev` starts server on port 8080 |
-| **Test** | `curl http://localhost:8080/health` returns 200 |
-| **Validate** | `npm run validate` passes all checks |
-| **Launch Ready** | All docs present, pushed to GitHub |
+# Install dependencies
+npm install
+
+# Type check
+npm run typecheck
+
+# Build for production
+npm run build
+
+# Start development server
+npm run dev
+
+# Run validation
+npm run validate
+```
+
+---
+
+## Deployment
+
+Agents deploy to the Factory Launchpad or can be self-hosted.
+
+### Factory Launchpad
+1. Push to GitHub
+2. Import to Launchpad
+3. Configure environment variables
+4. Deploy
+
+### Self-Hosted
+- Railway, Render, Fly.io
+- Docker container
+- Any Node.js hosting
+
+See `DEPLOYMENT.md` in each generated agent for detailed instructions.
+
+---
+
+## Directory Structure
+
+```
+agent-factory/
+├── CLAUDE.md               # Constitution (how Claude operates)
+├── README.md               # This file
+├── schema/
+│   └── agent.schema.json   # Manifest schema
+├── scripts/
+│   ├── validate.js         # Validation script
+│   └── zip.js              # ZIP helper (optional)
+├── templates/
+│   └── system/
+│       ├── dream_spec_author.md
+│       ├── ralph_polish_loop.md
+│       └── deployment_guide.md
+├── examples/
+│   └── hello-agent/        # Reference implementation
+├── outputs/                # Generated agents (output)
+└── runs/                   # Execution logs
+```
 
 ---
 
@@ -256,75 +268,45 @@ Use a different port:
 PORT=3000 npm run dev
 ```
 
-### "Validation fails: missing agent.json"
+### "Validation fails"
 
-Ensure `agent.json` exists at the project root with valid JSON.
-
-### "Validation fails: missing files"
-
-- Run `npm run validate` locally to see which files are missing
-- Ensure all required files are present
-
-### "Build fails locally"
-
-- Run `npm run build` locally to see errors
-- Ensure all dependencies are in `package.json`
-
----
-
-## Directory Structure
-
+```bash
+npm run validate
+# Read output for specific errors
 ```
-agent-factory/
-├── CLAUDE.md           # Agent constitution
-├── README.md           # This file
-├── ZIP_CONTRACT.md     # Build requirements
-├── schema/
-│   └── agent.schema.json  # Manifest schema
-├── scripts/
-│   └── validate.js     # Validation script
-├── examples/
-│   └── hello-agent/    # Reference implementation
-└── outputs/            # Generated scaffolds
-```
+
+### "Ralph fails 3 times"
+
+Agent is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unresolved issues.
 
 ---
 
 ## PASS/FAIL Criteria
 
 ### PASS
-- [ ] `npm run validate` exits with code 0
-- [ ] All required files present (agent.json, package.json, src/)
-- [ ] No forbidden files (.env, node_modules, etc.)
-- [ ] Server starts and responds to `/health`
-- [ ] Pushed to GitHub successfully
+- `npm install` completes
+- `npm run build` compiles
+- `npm run dev` starts server
+- `/health` returns 200
+- All research artifacts present
+- Ralph gives PASS verdict
 
 ### FAIL
-- [ ] Validation errors (missing files, forbidden patterns)
-- [ ] Build errors during npm install
-- [ ] Server crashes on startup
-- [ ] agent.json invalid or missing required fields
-
----
-
-## V1 Constraints
-
-This is V1 - intentionally minimal:
-
-| Aspect | V1 Choice | Why |
-|--------|-----------|-----|
-| Runtime | Node.js + TypeScript | Universal, type-safe |
-| Interface | HTTP only | Most flexible |
-| Inference | None (BYOK) | You bring your own API keys |
+- Build errors
+- Missing required files
+- Validation errors
+- Research is placeholder content
+- Ralph gives 3 FAIL verdicts
 
 ---
 
 ## Links
 
 - **Root README:** [../README.md](../README.md)
-- **Factory Ready Standard:** [../docs/FACTORY_READY_STANDARD.md](../docs/FACTORY_READY_STANDARD.md)
-- **Preparing for Launch:** [../docs/LAUNCHPAD_OVERVIEW.md](../docs/LAUNCHPAD_OVERVIEW.md)
+- **Constitution:** [CLAUDE.md](./CLAUDE.md)
+- **Mobile apps:** [the_factory](../the_factory/)
+- **Web apps:** [web3-factory](../web3-factory/)
 
 ---
 
-**agent-factory v1.1** - Describe your agent. Get a scaffold. Build.
+**agent-factory v2.0** - Describe your agent idea. Get a complete, production-ready scaffold.

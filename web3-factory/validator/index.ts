@@ -350,6 +350,94 @@ function checkSecurityPatterns(buildDir: string): CheckResult[] {
   return results;
 }
 
+/**
+ * Check that this is a full build, not a prompt pack
+ * Prompt packs contain only .md files and no package.json with scripts
+ */
+function checkNotPromptPack(buildDir: string): CheckResult[] {
+  const results: CheckResult[] = [];
+
+  // Count file types at root level
+  const items = fs.readdirSync(buildDir);
+  const mdFiles = items.filter(f => f.endsWith('.md'));
+  const hasPackageJson = items.includes('package.json');
+  const hasSrcDir = items.includes('src') && fs.statSync(path.join(buildDir, 'src')).isDirectory();
+
+  // Detect prompt pack pattern: mostly .md files, no src/, no valid package.json
+  const isPromptPack = mdFiles.length >= 2 && !hasSrcDir && (
+    !hasPackageJson ||
+    (() => {
+      try {
+        const pkg = JSON.parse(fs.readFileSync(path.join(buildDir, 'package.json'), 'utf-8'));
+        return !pkg.scripts?.dev || !pkg.scripts?.build;
+      } catch {
+        return true;
+      }
+    })()
+  );
+
+  if (isPromptPack) {
+    results.push({
+      name: 'Full Build Check',
+      passed: false,
+      message: 'PROMPT PACK DETECTED - This appears to be a prompt pack (only .md files), not a runnable app. Web3 Factory requires full builds with src/, package.json, and working dev/build scripts.',
+    });
+  } else {
+    results.push({
+      name: 'Full Build Check',
+      passed: true,
+      message: 'Output is a full build (has src/ and package.json)',
+    });
+  }
+
+  return results;
+}
+
+/**
+ * Check that package.json has required npm scripts (dev AND build)
+ */
+function checkRequiredScripts(buildDir: string): CheckResult[] {
+  const results: CheckResult[] = [];
+  const packagePath = path.join(buildDir, 'package.json');
+
+  if (!fs.existsSync(packagePath)) {
+    return [{
+      name: 'Required Scripts',
+      passed: false,
+      message: 'package.json not found',
+    }];
+  }
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+    const scripts = pkg.scripts || {};
+
+    const hasDev = 'dev' in scripts;
+    const hasBuild = 'build' in scripts;
+
+    results.push({
+      name: 'Script: dev',
+      passed: hasDev,
+      message: hasDev ? `"${scripts.dev}"` : 'MISSING - package.json must have "dev" script',
+    });
+
+    results.push({
+      name: 'Script: build',
+      passed: hasBuild,
+      message: hasBuild ? `"${scripts.build}"` : 'MISSING - package.json must have "build" script',
+    });
+
+  } catch (error) {
+    results.push({
+      name: 'Required Scripts',
+      passed: false,
+      message: 'Failed to parse package.json',
+    });
+  }
+
+  return results;
+}
+
 function checkFileSizes(buildDir: string): CheckResult[] {
   const results: CheckResult[] = [];
   let totalSize = 0;
@@ -437,6 +525,8 @@ function validate(buildDir: string): ValidationResult {
 
   // Build check groups based on whether token integration is enabled
   const checkGroups = [
+    { name: 'Full Build Verification', fn: () => checkNotPromptPack(buildDir) },
+    { name: 'Required Scripts', fn: () => checkRequiredScripts(buildDir) },
     { name: 'Required Files', fn: () => checkRequiredFiles(buildDir) },
     { name: 'Forbidden Files', fn: () => checkForbiddenFiles(buildDir) },
     { name: 'Core Dependencies', fn: () => checkCoreDependencies(buildDir) },
@@ -557,14 +647,15 @@ function writeFactoryReadyJson(
     overall: passed ? 'PASS' : 'FAIL',
     next_steps: passed
       ? [
-          'Run: npm run zip',
-          'Upload to https://factoryapp.dev/web3-factory/launch',
-          tokenEnabled ? 'After launch, paste contract address into NEXT_PUBLIC_TOKEN_MINT' : null,
+          'Run: npm run build',
+          'Run: npm run dev',
+          'Test at http://localhost:3000',
+          tokenEnabled ? 'Configure NEXT_PUBLIC_TOKEN_MINT when ready' : null,
         ].filter(Boolean)
       : [
           'Fix the validation errors listed above',
-          'Run: npm run validate again',
-          'See ZIP_CONTRACT.md for requirements',
+          'Run validation again',
+          'See CLAUDE.md for requirements',
         ],
   };
 

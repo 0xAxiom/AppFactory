@@ -1,146 +1,148 @@
 # Get Started with Web3 Factory
 
-Build and prepare your Web3 app for launch.
+Build complete web applications with Claude.
 
 ---
 
 ## What You'll Need
 
 - [ ] Node.js 18+ installed
-- [ ] Claude Code, Cursor, or another AI coding tool
+- [ ] Claude Code (recommended) or Cursor
 - [ ] A GitHub account for pushing your project
 
 ---
 
 ## Fast Path
 
-```
-1. Open web3-factory/ in Claude Code or Cursor
-2. Type: "Make a roast battle app where users compete for token rewards"
-3. Agent generates prompts in generated/roast-battle-app/
-4. Build app using build_prompt.md in your AI tool
-5. Validate (REQUIRED) → Zip (REQUIRED) → Push to GitHub
+```bash
+cd web3-factory
+claude
+# Describe: "A roast battle app where users compete for token rewards"
+# Answer: "Do you want token integration?" → yes or no
+# Claude builds complete app in web3-builds/<app-slug>/
+cd web3-builds/<app-slug>
+npm install && npm run dev
+# Open http://localhost:3000
 ```
 
 ---
 
 ## Step-by-Step Guide
 
-### Phase 1: Generate Prompts
+### Step 1: Describe Your App
 
-1. Open `web3-factory/` in Claude Code or Cursor
-2. Describe your Web3 app idea in plain English
-3. Agent generates files automatically in `generated/<app-slug>/`
+1. Open `web3-factory/` in Claude Code
+2. Describe your web app idea in plain English
+3. Answer when asked about token integration
 
-**Output:**
+**Example:**
 ```
-generated/<app-slug>/
-├── build_prompt.md      # Full build instructions
-├── checklist.md         # Verification checklist
-├── contract_spec.md     # Blockchain integration spec
-└── frontend_spec.md     # UI guidelines
+Make a roast battle app where users compete in 1v1 voice battles
+and the community votes on the winner
 ```
 
 ---
 
-### Phase 2: Build Your App
+### Step 2: Claude Builds Your App
 
-1. Open `generated/<your-app>/build_prompt.md`
-2. Copy the entire contents
-3. Paste into Claude.ai, Cursor, or your AI tool
-4. Let the AI generate your complete Next.js app
-5. Save output to `web3-builds/<your-app>/`
+Claude generates a complete Next.js application in `web3-builds/<app-slug>/`:
 
-**Tip:** Claude.ai produces the best results.
+```
+web3-builds/<app-slug>/
+├── package.json          # With dev, build, start scripts
+├── tsconfig.json
+├── next.config.js
+├── tailwind.config.ts
+├── postcss.config.js
+├── .env.example
+├── README.md
+├── src/app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── providers.tsx
+│   └── globals.css
+└── public/
+```
 
 ---
 
-### Phase 3: Test Locally
+### Step 3: Test Locally
 
 ```bash
-cd web3-builds/<your-app>
+cd web3-builds/<app-slug>
 npm install
 npm run dev
 ```
 
 Open http://localhost:3000 and verify:
 - [ ] App loads without errors
-- [ ] Wallet connect button appears
 - [ ] Core features work
+- [ ] (If token-enabled) Wallet connect button appears
 
 ---
 
-### Phase 4: Validate (REQUIRED)
+### Step 4: Build for Production
 
 ```bash
-npm run validate
+npm run build
 ```
 
-**This step is REQUIRED.** You cannot upload without passing validation.
-
-You should see:
-```
-============================================================
-  Web3 Factory Build Validator
-  Contract: ZIP_CONTRACT.md v1.0
-============================================================
-
-  VALIDATION PASSED
-
-  Your build meets ZIP_CONTRACT.md requirements.
-
-  NEXT STEP: npm run zip
-```
-
-If validation fails, fix the issues listed and run again.
+This verifies your app compiles correctly for deployment.
 
 ---
 
-### Phase 5: Package (REQUIRED)
+### Step 5: Validate (Optional)
 
 ```bash
-npm run zip
+npx tsx ../../validator/index.ts
 ```
 
-**This step is REQUIRED.** Creates `<your-app>.zip` for upload.
+This checks:
+- Required files exist
+- Core dependencies present
+- Required scripts present (dev, build)
+- No forbidden files
+- No security patterns
 
 ---
 
-### Phase 6: Prepare for Launch
+### Step 6: Push to GitHub
 
-**The Factory Launchpad is not yet publicly live.**
-
-At this stage, ensure your project is ready:
-
-1. All validation checks pass
-2. Zip file created successfully
-3. Project pushed to GitHub
-4. Token metadata prepared (if using token integration)
-
-When the Factory Launchpad opens, prepared projects will be able to deploy quickly.
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/your-username/your-app
+git push -u origin main
+```
 
 ---
 
 ## Troubleshooting
 
+### Build Fails Locally
+
+```bash
+npm run build
+# Check output for TypeScript errors
+```
+
+### npm install fails
+
+```bash
+npm install --legacy-peer-deps
+```
+
 ### Validation Failed
 
 Check error messages. Common issues:
-- Missing required files (see ZIP_CONTRACT.md)
-- Missing dependencies
+- Missing required files (package.json, src/app/*)
+- Missing dev or build scripts
 - Forbidden files included (.env, node_modules)
 
-### Zip Too Large
+### "PROMPT PACK DETECTED"
 
-Must be under 50 MB. Remove:
-- Large images (optimize them)
-- Build artifacts (.next, dist)
-
-### Build Fails Locally
-
-- Run `npm run build` to see errors
-- Check for TypeScript errors
-- Ensure all dependencies are in package.json
+This means the output contains only `.md` files without runnable code. The build did not complete. Re-run Claude and ensure it builds a complete application.
 
 ---
 
@@ -149,21 +151,21 @@ Must be under 50 MB. Remove:
 | Item | Cost |
 |------|------|
 | Web3 Factory tools | Free |
-| AI inference | Your AI subscription |
 | Local development | Free |
+| Claude Code | Your subscription |
 
 ---
 
 ## Quick Reference
 
-| Phase | Where | What |
-|-------|-------|------|
-| 1 | web3-factory/ | Describe app → agent generates prompts |
-| 2 | Claude.ai/Cursor | Build app with AI |
-| 3 | web3-builds/app/ | Test locally |
-| 4 | web3-builds/app/ | Validate (REQUIRED) |
-| 5 | web3-builds/app/ | Zip (REQUIRED) |
-| 6 | GitHub | Push and prepare for launch |
+| Step | Where | What |
+|------|-------|------|
+| 1 | web3-factory/ | Describe app to Claude |
+| 2 | web3-builds/app/ | Claude builds complete app |
+| 3 | web3-builds/app/ | Test with npm run dev |
+| 4 | web3-builds/app/ | Build with npm run build |
+| 5 | web3-builds/app/ | Validate (optional) |
+| 6 | GitHub | Push when ready |
 
 ---
 

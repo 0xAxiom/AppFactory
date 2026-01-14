@@ -4,236 +4,256 @@
 
 # App Factory
 
-**Describe what you want. Get a working product.**
+**Tell us what you want to build. We'll make it for you.**
 
-App Factory is a mono-repo containing three pipelines that generate fully working products from plain-English descriptions.
+App Factory turns your ideas into real, working products. No coding experience required. Just describe what you want in plain English, and our AI builds it.
+
+<p align="center">
+  <a href="https://star-history.com/#MeltedMindz/AppFactory&Date">
+    <img src="https://api.star-history.com/svg?repos=MeltedMindz/AppFactory&type=Date" alt="Star History Chart" width="600" />
+  </a>
+</p>
 
 ---
 
-## How to Start (Important)
+## What Can I Build?
 
-**App Factory does NOT run from the repository root.**
+| I want to make... | Use this | What you get |
+|-------------------|----------|--------------|
+| A **mobile app** | [the_factory/](./the_factory/) | iPhone & Android app ready for the App Store |
+| A **website** | [web3-factory/](./web3-factory/) | Modern website that works on any device |
+| An **AI assistant** | [agent-factory/](./agent-factory/) | Smart bot that can answer questions or do tasks |
 
-Each pipeline is an independent Claude workspace with its own constitution (`CLAUDE.md`). You must `cd` into a pipeline folder before running `claude`.
+---
+
+## How It Works
+
+### Step 1: Pick Your Project Type
+
+```
+Want a mobile app?     → Go to the_factory folder
+Want a website?        → Go to web3-factory folder
+Want an AI assistant?  → Go to agent-factory folder
+```
+
+### Step 2: Open Claude and Describe Your Idea
 
 ```bash
-# 1. Choose your pipeline
-# 2. cd into that folder
-# 3. Run claude INSIDE the folder
-
-cd web3-factory    # or: cd the_factory / cd agent-factory
+cd the_factory    # (or web3-factory, or agent-factory)
 claude
 ```
 
-**Do NOT run `claude` at the repo root.** There is no root-level CLAUDE.md because the pipelines are separate workspaces.
+Then just type what you want:
+
+> "I want to make an app where you fly a plane"
+
+> "I want to make a meme battle website where people vote on memes"
+
+> "Build an agent that summarizes YouTube videos"
+
+### Step 3: Let the AI Build It
+
+The AI will:
+1. **Understand your idea** - Turn your simple description into a detailed plan
+2. **Research the market** - Find competitors and figure out what makes yours special
+3. **Build everything** - Create all the code, designs, and documentation
+4. **Check quality** - Review its own work and fix any issues
+
+### Step 4: Run Your Creation
+
+When it's done, you'll get step-by-step instructions to run your new app, website, or AI assistant on your computer.
 
 ---
 
-## Which Pipeline Do I Use?
+## Real Examples
 
-| I want to build... | Use this pipeline | Output | Launch target |
-|--------------------|-------------------|--------|---------------|
-| A **mobile app** for iOS and Android | [the_factory/](./the_factory/) | Expo React Native app | App Store / Play Store |
-| A **web app** (optionally with tokens) | [web3-factory/](./web3-factory/) | Next.js app | Factory Launchpad (coming soon) |
-| An **AI agent** (optionally with tokens) | [agent-factory/](./agent-factory/) | Node.js HTTP agent | Factory Launchpad (coming soon) |
+### Mobile App Example
 
-### Quick Decision Guide
+**You say:** "I want to make an app where you fly a plane"
 
-```
-Do you need a mobile app?
-├── YES → the_factory/
-└── NO
-    ├── Do you need a web UI?
-    │   ├── YES → web3-factory/
-    │   └── NO
-    │       └── Is it an AI agent/bot?
-    │           ├── YES → agent-factory/
-    │           └── NO → web3-factory/ (default for web)
-```
+**You get:**
+- A complete iPhone/Android game with plane controls
+- App Store listing with title, description, and keywords
+- Marketing research showing similar apps and your advantages
+- Everything you need to publish to the App Store
+
+### Website Example
+
+**You say:** "I want to make a meme battle arena where people vote on memes"
+
+**You get:**
+- A polished website with smooth animations
+- Voting system, leaderboards, and user submissions
+- Mobile-friendly design that works on any screen
+- Ready to deploy to the internet
+
+### AI Assistant Example
+
+**You say:** "Build an agent that summarizes YouTube videos"
+
+**You get:**
+- A working AI that accepts video links and returns summaries
+- Simple API you can connect to other apps
+- Documentation explaining how it all works
+- Ready to run on your computer or a server
 
 ---
 
-## 30-Second Quickstarts
+## The Secret Sauce: Intent Normalization
 
-### Mobile App (the_factory)
+You don't need to be specific. Our AI fills in the gaps.
 
+**What you say:**
+> "make me a meditation app"
+
+**What the AI understands:**
+> "A premium meditation app with guided sessions, progress tracking, streak calendars, ambient sounds, and subscription monetization. Features smooth animations, offline support, and a calming dark-mode design."
+
+The AI adds all the details that make a great product, so you just focus on the idea.
+
+---
+
+## Quality Guarantee: Ralph Mode
+
+Every project goes through "Ralph Mode" - our quality checker that acts like a picky reviewer.
+
+Ralph checks:
+- Does the code actually run?
+- Does everything look polished?
+- Is the research real and useful?
+- Are there any bugs or issues?
+
+**Ralph won't let a project finish until it's at least 97% perfect.**
+
+If something's wrong, the AI fixes it automatically. You only see the final, working result.
+
+---
+
+## Quick Start Commands
+
+### For Mobile Apps
 ```bash
 cd the_factory
 claude
-# Type: "A meditation app with guided sessions and streak tracking"
-# Wait for build to complete
-# Run: cd builds/<app-slug> && npm install && npx expo start
+# Type your app idea
+# When done: cd builds/<your-app> && npm install && npx expo start
 ```
 
-### Web App (web3-factory)
-
+### For Websites
 ```bash
 cd web3-factory
 claude
-# Type: "A roast battle app where users vote on the best burns"
-# Answer: "Do you want token integration?" → no (or yes if you want tokens)
-# Generated prompts appear in generated/<app-slug>/
-# Follow build_prompt.md to build your app
-# Push to GitHub when ready for launch
+# Type your website idea
+# When done: cd web3-builds/<your-site> && npm install && npm run dev
+# Open http://localhost:3000
 ```
 
-### AI Agent (agent-factory)
-
+### For AI Assistants
 ```bash
 cd agent-factory
 claude
-# Type: "An agent that summarizes YouTube videos"
-# Answer 4 questions (name, description, env vars, token integration)
-# Scaffold appears in outputs/<agent-name>/
-# Run: cd outputs/<agent-name> && npm install && npm run dev
+# Type your agent idea
+# When done: cd outputs/<your-agent> && npm install && npm run dev
 # Test: curl http://localhost:8080/health
-# Push to GitHub when ready for launch
 ```
 
 ---
 
-## What Each Pipeline Generates
+## Optional: Add Tokens
 
-### the_factory (Mobile)
+Want to add cryptocurrency features? Just say "yes" when asked about token integration.
 
-| Output | Description |
-|--------|-------------|
-| Complete Expo app | TypeScript, Expo Router, RevenueCat monetization |
-| Market research | Market analysis, competitor breakdown, positioning |
-| ASO materials | App Store title, subtitle, description, keywords |
-| Launch materials | Privacy policy, launch checklist |
+- **Default:** No crypto, no blockchain, just a normal app
+- **With tokens:** Add payments, rewards, or premium features using Solana
 
-### web3-factory (Web)
-
-| Output | Description |
-|--------|-------------|
-| Build prompts | Detailed instructions for your AI tool |
-| Frontend spec | UI/UX guidelines and component structure |
-| Checklist | Build verification and quality gates |
-| Token spec | (Only if opted in) Token integration guide |
-
-### agent-factory (Agent)
-
-| Output | Description |
-|--------|-------------|
-| Complete scaffold | TypeScript, HTTP server, manifest |
-| AGENT_SPEC.md | Plain-English agent specification |
-| RUNBOOK.md | Exact steps to run and test |
-| agent.json | Machine-readable agent manifest |
+You don't need to understand crypto - the AI handles all the technical stuff.
 
 ---
 
-## Token Integration
+## What's Inside Each Project
 
-**Token integration is optional** for web3-factory and agent-factory.
+### Mobile Apps Include:
+- Complete app code (TypeScript + React Native)
+- App Store listing materials
+- Market research and competitor analysis
+- Privacy policy and legal docs
+- Step-by-step launch instructions
 
-- **Default:** Projects are built WITHOUT token integration
-- **Opt-in:** Answer "yes" when asked during generation
-- **Post-launch:** Paste your contract address into the documented config variable
+### Websites Include:
+- Complete website code (TypeScript + Next.js)
+- Modern design with animations
+- Mobile-responsive layout
+- Market research and positioning
+- Deployment instructions
 
-When you don't opt in, your project has zero token-related code, zero blockchain dependencies, and works as a standard web app or agent.
-
-See [docs/LAUNCHPAD_OVERVIEW.md](./docs/LAUNCHPAD_OVERVIEW.md) for details on preparing projects for the Factory Launchpad.
-
----
-
-## Factory Ready Standard
-
-All pipelines follow the same quality standard:
-
-| Gate | Requirement |
-|------|-------------|
-| **Build** | Code compiles, dependencies resolve |
-| **Run** | App/agent starts and responds |
-| **Test** | Smoke tests pass |
-| **Validate** | Contract requirements met |
-| **Package** | Ready for deployment |
-| **Launch Ready** | All docs present |
-
-See [docs/FACTORY_READY_STANDARD.md](./docs/FACTORY_READY_STANDARD.md) for the complete checklist.
+### AI Assistants Include:
+- Complete server code (TypeScript + Node.js)
+- API endpoints ready to use
+- Market research and positioning
+- Testing and deployment guides
 
 ---
 
-## Repository Structure
+## Folder Structure
 
 ```
-app-factory/
-├── README.md                    # You are here
-├── docs/
-│   ├── FACTORY_READY_STANDARD.md   # Quality standard (all pipelines)
-│   └── LAUNCHPAD_OVERVIEW.md       # Launch and deployment guide
-├── the_factory/                 # Mobile app pipeline
-│   ├── claude.md                # Constitution
-│   ├── README.md                # Pipeline docs
-│   ├── templates/               # Expo scaffolding
-│   ├── scripts/                 # Proof gates
-│   ├── builds/                  # Generated apps
-│   └── runs/                    # Execution artifacts
-├── web3-factory/                # Web app pipeline
-│   ├── CLAUDE.md                # Constitution
-│   ├── README.md                # Pipeline docs
-│   ├── generator/               # Prompt generator
-│   ├── validator/               # Contract validator
-│   ├── generated/               # Generated prompts
-│   └── web3-builds/             # Built apps
-├── agent-factory/               # Agent pipeline
-│   ├── CLAUDE.md                # Constitution
-│   ├── README.md                # Pipeline docs
-│   ├── schema/                  # Manifest schema
-│   ├── scripts/                 # Validators
-│   ├── examples/                # Reference implementation
-│   └── outputs/                 # Generated scaffolds
-└── scripts/
-    └── factory_ready_check.sh   # Unified validation script
+AppFactory/
+├── the_factory/      # Mobile app builder
+├── web3-factory/     # Website builder
+├── agent-factory/    # AI assistant builder
+└── docs/             # Extra documentation
 ```
+
+Each folder is independent. Just pick one and start building.
 
 ---
 
-## Running Proof Gates
+## Troubleshooting
 
-Each pipeline has validation to ensure your build actually works.
-
+### "npm install fails"
 ```bash
-# From any generated project directory:
-
-# Web3 apps
-npm run validate
-# → Produces factory_ready.json
-
-# Agents
-npm run validate
-# → Produces factory_ready.json
-
-# Mobile apps
-cd the_factory
-./scripts/build_proof_gate.sh builds/<app-slug>
-# → Verifies install + build + boot
+npm install --legacy-peer-deps
 ```
+
+### "Port already in use"
+```bash
+# For websites
+PORT=3001 npm run dev
+
+# For AI assistants
+PORT=3001 npm run dev
+```
+
+### "Something's not working"
+Check the `runs/` folder in your project - there's a detailed log of what happened and any issues found.
+
+---
+
+## Support the Project
+
+Hold **$FACTORY** on Solana to support ongoing development.
+
+**Contract Address:** `BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS`
 
 ---
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| **v5.0** | 2026-01-13 | Factory Ready Standard, unified docs, token integration optional |
-| **v4.1** | 2026-01-12 | Mandatory research and ASO for mobile |
-| **v4.0** | 2026-01-10 | Single-mode refactor, Ralph QA process |
-
----
-## $FACTORY
-Support the project by holding $FACTORY on Solana.
-
-Contract Address: BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS
+| Version | What Changed |
+|---------|--------------|
+| **v7.0** | Added Intent Normalization and Ralph Quality Mode to all pipelines |
+| **v5.0** | Factory Ready Standard, unified documentation |
+| **v4.0** | Single-mode refactor, Ralph QA process |
 
 ---
 
 ## License
 
-MIT License - See LICENSE file.
+MIT License - Free to use, modify, and share.
 
 ---
 
-**App Factory v5.0** - Describe what you want. Get a working product.
-
-
+<p align="center">
+  <strong>App Factory v7.0</strong><br/>
+  Tell us what you want. We'll make it for you.
+</p>
