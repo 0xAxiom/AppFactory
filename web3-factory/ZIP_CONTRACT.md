@@ -186,7 +186,7 @@ export const TOKEN_MINT = "YOUR_TOKEN_MINT_ADDRESS";
 export const TOKEN_MINT = process.env.NEXT_PUBLIC_TOKEN_MINT;
 ```
 
-This is optional during build. The actual token mint is set after launch on factoryapp.dev.
+This is optional during build. The actual token mint is set after launch.
 
 ---
 

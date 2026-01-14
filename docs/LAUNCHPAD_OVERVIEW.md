@@ -1,46 +1,64 @@
-# Factory Launchpad Overview
+# Preparing for the Factory Launchpad
 
-**How your projects go live.**
+**How to get your projects launch-ready.**
 
-The Factory launchpad is where you deploy and launch projects built with the App Factory pipelines.
-
----
-
-## What is the Launchpad?
-
-The launchpad is a deployment platform at [factoryapp.dev](https://factoryapp.dev) where you can:
-
-1. **Import** your project directly from GitHub
-2. **Deploy** to production infrastructure
-3. **Launch** optionally with token integration
-4. **Share** your live project with the world
+The Factory Launchpad is where you will deploy and launch projects built with the App Factory pipelines. This guide explains how to prepare your projects so they are ready when launch access opens.
 
 ---
 
-## Two Launch Modes
+## Launchpad Status
 
-The launchpad supports two modes:
+**The Factory Launchpad is not yet publicly live.**
 
-| Mode | How It Works | Best For |
-|------|--------------|----------|
-| **Prompt Mode** | Describe your idea, AI builds it | Quick prototypes |
-| **Repo Mode** | Import from GitHub repository | Projects you've built locally |
-
-This guide focuses on **Repo Mode** - importing projects you've built with App Factory pipelines.
+At this stage, builders should focus on preparing their projects. When the launchpad opens, prepared projects will be able to onboard quickly with minimal changes.
 
 ---
 
 ## Supported Project Types
 
-| Pipeline | Launchpad Path | What Gets Deployed |
-|----------|----------------|-------------------|
-| **web3-factory** | factoryapp.dev (Repo Mode) | Next.js web app |
-| **agent-factory** | factoryapp.dev (Repo Mode) | Node.js HTTP agent |
-| **the-factory** | N/A (uses App Store/Play Store) | Mobile apps go to app stores |
+| Pipeline | Target | What Gets Deployed |
+|----------|--------|-------------------|
+| **web3-factory** | Factory Launchpad | Next.js web app |
+| **agent-factory** | Factory Launchpad | Node.js HTTP agent |
+| **the-factory** | App Store / Play Store | Mobile apps go to app stores |
 
 ---
 
-## The Launch Flow
+## Preparation Checklist
+
+### For All Projects
+
+Before the launchpad opens, ensure your project meets these requirements:
+
+| Requirement | Description |
+|-------------|-------------|
+| Clean repository | Well-structured, no unnecessary files |
+| Deterministic build | `npm run build` succeeds consistently |
+| Local testing | Project runs and passes smoke tests locally |
+| Documentation | README, RUNBOOK, and TESTING files present |
+| No secrets committed | Use `.env.example`, never commit real credentials |
+
+### For web3-factory Projects
+
+| File | Purpose |
+|------|---------|
+| `package.json` | Dependencies and scripts |
+| `next.config.js` | Next.js configuration |
+| `src/app/layout.tsx` | Root layout |
+| `src/app/page.tsx` | Homepage |
+| `src/app/providers.tsx` | App providers |
+
+### For agent-factory Projects
+
+| File | Purpose |
+|------|---------|
+| `agent.json` | Agent manifest |
+| `package.json` | Dependencies and scripts |
+| `src/index.ts` | Entry point |
+
+---
+
+## Project Readiness Steps
 
 ### Step 1: Build Your Project Locally
 
@@ -52,22 +70,21 @@ web3-factory/    → Web app (Next.js)
 agent-factory/   → AI agent (Node.js)
 ```
 
-### Step 2: Push to GitHub
+### Step 2: Verify Local Build
 
-Your project must be in a GitHub repository:
+Run your project's build and development server:
 
 ```bash
-cd your-project
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/your-username/your-repo
-git push -u origin main
+npm install
+npm run build
+npm run dev
 ```
 
-### Step 3: Validate Locally (Recommended)
+Ensure all commands complete without errors.
 
-Run the pipeline's validator before importing:
+### Step 3: Run Validation
+
+Each pipeline includes a validator:
 
 ```bash
 # For web3-factory projects
@@ -77,100 +94,37 @@ npm run validate
 npm run validate
 ```
 
-This ensures your project meets requirements before you import.
+Fix any issues reported by the validator.
 
-### Step 4: Import on Launchpad
+### Step 4: Prepare Repository
 
-Go to [factoryapp.dev](https://factoryapp.dev):
+Ensure your repository is ready:
 
-1. Click **Repo Mode**
-2. Connect your GitHub account (if not already connected)
-3. Enter your repository URL: `owner/repo` or `https://github.com/owner/repo`
-4. Select branch (default: `main`)
-5. Optionally specify a commit SHA (leave empty for latest)
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/your-username/your-repo
+git push -u origin main
+```
 
-### Step 5: Configure Token Details (If Launching with Token)
+### Step 5: Prepare Project Metadata
 
-If you want token integration:
+Have the following ready for when the launchpad opens:
 
-1. Expand **Token Details** section
-2. Upload a token image
-3. Enter token name and symbol (e.g., `My Project` / `$PROJ`)
-4. Add social links (Twitter, Telegram, website)
-5. Optionally set initial buy amount in SOL
-
-### Step 6: Launch
-
-1. Review all details
-2. Click **Create**
-3. Connect wallet and sign transaction (costs ~0.02 SOL)
-4. Your project deploys and token launches (if enabled)
-
-### Step 7: Get Your Contract Address (If Token-Enabled)
-
-After launch:
-
-1. Your contract address appears on the confirmation screen
-2. Copy the address
-3. Add it to your project's configuration (see below)
-4. Push the update to GitHub
-5. Redeploy to activate token features
+- **Project name**: Human-readable name for your project
+- **Project description**: One-line summary
+- **Repository URL**: GitHub repository containing your code
+- **Token details** (if using token integration):
+  - Token name and symbol
+  - Token image
+  - Social links (Twitter, Telegram, website)
 
 ---
 
-## Contract Address Configuration
+## Token Integration (Optional)
 
-If you launched with token integration, configure your project with the new contract address.
-
-### Where to Paste the Address
-
-| Pipeline | Config File | Variable Name |
-|----------|-------------|---------------|
-| **web3-factory** | `.env.local` or `src/config/constants.ts` | `NEXT_PUBLIC_TOKEN_MINT` |
-| **agent-factory** | `.env` or `src/config/token.ts` | `TOKEN_CONTRACT_ADDRESS` |
-
-### Step-by-Step: web3-factory
-
-```bash
-# After launching, you receive your contract address
-
-# Option 1: Environment variable
-# Add to .env.local:
-NEXT_PUBLIC_TOKEN_MINT=<your-contract-address>
-
-# Option 2: Constants file
-# Edit src/config/constants.ts:
-export const TOKEN_MINT = "<your-contract-address>";
-
-# Push update
-git add .
-git commit -m "Add token contract address"
-git push
-
-# Redeploy on launchpad
-```
-
-### Step-by-Step: agent-factory
-
-```bash
-# After launching, you receive your contract address
-
-# Add to .env:
-TOKEN_CONTRACT_ADDRESS=<your-contract-address>
-
-# Push update
-git add .
-git commit -m "Add token contract address"
-git push
-
-# Redeploy on launchpad
-```
-
----
-
-## Token Integration Details
-
-Token integration is **completely optional**.
+Token integration is **completely optional** for web3-factory and agent-factory projects.
 
 ### What Token Integration Enables
 
@@ -193,49 +147,33 @@ Token integration is **completely optional**.
 - You want community ownership via tokens
 - You're building a dApp that interacts with on-chain state
 
----
+### Preparing for Token Integration
 
-## Deployment Without Token Integration
+If you plan to use token integration:
 
-If you skip token integration:
-
-1. Your project deploys as a standard web app or agent
-2. No wallet connection required for users
-3. No blockchain dependencies
-4. Leave Token Details section empty on launchpad
+1. Answer "yes" when asked during project generation
+2. Your project will include wallet adapter setup and token hooks
+3. A configuration variable will be included for the contract address
+4. After launching, you will paste your contract address into the config
 
 ---
 
-## Project Requirements
+## Contract Address Configuration
 
-Before importing to the launchpad, ensure your project:
+When you launch with token integration, you will receive a contract address to configure.
 
-### Required for All Projects
+### Where to Configure the Address
 
-| Requirement | Description |
-|-------------|-------------|
-| GitHub repository | Public or private with access granted |
-| `package.json` | Valid Node.js project |
-| Build script | `npm run build` must succeed |
+| Pipeline | Config Location | Variable Name |
+|----------|-----------------|---------------|
+| **web3-factory** | `.env.local` or `src/config/constants.ts` | `NEXT_PUBLIC_TOKEN_MINT` |
+| **agent-factory** | `.env` or `src/config/token.ts` | `TOKEN_CONTRACT_ADDRESS` |
 
-### Required for web3-factory Projects
+This configuration happens after launch, not during preparation.
 
-| File | Purpose |
-|------|---------|
-| `package.json` | Dependencies and scripts |
-| `next.config.js` | Next.js configuration |
-| `src/app/layout.tsx` | Root layout |
-| `src/app/page.tsx` | Homepage |
+---
 
-### Required for agent-factory Projects
-
-| File | Purpose |
-|------|---------|
-| `agent.json` | Agent manifest |
-| `package.json` | Dependencies and scripts |
-| `src/index.ts` | Entry point |
-
-### Files That Should NOT Be Committed
+## Files That Should NOT Be Committed
 
 | File/Pattern | Reason |
 |--------------|--------|
@@ -245,50 +183,54 @@ Before importing to the launchpad, ensure your project:
 
 ---
 
-## Troubleshooting
+## Common Preparation Issues
 
-### "Repository not found"
+### "npm install fails"
 
-- Ensure the repository exists and is spelled correctly
-- If private, ensure you've granted access to the launchpad
+```bash
+npm install --legacy-peer-deps
+```
 
-### "Build failed"
+### "Build fails with TypeScript errors"
 
 - Run `npm run build` locally to see errors
-- Check all dependencies are in `package.json`
-- Ensure no TypeScript errors
+- Fix type errors before pushing
 
-### "Token not showing after launch"
+### "Validation fails"
 
-1. Wait 1-2 minutes for blockchain confirmation
-2. Check the transaction on a block explorer
-3. Verify you connected the correct wallet
-
-### "Contract address not working"
-
-1. Ensure address is pasted correctly (no extra spaces)
-2. Rebuild the project after adding address
-3. Push changes to GitHub and redeploy
+- Run `npm run validate` locally
+- Fix all reported issues
+- Common issues: missing files, forbidden patterns
 
 ---
 
-## Post-Launch Checklist
+## What Happens at Launch
 
-After a successful launch:
+When the Factory Launchpad opens:
 
-- [ ] Test your live URL
-- [ ] If token-enabled, paste contract address into config
-- [ ] If token-enabled, push update and redeploy
-- [ ] Share your launch on social media
-- [ ] Monitor for errors in production
+1. You will import your project from GitHub
+2. Your project will be deployed to production infrastructure
+3. If using token integration, you will configure token details and receive a contract address
+4. Your project goes live
+
+Prepared projects will be able to complete this process quickly.
+
+---
+
+## Next Steps
+
+1. Build your project using one of the App Factory pipelines
+2. Run local validation to ensure it meets requirements
+3. Push to a GitHub repository
+4. Prepare your project metadata
+5. Watch for announcements about launchpad availability
 
 ---
 
 ## Links
 
-- **Launchpad:** https://factoryapp.dev
 - **Factory Ready Standard:** [FACTORY_READY_STANDARD.md](./FACTORY_READY_STANDARD.md)
 
 ---
 
-**Questions?** Check the troubleshooting section above or reach out on the launchpad.
+**Prepare your project now. Launch when the launchpad opens.**

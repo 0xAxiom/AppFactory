@@ -50,11 +50,11 @@ Endpoints:
   POST /process   - Process input
 ```
 
-## Uploading to Platform
+## Preparing for Launch
 
 ```bash
 npm run zip
-# Upload hello-agent-1.0.0.zip to factoryapp.dev
+# Push to GitHub when ready for deployment
 ```
 
 ---

@@ -18,10 +18,10 @@
 │  No backend. No AI inference. No API keys.                                  │
 └─────────────────────────────────────────────────────────────────────────────┘
                                     │
-                                    │ Upload zip
+                                    │ Upload (when launchpad opens)
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  HOSTED PLATFORM (factoryapp.dev)                                           │
+│  FACTORY LAUNCHPAD (coming soon)                                            │
 │                                                                             │
 │  Server-side:                                                               │
 │  - Upload handler                                                           │
@@ -60,7 +60,7 @@
 - Showcase
 - Database
 
-All of the above live on **factoryapp.dev** (separate repository).
+All of the above will be handled by the **Factory Launchpad** (separate repository).
 
 ---
 
@@ -122,23 +122,22 @@ All of the above live on **factoryapp.dev** (separate repository).
                                     │ Take your zip to:
                                     ▼
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  PHASE 4: LAUNCH (factoryapp.dev)                                            │
+│  PHASE 4: PREPARE FOR LAUNCH (Factory Launchpad - coming soon)               │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  10. Go to factoryapp.dev/launch                                             │
+│  At this stage:                                                              │
 │                                                                              │
-│  11. Upload <app-slug>.zip                                                   │
+│  10. Push to GitHub                                                          │
 │                                                                              │
-│  12. If token-enabled: Fill token metadata (name, ticker, description)       │
+│  11. Prepare project metadata                                                │
 │                                                                              │
-│  13. Connect Solana wallet                                                   │
+│  12. If token-enabled: Prepare token metadata (name, ticker, description)    │
 │                                                                              │
-│  14. Sign transaction                                                        │
-│      - Token created (if enabled)                                            │
-│      - App deployed to Vercel                                                │
-│      - Listed on showcase                                                    │
-│                                                                              │
-│  15. If token-enabled: Add contract address to your .env                     │
+│  When the Factory Launchpad opens:                                           │
+│  - Import from GitHub                                                        │
+│  - Token created (if enabled)                                                │
+│  - App deployed                                                              │
+│  - Add contract address to your .env (if token-enabled)                      │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -235,14 +234,14 @@ npm run validate
 # REQUIRED: Create upload package
 npm run zip
 
-# Then upload at: https://factoryapp.dev/launch
+# Then push to GitHub and prepare for launch
 ```
 
 ---
 
-## What Happens on factoryapp.dev
+## What Will Happen on the Factory Launchpad
 
-The hosted platform (not in this repo) handles:
+When the launchpad opens, it will handle:
 
 1. **Upload** - Receives and validates zip
 2. **Token Creation** - Creates token on Solana (if enabled)
@@ -259,9 +258,9 @@ The hosted platform (not in this repo) handles:
 | Prompt generation | Local (agent) | No cloud cost |
 | AI inference | User's Claude/Cursor | User pays their own AI |
 | Validation | Local | No cloud cost |
-| API keys | factoryapp.dev only | Security |
-| Token creation | factoryapp.dev | Requires server-side keys |
-| Deployment | factoryapp.dev | Requires Vercel token |
+| API keys | Factory Launchpad only | Security |
+| Token creation | Factory Launchpad | Requires server-side keys |
+| Deployment | Factory Launchpad | Requires Vercel token |
 
 The local tools do everything that doesn't need secrets or server infrastructure.
 

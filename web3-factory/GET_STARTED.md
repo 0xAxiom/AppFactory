@@ -1,15 +1,14 @@
 # Get Started with Web3 Factory
 
-Build and launch your Web3 app in 30 minutes.
+Build and prepare your Web3 app for launch.
 
 ---
 
 ## What You'll Need
 
 - [ ] Node.js 18+ installed
-- [ ] A Solana wallet (Phantom or Solflare)
-- [ ] ~0.05 SOL in your wallet (~$10)
 - [ ] Claude Code, Cursor, or another AI coding tool
+- [ ] A GitHub account for pushing your project
 
 ---
 
@@ -20,7 +19,7 @@ Build and launch your Web3 app in 30 minutes.
 2. Type: "Make a roast battle app where users compete for token rewards"
 3. Agent generates prompts in generated/roast-battle-app/
 4. Build app using build_prompt.md in your AI tool
-5. Validate (REQUIRED) → Zip (REQUIRED) → Upload to factoryapp.dev
+5. Validate (REQUIRED) → Zip (REQUIRED) → Push to GitHub
 ```
 
 ---
@@ -107,13 +106,18 @@ npm run zip
 
 ---
 
-### Phase 6: Launch
+### Phase 6: Prepare for Launch
 
-1. Go to [factoryapp.dev/web3-factory/launch](https://factoryapp.dev/web3-factory/launch)
-2. Upload your `.zip` file
-3. Fill token metadata (name, ticker, description)
-4. Connect wallet and sign transaction
-5. Done - token created, app deployed
+**The Factory Launchpad is not yet publicly live.**
+
+At this stage, ensure your project is ready:
+
+1. All validation checks pass
+2. Zip file created successfully
+3. Project pushed to GitHub
+4. Token metadata prepared (if using token integration)
+
+When the Factory Launchpad opens, prepared projects will be able to deploy quickly.
 
 ---
 
@@ -132,11 +136,11 @@ Must be under 50 MB. Remove:
 - Large images (optimize them)
 - Build artifacts (.next, dist)
 
-### Transaction Failed
+### Build Fails Locally
 
-- Ensure you have ~0.05 SOL
-- Check wallet is connected
-- Try refreshing
+- Run `npm run build` to see errors
+- Check for TypeScript errors
+- Ensure all dependencies are in package.json
 
 ---
 
@@ -146,8 +150,7 @@ Must be under 50 MB. Remove:
 |------|------|
 | Web3 Factory tools | Free |
 | AI inference | Your AI subscription |
-| Token launch | ~0.05 SOL (~$10) |
-| Vercel hosting | Free tier |
+| Local development | Free |
 
 ---
 
@@ -160,7 +163,7 @@ Must be under 50 MB. Remove:
 | 3 | web3-builds/app/ | Test locally |
 | 4 | web3-builds/app/ | Validate (REQUIRED) |
 | 5 | web3-builds/app/ | Zip (REQUIRED) |
-| 6 | factoryapp.dev | Upload & launch |
+| 6 | GitHub | Push and prepare for launch |
 
 ---
 

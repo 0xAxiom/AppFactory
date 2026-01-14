@@ -2,7 +2,7 @@
 
 ## Scope: Local Tooling Only
 
-This repo contains LOCAL-ONLY tools. The hosted platform (factoryapp.dev) is in a separate repository.
+This repo contains LOCAL-ONLY tools. The Factory Launchpad is in a separate repository and not yet publicly live.
 
 ---
 
@@ -27,7 +27,7 @@ This repo contains LOCAL-ONLY tools. The hosted platform (factoryapp.dev) is in 
 - [x] Auto-detects token integration
 - [x] Conditional wallet validation (only if Solana deps present)
 - [x] Clear pass/fail output
-- [x] Points to factoryapp.dev for upload
+- [x] Points to deployment preparation
 
 ### ZIP Contract (Complete)
 - [x] `ZIP_CONTRACT.md` v2.0 - Source of truth for valid builds
@@ -46,7 +46,7 @@ This repo contains LOCAL-ONLY tools. The hosted platform (factoryapp.dev) is in 
 
 ## What's NOT In This Repo
 
-These belong on factoryapp.dev (separate repository):
+These belong on the Factory Launchpad (separate repository):
 
 - [ ] Upload page
 - [ ] Metadata form
@@ -69,7 +69,7 @@ These belong on factoryapp.dev (separate repository):
 5. Build app using generated prompts in your AI tool
 6. npm run validate (REQUIRED)
 7. npm run zip (REQUIRED)
-8. Upload at: https://factoryapp.dev/launch
+8. Push to GitHub and prepare for launch
 9. If tokens enabled: Add contract address to .env after launch
 ```
 

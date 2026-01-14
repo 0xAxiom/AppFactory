@@ -2,7 +2,7 @@
 
 **AI Agent Pipeline** | Part of [App Factory](../README.md)
 
-Describe an AI agent in plain English. Get a complete scaffold generated automatically. Launch on the Factory launchpad.
+Describe an AI agent in plain English. Get a complete scaffold generated automatically. Prepare for deployment.
 
 ---
 
@@ -30,7 +30,7 @@ cd outputs/<agent-name>
 npm install
 npm run dev
 curl http://localhost:8080/health
-# Push to GitHub, then import on factoryapp.dev (Repo Mode)
+# Push to GitHub when ready for deployment
 ```
 
 ---
@@ -129,39 +129,30 @@ git remote add origin https://github.com/your-username/your-agent
 git push -u origin main
 ```
 
-### Step 7: Import on Launchpad
+### Step 7: Prepare for Deployment
 
-Go to [factoryapp.dev](https://factoryapp.dev):
+**The Factory Launchpad is not yet publicly live.**
 
-1. Click **Repo Mode**
-2. Connect your GitHub account
-3. Enter your repository URL: `owner/repo`
-4. Select branch (default: `main`)
-5. If launching with token, fill in **Token Details**:
-   - Upload token image
-   - Enter name and symbol
-   - Add social links
-6. Click **Create**
-7. Connect wallet and sign transaction
+At this stage, ensure your project is ready for when launch access opens:
 
-### Step 8: Configure Token (If Opted In)
+1. All validation checks pass (`npm run validate`)
+2. Code pushed to GitHub repository
+3. Project metadata prepared (name, description, optional token details)
 
-After launch, if you enabled token integration:
+When the Factory Launchpad opens, you will be able to import your project from GitHub and deploy it.
 
-1. Copy your contract address from the launchpad
+### Token Configuration (When Launched)
+
+If you enabled token integration, after launching you will:
+
+1. Receive a contract address from the launchpad
 2. Add to your project's `.env`:
 
 ```bash
 TOKEN_CONTRACT_ADDRESS=<your-contract-address>
 ```
 
-3. Push update and redeploy:
-```bash
-git add .
-git commit -m "Add token contract address"
-git push
-# Re-import on launchpad to redeploy
-```
+3. Push update and redeploy to activate token features
 
 ---
 
@@ -225,7 +216,7 @@ Token integration is **completely optional**.
 
 1. **During generation:** Answer "yes" to token question
 2. **After generation:** Token endpoint and hooks included
-3. **On launchpad:** Fill in Token Details to launch your token
+3. **At launch:** Configure token details and receive contract address
 4. **After launch:** Paste contract address into config
 5. **After redeploy:** Token features active
 
@@ -269,12 +260,12 @@ PORT=3000 npm run dev
 
 Ensure `agent.json` exists at the project root with valid JSON.
 
-### "Repository not found on launchpad"
+### "Validation fails: missing files"
 
-- Ensure repo is public, or grant launchpad access to private repo
-- Check spelling of repository URL
+- Run `npm run validate` locally to see which files are missing
+- Ensure all required files are present
 
-### "Build fails on launchpad"
+### "Build fails locally"
 
 - Run `npm run build` locally to see errors
 - Ensure all dependencies are in `package.json`
@@ -332,8 +323,8 @@ This is V1 - intentionally minimal:
 
 - **Root README:** [../README.md](../README.md)
 - **Factory Ready Standard:** [../docs/FACTORY_READY_STANDARD.md](../docs/FACTORY_READY_STANDARD.md)
-- **Launchpad Overview:** [../docs/LAUNCHPAD_OVERVIEW.md](../docs/LAUNCHPAD_OVERVIEW.md)
+- **Preparing for Launch:** [../docs/LAUNCHPAD_OVERVIEW.md](../docs/LAUNCHPAD_OVERVIEW.md)
 
 ---
 
-**agent-factory v1.1** - Describe your agent. Get a scaffold. Launch.
+**agent-factory v1.1** - Describe your agent. Get a scaffold. Build.

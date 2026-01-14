@@ -78,9 +78,8 @@ Next steps:
 3. Save output to web3-builds/<app-slug>/
 4. Run: npm run validate (REQUIRED - from build directory)
 5. Push to GitHub
-6. Import on factoryapp.dev (Repo Mode) - fill in Token Details
-7. After launch, copy contract address
-8. Add NEXT_PUBLIC_TOKEN_MINT to .env and push update
+6. Prepare project metadata for launch
+7. After launch, copy contract address and add NEXT_PUBLIC_TOKEN_MINT to .env
 ```
 
 **If WITHOUT tokens:**
@@ -95,7 +94,7 @@ Next steps:
 3. Save output to web3-builds/<app-slug>/
 4. Run: npm run validate (REQUIRED - from build directory)
 5. Push to GitHub
-6. Import on factoryapp.dev (Repo Mode)
+6. Prepare project metadata for launch
 ```
 
 ---
@@ -113,12 +112,12 @@ Next steps:
 
 ## REQUIRED STEPS (After Building)
 
-Users MUST run these before importing on the launchpad:
+Users MUST run these to prepare for deployment:
 
 | Command | Directory | Purpose |
 |---------|-----------|---------|
 | `npm run validate` | `web3-builds/<app>/` | Check against Factory Ready Standard (REQUIRED) |
-| Push to GitHub | `web3-builds/<app>/` | Required for launchpad import |
+| Push to GitHub | `web3-builds/<app>/` | Required for deployment |
 
 ---
 
@@ -145,8 +144,8 @@ web3-factory/
 
 **This repo does NOT:**
 - Run AI inference (users bring their own AI)
-- Create tokens (happens on factoryapp.dev)
-- Deploy apps (happens on factoryapp.dev)
+- Create tokens (happens at launch)
+- Deploy apps (happens at launch)
 - Store API keys (none needed locally)
 
 ---
@@ -172,7 +171,7 @@ web3-factory/
 When `with_tokens = true`:
 - App includes Solana wallet adapter (@solana/wallet-adapter-react)
 - App includes token balance hooks
-- User sets `NEXT_PUBLIC_TOKEN_MINT` after launching on factoryapp.dev
+- User sets `NEXT_PUBLIC_TOKEN_MINT` after launching (receives contract address at launch)
 - Validation checks for proper wallet provider setup
 
 When `with_tokens = false`:

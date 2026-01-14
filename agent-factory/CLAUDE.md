@@ -447,7 +447,7 @@ Expected:
 ```markdown
 # <Display Name> - Launch Checklist
 
-**Complete these steps before launching on the Factory launchpad.**
+**Complete these steps to prepare your agent for deployment.**
 
 ## Pre-Launch
 
@@ -477,14 +477,13 @@ Expected:
 - [ ] Create GitHub repo
 - [ ] Push: \`git remote add origin <url> && git push -u origin main\`
 
-## Import on Launchpad
+## Prepare for Launch
 
-- [ ] Go to https://factoryapp.dev
-- [ ] Click "Repo Mode"
-- [ ] Enter repository URL (owner/repo)
-- [ ] Select branch (main)
-- [ ] Fill Token Details (if launching with token)
-- [ ] Click "Create"
+**The Factory Launchpad is not yet publicly live.**
+
+- [ ] Project metadata prepared (name, description)
+- [ ] Token details prepared if using token integration (name, symbol, image)
+- [ ] Awaiting launchpad availability
 
 ## Post-Launch
 
@@ -496,9 +495,9 @@ Expected:
 
 ### `FACTORY_IMPORT.md`
 ```markdown
-# <Display Name> - Factory Import Guide
+# <Display Name> - Deployment Preparation Guide
 
-**How to import this agent to the Factory launchpad via GitHub.**
+**How to prepare this agent for deployment.**
 
 ## Step 1: Validate
 
@@ -527,54 +526,39 @@ git remote add origin https://github.com/your-username/<agent-name>
 git push -u origin main
 \`\`\`
 
-## Step 3: Import on Launchpad
+## Step 3: Prepare for Launch
 
-Go to https://factoryapp.dev
+**The Factory Launchpad is not yet publicly live.**
 
-1. Click **Repo Mode**
-2. Connect your GitHub account (first time only)
-3. Enter your repository URL: \`your-username/<agent-name>\`
-4. Select branch: \`main\`
-5. If launching with token, fill in **Token Details**:
-   - Upload token image
-   - Enter name and symbol
-   - Add social links
-6. Click **Create**
-7. Connect wallet and sign transaction
+At this stage, ensure your project is ready:
 
-## Step 4: Verify
+1. Validation passes (`npm run validate`)
+2. Code pushed to GitHub
+3. Project metadata prepared (name, description)
+4. Token details prepared if applicable (name, symbol, image)
 
-After import:
-- Your agent is deployed and running
-- You get a live endpoint URL
-- (If token-enabled) Copy your contract address
+When the Factory Launchpad opens, you will be able to import your project and deploy it.
 
-## Step 5: Configure Token (If Opted In)
+## Token Configuration (When Launched)
 
-After launch with token:
+If you enabled token integration, after launching you will:
+
+1. Receive a contract address
+2. Add to your `.env`:
+
 \`\`\`bash
-# Add to .env
 TOKEN_CONTRACT_ADDRESS=<your-contract-address>
-
-# Push update
-git add .
-git commit -m "Add token contract address"
-git push
-
-# Re-import on launchpad to redeploy
 \`\`\`
+
+3. Push update and redeploy to activate token features
 
 ## Troubleshooting
 
-### "Repository not found"
-- Ensure repo is public, or grant launchpad access to private repo
-- Check spelling of repository URL
-
-### "Build fails on launchpad"
-Run \`npm run build\` locally to see errors.
-
-### "Validation failed"
+### "Validation fails"
 Run \`npm run validate\` locally to see errors.
+
+### "Build fails locally"
+Run \`npm run build\` locally to see errors.
 ```
 
 ### `.env.example` (only if env vars needed)
@@ -597,16 +581,15 @@ Generate these ONLY if user said "yes" to token integration:
 
 ## Overview
 
-This agent supports token integration for rewards/payments. After launching on the Factory launchpad, you'll receive a contract address to configure.
+This agent supports token integration for rewards/payments. After launching, you'll receive a contract address to configure.
 
-## Step 1: Launch on Launchpad
+## Step 1: Prepare for Launch
 
 1. Push your agent to GitHub
-2. Go to https://factoryapp.dev and click "Repo Mode"
-3. Enter your repository URL and select branch
-4. Fill in Token Details (image, name, symbol, socials)
-5. Click "Create" and sign the transaction
-6. Copy your contract address from the launch confirmation
+2. Ensure validation passes (`npm run validate`)
+3. Prepare token details (image, name, symbol, socials)
+4. Wait for Factory Launchpad availability
+5. After launching, copy your contract address from the confirmation
 
 ## Step 2: Configure
 
@@ -651,7 +634,7 @@ Before your token is live, the agent runs in "dry run" mode:
  * Provides token utilities for rewards/payments.
  *
  * CONFIGURATION:
- * Set TOKEN_CONTRACT_ADDRESS in .env after launching on Factory launchpad.
+ * Set TOKEN_CONTRACT_ADDRESS in .env after launching.
  */
 
 export interface TokenConfig {
@@ -712,7 +695,7 @@ Next steps:
 4. Test: curl http://localhost:8080/health
 5. Validate: npm run validate
 6. Push to GitHub
-7. Import on factoryapp.dev (Repo Mode)
+7. Prepare project metadata for launch
 ```
 
 **If WITH tokens:**
@@ -728,7 +711,7 @@ Next steps:
 4. Test: curl http://localhost:8080/health
 5. Validate: npm run validate
 6. Push to GitHub
-7. Import on factoryapp.dev (Repo Mode) - fill in Token Details
+7. Prepare project metadata for launch - fill in Token Details
 8. After launch, copy contract address
 9. Add TOKEN_CONTRACT_ADDRESS to .env and push update
 ```

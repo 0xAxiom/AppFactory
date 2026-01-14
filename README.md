@@ -34,8 +34,8 @@ claude
 | I want to build... | Use this pipeline | Output | Launch target |
 |--------------------|-------------------|--------|---------------|
 | A **mobile app** for iOS and Android | [the_factory/](./the_factory/) | Expo React Native app | App Store / Play Store |
-| A **web app** (optionally with tokens) | [web3-factory/](./web3-factory/) | Next.js app | Factory launchpad |
-| An **AI agent** (optionally with tokens) | [agent-factory/](./agent-factory/) | Node.js HTTP agent | Factory launchpad |
+| A **web app** (optionally with tokens) | [web3-factory/](./web3-factory/) | Next.js app | Factory Launchpad (coming soon) |
+| An **AI agent** (optionally with tokens) | [agent-factory/](./agent-factory/) | Node.js HTTP agent | Factory Launchpad (coming soon) |
 
 ### Quick Decision Guide
 
@@ -74,7 +74,7 @@ claude
 # Answer: "Do you want token integration?" → no (or yes if you want tokens)
 # Generated prompts appear in generated/<app-slug>/
 # Follow build_prompt.md to build your app
-# Push to GitHub, then import on factoryapp.dev (Repo Mode)
+# Push to GitHub when ready for launch
 ```
 
 ### AI Agent (agent-factory)
@@ -87,7 +87,7 @@ claude
 # Scaffold appears in outputs/<agent-name>/
 # Run: cd outputs/<agent-name> && npm install && npm run dev
 # Test: curl http://localhost:8080/health
-# Push to GitHub, then import on factoryapp.dev (Repo Mode)
+# Push to GitHub when ready for launch
 ```
 
 ---
@@ -119,7 +119,7 @@ claude
 | Complete scaffold | TypeScript, HTTP server, manifest |
 | AGENT_SPEC.md | Plain-English agent specification |
 | RUNBOOK.md | Exact steps to run and test |
-| agent.json | Machine-readable manifest for launchpad |
+| agent.json | Machine-readable agent manifest |
 
 ---
 
@@ -133,6 +133,7 @@ claude
 
 When you don't opt in, your project has zero token-related code, zero blockchain dependencies, and works as a standard web app or agent.
 
+See [docs/LAUNCHPAD_OVERVIEW.md](./docs/LAUNCHPAD_OVERVIEW.md) for details on preparing projects for the Factory Launchpad.
 
 ---
 
