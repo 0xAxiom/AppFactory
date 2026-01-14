@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Web3 Factory Build Validator
+ * Factory Build Validator
  *
  * Validates a build against ZIP_CONTRACT.md before upload.
  * NO AI - just file/structure checking.
@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ============================================================================
-// ZIP CONTRACT v1.0 - Enforced exactly as specified
+// ZIP CONTRACT v2.0 - Enforced exactly as specified
 // ============================================================================
 
 /**
@@ -36,9 +36,18 @@ const REQUIRED_FILES = [
 ];
 
 /**
- * Required dependencies per ZIP_CONTRACT.md
+ * Required core dependencies (all apps)
  */
-const REQUIRED_DEPENDENCIES = [
+const REQUIRED_CORE_DEPENDENCIES = [
+  'next',
+  'react',
+  'react-dom',
+];
+
+/**
+ * Solana dependencies (only required if app uses wallet integration)
+ */
+const SOLANA_DEPENDENCIES = [
   '@solana/wallet-adapter-react',
   '@solana/wallet-adapter-react-ui',
   '@solana/wallet-adapter-wallets',
@@ -87,12 +96,38 @@ interface ValidationResult {
   checks: CheckResult[];
   errors: string[];
   warnings: string[];
+  tokenEnabled: boolean;
 }
 
 interface CheckResult {
   name: string;
   passed: boolean;
   message: string;
+}
+
+// ============================================================================
+// Helper Functions
+// ============================================================================
+
+/**
+ * Check if the app has Solana/wallet dependencies
+ */
+function hasWalletIntegration(buildDir: string): boolean {
+  const packagePath = path.join(buildDir, 'package.json');
+
+  if (!fs.existsSync(packagePath)) {
+    return false;
+  }
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+    const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+
+    // Check if any Solana dependency is present
+    return SOLANA_DEPENDENCIES.some(dep => dep in allDeps);
+  } catch {
+    return false;
+  }
 }
 
 // ============================================================================
@@ -144,13 +179,13 @@ function checkForbiddenFiles(buildDir: string): CheckResult[] {
   return results;
 }
 
-function checkDependencies(buildDir: string): CheckResult[] {
+function checkCoreDependencies(buildDir: string): CheckResult[] {
   const results: CheckResult[] = [];
   const packagePath = path.join(buildDir, 'package.json');
 
   if (!fs.existsSync(packagePath)) {
     return [{
-      name: 'Dependencies',
+      name: 'Core Dependencies',
       passed: false,
       message: 'package.json not found',
     }];
@@ -160,17 +195,44 @@ function checkDependencies(buildDir: string): CheckResult[] {
     const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
     const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
 
-    for (const dep of REQUIRED_DEPENDENCIES) {
+    for (const dep of REQUIRED_CORE_DEPENDENCIES) {
       const hasIt = dep in allDeps;
       results.push({
-        name: `Dependency: ${dep}`,
+        name: `Core Dependency: ${dep}`,
         passed: hasIt,
         message: hasIt ? allDeps[dep] : 'MISSING (per ZIP_CONTRACT.md)',
       });
     }
   } catch (error) {
     results.push({
-      name: 'Dependencies',
+      name: 'Core Dependencies',
+      passed: false,
+      message: 'Failed to parse package.json',
+    });
+  }
+
+  return results;
+}
+
+function checkSolanaDependencies(buildDir: string): CheckResult[] {
+  const results: CheckResult[] = [];
+  const packagePath = path.join(buildDir, 'package.json');
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+    const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+
+    for (const dep of SOLANA_DEPENDENCIES) {
+      const hasIt = dep in allDeps;
+      results.push({
+        name: `Wallet Dependency: ${dep}`,
+        passed: hasIt,
+        message: hasIt ? allDeps[dep] : 'MISSING (required for token integration)',
+      });
+    }
+  } catch (error) {
+    results.push({
+      name: 'Wallet Dependencies',
       passed: false,
       message: 'Failed to parse package.json',
     });
@@ -193,7 +255,7 @@ function checkWalletProvider(buildDir: string): CheckResult[] {
 
   const content = fs.readFileSync(providersPath, 'utf-8');
 
-  // Required per ZIP_CONTRACT.md
+  // Required per ZIP_CONTRACT.md for token-enabled apps
   const hasConnectionProvider = content.includes('ConnectionProvider');
   const hasWalletProvider = content.includes('WalletProvider');
   const hasPhantom = content.includes('PhantomWalletAdapter');
@@ -359,26 +421,40 @@ function checkFileSizes(buildDir: string): CheckResult[] {
 // ============================================================================
 
 function validate(buildDir: string): ValidationResult {
+  const tokenEnabled = hasWalletIntegration(buildDir);
+
   console.log('\n' + '='.repeat(60));
-  console.log('  Web3 Factory Build Validator');
-  console.log('  Contract: ZIP_CONTRACT.md v1.0');
+  console.log('  Factory Build Validator');
+  console.log('  Contract: ZIP_CONTRACT.md v2.0');
   console.log('='.repeat(60) + '\n');
 
-  console.log(`Directory: ${buildDir}\n`);
+  console.log(`Directory: ${buildDir}`);
+  console.log(`Token Integration: ${tokenEnabled ? 'ENABLED' : 'DISABLED'}\n`);
 
   const checks: CheckResult[] = [];
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  // Run all checks
+  // Build check groups based on whether token integration is enabled
   const checkGroups = [
     { name: 'Required Files', fn: () => checkRequiredFiles(buildDir) },
     { name: 'Forbidden Files', fn: () => checkForbiddenFiles(buildDir) },
-    { name: 'Dependencies', fn: () => checkDependencies(buildDir) },
-    { name: 'Wallet Provider', fn: () => checkWalletProvider(buildDir) },
+    { name: 'Core Dependencies', fn: () => checkCoreDependencies(buildDir) },
+  ];
+
+  // Only add wallet checks if token integration is detected
+  if (tokenEnabled) {
+    checkGroups.push(
+      { name: 'Wallet Dependencies', fn: () => checkSolanaDependencies(buildDir) },
+      { name: 'Wallet Provider', fn: () => checkWalletProvider(buildDir) },
+    );
+  }
+
+  // Always run these checks
+  checkGroups.push(
     { name: 'Security Patterns', fn: () => checkSecurityPatterns(buildDir) },
     { name: 'Size Limits', fn: () => checkFileSizes(buildDir) },
-  ];
+  );
 
   for (const group of checkGroups) {
     console.log(`\n--- ${group.name} ---\n`);
@@ -412,7 +488,89 @@ function validate(buildDir: string): ValidationResult {
 
   console.log('='.repeat(60) + '\n');
 
-  return { passed, checks, errors, warnings };
+  // Write factory_ready.json
+  writeFactoryReadyJson(buildDir, passed, checks, errors, tokenEnabled);
+
+  return { passed, checks, errors, warnings, tokenEnabled };
+}
+
+/**
+ * Write factory_ready.json per Factory Ready Standard
+ */
+function writeFactoryReadyJson(
+  buildDir: string,
+  passed: boolean,
+  checks: CheckResult[],
+  errors: string[],
+  tokenEnabled: boolean
+): void {
+  const packagePath = path.join(buildDir, 'package.json');
+  let projectName = 'unknown';
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+    projectName = pkg.name || 'unknown';
+  } catch {
+    // Keep default
+  }
+
+  const factoryReady = {
+    version: '1.0',
+    timestamp: new Date().toISOString(),
+    project: {
+      name: projectName,
+      pipeline: 'web3-factory',
+      path: buildDir,
+    },
+    gates: {
+      build: {
+        status: 'SKIP' as const,
+        details: 'Run npm install && npm run build to verify'
+      },
+      run: {
+        status: 'SKIP' as const,
+        details: 'Run npm run dev and verify localhost:3000 responds'
+      },
+      test: {
+        status: 'SKIP' as const,
+        details: 'Run curl http://localhost:3000 to verify'
+      },
+      validate: {
+        status: passed ? 'PASS' as const : 'FAIL' as const,
+        details: passed
+          ? 'All contract requirements met'
+          : `${errors.length} error(s): ${errors.slice(0, 3).join('; ')}${errors.length > 3 ? '...' : ''}`
+      },
+      package: {
+        status: 'SKIP' as const,
+        details: 'Run npm run zip to create package'
+      },
+      launch_ready: {
+        status: passed ? 'PASS' as const : 'FAIL' as const,
+        details: passed ? 'Validation passed' : 'Fix validation errors first'
+      },
+      token_integration: {
+        status: tokenEnabled ? 'PASS' as const : 'SKIP' as const,
+        details: tokenEnabled ? 'Wallet integration detected and validated' : 'Not opted in'
+      },
+    },
+    overall: passed ? 'PASS' : 'FAIL',
+    next_steps: passed
+      ? [
+          'Run: npm run zip',
+          'Upload to https://factoryapp.dev/web3-factory/launch',
+          tokenEnabled ? 'After launch, paste contract address into NEXT_PUBLIC_TOKEN_MINT' : null,
+        ].filter(Boolean)
+      : [
+          'Fix the validation errors listed above',
+          'Run: npm run validate again',
+          'See ZIP_CONTRACT.md for requirements',
+        ],
+  };
+
+  const outputPath = path.join(buildDir, 'factory_ready.json');
+  fs.writeFileSync(outputPath, JSON.stringify(factoryReady, null, 2));
+  console.log(`  Wrote: factory_ready.json\n`);
 }
 
 function printCheck(result: CheckResult): void {

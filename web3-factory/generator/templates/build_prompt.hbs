@@ -2,6 +2,7 @@
 
 **Generated:** {{timestamp}}
 **App Slug:** {{app_slug}}
+**Token Integration:** {{#if with_tokens}}ENABLED{{else}}DISABLED{{/if}}
 
 ---
 
@@ -11,7 +12,11 @@ Build a complete Next.js 14 web application based on this idea:
 
 > {{idea}}
 
-This app will integrate with Solana blockchain and use a token for in-app utility.
+{{#if with_tokens}}
+This app includes Solana wallet integration and token support. Users can connect their wallet and interact with your token after you launch on factoryapp.dev.
+{{else}}
+This is a standard web application without blockchain integration. You can add token support later if needed.
+{{/if}}
 
 ---
 
@@ -23,8 +28,10 @@ This app will integrate with Solana blockchain and use a token for in-app utilit
 - **Language:** TypeScript (strict mode)
 - **Styling:** Tailwind CSS
 - **State:** Zustand for global state
+{{#if with_tokens}}
 - **Wallet:** @solana/wallet-adapter-react (Phantom, Solflare)
 - **Blockchain:** @solana/web3.js
+{{/if}}
 
 ### Project Structure
 
@@ -34,18 +41,24 @@ This app will integrate with Solana blockchain and use a token for in-app utilit
 │   ├── app/
 │   │   ├── layout.tsx          # Root layout with providers
 │   │   ├── page.tsx            # Homepage
-│   │   ├── providers.tsx       # Wallet + context providers
+│   │   ├── providers.tsx       # {{#if with_tokens}}Wallet + context providers{{else}}Context providers{{/if}}
 │   │   └── globals.css         # Tailwind globals
 │   ├── components/
 │   │   ├── ui/                 # Base UI components (Button, Card, etc)
+{{#if with_tokens}}
 │   │   ├── wallet/             # Wallet components
+{{/if}}
 │   │   └── [feature]/          # Feature-specific components
 │   ├── hooks/
+{{#if with_tokens}}
 │   │   └── useTokenBalance.ts  # Token balance hook
+{{else}}
+│   │   └── index.ts            # Custom hooks
+{{/if}}
 │   ├── lib/
 │   │   └── utils.ts            # Utility functions
 │   ├── config/
-│   │   └── constants.ts        # Token address, API URLs
+│   │   └── constants.ts        # {{#if with_tokens}}Token address, API URLs{{else}}API URLs, app config{{/if}}
 │   └── types/
 │       └── index.ts            # TypeScript types
 ├── public/                     # Static assets
@@ -59,6 +72,7 @@ This app will integrate with Solana blockchain and use a token for in-app utilit
 
 ---
 
+{{#if with_tokens}}
 ## Wallet Integration
 
 ### providers.tsx
@@ -162,6 +176,29 @@ export function useTokenBalance() {
 ```
 
 ---
+{{else}}
+## Providers Setup
+
+### providers.tsx
+
+```typescript
+"use client";
+
+import { ReactNode } from "react";
+
+// Add your context providers here (auth, theme, etc.)
+
+export function Providers({ children }: { children: ReactNode }) {
+  return (
+    <>
+      {children}
+    </>
+  );
+}
+```
+
+---
+{{/if}}
 
 ## Design Guidelines
 
@@ -179,7 +216,11 @@ Based on the app idea, create appropriate pages. At minimum:
 
 1. **Homepage** - Main landing/dashboard
 2. **Feature pages** - Core app functionality
+{{#if with_tokens}}
 3. **Profile** - User profile (wallet-based)
+{{else}}
+3. **Profile** - User profile
+{{/if}}
 
 ---
 
@@ -190,8 +231,10 @@ When you're done, verify:
 - [ ] All files created in correct structure
 - [ ] `npm install` runs without errors
 - [ ] `npm run dev` starts the app
+{{#if with_tokens}}
 - [ ] Wallet connect button works
 - [ ] Token balance displays (shows 0 if no tokens)
+{{/if}}
 - [ ] All core features functional
 - [ ] Responsive on mobile
 - [ ] `.env.example` included with required vars
@@ -200,10 +243,17 @@ When you're done, verify:
 
 ## Notes
 
+{{#if with_tokens}}
 - Token address will be set after launching on factoryapp.dev
 - Focus on great UX and functional features
 - Use mock data for backend-dependent features
 - Include clear README instructions for what needs backend setup
+{{else}}
+- Focus on great UX and functional features
+- Use mock data for backend-dependent features
+- Include clear README instructions for what needs backend setup
+- Token integration can be added later if needed
+{{/if}}
 
 ---
 

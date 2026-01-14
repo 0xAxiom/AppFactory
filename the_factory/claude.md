@@ -150,9 +150,12 @@ builds/<app-slug>/
 │   ├── subtitle.txt
 │   ├── description.md
 │   └── keywords.txt
+├── README.md                   # MANDATORY - Project overview
+├── RUNBOOK.md                  # MANDATORY - Exact steps to run locally
+├── TESTING.md                  # MANDATORY - How to verify it works
+├── LAUNCH_CHECKLIST.md         # MANDATORY - Pre/post-launch checks
 ├── privacy_policy.md
-├── launch_plan.md
-└── README.md
+└── launch_plan.md
 ```
 
 ---
@@ -178,6 +181,15 @@ Every App Factory build MUST write the following artifacts to disk inside the bu
 | `description.md` | Full App Store description with features, benefits, social proof framing |
 | `keywords.txt` | Comma-separated keywords for App Store Connect (max 100 chars total) |
 
+### Documentation Artifacts (`builds/<app-slug>/`)
+
+| File | Contents |
+|------|----------|
+| `README.md` | Project overview, tech stack, quick start |
+| `RUNBOOK.md` | Copy-paste commands to install, run, and verify the app |
+| `TESTING.md` | Smoke test checklist with expected results |
+| `LAUNCH_CHECKLIST.md` | Pre-launch and post-launch verification steps |
+
 ### Research Quality Rules
 
 - **NO placeholders** - Every file must contain substantive, researched content
@@ -192,6 +204,7 @@ Every App Factory build MUST write the following artifacts to disk inside the bu
 - If ANY file contains placeholder/stub content → **BUILD FAILS**
 - Ralph Mode MUST verify these files exist and contain non-trivial content
 - Ralph MUST flag thin, generic, or obviously templated research as BLOCKING
+- Ralph MUST verify RUNBOOK commands are copy-pasteable and correct
 
 ---
 

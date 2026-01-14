@@ -1,9 +1,9 @@
-# Web3 Factory ZIP Contract
+# Factory ZIP Contract
 
-**Version**: 1.0
+**Version**: 2.0
 **Status**: SOURCE OF TRUTH
 
-This document specifies the exact structure and contents of a valid Web3 Factory upload package. The validator and zip creator enforce this contract exactly.
+This document specifies the exact structure and contents of a valid Factory upload package. The validator and zip creator enforce this contract exactly.
 
 ---
 
@@ -25,7 +25,7 @@ The zip MUST have `package.json` at the root level (no wrapper folder).
     └── app/              # REQUIRED - Next.js app directory
         ├── layout.tsx    # REQUIRED
         ├── page.tsx      # REQUIRED
-        ├── providers.tsx # REQUIRED - wallet providers
+        ├── providers.tsx # REQUIRED - app providers
         └── globals.css   # REQUIRED
 ```
 
@@ -45,14 +45,34 @@ These files MUST be present or validation fails:
 | `.env.example` | Environment variable template |
 | `src/app/layout.tsx` | Root layout component |
 | `src/app/page.tsx` | Home page component |
-| `src/app/providers.tsx` | Wallet adapter providers |
+| `src/app/providers.tsx` | App providers (context, wallet if enabled) |
 | `src/app/globals.css` | Global styles |
 
 ---
 
-## Required Dependencies
+## Dependencies
 
-`package.json` must include these dependencies:
+### Required Dependencies (All Apps)
+
+`package.json` must include these core dependencies:
+
+```json
+{
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "tailwindcss": "^3.0.0"
+  }
+}
+```
+
+### Optional Dependencies (Token-Enabled Apps)
+
+If the app includes token integration, these dependencies should be present:
 
 ```json
 {
@@ -65,13 +85,13 @@ These files MUST be present or validation fails:
 }
 ```
 
-Version constraints are minimum versions. Newer versions are accepted.
+**Note:** These are only validated if the app uses wallet integration. Apps without token integration do not need these.
 
 ---
 
-## Wallet Provider Requirements
+## Wallet Provider Requirements (Token-Enabled Apps Only)
 
-`src/app/providers.tsx` MUST:
+If `package.json` includes `@solana/wallet-adapter-react`, then `src/app/providers.tsx` MUST:
 
 1. Import and use `ConnectionProvider` from `@solana/wallet-adapter-react`
 2. Import and use `WalletProvider` from `@solana/wallet-adapter-react`
@@ -80,6 +100,8 @@ Version constraints are minimum versions. Newer versions are accepted.
 `src/app/providers.tsx` MUST NOT:
 
 1. Include `BackpackWalletAdapter` (causes runtime errors)
+
+**If the app does NOT include Solana dependencies, these checks are skipped.**
 
 ---
 
@@ -135,11 +157,12 @@ The zip creator adds `manifest.json` at the root:
 
 ```json
 {
-  "app_name": "roast-battle",
-  "created_at": "2026-01-12T12:00:00.000Z",
-  "generator": "web3-factory",
+  "app_name": "my-app",
+  "created_at": "2026-01-13T12:00:00.000Z",
+  "generator": "factory",
   "version": "1.0.0",
-  "contract_version": "1.0"
+  "contract_version": "2.0",
+  "token_enabled": false
 }
 ```
 
@@ -149,7 +172,7 @@ This is generated automatically. Do not create manually.
 
 ## Token Integration (Optional)
 
-If the app has token integration, it SHOULD have:
+If the app has token integration enabled, it SHOULD have:
 
 ```
 src/config/constants.ts
@@ -171,13 +194,7 @@ This is optional during build. The actual token mint is set after launch on fact
 
 ```bash
 cd your-build-directory
-npx web3-factory validate
-```
-
-Or if running from the web3-factory repo:
-
-```bash
-npm run validate  # run from build directory
+npm run validate
 ```
 
 ---
@@ -186,21 +203,15 @@ npm run validate  # run from build directory
 
 ```bash
 cd your-build-directory
-npx web3-factory zip
-```
-
-Or if running from the web3-factory repo:
-
-```bash
-npm run zip  # run from build directory
+npm run zip
 ```
 
 ---
 
-## Example Valid Structure
+## Example Valid Structure (Without Tokens)
 
 ```
-roast-battle.zip
+my-app.zip
 ├── manifest.json              # Added by zip
 ├── package.json
 ├── package-lock.json          # Optional but allowed
@@ -218,15 +229,44 @@ roast-battle.zip
     │   ├── page.tsx
     │   ├── providers.tsx
     │   ├── globals.css
-    │   ├── battle/
-    │   │   └── page.tsx
-    │   └── leaderboard/
+    │   └── dashboard/
     │       └── page.tsx
     ├── components/
-    │   ├── BattleCard.tsx
+    │   └── Button.tsx
+    └── lib/
+        └── utils.ts
+```
+
+## Example Valid Structure (With Tokens)
+
+```
+token-app.zip
+├── manifest.json              # Added by zip
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── next.config.js
+├── tailwind.config.ts
+├── postcss.config.js
+├── .env.example
+├── README.md
+├── public/
+│   └── favicon.ico
+└── src/
+    ├── app/
+    │   ├── layout.tsx
+    │   ├── page.tsx
+    │   ├── providers.tsx       # Includes wallet providers
+    │   ├── globals.css
+    │   └── dashboard/
+    │       └── page.tsx
+    ├── components/
+    │   ├── Button.tsx
     │   └── WalletButton.tsx
     ├── config/
-    │   └── constants.ts
+    │   └── constants.ts        # TOKEN_MINT placeholder
+    ├── hooks/
+    │   └── useTokenBalance.ts
     └── lib/
         └── utils.ts
 ```
@@ -234,6 +274,12 @@ roast-battle.zip
 ---
 
 ## Contract Changelog
+
+### v2.0 (2026-01-13)
+- Made Solana/wallet dependencies optional
+- Added token_enabled flag to manifest
+- Wallet provider validation only runs if Solana deps present
+- Updated examples for both token and non-token apps
 
 ### v1.0 (2026-01-12)
 - Initial contract specification

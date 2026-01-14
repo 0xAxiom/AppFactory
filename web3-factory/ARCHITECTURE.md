@@ -1,6 +1,6 @@
-# Web3 Factory Architecture
+# Factory Architecture
 
-## Version 3.1 - Agent-First Local Tooling
+## Version 4.0 - Agent-First Local Tooling
 
 ---
 
@@ -25,7 +25,7 @@
 │                                                                             │
 │  Server-side:                                                               │
 │  - Upload handler                                                           │
-│  - Bags API integration (server-side key)                                   │
+│  - Token creation (if enabled)                                              │
 │  - Transaction preparation                                                  │
 │  - Vercel deployment                                                        │
 │  - Showcase database                                                        │
@@ -55,7 +55,6 @@
 
 - Backend API
 - Upload handling
-- Bags SDK integration
 - Token creation
 - Vercel deployment
 - Showcase
@@ -75,13 +74,17 @@ All of the above live on **factoryapp.dev** (separate repository).
 │  1. Open web3-factory/ in Claude Code or Cursor                              │
 │                                                                              │
 │  2. Describe your app idea                                                   │
-│     Example: "Make a roast battle app with token rewards"                    │
+│     Example: "Make a roast battle app"                                       │
 │                                                                              │
-│  3. Agent generates files automatically                                      │
+│  3. Agent asks: "Do you want token integration?"                             │
+│     - Yes → includes wallet/token code                                       │
+│     - No → standard Next.js app                                              │
+│                                                                              │
+│  4. Agent generates files automatically                                      │
 │     └─> Creates: generated/<app-slug>/                                       │
 │         - build_prompt.md                                                    │
 │         - checklist.md                                                       │
-│         - contract_spec.md                                                   │
+│         - token_spec.md (if tokens enabled)                                  │
 │         - frontend_spec.md                                                   │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -91,12 +94,12 @@ All of the above live on **factoryapp.dev** (separate repository).
 │  PHASE 2: BUILD APP (Your AI tool)                                           │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  4. Copy build_prompt.md into Claude.ai or Cursor                            │
+│  5. Copy build_prompt.md into Claude.ai or Cursor                            │
 │     └─> AI generates your Next.js app (YOUR AI credits)                      │
 │                                                                              │
-│  5. Save output to web3-builds/<app-slug>/                                   │
+│  6. Save output to web3-builds/<app-slug>/                                   │
 │                                                                              │
-│  6. Test locally: npm install && npm run dev                                 │
+│  7. Test locally: npm install && npm run dev                                 │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
                                     │
@@ -105,11 +108,12 @@ All of the above live on **factoryapp.dev** (separate repository).
 │  PHASE 3: VALIDATE & PACKAGE (REQUIRED)                                      │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  7. npm run validate (REQUIRED)                                              │
+│  8. npm run validate (REQUIRED)                                              │
 │     └─> Checks build against ZIP_CONTRACT.md                                 │
+│     └─> Detects if token integration is present                              │
 │     └─> MUST PASS before proceeding                                          │
 │                                                                              │
-│  8. npm run zip (REQUIRED)                                                   │
+│  9. npm run zip (REQUIRED)                                                   │
 │     └─> Creates: <app-slug>.zip                                              │
 │     └─> MUST complete before upload                                          │
 │                                                                              │
@@ -121,18 +125,20 @@ All of the above live on **factoryapp.dev** (separate repository).
 │  PHASE 4: LAUNCH (factoryapp.dev)                                            │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  9. Go to factoryapp.dev/web3-factory/launch                                 │
+│  10. Go to factoryapp.dev/launch                                             │
 │                                                                              │
-│  10. Upload <app-slug>.zip                                                   │
+│  11. Upload <app-slug>.zip                                                   │
 │                                                                              │
-│  11. Fill token metadata (name, ticker, description)                         │
+│  12. If token-enabled: Fill token metadata (name, ticker, description)       │
 │                                                                              │
-│  12. Connect Solana wallet                                                   │
+│  13. Connect Solana wallet                                                   │
 │                                                                              │
-│  13. Sign transaction                                                        │
-│      - Token created via Bags API                                            │
+│  14. Sign transaction                                                        │
+│      - Token created (if enabled)                                            │
 │      - App deployed to Vercel                                                │
 │      - Listed on showcase                                                    │
+│                                                                              │
+│  15. If token-enabled: Add contract address to your .env                     │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -149,7 +155,7 @@ web3-factory/
 │   └── templates/             # Handlebars templates
 │       ├── build_prompt.hbs
 │       ├── checklist.hbs
-│       ├── contract_spec.hbs
+│       ├── token_spec.hbs     # Only generated if tokens enabled
 │       └── frontend_spec.hbs
 │
 ├── validator/                 # Build validation + packaging
@@ -162,18 +168,17 @@ web3-factory/
 │
 ├── ZIP_CONTRACT.md           # Source of truth for valid builds
 ├── ARCHITECTURE.md           # This file
-├── GET_STARTED.md            # Step-by-step guide
 ├── README.md                 # Project overview
 └── package.json
 ```
 
 ---
 
-## ZIP Contract
+## ZIP Contract v2.0
 
 All builds must comply with `ZIP_CONTRACT.md`. Key requirements:
 
-### Required Files
+### Required Files (All Apps)
 ```
 package.json          (at root)
 tsconfig.json
@@ -187,7 +192,16 @@ src/app/providers.tsx
 src/app/globals.css
 ```
 
-### Required Dependencies
+### Required Core Dependencies
+```json
+{
+  "next": "^14.0.0",
+  "react": "^18.0.0",
+  "react-dom": "^18.0.0"
+}
+```
+
+### Optional Dependencies (Token-Enabled Apps)
 ```json
 {
   "@solana/wallet-adapter-react": "^0.15.0",
@@ -221,7 +235,7 @@ npm run validate
 # REQUIRED: Create upload package
 npm run zip
 
-# Then upload at: https://factoryapp.dev/web3-factory/launch
+# Then upload at: https://factoryapp.dev/launch
 ```
 
 ---
@@ -231,12 +245,10 @@ npm run zip
 The hosted platform (not in this repo) handles:
 
 1. **Upload** - Receives and validates zip
-2. **Token Creation** - Calls Bags API with server-side key
+2. **Token Creation** - Creates token on Solana (if enabled)
 3. **Transaction** - Prepares serialized transaction for wallet signing
 4. **Deployment** - Pushes to GitHub, triggers Vercel deploy
 5. **Showcase** - Stores app metadata, displays draft/deployed status
-
-Fee split is shown on the factoryapp.dev UI.
 
 ---
 
@@ -248,12 +260,12 @@ Fee split is shown on the factoryapp.dev UI.
 | AI inference | User's Claude/Cursor | User pays their own AI |
 | Validation | Local | No cloud cost |
 | API keys | factoryapp.dev only | Security |
-| Token creation | factoryapp.dev | Requires server-side Bags key |
+| Token creation | factoryapp.dev | Requires server-side keys |
 | Deployment | factoryapp.dev | Requires Vercel token |
 
 The local tools do everything that doesn't need secrets or server infrastructure.
 
 ---
 
-**Document Version:** 3.1
-**Last Updated:** 2026-01-12
+**Document Version:** 4.0
+**Last Updated:** 2026-01-13

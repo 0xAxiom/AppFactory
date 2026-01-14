@@ -2,6 +2,8 @@
 
 Use this checklist to ensure your build is complete before uploading.
 
+**Token Integration:** {{#if with_tokens}}ENABLED{{else}}DISABLED{{/if}}
+
 ---
 
 ## Project Setup
@@ -16,9 +18,10 @@ Use this checklist to ensure your build is complete before uploading.
 
 - [ ] `src/app/layout.tsx` - Root layout with Providers
 - [ ] `src/app/page.tsx` - Homepage
-- [ ] `src/app/providers.tsx` - Wallet + context providers
+- [ ] `src/app/providers.tsx` - {{#if with_tokens}}Wallet + context providers{{else}}Context providers{{/if}}
 - [ ] `src/app/globals.css` - Tailwind imports + global styles
 
+{{#if with_tokens}}
 ## Wallet Integration
 
 - [ ] `@solana/wallet-adapter-react` installed
@@ -34,12 +37,14 @@ Use this checklist to ensure your build is complete before uploading.
 - [ ] `src/config/constants.ts` with TOKEN_MINT placeholder
 - [ ] `src/hooks/useTokenBalance.ts` hook implemented
 - [ ] Token balance displays in UI (wallet connected)
-- [ ] Fee routing constants defined
+{{/if}}
 
 ## UI Components
 
 - [ ] Base components in `src/components/ui/`
+{{#if with_tokens}}
 - [ ] Wallet components in `src/components/wallet/`
+{{/if}}
 - [ ] Feature components organized by feature
 - [ ] Dark mode styling applied
 - [ ] Responsive on mobile and desktop
@@ -48,7 +53,7 @@ Use this checklist to ensure your build is complete before uploading.
 
 - [ ] Homepage complete with core functionality
 - [ ] All feature pages implemented
-- [ ] Profile page with wallet info
+- [ ] Profile page {{#if with_tokens}}with wallet info{{/if}}
 - [ ] Navigation between pages works
 
 ## Testing Locally
@@ -57,15 +62,21 @@ Use this checklist to ensure your build is complete before uploading.
 - [ ] `npm run dev` starts without errors
 - [ ] App loads at http://localhost:3000
 - [ ] No console errors in browser
+{{#if with_tokens}}
 - [ ] Wallet connects successfully
+{{/if}}
 - [ ] Core features work (with mock data if needed)
 
 ## Environment Variables
 
 - [ ] `.env.example` created with required vars
+{{#if with_tokens}}
 - [ ] `NEXT_PUBLIC_SOLANA_RPC_URL` documented
 - [ ] `NEXT_PUBLIC_SOLANA_NETWORK` documented
 - [ ] `NEXT_PUBLIC_TOKEN_MINT` documented (placeholder)
+{{else}}
+- [ ] All required env vars documented
+{{/if}}
 
 ## Documentation
 
@@ -90,17 +101,23 @@ npm run zip        # Creates upload package
 
 ## Common Issues
 
+{{#if with_tokens}}
 **Wallet adapter error:**
 Make sure you're NOT using BackpackWalletAdapter (it causes issues).
 Only use PhantomWalletAdapter and SolflareWalletAdapter.
 
 **Token balance not showing:**
 This is normal - the token doesn't exist yet.
-Balance will show after launch.
+Balance will show after launch on factoryapp.dev.
+{{/if}}
 
 **TypeScript errors:**
 Run `npx tsc --noEmit` to see all errors.
 Fix them before validating.
+
+**Build errors:**
+Run `npm run build` to check for production issues.
+Fix any errors before zipping.
 
 ---
 

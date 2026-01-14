@@ -4,279 +4,227 @@
 
 # App Factory
 
-**Describe the app you want. Claude builds it.**
+**Describe what you want. Get a working product.**
 
-This repository contains three builders:
-
-| Builder | What It Makes | Tech Stack |
-|---------|---------------|------------|
-| [**the_factory/**](./the_factory/) | Mobile apps | Expo + React Native |
-| [**web3-factory/**](./web3-factory/) | Web3 apps with tokens | Next.js + Solana |
-| [**agent-factory/**](./agent-factory/) | AI agent scaffolds | Node.js + TypeScript |
+App Factory is a mono-repo containing three pipelines that generate fully working products from plain-English descriptions.
 
 ---
 
-## Web3 Factory (New)
+## How to Start (Important)
 
-Build Web3 apps and launch Solana tokens with **zero platform AI cost**.
+**App Factory does NOT run from the repository root.**
 
-**Fast path:**
+Each pipeline is an independent Claude workspace with its own constitution (`CLAUDE.md`). You must `cd` into a pipeline folder before running `claude`.
+
+```bash
+# 1. Choose your pipeline
+# 2. cd into that folder
+# 3. Run claude INSIDE the folder
+
+cd web3-factory    # or: cd the_factory / cd agent-factory
+claude
 ```
-Open web3-factory/ in Claude Code or Cursor
-Type: "Make a roast battle app with token rewards"
-→ Prompts and specs generated automatically
-```
 
-**How it works:**
-
-1. Clone this repo and open `web3-factory/` in Claude Code or Cursor
-2. Describe your Web3 app idea in one sentence
-3. The agent generates build prompts and specs automatically
-4. Open the generated `build_prompt.md` in your AI tool
-5. Build the app following the prompt instructions
-6. Use helper scripts to validate and zip your build
-7. Upload to [factoryapp.dev](https://factoryapp.dev/web3-factory/launch)
-8. Connect wallet, sign transaction, launch!
-
-**This is an agent-driven pipeline.** You type your idea, the repo generates prompts. Your AI tool builds the app.
-
-See [web3-factory/README.md](./web3-factory/README.md) for full docs.
+**Do NOT run `claude` at the repo root.** There is no root-level CLAUDE.md because the pipelines are separate workspaces.
 
 ---
 
-## Agent Factory (New)
+## Which Pipeline Do I Use?
 
-Build AI agent scaffolds with **zero platform inference cost**.
+| I want to build... | Use this pipeline | Output | Launch target |
+|--------------------|-------------------|--------|---------------|
+| A **mobile app** for iOS and Android | [the_factory/](./the_factory/) | Expo React Native app | App Store / Play Store |
+| A **web app** (optionally with tokens) | [web3-factory/](./web3-factory/) | Next.js app | Factory launchpad |
+| An **AI agent** (optionally with tokens) | [agent-factory/](./agent-factory/) | Node.js HTTP agent | Factory launchpad |
 
-**Fast path:**
+### Quick Decision Guide
+
 ```
-Open agent-factory/ in Claude Code or Cursor
-Type: "Build an agent that summarizes YouTube videos"
-→ Complete scaffold generated automatically
+Do you need a mobile app?
+├── YES → the_factory/
+└── NO
+    ├── Do you need a web UI?
+    │   ├── YES → web3-factory/
+    │   └── NO
+    │       └── Is it an AI agent/bot?
+    │           ├── YES → agent-factory/
+    │           └── NO → web3-factory/ (default for web)
 ```
-
-**How it works:**
-
-1. Clone this repo and open `agent-factory/` in Claude Code or Cursor
-2. Describe your agent idea in one sentence
-3. Answer 3 questions (name, description, env vars)
-4. Get a complete scaffold in `outputs/<agent-name>/`
-5. Run `npm run zip` to package
-6. Upload to [factoryapp.dev](https://factoryapp.dev)
-
-**This is an agent-driven pipeline.** You type your idea, Claude generates the scaffold. You bring your own API keys.
-
-See [agent-factory/README.md](./agent-factory/README.md) for full docs.
 
 ---
 
-## App Factory (Mobile)
+## 30-Second Quickstarts
 
-Build mobile apps with a single description.
+### Mobile App (the_factory)
 
 ```bash
 cd the_factory
 claude
-# Describe your app to Claude
-# Get a complete Expo app with research + ASO
+# Type: "A meditation app with guided sessions and streak tracking"
+# Wait for build to complete
+# Run: cd builds/<app-slug> && npm install && npx expo start
 ```
 
----
-
-## Changelog
-
-**v4.1 (January 2026)** - Mandatory research and ASO
-- **Market research** - every build includes written market analysis
-- **Competitor analysis** - documented competitive landscape
-- **ASO metadata** - ready-to-paste App Store copy
-
-**v4.0 (January 2026)** - Single-mode refactor
-- **No commands required** - describe your app, get a working build
-- **Ralph Mode** - adversarial QA ensures every build meets quality standards
-- **Streamlined repo** - removed legacy orchestration, kept only what matters
-
----
-
-## How It Works
-
-1. Open Claude Code in the `the_factory/` directory
-2. Describe the app you want in plain English
-3. Claude researches the market and builds it end-to-end
-4. Get a complete Expo app with research and ASO in `builds/<app-slug>/`
-
-No commands. No configuration. No pipeline stages to manage.
-
----
-
-## Example
-
-**You type:**
-```
-A meditation app with guided sessions, ambient sounds, and streak tracking
-```
-
-**You get:**
-```
-builds/meditation-app/
-├── package.json
-├── app.config.js
-├── src/
-│   ├── screens/
-│   │   ├── OnboardingScreen.tsx
-│   │   ├── HomeScreen.tsx
-│   │   ├── SessionScreen.tsx
-│   │   ├── PaywallScreen.tsx
-│   │   └── SettingsScreen.tsx
-│   ├── components/
-│   ├── services/
-│   │   └── purchases.ts
-│   └── ui/
-├── assets/
-│   ├── icon.png
-│   └── splash.png
-├── research/                     # Market intelligence
-│   ├── market_research.md        # Market size, trends, demographics
-│   ├── competitor_analysis.md    # Competitor breakdown
-│   └── positioning.md            # Differentiation strategy
-├── aso/                          # App Store Optimization
-│   ├── app_title.txt             # Store title (max 30 chars)
-│   ├── subtitle.txt              # Store subtitle (max 30 chars)
-│   ├── description.md            # Full store description
-│   └── keywords.txt              # ASO keywords (max 100 chars)
-├── privacy_policy.md
-├── launch_plan.md
-└── README.md
-```
-
-Ready to run with `npx expo start`.
-
----
-
-## What Gets Built
-
-Every build includes:
-
-### App Code
-| Feature | Description |
-|---------|-------------|
-| **Expo + TypeScript** | iOS and Android from one codebase |
-| **RevenueCat** | Subscription monetization built-in |
-| **Onboarding** | 2-4 screen welcome flow |
-| **Paywall** | Premium upgrade screen |
-| **Settings** | Subscription management, privacy, support |
-| **Local Storage** | SQLite for data, AsyncStorage for preferences |
-
-### Market Research (Mandatory)
-| File | Contents |
-|------|----------|
-| `research/market_research.md` | Market size, trends, demographics, pain points |
-| `research/competitor_analysis.md` | Direct/indirect competitors, gaps to exploit |
-| `research/positioning.md` | Unique value proposition, differentiation |
-
-### App Store Optimization (Mandatory)
-| File | Contents |
-|------|----------|
-| `aso/app_title.txt` | Optimized App Store title |
-| `aso/subtitle.txt` | App Store subtitle |
-| `aso/description.md` | Full App Store description |
-| `aso/keywords.txt` | ASO keywords for App Store Connect |
-
-### Launch Materials
-| File | Contents |
-|------|----------|
-| `privacy_policy.md` | Privacy policy for store compliance |
-| `launch_plan.md` | Launch checklist and timeline |
-
----
-
-## Quality Assurance
-
-Every build goes through **Ralph Mode** - an adversarial QA process:
-
-1. Ralph reviews the build critically
-2. Verifies all code, research, and ASO artifacts
-3. Identifies issues that would block shipping
-4. Builder fixes the issues
-5. Repeat until quality standards met (max 3 iterations)
-
-A build only succeeds when Ralph approves it. **Missing or thin research/ASO is a blocking failure.**
-
----
-
-## Defaults
-
-When you don't specify details, App Factory assumes:
-
-| Aspect | Default |
-|--------|---------|
-| Monetization | Freemium with $4.99/mo subscription |
-| Data storage | Local-only (offline-first) |
-| Backend | None required |
-| Authentication | Guest-first (no login) |
-| Platform | iOS + Android |
-
----
-
-## Technology Stack
-
-| Component | Technology |
-|-----------|------------|
-| Framework | Expo SDK 54+ |
-| Language | TypeScript |
-| Navigation | Expo Router v4 |
-| Monetization | RevenueCat |
-| Storage | expo-sqlite |
-
----
-
-## Repo Map
-
-```
-the_factory/
-├── claude.md              # Constitution - defines single-mode behavior
-├── README.md              # App Factory documentation
-├── templates/
-│   ├── system/            # Core execution templates
-│   │   ├── dream_spec_author.md   # Expands input to spec
-│   │   └── ralph_polish_loop.md   # QA process
-│   └── app_template/      # Expo scaffolding
-├── builds/                # Generated apps go here
-├── runs/                  # Execution artifacts
-├── vendor/                # Cached Expo/RevenueCat docs
-│   ├── expo-docs/         # Expo SDK documentation
-│   └── revenuecat-docs/   # RevenueCat documentation
-├── scripts/               # Helper utilities
-│   ├── build_proof_gate.sh
-│   ├── generate_assets.sh
-│   └── generate_privacy_policy.sh
-└── standards/             # Quality standards
-    ├── mobile_app_best_practices_2026.md
-    └── research_policy.md
-```
-
----
-
-## Running Your App
+### Web App (web3-factory)
 
 ```bash
-cd the_factory/builds/<app-slug>
-npm install
-npx expo start
+cd web3-factory
+claude
+# Type: "A roast battle app where users vote on the best burns"
+# Answer: "Do you want token integration?" → no (or yes if you want tokens)
+# Generated prompts appear in generated/<app-slug>/
+# Follow build_prompt.md to build your app
+# Push to GitHub, then import on factoryapp.dev (Repo Mode)
 ```
 
-Press `i` for iOS simulator or `a` for Android emulator.
+### AI Agent (agent-factory)
+
+```bash
+cd agent-factory
+claude
+# Type: "An agent that summarizes YouTube videos"
+# Answer 4 questions (name, description, env vars, token integration)
+# Scaffold appears in outputs/<agent-name>/
+# Run: cd outputs/<agent-name> && npm install && npm run dev
+# Test: curl http://localhost:8080/health
+# Push to GitHub, then import on factoryapp.dev (Repo Mode)
+```
 
 ---
 
-## Getting Started
+## What Each Pipeline Generates
 
-1. Clone this repository
-2. Open `the_factory/` in Claude Code
-3. Describe the app you want
-4. Wait for the build to complete
-5. Run your app from `builds/`
+### the_factory (Mobile)
 
-That's it.
+| Output | Description |
+|--------|-------------|
+| Complete Expo app | TypeScript, Expo Router, RevenueCat monetization |
+| Market research | Market analysis, competitor breakdown, positioning |
+| ASO materials | App Store title, subtitle, description, keywords |
+| Launch materials | Privacy policy, launch checklist |
+
+### web3-factory (Web)
+
+| Output | Description |
+|--------|-------------|
+| Build prompts | Detailed instructions for your AI tool |
+| Frontend spec | UI/UX guidelines and component structure |
+| Checklist | Build verification and quality gates |
+| Token spec | (Only if opted in) Token integration guide |
+
+### agent-factory (Agent)
+
+| Output | Description |
+|--------|-------------|
+| Complete scaffold | TypeScript, HTTP server, manifest |
+| AGENT_SPEC.md | Plain-English agent specification |
+| RUNBOOK.md | Exact steps to run and test |
+| agent.json | Machine-readable manifest for launchpad |
+
+---
+
+## Token Integration
+
+**Token integration is optional** for web3-factory and agent-factory.
+
+- **Default:** Projects are built WITHOUT token integration
+- **Opt-in:** Answer "yes" when asked during generation
+- **Post-launch:** Paste your contract address into the documented config variable
+
+When you don't opt in, your project has zero token-related code, zero blockchain dependencies, and works as a standard web app or agent.
+
+See [docs/LAUNCHPAD_OVERVIEW.md](./docs/LAUNCHPAD_OVERVIEW.md) for details on launching with or without tokens.
+
+---
+
+## Factory Ready Standard
+
+All pipelines follow the same quality standard:
+
+| Gate | Requirement |
+|------|-------------|
+| **Build** | Code compiles, dependencies resolve |
+| **Run** | App/agent starts and responds |
+| **Test** | Smoke tests pass |
+| **Validate** | Contract requirements met |
+| **Package** | Ready for deployment |
+| **Launch Ready** | All docs present |
+
+See [docs/FACTORY_READY_STANDARD.md](./docs/FACTORY_READY_STANDARD.md) for the complete checklist.
+
+---
+
+## Repository Structure
+
+```
+app-factory/
+├── README.md                    # You are here
+├── docs/
+│   ├── FACTORY_READY_STANDARD.md   # Quality standard (all pipelines)
+│   └── LAUNCHPAD_OVERVIEW.md       # Launch and deployment guide
+├── the_factory/                 # Mobile app pipeline
+│   ├── claude.md                # Constitution
+│   ├── README.md                # Pipeline docs
+│   ├── templates/               # Expo scaffolding
+│   ├── scripts/                 # Proof gates
+│   ├── builds/                  # Generated apps
+│   └── runs/                    # Execution artifacts
+├── web3-factory/                # Web app pipeline
+│   ├── CLAUDE.md                # Constitution
+│   ├── README.md                # Pipeline docs
+│   ├── generator/               # Prompt generator
+│   ├── validator/               # Contract validator
+│   ├── generated/               # Generated prompts
+│   └── web3-builds/             # Built apps
+├── agent-factory/               # Agent pipeline
+│   ├── CLAUDE.md                # Constitution
+│   ├── README.md                # Pipeline docs
+│   ├── schema/                  # Manifest schema
+│   ├── scripts/                 # Validators
+│   ├── examples/                # Reference implementation
+│   └── outputs/                 # Generated scaffolds
+└── scripts/
+    └── factory_ready_check.sh   # Unified validation script
+```
+
+---
+
+## Running Proof Gates
+
+Each pipeline has validation to ensure your build actually works.
+
+```bash
+# From any generated project directory:
+
+# Web3 apps
+npm run validate
+# → Produces factory_ready.json
+
+# Agents
+npm run validate
+# → Produces factory_ready.json
+
+# Mobile apps
+cd the_factory
+./scripts/build_proof_gate.sh builds/<app-slug>
+# → Verifies install + build + boot
+```
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| **v5.0** | 2026-01-13 | Factory Ready Standard, unified docs, token integration optional |
+| **v4.1** | 2026-01-12 | Mandatory research and ASO for mobile |
+| **v4.0** | 2026-01-10 | Single-mode refactor, Ralph QA process |
+
+---
+## $FACTORY
+Support the project by holding $FACTORY on Solana.
+
+Contract Address: BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS
 
 ---
 
@@ -286,14 +234,4 @@ MIT License - See LICENSE file.
 
 ---
 
-## $FACTORY
-
-Support the project by holding $FACTORY on Solana.
-
-**Contract Address:** `BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS`
-
-[View on Bags.fm](https://bags.fm/BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS)
-
----
-
-**App Factory v4.1** - Describe what you want. Get a working app with research and ASO.
+**App Factory v5.0** - Describe what you want. Get a working product.

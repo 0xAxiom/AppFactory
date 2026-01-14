@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Agent Factory Validator (Optional Helper)
+ * Agent Factory Validator
  *
- * Validates an agent against ZIP_CONTRACT.md rules.
- * This is an OPTIONAL script - most users won't need it.
+ * Validates an agent against the Factory Ready Standard.
+ * Outputs factory_ready.json on success.
  *
  * Usage: node scripts/validate.js [path]
  */
@@ -168,9 +168,82 @@ if (result.errors.length > 0) {
   console.log('ERRORS:');
   result.errors.forEach(e => console.log(`  - ${e}`));
   console.log('');
+  writeFactoryReadyJson(resolved, false, result);
   process.exit(1);
 }
 
 console.log('PASSED');
 console.log(`  Files: ${result.fileCount}`);
-console.log(`  Size: ${(result.totalSize / 1024).toFixed(1)} KB\n`);
+console.log(`  Size: ${(result.totalSize / 1024).toFixed(1)} KB`);
+writeFactoryReadyJson(resolved, true, result);
+console.log(`\nWrote: factory_ready.json\n`);
+
+// ============================================================
+// FACTORY READY JSON OUTPUT
+// ============================================================
+
+function writeFactoryReadyJson(projectPath, passed, result) {
+  // Read agent.json for project info
+  let agentName = path.basename(projectPath);
+  let tokenEnabled = false;
+
+  try {
+    const agentJsonPath = path.join(projectPath, 'agent.json');
+    if (fs.existsSync(agentJsonPath)) {
+      const agentJson = JSON.parse(fs.readFileSync(agentJsonPath, 'utf-8'));
+      agentName = agentJson.agent?.name || agentName;
+      tokenEnabled = agentJson.tokenIntegration === true;
+    }
+  } catch (e) {
+    // Use defaults
+  }
+
+  const factoryReady = {
+    version: '1.0',
+    timestamp: new Date().toISOString(),
+    project: {
+      name: agentName,
+      pipeline: 'agent-factory',
+      path: projectPath
+    },
+    gates: {
+      build: {
+        status: passed ? 'pass' : 'fail',
+        checks: [
+          { name: 'package.json exists', passed: !result.errors.some(e => e.includes('Missing package.json')) },
+          { name: 'agent.json valid', passed: !result.errors.some(e => e.includes('agent.json')) },
+          { name: 'src/ directory exists', passed: !result.errors.some(e => e.includes('Missing src/')) }
+        ]
+      },
+      run: { status: 'not_checked', note: 'Run npm run dev to verify' },
+      test: { status: 'not_checked', note: 'Run curl http://localhost:8080/health to verify' },
+      validate: {
+        status: passed ? 'pass' : 'fail',
+        file_count: result.fileCount,
+        total_size_kb: Math.round(result.totalSize / 1024),
+        errors: result.errors
+      },
+      package: { status: 'pass', note: 'Push to GitHub for launchpad import' },
+      launch_ready: {
+        status: passed ? 'pass' : 'fail',
+        checks: [
+          { name: 'No forbidden files', passed: !result.errors.some(e => e.includes('Forbidden')) },
+          { name: 'Size under limit', passed: !result.errors.some(e => e.includes('too large')) }
+        ]
+      },
+      token_integration: {
+        status: tokenEnabled ? 'enabled' : 'disabled',
+        note: tokenEnabled
+          ? 'Set TOKEN_CONTRACT_ADDRESS in .env after launch'
+          : 'Token integration not enabled for this agent'
+      }
+    },
+    overall: passed ? 'PASS' : 'FAIL',
+    next_steps: passed
+      ? ['Push to GitHub', 'Import on factoryapp.dev (Repo Mode)']
+      : ['Fix errors listed above', 'Run npm run validate again']
+  };
+
+  const outputPath = path.join(projectPath, 'factory_ready.json');
+  fs.writeFileSync(outputPath, JSON.stringify(factoryReady, null, 2));
+}
