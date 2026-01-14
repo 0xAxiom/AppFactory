@@ -133,7 +133,6 @@ claude
 
 When you don't opt in, your project has zero token-related code, zero blockchain dependencies, and works as a standard web app or agent.
 
-See [docs/LAUNCHPAD_OVERVIEW.md](./docs/LAUNCHPAD_OVERVIEW.md) for details on launching with or without tokens.
 
 ---
 
