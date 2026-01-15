@@ -112,19 +112,43 @@ Ralph Wiggum is a skeptical reviewer persona. Ralph:
 
 **Reference:** `skills/web-design-guidelines/SKILL.md`
 
+### Web Interface Guidelines Compliance (included in Web Design 25%)
+
+| # | Check | Priority | How to Verify |
+|---|-------|----------|---------------|
+| 39 | Keyboard navigation | HIGH | All interactive elements reachable via Tab |
+| 40 | Focus indicators visible | HIGH | `focus-visible:ring-2` on all focusable elements |
+| 41 | Touch targets ≥44px | MEDIUM | Buttons/links min 44px on mobile viewports |
+| 42 | prefers-reduced-motion | MEDIUM | Motion respects `useReducedMotion()` hook |
+| 43 | Compositor-only animations | MEDIUM | Only animate transform/opacity, no `transition: all` |
+| 44 | List virtualization | HIGH | Lists >50 items use virtual scrolling |
+| 45 | Above-fold image preload | MEDIUM | Hero images use `priority` prop |
+| 46 | APCA contrast standards | HIGH | Text meets Lc 60+ body, 75+ UI |
+| 47 | Form labels associated | HIGH | Every input has `<label htmlFor>` or aria-label |
+| 48 | Enter submits forms | MEDIUM | Forms submit on Enter key press |
+
+**Reference:** `skills/web-interface-guidelines/AGENTS.md`
+
+**Critical Items (Must Pass):**
+- Keyboard navigation (39)
+- Focus indicators visible (40)
+- List virtualization (44)
+- APCA contrast standards (46)
+- Form labels associated (47)
+
 ---
 
 ## Scoring
 
 ### Standard App (No Tokens)
-- Total items: 34 (Build: 4, UI: 10, Research: 3, Code: 4, React Skills: 5, Web Skills: 8)
-- Pass threshold: 97% = 32.98 → 33+ items must pass (1 allowed failure)
-- Skill weights: React Skills 20%, Web Design Skills 25%
+- Total items: 44 (Build: 4, UI: 10, Research: 3, Code: 4, React Skills: 5, Web Skills: 8, Interface: 10)
+- Pass threshold: 97% = 42.68 → 43+ items must pass (1 allowed failure)
+- Skill weights: React Skills 20%, Web Design Skills 25% (includes Interface Guidelines)
 
 ### Token-Enabled App
-- Total items: 38 (Build: 4, UI: 10, Research: 3, Token: 4, Code: 4, React Skills: 5, Web Skills: 8)
-- Pass threshold: 97% = 36.86 → 37+ items must pass (1 allowed failure)
-- Skill weights: React Skills 20%, Web Design Skills 25%
+- Total items: 48 (Build: 4, UI: 10, Research: 3, Token: 4, Code: 4, React Skills: 5, Web Skills: 8, Interface: 10)
+- Pass threshold: 97% = 46.56 → 47+ items must pass (1 allowed failure)
+- Skill weights: React Skills 20%, Web Design Skills 25% (includes Interface Guidelines)
 
 ### Critical Items (Must Pass)
 
@@ -133,6 +157,11 @@ These items MUST pass regardless of overall score:
 - `npm run build completes`
 - `npm run dev starts`
 - `No hardcoded secrets`
+- `Keyboard navigation` (Interface Guidelines)
+- `Focus indicators visible` (Interface Guidelines)
+- `List virtualization` (Interface Guidelines, if lists >50 items)
+- `APCA contrast standards` (Interface Guidelines)
+- `Form labels associated` (Interface Guidelines)
 
 If any critical item fails, verdict is FAIL.
 
@@ -261,6 +290,7 @@ Build meets all quality requirements.
 - Code quality: All passing
 - React Skills: XX% (all critical passed)
 - Web Design Skills: XX% (all critical passed)
+- Web Interface Guidelines: XX% (all critical passed)
 
 Build is ready for deployment.
 ```
@@ -335,6 +365,17 @@ This is NOT two separate agents. It's Claude switching perspectives:
 - Hardcoded localhost URLs
 - Missing .env.example
 - No vercel.json
+
+### Interface Guidelines Issues
+- Missing keyboard navigation (can't Tab to buttons)
+- No focus-visible indicators (outline-none without replacement)
+- Touch targets too small (<44px on mobile)
+- Ignoring prefers-reduced-motion (animations always run)
+- Using `transition: all` (performance issue)
+- Large lists not virtualized (>50 items rendered directly)
+- Poor contrast ratios (light gray on white)
+- Form inputs without labels (accessibility violation)
+- Forms that don't submit on Enter key
 
 ---
 

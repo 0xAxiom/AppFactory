@@ -1,7 +1,7 @@
 /**
  * Path Resolution Module
  *
- * Resolves paths to the_factory assets and CLI directories.
+ * Resolves paths to app-factory assets and CLI directories.
  * All paths are relative to the repository root.
  */
 
@@ -12,13 +12,13 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Find repository root by looking for the_factory directory
+// Find repository root by looking for app-factory directory
 function findRepoRoot(): string {
   let current = __dirname;
 
-  // Walk up until we find the_factory directory
+  // Walk up until we find app-factory directory
   for (let i = 0; i < 10; i++) {
-    const factoryPath = path.join(current, 'the_factory');
+    const factoryPath = path.join(current, 'app-factory');
     if (fs.existsSync(factoryPath)) {
       return current;
     }
@@ -27,7 +27,7 @@ function findRepoRoot(): string {
     current = parent;
   }
 
-  throw new Error('Could not find repository root (the_factory directory not found)');
+  throw new Error('Could not find repository root (app-factory directory not found)');
 }
 
 // Lazy initialization of repo root
@@ -42,7 +42,7 @@ export function getRepoRoot(): string {
 
 // Factory paths
 export function getFactoryRoot(): string {
-  return path.join(getRepoRoot(), 'the_factory');
+  return path.join(getRepoRoot(), 'app-factory');
 }
 
 export function getTemplatesDir(): string {
@@ -150,7 +150,7 @@ export function validateFactoryStructure(): { valid: boolean; errors: string[] }
   const errors: string[] = [];
 
   const requiredPaths = [
-    { path: getFactoryRoot(), name: 'the_factory' },
+    { path: getFactoryRoot(), name: 'app-factory' },
     { path: getTemplatesDir(), name: 'templates/agents' },
     { path: getSchemasDir(), name: 'schemas' },
     { path: getScriptsDir(), name: 'scripts' },

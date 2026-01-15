@@ -12,7 +12,7 @@ Describe a web app idea. Get a complete, runnable Next.js application.
 - Builders who want AI-assisted development
 - Anyone launching web apps (with optional Solana integration)
 
-**Not for you if:** You need a mobile app (use [the_factory](../the_factory/)) or an AI agent (use [agent-factory](../agent-factory/))
+**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)) or an AI agent (use [agent-factory](../agent-factory/))
 
 ---
 
@@ -226,6 +226,11 @@ web3-factory/
 ├── README.md               # This file
 ├── validator/
 │   └── index.ts            # Build validator
+├── skills/                 # Code quality rules
+│   ├── react-best-practices/      # Performance patterns (20% weight)
+│   ├── web-design-guidelines/     # UI/UX standards (25% weight)
+│   ├── web-interface-guidelines/  # Accessibility, interactions
+│   └── vercel-deploy/             # Deployment automation
 ├── templates/
 │   ├── system/
 │   │   ├── dream_spec_author.md
@@ -299,9 +304,9 @@ Build is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unre
 
 - **Root README:** [../README.md](../README.md)
 - **Constitution:** [CLAUDE.md](./CLAUDE.md)
-- **Mobile apps:** [the_factory](../the_factory/)
+- **Mobile apps:** [app-factory](../app-factory/)
 - **AI agents:** [agent-factory](../agent-factory/)
 
 ---
 
-**web3-factory v7.0** - Describe your idea. Get a complete, polished, runnable web application.
+**web3-factory v7.1** - Describe your idea. Get a complete, polished, runnable web application.

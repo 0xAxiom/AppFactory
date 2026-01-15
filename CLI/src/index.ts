@@ -4,7 +4,7 @@
  * App Factory CLI
  *
  * A standalone CLI for generating store-ready Expo React Native apps using Claude AI.
- * This CLI executes the same pipeline as the_factory/, but uses the Anthropic API directly.
+ * This CLI executes the same pipeline as app-factory/, but uses the Anthropic API directly.
  */
 
 import { Command } from 'commander';

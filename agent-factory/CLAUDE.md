@@ -840,7 +840,7 @@ agent-factory/
 
 ### FORBIDDEN Directories (never write to)
 
-- `builds/` - belongs to the_factory
+- `builds/` - belongs to app-factory
 - `web3-builds/` - belongs to web3-factory
 - Any path outside `agent-factory/`
 

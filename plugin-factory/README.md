@@ -12,7 +12,7 @@ Describe a plugin idea. Get a complete, publishable Claude extension.
 - Builders creating MCP servers for Claude Desktop
 - Anyone who wants to extend Claude's capabilities
 
-**Not for you if:** You need a mobile app (use [the_factory](../the_factory/)) or a web app (use [web3-factory](../web3-factory/))
+**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)) or a web app (use [web3-factory](../web3-factory/))
 
 ---
 
@@ -281,7 +281,7 @@ Plugin is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unr
 
 - **Root README:** [../README.md](../README.md)
 - **Constitution:** [CLAUDE.md](./CLAUDE.md)
-- **Mobile apps:** [the_factory](../the_factory/)
+- **Mobile apps:** [app-factory](../app-factory/)
 - **Web apps:** [web3-factory](../web3-factory/)
 - **AI agents:** [agent-factory](../agent-factory/)
 

@@ -616,7 +616,7 @@ plugin-factory/
 
 ### FORBIDDEN Directories (never write to)
 
-- `builds/` in the_factory
+- `builds/` in app-factory
 - `web3-builds/` in web3-factory
 - `outputs/` in agent-factory
 - Any path outside `plugin-factory/`

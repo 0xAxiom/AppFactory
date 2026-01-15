@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The App Factory CLI has been successfully implemented as a standalone TypeScript Node.js application that executes the same pipeline as `the_factory/`, using the Anthropic API directly rather than Claude Code modes.
+The App Factory CLI has been successfully implemented as a standalone TypeScript Node.js application that executes the same pipeline as `app-factory/`, using the Anthropic API directly rather than Claude Code modes.
 
 ---
 
@@ -69,7 +69,7 @@ The CLI features a full interactive menu system accessible via `npm start`:
 
 ## Pipeline Mapping
 
-### How CLI Maps to the_factory Pipeline
+### How CLI Maps to app-factory Pipeline
 
 | CLI Command | Pipeline Stages | Factory Equivalent |
 |-------------|-----------------|-------------------|
@@ -82,7 +82,7 @@ The CLI features a full interactive menu system accessible via `npm start`:
 
 ### Stage Execution Model
 
-The CLI executes stages in the same order as `the_factory/`:
+The CLI executes stages in the same order as `app-factory/`:
 
 1. **Run Mode**: Stage 01 only (generates 10 ideas)
 2. **Build Mode**: Stages 02, 02.5, 02.7, 03, 04, 05, 06, 07, 08, 08.5, 09, 09.1, 09.2, 09.5, 09.7, 10.1, 10
@@ -90,15 +90,15 @@ The CLI executes stages in the same order as `the_factory/`:
 
 ### Asset Reuse
 
-The CLI reuses the following from `the_factory/`:
+The CLI reuses the following from `app-factory/`:
 
 | Asset Type | Location | Usage |
 |-----------|----------|-------|
-| Stage Templates | `the_factory/templates/agents/*.md` | Read as prompts |
-| JSON Schemas | `the_factory/schemas/*.json` | Validate stage outputs |
-| Enforcement Scripts | `the_factory/scripts/*.sh` | Execute via child_process |
-| Standards Document | `the_factory/standards/mobile_app_best_practices_2026.md` | Include in prompts |
-| Vendor Docs | `the_factory/vendor/` | Reference during stages |
+| Stage Templates | `app-factory/templates/agents/*.md` | Read as prompts |
+| JSON Schemas | `app-factory/schemas/*.json` | Validate stage outputs |
+| Enforcement Scripts | `app-factory/scripts/*.sh` | Execute via child_process |
+| Standards Document | `app-factory/standards/mobile_app_best_practices_2026.md` | Include in prompts |
+| Vendor Docs | `app-factory/vendor/` | Reference during stages |
 
 ---
 
@@ -132,7 +132,7 @@ All enforcement gates from Stage 10 are preserved:
 ### Schema Validation
 
 - AJV JSON Schema validator integrated
-- All stage outputs validated against `the_factory/schemas/`
+- All stage outputs validated against `app-factory/schemas/`
 - Hard-fail on validation errors (no stubs or false success)
 - Maximum 3 retry attempts before permanent failure
 
@@ -295,7 +295,7 @@ The following operations are not automated by the CLI:
 | ANTHROPIC_MODEL | No | claude-sonnet-4-20250514 | Model |
 | APPFACTORY_MAX_TOKENS | No | 16000 | Max tokens |
 | APPFACTORY_TEMPERATURE | No | 0.3 | Temperature |
-| APPFACTORY_OUTPUT_ROOT | No | the_factory/ | Output root |
+| APPFACTORY_OUTPUT_ROOT | No | app-factory/ | Output root |
 
 ---
 
@@ -320,7 +320,7 @@ The following operations are not automated by the CLI:
 
 The CLI implementation is complete and production-ready. It:
 
-- Executes the same 20-stage pipeline as `the_factory/`
+- Executes the same 20-stage pipeline as `app-factory/`
 - Reuses all templates, schemas, and enforcement scripts
 - Maintains all validation gates and constraints
 - Provides clean CLI UX with spinners, colors, and structured output

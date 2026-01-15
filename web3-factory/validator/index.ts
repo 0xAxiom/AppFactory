@@ -549,6 +549,82 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
         });
       }
     }
+
+    // =====================================================
+    // Web Interface Guidelines Checks (NEW)
+    // =====================================================
+
+    // Check for outline-none without replacement (CRITICAL - accessibility)
+    if (content.match(/outline-none|outline:\s*none/i)) {
+      if (!content.match(/focus-visible|ring-|outline-offset/i)) {
+        violations.push({
+          rule: 'focus-indicators',
+          severity: 'CRITICAL',
+          file: relativePath,
+          message: 'outline-none without focus-visible replacement - keyboard users need focus indicators',
+        });
+      }
+    }
+
+    // Check for transition: all (MEDIUM - performance)
+    if (content.match(/transition:\s*all|transition-all/i)) {
+      violations.push({
+        rule: 'compositor-animations',
+        severity: 'MEDIUM',
+        file: relativePath,
+        message: 'transition: all detected - specify exact properties (transform, opacity) for performance',
+      });
+    }
+
+    // Check for large lists without virtualization (HIGH - performance)
+    // Look for .map() patterns that might render many items
+    if (content.match(/\.map\s*\(\s*\([^)]*\)\s*=>/)) {
+      // Check if the file mentions any virtualization
+      if (!content.match(/VirtualizedList|react-window|react-virtualized|tanstack.*virtual/i)) {
+        // This is just a warning - can't determine list size statically
+        // Ralph will do the actual verification
+      }
+    }
+
+    // Check for missing form labels (HIGH - accessibility)
+    if (content.match(/<input|<textarea|<select/i)) {
+      if (!content.match(/<label|htmlFor|aria-label|aria-labelledby/i)) {
+        violations.push({
+          rule: 'form-labels',
+          severity: 'HIGH',
+          file: relativePath,
+          message: 'Form inputs detected without labels - add <label htmlFor> or aria-label',
+        });
+      }
+    }
+
+    // Check for small touch targets on buttons (MEDIUM - mobile UX)
+    // Look for explicit small sizing on interactive elements
+    if (content.match(/w-[1-8]\s|h-[1-8]\s|size-[1-8]/)) {
+      if (content.match(/<button|onClick|role="button"/i)) {
+        violations.push({
+          rule: 'touch-targets',
+          severity: 'MEDIUM',
+          file: relativePath,
+          message: 'Small dimensions on interactive element - ensure touch targets are ≥44px',
+        });
+      }
+    }
+
+    // Check for ignoring prefers-reduced-motion (MEDIUM - accessibility)
+    if (content.match(/animate|animation|transition|motion/i)) {
+      if (content.includes('framer-motion') || content.includes("from 'motion'")) {
+        // Framer Motion - check for useReducedMotion or media query
+        if (!content.match(/useReducedMotion|prefers-reduced-motion/i)) {
+          violations.push({
+            rule: 'reduced-motion',
+            severity: 'MEDIUM',
+            file: relativePath,
+            message: 'Animations without prefers-reduced-motion check - use useReducedMotion() hook',
+          });
+        }
+      }
+    }
   }
 
   // Scan all TypeScript/JavaScript files

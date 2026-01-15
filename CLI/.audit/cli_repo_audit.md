@@ -2,7 +2,7 @@
 
 **Date**: 2026-01-10
 **Auditor**: Claude Code (Opus 4.5)
-**Purpose**: Document the_factory pipeline for CLI implementation
+**Purpose**: Document app-factory pipeline for CLI implementation
 
 ---
 
@@ -46,12 +46,12 @@ The App Factory pipeline consists of 20 stage templates that transform market re
 
 | Asset Type | Path | CLI Usage |
 |-----------|------|-----------|
-| Stage Templates | `the_factory/templates/agents/*.md` | Read and render as prompts |
-| JSON Schemas | `the_factory/schemas/*.json` | Validate stage outputs |
-| Enforcement Scripts | `the_factory/scripts/*.sh` | Execute via child_process |
-| Standards Document | `the_factory/standards/mobile_app_best_practices_2026.md` | Include in prompts |
-| Vendor Docs | `the_factory/vendor/` | Reference for stages |
-| Runbooks | `the_factory/runbooks/*.md` | Execution reference |
+| Stage Templates | `app-factory/templates/agents/*.md` | Read and render as prompts |
+| JSON Schemas | `app-factory/schemas/*.json` | Validate stage outputs |
+| Enforcement Scripts | `app-factory/scripts/*.sh` | Execute via child_process |
+| Standards Document | `app-factory/standards/mobile_app_best_practices_2026.md` | Include in prompts |
+| Vendor Docs | `app-factory/vendor/` | Reference for stages |
+| Runbooks | `app-factory/runbooks/*.md` | Execution reference |
 
 ### REIMPLEMENT (CLI-Specific)
 
@@ -67,7 +67,7 @@ The App Factory pipeline consists of 20 stage templates that transform market re
 
 ## 3. Schema Validation Flow
 
-**Location**: `the_factory/schemas/`
+**Location**: `app-factory/schemas/`
 
 ### Validation Rules
 
@@ -206,7 +206,7 @@ Maps to: `dream <IDEA_TEXT>` in claude.md
 New CLI-specific command:
 
 1. Validate .env exists with ANTHROPIC_API_KEY
-2. Validate the_factory/ exists with expected structure
+2. Validate app-factory/ exists with expected structure
 3. Check Node.js version
 4. Verify required scripts executable
 
@@ -267,7 +267,7 @@ New CLI-specific command:
 
 ### Prompt Construction
 
-1. Read stage template from `the_factory/templates/agents/`
+1. Read stage template from `app-factory/templates/agents/`
 2. Inject stage inputs (prior stage JSONs, idea.json)
 3. Include standards document reference
 4. Include relevant runbook sections
@@ -301,8 +301,8 @@ New CLI-specific command:
 ### Path Resolution Strategy
 
 ```typescript
-// Core paths relative to the_factory
-const FACTORY_ROOT = path.join(__dirname, '../../the_factory');
+// Core paths relative to app-factory
+const FACTORY_ROOT = path.join(__dirname, '../../app-factory');
 const TEMPLATES = path.join(FACTORY_ROOT, 'templates/agents');
 const SCHEMAS = path.join(FACTORY_ROOT, 'schemas');
 const SCRIPTS = path.join(FACTORY_ROOT, 'scripts');

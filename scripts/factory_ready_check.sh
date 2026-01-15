@@ -23,7 +23,7 @@ if [ -z "$1" ]; then
     echo "Examples:"
     echo "  ./scripts/factory_ready_check.sh web3-factory/web3-builds/my-app"
     echo "  ./scripts/factory_ready_check.sh agent-factory/outputs/my-agent"
-    echo "  ./scripts/factory_ready_check.sh the_factory/builds/my-mobile-app"
+    echo "  ./scripts/factory_ready_check.sh app-factory/builds/my-mobile-app"
     exit 1
 fi
 
@@ -55,9 +55,9 @@ detect_pipeline() {
     elif [ -f "$PROJECT_PATH/next.config.js" ] || [ -f "$PROJECT_PATH/next.config.mjs" ] || [ -f "$PROJECT_PATH/next.config.ts" ]; then
         echo "web3-factory"
     elif [ -f "$PROJECT_PATH/app.json" ] && [ -f "$PROJECT_PATH/expo-env.d.ts" ]; then
-        echo "the-factory"
+        echo "app-factory"
     elif [ -f "$PROJECT_PATH/app.json" ]; then
-        echo "the-factory"
+        echo "app-factory"
     else
         echo "unknown"
     fi
@@ -103,11 +103,11 @@ case $PIPELINE in
         fi
         ;;
 
-    "the-factory")
-        echo "Running the_factory validator..."
+    "app-factory")
+        echo "Running app-factory validator..."
         echo ""
         SCRIPT_DIR="$(dirname "$(dirname "$0")")"
-        PROOF_GATE="$SCRIPT_DIR/the_factory/scripts/build_proof_gate.sh"
+        PROOF_GATE="$SCRIPT_DIR/app-factory/scripts/build_proof_gate.sh"
         if [ -f "$PROOF_GATE" ]; then
             bash "$PROOF_GATE" "$PROJECT_PATH"
         else
@@ -155,7 +155,7 @@ case $PIPELINE in
         echo "Expected one of:"
         echo "  - agent.json (agent-factory)"
         echo "  - next.config.js (web3-factory)"
-        echo "  - app.json + expo-env.d.ts (the-factory)"
+        echo "  - app.json + expo-env.d.ts (app-factory)"
         exit 1
         ;;
 esac

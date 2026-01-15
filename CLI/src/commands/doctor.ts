@@ -86,7 +86,7 @@ export function createDoctorCommand(): Command {
         });
       }
 
-      // Check 5: the_factory directory structure
+      // Check 5: app-factory directory structure
       const factoryCheck = validateFactoryStructure();
       checks.push({
         name: 'Factory structure',

@@ -1,0 +1,434 @@
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState, useEffect } from 'react';
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
+import * as Haptics from 'expo-haptics';
+import { colors, typography, spacing, radius } from '@/constants/theme';
+import { CloseIcon, ExportIcon, FileIcon, WaveformIcon, DocumentIcon } from '@/ui/icons';
+import { getInvestigations, getTags, getAnomalies } from '@/services/storage';
+import { Investigation, Tag, Anomaly } from '@/types';
+import { format } from 'date-fns';
+
+type ExportFormat = 'audio' | 'report' | 'json';
+
+interface ExportOption {
+  id: ExportFormat;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+const EXPORT_OPTIONS: ExportOption[] = [
+  {
+    id: 'audio',
+    icon: <WaveformIcon size={24} color={colors.accent.primary} />,
+    title: 'Audio File',
+    description: 'Export the full recording as M4A',
+  },
+  {
+    id: 'report',
+    icon: <DocumentIcon size={24} color={colors.accent.primary} />,
+    title: 'Investigation Report',
+    description: 'PDF report with tags and anomalies',
+  },
+  {
+    id: 'json',
+    icon: <FileIcon size={24} color={colors.accent.primary} />,
+    title: 'Raw Data',
+    description: 'JSON export for analysis tools',
+  },
+];
+
+export default function ExportScreen() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
+  const [investigation, setInvestigation] = useState<Investigation | null>(null);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [anomalies, setAnomalies] = useState<Anomaly[]>([]);
+  const [selectedFormat, setSelectedFormat] = useState<ExportFormat>('audio');
+  const [isExporting, setIsExporting] = useState(false);
+
+  useEffect(() => {
+    loadData();
+  }, [id]);
+
+  const loadData = async () => {
+    const investigations = await getInvestigations();
+    const found = investigations.find((i) => i.id === id);
+    if (found) {
+      setInvestigation(found);
+      const tagData = await getTags(id!);
+      setTags(tagData);
+      const anomalyData = await getAnomalies(id!);
+      setAnomalies(anomalyData);
+    }
+  };
+
+  const handleExport = async () => {
+    if (!investigation) return;
+
+    setIsExporting(true);
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
+    try {
+      let fileUri: string;
+      let mimeType: string;
+
+      switch (selectedFormat) {
+        case 'audio':
+          fileUri = investigation.audioFilePath;
+          mimeType = 'audio/m4a';
+          break;
+
+        case 'report':
+          fileUri = await generateReport();
+          mimeType = 'text/plain';
+          break;
+
+        case 'json':
+          fileUri = await generateJson();
+          mimeType = 'application/json';
+          break;
+
+        default:
+          throw new Error('Invalid export format');
+      }
+
+      const canShare = await Sharing.isAvailableAsync();
+      if (canShare) {
+        await Sharing.shareAsync(fileUri, { mimeType });
+        await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      } else {
+        Alert.alert('Export Complete', 'File saved successfully.');
+      }
+    } catch (error) {
+      console.error('Export error:', error);
+      Alert.alert('Export Failed', 'There was an error exporting your investigation.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const generateReport = async (): Promise<string> => {
+    if (!investigation) throw new Error('No investigation');
+
+    const reportContent = `
+EVP ANALYZER - INVESTIGATION REPORT
+====================================
+
+Location: ${investigation.location || 'Unknown'}
+Date: ${format(new Date(investigation.startedAt), 'MMMM d, yyyy')}
+Time: ${format(new Date(investigation.startedAt), 'h:mm a')} - ${format(new Date(investigation.endedAt), 'h:mm a')}
+Duration: ${Math.floor(investigation.duration / 60)}m ${investigation.duration % 60}s
+
+ANOMALIES DETECTED
+------------------
+${
+  anomalies.length > 0
+    ? anomalies
+        .map(
+          (a) =>
+            `- ${a.type.replace('_', ' ')} at ${Math.floor(a.timestamp / 60)}:${String(
+              Math.floor(a.timestamp % 60)
+            ).padStart(2, '0')} (${Math.round(a.confidence * 100)}% confidence)`
+        )
+        .join('\n')
+    : 'No anomalies detected.'
+}
+
+TAGS
+----
+${
+  tags.length > 0
+    ? tags
+        .map(
+          (t) =>
+            `- [${t.category.toUpperCase()}] ${t.label} at ${Math.floor(
+              t.timestamp / 60
+            )}:${String(t.timestamp % 60).padStart(2, '0')}${t.notes ? `\n  Notes: ${t.notes}` : ''}`
+        )
+        .join('\n')
+    : 'No tags added.'
+}
+
+NOTES
+-----
+${investigation.notes || 'No notes.'}
+
+====================================
+Generated by EVP Analyzer
+${format(new Date(), 'MMMM d, yyyy h:mm a')}
+`.trim();
+
+    const fileName = `evp_report_${id}.txt`;
+    const filePath = `${FileSystem.documentDirectory}${fileName}`;
+    await FileSystem.writeAsStringAsync(filePath, reportContent);
+    return filePath;
+  };
+
+  const generateJson = async (): Promise<string> => {
+    if (!investigation) throw new Error('No investigation');
+
+    const exportData = {
+      investigation: {
+        id: investigation.id,
+        location: investigation.location,
+        startedAt: investigation.startedAt,
+        endedAt: investigation.endedAt,
+        duration: investigation.duration,
+        notes: investigation.notes,
+        waveformData: investigation.waveformData,
+      },
+      anomalies: anomalies.map((a) => ({
+        type: a.type,
+        timestamp: a.timestamp,
+        confidence: a.confidence,
+        frequency: a.frequency,
+      })),
+      tags: tags.map((t) => ({
+        category: t.category,
+        label: t.label,
+        timestamp: t.timestamp,
+        notes: t.notes,
+      })),
+      exportedAt: new Date().toISOString(),
+      version: '1.0.0',
+    };
+
+    const fileName = `evp_data_${id}.json`;
+    const filePath = `${FileSystem.documentDirectory}${fileName}`;
+    await FileSystem.writeAsStringAsync(filePath, JSON.stringify(exportData, null, 2));
+    return filePath;
+  };
+
+  if (!investigation) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.loadingText}>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
+          <CloseIcon size={24} color={colors.text.primary} />
+        </TouchableOpacity>
+        <Text style={styles.title}>Export</Text>
+        <View style={styles.placeholder} />
+      </View>
+
+      <View style={styles.content}>
+        <Text style={styles.sectionTitle}>Select Format</Text>
+
+        <View style={styles.optionsContainer}>
+          {EXPORT_OPTIONS.map((option) => (
+            <TouchableOpacity
+              key={option.id}
+              style={[
+                styles.optionCard,
+                selectedFormat === option.id && styles.optionCardSelected,
+              ]}
+              onPress={() => setSelectedFormat(option.id)}
+            >
+              <View style={styles.optionIcon}>{option.icon}</View>
+              <View style={styles.optionInfo}>
+                <Text style={styles.optionTitle}>{option.title}</Text>
+                <Text style={styles.optionDescription}>{option.description}</Text>
+              </View>
+              <View style={styles.optionRadio}>
+                {selectedFormat === option.id && <View style={styles.optionRadioInner} />}
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <View style={styles.summary}>
+          <Text style={styles.summaryTitle}>Investigation Summary</Text>
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Location</Text>
+            <Text style={styles.summaryValue}>{investigation.location || 'Unknown'}</Text>
+          </View>
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Duration</Text>
+            <Text style={styles.summaryValue}>
+              {Math.floor(investigation.duration / 60)}m {investigation.duration % 60}s
+            </Text>
+          </View>
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Tags</Text>
+            <Text style={styles.summaryValue}>{tags.length}</Text>
+          </View>
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Anomalies</Text>
+            <Text style={styles.summaryValue}>{anomalies.length}</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.exportButton}
+          onPress={handleExport}
+          disabled={isExporting}
+          activeOpacity={0.8}
+        >
+          {isExporting ? (
+            <ActivityIndicator color={colors.text.primary} />
+          ) : (
+            <>
+              <ExportIcon size={20} color={colors.text.primary} />
+              <Text style={styles.exportButtonText}>Export</Text>
+            </>
+          )}
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background.primary,
+  },
+  loadingText: {
+    ...typography.body,
+    color: colors.text.secondary,
+    textAlign: 'center',
+    marginTop: spacing.xl,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.background.tertiary,
+  },
+  closeButton: {
+    width: 44,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    ...typography.headline,
+    color: colors.text.primary,
+  },
+  placeholder: {
+    width: 44,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.lg,
+  },
+  sectionTitle: {
+    ...typography.footnote,
+    color: colors.text.secondary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: spacing.sm,
+  },
+  optionsContainer: {
+    gap: spacing.sm,
+    marginBottom: spacing.xl,
+  },
+  optionCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.background.secondary,
+    padding: spacing.md,
+    borderRadius: radius.lg,
+    borderWidth: 2,
+    borderColor: colors.background.tertiary,
+  },
+  optionCardSelected: {
+    borderColor: colors.accent.primary,
+  },
+  optionIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: radius.md,
+    backgroundColor: colors.background.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  optionInfo: {
+    flex: 1,
+    marginLeft: spacing.md,
+  },
+  optionTitle: {
+    ...typography.headline,
+    color: colors.text.primary,
+  },
+  optionDescription: {
+    ...typography.footnote,
+    color: colors.text.secondary,
+    marginTop: 2,
+  },
+  optionRadio: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: colors.accent.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  optionRadioInner: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: colors.accent.primary,
+  },
+  summary: {
+    backgroundColor: colors.background.secondary,
+    padding: spacing.md,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.background.tertiary,
+  },
+  summaryTitle: {
+    ...typography.headline,
+    color: colors.text.primary,
+    marginBottom: spacing.md,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.background.tertiary,
+  },
+  summaryLabel: {
+    ...typography.body,
+    color: colors.text.secondary,
+  },
+  summaryValue: {
+    ...typography.body,
+    color: colors.text.primary,
+  },
+  footer: {
+    paddingHorizontal: spacing.md,
+    paddingBottom: spacing['2xl'],
+  },
+  exportButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    backgroundColor: colors.accent.primary,
+    paddingVertical: spacing.md,
+    borderRadius: radius.lg,
+  },
+  exportButtonText: {
+    ...typography.headline,
+    color: colors.text.primary,
+  },
+});

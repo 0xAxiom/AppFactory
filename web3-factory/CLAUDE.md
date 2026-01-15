@@ -185,6 +185,7 @@ Web3 Factory integrates Vercel's agent-skills framework for code quality enforce
 Skills mirror Vercel's official [agent-skills](https://github.com/vercel-labs/agent-skills):
 - **react-best-practices**: 45 rules across 8 categories
 - **web-design-guidelines**: 100+ rules across 16 categories
+- **web-interface-guidelines**: 51 rules across 8 categories (NEW in v7.1)
 
 ### Skill Locations
 
@@ -195,6 +196,9 @@ skills/
 │   └── AGENTS.md          # All 45 rules compiled
 ├── web-design-guidelines/
 │   └── SKILL.md           # UI/UX guidelines
+├── web-interface-guidelines/  # NEW in v7.1
+│   ├── SKILL.md           # Activation and integration
+│   └── AGENTS.md          # 51 rules for interactions, animation, accessibility
 └── vercel-deploy/         # OPTIONAL
     ├── SKILL.md
     └── scripts/deploy.sh
@@ -215,6 +219,15 @@ skills/
 - Skeleton loaders for async content
 - Designed empty/error states with CTAs
 - Sans-serif font for body text (not monospace)
+
+**Web Interface Guidelines (CRITICAL - NEW):**
+- Keyboard navigation for all interactive elements
+- Focus indicators with `focus-visible:ring-2`
+- Touch targets ≥44px on mobile
+- Respect `prefers-reduced-motion`
+- List virtualization for >50 items
+- APCA contrast standards (Lc 60+ body, 75+ UI)
+- Form labels properly associated with inputs
 
 ### Skill Check Integration
 
@@ -719,7 +732,7 @@ web3-factory/
 
 ### FORBIDDEN Directories (never write to)
 
-- `builds/` - belongs to the_factory
+- `builds/` - belongs to app-factory
 - `outputs/` - belongs to agent-factory
 - Any path outside `web3-factory/`
 
@@ -826,8 +839,67 @@ A successful execution produces:
 
 ---
 
+## Optional Tools
+
+The following tools enhance the factory but are **not required** for core functionality.
+
+### agent-browser (Research Automation)
+
+Automated competitor research and UI smoke testing.
+
+**Installation:**
+```bash
+npm install -g agent-browser
+agent-browser install  # Installs Chromium (~684MB)
+```
+
+**Usage (Research Phase):**
+```bash
+# Run from web3-factory/
+bash scripts/research/competitor_screenshots.sh https://competitor.com
+# Screenshots saved to web3-builds/<app-slug>/research/competitor_screenshots/
+```
+
+**When Available:**
+- Automatically captures competitor UI screenshots during research
+- Can run UI smoke tests post-build
+
+**When Not Available:**
+- Research proceeds with manual web fetching
+- No automated screenshots (graceful skip)
+
+### opensrc (Source Lookup)
+
+Fetch dependency source code to reduce hallucination during code generation.
+
+**Installation:**
+```bash
+npm install -g opensrc
+# OR use directly with npx
+npx opensrc <package-name>
+```
+
+**Usage:**
+```bash
+# Look up a package's source
+opensrc @solana/web3.js
+
+# With specific version
+opensrc react@18.2.0
+```
+
+**When Available:**
+- Claude can look up exact API signatures during build
+- Reduces incorrect import assumptions
+
+**When Not Available:**
+- Claude relies on training knowledge (may have minor inaccuracies)
+
+---
+
 ## Version History
 
+- **7.1** (2026-01-15): Added web-interface-guidelines skill, optional tools documentation
 - **7.0** (2026-01-14): Added Intent Normalization, Dream Spec Author, Ralph Polish Loop, updated Solana to web3.js v2.x, added research requirements
 - **6.1** (2026-01-13): Comprehensive UI/UX requirements, Framer Motion mandatory
 - **6.0** (2026-01-13): Restored full-build contract, explicit forbidden outputs

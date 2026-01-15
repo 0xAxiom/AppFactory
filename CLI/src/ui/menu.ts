@@ -127,8 +127,8 @@ export function showHelp(): void {
   printDivider();
 
   console.log(chalk.bold('\nOUTPUT LOCATIONS\n'));
-  console.log(`  Runs:   ${chalk.gray('the_factory/runs/YYYY-MM-DD/<run_id>/')}`);
-  console.log(`  Builds: ${chalk.gray('the_factory/builds/<idea_dir>/')}`);
+  console.log(`  Runs:   ${chalk.gray('app-factory/runs/YYYY-MM-DD/<run_id>/')}`);
+  console.log(`  Builds: ${chalk.gray('app-factory/builds/<idea_dir>/')}`);
 
   console.log(chalk.bold('\n\nKEYBOARD SHORTCUTS\n'));
   console.log('  Up/Down arrows  - Navigate menu options');

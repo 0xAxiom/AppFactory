@@ -15,7 +15,7 @@ The App Factory CLI transforms app ideas into complete, polished Expo React Nati
 - **Node.js 18+** - Required for ES modules and modern JavaScript features
 - **npm** - Comes with Node.js
 - **Anthropic API Key** - Get one at [console.anthropic.com](https://console.anthropic.com/)
-- **This repository** - The CLI requires `the_factory/` directory structure
+- **This repository** - The CLI requires `app-factory/` directory structure
 
 ## Installation
 
@@ -124,7 +124,7 @@ Here's a typical workflow:
 
 5. **Use Your App**
    ```bash
-   cd the_factory/builds/<your_app>/app
+   cd app-factory/builds/<your_app>/app
    npm install
    npx expo start
    ```
@@ -155,7 +155,7 @@ APPFACTORY_TEMPERATURE=0.3
 ### Runs (Generated Ideas)
 
 ```
-the_factory/runs/YYYY-MM-DD/<run_id>/
+app-factory/runs/YYYY-MM-DD/<run_id>/
 ├── inputs/
 │   └── 00_intake.md              # Input requirements
 ├── stage01/
@@ -173,7 +173,7 @@ the_factory/runs/YYYY-MM-DD/<run_id>/
 ### Builds (Complete Apps)
 
 ```
-the_factory/builds/<idea_dir>/
+app-factory/builds/<idea_dir>/
 ├── app/
 │   ├── package.json
 │   ├── app.json
@@ -197,10 +197,10 @@ the_factory/builds/<idea_dir>/
 
 ### "Repository structure invalid"
 
-The CLI requires the full repository with `the_factory/` directory:
-- `the_factory/templates/agents/` - Stage templates
-- `the_factory/schemas/` - JSON schemas
-- `the_factory/scripts/` - Enforcement scripts
+The CLI requires the full repository with `app-factory/` directory:
+- `app-factory/templates/agents/` - Stage templates
+- `app-factory/schemas/` - JSON schemas
+- `app-factory/scripts/` - Enforcement scripts
 
 ### Rate Limiting
 
