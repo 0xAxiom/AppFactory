@@ -1,0 +1,4 @@
+# Plugin Factory local artifacts
+runs/
+builds/
+node_modules/
