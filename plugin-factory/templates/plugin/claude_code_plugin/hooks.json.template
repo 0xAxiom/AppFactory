@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "{{EventName}}": [
+      {
+        "matcher": "{{regex-pattern}}",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/{{script-name}}.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

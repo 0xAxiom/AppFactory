@@ -1,0 +1,10 @@
+{
+  "name": "{{plugin-name}}",
+  "version": "1.0.0",
+  "description": "{{plugin-description}}",
+  "author": {
+    "name": "{{author-name}}"
+  },
+  "keywords": ["claude", "plugin", "{{category}}"],
+  "license": "MIT"
+}

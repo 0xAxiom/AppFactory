@@ -1,0 +1,39 @@
+---
+name: {{command-name}}
+description: {{command-description}}
+---
+
+# {{Command Title}}
+
+{{Detailed instructions for Claude when this command is invoked.}}
+
+## Usage
+
+```
+/{{command-name}} [arguments]
+```
+
+## Arguments
+
+| Argument | Description | Required |
+|----------|-------------|----------|
+| `--help` | Show usage information | No |
+| `{{arg}}` | {{arg-description}} | {{yes/no}} |
+
+## Examples
+
+- `/{{command-name}}` - {{basic-usage-description}}
+- `/{{command-name}} --flag` - {{flag-usage-description}}
+
+## Behavior
+
+When invoked, this command will:
+
+1. {{Step 1}}
+2. {{Step 2}}
+3. {{Step 3}}
+
+## Error Handling
+
+- If {{condition}}: {{response}}
+- If {{condition}}: {{response}}

@@ -1,0 +1,17 @@
+{
+  "name": "decision-memory",
+  "version": "1.0.0",
+  "description": "Capture architectural decisions as they happen and make them queryable forever. Your codebase finally has a memory.",
+  "author": {
+    "name": "Plugin Factory"
+  },
+  "keywords": ["claude", "plugin", "architecture", "decisions", "documentation", "adr"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/decision-memory"
+  },
+  "engines": {
+    "claude-code": ">=1.0.0"
+  }
+}

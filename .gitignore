@@ -1,6 +1,9 @@
 # App Factory Production Gitignore
 # Conservative approach: better to ignore too much than leak sensitive data
 
+# Updates folder - internal marketing/social content drafts
+updates/
+
 # Pipeline execution logs (but NOT runs/ or builds/ - we want those tracked)
 **/outputs/
 *.log

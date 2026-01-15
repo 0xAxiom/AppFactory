@@ -1,0 +1,19 @@
+{
+  "name": "decision-memory",
+  "version": "1.0.0",
+  "description": "Query architectural decisions captured during Claude Code sessions. Your codebase's memory.",
+  "author": "Plugin Factory",
+  "license": "MIT",
+  "mcp": {
+    "command": "node",
+    "args": ["dist/server/index.js"],
+    "env": {}
+  },
+  "permissions": {
+    "network": false,
+    "filesystem": {
+      "read": ["~/.decision-memory/"],
+      "write": ["~/.decision-memory/"]
+    }
+  }
+}

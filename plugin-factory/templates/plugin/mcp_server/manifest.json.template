@@ -1,0 +1,19 @@
+{
+  "name": "{{server-name}}",
+  "version": "1.0.0",
+  "description": "{{server-description}}",
+  "author": "{{author-name}}",
+  "license": "MIT",
+  "mcp": {
+    "command": "node",
+    "args": ["dist/server/index.js"],
+    "env": {}
+  },
+  "permissions": {
+    "network": false,
+    "filesystem": {
+      "read": [],
+      "write": []
+    }
+  }
+}

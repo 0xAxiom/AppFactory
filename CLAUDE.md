@@ -17,13 +17,14 @@ Claude MUST NOT attempt to:
 
 ## Structure
 
-This repository contains three independent pipelines:
+This repository contains four independent pipelines:
 
 | Directory | Purpose | Constitution |
 |-----------|---------|--------------|
 | `the_factory/` | Mobile app generation (Expo) | `the_factory/claude.md` |
-| `web3-factory/` | Web app prompt generation (Next.js) | `web3-factory/CLAUDE.md` |
+| `web3-factory/` | Web app generation (Next.js) | `web3-factory/CLAUDE.md` |
 | `agent-factory/` | AI agent scaffold generation (Node.js) | `agent-factory/CLAUDE.md` |
+| `plugin-factory/` | Claude plugin generation (Code/MCP) | `plugin-factory/CLAUDE.md` |
 
 Each pipeline has its own `CLAUDE.md` that defines execution behavior.
 
@@ -35,14 +36,15 @@ If a user asks to build, generate, or run something from this directory:
 
 1. **Do not execute anything**
 2. **Explain** that App Factory requires working inside a pipeline directory
-3. **Ask** which pipeline they want to use (mobile, web, or agent)
+3. **Ask** which pipeline they want to use (mobile, web, agent, or plugin)
 4. **Direct them** to `cd` into the appropriate folder and run `claude` there
 
 Example response:
 > "App Factory doesn't run from the repository root. Which type of project do you want to build?
 > - Mobile app → `cd the_factory && claude`
 > - Web app → `cd web3-factory && claude`
-> - AI agent → `cd agent-factory && claude`"
+> - AI agent → `cd agent-factory && claude`
+> - Claude plugin → `cd plugin-factory && claude`"
 
 ---
 

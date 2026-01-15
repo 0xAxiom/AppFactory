@@ -1,0 +1,26 @@
+{
+  "name": "hello-mcp",
+  "version": "1.0.0",
+  "description": "A minimal MCP server example with a greeting tool",
+  "type": "module",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server/index.js",
+    "dev": "tsx watch server/index.ts",
+    "typecheck": "tsc --noEmit",
+    "inspect": "npx @modelcontextprotocol/inspector dist/server/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -23,6 +23,7 @@ App Factory turns your ideas into real, working products. No coding experience r
 | A **mobile app** | [the_factory/](./the_factory/) | iPhone & Android app ready for the App Store |
 | A **website** | [web3-factory/](./web3-factory/) | Modern website that works on any device |
 | An **AI assistant** | [agent-factory/](./agent-factory/) | Smart bot that can answer questions or do tasks |
+| A **Claude plugin** | [plugin-factory/](./plugin-factory/) | Extension for Claude Code or Claude Desktop |
 
 ---
 
@@ -34,6 +35,7 @@ App Factory turns your ideas into real, working products. No coding experience r
 Want a mobile app?     → Go to the_factory folder
 Want a website?        → Go to web3-factory folder
 Want an AI assistant?  → Go to agent-factory folder
+Want a Claude plugin?  → Go to plugin-factory folder
 ```
 
 ### Step 2: Open Claude and Describe Your Idea
@@ -50,6 +52,8 @@ Then just type what you want:
 > "I want to make a meme battle website where people vote on memes"
 
 > "Build an agent that summarizes YouTube videos"
+
+> "I want a plugin that formats code on save"
 
 ### Step 3: Let the AI Build It
 
@@ -96,6 +100,16 @@ When it's done, you'll get step-by-step instructions to run your new app, websit
 - Simple API you can connect to other apps
 - Documentation explaining how it all works
 - Ready to run on your computer or a server
+
+### Claude Plugin Example
+
+**You say:** "I want a plugin that formats code on save"
+
+**You get:**
+- A complete Claude Code plugin with hooks and commands
+- Auto-formatting whenever you save a file
+- Support for multiple formatters (Prettier, ESLint, Black, etc.)
+- Security documentation and installation guide
 
 ---
 
@@ -157,6 +171,15 @@ claude
 # Test: curl http://localhost:8080/health
 ```
 
+### For Claude Plugins
+```bash
+cd plugin-factory
+claude
+# Type your plugin idea
+# When done (Claude Code plugin): Copy builds/<plugin>/ to your project
+# When done (MCP server): cd builds/<plugin> && npm install && npm run build
+```
+
 ---
 
 ## Optional: Add Tokens
@@ -192,6 +215,13 @@ You don't need to understand crypto - the AI handles all the technical stuff.
 - Market research and positioning
 - Testing and deployment guides
 
+### Claude Plugins Include:
+- Complete plugin structure (commands, hooks, or MCP server)
+- Security documentation
+- Installation instructions
+- Usage examples
+- MCPB packaging guide (for MCP servers)
+
 ---
 
 ## Folder Structure
@@ -201,6 +231,7 @@ AppFactory/
 ├── the_factory/      # Mobile app builder
 ├── web3-factory/     # Website builder
 ├── agent-factory/    # AI assistant builder
+├── plugin-factory/   # Claude plugin builder
 └── docs/             # Extra documentation
 ```
 
@@ -241,6 +272,7 @@ Hold **$FACTORY** on Solana to support ongoing development.
 
 | Version | What Changed |
 |---------|--------------|
+| **v8.0** | Added plugin-factory for Claude Code plugins and MCP servers |
 | **v7.0** | Added Intent Normalization and Ralph Quality Mode to all pipelines |
 | **v5.0** | Factory Ready Standard, unified documentation |
 | **v4.0** | Single-mode refactor, Ralph QA process |
@@ -254,6 +286,6 @@ MIT License - Free to use, modify, and share.
 ---
 
 <p align="center">
-  <strong>App Factory v7.0</strong><br/>
+  <strong>App Factory v8.0</strong><br/>
   Tell us what you want. We'll make it for you.
 </p>

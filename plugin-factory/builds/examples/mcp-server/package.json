@@ -1,0 +1,37 @@
+{
+  "name": "decision-memory-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for querying architectural decisions captured by decision-memory plugin",
+  "type": "module",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server/index.js",
+    "dev": "tsx watch server/index.ts",
+    "inspect": "npx @modelcontextprotocol/inspector dist/server/index.js",
+    "bundle": "mcpb pack"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "better-sqlite3": "^11.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "^1.0.0",
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "decisions",
+    "architecture",
+    "documentation"
+  ],
+  "license": "MIT"
+}
