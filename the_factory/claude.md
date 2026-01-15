@@ -276,6 +276,64 @@ Ready to post. Specific to this app.
 
 ---
 
+## SKILL COMPLIANCE (MANDATORY)
+
+App Factory enforces code quality through integrated skills that check code against best practices.
+
+### Registered Skills
+
+| Skill | Purpose | When Checked |
+|-------|---------|--------------|
+| react-native-best-practices | Performance patterns | After Milestone 3 |
+| mobile-ui-guidelines | UI/UX standards | After Milestone 2 |
+| expo-standards | Expo-specific patterns | Throughout build |
+
+### Skill Check Process
+
+During BUILD phase:
+1. Complete milestone deliverables
+2. Run skill check against applicable rules
+3. Fix any CRITICAL/HIGH violations
+4. Proceed to verification
+
+### Skill Locations
+
+```
+skills/
+├── react-native-best-practices/
+│   ├── SKILL.md           # How to use this skill
+│   └── AGENTS.md          # All rules (45+ patterns)
+├── mobile-ui-guidelines/
+│   └── SKILL.md           # Mobile UI rules
+└── expo-standards/
+    └── SKILL.md           # Expo-specific patterns
+```
+
+### Violation Handling
+
+| Severity | Action | Blocks Progress |
+|----------|--------|-----------------|
+| CRITICAL | Fix immediately | YES |
+| HIGH | Fix before next milestone | YES (after 2nd occurrence) |
+| MEDIUM | Fix before Ralph | NO |
+| LOW | Document, can defer | NO |
+
+### Key Rules to Know
+
+**React Native Performance (CRITICAL):**
+- Use `Promise.all` for parallel fetching
+- Avoid barrel imports (`import from '@/components'`)
+- Use FlatList for lists > 10 items
+- Clean up useEffect subscriptions
+
+**Mobile UI (HIGH):**
+- Touch targets ≥44pt (iOS) / 48dp (Android)
+- Accessibility labels on all interactive elements
+- Skeleton loaders for async content
+- Designed empty/error states with CTAs
+
+---
+
 ## RALPH QA (AUTOMATIC)
 
 Ralph runs automatically after each milestone. Users never invoke Ralph.
@@ -378,6 +436,10 @@ Deliverables:
   ✓ Documentation
 
 Ralph Verdict: PASS (XX% quality)
+
+Skill Compliance:
+  ✓ React Native Skills: XX%
+  ✓ Mobile UI Skills: XX%
 
 RevenueCat Setup:
   1. Create account at revenuecat.com

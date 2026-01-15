@@ -85,17 +85,46 @@ Ralph Wiggum is a skeptical reviewer persona. Ralph:
 | 24 | vercel.json exists | Deployment configuration present |
 | 25 | README has run instructions | README includes npm install/dev steps |
 
+### React Skills Compliance (20% weight)
+
+| # | Check | How to Verify |
+|---|-------|---------------|
+| 26 | No CRITICAL violations | No sequential awaits, barrel imports |
+| 27 | Promise.all for parallel ops | Independent fetches use Promise.all |
+| 28 | Dynamic imports for heavy deps | Chart libs, editors use dynamic() |
+| 29 | Server components by default | 'use client' only where needed |
+| 30 | Overall skill score ≥95% | Run skill compliance check |
+
+**Reference:** `skills/react-best-practices/AGENTS.md`
+
+### Web Design Skills Compliance (25% weight)
+
+| # | Check | How to Verify |
+|---|-------|---------------|
+| 31 | Accessible interactive elements | All buttons/links have aria-label |
+| 32 | Visible focus states | focus-visible styles on all focusable |
+| 33 | Page entrance animations | motion.div with fade/slide on pages |
+| 34 | Skeleton loaders | Async content shows skeleton, not spinner |
+| 35 | Designed empty states | Icon + message + CTA for empty lists |
+| 36 | Styled error states | Error card with message + retry button |
+| 37 | Sans-serif body text | Body uses Inter/system font, not mono |
+| 38 | Overall skill score ≥95% | Run skill compliance check |
+
+**Reference:** `skills/web-design-guidelines/SKILL.md`
+
 ---
 
 ## Scoring
 
 ### Standard App (No Tokens)
-- Total items: 21 (Build: 4, UI: 10, Research: 3, Code: 4)
-- Pass threshold: 97% = 20.37 → 21 items must pass (1 allowed failure)
+- Total items: 34 (Build: 4, UI: 10, Research: 3, Code: 4, React Skills: 5, Web Skills: 8)
+- Pass threshold: 97% = 32.98 → 33+ items must pass (1 allowed failure)
+- Skill weights: React Skills 20%, Web Design Skills 25%
 
 ### Token-Enabled App
-- Total items: 25 (Build: 4, UI: 10, Research: 3, Token: 4, Code: 4)
-- Pass threshold: 97% = 24.25 → 25 items must pass (1 allowed failure)
+- Total items: 38 (Build: 4, UI: 10, Research: 3, Token: 4, Code: 4, React Skills: 5, Web Skills: 8)
+- Pass threshold: 97% = 36.86 → 37+ items must pass (1 allowed failure)
+- Skill weights: React Skills 20%, Web Design Skills 25%
 
 ### Critical Items (Must Pass)
 
@@ -230,6 +259,8 @@ Build meets all quality requirements.
 - UI/UX quality: All passing
 - Research quality: All passing
 - Code quality: All passing
+- React Skills: XX% (all critical passed)
+- Web Design Skills: XX% (all critical passed)
 
 Build is ready for deployment.
 ```

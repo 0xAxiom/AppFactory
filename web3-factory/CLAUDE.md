@@ -168,6 +168,77 @@ web3-builds/<app-slug>/
 
 ---
 
+## SKILL COMPLIANCE (MANDATORY)
+
+Web3 Factory integrates Vercel's agent-skills framework for code quality enforcement.
+
+### Registered Skills
+
+| Skill | Purpose | When Checked | Weight |
+|-------|---------|--------------|--------|
+| react-best-practices | React/Next.js performance | During Phase 3 | 20% |
+| web-design-guidelines | UI/UX standards | Before Phase 4 | 25% |
+| vercel-deploy | One-click deployment | On request | N/A |
+
+### Skill Sources
+
+Skills mirror Vercel's official [agent-skills](https://github.com/vercel-labs/agent-skills):
+- **react-best-practices**: 45 rules across 8 categories
+- **web-design-guidelines**: 100+ rules across 16 categories
+
+### Skill Locations
+
+```
+skills/
+├── react-best-practices/
+│   ├── SKILL.md           # Activation and usage
+│   └── AGENTS.md          # All 45 rules compiled
+├── web-design-guidelines/
+│   └── SKILL.md           # UI/UX guidelines
+└── vercel-deploy/         # OPTIONAL
+    ├── SKILL.md
+    └── scripts/deploy.sh
+```
+
+### Key Rules to Know
+
+**React Performance (CRITICAL):**
+- Use `Promise.all` for parallel fetching
+- Avoid barrel imports (`import from '@/components'`)
+- Use `dynamic()` for heavy dependencies
+- Default to Server Components
+
+**Web Design (HIGH):**
+- All interactive elements need aria-labels
+- Focus-visible styles on all focusable elements
+- Framer Motion animations on page entrance
+- Skeleton loaders for async content
+- Designed empty/error states with CTAs
+- Sans-serif font for body text (not monospace)
+
+### Skill Check Integration
+
+```
+BUILD → [write code] → [skill check] → [fix violations] → [continue]
+                                ↓
+                        RALPH → [includes skill score in verdict]
+```
+
+---
+
+## VERCEL DEPLOYMENT (OPTIONAL)
+
+If user requests deployment after Ralph PASS:
+
+1. Ensure `npm run build` succeeds
+2. Run: `bash skills/vercel-deploy/scripts/deploy.sh`
+3. Returns preview URL + claim URL
+4. User can claim to their Vercel account
+
+**Note:** Deployment is OPTIONAL. Default output is local runnable app.
+
+---
+
 ## PHASE 4: RALPH POLISH LOOP (MANDATORY)
 
 After building, Claude runs adversarial QA as "Ralph Wiggum" - a skeptical reviewer who finds issues.
@@ -202,6 +273,19 @@ After building, Claude runs adversarial QA as "Ralph Wiggum" - a skeptical revie
 - [ ] market_research.md is substantive (not placeholder)
 - [ ] competitor_analysis.md names real competitors
 - [ ] positioning.md has clear differentiation
+
+#### React Skills Compliance (20% weight)
+- [ ] No CRITICAL violations (async patterns, barrel imports)
+- [ ] Dynamic imports for heavy dependencies
+- [ ] Server components used by default
+- [ ] Overall skill score ≥95%
+
+#### Web Design Skills Compliance (25% weight)
+- [ ] Accessible interactive elements (aria-labels)
+- [ ] Visible focus states
+- [ ] Page entrance animations (Framer Motion)
+- [ ] Skeleton loaders, designed empty/error states
+- [ ] Overall skill score ≥95%
 
 #### Token Integration (if enabled)
 - [ ] Wallet button not dominant (right side, reasonable size)

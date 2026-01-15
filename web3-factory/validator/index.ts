@@ -97,6 +97,22 @@ interface ValidationResult {
   errors: string[];
   warnings: string[];
   tokenEnabled: boolean;
+  skillCompliance?: SkillComplianceResult;
+}
+
+interface SkillComplianceResult {
+  reactBestPractices: number;
+  webDesignGuidelines: number;
+  overall: number;
+  violations: SkillViolation[];
+}
+
+interface SkillViolation {
+  skill: string;
+  rule: string;
+  severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
+  file: string;
+  message: string;
 }
 
 interface CheckResult {
@@ -438,6 +454,176 @@ function checkRequiredScripts(buildDir: string): CheckResult[] {
   return results;
 }
 
+/**
+ * Check skill compliance (react-best-practices + web-design-guidelines)
+ * This is a simplified check - full compliance is verified during Ralph QA
+ */
+function checkSkillCompliance(buildDir: string): CheckResult[] {
+  const results: CheckResult[] = [];
+  const srcDir = path.join(buildDir, 'src');
+
+  if (!fs.existsSync(srcDir)) {
+    return [{
+      name: 'Skill Compliance',
+      passed: false,
+      message: 'src/ directory not found',
+    }];
+  }
+
+  const violations: Array<{ rule: string; severity: string; file: string; message: string }> = [];
+
+  // Scan source files for common violations
+  function scanFile(filePath: string) {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const relativePath = path.relative(buildDir, filePath);
+
+    // React Best Practices checks
+
+    // Check for barrel imports (CRITICAL)
+    if (content.match(/from\s+['"]@\/components['"]/)) {
+      violations.push({
+        rule: 'bundle-imports',
+        severity: 'CRITICAL',
+        file: relativePath,
+        message: 'Barrel import from @/components - import from specific files instead',
+      });
+    }
+
+    // Check for sequential awaits pattern (CRITICAL)
+    const awaitMatches = content.match(/await\s+\w+\([^)]*\);\s*\n\s*await\s+\w+\([^)]*\)/g);
+    if (awaitMatches && awaitMatches.length > 0) {
+      violations.push({
+        rule: 'async-parallel',
+        severity: 'CRITICAL',
+        file: relativePath,
+        message: 'Sequential awaits detected - consider Promise.all for parallel operations',
+      });
+    }
+
+    // Web Design Guidelines checks
+
+    // Check for monospace body font (HIGH)
+    if (content.match(/font-family:\s*['"]?(Monaco|Consolas|Courier|monospace)/i)) {
+      if (!content.match(/\.code|\.mono|code|pre|address/i)) {
+        violations.push({
+          rule: 'typography-sans-serif',
+          severity: 'HIGH',
+          file: relativePath,
+          message: 'Monospace font used for non-code content - use sans-serif for body text',
+        });
+      }
+    }
+
+    // Check for missing page animations (MEDIUM) - only for page.tsx files
+    if (filePath.endsWith('page.tsx')) {
+      if (!content.includes('motion.') && !content.includes('framer-motion')) {
+        violations.push({
+          rule: 'animation-page-entrance',
+          severity: 'MEDIUM',
+          file: relativePath,
+          message: 'Page missing entrance animation - add Framer Motion animation',
+        });
+      }
+    }
+
+    // Check for spinner-only loading (MEDIUM)
+    if (content.match(/ActivityIndicator|Spinner.*loading|isLoading.*Spinner/i)) {
+      if (!content.includes('Skeleton')) {
+        violations.push({
+          rule: 'loading-skeleton',
+          severity: 'MEDIUM',
+          file: relativePath,
+          message: 'Spinner used for loading - prefer skeleton loaders',
+        });
+      }
+    }
+
+    // Check for bare empty states (MEDIUM)
+    if (content.match(/No\s+(items?|results?|data)['"`]/i)) {
+      if (!content.match(/EmptyState|empty-state|icon.*text.*button/i)) {
+        violations.push({
+          rule: 'empty-state-design',
+          severity: 'MEDIUM',
+          file: relativePath,
+          message: 'Basic "No items" text detected - design empty state with icon, message, and CTA',
+        });
+      }
+    }
+  }
+
+  // Scan all TypeScript/JavaScript files
+  function scanDirectory(dir: string) {
+    const items = fs.readdirSync(dir);
+
+    for (const item of items) {
+      const fullPath = path.join(dir, item);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory() && !['node_modules', '.next'].includes(item)) {
+        scanDirectory(fullPath);
+      } else if (item.match(/\.(tsx?|jsx?)$/)) {
+        scanFile(fullPath);
+      }
+    }
+  }
+
+  scanDirectory(srcDir);
+
+  // Calculate compliance scores
+  const criticalViolations = violations.filter(v => v.severity === 'CRITICAL').length;
+  const highViolations = violations.filter(v => v.severity === 'HIGH').length;
+  const mediumViolations = violations.filter(v => v.severity === 'MEDIUM').length;
+
+  // Score calculation (simplified)
+  const baseScore = 100;
+  const score = Math.max(0, baseScore - (criticalViolations * 10) - (highViolations * 5) - (mediumViolations * 2));
+
+  // Add results
+  if (criticalViolations > 0) {
+    results.push({
+      name: 'Skill Compliance: CRITICAL violations',
+      passed: false,
+      message: `${criticalViolations} CRITICAL violation(s) found - must fix before proceeding`,
+    });
+
+    for (const v of violations.filter(v => v.severity === 'CRITICAL')) {
+      results.push({
+        name: `  ${v.rule}`,
+        passed: false,
+        message: `${v.file}: ${v.message}`,
+      });
+    }
+  }
+
+  if (highViolations > 0) {
+    results.push({
+      name: 'Skill Compliance: HIGH violations',
+      passed: score >= 90,
+      message: `${highViolations} HIGH violation(s) found`,
+    });
+  }
+
+  if (mediumViolations > 0) {
+    results.push({
+      name: 'Skill Compliance: MEDIUM violations',
+      passed: true,
+      message: `${mediumViolations} MEDIUM violation(s) - fix before Ralph QA`,
+    });
+  }
+
+  // Overall score
+  const passed = criticalViolations === 0 && score >= 90;
+  results.push({
+    name: 'Skill Compliance Score',
+    passed: passed,
+    message: passed
+      ? `${score}% - meets threshold (≥90%)`
+      : `${score}% - below threshold (≥90%), fix violations`,
+  });
+
+  return results;
+}
+
 function checkFileSizes(buildDir: string): CheckResult[] {
   const results: CheckResult[] = [];
   let totalSize = 0;
@@ -544,6 +730,7 @@ function validate(buildDir: string): ValidationResult {
   checkGroups.push(
     { name: 'Security Patterns', fn: () => checkSecurityPatterns(buildDir) },
     { name: 'Size Limits', fn: () => checkFileSizes(buildDir) },
+    { name: 'Skill Compliance', fn: () => checkSkillCompliance(buildDir) },
   );
 
   for (const group of checkGroups) {
@@ -642,6 +829,12 @@ function writeFactoryReadyJson(
       token_integration: {
         status: tokenEnabled ? 'PASS' as const : 'SKIP' as const,
         details: tokenEnabled ? 'Wallet integration detected and validated' : 'Not opted in'
+      },
+      skill_compliance: {
+        status: passed ? 'PASS' as const : 'FAIL' as const,
+        details: passed
+          ? 'Skill compliance checks passed (≥90%)'
+          : 'Skill compliance violations detected - see validation output'
       },
     },
     overall: passed ? 'PASS' : 'FAIL',

@@ -105,6 +105,27 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - [ ] Marketing content is specific to this app (not templated)
 - [ ] Marketing copy is compelling and ready to post
 
+### 9. React Native Skills Compliance (5% weight)
+- [ ] No CRITICAL violations (async patterns, barrel imports)
+- [ ] No HIGH violations (FlatList usage, memory cleanup)
+- [ ] Promise.all used for parallel data fetching
+- [ ] FlatList used for lists > 10 items
+- [ ] useEffect cleanup functions present
+- [ ] Overall skill score ≥95%
+
+**Reference:** `skills/react-native-best-practices/AGENTS.md`
+
+### 10. Mobile UI Skills Compliance (5% weight)
+- [ ] Touch targets meet minimum size (44pt iOS / 48dp Android)
+- [ ] All interactive elements have accessibility labels
+- [ ] Skeleton loaders for async content (not spinners)
+- [ ] Designed empty states with icon, message, and CTA
+- [ ] Styled error states with retry option
+- [ ] Safe areas properly handled (notch, home indicator)
+- [ ] Overall skill score ≥95%
+
+**Reference:** `skills/mobile-ui-guidelines/SKILL.md`
+
 ---
 
 ## RALPH REPORT FORMAT
@@ -190,14 +211,16 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 [Final assessment of the build]
 
 ## Quality Score
-- Functional Completeness: [1-5]
-- UI/UX Quality: [1-5]
-- Technical Soundness: [1-5]
-- Production Readiness: [1-5]
-- Spec Compliance: [1-5]
-- Research Quality: [1-5]
-- ASO Quality: [1-5]
-- Marketing Quality: [1-5]
+- Functional Completeness: [1-5] (15%)
+- UI/UX Quality: [1-5] (15%)
+- Technical Soundness: [1-5] (10%)
+- Production Readiness: [1-5] (10%)
+- Spec Compliance: [1-5] (10%)
+- Research Quality: [1-5] (10%)
+- ASO Quality: [1-5] (10%)
+- Marketing Quality: [1-5] (10%)
+- React Native Skills: [1-5] (5%)
+- Mobile UI Skills: [1-5] (5%)
 
 ## [If PASS] Approval
 This build meets App Factory quality standards and is approved for shipping.
