@@ -1,14 +1,38 @@
 # Agent Factory
 
-**Version**: 2.0
-**Mode**: Full Build Factory with Auto-Polish
+**Version**: 3.0
+**Mode**: Full Build Factory with Rig-Aligned Architecture
 **Status**: MANDATORY CONSTITUTION
 
 ---
 
 ## Purpose
 
-Agent Factory generates **complete, production-ready AI agent scaffolds** from plain-language descriptions. When a user describes an agent idea, Claude builds a full Node.js/TypeScript agent with all code, configuration, research, and documentation. The output is a runnable HTTP agent, not prompts or scaffolds.
+Agent Factory generates **complete, production-ready AI agent scaffolds** from plain-language descriptions. When a user describes an agent idea, Claude builds a full Node.js/TypeScript agent with all code, configuration, research, and documentation. The output is a runnable HTTP agent following the [Rig framework](https://github.com/0xPlaygrounds/rig) architectural patterns.
+
+**New in v3.0**: All generated agents now follow Rig-aligned architecture - a production-grade model for agent composition, tools, and execution loops.
+
+---
+
+## Rig Framework Integration
+
+Generated agents follow concepts from the Rig framework by 0xPlaygrounds:
+
+| Concept | Rig (Rust) | Agent Factory (TypeScript) |
+|---------|------------|---------------------------|
+| Agent Definition | `Agent<M>` struct | `AgentDefinition` interface |
+| Tool System | `Tool` trait | `Tool<Args, Output>` interface |
+| Execution Loop | `PromptRequest` | `AgentExecutionLoop` class |
+| Tool Definitions | `ToolDefinition` | JSON Schema + Zod |
+
+**Reference**: See `/references/rig/` for the canonical Rig implementation.
+
+### Why Rig Alignment?
+
+1. **Real Architecture**: Generated agents use production patterns, not tutorial code
+2. **Typed Tools**: Every tool has typed inputs, outputs, and errors
+3. **Composable Agents**: Agents can be tools for other agents
+4. **Graduation Path**: Users can eventually move to Rust/Rig for production
 
 ---
 
@@ -841,7 +865,7 @@ agent-factory/
 ### FORBIDDEN Directories (never write to)
 
 - `builds/` - belongs to app-factory
-- `web3-builds/` - belongs to web3-factory
+- `dapp-builds/` - belongs to dapp-factory
 - Any path outside `agent-factory/`
 
 ---
@@ -862,13 +886,14 @@ When the user doesn't specify:
 
 ---
 
-## V2 Constraints
+## V3 Constraints
 
 - **Runtime**: Node.js + TypeScript only
 - **Interface**: HTTP only (POST /process)
 - **Port**: 8080 default (configurable via PORT env)
 - **No inference**: You bring your own API keys (BYOK)
 - **No secrets**: Only env var names in files, never values
+- **Architecture**: Rig-aligned patterns (Agent, Tool, ExecutionLoop)
 
 ---
 
@@ -895,10 +920,11 @@ A successful execution produces:
 
 ## Version History
 
+- **3.0** (2026-01-17): Rig framework integration, Agent/Tool/ExecutionLoop patterns, educational alignment
 - **2.0** (2026-01-14): Added Intent Normalization, Dream Spec Author, Ralph Polish Loop, research requirements, structured logging, error handling patterns
 - **1.1** (2026-01-12): Token integration support, 4-question flow
 - **1.0** (2026-01-11): Initial release
 
 ---
 
-**agent-factory**: Describe your agent idea. Get a complete, production-ready scaffold.
+**agent-factory v3.0**: Describe your agent idea. Get a complete, Rig-aligned, production-ready scaffold.

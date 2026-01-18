@@ -22,7 +22,7 @@ This repository contains four independent pipelines:
 | Directory | Purpose | Constitution |
 |-----------|---------|--------------|
 | `app-factory/` | Mobile app generation (Expo) | `app-factory/CLAUDE.md` |
-| `web3-factory/` | Web app generation (Next.js) | `web3-factory/CLAUDE.md` |
+| `dapp-factory/` | Decentralized app generation (Next.js) | `dapp-factory/CLAUDE.md` |
 | `agent-factory/` | AI agent scaffold generation (Node.js) | `agent-factory/CLAUDE.md` |
 | `plugin-factory/` | Claude plugin generation (Code/MCP) | `plugin-factory/CLAUDE.md` |
 
@@ -42,7 +42,7 @@ If a user asks to build, generate, or run something from this directory:
 Example response:
 > "App Factory doesn't run from the repository root. Which type of project do you want to build?
 > - Mobile app → `cd app-factory && claude`
-> - Web app → `cd web3-factory && claude`
+> - dApp (web) → `cd dapp-factory && claude`
 > - AI agent → `cd agent-factory && claude`
 > - Claude plugin → `cd plugin-factory && claude`"
 

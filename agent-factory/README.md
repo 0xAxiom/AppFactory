@@ -12,7 +12,7 @@ Describe an AI agent idea. Get a complete, production-ready scaffold.
 - Builders creating automated workflows
 - Anyone who wants an HTTP-based AI service
 
-**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)) or a web app (use [web3-factory](../web3-factory/))
+**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)) or a web app (use [dapp-factory](../dapp-factory/))
 
 ---
 
@@ -241,7 +241,7 @@ agent-factory/
 │       ├── ralph_polish_loop.md
 │       └── deployment_guide.md
 ├── examples/
-│   └── hello-agent/        # Reference implementation
+│   └── codebase-explainer/ # Reference implementation (Rig-aligned)
 ├── outputs/                # Generated agents (output)
 └── runs/                   # Execution logs
 ```
@@ -305,8 +305,8 @@ Agent is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unre
 - **Root README:** [../README.md](../README.md)
 - **Constitution:** [CLAUDE.md](./CLAUDE.md)
 - **Mobile apps:** [app-factory](../app-factory/)
-- **Web apps:** [web3-factory](../web3-factory/)
+- **Web apps:** [dapp-factory](../dapp-factory/)
 
 ---
 
-**agent-factory v2.0** - Describe your agent idea. Get a complete, production-ready scaffold.
+**agent-factory v3.0** - Describe your agent idea. Get a complete, Rig-aligned, production-ready scaffold.

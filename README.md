@@ -15,8 +15,8 @@ App Factory turns your ideas into real, working products. No coding experience r
 | I want to make... | Use this | What you get |
 |-------------------|----------|--------------|
 | A **mobile app** | [app-factory/](./app-factory/) | iPhone & Android app ready for the App Store |
-| A **website** | [web3-factory/](./web3-factory/) | Modern website that works on any device |
-| An **AI assistant** | [agent-factory/](./agent-factory/) | Smart bot that can answer questions or do tasks |
+| A **dApp / website** | [dapp-factory/](./dapp-factory/) | Modern web app, optionally with AI agents |
+| An **AI agent** | [agent-factory/](./agent-factory/) | Smart bot with tools (Rig-aligned architecture) |
 | A **Claude plugin** | [plugin-factory/](./plugin-factory/) | Extension for Claude Code or Claude Desktop |
 
 ---
@@ -31,16 +31,16 @@ claude
 # When done: cd builds/<your-app> && npm install && npx expo start
 ```
 
-### For Websites
+### For dApps / Websites
 ```bash
-cd web3-factory
+cd dapp-factory
 claude
-# Type your website idea
-# When done: cd web3-builds/<your-site> && npm install && npm run dev
+# Type your dApp idea
+# When done: cd dapp-builds/<your-dapp> && npm install && npm run dev
 # Open http://localhost:3000
 ```
 
-### For AI Assistants
+### For AI Agents
 ```bash
 cd agent-factory
 claude
@@ -66,15 +66,15 @@ claude
 
 ```
 Want a mobile app?     → Go to app-factory folder
-Want a website?        → Go to web3-factory folder
-Want an AI assistant?  → Go to agent-factory folder
+Want a dApp/website?   → Go to dapp-factory folder
+Want an AI agent?      → Go to agent-factory folder
 Want a Claude plugin?  → Go to plugin-factory folder
 ```
 
 ### Step 2: Open Claude and Describe Your Idea
 
 ```bash
-cd app-factory    # (or web3-factory, or agent-factory)
+cd app-factory    # (or dapp-factory, or agent-factory)
 claude
 ```
 
@@ -154,7 +154,7 @@ If something's wrong, the AI fixes it automatically. You only see the final, wor
 - Mobile-friendly design that works on any screen
 - Ready to deploy to the internet
 
-### AI Assistant Example
+### AI Agent Example
 
 **You say:** "Build an agent that summarizes YouTube videos"
 
@@ -192,7 +192,7 @@ If something's wrong, the AI fixes it automatically. You only see the final, wor
 - Market research and positioning
 - Deployment instructions
 
-### AI Assistants Include:
+### AI Agents Include:
 - Complete server code (TypeScript + Node.js)
 - API endpoints ready to use
 - Market research and positioning
@@ -212,10 +212,11 @@ If something's wrong, the AI fixes it automatically. You only see the final, wor
 ```
 AppFactory/
 ├── app-factory/      # Mobile app builder
-├── web3-factory/     # Website builder
-├── agent-factory/    # AI assistant builder
+├── dapp-factory/     # dApp/website builder (with optional AI agents)
+├── agent-factory/    # AI agent builder (Rig-aligned)
 ├── plugin-factory/   # Claude plugin builder
-└── docs/             # Extra documentation
+├── references/       # Reference implementations (Rig framework)
+└── docs/             # Architecture docs and learning materials
 ```
 
 Each folder is independent. Just pick one and start building.
@@ -262,10 +263,25 @@ Hold **$FACTORY** on Solana to support ongoing development.
 
 ---
 
+## AI Agent Architecture: Rig Integration
+
+The agent-factory and dapp-factory pipelines are now aligned with the [Rig framework](https://github.com/0xPlaygrounds/rig) by 0xPlaygrounds - a production-grade Rust library for building LLM-powered applications.
+
+**What this means for you:**
+- Agents follow real architectural patterns (not tutorial code)
+- Tools have proper typed definitions
+- Generated code can scale to production
+- Clear learning path from TypeScript scaffolds to Rust production
+
+See `/docs/architecture/` for detailed documentation.
+
+---
+
 ## Version History
 
 | Version | What Changed |
 |---------|--------------|
+| **v9.0** | Rig integration, renamed web3-factory → dapp-factory, agent decision gate |
 | **v8.0** | Added plugin-factory for Claude Code plugins and MCP servers |
 | **v7.0** | Added Intent Normalization and Ralph Quality Mode to all pipelines |
 | **v5.0** | Factory Ready Standard, unified documentation |
@@ -286,6 +302,6 @@ MIT License - Free to use, modify, and share.
 </p>
 
 <p align="center">
-  <strong>App Factory v8.0</strong><br/>
+  <strong>App Factory v9.0</strong><br/>
   Tell us what you want. We'll make it for you.
 </p>

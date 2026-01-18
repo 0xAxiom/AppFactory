@@ -79,3 +79,6 @@ preview/node_modules/
 preview/.runtime/
 preview/dist/
 preview/*.log
+
+# Rig framework reference (cloned, not tracked)
+references/rig/

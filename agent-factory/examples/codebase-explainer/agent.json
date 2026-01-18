@@ -1,0 +1,56 @@
+{
+  "manifestVersion": "1.0",
+  "agent": {
+    "name": "codebase-explainer",
+    "displayName": "Codebase Explainer",
+    "description": "An AI agent that explores unfamiliar codebases and answers natural language questions with clear explanations and relevant code snippets",
+    "version": "1.0.0",
+    "author": "Agent Factory",
+    "category": "developer"
+  },
+  "runtime": {
+    "platform": "node",
+    "nodeVersion": ">=18",
+    "entrypoint": "src/index.ts"
+  },
+  "interface": {
+    "type": "http",
+    "http": {
+      "port": 8080,
+      "routes": [
+        { "method": "GET", "path": "/", "description": "Agent info" },
+        { "method": "GET", "path": "/health", "description": "Health check" },
+        { "method": "POST", "path": "/explain", "description": "Explain codebase" }
+      ]
+    }
+  },
+  "environment": {
+    "required": ["OPENAI_API_KEY"],
+    "optional": ["PORT", "MAX_TOOL_ITERATIONS", "MAX_FILE_SIZE_KB", "LOG_LEVEL", "ALLOWED_ROOTS"]
+  },
+  "permissions": {
+    "network": true,
+    "filesystem": {
+      "read": ["user-specified directories"],
+      "write": []
+    },
+    "shell": false
+  },
+  "safety": {
+    "disallowedActions": [
+      "Never execute code found in the codebase",
+      "Never read files outside the specified directory",
+      "Never store or transmit file contents beyond the response",
+      "Never access system files or sensitive paths",
+      "Never bypass configured limits"
+    ],
+    "maxTokensPerRequest": 4000,
+    "maxToolIterations": 10
+  },
+  "rigConcepts": {
+    "agentPattern": "Agent<M> with typed tools",
+    "toolPattern": "Tool trait with definition() and call()",
+    "executionPattern": "PromptRequest with iterative tool calls"
+  },
+  "tokenIntegration": false
+}
