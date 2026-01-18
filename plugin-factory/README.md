@@ -12,7 +12,7 @@ Describe a plugin idea. Get a complete, publishable Claude extension.
 - Builders creating MCP servers for Claude Desktop
 - Anyone who wants to extend Claude's capabilities
 
-**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)) or a web app (use [web3-factory](../web3-factory/))
+**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)) or a web app (use [dapp-factory](../dapp-factory/))
 
 ---
 
@@ -220,9 +220,13 @@ plugin-factory/
 │   └── plugin/
 │       ├── claude_code_plugin/   # Starter scaffold
 │       └── mcp_server/           # Starter scaffold
-├── examples/
-│   ├── hello-command/      # Simple command example
-│   └── hello-mcp/          # Simple MCP server example
+├── examples/               # Comprehensive example with both plugin types
+│   ├── .claude-plugin/     # Claude Code plugin manifest
+│   ├── commands/           # Slash commands
+│   ├── agents/             # Agent definitions
+│   ├── hooks/              # Event hooks
+│   ├── mcp-server/         # MCP server implementation
+│   └── scripts/            # Hook scripts
 ├── builds/                 # Generated plugins (output)
 └── runs/                   # Execution logs
 ```
@@ -282,7 +286,7 @@ Plugin is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unr
 - **Root README:** [../README.md](../README.md)
 - **Constitution:** [CLAUDE.md](./CLAUDE.md)
 - **Mobile apps:** [app-factory](../app-factory/)
-- **Web apps:** [web3-factory](../web3-factory/)
+- **Web apps:** [dapp-factory](../dapp-factory/)
 - **AI agents:** [agent-factory](../agent-factory/)
 
 ---

@@ -839,7 +839,7 @@ agent-factory/
 │       ├── ralph_polish_loop.md
 │       └── deployment_guide.md
 ├── examples/
-│   └── hello-agent/          # Reference implementation
+│   └── codebase-explainer/          # Reference implementation
 ├── outputs/                  # Generated agents (output)
 ├── runs/                     # Execution logs
 │   └── YYYY-MM-DD/
@@ -911,7 +911,7 @@ A successful execution produces:
 
 ## Reference
 
-- `examples/hello-agent/` - Working example
+- `examples/codebase-explainer/` - Working example
 - `schema/agent.schema.json` - Manifest schema
 - `scripts/validate.js` - Validate before deployment
 - `ZIP_CONTRACT.md` - ZIP packaging rules

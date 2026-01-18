@@ -43,6 +43,30 @@ curl http://localhost:8080/health
 
 ---
 
+## Try the Example
+
+Before building your own agent, try the reference implementation:
+
+```bash
+cd examples/codebase-explainer
+npm install
+cp .env.example .env
+# Add your OPENAI_API_KEY to .env
+npm run dev
+```
+
+Test it:
+```bash
+curl http://localhost:8080/health
+curl -X POST http://localhost:8080/explain \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What does this project do?", "directory": "/path/to/any/codebase"}'
+```
+
+See `examples/codebase-explainer/RUNBOOK.md` for full documentation.
+
+---
+
 ## What Happens When You Describe an Agent
 
 ### Before (What you say)

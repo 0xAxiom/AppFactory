@@ -1,13 +1,13 @@
 {
   "name": "agent-factory",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Agent-run-in-repo pipeline for generating AI agent scaffolds",
   "type": "module",
   "private": true,
   "scripts": {
     "validate": "node scripts/validate.js",
     "zip": "node scripts/zip.js",
-    "example": "cd examples/hello-agent && npm start"
+    "example": "cd examples/codebase-explainer && npm start"
   },
   "keywords": [
     "ai",

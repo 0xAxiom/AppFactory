@@ -152,7 +152,7 @@ Agent-backed dApps follow the [Rig framework](https://github.com/0xPlaygrounds/r
 | Execution Loop | `AgentExecutionLoop` class |
 | Preamble | System prompt defining agent behavior |
 
-**Reference**: See `/references/rig/` for the canonical Rig implementation.
+**Reference**: See [references/rig](../references/rig/) for the canonical Rig implementation.
 
 ---
 
@@ -319,4 +319,4 @@ Build is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unre
 
 ---
 
-**dapp-factory v8.0** - Describe your dApp idea. Get a complete, polished, runnable decentralized application.
+**dapp-factory v8.1** - Describe your dApp idea. Get a complete, polished, runnable decentralized application.

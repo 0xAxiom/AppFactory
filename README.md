@@ -132,6 +132,43 @@ If something's wrong, the AI fixes it automatically. You only see the final, wor
 
 ---
 
+## UX Polish Loop (Playwright E2E)
+
+UI-generating pipelines (websites, dApps) include automated **Playwright E2E testing** for extra quality assurance.
+
+### What's Included
+
+Every UI project gets:
+- `ralph/` - PRD, acceptance criteria, progress tracking
+- `tests/e2e/` - Smoke tests, form tests, accessibility checks
+- `playwright.config.ts` - Multi-browser test configuration
+- `scripts/ralph_loop_runner.sh` - 20-pass polish runner
+
+### How It Works
+
+```bash
+cd dapp-builds/<your-project>
+npm install
+npm run test:e2e       # Run Playwright tests
+npm run polish:ux      # Run full 20-pass polish loop
+```
+
+The loop continues until a "completion promise" is earned - proof that all acceptance criteria are verified.
+
+### Which Pipelines?
+
+| Pipeline | Playwright |
+|----------|------------|
+| website-pipeline | Required |
+| dapp-factory | Required |
+| app-factory | Optional (for web exports) |
+| agent-factory | Not needed (HTTP API) |
+| plugin-factory | Not needed (CLI) |
+
+See [docs/UX_POLISH_LOOP.md](./docs/UX_POLISH_LOOP.md) for full documentation.
+
+---
+
 ## Real Examples
 
 ### Mobile App Example
@@ -281,6 +318,7 @@ See `/docs/architecture/` for detailed documentation.
 
 | Version | What Changed |
 |---------|--------------|
+| **v10.0** | UX Polish Loop with Playwright E2E testing for UI pipelines |
 | **v9.0** | Rig integration, renamed web3-factory → dapp-factory, agent decision gate |
 | **v8.0** | Added plugin-factory for Claude Code plugins and MCP servers |
 | **v7.0** | Added Intent Normalization and Ralph Quality Mode to all pipelines |
@@ -302,6 +340,6 @@ MIT License - Free to use, modify, and share.
 </p>
 
 <p align="center">
-  <strong>App Factory v9.0</strong><br/>
+  <strong>App Factory v10.0</strong><br/>
   Tell us what you want. We'll make it for you.
 </p>

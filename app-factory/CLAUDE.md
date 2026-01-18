@@ -1,6 +1,6 @@
 # App Factory (app-factory)
 
-**Version**: 7.0
+**Version**: 7.2
 **Mode**: Interactive Build Session
 **Status**: MANDATORY CONSTITUTION
 
@@ -373,6 +373,38 @@ polish/
 └── ralph_final_verdict.md  # VERDICT: PASS required
 ```
 
+### UX Polish Loop (OPTIONAL - Web Exports)
+
+For apps that target web exports (`expo start --web`), optional Playwright E2E testing is available.
+
+**To enable web E2E testing:**
+
+```
+builds/<app-slug>/
+├── ralph/                    # OPTIONAL
+│   ├── PRD.md
+│   ├── ACCEPTANCE.md
+│   ├── LOOP.md
+│   ├── PROGRESS.md
+│   └── QA_NOTES.md
+├── tests/                    # OPTIONAL
+│   └── e2e/
+│       └── smoke.spec.ts
+├── playwright.config.ts      # OPTIONAL
+└── scripts/
+    └── ralph_loop_runner.sh  # OPTIONAL
+```
+
+**When to include Playwright:**
+- User explicitly requests web support
+- App has significant web UI component
+- Cross-platform consistency testing needed
+
+**Mobile-Only Apps (Default):**
+- No Playwright required
+- Ralph QA focuses on code review, not E2E
+- Manual testing via Expo Go recommended
+
 ---
 
 ## OUTPUT DIRECTORIES
@@ -555,6 +587,7 @@ opensrc expo-router@4.0.0
 
 ## VERSION HISTORY
 
+- **7.2** (2026-01-18): Added optional UX Polish Loop with Playwright for web exports
 - **7.1** (2026-01-15): Added mobile-interface-guidelines skill, optional tools documentation
 - **7.0** (2026-01-14): Intent Normalization phase, RevenueCat non-negotiable, stricter product quality
 - **6.0** (2026-01-14): Claude-first Interactive Build Session, marketing mandatory

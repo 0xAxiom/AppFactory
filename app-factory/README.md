@@ -6,6 +6,17 @@ Describe a mobile app idea—even a vague one. Get a complete, **publishable** E
 
 ---
 
+## Who Is This For?
+
+- Developers building iOS/Android mobile apps
+- Entrepreneurs who want a monetizable app quickly
+- Builders who want production-quality code, not tutorials
+- Anyone with an app idea (even vague ones)
+
+**Not for you if:** You need a web app (use [dapp-factory](../dapp-factory/)) or an AI agent (use [agent-factory](../agent-factory/))
+
+---
+
 ## How to Start (Important)
 
 ```bash
@@ -262,8 +273,12 @@ app-factory/
 ## Links
 
 - **Root README:** [../README.md](../README.md)
+- **Constitution:** [CLAUDE.md](./CLAUDE.md) - How Claude operates this pipeline
 - **Factory Ready Standard:** [../docs/FACTORY_READY_STANDARD.md](../docs/FACTORY_READY_STANDARD.md)
+- **Web apps:** [dapp-factory](../dapp-factory/)
+- **AI agents:** [agent-factory](../agent-factory/)
+- **Claude plugins:** [plugin-factory](../plugin-factory/)
 
 ---
 
-**app-factory v7.1** — `cd app-factory && claude` → describe your idea → get a publishable product.
+**app-factory v7.2** — `cd app-factory && claude` → describe your idea → get a publishable product.

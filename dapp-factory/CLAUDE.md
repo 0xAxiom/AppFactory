@@ -1,6 +1,6 @@
 # dApp Factory (dapp-factory)
 
-**Version**: 8.0
+**Version**: 8.1
 **Mode**: Full Build Factory with Agent Decision Gate
 **Status**: MANDATORY CONSTITUTION
 
@@ -228,11 +228,23 @@ dapp-builds/<app-slug>/
 ├── next.config.js            # REQUIRED
 ├── tailwind.config.ts        # REQUIRED
 ├── postcss.config.js         # REQUIRED
+├── playwright.config.ts      # REQUIRED - E2E testing
 ├── vercel.json               # REQUIRED
 ├── .env.example              # REQUIRED
 ├── README.md                 # REQUIRED
 ├── DEPLOYMENT.md             # REQUIRED
 ├── research/                 # REQUIRED
+├── ralph/                    # REQUIRED - UX Polish Loop
+│   ├── PRD.md
+│   ├── ACCEPTANCE.md
+│   ├── LOOP.md
+│   ├── PROGRESS.md
+│   └── QA_NOTES.md
+├── tests/                    # REQUIRED - E2E tests
+│   └── e2e/
+│       └── smoke.spec.ts
+├── scripts/                  # REQUIRED
+│   └── ralph_loop_runner.sh
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx        # REQUIRED
@@ -417,7 +429,79 @@ export class AgentExecutionLoop {
 
 ## PHASE 4: RALPH POLISH LOOP (MANDATORY)
 
-After building, Claude runs adversarial QA as "Ralph Wiggum" - a skeptical reviewer who finds issues.
+After building, Claude runs adversarial QA as "Ralph Wiggum" with **Playwright E2E testing**.
+
+### Ralph Loop Structure
+
+Every generated dApp includes:
+
+```
+dapp-builds/<app-slug>/
+├── ralph/
+│   ├── PRD.md              # Product requirements
+│   ├── ACCEPTANCE.md       # Acceptance criteria + completion promise
+│   ├── LOOP.md             # Loop execution instructions
+│   ├── PROGRESS.md         # Pass-by-pass progress log
+│   └── QA_NOTES.md         # Manual QA observations
+├── tests/
+│   └── e2e/
+│       ├── smoke.spec.ts   # Core smoke tests
+│       └── wallet.spec.ts  # Wallet integration tests (if applicable)
+├── playwright.config.ts    # Playwright configuration
+└── scripts/
+    └── ralph_loop_runner.sh  # Human-in-the-loop runner
+```
+
+### Running the Polish Loop
+
+```bash
+cd dapp-builds/<app-slug>
+npm install
+npm run polish:ux    # Runs ralph_loop_runner.sh
+```
+
+Or manually:
+
+```bash
+npm run lint
+npm run typecheck
+npm run test:e2e     # Runs Playwright tests
+```
+
+### The 20-Pass System
+
+Each pass:
+1. Runs lint, typecheck, and E2E tests
+2. If failures: fix highest-impact issue
+3. If passing: make one high-leverage polish improvement
+4. Documents in `ralph/PROGRESS.md`
+5. Continues until completion promise or max 20 passes
+
+### The Completion Promise
+
+The loop completes ONLY when this exact string is written to `ralph/PROGRESS.md`:
+
+```
+COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
+```
+
+### Package.json Scripts
+
+Generated dApps include:
+
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "polish:ux": "./scripts/ralph_loop_runner.sh"
+  }
+}
+```
 
 ### Ralph's Checklist (Mode A - Standard)
 
@@ -425,6 +509,7 @@ After building, Claude runs adversarial QA as "Ralph Wiggum" - a skeptical revie
 - [ ] `npm install` completes without errors
 - [ ] `npm run build` completes without errors
 - [ ] `npm run dev` starts on localhost:3000
+- [ ] `npm run test:e2e` passes
 - [ ] No TypeScript errors
 
 #### UI/UX Quality
@@ -590,6 +675,7 @@ npm run dev
 
 ## Version History
 
+- **8.1** (2026-01-18): Added UX Polish Loop with Playwright E2E testing
 - **8.0** (2026-01-17): Renamed from web3-factory to dapp-factory, added Agent Decision Gate, Rig integration for Mode B
 - **7.1** (2026-01-15): Added web-interface-guidelines skill
 - **7.0** (2026-01-14): Added Intent Normalization, Dream Spec Author, Ralph Polish Loop
@@ -598,4 +684,4 @@ npm run dev
 
 ---
 
-**dapp-factory v8.0**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.
+**dapp-factory v8.1**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.

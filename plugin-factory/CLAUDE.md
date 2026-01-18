@@ -590,9 +590,13 @@ plugin-factory/
 │       ├── claude_code_plugin/   # Starter scaffold
 │       └── mcp_server/           # Starter scaffold
 ├── scripts/                  # Internal tools (optional)
-├── examples/
-│   ├── hello-command/        # Simple command example
-│   └── hello-mcp/            # Simple MCP server example
+├── examples/                 # Comprehensive example with both plugin types
+│   ├── .claude-plugin/       # Claude Code plugin manifest
+│   ├── commands/             # Slash commands
+│   ├── agents/               # Agent definitions
+│   ├── hooks/                # Event hooks
+│   ├── mcp-server/           # MCP server implementation
+│   └── scripts/              # Hook scripts
 ├── builds/                   # Generated plugins (output)
 └── runs/                     # Execution logs
     └── YYYY-MM-DD/
@@ -617,7 +621,7 @@ plugin-factory/
 ### FORBIDDEN Directories (never write to)
 
 - `builds/` in app-factory
-- `web3-builds/` in web3-factory
+- `dapp-builds/` in dapp-factory
 - `outputs/` in agent-factory
 - Any path outside `plugin-factory/`
 

@@ -1,6 +1,6 @@
 # Website Pipeline
 
-**Version:** 1.0
+**Version:** 1.1
 **Mode:** Full Build Factory with Mandatory Skills Audits
 **Status:** MANDATORY CONSTITUTION
 
@@ -255,12 +255,25 @@ website-builds/<slug>/
 ├── next.config.js            # REQUIRED
 ├── tailwind.config.ts        # REQUIRED
 ├── postcss.config.js         # REQUIRED
+├── playwright.config.ts      # REQUIRED - E2E testing
 ├── vercel.json               # REQUIRED
 ├── .env.example              # REQUIRED
 ├── README.md                 # REQUIRED
 ├── DEPLOYMENT.md             # REQUIRED
 ├── research/                 # REQUIRED
 ├── planning/                 # REQUIRED
+├── ralph/                    # REQUIRED - UX Polish Loop
+│   ├── PRD.md
+│   ├── ACCEPTANCE.md
+│   ├── LOOP.md
+│   ├── PROGRESS.md
+│   └── QA_NOTES.md
+├── tests/                    # REQUIRED - E2E tests
+│   └── e2e/
+│       ├── smoke.spec.ts
+│       └── contact.spec.ts
+├── scripts/                  # REQUIRED
+│   └── ralph_loop_runner.sh
 ├── public/
 │   ├── favicon.ico
 │   ├── og-image.png          # 1200x630
@@ -394,46 +407,107 @@ website-builds/<slug>/
 
 ## PHASE 8: RALPH POLISH LOOP (MANDATORY)
 
-After all audits pass, Claude runs final QA.
+After all audits pass, Claude runs the UX Polish Loop with **Playwright E2E testing**.
 
-### Ralph's Checklist
+### Ralph Loop Structure
 
-#### Build Quality (20% weight)
-- [ ] `npm install` completes without errors
-- [ ] `npm run build` completes without errors
-- [ ] `npm run dev` starts on localhost:3000
-- [ ] No TypeScript errors
+Every generated website includes:
 
-#### Skills Compliance (30% weight)
-- [ ] react-best-practices audit: PASS
-- [ ] web-design-guidelines audit: PASS
-- [ ] All CRITICAL issues resolved
-- [ ] All HIGH issues resolved
+```
+website-builds/<slug>/
+├── ralph/
+│   ├── PRD.md              # Product requirements
+│   ├── ACCEPTANCE.md       # Acceptance criteria + completion promise
+│   ├── LOOP.md             # Loop execution instructions
+│   ├── PROGRESS.md         # Pass-by-pass progress log
+│   └── QA_NOTES.md         # Manual QA observations
+├── tests/
+│   └── e2e/
+│       ├── smoke.spec.ts   # Core smoke tests
+│       └── contact.spec.ts # Form tests (if applicable)
+├── playwright.config.ts    # Playwright configuration
+└── scripts/
+    └── ralph_loop_runner.sh  # Human-in-the-loop runner
+```
 
-#### SEO Quality (20% weight)
-- [ ] All Technical SEO items pass
-- [ ] All On-Page SEO items pass
-- [ ] All Performance SEO items pass
-- [ ] OG image present
+### Running the Polish Loop
 
-#### Content Quality (15% weight)
-- [ ] No placeholder text ("Lorem ipsum")
-- [ ] All images have alt text
-- [ ] Contact form functional
-- [ ] All links work
+```bash
+cd website-builds/<slug>
+npm install
+npm run polish:ux    # Runs ralph_loop_runner.sh
+```
 
-#### Documentation Quality (15% weight)
-- [ ] README.md explains the website
-- [ ] DEPLOYMENT.md has working steps
-- [ ] .env.example lists all variables
+Or manually:
+
+```bash
+npm run lint
+npm run typecheck
+npm run test:e2e     # Runs Playwright tests
+```
+
+### The 20-Pass System
+
+Each pass:
+1. Runs lint, typecheck, and E2E tests
+2. If failures: fix highest-impact issue
+3. If passing: make one high-leverage polish improvement
+4. Documents in `ralph/PROGRESS.md`
+5. Continues until completion promise or max 20 passes
+
+### The Completion Promise
+
+The loop completes ONLY when this exact string is written to `ralph/PROGRESS.md`:
+
+```
+COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
+```
+
+**This promise requires:**
+- All E2E tests pass
+- All lint/typecheck passes
+- All acceptance criteria in `ACCEPTANCE.md` verified
+- No CRITICAL or HIGH issues remaining
+
+### Package.json Scripts
+
+Generated websites include:
+
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "polish:ux": "./scripts/ralph_loop_runner.sh"
+  }
+}
+```
+
+### Default E2E Tests
+
+Every website gets these smoke tests:
+
+1. **Home page loads** - Page title exists, no error states
+2. **Main content visible** - Main element has content
+3. **Navigation works** - Can navigate to about/work/contact
+4. **No console errors** - Critical errors fail the test
+5. **Responsive design** - No horizontal scroll on mobile
+6. **Accessibility basics** - h1 exists, images have alt, keyboard navigation
 
 ### Pass Criteria
 
 ```
 Ralph PASS if:
-  - Overall score ≥97%
-  - No CRITICAL items failed
-  - All audits passed
+  - npm run test:e2e passes
+  - npm run lint passes
+  - npm run typecheck passes
+  - All ACCEPTANCE.md criteria verified
+  - Completion promise written
 ```
 
 ---
@@ -525,4 +599,5 @@ vercel deploy
 
 ## Version History
 
+- **1.1** (2026-01-18): Added UX Polish Loop with Playwright E2E testing
 - **1.0** (2026-01-18): Initial release with mandatory skills audits
