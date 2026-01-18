@@ -1,0 +1,33 @@
+{
+  "name": "factory",
+  "version": "1.0.0",
+  "description": "Command interface for App Factory pipelines. Requires explicit user approval before any execution. All file writes confined to ./builds/ directory. Offline by default with no telemetry. Designed for use within the AppFactory repository only.",
+  "author": {
+    "name": "App Factory"
+  },
+  "license": "MIT",
+  "keywords": [
+    "developer-tools",
+    "pipelines",
+    "code-scaffolding",
+    "audit-logging"
+  ],
+  "engines": {
+    "claude-code": ">=1.0.0"
+  },
+  "capabilities": {
+    "commands": true,
+    "agents": false,
+    "hooks": false
+  },
+  "permissions": {
+    "network": false,
+    "filesystem": "write",
+    "secrets": false
+  },
+  "marketplace": {
+    "category": "developer-tools",
+    "tags": ["scaffolding", "pipelines", "approval-gated"],
+    "documentation": "README.md"
+  }
+}

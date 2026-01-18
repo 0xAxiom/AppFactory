@@ -305,6 +305,17 @@ Each folder is independent. Just pick one and start building.
 
 ---
 
+## Claude Plugin: Factory
+
+**Factory** is the official Claude plugin for AppFactory.
+It provides a governed command interface for planning pipelines, running builds, and performing adversarial QA inside this repository.
+Factory requires explicit user approval before execution, operates offline by default, writes files only to designated output directories, and collects no telemetry.
+It is designed for AppFactory contributors and is not intended to operate as a standalone plugin.
+
+See [`plugins/factory/`](./plugins/factory/) for documentation.
+
+---
+
 ## Optional: Add Tokens
 
 Want to add cryptocurrency features? Just say "yes" when asked about token integration.

@@ -1,0 +1,58 @@
+# Factory Plugin Configuration
+# Default settings for the Factory plugin.
+
+# Pipeline Registry
+# Maps pipeline names to their locations in the App Factory repository.
+pipelines:
+  miniapp:
+    root: ../../miniapp-pipeline
+    description: Base Mini App pipeline (MiniKit + Next.js)
+  dapp:
+    root: ../../dapp-factory
+    description: Onchain dApp pipeline (Next.js + Web3)
+  agent:
+    root: ../../agent-factory
+    description: AI agent scaffold pipeline (Node.js)
+  app:
+    root: ../../app-factory
+    description: Mobile app pipeline (Expo + React Native)
+  plugin:
+    root: ../../plugin-factory
+    description: Claude plugin pipeline
+
+# Execution Settings
+execution:
+  # Approval is mandatory for all executions. Cannot be disabled.
+  require_approval: true
+
+  # Directory where all generated artifacts are written.
+  # Factory will not write files outside this directory.
+  output_base: ./builds
+
+  # Time (seconds) before approval prompt expires and cancels.
+  approval_timeout: 300
+
+# Code Review Settings
+ralph:
+  # Default number of review loops
+  default_loops: 3
+
+  # Maximum allowed loops
+  max_loops: 5
+
+  # Output filename for verdicts
+  verdict_file: ralph_verdict.md
+
+# Audit Settings
+audit:
+  # Show factory commands in audit log
+  enabled: true
+
+  # Default number of entries to display
+  default_entries: 20
+
+# Network Settings
+offline:
+  # Factory operates offline by default.
+  # No network calls are made without explicit user authorization.
+  enabled: true
