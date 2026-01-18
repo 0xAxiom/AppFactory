@@ -1,0 +1,157 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  color: white;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 2rem;
+}
+
+.successMessage {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.checkmark {
+  margin: 0 auto 2rem;
+  width: 80px;
+  height: 80px;
+}
+
+.checkmarkCircle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #4CAF50;
+  position: relative;
+  animation: checkmarkCircle 0.6s ease-in-out;
+}
+
+.checkmarkStem {
+  position: absolute;
+  width: 3px;
+  height: 20px;
+  background: #4CAF50;
+  left: 35px;
+  top: 32px;
+  transform-origin: center bottom;
+  animation: checkmarkStem 0.3s ease-in-out 0.3s both;
+}
+
+.checkmarkKick {
+  position: absolute;
+  width: 3px;
+  height: 12px;
+  background: #4CAF50;
+  left: 28px;
+  top: 44px;
+  transform-origin: center bottom;
+  animation: checkmarkKick 0.2s ease-in-out 0.5s both;
+}
+
+@keyframes checkmarkCircle {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes checkmarkStem {
+  0% {
+    transform: scaleY(0) rotate(45deg);
+  }
+  100% {
+    transform: scaleY(1) rotate(45deg);
+  }
+}
+
+@keyframes checkmarkKick {
+  0% {
+    transform: scaleY(0) rotate(-45deg);
+  }
+  100% {
+    transform: scaleY(1) rotate(-45deg);
+  }
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+}
+
+.shareButton {
+  background: #f7d954;
+  color: #000;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 20px rgba(247, 217, 84, 0.3);
+}
+
+.shareButton:hover {
+  background: #f5d73a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(247, 217, 84, 0.4);
+}

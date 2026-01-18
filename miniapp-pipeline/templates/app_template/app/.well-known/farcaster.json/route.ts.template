@@ -1,0 +1,14 @@
+/**
+ * Manifest Route
+ *
+ * Serves the farcaster.json manifest at /.well-known/farcaster.json
+ * This is required for Base to recognize your mini app.
+ *
+ * Uses OnchainKit's withValidManifest for validation (upstream pattern).
+ */
+import { withValidManifest } from "@coinbase/onchainkit/minikit";
+import { minikitConfig } from "@/minikit.config";
+
+export async function GET() {
+  return Response.json(withValidManifest(minikitConfig));
+}

@@ -1,0 +1,68 @@
+/**
+ * MiniKit Configuration
+ *
+ * This is the single source of truth for your mini app's manifest.
+ * The manifest route reads from this file to generate /.well-known/farcaster.json
+ *
+ * IMPORTANT: After signing your manifest in Base Build,
+ * fill in the accountAssociation values below.
+ *
+ * Pattern based on upstream base/demos (commit 84caae0a)
+ */
+
+const ROOT_URL = process.env.NEXT_PUBLIC_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'http://localhost:3000');
+
+export const minikitConfig = {
+  /**
+   * Account Association
+   * These values prove you own this domain. Get them from:
+   * https://base.dev (Build -> Account Association)
+   *
+   * Leave empty until you complete the signing process in Stage M5.
+   */
+  accountAssociation: {
+    header: "",   // FILL AFTER SIGNING
+    payload: "",  // FILL AFTER SIGNING
+    signature: "" // FILL AFTER SIGNING
+  },
+
+  /**
+   * Mini App Metadata
+   * This information appears in Base's discovery, search, and embeds.
+   */
+  miniapp: {
+    // Required: Must be "1"
+    version: "1",
+
+    // App Identity
+    name: "{{APP_NAME}}",           // Max 32 chars
+    subtitle: "{{TAGLINE}}",        // Max 30 chars
+    description: "{{DESCRIPTION}}", // Max 170 chars
+    tagline: "{{TAGLINE}}",         // Max 30 chars
+
+    // Discovery
+    primaryCategory: "{{CATEGORY}}" as const,
+    tags: [{{TAGS}}],               // Max 5 tags, lowercase, no spaces
+
+    // URLs - Using ROOT_URL constant (upstream pattern)
+    homeUrl: ROOT_URL,
+    iconUrl: `${ROOT_URL}/icon.png`,
+    splashImageUrl: `${ROOT_URL}/splash.png`,
+    heroImageUrl: `${ROOT_URL}/hero.png`,
+    screenshotUrls: [`${ROOT_URL}/screenshots/1.png`],
+    webhookUrl: `${ROOT_URL}/api/webhook`,
+
+    // Branding
+    splashBackgroundColor: "{{SPLASH_BG_COLOR}}",
+
+    // Open Graph (for social sharing)
+    ogTitle: "{{APP_NAME}}",
+    ogDescription: "{{DESCRIPTION}}",
+    ogImageUrl: `${ROOT_URL}/og.png`,
+  }
+} as const;
+
+export type MinikitConfig = typeof minikitConfig;

@@ -1,0 +1,49 @@
+/**
+ * Providers
+ *
+ * Sets up the provider hierarchy for Mini App functionality.
+ * Based on upstream pattern from base/demos (commit 84caae0a).
+ *
+ * Provider hierarchy:
+ * 1. WagmiProvider - Wallet connection
+ * 2. QueryClientProvider - React Query caching
+ * 3. MiniKitProvider - MiniKit SDK integration
+ */
+'use client';
+
+import { type ReactNode } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MiniKitProvider } from '@coinbase/onchainkit/minikit';
+import { WagmiProvider, createConfig, http } from 'wagmi';
+import { base } from 'wagmi/chains';
+
+// Wagmi configuration
+const wagmiConfig = createConfig({
+  chains: [base],
+  transports: {
+    [base.id]: http(),
+  },
+});
+
+// React Query client
+const queryClient = new QueryClient();
+
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+export function Providers({ children }: ProvidersProps) {
+  return (
+    <WagmiProvider config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        <MiniKitProvider
+          appName={process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME}
+          appUrl={process.env.NEXT_PUBLIC_URL}
+          projectId={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
+        >
+          {children}
+        </MiniKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
+  );
+}

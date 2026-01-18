@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Base Pay for Amazon",
+  "version": "1.0.0",
+  "description": "Add Base Pay button to Amazon product pages",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.amazon.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.amazon.com/*/dp/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["BasePayBlueLogo.png", "BasePayWhiteLogo.png"],
+      "matches": ["https://www.amazon.com/*"]
+    }
+  ]
+}

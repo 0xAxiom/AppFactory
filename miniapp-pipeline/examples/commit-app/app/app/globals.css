@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #10B981;
+  --color-secondary: #F59E0B;
+  --color-background: #0A0A0A;
+  --color-surface: #171717;
+  --color-text: #FAFAFA;
+  --color-text-muted: #A3A3A3;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 2px;
+}
+
+/* Stake amount buttons */
+.stake-preset {
+  @apply px-3 py-2 rounded-lg bg-[#171717] border border-[#262626] text-sm font-medium transition-all;
+}
+
+.stake-preset:hover {
+  @apply border-[#10B981] text-[#10B981];
+}
+
+.stake-preset.selected {
+  @apply bg-[#10B981]/10 border-[#10B981] text-[#10B981];
+}
+
+/* Commitment card */
+.commitment-card {
+  @apply p-4 rounded-xl bg-[#171717] border border-[#262626];
+}
+
+.commitment-card.active {
+  @apply border-[#10B981]/30;
+}
+
+.commitment-card.failed {
+  @apply border-[#EF4444]/30;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-4 py-3 rounded-xl bg-[#10B981] text-black font-semibold transition-all;
+}
+
+.btn-primary:hover {
+  @apply bg-[#059669];
+}
+
+.btn-primary:disabled {
+  @apply bg-[#10B981]/50 cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply px-4 py-3 rounded-xl bg-[#171717] border border-[#262626] font-medium transition-all;
+}
+
+.btn-secondary:hover {
+  @apply border-[#404040];
+}
+
+/* Tab navigation */
+.tab {
+  @apply px-4 py-2 text-sm font-medium text-[#A3A3A3] transition-all;
+}
+
+.tab.active {
+  @apply text-white border-b-2 border-[#10B981];
+}
+
+/* Input styles */
+.input {
+  @apply w-full px-4 py-3 rounded-xl bg-[#171717] border border-[#262626] text-white placeholder-[#525252] focus:outline-none focus:border-[#10B981] transition-all;
+}
+
+/* Status badges */
+.badge {
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-active {
+  @apply bg-[#10B981]/10 text-[#10B981];
+}
+
+.badge-pending {
+  @apply bg-[#F59E0B]/10 text-[#F59E0B];
+}
+
+.badge-failed {
+  @apply bg-[#EF4444]/10 text-[#EF4444];
+}
+
+.badge-completed {
+  @apply bg-[#3B82F6]/10 text-[#3B82F6];
+}

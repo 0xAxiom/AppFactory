@@ -1,0 +1,47 @@
+import { NextRequest } from 'next/server';
+
+/**
+ * Webhook Route
+ *
+ * Receives notifications from Base/Farcaster about events related to your mini app.
+ * This is optional - only needed if you want to receive notifications.
+ *
+ * Events you might receive:
+ * - User interactions
+ * - Frame actions
+ * - Other platform events
+ */
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    // Log the webhook payload (remove in production)
+    console.log('Webhook received:', JSON.stringify(body, null, 2));
+
+    // TODO: Handle the webhook payload
+    // - Validate the signature
+    // - Process the event
+    // - Update your database
+    // - Send notifications
+
+    return Response.json({ success: true });
+  } catch (error) {
+    console.error('Webhook error:', error);
+    return Response.json(
+      { error: 'Failed to process webhook' },
+      { status: 500 }
+    );
+  }
+}
+
+// Handle CORS preflight
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
+}

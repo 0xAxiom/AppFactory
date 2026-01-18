@@ -1,0 +1,22 @@
+interface Props {
+  message?: string;
+}
+
+/**
+ * LoadingState
+ *
+ * A simple loading indicator for async operations.
+ */
+export function LoadingState({ message = 'Loading...' }: Props) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+      <div className="flex flex-col items-center">
+        {/* Spinner */}
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4" />
+
+        {/* Message */}
+        <p className="text-gray-600 text-sm">{message}</p>
+      </div>
+    </div>
+  );
+}

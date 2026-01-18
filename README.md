@@ -27,6 +27,7 @@ App Factory turns your ideas into real, working products. No coding experience r
 | A **dApp / website** | [dapp-factory/](./dapp-factory/) | Modern web app, optionally with AI agents |
 | An **AI agent** | [agent-factory/](./agent-factory/) | Smart bot with tools (Rig-aligned architecture) |
 | A **Claude plugin** | [plugin-factory/](./plugin-factory/) | Extension for Claude Code or Claude Desktop |
+| A **Base Mini App** | [miniapp-pipeline/](./miniapp-pipeline/) | Mini app for the Base app (MiniKit + Next.js) |
 
 ---
 
@@ -67,6 +68,15 @@ claude
 # When done (MCP server): cd builds/<plugin> && npm install && npm run build
 ```
 
+### For Base Mini Apps
+```bash
+cd miniapp-pipeline
+claude
+# Type your mini app idea
+# When done: cd builds/miniapps/<your-app>/app && npm install && npm run dev
+# Deploy to Vercel, complete account association, post URL in Base app
+```
+
 ---
 
 ## How It Works
@@ -78,6 +88,7 @@ Want a mobile app?     → Go to app-factory folder
 Want a dApp/website?   → Go to dapp-factory folder
 Want an AI agent?      → Go to agent-factory folder
 Want a Claude plugin?  → Go to plugin-factory folder
+Want a Base Mini App?  → Go to miniapp-pipeline folder
 ```
 
 ### Step 2: Open Claude and Describe Your Idea
@@ -96,6 +107,8 @@ Then just type what you want:
 > "Build an agent that summarizes YouTube videos"
 
 > "I want a plugin that formats code on save"
+
+> "Build a mini app for sharing daily gratitude with friends"
 
 ### Step 3: Let the AI Build It
 
@@ -170,6 +183,7 @@ The loop continues until a "completion promise" is earned - proof that all accep
 |----------|------------|
 | website-pipeline | Required |
 | dapp-factory | Required |
+| miniapp-pipeline | Optional (for verification) |
 | app-factory | Optional (for web exports) |
 | agent-factory | Not needed (HTTP API) |
 | plugin-factory | Not needed (CLI) |
@@ -220,6 +234,16 @@ See [docs/UX_POLISH_LOOP.md](./docs/UX_POLISH_LOOP.md) for full documentation.
 - Support for multiple formatters (Prettier, ESLint, Black, etc.)
 - Security documentation and installation guide
 
+### Base Mini App Example
+
+**You say:** "Build a mini app for sharing daily gratitude with friends"
+
+**You get:**
+- A complete Next.js app with MiniKit integration
+- Manifest configuration for Base discovery
+- Account association instructions and validation
+- Step-by-step deployment and publication guide
+
 ---
 
 ## What's Inside Each Project
@@ -251,18 +275,30 @@ See [docs/UX_POLISH_LOOP.md](./docs/UX_POLISH_LOOP.md) for full documentation.
 - Usage examples
 - MCPB packaging guide (for MCP servers)
 
+### Base Mini Apps Include:
+- Complete Next.js app with MiniKit integration
+- Manifest configuration (`minikit.config.ts`)
+- Manifest route (`/.well-known/farcaster.json`)
+- Placeholder assets (icon, splash, hero, screenshots)
+- Account association instructions
+- Vercel deployment guide
+- Publication checklist
+- Ralph QA review artifacts
+
 ---
 
 ## Folder Structure
 
 ```
 AppFactory/
-├── app-factory/      # Mobile app builder
-├── dapp-factory/     # dApp/website builder (with optional AI agents)
-├── agent-factory/    # AI agent builder (Rig-aligned)
-├── plugin-factory/   # Claude plugin builder
-├── references/       # Reference implementations (Rig framework)
-└── docs/             # Architecture docs and learning materials
+├── app-factory/       # Mobile app builder
+├── dapp-factory/      # dApp/website builder (with optional AI agents)
+├── agent-factory/     # AI agent builder (Rig-aligned)
+├── plugin-factory/    # Claude plugin builder
+├── miniapp-pipeline/  # Base Mini App builder (MiniKit + Next.js)
+├── references/        # Reference implementations (Rig framework)
+├── vendor/            # Cached documentation (Base Mini Apps docs)
+└── docs/              # Architecture docs and learning materials
 ```
 
 Each folder is independent. Just pick one and start building.
@@ -327,6 +363,7 @@ See `/docs/architecture/` for detailed documentation.
 
 | Version | What Changed |
 |---------|--------------|
+| **v11.0** | Added miniapp-pipeline for Base Mini Apps (MiniKit + Next.js) |
 | **v10.0** | UX Polish Loop with Playwright E2E testing for UI pipelines |
 | **v9.0** | Rig integration, renamed web3-factory → dapp-factory, agent decision gate |
 | **v8.0** | Added plugin-factory for Claude Code plugins and MCP servers |
@@ -349,6 +386,6 @@ MIT License - Free to use, modify, and share.
 </p>
 
 <p align="center">
-  <strong>App Factory v10.0</strong><br/>
+  <strong>App Factory v11.0</strong><br/>
   Tell us what you want. We'll make it for you.
 </p>

@@ -17,7 +17,7 @@ Claude MUST NOT attempt to:
 
 ## Structure
 
-This repository contains four independent pipelines:
+This repository contains five independent pipelines:
 
 | Directory | Purpose | Constitution |
 |-----------|---------|--------------|
@@ -25,6 +25,7 @@ This repository contains four independent pipelines:
 | `dapp-factory/` | Decentralized app generation (Next.js) | `dapp-factory/CLAUDE.md` |
 | `agent-factory/` | AI agent scaffold generation (Node.js) | `agent-factory/CLAUDE.md` |
 | `plugin-factory/` | Claude plugin generation (Code/MCP) | `plugin-factory/CLAUDE.md` |
+| `miniapp-pipeline/` | Base Mini App generation (MiniKit + Next.js) | `miniapp-pipeline/CLAUDE.md` |
 
 Each pipeline has its own `CLAUDE.md` that defines execution behavior.
 
@@ -44,7 +45,8 @@ Example response:
 > - Mobile app → `cd app-factory && claude`
 > - dApp (web) → `cd dapp-factory && claude`
 > - AI agent → `cd agent-factory && claude`
-> - Claude plugin → `cd plugin-factory && claude`"
+> - Claude plugin → `cd plugin-factory && claude`
+> - Base Mini App → `cd miniapp-pipeline && claude`"
 
 ---
 

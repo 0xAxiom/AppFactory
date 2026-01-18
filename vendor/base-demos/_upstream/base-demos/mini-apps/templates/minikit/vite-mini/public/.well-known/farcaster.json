@@ -1,0 +1,32 @@
+{
+    "accountAssociation": {
+      "header": "eyJmaWQiOjIwMzkwLCJ0eXBlIjoiYXV0aCIsImtleSI6IjB4RjA3NDFhMGI5ZjhBN2M2ZUUzNzQwYkQyMjNBODQ1N0UxNzM5MjIyMyJ9",
+      "payload": "eyJkb21haW4iOiJtaW5pLXZpdGUudmVyY2VsLmFwcCJ9",
+      "signature": "0F7UbM5TGYUNiMZ4N4D3mBDlYTg0Vt0arhQPsGwG2xxhM0du/k6QB3q21qTUl3ExQOSQc2l9cAWancgcu7J8LBs="
+    },
+    "baseBuilder": {
+      "allowedAddresses": ["0x..."]
+    },
+    "frame": {
+      "version": "1",
+      "name": "Minikit Vite",
+      "homeUrl": "https://mini-vite.vercel.app",
+      "iconUrl": "https://mini-vite.vercel.app/icon.png",
+      "splashImageUrl": "https://mini-vite.vercel.app/icon.png",
+      "splashBackgroundColor": "#000000",
+      "webhookUrl": "https://ex.co/api/webhook",
+      "subtitle": "minikit vite example",
+      "description": "minikit vite example",
+      "screenshotUrls": [
+
+      ],
+      "primaryCategory": "social",
+      "tags": ["example", "miniapp", "baseapp"],
+      "heroImageUrl": "https://mini-vite.vercel.app/hero.png",
+      "tagline": "minikit vite",
+      "ogTitle": "Example Mini App",
+      "ogDescription": "Build Mini Apps with Vite.",
+      "ogImageUrl": "https://mini-vite.vercel.app/hero.png",
+      "noindex": true
+    }
+  }

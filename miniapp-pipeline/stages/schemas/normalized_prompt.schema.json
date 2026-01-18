@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "normalized_prompt.schema.json",
+  "title": "Normalized Prompt",
+  "description": "Schema for Stage M0 output - normalized mini app concept",
+  "type": "object",
+  "required": [
+    "name",
+    "tagline",
+    "description",
+    "targetUsers",
+    "coreLoop",
+    "category",
+    "tags",
+    "sharingContext",
+    "onchainRequirements"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 32,
+      "description": "App name (max 32 characters)"
+    },
+    "tagline": {
+      "type": "string",
+      "maxLength": 30,
+      "description": "One-line description (max 30 characters)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 170,
+      "description": "Detailed description (max 170 characters)"
+    },
+    "targetUsers": {
+      "type": "string",
+      "description": "Who will use this app and why"
+    },
+    "coreLoop": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "description": "Primary user interaction flow steps"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "games",
+        "social",
+        "finance",
+        "utility",
+        "productivity",
+        "health-fitness",
+        "news-media",
+        "music",
+        "shopping",
+        "education",
+        "developer-tools",
+        "entertainment",
+        "art-creativity"
+      ],
+      "description": "Base app category"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 20,
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "maxItems": 5,
+      "description": "Searchable tags (max 5, lowercase, no spaces)"
+    },
+    "sharingContext": {
+      "type": "string",
+      "description": "How users will discover and share this app"
+    },
+    "onchainRequirements": {
+      "type": "string",
+      "enum": [
+        "none",
+        "wallet-connection",
+        "transactions",
+        "smart-contracts"
+      ],
+      "description": "Level of blockchain integration required"
+    },
+    "additionalNotes": {
+      "type": "string",
+      "description": "Any constraints, preferences, or context from user"
+    }
+  }
+}

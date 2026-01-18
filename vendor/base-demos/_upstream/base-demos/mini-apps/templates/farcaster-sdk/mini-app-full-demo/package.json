@@ -1,0 +1,52 @@
+{
+  "name": "mini-app-full-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@base-org/account": "^2.5.0",
+    "@base-org/account-ui": "^1.0.1",
+    "@farcaster/auth-kit": "^0.8.1",
+    "@farcaster/miniapp-core": "^0.4.1",
+    "@farcaster/miniapp-node": "^0.1.11",
+    "@farcaster/miniapp-sdk": "^0.2.1",
+    "@farcaster/miniapp-wagmi-connector": "^1.1.0",
+    "@radix-ui/react-label": "^2.1.8",
+    "@tanstack/react-query": "^5.90.10",
+    "@worldcoin/mini-apps-ui-kit-react": "^1.4.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "iconoir-react": "^7.11.0",
+    "lucide-react": "^0.542.0",
+    "next": "16.0.7",
+    "ox": "^0.9.4",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "siwe": "^3.0.0",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "viem": "^2.39.3",
+    "wagmi": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "19.2.6",
+    "@types/react-dom": "19.2.3",
+    "eruda": "^3.4.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.7",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "electron-to-chromium": "1.5.260",
+    "baseline-browser-mapping": "2.8.0"
+  },
+  "packageManager": "npm@11.5.2"
+}

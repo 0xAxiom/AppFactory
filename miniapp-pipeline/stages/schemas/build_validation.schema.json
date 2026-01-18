@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "build_validation.schema.json",
+  "title": "Build Validation Summary",
+  "description": "Schema for Stage M8 output - proof gate results",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "slug",
+    "checks",
+    "overall",
+    "failedChecks"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of validation"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Project slug"
+    },
+    "version": {
+      "type": "string",
+      "description": "App version from package.json"
+    },
+    "checks": {
+      "type": "object",
+      "properties": {
+        "npm_install": {
+          "$ref": "#/definitions/checkResult"
+        },
+        "npm_build": {
+          "$ref": "#/definitions/checkResult"
+        },
+        "npm_lint": {
+          "$ref": "#/definitions/checkResult"
+        },
+        "npm_typecheck": {
+          "$ref": "#/definitions/checkResult"
+        },
+        "manifest_valid": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["pass", "fail", "skip"]
+            },
+            "manifest": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "version": { "type": "string" },
+                "hasAccountAssociation": { "type": "boolean" }
+              }
+            },
+            "error": { "type": "string" }
+          }
+        },
+        "account_association": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["pass", "fail"]
+            },
+            "fields": {
+              "type": "object",
+              "properties": {
+                "header": { "type": "boolean" },
+                "payload": { "type": "boolean" },
+                "signature": { "type": "boolean" }
+              }
+            },
+            "error": { "type": "string" }
+          }
+        },
+        "assets_exist": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["pass", "fail"]
+            },
+            "assets_checked": {
+              "type": "integer"
+            },
+            "assets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": { "type": "string" },
+                  "exists": { "type": "boolean" }
+                }
+              }
+            },
+            "error": { "type": "string" }
+          }
+        }
+      },
+      "description": "Individual check results"
+    },
+    "overall": {
+      "type": "string",
+      "enum": ["PASS", "FAIL"],
+      "description": "Overall validation result"
+    },
+    "failedChecks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of failed check names"
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Additional notes or recommendations"
+    }
+  },
+  "definitions": {
+    "checkResult": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["pass", "fail", "skip"]
+        },
+        "duration_ms": {
+          "type": "integer"
+        },
+        "output": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

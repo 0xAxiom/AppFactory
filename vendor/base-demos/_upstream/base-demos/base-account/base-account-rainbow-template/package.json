@@ -1,0 +1,24 @@
+{
+  "name": "with-next",
+  "private": true,
+  "version": "0.0.106",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "latest",
+    "next": "15.3.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "viem": "latest",
+    "wagmi": "^2.17.4",
+    "@tanstack/react-query": "^5.55.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "@types/react": "^19.1.8",
+    "typescript": "5.5.4"
+  }
+}

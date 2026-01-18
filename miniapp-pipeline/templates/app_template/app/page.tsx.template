@@ -1,0 +1,31 @@
+'use client';
+
+import { ClientWrapper } from '@/components/ClientWrapper';
+import { minikitConfig } from '@/minikit.config';
+
+export default function Home() {
+  return (
+    <ClientWrapper
+      appName={minikitConfig.miniapp.name}
+      appDescription={minikitConfig.miniapp.description}
+    >
+      <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
+        <div className="max-w-md w-full text-center">
+          <h1 className="text-2xl font-bold mb-2">
+            {minikitConfig.miniapp.name}
+          </h1>
+          <p className="text-gray-600 mb-8">
+            {minikitConfig.miniapp.subtitle}
+          </p>
+
+          {/* Your app content goes here */}
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <p className="text-gray-500">
+              Welcome to your mini app!
+            </p>
+          </div>
+        </div>
+      </main>
+    </ClientWrapper>
+  );
+}

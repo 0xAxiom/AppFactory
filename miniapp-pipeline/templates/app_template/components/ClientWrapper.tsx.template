@@ -1,0 +1,80 @@
+'use client';
+
+import { useEffect, useState, ReactNode } from 'react';
+import { ErrorBoundary } from './ErrorBoundary';
+import { LoadingState } from './LoadingState';
+
+interface Props {
+  children: ReactNode;
+  appName: string;
+  appDescription?: string;
+}
+
+type ClientState = 'loading' | 'client' | 'browser';
+
+/**
+ * ClientWrapper
+ *
+ * Wraps your app content to:
+ * 1. Detect if running inside Base/Farcaster client
+ * 2. Show a fallback for browser users
+ * 3. Handle errors gracefully
+ */
+export function ClientWrapper({ children, appName, appDescription }: Props) {
+  const [clientState, setClientState] = useState<ClientState>('loading');
+
+  useEffect(() => {
+    const detectClient = () => {
+      // Check if we're in an iframe (common for mini apps)
+      const inFrame = window.parent !== window;
+
+      // Check user agent for Farcaster/Warpcast
+      const userAgent = navigator.userAgent;
+      const isFarcasterClient =
+        userAgent.includes('Farcaster') ||
+        userAgent.includes('Warpcast');
+
+      // If in frame or Farcaster client, we're in client mode
+      if (inFrame || isFarcasterClient) {
+        setClientState('client');
+      } else {
+        setClientState('browser');
+      }
+    };
+
+    // Small delay to allow parent detection
+    const timer = setTimeout(detectClient, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Show loading state briefly
+  if (clientState === 'loading') {
+    return <LoadingState message="Loading..." />;
+  }
+
+  // Show fallback for browser users
+  if (clientState === 'browser') {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-gray-50">
+        <div className="max-w-md">
+          <h1 className="text-2xl font-bold mb-2">{appName}</h1>
+          {appDescription && (
+            <p className="text-gray-600 mb-6">{appDescription}</p>
+          )}
+          <p className="text-sm text-gray-500 mb-8">
+            This mini app is designed to run inside the Base app.
+          </p>
+          <a
+            href="https://base.org/app"
+            className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Get Base App
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  // Wrap content in error boundary for client mode
+  return <ErrorBoundary>{children}</ErrorBoundary>;
+}

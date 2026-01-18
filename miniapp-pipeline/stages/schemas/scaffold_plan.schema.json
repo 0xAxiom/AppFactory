@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "scaffold_plan.schema.json",
+  "title": "Scaffold Plan",
+  "description": "Schema for Stage M1 output - project scaffold plan",
+  "type": "object",
+  "required": [
+    "slug",
+    "template",
+    "routes",
+    "components",
+    "dataLayer",
+    "assetsRequired",
+    "dependencies"
+  ],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL-safe project identifier"
+    },
+    "template": {
+      "type": "string",
+      "description": "Base template to use"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "file", "purpose"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "URL path"
+          },
+          "file": {
+            "type": "string",
+            "description": "File path relative to app/"
+          },
+          "purpose": {
+            "type": "string",
+            "description": "What this route does"
+          },
+          "required": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "description": "Planned routes"
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Layout components"
+        },
+        "pages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Page components"
+        },
+        "shared": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Shared/reusable components"
+        },
+        "feature": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Feature-specific components"
+        }
+      },
+      "description": "Planned components by category"
+    },
+    "dataLayer": {
+      "type": "object",
+      "properties": {
+        "stateManagement": {
+          "type": "string",
+          "description": "State management approach"
+        },
+        "persistence": {
+          "type": "string",
+          "enum": ["none", "localStorage", "api", "onchain"],
+          "description": "Data persistence approach"
+        },
+        "externalApis": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "External APIs used"
+        }
+      },
+      "description": "Data layer architecture"
+    },
+    "assetsRequired": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "dimensions", "format"],
+            "properties": {
+              "name": { "type": "string" },
+              "dimensions": { "type": "string" },
+              "format": { "type": "string" },
+              "purpose": { "type": "string" }
+            }
+          }
+        },
+        "colors": {
+          "type": "object",
+          "properties": {
+            "primary": { "type": "string" },
+            "background": { "type": "string" },
+            "splashBackground": { "type": "string" }
+          }
+        }
+      },
+      "description": "Required assets"
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "core": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Core dependencies"
+        },
+        "minikit": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "MiniKit dependencies"
+        },
+        "additional": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Additional dependencies"
+        },
+        "devDependencies": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Development dependencies"
+        }
+      },
+      "description": "NPM dependencies"
+    },
+    "implementationNotes": {
+      "type": "string",
+      "description": "Special considerations or decisions"
+    }
+  }
+}

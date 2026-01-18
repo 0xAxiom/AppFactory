@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-01-18T12:30:00.000Z",
+  "slug": "commit-app",
+  "checks": {
+    "npm_install": {
+      "status": "pending",
+      "note": "Run npm install to validate"
+    },
+    "npm_build": {
+      "status": "pending",
+      "note": "Run npm run build to validate"
+    },
+    "npm_lint": {
+      "status": "pending"
+    },
+    "npm_typecheck": {
+      "status": "pending"
+    },
+    "manifest_valid": {
+      "status": "pass",
+      "note": "minikit.config.ts present with all fields"
+    },
+    "account_association": {
+      "status": "pending",
+      "fields": {
+        "header": false,
+        "payload": false,
+        "signature": false
+      },
+      "note": "Complete Stage M5 before deployment"
+    },
+    "sdk_ready": {
+      "status": "pass",
+      "note": "useMiniKit hook found in page.tsx"
+    },
+    "assets_exist": {
+      "status": "pending",
+      "note": "Generate placeholder images before deployment"
+    }
+  },
+  "overall": "PENDING",
+  "notes": [
+    "Run npm install && npm run build to complete validation",
+    "Generate placeholder assets",
+    "Complete account association after deployment"
+  ]
+}
