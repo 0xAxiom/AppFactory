@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.1.0",
+  "lastUpdated": "2026-01-18",
+  "description": "Canonical MCP Server catalog for AppFactory pipelines. This catalogs MCP SERVERS (tools), not MCP itself (the specification).",
+
+  "mcpGovernance": {
+    "specification": "Model Context Protocol (MCP)",
+    "specificationUrl": "https://github.com/modelcontextprotocol",
+    "specificationVersion": "1.0",
+    "governanceNote": "MCP is the SPECIFICATION that defines how AI systems communicate with tools. This catalog defines MCP SERVERS (implementations) that follow the MCP spec. MCP itself is not a tool, not a server, and not something you install - it is the contract that all entries in mcpServers must obey.",
+    "clarification": {
+      "MCP": "The open specification/protocol (not executable)",
+      "MCP Server": "A tool implementation that follows MCP (what this catalog contains)",
+      "MCP Tools": "Specific capabilities exposed by an MCP server"
+    }
+  },
+
+  "mcpServers": {
+    "playwright": {
+      "name": "Playwright MCP",
+      "description": "Browser automation for UI QA and E2E testing using accessibility snapshots",
+      "source": "https://github.com/microsoft/playwright-mcp",
+      "npmPackage": "@playwright/mcp",
+      "transport": "stdio",
+      "allowedPipelines": ["dapp-factory", "website-pipeline", "app-factory", "miniapp-pipeline"],
+      "allowedPhases": ["verify", "ralph"],
+      "permissionLevel": "read-only",
+      "requiredEnvVars": [],
+      "optionalEnvVars": ["PLAYWRIGHT_BROWSERS_PATH"],
+      "capabilities": {
+        "browserAutomation": true,
+        "accessibilitySnapshots": true,
+        "screenshots": true,
+        "e2eTests": true,
+        "formFilling": true,
+        "navigation": true
+      },
+      "safeModeDefaults": {
+        "headless": true,
+        "timeout": 30000,
+        "maxConcurrentPages": 3
+      },
+      "failureBehavior": {
+        "onTimeout": "log-and-continue",
+        "onElementNotFound": "log-and-continue",
+        "onNavigationError": "fail-fast"
+      },
+      "artifacts": ["screenshots", "accessibility-snapshots", "test-reports"],
+      "securityNotes": "Read-only by default. Cannot modify page content in safe mode.",
+      "installCommand": "npm install -g @playwright/mcp && npx playwright install chromium"
+    },
+
+    "vercel": {
+      "name": "Vercel MCP",
+      "description": "Deployment management, log analysis, and documentation search for Vercel projects",
+      "source": "https://vercel.com/docs/mcp/vercel-mcp",
+      "endpoint": "https://mcp.vercel.com",
+      "transport": "http",
+      "allowedPipelines": ["dapp-factory", "website-pipeline", "miniapp-pipeline"],
+      "allowedPhases": ["deploy", "verify"],
+      "permissionLevel": "read-only",
+      "requiredEnvVars": [],
+      "optionalEnvVars": ["VERCEL_TEAM_SLUG", "VERCEL_PROJECT_SLUG"],
+      "capabilities": {
+        "searchDocs": true,
+        "manageDeployments": true,
+        "analyzeLogs": true,
+        "projectMetadata": true
+      },
+      "safeModeDefaults": {
+        "readOnly": true,
+        "requireOAuth": true
+      },
+      "failureBehavior": {
+        "onAuthError": "prompt-reauth",
+        "onRateLimit": "backoff-retry",
+        "onNetworkError": "fail-fast"
+      },
+      "artifacts": ["deployment-logs", "build-output"],
+      "securityNotes": "Requires OAuth consent. Initial launch is read-only only. No accidental changes to projects.",
+      "installCommand": "claude mcp add --transport http vercel https://mcp.vercel.com"
+    },
+
+    "stripe": {
+      "name": "Stripe Agent Toolkit MCP",
+      "description": "Payment integration, billing management, and Stripe API access for commerce features",
+      "source": "https://github.com/stripe/agent-toolkit",
+      "npmPackage": "@stripe/mcp",
+      "transport": "stdio",
+      "allowedPipelines": ["dapp-factory", "app-factory"],
+      "allowedPhases": ["build"],
+      "permissionLevel": "mutating",
+      "requiredEnvVars": ["STRIPE_SECRET_KEY"],
+      "optionalEnvVars": ["STRIPE_WEBHOOK_SECRET"],
+      "capabilities": {
+        "createPaymentLinks": true,
+        "manageProducts": true,
+        "searchDocs": true,
+        "billingOperations": true
+      },
+      "safeModeDefaults": {
+        "testMode": true,
+        "dryRun": false,
+        "tools": ["read_balance", "list_products", "search_documentation"]
+      },
+      "failureBehavior": {
+        "onAuthError": "fail-fast",
+        "onApiError": "log-and-continue",
+        "onWebhookError": "log-and-retry"
+      },
+      "artifacts": ["payment-config", "product-catalog"],
+      "securityNotes": "CRITICAL: Use test mode API keys only in development. Never commit real API keys. Requires explicit approval for mutating operations.",
+      "approvalRequired": true,
+      "installCommand": "npx -y @stripe/mcp --tools=read_balance,list_products,search_documentation --api-key=$STRIPE_SECRET_KEY"
+    },
+
+    "supabase": {
+      "name": "Supabase MCP",
+      "description": "Database management, authentication, migrations, and edge functions for Supabase projects",
+      "source": "https://github.com/supabase-community/supabase-mcp",
+      "endpoint": "varies-by-project",
+      "transport": "stdio",
+      "allowedPipelines": ["dapp-factory", "agent-factory", "miniapp-pipeline"],
+      "allowedPhases": ["build", "verify"],
+      "permissionLevel": "read-only",
+      "requiredEnvVars": ["SUPABASE_ACCESS_TOKEN"],
+      "optionalEnvVars": ["SUPABASE_PROJECT_REF", "SUPABASE_DB_URL"],
+      "capabilities": {
+        "createProjects": false,
+        "manageTables": true,
+        "generateMigrations": true,
+        "queryData": true,
+        "manageBranches": true
+      },
+      "safeModeDefaults": {
+        "readOnly": true,
+        "projectScoped": true,
+        "useDevProject": true
+      },
+      "failureBehavior": {
+        "onAuthError": "fail-fast",
+        "onQueryError": "log-and-continue",
+        "onMigrationError": "rollback"
+      },
+      "artifacts": ["migrations", "type-definitions", "query-logs"],
+      "securityNotes": "NEVER connect to production databases. Use development projects only. Read-only mode recommended.",
+      "approvalRequired": false,
+      "installCommand": "npx supabase-mcp --access-token=$SUPABASE_ACCESS_TOKEN --project-ref=$SUPABASE_PROJECT_REF"
+    },
+
+    "figma": {
+      "name": "Figma MCP",
+      "description": "Design token extraction, component structure, and layout information from Figma designs",
+      "source": "https://developers.figma.com/docs/figma-mcp-server/",
+      "endpoint": "https://mcp.figma.com/mcp",
+      "transport": "http",
+      "allowedPipelines": ["website-pipeline", "dapp-factory", "app-factory"],
+      "allowedPhases": ["research", "build"],
+      "permissionLevel": "read-only",
+      "requiredEnvVars": [],
+      "optionalEnvVars": ["FIGMA_FILE_KEY"],
+      "capabilities": {
+        "extractDesignTokens": true,
+        "readComponentStructure": true,
+        "getLayoutConstraints": true,
+        "extractAssetReferences": true,
+        "variantInformation": true
+      },
+      "safeModeDefaults": {
+        "readOnly": true,
+        "requireOAuth": true
+      },
+      "failureBehavior": {
+        "onAuthError": "prompt-reauth",
+        "onFileNotFound": "log-and-continue",
+        "onRateLimit": "backoff-retry"
+      },
+      "artifacts": ["design-tokens", "component-specs", "asset-manifest"],
+      "securityNotes": "Read-only access to Figma files. Cannot modify designs.",
+      "approvalRequired": false,
+      "installCommand": "Desktop: Use Figma app MCP connection. Remote: https://mcp.figma.com/mcp"
+    },
+
+    "cloudflare": {
+      "name": "Cloudflare MCP",
+      "description": "Workers management, KV/R2/D1 storage, security analytics, and edge deployment",
+      "source": "https://github.com/cloudflare/mcp-server-cloudflare",
+      "endpoint": "varies-by-service",
+      "transport": "http",
+      "allowedPipelines": ["dapp-factory", "agent-factory", "miniapp-pipeline"],
+      "allowedPhases": ["deploy", "verify"],
+      "permissionLevel": "read-only",
+      "requiredEnvVars": ["CLOUDFLARE_API_TOKEN"],
+      "optionalEnvVars": ["CLOUDFLARE_ACCOUNT_ID"],
+      "capabilities": {
+        "workersManagement": true,
+        "kvOperations": true,
+        "r2Storage": true,
+        "d1Database": true,
+        "observability": true,
+        "securityAnalytics": true
+      },
+      "safeModeDefaults": {
+        "readOnly": true,
+        "observabilityOnly": true
+      },
+      "failureBehavior": {
+        "onAuthError": "fail-fast",
+        "onDeployError": "rollback",
+        "onStorageError": "log-and-continue"
+      },
+      "artifacts": ["deployment-logs", "analytics-reports", "security-findings"],
+      "securityNotes": "Use scoped API tokens with minimal permissions. Read-only recommended for initial integration.",
+      "approvalRequired": true,
+      "installCommand": "Uses hosted remote MCP servers at Cloudflare with OAuth"
+    },
+
+    "github": {
+      "name": "GitHub MCP",
+      "description": "Repository operations, issue/PR management, CI/CD workflows, and code analysis",
+      "source": "https://github.com/github/github-mcp-server",
+      "npmPackage": "@modelcontextprotocol/server-github",
+      "transport": "stdio",
+      "allowedPipelines": ["app-factory", "dapp-factory", "agent-factory", "plugin-factory", "miniapp-pipeline", "website-pipeline"],
+      "allowedPhases": ["research", "build", "verify", "deploy"],
+      "permissionLevel": "read-write",
+      "requiredEnvVars": ["GITHUB_PERSONAL_ACCESS_TOKEN"],
+      "optionalEnvVars": [],
+      "capabilities": {
+        "repositoryOperations": true,
+        "issueManagement": true,
+        "pullRequestOperations": true,
+        "workflowManagement": true,
+        "codeAnalysis": true,
+        "securityFindings": true
+      },
+      "safeModeDefaults": {
+        "readOnly": false,
+        "toolsets": ["repos", "issues", "pull_requests"]
+      },
+      "failureBehavior": {
+        "onAuthError": "fail-fast",
+        "onRateLimit": "backoff-retry",
+        "onNotFound": "log-and-continue"
+      },
+      "artifacts": ["commit-history", "pr-reviews", "workflow-logs"],
+      "securityNotes": "Already integrated via Claude Code. Use scoped PAT with minimal required permissions.",
+      "approvalRequired": false,
+      "installCommand": "Already available via Claude Code GitHub plugin",
+      "alreadyIntegrated": true
+    }
+  },
+
+  "pipelineIntegrations": {
+    "app-factory": {
+      "description": "Mobile app generation (Expo/React Native)",
+      "allowedMcps": ["playwright", "stripe", "figma", "github"],
+      "phaseMapping": {
+        "research": ["figma", "github"],
+        "build": ["stripe", "figma"],
+        "verify": ["playwright"],
+        "ralph": ["playwright"]
+      },
+      "notes": "Playwright only for web exports via expo start --web"
+    },
+
+    "dapp-factory": {
+      "description": "Decentralized web apps (Next.js + optional agents)",
+      "allowedMcps": ["playwright", "vercel", "stripe", "supabase", "figma", "cloudflare", "github"],
+      "phaseMapping": {
+        "research": ["figma", "github"],
+        "build": ["stripe", "supabase", "figma"],
+        "verify": ["playwright", "supabase"],
+        "deploy": ["vercel", "cloudflare"],
+        "ralph": ["playwright"]
+      },
+      "notes": "Full MCP integration for complete dApp lifecycle"
+    },
+
+    "agent-factory": {
+      "description": "AI agent scaffolds (Node.js/TypeScript)",
+      "allowedMcps": ["supabase", "cloudflare", "github"],
+      "phaseMapping": {
+        "research": ["github"],
+        "build": ["supabase"],
+        "verify": ["supabase"],
+        "deploy": ["cloudflare"]
+      },
+      "notes": "No UI testing needed - focus on API and data layer"
+    },
+
+    "plugin-factory": {
+      "description": "Claude plugins and MCP servers",
+      "allowedMcps": ["github"],
+      "phaseMapping": {
+        "research": ["github"],
+        "build": ["github"],
+        "verify": ["github"]
+      },
+      "notes": "Plugin development primarily uses local testing"
+    },
+
+    "miniapp-pipeline": {
+      "description": "Base Mini Apps (MiniKit + Next.js)",
+      "allowedMcps": ["playwright", "vercel", "supabase", "cloudflare", "github"],
+      "phaseMapping": {
+        "research": ["github"],
+        "build": ["supabase"],
+        "verify": ["playwright"],
+        "deploy": ["vercel", "cloudflare"],
+        "ralph": ["playwright"]
+      },
+      "notes": "Vercel deployment is primary, Cloudflare for edge functions"
+    },
+
+    "website-pipeline": {
+      "description": "Marketing/portfolio websites (Next.js)",
+      "allowedMcps": ["playwright", "vercel", "figma", "github"],
+      "phaseMapping": {
+        "research": ["figma", "github"],
+        "build": ["figma"],
+        "verify": ["playwright"],
+        "deploy": ["vercel"],
+        "ralph": ["playwright"]
+      },
+      "notes": "Heavy Figma integration for design token extraction"
+    }
+  },
+
+  "globalRules": {
+    "noGlobalMcpAccess": "No MCP is available globally. Each must be explicitly allowed per pipeline and phase.",
+    "verificationRequired": "All MCP operations during verify/ralph phases must produce auditable artifacts.",
+    "noProdMutationsByDefault": "No MCP can mutate production resources without explicit approval flag.",
+    "artifactLogging": "All MCP operations must log to runs/<date>/<run-id>/mcp-logs/",
+    "failureHandling": "MCP failures should not halt pipeline unless marked as critical dependency.",
+    "envVarSecurity": "API keys and tokens must be loaded from environment, never hardcoded."
+  },
+
+  "approvalGating": {
+    "mutatingOperations": {
+      "stripe": ["create_payment_link", "create_product", "update_product"],
+      "cloudflare": ["deploy_worker", "write_kv", "write_r2"],
+      "supabase": ["run_migration", "create_table", "delete_table"],
+      "vercel": ["create_deployment", "update_env_vars"]
+    },
+    "requiresExplicitApproval": true,
+    "approvalLogPath": "runs/<date>/<run-id>/approvals/"
+  },
+
+  "artifactOutputs": {
+    "playwright": {
+      "directory": "ralph/screenshots/",
+      "files": ["accessibility-snapshot-*.json", "screenshot-*.png", "test-report.html"]
+    },
+    "vercel": {
+      "directory": "deploy/",
+      "files": ["deployment-log.md", "build-output.json"]
+    },
+    "figma": {
+      "directory": "planning/",
+      "files": ["design-tokens.json", "component-specs.md"]
+    },
+    "supabase": {
+      "directory": "migrations/",
+      "files": ["migration-*.sql", "types.ts"]
+    }
+  }
+}

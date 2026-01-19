@@ -1,6 +1,6 @@
 # Website Pipeline
 
-**Version:** 1.1
+**Version:** 1.3
 **Mode:** Full Build Factory with Mandatory Skills Audits
 **Status:** MANDATORY CONSTITUTION
 
@@ -597,7 +597,40 @@ vercel deploy
 
 ---
 
+## MCP INTEGRATION (OPTIONAL)
+
+> **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations) that follow the MCP spec. For full governance details, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE". For the specification itself: https://github.com/modelcontextprotocol
+
+This pipeline supports the following MCP servers as defined in `plugin-factory/mcp.catalog.json`:
+
+| MCP | Phase | Permission | Purpose |
+|-----|-------|------------|---------|
+| Playwright | verify, ralph | read-only | E2E testing, UI verification |
+| Vercel | deploy | read-only | Deployment management, log analysis |
+| Figma | research, build | read-only | Design token extraction, component specs |
+| GitHub | all | read-write | Already integrated via Claude Code |
+
+### MCP Usage Rules
+
+1. **MCPs are opt-in** - Websites work without any MCP integration
+2. **Phase-gated** - MCPs only available in specified phases
+3. **Figma recommended** - Design token extraction significantly improves design fidelity
+4. **Artifacts logged** - All MCP operations logged to `runs/<date>/<run-id>/mcp-logs/`
+
+### Figma Integration (Recommended)
+
+When a Figma file is available:
+1. Connect via `claude mcp add --transport http figma https://mcp.figma.com/mcp`
+2. Extract design tokens during Phase 4 (Design System)
+3. Component specs inform Phase 5 (Build)
+
+See `plugin-factory/mcp.catalog.json` for full configuration details.
+
+---
+
 ## Version History
 
+- **1.3** (2026-01-18): Added MCP governance note - MCP is spec, MCP servers are tools
+- **1.2** (2026-01-18): Added MCP integration catalog reference
 - **1.1** (2026-01-18): Added UX Polish Loop with Playwright E2E testing
 - **1.0** (2026-01-18): Initial release with mandatory skills audits

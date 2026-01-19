@@ -1,6 +1,6 @@
 # dApp Factory (dapp-factory)
 
-**Version**: 8.1
+**Version**: 8.3
 **Mode**: Full Build Factory with Agent Decision Gate
 **Status**: MANDATORY CONSTITUTION
 
@@ -673,8 +673,46 @@ npm run dev
 
 ---
 
+## MCP INTEGRATION (OPTIONAL)
+
+> **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations) that follow the MCP spec. For full governance details, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE". For the specification itself: https://github.com/modelcontextprotocol
+
+This pipeline supports the following MCP servers as defined in `plugin-factory/mcp.catalog.json`:
+
+| MCP | Phase | Permission | Purpose |
+|-----|-------|------------|---------|
+| Playwright | verify, ralph | read-only | E2E testing, UI verification |
+| Vercel | deploy | read-only | Deployment management, log analysis |
+| Stripe | build | mutating (approval required) | Payment integration |
+| Supabase | build, verify | read-only | Database, auth, migrations |
+| Figma | research, build | read-only | Design token extraction |
+| Cloudflare | deploy | read-only | Edge deployment, Workers |
+| GitHub | all | read-write | Already integrated via Claude Code |
+
+### MCP Usage Rules
+
+1. **MCPs are opt-in** - Never required for basic pipeline execution
+2. **Phase-gated** - MCPs only available in specified phases
+3. **Approval for mutations** - Stripe, Cloudflare mutations require explicit approval
+4. **Artifacts logged** - All MCP operations logged to `runs/<date>/<run-id>/mcp-logs/`
+5. **No production by default** - Use dev/test environments only
+
+### Enabling MCPs
+
+MCPs are enabled via Claude Code:
+```bash
+claude mcp add --transport http vercel https://mcp.vercel.com
+claude mcp add --transport http figma https://mcp.figma.com/mcp
+```
+
+See `plugin-factory/mcp.catalog.json` for full configuration details.
+
+---
+
 ## Version History
 
+- **8.3** (2026-01-18): Added MCP governance note - MCP is spec, MCP servers are tools
+- **8.2** (2026-01-18): Added MCP integration catalog reference
 - **8.1** (2026-01-18): Added UX Polish Loop with Playwright E2E testing
 - **8.0** (2026-01-17): Renamed from web3-factory to dapp-factory, added Agent Decision Gate, Rig integration for Mode B
 - **7.1** (2026-01-15): Added web-interface-guidelines skill
@@ -684,4 +722,4 @@ npm run dev
 
 ---
 
-**dapp-factory v8.1**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.
+**dapp-factory v8.2**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.

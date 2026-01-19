@@ -1,6 +1,6 @@
 # MiniApp Pipeline
 
-**Version**: 1.0
+**Version**: 1.2
 **Mode**: Base Mini App Generator (MiniKit + Next.js)
 **Status**: MANDATORY CONSTITUTION
 
@@ -724,3 +724,42 @@ If Ralph rejects after 3 iterations:
 2. User must manually address remaining items
 3. Provide guidance on each issue
 4. Do not auto-publish
+
+---
+
+## MCP INTEGRATION (OPTIONAL)
+
+> **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations) that follow the MCP spec. For full governance details, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE". For the specification itself: https://github.com/modelcontextprotocol
+
+This pipeline supports the following MCP servers as defined in `plugin-factory/mcp.catalog.json`:
+
+| MCP | Phase/Stage | Permission | Purpose |
+|-----|-------------|------------|---------|
+| Playwright | M6 (Validate), M10 (Ralph) | read-only | E2E testing, UI verification |
+| Vercel | M4 (Deploy) | read-only | Deployment management, log analysis |
+| Supabase | M2 (Scaffold), M6 (Validate) | read-only | Database backend if needed |
+| Cloudflare | M4 (Deploy) | read-only | Edge functions, alternative deploy |
+| GitHub | all stages | read-write | Already integrated via Claude Code |
+
+### MCP Usage Rules
+
+1. **MCPs are opt-in** - Mini apps work without any MCP integration
+2. **Stage-gated** - MCPs only available in specified stages
+3. **Vercel is primary** - Cloudflare is alternative for edge functions
+4. **Artifacts logged** - All MCP operations logged to `builds/miniapps/<slug>/artifacts/mcp-logs/`
+
+### Notes
+
+- **Playwright**: Useful for validating mini app behavior before publication
+- **Vercel**: Primary deployment target for Base Mini Apps
+- **Supabase**: Optional backend when mini app needs data persistence
+
+See `plugin-factory/mcp.catalog.json` for full configuration details.
+
+---
+
+## Version History
+
+- **1.2** (2026-01-18): Added MCP governance note - MCP is spec, MCP servers are tools
+- **1.1** (2026-01-18): Added MCP integration catalog reference
+- **1.0** (2026-01-17): Initial release with M0-M10 stage system

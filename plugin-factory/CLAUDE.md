@@ -1,6 +1,6 @@
 # Plugin Factory
 
-**Version**: 1.0
+**Version**: 1.2
 **Mode**: Full Build Factory with Auto-Polish
 **Status**: MANDATORY CONSTITUTION
 
@@ -709,8 +709,107 @@ A successful execution produces:
 
 ---
 
+## MCP GOVERNANCE (CRITICAL)
+
+**The Model Context Protocol (MCP) is the governing specification for all AI-tool integrations in AppFactory.**
+
+### MCP Is a Specification, Not a Tool
+
+This is a critical architectural distinction:
+
+| Concept | What It Is | What It Is NOT |
+|---------|------------|----------------|
+| **MCP (Model Context Protocol)** | Open specification defining how AI systems communicate with tools | NOT a server, NOT a tool, NOT something you "install" |
+| **MCP Server** | An implementation that follows the MCP specification | NOT MCP itself - it's a tool that obeys MCP |
+| **MCP Tools** | Specific capabilities exposed by an MCP server | NOT part of MCP spec - they're what servers provide |
+
+### The MCP Specification
+
+MCP defines the **contract** that all compliant servers must follow:
+
+- **Transport protocols**: STDIO (local), HTTP (remote)
+- **Message format**: JSON-RPC 2.0
+- **Capability negotiation**: How servers declare what they can do
+- **Resource patterns**: How data is exposed
+- **Tool patterns**: How actions are invoked
+- **Error handling**: Standard error codes and recovery
+
+**Official Specification**: https://github.com/modelcontextprotocol
+
+### Why MCP Matters for AppFactory
+
+1. **Interoperability** - Any MCP-compliant server works with any MCP-compliant client
+2. **Security** - Standardized permission models and approval flows
+3. **Predictability** - Consistent behavior across all integrations
+4. **Verifiability** - Ralph can verify MCP compliance, not just functionality
+
+### What MCP Is NOT
+
+- MCP is NOT added to any tool catalog (it's not a tool)
+- MCP is NOT executed (it's a specification)
+- MCP is NOT optional (all AppFactory MCP integrations must comply)
+- MCP does NOT "run" - MCP servers run and follow MCP
+
+### Ralph Verifies MCP Compliance
+
+Ralph verification loops test that:
+1. MCP servers are only accessed in allowed phases
+2. Permission levels are respected (read-only vs mutating)
+3. Approval gates work for mutating operations
+4. Artifacts are logged correctly
+5. Failure handling prevents silent failures
+
+**Ralph verifies compliance WITH MCP, not MCP itself.**
+
+### Governance Rules
+
+| Rule | Enforcement |
+|------|-------------|
+| All MCP servers must be declared in `mcp.catalog.json` | Build validation |
+| No MCP server access outside allowed phases | Phase gating |
+| Mutating operations require explicit approval | Approval gating |
+| All MCP operations produce artifacts | Artifact logging |
+| Failures are handled, never silent | Failure policies |
+
+---
+
+## MCP CATALOG (CANONICAL SOURCE)
+
+This pipeline hosts the canonical MCP catalog for all AppFactory pipelines:
+
+**Location:** `plugin-factory/mcp.catalog.json`
+
+The catalog defines **MCP server configurations**, not MCP itself. It includes:
+- All supported MCP servers across pipelines
+- Allowed phases for each MCP server
+- Permission levels (read-only vs mutating)
+- Required environment variables
+- Safe mode defaults
+- Failure handling behavior
+
+### MCP Integration for Plugin Factory
+
+| MCP | Phase | Permission | Purpose |
+|-----|-------|------------|---------|
+| GitHub | all | read-write | Already integrated via Claude Code |
+
+Plugin-factory primarily uses local testing and doesn't require external MCPs for basic operation. The GitHub MCP (already integrated) handles source control operations.
+
+### Updating the MCP Catalog
+
+When adding new MCPs:
+1. Edit `mcp.catalog.json`
+2. Add entry in `mcpServers` object
+3. Add to `pipelineIntegrations` for relevant pipelines
+4. Update pipeline CLAUDE.md files to reference new MCP
+5. Run Ralph verification to confirm integration
+
+---
+
 ## Version History
 
+- **1.2** (2026-01-18): Added MCP Governance section - MCP is the spec, MCP servers are tools
+- **1.1** (2026-01-18): Added MCP catalog as canonical source for all pipelines
 - **1.0** (2026-01-14): Initial release with Claude Code plugins and MCP server support
 
 ---

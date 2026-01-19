@@ -1,6 +1,6 @@
 # Agent Factory
 
-**Version**: 3.0
+**Version**: 3.2
 **Mode**: Full Build Factory with Rig-Aligned Architecture
 **Status**: MANDATORY CONSTITUTION
 
@@ -918,8 +918,38 @@ A successful execution produces:
 
 ---
 
+## MCP INTEGRATION (OPTIONAL)
+
+> **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations) that follow the MCP spec. For full governance details, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE". For the specification itself: https://github.com/modelcontextprotocol
+
+This pipeline supports the following MCP servers as defined in `plugin-factory/mcp.catalog.json`:
+
+| MCP | Phase | Permission | Purpose |
+|-----|-------|------------|---------|
+| Supabase | build, verify | read-only | Database backend for agents |
+| Cloudflare | deploy | read-only | Edge deployment via Workers |
+| GitHub | all | read-write | Already integrated via Claude Code |
+
+### MCP Usage Rules
+
+1. **MCPs are opt-in** - Agents work without any MCP integration
+2. **Phase-gated** - MCPs only available in specified phases
+3. **No UI testing** - Agent-factory doesn't use Playwright (no UI)
+4. **Artifacts logged** - All MCP operations logged to `runs/<date>/<run-id>/mcp-logs/`
+
+### Notes
+
+- **Supabase**: Useful when agent needs persistent storage or user auth
+- **Cloudflare**: Alternative deployment target for edge-deployed agents
+
+See `plugin-factory/mcp.catalog.json` for full configuration details.
+
+---
+
 ## Version History
 
+- **3.2** (2026-01-18): Added MCP governance note - MCP is spec, MCP servers are tools
+- **3.1** (2026-01-18): Added MCP integration catalog reference
 - **3.0** (2026-01-17): Rig framework integration, Agent/Tool/ExecutionLoop patterns, educational alignment
 - **2.0** (2026-01-14): Added Intent Normalization, Dream Spec Author, Ralph Polish Loop, research requirements, structured logging, error handling patterns
 - **1.1** (2026-01-12): Token integration support, 4-question flow
@@ -927,4 +957,4 @@ A successful execution produces:
 
 ---
 
-**agent-factory v3.0**: Describe your agent idea. Get a complete, Rig-aligned, production-ready scaffold.
+**agent-factory v3.1**: Describe your agent idea. Get a complete, Rig-aligned, production-ready scaffold.

@@ -1,6 +1,6 @@
 # App Factory (app-factory)
 
-**Version**: 7.2
+**Version**: 7.4
 **Mode**: Interactive Build Session
 **Status**: MANDATORY CONSTITUTION
 
@@ -585,8 +585,40 @@ opensrc expo-router@4.0.0
 
 ---
 
+## MCP INTEGRATION (OPTIONAL)
+
+> **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations) that follow the MCP spec. For full governance details, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE". For the specification itself: https://github.com/modelcontextprotocol
+
+This pipeline supports the following MCP servers as defined in `plugin-factory/mcp.catalog.json`:
+
+| MCP | Phase | Permission | Purpose |
+|-----|-------|------------|---------|
+| Playwright | verify, ralph | read-only | E2E testing for web exports (`expo start --web`) |
+| Stripe | build | mutating (approval required) | Payment integration (alternative to RevenueCat) |
+| Figma | research, build | read-only | Design token extraction |
+| GitHub | all | read-write | Already integrated via Claude Code |
+
+### MCP Usage Rules
+
+1. **MCPs are opt-in** - RevenueCat remains the default monetization
+2. **Playwright only for web exports** - Mobile-only apps don't need Playwright
+3. **Approval for mutations** - Stripe mutations require explicit approval
+4. **Artifacts logged** - All MCP operations logged to `runs/<date>/<run-id>/mcp-logs/`
+
+### Notes
+
+- **Playwright**: Only applicable when app includes web export capabilities
+- **Stripe**: Alternative monetization path; RevenueCat is still the default and recommended
+- **Figma**: Useful for importing design system from existing Figma files
+
+See `plugin-factory/mcp.catalog.json` for full configuration details.
+
+---
+
 ## VERSION HISTORY
 
+- **7.4** (2026-01-18): Added MCP governance note - MCP is spec, MCP servers are tools
+- **7.3** (2026-01-18): Added MCP integration catalog reference
 - **7.2** (2026-01-18): Added optional UX Polish Loop with Playwright for web exports
 - **7.1** (2026-01-15): Added mobile-interface-guidelines skill, optional tools documentation
 - **7.0** (2026-01-14): Intent Normalization phase, RevenueCat non-negotiable, stricter product quality
