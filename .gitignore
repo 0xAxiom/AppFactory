@@ -39,7 +39,8 @@ android/
 *.jks
 
 # Claude / AI tooling - local AI artifacts
-.claude/
+.claude/*
+!.claude/commands/
 .claude-cache/
 claude.log
 *.prompt.log

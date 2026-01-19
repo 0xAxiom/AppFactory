@@ -1,0 +1,1 @@
+../../plugins/factory/commands/factory.md
