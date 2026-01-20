@@ -1,14 +1,16 @@
 # MiniApp Pipeline
 
-**Version**: 1.2
+**Version**: 2.0.0
 **Mode**: Base Mini App Generator (MiniKit + Next.js)
 **Status**: MANDATORY CONSTITUTION
 
 ---
 
-## Purpose
+## 1. PURPOSE & SCOPE
 
-This pipeline generates production-ready **Base Mini Apps** - applications that run inside the Base app using MiniKit and Next.js. It handles the complete lifecycle from concept to publication, including manifest configuration, account association guidance, and quality validation.
+### What This Pipeline Does
+
+MiniApp Pipeline generates **production-ready Base Mini Apps** - applications that run inside the Base app using MiniKit and Next.js. It handles the complete lifecycle from concept to publication, including manifest configuration, account association guidance, and quality validation.
 
 Base Mini Apps are Farcaster-compatible applications discovered and launched within the Base app ecosystem. They require:
 - A Next.js application with MiniKit integration
@@ -16,57 +18,177 @@ Base Mini Apps are Farcaster-compatible applications discovered and launched wit
 - Account association credentials proving domain ownership
 - Proper asset images meeting Base specifications
 
+### What This Pipeline Does NOT Do
+
+| Action | Reason | Where It Belongs |
+|--------|--------|------------------|
+| Build mobile apps | Wrong output format | app-factory |
+| Build dApps/websites | Wrong output format | dapp-factory |
+| Generate AI agent scaffolds | Wrong pipeline | agent-factory |
+| Generate Claude plugins | Wrong pipeline | plugin-factory |
+| Deploy automatically | Requires user approval | Manual Vercel deploy |
+| Generate account association | User-specific credentials | Manual step |
+
+### Output Directory
+
+All generated mini apps are written to: `builds/miniapps/<slug>/`
+
+### Boundary Enforcement
+
+Claude MUST NOT write files outside `miniapp-pipeline/` directory. Specifically forbidden:
+- `app-factory/builds/` (belongs to app-factory)
+- `dapp-builds/` (belongs to dapp-factory)
+- `outputs/` (belongs to agent-factory)
+- Any path outside the repository
+
 ---
 
-## For Users
+## 2. CANONICAL USER FLOW
 
-```bash
-cd miniapp-pipeline
-claude
+```
+User: "I want a mini app that lets users share daily gratitude posts"
 
-# Then describe your mini app idea:
-# "I want a mini app that lets users share daily gratitude posts with their friends"
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M0: INTENT NORMALIZATION                                  │
+│ Claude transforms raw input → structured mini app concept       │
+│ Output: builds/miniapps/<slug>/artifacts/inputs/                │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M1: TEMPLATE SELECTION & SCAFFOLD PLAN                    │
+│ Claude plans route structure, components, data layer            │
+│ Output: builds/miniapps/<slug>/artifacts/stage01/               │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M2: SCAFFOLD PROJECT                                      │
+│ Claude generates Next.js application structure                  │
+│ Output: builds/miniapps/<slug>/app/                             │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M3: MANIFEST & METADATA AUTHORING                         │
+│ Claude configures minikit.config.ts and placeholder assets      │
+│ Output: builds/miniapps/<slug>/app/minikit.config.ts            │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M4: VERCEL DEPLOYMENT PLAN                                │
+│ Claude provides step-by-step deployment instructions            │
+│ Output: builds/miniapps/<slug>/artifacts/stage04/DEPLOYMENT.md  │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M5: ACCOUNT ASSOCIATION (MANUAL)                          │
+│ ⚠️ PIPELINE PAUSES - User must complete account association     │
+│ Output: builds/miniapps/<slug>/artifacts/stage05/               │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M6-M9: VALIDATION & HARDENING                             │
+│ Claude validates, hardens, and runs proof gate                  │
+│ Output: builds/miniapps/<slug>/artifacts/stage06-09/            │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STAGE M10: RALPH MODE (ADVERSARIAL QA)                          │
+│ Rigorous quality assurance through adversarial review           │
+│ Output: builds/miniapps/<slug>/artifacts/polish/                │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+          User receives deployable Base Mini App
 ```
 
 ---
 
-## ABSOLUTE RULES
+## 3. DIRECTORY MAP
 
-### MUST
+```
+miniapp-pipeline/
+├── CLAUDE.md                 # This constitution (CANONICAL)
+├── README.md                 # User documentation
+├── scripts/
+│   ├── miniapp_proof_gate.sh
+│   ├── check_account_association.ts
+│   ├── check_manifest_assets.ts
+│   └── validate_manifest.ts
+├── vendor/
+│   └── base-miniapps/        # Cached Base documentation
+│       ├── create-new-miniapp.md
+│       ├── manifest.md
+│       ├── sign-manifest.md
+│       ├── common-issues.md
+│       └── create-manifest-route.md
+├── builds/                   # Generated mini apps (OUTPUT DIRECTORY)
+│   └── miniapps/
+│       └── <slug>/
+│           ├── app/          # The Next.js application
+│           └── artifacts/    # Pipeline outputs
+└── templates/
+    └── minikit-starter/
+```
 
-1. **MUST** normalize user intent through Stage M0 before any generation
-2. **MUST** generate a complete `minikit.config.ts` as the single source of truth
-3. **MUST** create the manifest route at `app/.well-known/farcaster.json/route.ts`
-4. **MUST** generate placeholder assets for all required images
-5. **MUST** pause at Stage M5 for manual account association
-6. **MUST** run proof gate (Stage M8) before declaring build complete
-7. **MUST** complete Ralph Mode (Stage M10) for quality assurance
+### Directory Boundaries
 
-### MUST NOT
-
-1. **MUST NOT** generate account association values - these are user-specific
-2. **MUST NOT** skip the account association manual step
-3. **MUST NOT** add onchain transactions unless explicitly requested
-4. **MUST NOT** hardcode secrets or API keys in source files
-5. **MUST NOT** deploy to Vercel automatically - provide instructions only
-6. **MUST NOT** mark build complete without passing proof gate
+| Directory | Purpose | Who Writes | Distributable |
+|-----------|---------|------------|---------------|
+| `builds/miniapps/<slug>/app/` | Final Next.js application | Claude | YES |
+| `builds/miniapps/<slug>/artifacts/` | Pipeline outputs | Claude | NO |
+| `vendor/` | Cached reference documentation | Maintainers | NO |
 
 ---
 
-## STAGE M0: INTENT NORMALIZATION (MANDATORY)
+## 4. MODES
 
-**Purpose**: Transform raw user input into a structured mini app concept.
+### INFRA MODE (Default)
 
-**Input**: Raw user description (any format)
+When Claude enters `miniapp-pipeline/` without an active build:
+- Explains what MiniApp Pipeline does
+- Lists recent builds in `builds/miniapps/`
+- Awaits user's mini app description
+- Does NOT generate code until user provides intent
 
-**Process**:
-1. Extract core value proposition
-2. Identify target users
-3. Determine primary use case
-4. Classify by Base category
-5. Identify any onchain requirements (default: none)
+**Infra Mode Indicators:**
+- No active build session
+- User asking questions or exploring
+- No stage initiated
 
-**Output**: `inputs/normalized_prompt.md`
+### BUILD MODE
+
+When Claude is executing a mini app build:
+- Has active `builds/miniapps/<slug>/` directory
+- User has provided mini app intent
+- Claude is generating files
+
+**BUILD MODE Stages:**
+- M0: Intent Normalization
+- M1: Template Selection & Scaffold Plan
+- M2: Scaffold Project
+- M3: Manifest & Metadata Authoring
+- M4: Vercel Deployment Plan
+- M5: Account Association (MANUAL PAUSE)
+- M6: Preview Tool Validation
+- M7: Production Hardening
+- M8: Proof Gate
+- M9: Publish Checklist
+- M10: Ralph Mode
+
+### QA MODE (Ralph)
+
+When Claude enters Stage M10:
+- Adopts adversarial QA persona
+- Evaluates against quality checklist
+- Iterates until APPROVED (max 3 iterations)
+
+---
+
+## 5. PHASE MODEL
+
+### STAGE M0: INTENT NORMALIZATION (MANDATORY)
+
+Transform raw user input into a structured mini app concept.
+
+**Output:** `inputs/normalized_prompt.md`
 
 ```markdown
 # Mini App Concept
@@ -87,7 +209,9 @@ claude
 [Primary user interaction flow]
 
 ## Category
-[One of: games, social, finance, utility, productivity, health-fitness, news-media, music, shopping, education, developer-tools, entertainment, art-creativity]
+[One of: games, social, finance, utility, productivity, health-fitness,
+news-media, music, shopping, education, developer-tools, entertainment,
+art-creativity]
 
 ## Tags
 [Up to 5 lowercase tags]
@@ -99,62 +223,19 @@ claude
 [None / Wallet connection / Transactions / Smart contracts]
 ```
 
----
+### STAGE M1: TEMPLATE SELECTION & SCAFFOLD PLAN
 
-## STAGE M1: TEMPLATE SELECTION & SCAFFOLD PLAN
+Plan route structure, components, data layer, assets.
 
-**Purpose**: Decide on technical approach and plan the project structure.
+**Output:** `stage01/scaffold_plan.md`
 
-**Input**: `inputs/normalized_prompt.md`
+### STAGE M2: SCAFFOLD PROJECT
 
-**Process**:
-1. Select base template (default: MiniKit Next.js starter)
-2. Plan route structure
-3. Plan component hierarchy
-4. Determine data storage approach (local state / API / onchain)
-5. Plan asset requirements
+Generate the Next.js application structure.
 
-**Output**: `stage01/scaffold_plan.md`
+**Output Directory:** `builds/miniapps/<slug>/app/`
 
-```markdown
-# Scaffold Plan
-
-## Template
-MiniKit Next.js Starter
-
-## Routes
-- `/` - Main app page
-- `/api/webhook` - Notification webhook (optional)
-- `/.well-known/farcaster.json` - Manifest endpoint
-
-## Components
-[List of React components to create]
-
-## Data Layer
-[State management approach]
-
-## Assets Required
-- Icon: 1024x1024 PNG
-- Splash: 200x200 PNG
-- Hero: 1200x630 PNG
-- Screenshots: 1284x2778 PNG (up to 3)
-- OG Image: 1200x630 PNG
-
-## Dependencies
-[NPM packages needed beyond template]
-```
-
----
-
-## STAGE M2: SCAFFOLD PROJECT
-
-**Purpose**: Generate the Next.js application structure.
-
-**Input**: `stage01/scaffold_plan.md`
-
-**Output Directory**: `builds/miniapps/<slug>/app/`
-
-**Generated Structure**:
+**Generated Structure:**
 ```
 builds/miniapps/<slug>/
 ├── app/
@@ -169,14 +250,12 @@ builds/miniapps/<slug>/
 │   │   ├── page.tsx
 │   │   └── globals.css
 │   ├── components/
-│   │   └── [app-specific components]
 │   ├── public/
 │   │   ├── icon.png
 │   │   ├── splash.png
 │   │   ├── hero.png
 │   │   ├── og.png
 │   │   └── screenshots/
-│   │       └── 1.png
 │   ├── minikit.config.ts
 │   ├── package.json
 │   ├── tsconfig.json
@@ -184,504 +263,278 @@ builds/miniapps/<slug>/
 │   ├── .env.example
 │   └── .gitignore
 └── artifacts/
-    └── [pipeline outputs]
 ```
 
-**Output**: `stage02/scaffold_complete.md` confirming all files created.
+### STAGE M3: MANIFEST & METADATA AUTHORING
 
----
+Configure manifest and generate placeholder assets.
 
-## STAGE M3: MANIFEST & METADATA AUTHORING
-
-**Purpose**: Configure the manifest and generate placeholder assets.
-
-**Input**: Stage M2 scaffold
-
-**Process**:
-1. Populate `minikit.config.ts` with all manifest fields
-2. Generate placeholder images (solid color with text overlay)
-3. Verify manifest route returns valid JSON
-4. Create embed metadata
-
-**Output**:
+**Output:**
 - Updated `minikit.config.ts`
 - Placeholder images in `public/`
-- `stage03/manifest_config.md` documenting all values
+- `stage03/manifest_config.md`
 
-**minikit.config.ts Template**:
-```typescript
-export const minikitConfig = {
-  accountAssociation: {
-    header: "",   // FILL AFTER SIGNING - Stage M5
-    payload: "",  // FILL AFTER SIGNING - Stage M5
-    signature: "" // FILL AFTER SIGNING - Stage M5
-  },
-  miniapp: {
-    version: "1",
-    name: "[APP_NAME]",
-    subtitle: "[TAGLINE]",
-    description: "[DESCRIPTION]",
-    screenshotUrls: [
-      "[URL]/screenshots/1.png"
-    ],
-    iconUrl: "[URL]/icon.png",
-    splashImageUrl: "[URL]/splash.png",
-    splashBackgroundColor: "#FFFFFF",
-    homeUrl: "[URL]",
-    primaryCategory: "[CATEGORY]",
-    tags: ["[TAG1]", "[TAG2]"],
-    heroImageUrl: "[URL]/hero.png",
-    tagline: "[TAGLINE]",
-    ogTitle: "[APP_NAME]",
-    ogDescription: "[DESCRIPTION]",
-    ogImageUrl: "[URL]/og.png"
-  }
-} as const;
+### STAGE M4: VERCEL DEPLOYMENT PLAN
 
-export type MinikitConfig = typeof minikitConfig;
-```
+Provide step-by-step deployment instructions.
 
----
+**Output:** `stage04/DEPLOYMENT.md`
 
-## STAGE M4: VERCEL DEPLOYMENT PLAN
+### STAGE M5: ACCOUNT ASSOCIATION (MANUAL STEP)
 
-**Purpose**: Provide step-by-step deployment instructions.
+**⚠️ PIPELINE PAUSES HERE - User must complete account association.**
 
-**Input**: Completed scaffold
+This stage requires USER ACTION. Claude provides instructions but CANNOT generate account association values.
 
-**Output**: `stage04/DEPLOYMENT.md`
+**Resume Condition:** `minikit.config.ts` has non-empty `header`, `payload`, and `signature` values.
 
-```markdown
-# Deployment Guide
+### STAGE M6-M9: VALIDATION & HARDENING
 
-## Prerequisites
-- Vercel account
-- GitHub repository with your mini app code
+- M6: Preview Tool Validation - Validate using Base's preview tool
+- M7: Production Hardening - Add error boundaries, loading states, fallbacks
+- M8: Proof Gate - Verify build integrity (npm install, build, lint, typecheck)
+- M9: Publish Checklist - Final publication guidance
 
-## Steps
+### STAGE M10: RALPH MODE (MANDATORY)
 
-### 1. Push to GitHub
-git add .
-git commit -m "Initial mini app scaffold"
-git push origin main
+Rigorous adversarial QA review.
 
-### 2. Import to Vercel
-1. Go to vercel.com/new
-2. Import your GitHub repository
-3. Keep default settings for Next.js
-4. Click Deploy
+**Ralph Review Checklist:**
+- Manifest correctness (all fields, character limits, image dimensions)
+- Account association (header/payload/signature non-empty)
+- Preview tool (all three tabs show success)
+- Code quality (no TS errors, no console errors, error boundaries)
+- UX review (loads quickly, intuitive, touch targets, no gesture conflicts)
+- Security (no exposed secrets, no hardcoded API keys)
 
-### 3. Configure Environment
-In Vercel project settings, add:
-- `NEXT_PUBLIC_URL` = your-app.vercel.app
-
-### 4. CRITICAL: Disable Deployment Protection
-1. Go to Settings → Deployment Protection
-2. Set to "None" or disable for production
-3. This allows Base to access /.well-known/farcaster.json
-
-### 5. Verify Deployment
-Visit: https://your-app.vercel.app/.well-known/farcaster.json
-Confirm valid JSON response.
-
-## Next Step
-Proceed to Stage M5: Account Association
-```
+**Final Verdict Criteria:**
+- Zero critical issues
+- Zero major issues
+- Proof gate passes
+- Preview tool shows all green
 
 ---
 
-## STAGE M5: ACCOUNT ASSOCIATION (MANUAL STEP)
+## 6. DELEGATION MODEL
 
-**Purpose**: Guide user through domain verification and manifest signing.
+### When miniapp-pipeline Delegates
 
-**This stage requires USER ACTION. The pipeline PAUSES here.**
+| Trigger | Delegated To | Context Passed |
+|---------|--------------|----------------|
+| User says "review this" | Ralph QA persona | Build path, checklist |
+| Deploy request | User manual action | Vercel instructions |
+| Account association | User manual action | Base.dev instructions |
 
-**Output**: `stage05/ACCOUNT_ASSOCIATION_TODO.md`
+### When miniapp-pipeline Receives Delegation
 
-```markdown
-# Account Association - MANUAL STEP REQUIRED
+| Source | Trigger | Action |
+|--------|---------|--------|
+| Root orchestrator | `/factory run miniapp <idea>` | Begin Stage M0 |
+| User direct | `cd miniapp-pipeline && claude` | Enter INFRA MODE |
 
-## What This Does
-Account association cryptographically proves you own this domain
-and connects your mini app to your Farcaster account.
+### Role Boundaries
 
-## Prerequisites
-- [ ] App deployed to Vercel (Stage M4 complete)
-- [ ] Vercel Deployment Protection disabled
-- [ ] Base app account with connected wallet
-
-## Steps
-
-### 1. Open Base Build Tool
-Go to: https://base.dev (Build section → Account Association)
-
-### 2. Enter Your Domain
-Paste your Vercel URL: `https://your-app.vercel.app`
-
-### 3. Submit and Verify
-1. Click "Submit"
-2. Click "Verify"
-3. Sign the message with your wallet
-
-### 4. Copy Generated Values
-You'll receive three values:
-- header
-- payload
-- signature
-
-### 5. Update minikit.config.ts
-Open `minikit.config.ts` and fill in:
-
-accountAssociation: {
-  header: "PASTE_HEADER_HERE",
-  payload: "PASTE_PAYLOAD_HERE",
-  signature: "PASTE_SIGNATURE_HERE"
-}
-
-### 6. Deploy Update
-git add minikit.config.ts
-git commit -m "Add account association"
-git push origin main
-
-### 7. Verify
-Visit: https://base.dev/preview
-Enter your URL and check "Account Association" tab shows green checkmarks.
-
-## Resume Pipeline
-Once account association is complete, run Stage M6 validation.
-```
-
-**Resume Condition**: `minikit.config.ts` has non-empty `header`, `payload`, and `signature` values.
+- **Builder Claude**: Generates code, writes files, runs stages
+- **Ralph Claude**: Adversarial QA, never writes new features
+- **User**: Completes account association, deploys to Vercel
 
 ---
 
-## STAGE M6: PREVIEW TOOL VALIDATION
+## 7. HARD GUARDRAILS
 
-**Purpose**: Validate the mini app using Base's preview tool.
+### MUST DO
 
-**Input**: Deployed app with account association
+1. **MUST** normalize user intent through Stage M0 before any generation
+2. **MUST** generate a complete `minikit.config.ts` as single source of truth
+3. **MUST** create the manifest route at `app/.well-known/farcaster.json/route.ts`
+4. **MUST** generate placeholder assets for all required images
+5. **MUST** pause at Stage M5 for manual account association
+6. **MUST** run proof gate (Stage M8) before declaring build complete
+7. **MUST** complete Ralph Mode (Stage M10) for quality assurance
 
-**Output**: `stage06/validation_checklist.md`
+### MUST NOT
 
-```markdown
-# Preview Tool Validation Checklist
-
-URL: https://base.dev/preview
-
-## Embeds Tab
-- [ ] Embed renders correctly
-- [ ] App launches when clicked
-- [ ] Loading screen displays properly
-
-## Account Association Tab
-- [ ] Three green checkmarks displayed
-- [ ] No "invalid signature" errors
-
-## Metadata Tab
-- [ ] All required fields present
-- [ ] No warnings about missing fields
-- [ ] Images display correctly
-- [ ] Category and tags visible
-
-## Manual Testing
-- [ ] App loads in mobile view
-- [ ] Core functionality works
-- [ ] No console errors
-- [ ] Wallet connection works (if applicable)
-
-## Issues Found
-[Document any issues here]
-
-## Resolution Status
-[Track fixes applied]
-```
+1. **MUST NOT** generate account association values - these are user-specific
+2. **MUST NOT** skip the account association manual step
+3. **MUST NOT** add onchain transactions unless explicitly requested
+4. **MUST NOT** hardcode secrets or API keys in source files
+5. **MUST NOT** deploy to Vercel automatically - provide instructions only
+6. **MUST NOT** mark build complete without passing proof gate
 
 ---
 
-## STAGE M7: PRODUCTION HARDENING
+## 8. REFUSAL TABLE
 
-**Purpose**: Add polish and safety features.
-
-**Input**: Validated app
-
-**Process**:
-1. Add error boundaries
-2. Add loading states
-3. Add browser fallback (for non-Base contexts)
-4. Add basic analytics hooks (optional)
-5. Optimize images
-6. Add proper meta tags
-
-**Output**:
-- Updated components with error handling
-- `stage07/hardening_report.md`
-
-**Browser Fallback Pattern**:
-```typescript
-// components/ClientWrapper.tsx
-'use client';
-
-import { useEffect, useState } from 'react';
-
-export function ClientWrapper({ children }: { children: React.ReactNode }) {
-  const [isInClient, setIsInClient] = useState(false);
-
-  useEffect(() => {
-    // Check if running inside Base/Farcaster client
-    const isClient = typeof window !== 'undefined' &&
-      (window.parent !== window || navigator.userAgent.includes('Farcaster'));
-    setIsInClient(isClient);
-  }, []);
-
-  if (!isInClient) {
-    return (
-      <div className="fallback">
-        <h1>App Name</h1>
-        <p>This app is designed for the Base app.</p>
-        <a href="https://base.org/app">Get Base App</a>
-      </div>
-    );
-  }
-
-  return <>{children}</>;
-}
-```
+| Request Pattern | Action | Reason | Alternative |
+|-----------------|--------|--------|-------------|
+| "Generate my account association" | REFUSE | User-specific credentials | "Follow Stage M5 instructions at base.dev" |
+| "Skip account association" | REFUSE | Required for Base app | "Account association is mandatory" |
+| "Deploy to Vercel for me" | REFUSE | Requires user approval | "Follow the deployment instructions" |
+| "Skip the proof gate" | REFUSE | Quality verification required | "Proof gate ensures the app works" |
+| "Skip Ralph QA" | REFUSE | QA is mandatory | "Ralph ensures production quality" |
+| "Build a mobile app" | REFUSE | Wrong pipeline | "Use app-factory for mobile apps" |
+| "Build a dApp" | REFUSE | Wrong pipeline | "Use dapp-factory for dApps" |
+| "Write to dapp-builds/" | REFUSE | Wrong directory | "I'll write to builds/miniapps/ instead" |
+| "Add complex smart contracts" | REFUSE | Unless explicitly requested | "Mini apps default to no onchain requirements" |
+| "Hardcode my API key" | REFUSE | Security violation | "Use environment variables" |
 
 ---
 
-## STAGE M8: PROOF GATE (MANDATORY)
+## 9. VERIFICATION & COMPLETION
 
-**Purpose**: Verify build integrity before declaring completion.
+### Pre-Completion Checklist
 
-**Input**: Hardened app
+Before declaring a build complete, Claude MUST verify:
 
-**Process** (automated via `scripts/miniapp_proof_gate.sh`):
-1. `npm install` - Dependencies install cleanly
-2. `npm run build` - Production build succeeds
-3. `npm run lint` - No linting errors (if configured)
-4. `npm run typecheck` - TypeScript compiles (if configured)
-5. Manifest validation - `/.well-known/farcaster.json` returns valid JSON
-6. Account association check - All three fields are non-empty
-7. Asset validation - All referenced images exist
-
-**Output**: `stage08/build_validation_summary.json`
-
-```json
-{
-  "timestamp": "2026-01-18T10:00:00Z",
-  "slug": "hello-miniapp",
-  "checks": {
-    "npm_install": { "status": "pass", "duration_ms": 5000 },
-    "npm_build": { "status": "pass", "duration_ms": 15000 },
-    "npm_lint": { "status": "pass", "duration_ms": 2000 },
-    "npm_typecheck": { "status": "pass", "duration_ms": 3000 },
-    "manifest_valid": { "status": "pass" },
-    "account_association": { "status": "pass" },
-    "assets_exist": { "status": "pass", "assets_checked": 5 }
-  },
-  "overall": "PASS"
-}
-```
-
-**Gate Rule**: ALL checks must pass. If any fail, the build is NOT complete.
-
----
-
-## STAGE M9: PUBLISH CHECKLIST
-
-**Purpose**: Provide final publication guidance.
-
-**Output**: `stage09/PUBLISH.md`
-
-```markdown
-# Publishing Your Mini App
-
-## Final Verification
-- [ ] App deployed and accessible
-- [ ] Account association verified (green checkmarks)
-- [ ] Preview tool shows no errors
-- [ ] Proof gate passed (Stage M8)
-
-## How to Publish
-
-### 1. Open Base App
-Launch the Base app on your mobile device.
-
-### 2. Create a Post
-Compose a new post (cast) containing your app URL:
-https://your-app.vercel.app
-
-### 3. Add Context
-Include:
-- Brief description of what your app does
-- Call to action for users
-- Relevant hashtags
-
-### 4. Post It
-Your mini app will be indexed within ~10 minutes.
-
-## Best Practices
-
-### Caption Tips
-- Lead with the value proposition
-- Keep it concise (1-2 sentences)
-- Include a clear call to action
-
-### Hashtags
-- #miniapp
-- #base
-- #[your-category]
-
-### Sharing Loop
-Encourage users to share by:
-- Making sharing easy within the app
-- Creating shareable moments/achievements
-- Adding social proof elements
-
-## Post-Launch
-
-### Monitor
-- Check Base app for user feedback
-- Monitor for any reported issues
-- Track usage through your analytics
-
-### Iterate
-- Respond to user feedback
-- Ship improvements regularly
-- Re-share major updates
-```
-
----
-
-## STAGE M10: RALPH MODE (ADVERSARIAL QA)
-
-**Purpose**: Rigorous quality assurance through adversarial review.
-
-**Ralph Persona**: A meticulous QA engineer who finds every flaw, inconsistency, and edge case. Ralph is constructive but thorough.
-
-**Process**:
-1. Ralph reviews the entire build
-2. Produces `polish/ralph_report_N.md` with findings
-3. Builder addresses issues in `polish/builder_resolution_N.md`
-4. Repeat until Ralph approves (max 3 iterations)
-5. Final verdict in `polish/ralph_final_verdict.md`
-
-**Ralph Review Checklist**:
-
-### Manifest Correctness
+**Manifest Correctness:**
 - [ ] All required fields present and valid
-- [ ] Character limits respected
-- [ ] Image dimensions correct
+- [ ] Character limits respected (tagline: 30, description: 170)
+- [ ] Image dimensions correct (icon: 1024x1024, splash: 200x200, hero: 1200x630)
 - [ ] Category valid
 - [ ] Tags properly formatted
 
-### Account Association
+**Account Association:**
 - [ ] header/payload/signature all non-empty
-- [ ] Signature verification passes
 - [ ] Domain matches deployment
 
-### Preview Tool
-- [ ] All three tabs show success
-- [ ] No warnings or errors
-- [ ] Embed renders correctly
+**Build Quality:**
+- [ ] `npm install` completes without errors
+- [ ] `npm run build` succeeds
+- [ ] `npm run lint` passes (if configured)
+- [ ] `npm run typecheck` passes (if configured)
+- [ ] Manifest validation passes
 
-### Code Quality
+**Code Quality:**
 - [ ] No TypeScript errors
 - [ ] No console errors in browser
 - [ ] Error boundaries in place
 - [ ] Loading states present
 - [ ] Browser fallback works
 
-### UX Review
+**UX Quality:**
 - [ ] App loads quickly
 - [ ] Core loop is intuitive
 - [ ] Touch targets adequate for mobile
 - [ ] No gesture conflicts
 
-### Security
-- [ ] No exposed secrets
-- [ ] No hardcoded API keys
-- [ ] Wallet interactions secure (if applicable)
+### Success Definition
 
-**Ralph Report Template**:
-```markdown
-# Ralph Report #N
-
-## Summary
-[Overall assessment]
-
-## Critical Issues (Must Fix)
-1. [Issue description]
-   - Location: [file:line]
-   - Impact: [what breaks]
-   - Suggested fix: [how to fix]
-
-## Major Issues (Should Fix)
-[...]
-
-## Minor Issues (Nice to Fix)
-[...]
-
-## Passing Checks
-[List of things that passed review]
-
-## Verdict
-[ ] APPROVED - Ready for publication
-[ ] NEEDS WORK - Address critical/major issues
-```
-
-**Final Verdict Criteria**:
-- Zero critical issues
-- Zero major issues (or explicitly deferred with justification)
-- Proof gate passes
-- Preview tool shows all green
+A mini app build is only "done" if:
+1. All stages M0-M10 completed
+2. Account association present
+3. Proof gate passes
+4. Ralph APPROVED verdict
+5. Preview tool shows all green
 
 ---
 
-## OUTPUT STRUCTURE
+## 10. ERROR RECOVERY
 
-All pipeline outputs follow this structure:
+### Error Categories
+
+| Error Type | Detection | Recovery |
+|------------|-----------|----------|
+| Stage skip | Stage not in artifacts/ | Halt, restart from missed stage |
+| Account association missing | Empty fields in config | Pause, show Stage M5 instructions |
+| Build failure | npm build fails | Log error, fix issue, re-run proof gate |
+| Ralph rejection | 3 iterations without APPROVED | Document blockers, escalate to user |
+| Manifest invalid | Validation fails | Fix fields, re-validate |
+
+### Drift Detection
+
+Claude MUST halt and reassess if:
+1. About to write files outside `miniapp-pipeline/`
+2. About to skip a mandatory stage
+3. About to generate account association values
+4. About to deploy to Vercel without user action
+5. User instructions contradict invariants
+
+### Recovery Protocol
 
 ```
-builds/miniapps/<slug>/
-├── app/                    # The Next.js application
-│   ├── app/
-│   ├── components/
-│   ├── public/
-│   ├── minikit.config.ts
-│   └── [other Next.js files]
-└── artifacts/              # Pipeline outputs
-    ├── inputs/
-    │   └── normalized_prompt.md
-    ├── stage01/
-    │   └── scaffold_plan.md
-    ├── stage02/
-    │   └── scaffold_complete.md
-    ├── stage03/
-    │   └── manifest_config.md
-    ├── stage04/
-    │   └── DEPLOYMENT.md
-    ├── stage05/
-    │   └── ACCOUNT_ASSOCIATION_TODO.md
-    ├── stage06/
-    │   └── validation_checklist.md
-    ├── stage07/
-    │   └── hardening_report.md
-    ├── stage08/
-    │   └── build_validation_summary.json
-    ├── stage09/
-    │   └── PUBLISH.md
-    └── polish/
-        ├── ralph_report_1.md
-        ├── builder_resolution_1.md
-        └── ralph_final_verdict.md
+1. HALT current action
+2. LOG the anomaly to artifacts/errors/
+3. INFORM user: "I detected [ANOMALY]. Let me reassess."
+4. RESET to last known good stage
+5. PRESENT options to user
+6. WAIT for user direction
 ```
+
+---
+
+## 11. CROSS-LINKS
+
+### Related Pipelines
+
+| Pipeline | When to Use | Directory |
+|----------|-------------|-----------|
+| app-factory | Mobile apps (Expo/React Native) | `../app-factory/` |
+| dapp-factory | dApps and websites (Next.js) | `../dapp-factory/` |
+| agent-factory | AI agent scaffolds | `../agent-factory/` |
+| plugin-factory | Claude plugins/MCP servers | `../plugin-factory/` |
+| website-pipeline | Static websites | `../website-pipeline/` |
+
+### Shared Resources
+
+| Resource | Location | Purpose |
+|----------|----------|---------|
+| Root orchestrator | `../CLAUDE.md` | Routing, refusal, phase detection |
+| Factory plugin | `../plugins/factory/` | `/factory` command interface |
+| MCP catalog | `../plugin-factory/mcp.catalog.json` | MCP server configurations |
+| Base docs | `./vendor/base-miniapps/` | Cached reference documentation |
+
+### MCP Integration
+
+This pipeline supports MCP servers as defined in `plugin-factory/mcp.catalog.json`:
+
+| MCP Server | Stage | Permission | Purpose |
+|------------|-------|------------|---------|
+| Playwright | M6, M10 | read-only | E2E testing, UI verification |
+| Vercel | M4 | read-only | Deployment management |
+| Supabase | M2, M6 | read-only | Database backend if needed |
+| GitHub | all | read-write | Already integrated via Claude Code |
+
+**Note:** MCP is the **specification**. MCP servers are **tools** that follow the spec.
+
+---
+
+## 12. COMPLETION PROMISE
+
+When Claude finishes a MiniApp Pipeline build, Claude writes this exact block to `builds/miniapps/<slug>/artifacts/polish/ralph_final_verdict.md`:
+
+```
+COMPLETION_PROMISE: All acceptance criteria met. Mini app is ready for publication.
+
+PIPELINE: miniapp-pipeline v2.0.0
+OUTPUT: builds/miniapps/<slug>/app/
+RALPH_VERDICT: APPROVED
+TIMESTAMP: <ISO-8601>
+
+VERIFIED:
+- [ ] Intent normalized (Stage M0)
+- [ ] Scaffold planned (Stage M1)
+- [ ] Project scaffolded (Stage M2)
+- [ ] Manifest configured (Stage M3)
+- [ ] Deployment documented (Stage M4)
+- [ ] Account association complete (Stage M5)
+- [ ] Preview tool validated (Stage M6)
+- [ ] Production hardened (Stage M7)
+- [ ] Proof gate passed (Stage M8)
+- [ ] Publish checklist ready (Stage M9)
+- [ ] Ralph APPROVED (Stage M10)
+- [ ] npm install succeeds
+- [ ] npm run build succeeds
+- [ ] All manifest fields valid
+- [ ] Account association non-empty
+```
+
+**This promise is non-negotiable.** Claude MUST NOT claim completion without writing this block.
 
 ---
 
 ## REFERENCE DOCUMENTATION
 
-Cached documentation is available at:
+Cached documentation available at:
 - `vendor/base-miniapps/create-new-miniapp.md`
 - `vendor/base-miniapps/manifest.md`
 - `vendor/base-miniapps/sign-manifest.md`
@@ -692,74 +545,39 @@ Use these as canonical references for manifest fields, signing process, and trou
 
 ---
 
-## VALIDATION SCRIPTS
+## TECHNOLOGY STACK
 
-Available in `scripts/`:
+### Core (REQUIRED)
 
-- `miniapp_proof_gate.sh` - Full proof gate runner
-- `check_account_association.ts` - Validates account association fields
-- `check_manifest_assets.ts` - Validates all assets exist and are referenced
-- `validate_manifest.ts` - Validates manifest JSON structure
+| Component | Technology | Version |
+|-----------|------------|---------|
+| Framework | Next.js (App Router) | 14.0+ |
+| Language | TypeScript | 5.0+ |
+| Styling | Tailwind CSS | 3.4+ |
+| MiniKit | @coinbase/onchainkit | Latest |
+| Deployment | Vercel | - |
 
----
+### Asset Requirements
 
-## ERROR RECOVERY
-
-### Account Association Missing
-If user hasn't completed Stage M5:
-1. Check `minikit.config.ts` for empty association fields
-2. Output reminder to complete manual step
-3. Do not proceed past Stage M5
-
-### Build Failure
-If proof gate fails:
-1. Identify failing check from `build_validation_summary.json`
-2. Return to appropriate stage
-3. Fix issue
-4. Re-run proof gate
-
-### Ralph Rejection
-If Ralph rejects after 3 iterations:
-1. Document all unresolved issues
-2. User must manually address remaining items
-3. Provide guidance on each issue
-4. Do not auto-publish
+| Asset | Dimensions | Format |
+|-------|------------|--------|
+| Icon | 1024x1024 | PNG |
+| Splash | 200x200 | PNG |
+| Hero | 1200x630 | PNG |
+| Screenshots | 1284x2778 | PNG (up to 3) |
+| OG Image | 1200x630 | PNG |
 
 ---
 
-## MCP INTEGRATION (OPTIONAL)
+## VERSION HISTORY
 
-> **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations) that follow the MCP spec. For full governance details, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE". For the specification itself: https://github.com/modelcontextprotocol
-
-This pipeline supports the following MCP servers as defined in `plugin-factory/mcp.catalog.json`:
-
-| MCP | Phase/Stage | Permission | Purpose |
-|-----|-------------|------------|---------|
-| Playwright | M6 (Validate), M10 (Ralph) | read-only | E2E testing, UI verification |
-| Vercel | M4 (Deploy) | read-only | Deployment management, log analysis |
-| Supabase | M2 (Scaffold), M6 (Validate) | read-only | Database backend if needed |
-| Cloudflare | M4 (Deploy) | read-only | Edge functions, alternative deploy |
-| GitHub | all stages | read-write | Already integrated via Claude Code |
-
-### MCP Usage Rules
-
-1. **MCPs are opt-in** - Mini apps work without any MCP integration
-2. **Stage-gated** - MCPs only available in specified stages
-3. **Vercel is primary** - Cloudflare is alternative for edge functions
-4. **Artifacts logged** - All MCP operations logged to `builds/miniapps/<slug>/artifacts/mcp-logs/`
-
-### Notes
-
-- **Playwright**: Useful for validating mini app behavior before publication
-- **Vercel**: Primary deployment target for Base Mini Apps
-- **Supabase**: Optional backend when mini app needs data persistence
-
-See `plugin-factory/mcp.catalog.json` for full configuration details.
+| Version | Date | Changes |
+|---------|------|---------|
+| 2.0.0 | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
+| 1.2 | 2026-01-18 | Added MCP governance note |
+| 1.1 | 2026-01-18 | Added MCP integration catalog reference |
+| 1.0 | 2026-01-17 | Initial release with M0-M10 stage system |
 
 ---
 
-## Version History
-
-- **1.2** (2026-01-18): Added MCP governance note - MCP is spec, MCP servers are tools
-- **1.1** (2026-01-18): Added MCP integration catalog reference
-- **1.0** (2026-01-17): Initial release with M0-M10 stage system
+**miniapp-pipeline v2.0.0**: Describe your mini app idea. Get a production-ready Base Mini App.

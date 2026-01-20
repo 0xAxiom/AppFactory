@@ -1,26 +1,205 @@
 # dApp Factory (dapp-factory)
 
-**Version**: 8.3
+**Version**: 9.0.0
 **Mode**: Full Build Factory with Agent Decision Gate
 **Status**: MANDATORY CONSTITUTION
 
 ---
 
-## Purpose
+## 1. PURPOSE & SCOPE
+
+### What This Pipeline Does
 
 dApp Factory generates **complete, production-ready decentralized applications** from plain-language descriptions. When a user describes a dApp idea, Claude builds a full Next.js project with all code, configuration, research, and documentation.
 
-**Key Distinction (v8.0)**: dApp Factory now includes an **Agent Decision Gate** that determines whether the application requires AI agent integration via the Rig framework.
+**Key Distinction**: dApp Factory includes an **Agent Decision Gate** that determines whether the application requires AI agent integration via the Rig framework.
+
+### What This Pipeline Does NOT Do
+
+| Action | Reason | Where It Belongs |
+|--------|--------|------------------|
+| Build mobile apps | Wrong output format | app-factory |
+| Generate Claude plugins | Wrong pipeline | plugin-factory |
+| Generate AI agent scaffolds only | Wrong scope | agent-factory |
+| Deploy to production | Requires user approval | Manual step |
+| Make network calls without auth | Offline by default | Root orchestrator |
+
+### Output Directory
+
+All generated dApps are written to: `dapp-builds/<app-slug>/`
+
+### Boundary Enforcement
+
+Claude MUST NOT write files outside `dapp-factory/` directory. Specifically forbidden:
+- `builds/` (belongs to app-factory)
+- `outputs/` (belongs to agent-factory)
+- `plugin-factory/builds/` (belongs to plugin-factory)
+- Any path outside the repository
 
 ---
 
-## AGENT DECISION GATE (MANDATORY)
+## 2. CANONICAL USER FLOW
+
+```
+User: "Build me a DeFi dashboard with AI recommendations"
+
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 0: INTENT NORMALIZATION                                   │
+│ Claude transforms vague input → publishable product spec        │
+│ Output: runs/<date>/<run-id>/inputs/normalized_prompt.md        │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 0.5: AGENT DECISION GATE                                  │
+│ Claude evaluates 5 criteria → Mode A (Standard) or Mode B       │
+│ Output: runs/<date>/<run-id>/inputs/agent_decision.md           │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 1: DREAM SPEC AUTHOR                                      │
+│ Claude writes comprehensive product specification               │
+│ Output: runs/<date>/<run-id>/inputs/dream_spec.md               │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 2: RESEARCH & POSITIONING                                 │
+│ Claude conducts market research and competitive analysis        │
+│ Output: dapp-builds/<app-slug>/research/                        │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 3: BUILD                                                  │
+│ Claude generates complete Next.js application (+ agents if B)   │
+│ Output: dapp-builds/<app-slug>/src/                             │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 4: RALPH POLISH LOOP                                      │
+│ Adversarial QA with Playwright E2E testing until ≥97% PASS     │
+│ Output: dapp-builds/<app-slug>/ralph/PROGRESS.md                │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+          User receives runnable dApp at localhost:3000
+```
+
+---
+
+## 3. DIRECTORY MAP
+
+```
+dapp-factory/
+├── CLAUDE.md                 # This constitution (CANONICAL)
+├── README.md                 # User documentation
+├── validator/
+│   └── index.ts              # Build validator
+├── templates/
+│   └── system/
+│       ├── dream_spec_author.md
+│       ├── ralph_polish_loop.md
+│       └── agent_architecture.md
+├── skills/
+│   ├── react-best-practices/
+│   ├── web-design-guidelines/
+│   └── web-interface-guidelines/
+├── dapp-builds/              # Built apps (OUTPUT DIRECTORY)
+│   └── <app-slug>/
+│       ├── package.json
+│       ├── src/
+│       ├── research/
+│       ├── ralph/
+│       └── tests/
+├── runs/                     # Execution logs
+│   └── YYYY-MM-DD/
+│       └── build-<timestamp>/
+│           └── inputs/
+└── generated/                # Internal artifacts (DO NOT DISTRIBUTE)
+```
+
+### Directory Boundaries
+
+| Directory | Purpose | Who Writes | Distributable |
+|-----------|---------|------------|---------------|
+| `dapp-builds/<app-slug>/` | Final runnable dApp | Claude | YES |
+| `runs/` | Execution logs and planning | Claude | NO |
+| `generated/` | Internal/intermediate artifacts | Claude | NO |
+
+---
+
+## 4. MODES
+
+### INFRA MODE (Default)
+
+When Claude enters `dapp-factory/` without an active build:
+- Explains what dApp Factory does
+- Lists recent builds in `dapp-builds/`
+- Awaits user's dApp description
+- Does NOT generate code until user provides intent
+
+**Infra Mode Indicators:**
+- No active `runs/<date>/<run-id>/` session
+- User asking questions or exploring
+- No BUILD phase initiated
+
+### BUILD MODE
+
+When Claude is executing a dApp build:
+- Has active `runs/<date>/<run-id>/` directory
+- User has provided dApp intent
+- Claude is generating files
+
+**BUILD MODE Phases (Mode A - Standard):**
+1. Intent Normalization (Phase 0)
+2. Dream Spec Author (Phase 1)
+3. Research & Positioning (Phase 2)
+4. Build (Phase 3)
+5. Ralph Polish Loop (Phase 4)
+
+**BUILD MODE Phases (Mode B - Agent-Backed):**
+1. Intent Normalization (Phase 0)
+2. Agent Decision Gate (Phase 0.5)
+3. Dream Spec Author - Extended (Phase 1)
+4. Research & Positioning - Extended (Phase 2)
+5. Build with Agent System (Phase 3)
+6. Ralph Polish Loop with Agent QA (Phase 4)
+
+### QA MODE (Ralph)
+
+When Claude enters Ralph Polish Loop:
+- Adopts adversarial QA persona
+- Runs Playwright E2E tests
+- Evaluates against quality checklist
+- Iterates until PASS (≥97%) or max 20 passes
+
+---
+
+## 5. PHASE MODEL
+
+### PHASE 0: INTENT NORMALIZATION (MANDATORY)
+
+**Before planning, research, or implementation**, Claude MUST upgrade the user's raw input into a publishable product intent.
+
+**Rules:**
+1. Treat user's message as RAW INTENT, not specification
+2. Infer missing but required product qualities
+3. Rewrite into clean, professional, publishable prompt
+4. Do NOT ask user to approve this rewrite
+5. Save to: `runs/<date>/<run-id>/inputs/normalized_prompt.md`
+
+**Example Transformation:**
+```
+User says: "make me a DeFi dashboard"
+
+Claude normalizes to: "A real-time DeFi portfolio dashboard that
+aggregates holdings across chains, tracks PnL, and provides AI-powered
+recommendations for rebalancing. Features smooth animations, skeleton
+loading states, and Solana wallet integration for transaction execution."
+```
+
+### PHASE 0.5: AGENT DECISION GATE (MANDATORY)
 
 Before building, Claude MUST determine whether this dApp requires AI agents.
 
-### Decision Questions
-
-Ask or infer from the spec:
+**Decision Questions:**
 
 | Question | YES = Agents Needed |
 |----------|---------------------|
@@ -30,196 +209,301 @@ Ask or infer from the spec:
 | Does the app require memory or environment modeling? | Context-aware recommendations |
 | Does the app coordinate on-chain ↔ off-chain logic? | Agent-triggered transactions |
 
-### Decision Outcome
+**Decision Outcome:**
+- **3+ YES answers → Mode B: Agent-Backed dApp** (Rig concepts MANDATORY)
+- **2 or fewer YES answers → Mode A: Standard dApp** (No agent abstractions)
 
-**If 3+ YES answers → Mode B: Agent-Backed dApp**
-- Rig concepts are MANDATORY in architecture
-- Agent design is documented in spec
-- Agent execution loop is generated
-- Tools are formally defined
+**Output:** `runs/<date>/<run-id>/inputs/agent_decision.md`
 
-**If 2 or fewer YES answers → Mode A: Standard dApp**
-- No agent abstractions
-- Traditional frontend + backend architecture
-- Rust utilities from Rig MAY still be used (non-agent)
+### PHASE 1: DREAM SPEC AUTHOR
 
-### Decision Saves To
+**Required Spec Sections (Mode A - Standard):**
+1. Product Vision
+2. Core Features
+3. User Flows
+4. Design System
+5. Component Architecture
+6. State Management
+7. API/Data Layer
+8. Token Integration (if applicable)
+9. Deployment Strategy
+10. Success Criteria
 
+**Additional Sections (Mode B - Agent-Backed):**
+11. Agent Architecture (Rig patterns)
+12. Agent ↔ Frontend Interaction
+
+### PHASE 2: RESEARCH & POSITIONING
+
+**Required Research Artifacts:**
 ```
-runs/YYYY-MM-DD/build-<timestamp>/
-└── inputs/
-    └── agent_decision.md   # Documents the decision and reasoning
-```
-
----
-
-## Pipeline Modes
-
-### Mode A: Standard dApp
-
-```
-PHASE 0: Intent Normalization  → Upgrade vague input to publishable spec
-PHASE 1: Dream Spec Author     → 10-section spec (no agent sections)
-PHASE 2: Research & Position   → Market research, competitor analysis
-PHASE 3: Build                 → Complete Next.js application
-PHASE 4: Ralph Polish Loop     → Adversarial QA until PASS (≥97%)
-```
-
-### Mode B: Agent-Backed dApp
-
-```
-PHASE 0: Intent Normalization  → Upgrade vague input to publishable spec
-PHASE 0.5: Agent Decision Gate → MUST result in agents (validated)
-PHASE 1: Dream Spec Author     → 12-section spec WITH agent architecture
-PHASE 2: Research & Position   → Market research + agent landscape
-PHASE 3: Build                 → Next.js app + Agent system (Rig patterns)
-PHASE 4: Ralph Polish Loop     → QA includes agent quality checks
+dapp-builds/<app-slug>/research/
+├── market_research.md      # REQUIRED
+├── competitor_analysis.md  # REQUIRED
+├── positioning.md          # REQUIRED
+└── agent_landscape.md      # Mode B ONLY
 ```
 
----
-
-## The Pipeline (Combined)
-
-```
-PHASE 0: Intent Normalization  → Upgrade vague input to publishable spec
-PHASE 0.5: Agent Decision Gate → Determine Mode A or Mode B
-PHASE 1: Dream Spec Author     → Comprehensive spec with all requirements
-PHASE 2: Research & Position   → Market research, competitor analysis
-PHASE 3: Build                 → Complete Next.js application (+ agents if Mode B)
-PHASE 4: Ralph Polish Loop     → Adversarial QA until PASS (≥97%)
-```
-
----
-
-## PHASE 0: INTENT NORMALIZATION (MANDATORY)
-
-**Before planning, research, or implementation**, Claude MUST upgrade the user's raw input into a publishable product intent.
-
-### Rules for Intent Normalization
-
-1. Treat the user's message as RAW INTENT, not a specification
-2. Infer missing but required product qualities
-3. Rewrite into clean, professional, **publishable prompt**
-4. Do NOT ask user to approve this rewrite
-5. Save to: `runs/<date>/<run-id>/inputs/normalized_prompt.md`
-
-### Example
-
-**User says:**
-> "make me a DeFi dashboard that helps me manage my portfolio"
-
-**Claude normalizes to:**
-> "A real-time DeFi portfolio dashboard that aggregates holdings across chains, tracks PnL, and provides AI-powered recommendations for rebalancing. Features smooth animations, skeleton loading states, and Solana wallet integration for transaction execution."
-
-### Normalization Saves To
-
-```
-runs/YYYY-MM-DD/build-<timestamp>/
-└── inputs/
-    ├── raw_input.md           # User's exact words
-    └── normalized_prompt.md   # Claude's upgraded version
-```
-
----
-
-## PHASE 0.5: AGENT DECISION GATE
-
-### Required Decision Document
-
-Claude MUST write `agent_decision.md` containing:
-
-```markdown
-# Agent Decision Report
-
-## Application Summary
-[One paragraph describing the dApp]
-
-## Agent Requirement Analysis
-
-| Criterion | Present? | Evidence |
-|-----------|----------|----------|
-| Autonomous reasoning | YES/NO | [specific feature] |
-| Long-running decision loops | YES/NO | [specific feature] |
-| Tool-using entities | YES/NO | [specific feature] |
-| Memory/environment modeling | YES/NO | [specific feature] |
-| On-chain ↔ off-chain coordination | YES/NO | [specific feature] |
-
-## Decision: MODE A / MODE B
-
-## Justification
-[2-3 sentences explaining the decision]
-```
-
----
-
-## PHASE 1: DREAM SPEC AUTHOR
-
-### Required Spec Sections (Mode A - Standard)
-
-1. **Product Vision** - One-paragraph description
-2. **Core Features** - Bulleted list of must-have functionality
-3. **User Flows** - Primary user journeys
-4. **Design System** - Colors, typography, spacing tokens
-5. **Component Architecture** - Key components and their responsibilities
-6. **State Management** - What state exists and where it lives
-7. **API/Data Layer** - Data sources, API routes if any
-8. **Token Integration** - Yes/No and what it enables (if yes)
-9. **Deployment Strategy** - Vercel configuration
-10. **Success Criteria** - What "done" looks like
-
-### Additional Spec Sections (Mode B - Agent-Backed)
-
-11. **Agent Architecture** - Agent definitions following Rig patterns
-    - Agent name and description
-    - Preamble (system prompt)
-    - Tools (with typed definitions)
-    - Static context
-    - Dynamic context (if RAG needed)
-
-12. **Agent ↔ Frontend Interaction** - How agents integrate
-    - Which user actions trigger agent reasoning
-    - How agent responses render in UI
-    - Transaction signing flow (if applicable)
-
-### Spec Saves To
-
-```
-runs/YYYY-MM-DD/build-<timestamp>/
-└── inputs/
-    └── dream_spec.md
-```
-
----
-
-## PHASE 2: RESEARCH & POSITIONING
-
-Before building, Claude researches the market.
-
-### Required Research Artifacts
-
-```
-dapp-builds/<app-slug>/
-└── research/
-    ├── market_research.md      # REQUIRED - Market size, trends, opportunity
-    ├── competitor_analysis.md  # REQUIRED - 3-5 competitors, gaps
-    └── positioning.md          # REQUIRED - Unique value proposition
-```
-
-### Additional Research (Mode B Only)
-
-```
-dapp-builds/<app-slug>/
-└── research/
-    └── agent_landscape.md      # REQUIRED for Mode B - Existing agent solutions
-```
-
----
-
-## PHASE 3: BUILD
+### PHASE 3: BUILD
 
 Write complete application to `dapp-builds/<app-slug>/`.
 
-### Output Contract (Mode A - Standard)
+**Output Contract (Mode A):** See full contract in BUILD OUTPUT section below.
+
+**Output Contract (Mode B):** Mode A + Agent system (`src/agent/`)
+
+### PHASE 4: RALPH POLISH LOOP (MANDATORY)
+
+After building, Claude runs adversarial QA with Playwright E2E testing.
+
+**Loop Structure:**
+1. Run lint, typecheck, and E2E tests
+2. If failures: fix highest-impact issue
+3. If passing: make one high-leverage polish improvement
+4. Document in `ralph/PROGRESS.md`
+5. Continue until completion promise or max 20 passes
+
+**Completion Promise (exact string):**
+```
+COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
+```
+
+---
+
+## 6. DELEGATION MODEL
+
+### When dapp-factory Delegates
+
+| Trigger | Delegated To | Context Passed |
+|---------|--------------|----------------|
+| User says "review this" | Ralph QA persona | Build path, checklist |
+| Agent mode detected | Rig architecture templates | Normalized intent |
+| Deploy request | User manual action | Deployment instructions |
+
+### When dapp-factory Receives Delegation
+
+| Source | Trigger | Action |
+|--------|---------|--------|
+| Root orchestrator | `/factory run dapp <idea>` | Begin Phase 0 |
+| User direct | `cd dapp-factory && claude` | Enter INFRA MODE |
+
+### Role Boundaries
+
+- **Builder Claude**: Generates code, writes files, runs phases
+- **Ralph Claude**: Adversarial QA, never writes new features
+- **User**: Approves deployment, provides wallet credentials
+
+---
+
+## 7. HARD GUARDRAILS
+
+### MUST DO
+
+1. **MUST** run Intent Normalization (Phase 0) before any generation
+2. **MUST** run Agent Decision Gate (Phase 0.5) to determine mode
+3. **MUST** write dream spec before building
+4. **MUST** conduct market research before implementation
+5. **MUST** run Ralph Polish Loop until PASS (≥97%)
+6. **MUST** include Playwright E2E tests
+7. **MUST** generate all required research artifacts
+8. **MUST** write to `dapp-builds/<app-slug>/` only
+
+### MUST NOT
+
+1. **MUST NOT** skip Intent Normalization
+2. **MUST NOT** skip Agent Decision Gate
+3. **MUST NOT** write files outside `dapp-factory/`
+4. **MUST NOT** deploy without user approval
+5. **MUST NOT** hardcode secrets or API keys
+6. **MUST NOT** claim success without Ralph PASS verdict
+7. **MUST NOT** make network calls without explicit authorization
+8. **MUST NOT** use deprecated `web3-builds/` directory
+
+---
+
+## 8. REFUSAL TABLE
+
+| Request Pattern | Action | Reason | Alternative |
+|-----------------|--------|--------|-------------|
+| "Skip the spec phase" | REFUSE | Dream spec is mandatory | "I need to write a spec first to ensure quality" |
+| "Skip research" | REFUSE | Research prevents duplicate work | "Research helps us build something unique" |
+| "Skip Ralph QA" | REFUSE | QA is mandatory for quality | "Ralph ensures the dApp is production-ready" |
+| "Deploy to production now" | REFUSE | Requires user approval | "Here are deployment instructions for you to follow" |
+| "Build without wallet" | ALLOW | Wallet is optional | Build without token integration |
+| "Build a mobile app" | REFUSE | Wrong pipeline | "Use app-factory for mobile apps" |
+| "Generate only agent code" | REFUSE | Wrong pipeline | "Use agent-factory for agent scaffolds" |
+| "Write to builds/" | REFUSE | Wrong directory | "I'll write to dapp-builds/ instead" |
+| "Use the old web3-builds path" | REFUSE | Deprecated | "web3-builds is deprecated, using dapp-builds" |
+| "Skip the decision gate" | REFUSE | Agent Decision Gate is mandatory | "I need to determine if agents are required" |
+
+---
+
+## 9. VERIFICATION & COMPLETION
+
+### Pre-Completion Checklist
+
+Before declaring a build complete, Claude MUST verify:
+
+**Build Quality:**
+- [ ] `npm install` completes without errors
+- [ ] `npm run build` completes without errors
+- [ ] `npm run dev` starts on localhost:3000
+- [ ] `npm run test:e2e` passes
+- [ ] No TypeScript errors
+
+**UI/UX Quality:**
+- [ ] Sans-serif font for body text (not monospace)
+- [ ] Framer Motion animations on page load
+- [ ] Hover states on all interactive elements
+- [ ] Skeleton loaders for async content
+- [ ] Designed empty states (not blank)
+- [ ] Styled error states with retry
+- [ ] Mobile responsive layout
+
+**Research Quality:**
+- [ ] market_research.md is substantive (not placeholder)
+- [ ] competitor_analysis.md names real competitors
+- [ ] positioning.md has clear differentiation
+
+**Token Integration (if enabled):**
+- [ ] Wallet button not dominant
+- [ ] Truncated address display
+- [ ] Clear transaction states
+
+**Agent Quality (Mode B only):**
+- [ ] Agent definition follows Rig patterns
+- [ ] All tools have typed args/output
+- [ ] Execution loop handles tool calls
+- [ ] Max iterations enforced
+- [ ] Agent preamble is substantive
+
+### Mandatory Skills Audits
+
+Before Ralph PASS, these skill audits MUST complete:
+- `react-best-practices` audit score ≥ 95%
+- `web-design-guidelines` audit score ≥ 90%
+- `web-interface-guidelines` audit score ≥ 90%
+
+### Success Definition
+
+**Mode A (Standard dApp):**
+- Complete Next.js app in `dapp-builds/<app-slug>/`
+- Ralph PASS verdict
+- App runs with `npm run dev`
+- App builds with `npm run build`
+
+**Mode B (Agent-Backed dApp):**
+- All Mode A criteria
+- Agent architecture documented
+- Agent execution loop functional
+- Tools typed and tested
+- Agent ↔ frontend integration working
+
+---
+
+## 10. ERROR RECOVERY
+
+### Error Categories
+
+| Error Type | Detection | Recovery |
+|------------|-----------|----------|
+| Phase skip | Phase 0 not in runs/ | Halt, restart from Phase 0 |
+| Wrong output path | File outside dapp-builds/ | Delete, rewrite to correct path |
+| Build failure | npm build fails | Log error, fix issue, rebuild |
+| Ralph stuck | 20 passes without PASS | Document blockers, escalate to user |
+| Agent mode mismatch | Mode B features in Mode A | Re-run Agent Decision Gate |
+
+### Drift Detection
+
+Claude MUST halt and reassess if:
+1. About to write files outside `dapp-factory/`
+2. About to skip a mandatory phase
+3. Ralph loop exceeds 20 passes
+4. User instructions contradict invariants
+
+### Recovery Protocol
+
+```
+1. HALT current action
+2. LOG the anomaly to runs/<date>/<run-id>/errors/
+3. INFORM user: "I detected [ANOMALY]. Let me reassess."
+4. RESET to last known good phase
+5. PRESENT options to user
+6. WAIT for user direction
+```
+
+---
+
+## 11. CROSS-LINKS
+
+### Related Pipelines
+
+| Pipeline | When to Use | Directory |
+|----------|-------------|-----------|
+| app-factory | Mobile apps (Expo/React Native) | `../app-factory/` |
+| agent-factory | AI agent scaffolds only | `../agent-factory/` |
+| plugin-factory | Claude plugins/MCP servers | `../plugin-factory/` |
+| miniapp-pipeline | Base Mini Apps | `../miniapp-pipeline/` |
+| website-pipeline | Static websites | `../website-pipeline/` |
+
+### Shared Resources
+
+| Resource | Location | Purpose |
+|----------|----------|---------|
+| Root orchestrator | `../CLAUDE.md` | Routing, refusal, phase detection |
+| Factory plugin | `../plugins/factory/` | `/factory` command interface |
+| MCP catalog | `../plugin-factory/mcp.catalog.json` | MCP server configurations |
+| Rig reference | `../references/rig/` | Agent pattern reference |
+
+### MCP Integration
+
+This pipeline supports MCP servers as defined in `plugin-factory/mcp.catalog.json`:
+
+| MCP Server | Phase | Permission | Purpose |
+|------------|-------|------------|---------|
+| Playwright | verify, ralph | read-only | E2E testing, UI verification |
+| Vercel | deploy | read-only | Deployment management |
+| Supabase | build, verify | read-only | Database, auth, migrations |
+| GitHub | all | read-write | Already integrated via Claude Code |
+
+**Note:** MCP is the **specification**. MCP servers are **tools** that follow the spec.
+
+---
+
+## 12. COMPLETION PROMISE
+
+When Claude finishes a dApp Factory build, Claude writes this exact block to `dapp-builds/<app-slug>/ralph/PROGRESS.md`:
+
+```
+COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
+
+PIPELINE: dapp-factory v9.0.0
+MODE: [Mode A: Standard / Mode B: Agent-Backed]
+OUTPUT: dapp-builds/<app-slug>/
+RALPH_VERDICT: PASS (≥97%)
+TIMESTAMP: <ISO-8601>
+
+VERIFIED:
+- [ ] Intent normalized (Phase 0)
+- [ ] Agent decision documented (Phase 0.5)
+- [ ] Dream spec written (Phase 1)
+- [ ] Research conducted (Phase 2)
+- [ ] Application built (Phase 3)
+- [ ] Ralph PASS achieved (Phase 4)
+- [ ] npm install succeeds
+- [ ] npm run build succeeds
+- [ ] npm run dev starts server
+- [ ] E2E tests pass
+- [ ] All research artifacts substantive
+```
+
+**This promise is non-negotiable.** Claude MUST NOT claim completion without writing this block.
+
+---
+
+## BUILD OUTPUT CONTRACT
+
+### Mode A - Standard dApp
 
 ```
 dapp-builds/<app-slug>/
@@ -234,326 +518,60 @@ dapp-builds/<app-slug>/
 ├── README.md                 # REQUIRED
 ├── DEPLOYMENT.md             # REQUIRED
 ├── research/                 # REQUIRED
-├── ralph/                    # REQUIRED - UX Polish Loop
+│   ├── market_research.md
+│   ├── competitor_analysis.md
+│   └── positioning.md
+├── ralph/                    # REQUIRED - QA artifacts
 │   ├── PRD.md
 │   ├── ACCEPTANCE.md
 │   ├── LOOP.md
 │   ├── PROGRESS.md
 │   └── QA_NOTES.md
-├── tests/                    # REQUIRED - E2E tests
+├── tests/                    # REQUIRED
 │   └── e2e/
 │       └── smoke.spec.ts
-├── scripts/                  # REQUIRED
+├── scripts/
 │   └── ralph_loop_runner.sh
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx        # REQUIRED
-│   │   ├── page.tsx          # REQUIRED
-│   │   ├── providers.tsx     # REQUIRED
-│   │   └── globals.css       # REQUIRED
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── providers.tsx
+│   │   └── globals.css
 │   ├── components/
-│   │   └── ui/               # REQUIRED - shadcn/ui
+│   │   └── ui/               # shadcn/ui
 │   ├── lib/
-│   │   └── utils.ts          # REQUIRED
+│   │   └── utils.ts
 │   └── styles/
-│       └── design-tokens.ts  # REQUIRED
+│       └── design-tokens.ts
 └── public/
 ```
 
-### Additional Output (Mode B - Agent-Backed)
+### Mode B - Agent-Backed dApp (Additional)
 
 ```
 dapp-builds/<app-slug>/
-├── ... (all Mode A files)
-├── AGENT_ARCHITECTURE.md     # REQUIRED - Rig-aligned agent design
+├── AGENT_ARCHITECTURE.md     # REQUIRED
 ├── src/
-│   ├── agent/                # REQUIRED - Agent implementation
+│   ├── agent/                # REQUIRED
 │   │   ├── index.ts          # Agent definition (Rig pattern)
-│   │   ├── tools/            # Tool implementations
+│   │   ├── tools/
 │   │   │   ├── index.ts
 │   │   │   └── <tool>.ts
-│   │   ├── execution/        # Execution loop
+│   │   ├── execution/
 │   │   │   └── loop.ts
-│   │   └── types/            # Type definitions
+│   │   └── types/
 │   │       ├── agent.ts
 │   │       ├── tool.ts
 │   │       └── result.ts
 │   └── ... (other src files)
+└── research/
+    └── agent_landscape.md    # REQUIRED for Mode B
 ```
 
 ---
 
-## AGENT IMPLEMENTATION (Mode B Only)
-
-### Agent Definition Pattern (Rig-Aligned)
-
-```typescript
-// src/agent/index.ts
-/**
- * Agent definition following Rig patterns.
- * @see https://github.com/0xPlaygrounds/rig
- */
-
-import { AgentDefinition } from './types/agent';
-import { PortfolioAnalysisTool } from './tools/portfolio-analysis';
-import { SwapRecommendationTool } from './tools/swap-recommendation';
-
-export const defiAssistantAgent: AgentDefinition = {
-  name: 'defi-assistant',
-  description: 'AI-powered DeFi portfolio assistant',
-  preamble: `You are a DeFi portfolio assistant. You help users:
-- Analyze their holdings across protocols
-- Identify optimization opportunities
-- Execute rebalancing strategies
-
-Always explain your reasoning. Never execute transactions without explicit confirmation.`,
-  tools: [
-    new PortfolioAnalysisTool(),
-    new SwapRecommendationTool(),
-  ],
-  temperature: 0.7,
-  maxTokens: 2000,
-  maxIterations: 10,
-};
-```
-
-### Tool Implementation Pattern (Rig-Aligned)
-
-```typescript
-// src/agent/tools/portfolio-analysis.ts
-import { Tool, ToolDefinition } from '../types/tool';
-import { z } from 'zod';
-
-const ArgsSchema = z.object({
-  walletAddress: z.string(),
-  chains: z.array(z.string()).optional().default(['solana']),
-});
-
-type Args = z.infer<typeof ArgsSchema>;
-
-/**
- * Tool for analyzing portfolio holdings.
- * Follows Rig's Tool trait pattern.
- * @see references/rig/rig/rig-core/src/tool/mod.rs
- */
-export class PortfolioAnalysisTool implements Tool<Args, PortfolioAnalysis> {
-  readonly name = 'analyze_portfolio';
-
-  definition(): ToolDefinition {
-    return {
-      name: this.name,
-      description: 'Analyze holdings across DeFi protocols for a wallet',
-      parameters: {
-        type: 'object',
-        properties: {
-          walletAddress: { type: 'string', description: 'Wallet address' },
-          chains: { type: 'array', items: { type: 'string' } },
-        },
-        required: ['walletAddress'],
-      },
-    };
-  }
-
-  async call(args: Args): Promise<PortfolioAnalysis> {
-    const validated = ArgsSchema.parse(args);
-    // Implementation: fetch from indexers, analyze
-    return { /* analysis */ };
-  }
-}
-```
-
-### Execution Loop Pattern (Rig-Aligned)
-
-```typescript
-// src/agent/execution/loop.ts
-import { AgentDefinition, AgentResponse } from '../types/agent';
-import { logger } from '@/lib/logger';
-
-/**
- * Agent execution loop following Rig's PromptRequest pattern.
- * @see references/rig/rig/rig-core/src/agent/prompt_request/mod.rs
- */
-export class AgentExecutionLoop {
-  constructor(
-    private agent: AgentDefinition,
-    private llm: LLMClient
-  ) {}
-
-  async run(prompt: string): Promise<AgentResponse> {
-    return this.runWithTools(prompt, this.agent.maxIterations ?? 10);
-  }
-
-  async runWithTools(prompt: string, maxIterations: number): Promise<AgentResponse> {
-    let iteration = 0;
-    let messages = [{ role: 'user' as const, content: prompt }];
-
-    while (iteration < maxIterations) {
-      const response = await this.llm.complete({
-        model: this.agent.model ?? 'gpt-4',
-        messages,
-        systemPrompt: this.agent.preamble,
-        tools: this.agent.tools.map(t => t.definition()),
-        temperature: this.agent.temperature,
-        maxTokens: this.agent.maxTokens,
-      });
-
-      if (!response.toolCalls || response.toolCalls.length === 0) {
-        return {
-          content: response.content,
-          iterations: iteration + 1,
-          toolsUsed: [],
-        };
-      }
-
-      // Execute tool calls
-      const toolResults: string[] = [];
-      for (const call of response.toolCalls) {
-        const tool = this.agent.tools.find(t => t.name === call.name);
-        if (!tool) throw new Error(`Unknown tool: ${call.name}`);
-
-        logger.info('Executing tool', { tool: call.name, iteration });
-        const result = await tool.call(call.arguments);
-        toolResults.push(JSON.stringify(result));
-        messages.push({ role: 'tool' as const, content: JSON.stringify(result) });
-      }
-
-      iteration++;
-    }
-
-    throw new Error(`Max iterations (${maxIterations}) exceeded`);
-  }
-}
-```
-
----
-
-## PHASE 4: RALPH POLISH LOOP (MANDATORY)
-
-After building, Claude runs adversarial QA as "Ralph Wiggum" with **Playwright E2E testing**.
-
-### Ralph Loop Structure
-
-Every generated dApp includes:
-
-```
-dapp-builds/<app-slug>/
-├── ralph/
-│   ├── PRD.md              # Product requirements
-│   ├── ACCEPTANCE.md       # Acceptance criteria + completion promise
-│   ├── LOOP.md             # Loop execution instructions
-│   ├── PROGRESS.md         # Pass-by-pass progress log
-│   └── QA_NOTES.md         # Manual QA observations
-├── tests/
-│   └── e2e/
-│       ├── smoke.spec.ts   # Core smoke tests
-│       └── wallet.spec.ts  # Wallet integration tests (if applicable)
-├── playwright.config.ts    # Playwright configuration
-└── scripts/
-    └── ralph_loop_runner.sh  # Human-in-the-loop runner
-```
-
-### Running the Polish Loop
-
-```bash
-cd dapp-builds/<app-slug>
-npm install
-npm run polish:ux    # Runs ralph_loop_runner.sh
-```
-
-Or manually:
-
-```bash
-npm run lint
-npm run typecheck
-npm run test:e2e     # Runs Playwright tests
-```
-
-### The 20-Pass System
-
-Each pass:
-1. Runs lint, typecheck, and E2E tests
-2. If failures: fix highest-impact issue
-3. If passing: make one high-leverage polish improvement
-4. Documents in `ralph/PROGRESS.md`
-5. Continues until completion promise or max 20 passes
-
-### The Completion Promise
-
-The loop completes ONLY when this exact string is written to `ralph/PROGRESS.md`:
-
-```
-COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
-```
-
-### Package.json Scripts
-
-Generated dApps include:
-
-```json
-{
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "test:e2e": "playwright test",
-    "polish:ux": "./scripts/ralph_loop_runner.sh"
-  }
-}
-```
-
-### Ralph's Checklist (Mode A - Standard)
-
-#### Build Quality
-- [ ] `npm install` completes without errors
-- [ ] `npm run build` completes without errors
-- [ ] `npm run dev` starts on localhost:3000
-- [ ] `npm run test:e2e` passes
-- [ ] No TypeScript errors
-
-#### UI/UX Quality
-- [ ] Sans-serif font for body text (not monospace)
-- [ ] Framer Motion animations on page load
-- [ ] Hover states on all interactive elements
-- [ ] Skeleton loaders for async content
-- [ ] Designed empty states (not blank)
-- [ ] Styled error states with retry
-- [ ] Mobile responsive layout
-
-#### Research Quality
-- [ ] market_research.md is substantive (not placeholder)
-- [ ] competitor_analysis.md names real competitors
-- [ ] positioning.md has clear differentiation
-
-#### Token Integration (if enabled)
-- [ ] Wallet button not dominant
-- [ ] Truncated address display
-- [ ] Clear transaction states
-
-### Additional Checks (Mode B - Agent-Backed)
-
-#### Agent Architecture Quality
-- [ ] Agent definition follows Rig patterns
-- [ ] All tools have typed args/output
-- [ ] Execution loop handles tool calls
-- [ ] Max iterations enforced
-- [ ] Agent preamble is substantive
-
-#### Agent ↔ Frontend Integration
-- [ ] Agent responses render cleanly in UI
-- [ ] Loading states during agent reasoning
-- [ ] Error handling for agent failures
-- [ ] Tool execution visible to user (when appropriate)
-
-#### Agent Safety
-- [ ] No arbitrary code execution
-- [ ] Transaction confirmation required
-- [ ] Rate limiting on agent calls
-
----
-
-## Technology Stack
+## TECHNOLOGY STACK
 
 ### Core (REQUIRED)
 
@@ -584,142 +602,16 @@ Generated dApps include:
 
 ---
 
-## Rig Reference
+## VERSION HISTORY
 
-This pipeline uses concepts from the Rig framework by 0xPlaygrounds.
-
-**Rig Repository**: `references/rig/` (cloned in this repo)
-
-| Concept | Rig Source | TypeScript Equivalent |
-|---------|------------|----------------------|
-| Agent | `rig/rig-core/src/agent/completion.rs` | `AgentDefinition` interface |
-| Tool | `rig/rig-core/src/tool/mod.rs` | `Tool<Args, Output>` interface |
-| Execution | `rig/rig-core/src/agent/prompt_request/` | `AgentExecutionLoop` class |
-| Pipeline | `rig/rig-core/src/pipeline/mod.rs` | Async function composition |
+| Version | Date | Changes |
+|---------|------|---------|
+| 9.0.0 | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
+| 8.3 | 2026-01-18 | Added MCP governance note |
+| 8.2 | 2026-01-18 | Added MCP integration catalog reference |
+| 8.1 | 2026-01-18 | Added UX Polish Loop with Playwright E2E testing |
+| 8.0 | 2026-01-17 | Renamed from web3-factory, added Agent Decision Gate |
 
 ---
 
-## Directory Structure
-
-```
-dapp-factory/
-├── CLAUDE.md                 # This constitution
-├── README.md                 # User documentation
-├── validator/
-│   └── index.ts              # Build validator
-├── templates/
-│   └── system/
-│       ├── dream_spec_author.md
-│       ├── ralph_polish_loop.md
-│       └── agent_architecture.md  # NEW in v8.0
-├── skills/
-│   ├── react-best-practices/
-│   ├── web-design-guidelines/
-│   └── web-interface-guidelines/
-├── dapp-builds/              # Built apps (output directory)
-├── runs/                     # Execution logs
-└── generated/                # Internal artifacts
-```
-
-### Directory Boundaries
-
-| Directory | Purpose | Who Writes |
-|-----------|---------|------------|
-| `dapp-builds/<app-slug>/` | **Final output** - runnable dApp | Claude |
-| `runs/` | Execution logs and artifacts | Claude |
-| `generated/` | Internal/intermediate artifacts | Internal only |
-
-### FORBIDDEN Directories
-
-- `builds/` - belongs to app-factory
-- `outputs/` - belongs to agent-factory
-- `web3-builds/` - deprecated (use dapp-builds)
-- Any path outside `dapp-factory/`
-
----
-
-## Quickstart
-
-```bash
-cd dapp-factory
-claude
-# Describe: "A DeFi dashboard that helps me manage my portfolio with AI recommendations"
-# Claude determines: Mode B (Agent-Backed) due to AI recommendations
-# Answer: "Do you want Solana wallet integration?" → yes
-# Claude builds complete app in dapp-builds/<app-slug>/
-# When done:
-cd dapp-builds/<app-slug>
-npm install
-npm run dev
-# Open http://localhost:3000
-```
-
----
-
-## Success Definition
-
-### Mode A (Standard dApp)
-- Complete Next.js app in `dapp-builds/<app-slug>/`
-- Ralph PASS verdict
-- App runs with `npm run dev`
-- App builds with `npm run build`
-
-### Mode B (Agent-Backed dApp)
-- All Mode A criteria
-- Agent architecture documented
-- Agent execution loop functional
-- Tools typed and tested
-- Agent ↔ frontend integration working
-
----
-
-## MCP INTEGRATION (OPTIONAL)
-
-> **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations) that follow the MCP spec. For full governance details, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE". For the specification itself: https://github.com/modelcontextprotocol
-
-This pipeline supports the following MCP servers as defined in `plugin-factory/mcp.catalog.json`:
-
-| MCP | Phase | Permission | Purpose |
-|-----|-------|------------|---------|
-| Playwright | verify, ralph | read-only | E2E testing, UI verification |
-| Vercel | deploy | read-only | Deployment management, log analysis |
-| Stripe | build | mutating (approval required) | Payment integration |
-| Supabase | build, verify | read-only | Database, auth, migrations |
-| Figma | research, build | read-only | Design token extraction |
-| Cloudflare | deploy | read-only | Edge deployment, Workers |
-| GitHub | all | read-write | Already integrated via Claude Code |
-
-### MCP Usage Rules
-
-1. **MCPs are opt-in** - Never required for basic pipeline execution
-2. **Phase-gated** - MCPs only available in specified phases
-3. **Approval for mutations** - Stripe, Cloudflare mutations require explicit approval
-4. **Artifacts logged** - All MCP operations logged to `runs/<date>/<run-id>/mcp-logs/`
-5. **No production by default** - Use dev/test environments only
-
-### Enabling MCPs
-
-MCPs are enabled via Claude Code:
-```bash
-claude mcp add --transport http vercel https://mcp.vercel.com
-claude mcp add --transport http figma https://mcp.figma.com/mcp
-```
-
-See `plugin-factory/mcp.catalog.json` for full configuration details.
-
----
-
-## Version History
-
-- **8.3** (2026-01-18): Added MCP governance note - MCP is spec, MCP servers are tools
-- **8.2** (2026-01-18): Added MCP integration catalog reference
-- **8.1** (2026-01-18): Added UX Polish Loop with Playwright E2E testing
-- **8.0** (2026-01-17): Renamed from web3-factory to dapp-factory, added Agent Decision Gate, Rig integration for Mode B
-- **7.1** (2026-01-15): Added web-interface-guidelines skill
-- **7.0** (2026-01-14): Added Intent Normalization, Dream Spec Author, Ralph Polish Loop
-- **6.1** (2026-01-13): Comprehensive UI/UX requirements
-- **6.0** (2026-01-13): Restored full-build contract
-
----
-
-**dapp-factory v8.2**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.
+**dapp-factory v9.0.0**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.
