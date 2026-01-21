@@ -10,7 +10,17 @@
 #   Provides actionable error messages with suggested fixes.
 # =============================================================================
 
-set -e
+set -euo pipefail
+
+# Trap handler for cleanup on error
+cleanup() {
+    local exit_code=$?
+    if [ $exit_code -ne 0 ] && [ $exit_code -ne 1 ]; then
+        echo ""
+        echo -e "${RED:-}Script encountered an unexpected error (exit code: $exit_code)${NC:-}"
+    fi
+}
+trap cleanup EXIT
 
 # Colors
 RED='\033[0;31m'

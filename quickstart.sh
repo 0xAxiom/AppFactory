@@ -14,7 +14,17 @@
 #   Describe it. Build it. Ship it.
 # =============================================================================
 
-set -e
+set -euo pipefail
+
+# Trap handler for cleanup on error or exit
+cleanup() {
+    local exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+        echo ""
+        echo -e "${RED}Script exited with error code: $exit_code${NC}"
+    fi
+}
+trap cleanup EXIT
 
 # Colors for output
 RED='\033[0;31m'

@@ -27,6 +27,7 @@ export const Footer: React.FC<FooterProps> = ({ timestamp }) => {
   });
 
   // Format timestamp for display
+  // DETERMINISM: Force UTC timezone to ensure identical output across machines
   const formatTimestamp = (ts: string): string => {
     try {
       const date = new Date(ts);
@@ -36,6 +37,7 @@ export const Footer: React.FC<FooterProps> = ({ timestamp }) => {
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
+        timeZone: 'UTC',
         timeZoneName: 'short',
       });
     } catch {

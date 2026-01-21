@@ -6,7 +6,16 @@
 # Usage: ./miniapp_proof_gate.sh <path-to-app>
 # Example: ./miniapp_proof_gate.sh ../builds/miniapps/hello-miniapp/app
 
-set -e
+set -euo pipefail
+
+# Trap handler for cleanup
+cleanup() {
+    local exit_code=$?
+    # Kill any background processes we started
+    jobs -p | xargs -r kill 2>/dev/null || true
+    exit $exit_code
+}
+trap cleanup EXIT INT TERM
 
 # Colors for output
 RED='\033[0;31m'

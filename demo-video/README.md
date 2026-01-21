@@ -1,31 +1,38 @@
 # AppFactory Demo Video Pipeline
 
-Remotion-based demo video renderer for AppFactory builds. Produces deterministic MP4 videos showcasing generated applications with build verification status.
+Remotion-based video generation for automatically creating demo videos of user-built apps.
 
-## Prerequisites
+## Available Compositions
 
-- Node.js >= 18
-- npm/pnpm/yarn
-- Local Run Proof must PASS before video can be rendered
+| ID               | Duration | Resolution | Description                   |
+| ---------------- | -------- | ---------- | ----------------------------- |
+| `AppFactoryDemo` | 10s      | 1920x1080  | Build verification demo video |
 
-## Installation
+## Quick Start
 
 ```bash
+# Install dependencies
 cd demo-video
 npm install
-```
 
-## Usage
-
-### Studio Mode (Development)
-
-Open Remotion Studio to preview compositions:
-
-```bash
+# Preview in Remotion Studio
 npm run studio
+
+# Render a specific composition
+npx remotion render src/index.ts AppFactoryDemo ../demo/out/my-app-demo.mp4
 ```
 
-### Render Demo Video
+---
+
+## Build Demo Video (10s)
+
+Auto-generated video showcasing verified builds. This is the primary composition used by the pipeline to create promotional videos for user-built apps.
+
+### Automatic Generation
+
+When Local Run Proof verification passes, a demo video is automatically generated via the pipeline hooks. No manual steps required.
+
+### Manual Rendering
 
 Use the render-demo-video.mjs script from repo root:
 
@@ -51,7 +58,7 @@ node scripts/render-demo-video.mjs --cwd <generated_app_path> --slug <video_slug
 
 Videos are rendered to `demo/out/<slug>.mp4` with props saved to `demo/out/<slug>.props.json`.
 
-## Composition Props
+### Composition Props
 
 The `AppFactoryDemo` composition accepts:
 
@@ -66,22 +73,34 @@ interface AppFactoryDemoProps {
 }
 ```
 
-## Video Specifications
+---
 
-- **Resolution**: 1920x1080 (Full HD)
-- **Frame Rate**: 30 fps
-- **Duration**: 10 seconds (300 frames)
-- **Format**: MP4 (H.264)
+## Rendering Options
 
-## Local Run Proof Integration
+### Output Formats
 
-This pipeline depends on Local Run Proof:
+```bash
+# MP4 (H.264) - default, best compatibility
+npx remotion render src/index.ts AppFactoryDemo output.mp4
 
-1. Before rendering, verify.mjs runs against the target project
-2. Must produce RUN_CERTIFICATE.json with status "PASS"
-3. If verification fails, render is blocked
-4. Verified URL from certificate is embedded in video
-5. Certificate hash is displayed for traceability
+# WebM (VP9) - smaller file size
+npx remotion render src/index.ts AppFactoryDemo output.webm --codec=vp9
+
+# GIF - for previews
+npx remotion render src/index.ts AppFactoryDemo output.gif
+```
+
+### Quality Settings
+
+```bash
+# Higher quality (slower)
+npx remotion render src/index.ts AppFactoryDemo output.mp4 --crf=18
+
+# Smaller file (lower quality)
+npx remotion render src/index.ts AppFactoryDemo output.mp4 --crf=28
+```
+
+---
 
 ## Architecture
 
@@ -91,12 +110,13 @@ demo-video/
 │   ├── index.ts              # Remotion entry point
 │   ├── Root.tsx              # Composition registry
 │   ├── compositions/
-│   │   └── AppFactoryDemo.tsx # Main demo composition
+│   │   └── AppFactoryDemo.tsx # 10s demo video
 │   └── components/
 │       ├── Title.tsx         # Title + branding
 │       ├── BulletPoints.tsx  # Animated highlights
 │       ├── VerificationBadge.tsx # PASS badge
 │       └── Footer.tsx        # Timestamp footer
+├── public/                   # Static assets
 ├── remotion.config.ts        # Remotion configuration
 ├── package.json
 ├── tsconfig.json
@@ -110,3 +130,10 @@ Video output is deterministic:
 - Same props produce byte-identical MP4
 - No random elements in composition
 - Timestamps are input props, not runtime-generated
+- UTC timezone enforced for all date formatting
+
+## Requirements
+
+- Node.js 18+
+- ffmpeg (for audio generation)
+- Chrome/Chromium (auto-downloaded by Remotion)

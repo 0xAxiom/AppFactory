@@ -16,6 +16,7 @@ The official Claude interface for App Factory pipelines.
 /factory plan <idea>               Plan a pipeline without executing
 /factory run <pipeline> <idea>     Execute a pipeline with approval gate
 /factory ralph <path> [--loops N]  Run adversarial QA review
+/factory video <path> [--slug S]   Generate demo video for a verified build
 /factory audit                     View execution audit log
 ```
 
@@ -126,6 +127,53 @@ Run adversarial QA review on generated artifacts.
 /factory ralph ./builds/meditation-timer --loops 3
 ```
 
+### /factory video \<path\> [--slug S]
+
+Generate a demo video for a verified build using Remotion.
+
+**Input:**
+
+- `<path>`: Path to the build directory (must contain RUN_CERTIFICATE.json with PASS status)
+- `--slug S`: Custom slug for the output filename (default: derived from directory name)
+
+**Prerequisites:**
+
+1. The build must have passed Local Run Proof verification
+2. `RUN_CERTIFICATE.json` with `status: "PASS"` must exist in the path
+3. Remotion dependencies in `demo-video/` directory
+
+**Process:**
+
+1. Validate RUN_CERTIFICATE.json exists with PASS status
+2. Extract build metadata from certificate (URL, timestamp, etc.)
+3. Generate video props from certificate data
+4. Render MP4 video using Remotion
+5. Output video to `demo/out/<slug>.mp4`
+
+**Output:**
+
+- `demo/out/<slug>.mp4` - The rendered demo video
+- `demo/out/<slug>.props.json` - Props used for rendering (for reproducibility)
+
+**Example:**
+
+```
+/factory video ./app-factory/builds/my-app/app
+
+/factory video ./miniapp-pipeline/builds/miniapps/hello-miniapp/app --slug hello-world
+```
+
+**Video Content:**
+
+The generated video showcases:
+
+1. Project title and branding
+2. Key highlights from the build verification
+3. Verification badge with certificate hash
+4. Timestamp of successful verification
+
+**Note:** Video generation also triggers automatically when Local Run Proof verification passes (via hooks.toml). Use this command to manually regenerate or customize videos.
+
 ### /factory audit
 
 View the execution audit log for factory commands.
@@ -195,12 +243,15 @@ Factory is a **thin wrapper**. All governance logic lives in prompt-factory:
 
 ## Error Handling
 
-| Code    | Meaning                   | Recovery                    |
-| ------- | ------------------------- | --------------------------- |
-| FAC-001 | Unknown pipeline          | Check `config.default.yaml` |
-| FAC-002 | Plan rejected by user     | Modify request and retry    |
-| FAC-003 | Pipeline root not found   | Verify pipeline paths       |
-| FAC-004 | Ralph loop limit exceeded | Use --loops 1-5             |
-| FAC-005 | Audit log unavailable     | Check prompt-factory status |
+| Code    | Meaning                     | Recovery                       |
+| ------- | --------------------------- | ------------------------------ |
+| FAC-001 | Unknown pipeline            | Check `config.default.yaml`    |
+| FAC-002 | Plan rejected by user       | Modify request and retry       |
+| FAC-003 | Pipeline root not found     | Verify pipeline paths          |
+| FAC-004 | Ralph loop limit exceeded   | Use --loops 1-5                |
+| FAC-005 | Audit log unavailable       | Check prompt-factory status    |
+| FAC-006 | No RUN_CERTIFICATE found    | Run verification first         |
+| FAC-007 | Certificate status not PASS | Fix build issues and re-verify |
+| FAC-008 | Remotion render failed      | Check demo-video/ dependencies |
 
 Errors from prompt-factory (PF-\*) are propagated with context.

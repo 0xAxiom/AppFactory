@@ -5,7 +5,10 @@
 #   Build mini apps for the Base ecosystem
 # =============================================================================
 
-set -e
+set -euo pipefail
+
+# Trap handler for cleanup
+trap 'echo ""; echo -e "\033[0;31mScript interrupted.\033[0m"' INT TERM
 
 # Colors
 CYAN='\033[0;36m'

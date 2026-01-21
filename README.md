@@ -3,8 +3,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/MeltedMindz/AppFactory/actions/workflows/ci.yml"><img src="https://github.com/MeltedMindz/AppFactory/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
-  <a href="https://github.com/MeltedMindz/AppFactory/actions/workflows/security.yml"><img src="https://github.com/MeltedMindz/AppFactory/actions/workflows/security.yml/badge.svg" alt="Security" /></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" />
   <img src="https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen" alt="Node.js" />
 </p>
@@ -16,12 +14,6 @@
   <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white" alt="Node.js" />
   <img src="https://img.shields.io/badge/Expo-000020?style=flat&logo=expo&logoColor=white" alt="Expo" />
   <img src="https://img.shields.io/badge/Playwright-2EAD33?style=flat&logo=playwright&logoColor=white" alt="Playwright" />
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Security-Hardened-green?style=flat&logo=shield&logoColor=white" alt="Security Hardened" />
-  <img src="https://img.shields.io/badge/Secrets-Scanned-blue?style=flat&logo=key&logoColor=white" alt="Secrets Scanned" />
-  <img src="https://img.shields.io/badge/Pre--commit-Hooks-orange?style=flat&logo=git&logoColor=white" alt="Pre-commit Hooks" />
 </p>
 
 # App Factory

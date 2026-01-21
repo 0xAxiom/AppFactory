@@ -126,3 +126,10 @@ references/rig/
 
 # Demo output artifacts
 demo/out/
+
+# Internal App Factory branding assets (not for public distribution)
+demo-video/.internal/
+demo-video/public/internal-audio/
+
+# Playwright MCP artifacts (regenerated on each run)
+.playwright-mcp/

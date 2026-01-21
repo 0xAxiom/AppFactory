@@ -34,6 +34,40 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // ============================================================================
+// Visual Feedback Module (dynamic import with fallback)
+// ============================================================================
+
+let visual = null;
+try {
+  visual = await import('./lib/visual.mjs');
+} catch {
+  // Fallback if visual module not available
+  visual = {
+    banner: () => {},
+    Spinner: class {
+      constructor(msg) { this.msg = msg; }
+      start() { console.log(`⏳ ${this.msg}`); return this; }
+      succeed(msg) { console.log(`✅ ${msg || this.msg}`); return this; }
+      fail(msg) { console.log(`❌ ${msg || this.msg}`); return this; }
+      update(msg) { this.msg = msg; return this; }
+      stop() { return this; }
+    },
+    celebrate: (title, stats) => {
+      console.log(`\n🎉 ${title}`);
+      Object.entries(stats || {}).forEach(([k, v]) => console.log(`   ${k}: ${v}`));
+    },
+    errorBox: (title, details) => {
+      console.error(`\n❌ ${title}`);
+      if (details.message) console.error(`   ${details.message}`);
+      if (details.remediation) console.error(`   Fix: ${details.remediation}`);
+    },
+    phaseHeader: (name, num, total) => console.log(`\n=== Phase ${num}/${total}: ${name} ===`),
+    log: (msg, type) => console.log(`[${type || 'info'}] ${msg}`),
+    formatDuration: (ms) => ms < 1000 ? `${ms}ms` : `${(ms/1000).toFixed(1)}s`,
+  };
+}
+
+// ============================================================================
 // Constants
 // ============================================================================
 
@@ -359,89 +393,135 @@ async function renderVideo(props, outputPath) {
 // ============================================================================
 
 async function main() {
-  console.log('AppFactory Demo Video Pipeline');
-  console.log('==============================\n');
+  const startTime = Date.now();
+
+  // Show banner
+  visual.banner('Demo Video Pipeline');
 
   // Parse and validate arguments
   const args = parseArgs(process.argv);
   const errors = validateArgs(args);
 
   if (errors.length > 0) {
-    console.error('Validation errors:');
-    errors.forEach((err) => console.error(`  - ${err}`));
-    console.error('\nRun with --help for usage information.');
+    visual.errorBox('Validation Failed', {
+      message: errors.join('\n'),
+      remediation: 'Run with --help for usage information.',
+    });
     process.exit(1);
   }
 
   const resolvedCwd = resolve(args.cwd);
   const outputPath = join(OUTPUT_DIR, `${args.slug}.mp4`);
 
-  console.log(`Project path: ${resolvedCwd}`);
-  console.log(`Output path: ${outputPath}`);
+  visual.log(`Project: ${resolvedCwd}`, 'info');
+  visual.log(`Output: ${outputPath}`, 'info');
 
   // Step 1: Run Local Run Proof (unless skipped)
+  visual.phaseHeader('Verification', 1, 3);
   let certificate = null;
 
   if (args.skipVerify) {
-    console.log('\n=== Skipping Local Run Proof (--skip-verify) ===\n');
+    visual.log('Using existing certificate (--skip-verify)', 'info');
     certificate = readCertificate(resolvedCwd);
 
     if (!certificate) {
-      console.error('Error: --skip-verify requires existing RUN_CERTIFICATE.json');
+      visual.errorBox('Certificate Missing', {
+        message: '--skip-verify requires existing RUN_CERTIFICATE.json',
+        remediation: 'Run without --skip-verify to generate a certificate.',
+      });
       process.exit(1);
     }
 
     if (certificate.status !== 'PASS') {
-      console.error('Error: RUN_CERTIFICATE.json does not have PASS status');
+      visual.errorBox('Certificate Invalid', {
+        message: 'RUN_CERTIFICATE.json does not have PASS status',
+        remediation: 'Fix the build issues and re-run verification.',
+      });
       process.exit(1);
     }
 
-    console.log('Found existing RUN_CERTIFICATE.json with PASS status');
+    visual.log('Certificate validated with PASS status', 'success');
   } else {
+    const verifySpinner = new visual.Spinner('Running Local Run Proof...').start();
     const passed = await runLocalRunProof(args);
 
     if (!passed) {
-      console.error('\n=== Local Run Proof FAILED ===');
-      console.error('Cannot render demo video without passing verification.');
-      console.error(`Check RUN_FAILURE.json in ${resolvedCwd} for details.`);
+      verifySpinner.fail('Local Run Proof FAILED');
+      visual.errorBox('Verification Failed', {
+        message: 'Cannot render demo video without passing verification.',
+        remediation: `Check RUN_FAILURE.json in ${resolvedCwd} for details.`,
+      });
       process.exit(1);
     }
 
     certificate = readCertificate(resolvedCwd);
 
     if (!certificate || certificate.status !== 'PASS') {
-      console.error('Error: Verification passed but no valid RUN_CERTIFICATE.json found');
+      verifySpinner.fail('Certificate not found');
+      visual.errorBox('Certificate Error', {
+        message: 'Verification passed but no valid RUN_CERTIFICATE.json found',
+      });
       process.exit(1);
     }
+
+    verifySpinner.succeed('Local Run Proof PASSED');
   }
 
   // Step 2: Generate props
+  visual.phaseHeader('Props Generation', 2, 3);
   const props = generateProps(args, certificate);
-  console.log('\nVideo props:');
-  console.log(JSON.stringify(props, null, 2));
+  visual.log(`Title: ${props.title}`, 'info');
+  visual.log(`Slug: ${props.slug}`, 'info');
+  visual.log(`Highlights: ${props.highlights.length} items`, 'info');
 
   // Step 3: Ensure demo-video dependencies are installed
-  await ensureDemoVideoDeps();
+  const depsSpinner = new visual.Spinner('Checking Remotion dependencies...').start();
+  try {
+    await ensureDemoVideoDeps();
+    depsSpinner.succeed('Remotion dependencies ready');
+  } catch (err) {
+    depsSpinner.fail('Failed to install dependencies');
+    visual.errorBox('Dependency Error', {
+      message: err.message,
+      remediation: 'Run: cd demo-video && npm install',
+    });
+    process.exit(1);
+  }
 
   // Step 4: Render video
+  visual.phaseHeader('Video Rendering', 3, 3);
+  const renderSpinner = new visual.Spinner('Rendering video with Remotion...').start();
+
   try {
     await renderVideo(props, outputPath);
+    renderSpinner.succeed('Video rendered successfully');
 
-    // Step 5: Report results
-    console.log('\n=== Demo Video Rendered Successfully ===\n');
+    // Step 5: Report results with celebration
+    const duration = visual.formatDuration(Date.now() - startTime);
 
     if (existsSync(outputPath)) {
       const stats = statSync(outputPath);
       const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
-      console.log(`Output: ${outputPath}`);
-      console.log(`Size: ${sizeMB} MB`);
-    }
 
-    console.log(`Props: ${outputPath.replace('.mp4', '.props.json')}`);
-    console.log('\nDemo video pipeline completed successfully!');
+      visual.celebrate('Demo Video Complete!', {
+        'Output': outputPath,
+        'Size': `${sizeMB} MB`,
+        'Duration': duration,
+        'Props': outputPath.replace('.mp4', '.props.json'),
+      });
+    } else {
+      visual.celebrate('Demo Video Complete!', {
+        'Output': outputPath,
+        'Duration': duration,
+      });
+    }
   } catch (err) {
-    console.error('\n=== Demo Video Render FAILED ===\n');
-    console.error(`Error: ${err.message}`);
+    renderSpinner.fail('Video rendering failed');
+    visual.errorBox('Render Failed', {
+      message: err.message,
+      remediation: 'Check the Remotion logs above for details.',
+      hint: 'Try: cd demo-video && npx remotion studio to debug',
+    });
     process.exit(1);
   }
 }
