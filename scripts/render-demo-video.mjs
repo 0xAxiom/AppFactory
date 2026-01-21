@@ -312,11 +312,17 @@ function generateProps(args, certificate) {
   const certHash = `sha256:${createHash('sha256').update(JSON.stringify(certificate)).digest('hex').slice(0, 16)}`;
 
   // R1 fix: Use direct access since certificate is guaranteed valid
+  // R2 fix: Throw if timestamp missing instead of non-deterministic fallback
+  const timestamp = certificate.timestamps?.end;
+  if (!timestamp) {
+    throw new Error('Certificate missing timestamps.end - cannot render deterministically. Re-run Local Run Proof.');
+  }
+
   return {
     title,
     slug: args.slug,
     verifiedUrl: certificate.healthcheck?.url || certificate.finalUrl || `http://localhost:${certificate.healthcheck?.port || 3000}`,
-    timestamp: certificate.timestamps?.end || new Date().toISOString(),
+    timestamp,
     highlights,
     certificateHash: certHash,
   };

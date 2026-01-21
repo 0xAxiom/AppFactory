@@ -174,6 +174,17 @@ The generated video showcases:
 
 **Note:** Video generation also triggers automatically when Local Run Proof verification passes (via hooks.toml). Use this command to manually regenerate or customize videos.
 
+**Skills Integration:**
+
+Remotion skills are automatically available at `.claude/skills/remotion/SKILL.md`. These skills provide Claude with domain-specific knowledge for video generation, including:
+
+- Frame-based animation patterns
+- Determinism requirements
+- Interpolation best practices
+- Pipeline integration details
+
+Skills are verified before each video render by `scripts/skills/ensure-remotion-skills.mjs`.
+
 ### /factory audit
 
 View the execution audit log for factory commands.

@@ -81,6 +81,8 @@ android/
 # Claude / AI tooling - local AI artifacts
 .claude/*
 !.claude/commands/
+!.claude/skills/
+!.claude/hooks.toml
 .claude-cache/
 claude.log
 *.prompt.log

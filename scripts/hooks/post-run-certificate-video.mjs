@@ -116,6 +116,34 @@ function extractSlug(certPath, certificate) {
 }
 
 // ============================================================================
+// Skills Verification
+// ============================================================================
+
+async function ensureRemotionSkills() {
+  const skillsScript = join(REPO_ROOT, 'scripts', 'skills', 'ensure-remotion-skills.mjs');
+
+  if (!existsSync(skillsScript)) {
+    // Skills bootstrap not available - continue anyway
+    return true;
+  }
+
+  return new Promise((resolve) => {
+    const proc = spawn('node', [skillsScript, '--quiet'], {
+      cwd: REPO_ROOT,
+      stdio: 'pipe',
+    });
+
+    proc.on('close', (code) => {
+      resolve(code === 0);
+    });
+
+    proc.on('error', () => {
+      resolve(true); // Don't block on skills errors
+    });
+  });
+}
+
+// ============================================================================
 // Video Rendering
 // ============================================================================
 
@@ -193,12 +221,17 @@ async function main() {
   log(`Slug: ${slug}`);
   log('');
 
+  // Ensure Remotion skills are available
+  await ensureRemotionSkills();
+
   await runVideoRender(certPath, slug);
 }
 
 main().catch((err) => {
-  // Hooks should fail silently to not interrupt user workflow
+  // Warn user about video generation failure (don't fail silently)
+  console.warn(`${COLORS.yellow}[video]${COLORS.reset} Auto video generation failed: ${err.message}`);
+  console.warn(`${COLORS.dim}[video] You can manually run: node scripts/render-demo-video.mjs --cwd <path> --slug <slug>${COLORS.reset}`);
   if (process.env.DEBUG) {
-    console.error('Video hook error:', err);
+    console.error('Full error:', err);
   }
 });

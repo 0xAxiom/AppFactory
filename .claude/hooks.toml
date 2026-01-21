@@ -1,0 +1,125 @@
+# Claude Code Hooks Configuration
+# https://docs.anthropic.com/en/docs/claude-code/hooks
+
+# =============================================================================
+# EXPO PREVIEW HOOKS
+# =============================================================================
+# Smart preview system that auto-detects and launches the best preview target:
+# - iOS Simulator (macOS, if booted)
+# - Android Emulator (if running)
+# - Web Browser (universal fallback)
+
+[[hooks.post_tool_execution]]
+tool = "bash"
+match_commands = [
+  "expo start",
+  "npx expo start",
+  "yarn expo start",
+  "pnpm expo start",
+  "bunx expo start"
+]
+run = "node scripts/expo-preview/smart-preview.mjs"
+timeout_ms = 35000
+run_in_background = true
+
+# =============================================================================
+# BUILD COMPLETION HOOKS
+# =============================================================================
+# Triggers when common build commands complete - for visual feedback
+
+[[hooks.post_tool_execution]]
+tool = "bash"
+match_commands = [
+  "npm run build",
+  "yarn build",
+  "pnpm build",
+  "bun run build",
+  "npx next build",
+  "npx expo export"
+]
+run = "node scripts/hooks/build-complete.mjs"
+timeout_ms = 5000
+run_in_background = true
+
+# =============================================================================
+# LOCAL RUN PROOF INTEGRATION
+# =============================================================================
+# Auto-verifies builds before showing "To Run Locally" instructions
+
+[[hooks.post_tool_execution]]
+tool = "bash"
+match_commands = [
+  "npm install",
+  "yarn install",
+  "pnpm install",
+  "bun install"
+]
+run = "node scripts/hooks/post-install.mjs"
+timeout_ms = 10000
+run_in_background = true
+
+# =============================================================================
+# DEV SERVER HOOKS
+# =============================================================================
+# Triggers when development servers start
+
+[[hooks.post_tool_execution]]
+tool = "bash"
+match_commands = [
+  "npm run dev",
+  "yarn dev",
+  "pnpm dev",
+  "bun dev",
+  "npx next dev",
+  "npx vite",
+  "npx remix dev"
+]
+run = "node scripts/hooks/dev-server-started.mjs"
+timeout_ms = 35000
+run_in_background = true
+
+# =============================================================================
+# TEST COMPLETION HOOKS
+# =============================================================================
+# Visual feedback when tests complete
+
+[[hooks.post_tool_execution]]
+tool = "bash"
+match_commands = [
+  "npm test",
+  "yarn test",
+  "pnpm test",
+  "bun test",
+  "npx jest",
+  "npx vitest",
+  "npx playwright test"
+]
+run = "node scripts/hooks/test-complete.mjs"
+timeout_ms = 5000
+run_in_background = true
+
+# =============================================================================
+# VIDEO GENERATION HOOKS
+# =============================================================================
+# Automatically renders a demo video when Local Run Proof verification passes.
+# Triggers after verify.mjs completes - checks for RUN_CERTIFICATE.json with PASS status.
+#
+# Match patterns cover common invocation styles:
+# - Relative paths: scripts/local-run-proof/verify.mjs
+# - With ./ prefix: ./scripts/local-run-proof/verify.mjs
+# - Via node: node scripts/local-run-proof/verify.mjs
+# - Partial matches: local-run-proof/verify (catches absolute paths too)
+
+[[hooks.post_tool_execution]]
+tool = "bash"
+match_commands = [
+  "local-run-proof/verify",
+  "verify.mjs --cwd",
+  "scripts/local-run-proof/verify.mjs",
+  "./scripts/local-run-proof/verify.mjs",
+  "node scripts/local-run-proof/verify.mjs",
+  "node ./scripts/local-run-proof/verify.mjs"
+]
+run = "node scripts/hooks/post-run-certificate-video.mjs"
+timeout_ms = 300000
+run_in_background = true
