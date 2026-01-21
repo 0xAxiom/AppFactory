@@ -1,0 +1,91 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/mcp-config.schema.json",
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server"],
+      "description": "Database management - create tables, run migrations, generate TypeScript types",
+      "pipelines": [
+        "dapp-factory",
+        "agent-factory",
+        "miniapp-pipeline",
+        "website-pipeline"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_TOKEN>"
+      },
+      "description": "Repository management - issues, PRs, CI/CD workflows",
+      "pipelines": ["all"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "description": "Browser automation via accessibility tree - essential for UX Polish Loop",
+      "pipelines": ["dapp-factory", "website-pipeline", "miniapp-pipeline"]
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "figma-developer-mcp", "--stdio"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "<YOUR_FIGMA_TOKEN>"
+      },
+      "description": "Design-to-code from live Figma layers, styles, and tokens",
+      "pipelines": ["dapp-factory", "website-pipeline", "app-factory"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "Secure local file operations within project directory",
+      "pipelines": ["all"]
+    },
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "mcp-linear"],
+      "env": {
+        "LINEAR_API_KEY": "<YOUR_LINEAR_API_KEY>"
+      },
+      "description": "Issue tracking - find, create, update Linear issues and projects",
+      "pipelines": ["all"]
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "NOTION_API_KEY": "<YOUR_NOTION_API_KEY>"
+      },
+      "description": "Documentation sync - search, create, update Notion pages",
+      "pipelines": ["all"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "description": "Real-time documentation lookup - reduces hallucination on API usage",
+      "pipelines": ["all"]
+    },
+    "semgrep": {
+      "command": "npx",
+      "args": ["-y", "@semgrep/mcp-server"],
+      "description": "Security scanning - vulnerabilities, supply chain, secrets detection",
+      "pipelines": ["all"]
+    },
+    "e2b": {
+      "command": "npx",
+      "args": ["-y", "@e2b/mcp-server"],
+      "env": {
+        "E2B_API_KEY": "<YOUR_E2B_API_KEY>"
+      },
+      "description": "Secure code sandbox - execute Python/JS safely before committing",
+      "pipelines": ["agent-factory", "plugin-factory"]
+    },
+    "magic-ui": {
+      "command": "npx",
+      "args": ["-y", "magic-ui-mcp"],
+      "description": "Magic UI component library - request components by description",
+      "pipelines": ["dapp-factory", "website-pipeline"]
+    }
+  }
+}

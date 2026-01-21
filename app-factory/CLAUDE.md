@@ -783,17 +783,42 @@ When a build completes successfully (Ralph PASS), the following are guaranteed:
 
 ---
 
-## TECHNOLOGY STACK (LOCKED)
+## TECHNOLOGY STACK (Updated January 2026)
 
-| Layer        | Technology               | Version |
-| ------------ | ------------------------ | ------- |
-| Framework    | React Native + Expo      | SDK 54+ |
-| Navigation   | Expo Router              | v4      |
-| Language     | TypeScript               | 5.0+    |
-| Monetization | RevenueCat               | Latest  |
-| Database     | expo-sqlite              | Latest  |
-| Preferences  | AsyncStorage             | Latest  |
-| State        | Zustand or React Context | Latest  |
+### Core Framework
+
+- **Expo SDK 53+** (React Native 0.77+)
+- **New Architecture: ENABLED** (default since SDK 52)
+- **Expo Router v4** for file-based navigation
+
+### Styling
+
+- **NativeWind 4** (Tailwind for React Native)
+- **React Native Reanimated 3** for animations
+
+### Monetization (REQUIRED)
+
+- **RevenueCat 8.0.0** - Non-negotiable
+- Handles subscriptions, trials, paywalls
+
+### Data & State
+
+| Layer       | Technology   | Version |
+| ----------- | ------------ | ------- |
+| Database    | expo-sqlite  | Latest  |
+| Preferences | AsyncStorage | Latest  |
+| State       | Zustand      | 5.0+    |
+| Language    | TypeScript   | 5.3+    |
+
+### Optional Enhancements
+
+- **expo-video** / **expo-audio** for media apps
+- **expo-notifications** for engagement
+- **@gorhom/bottom-sheet** for iOS-style sheets
+
+### Reference Documentation
+
+See `/references/frameworks/expo-sdk-53.md` for detailed patterns and examples.
 
 ---
 

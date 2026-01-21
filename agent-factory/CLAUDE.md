@@ -532,16 +532,29 @@ VERIFIED:
 
 ---
 
-## TECHNOLOGY STACK
+## TECHNOLOGY STACK (Updated January 2026)
 
-### Core (REQUIRED)
+### Core Framework
 
 | Component | Technology     | Version      |
 | --------- | -------------- | ------------ |
-| Runtime   | Node.js        | 18+          |
-| Language  | TypeScript     | 5.0+         |
+| Runtime   | Node.js        | 20+          |
+| Language  | TypeScript     | 5.3+         |
 | Interface | HTTP (REST)    | -            |
 | Port      | 8080 (default) | Configurable |
+
+### Claude API Integration
+
+- **Anthropic SDK** - Latest stable
+- **Tool Use** - Strict schema validation
+- **Streaming** - Real-time responses
+- **Extended Thinking** - For complex reasoning
+
+### Agent Patterns (Rig-Aligned)
+
+- **Agent**: Core entity with preamble and tools
+- **Tool**: Typed functions with Zod schemas
+- **ExecutionLoop**: Iteration with max_turns limit
 
 ### V4 Constraints
 
@@ -551,6 +564,12 @@ VERIFIED:
 - **No inference**: You bring your own API keys (BYOK)
 - **No secrets**: Only env var names in files, never values
 - **Architecture**: Rig-aligned patterns (Agent, Tool, ExecutionLoop)
+
+### Reference Documentation
+
+- `/references/ai-agents/claude-api-tools.md`
+- `/references/ai-agents/rig-framework.md`
+- `/references/ai-agents/langgraph.md`
 
 ---
 

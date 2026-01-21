@@ -547,7 +547,7 @@ The catalog defines MCP server configurations (not MCP itself).
 
 ---
 
-## TECHNOLOGY STACK
+## TECHNOLOGY STACK (Updated January 2026)
 
 ### Claude Code Plugins
 
@@ -563,11 +563,26 @@ The catalog defines MCP server configurations (not MCP itself).
 
 | Component         | Technology                                | Version      |
 | ----------------- | ----------------------------------------- | ------------ |
-| Runtime           | Node.js                                   | 18+          |
-| Language          | TypeScript                                | 5.0+         |
+| Runtime           | Node.js                                   | 20+          |
+| Language          | TypeScript                                | 5.3+         |
 | SDK               | @modelcontextprotocol/sdk                 | 1.x (stable) |
 | Schema Validation | Zod                                       | 3.x          |
-| Transport         | STDIO (local) or Streamable HTTP (remote) |
+| Transport         | STDIO (local) or Streamable HTTP (remote) |              |
+
+### MCP Server Ecosystem
+
+Essential MCP servers for development:
+
+- **Playwright MCP** - Browser automation and testing
+- **Supabase MCP** - Database operations
+- **GitHub MCP** - Repository management (built-in)
+- **Semgrep MCP** - Security scanning
+
+### Reference Documentation
+
+- `/docs/MCP_INTEGRATION.md` - Setup guide
+- `/mcp-config.example.json` - Configuration template
+- `/references/mcp-servers/` - Server-specific docs
 
 ---
 

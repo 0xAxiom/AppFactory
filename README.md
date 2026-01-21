@@ -501,6 +501,50 @@ See `/docs/architecture/` for detailed documentation.
 
 ---
 
+## MCP Integration (Model Context Protocol)
+
+AppFactory supports MCP servers for enhanced AI-tool communication. MCP is the open standard that acts as "USB-C for AI tools."
+
+### Quick Setup
+
+```bash
+# Copy the example configuration
+cp mcp-config.example.json ~/.config/claude-code/mcp-config.json
+
+# Edit with your credentials
+code ~/.config/claude-code/mcp-config.json
+```
+
+### Essential MCP Servers by Pipeline
+
+| Pipeline         | Recommended Servers                 |
+| ---------------- | ----------------------------------- |
+| app-factory      | Playwright (web exports), Figma     |
+| dapp-factory     | Playwright, Supabase, Context7      |
+| agent-factory    | Context7, E2B (sandboxed execution) |
+| plugin-factory   | MCP SDK reference                   |
+| miniapp-pipeline | Playwright, Vercel                  |
+| website-pipeline | Playwright, Figma, Vercel           |
+
+### Enhanced Ralph QA
+
+With MCP integration, Ralph QA can perform:
+
+- **Playwright MCP** - Automated accessibility and UI testing
+- **Semgrep MCP** - Security vulnerability scanning
+- **Context7 MCP** - API accuracy verification against current docs
+
+### Documentation
+
+| Document                                             | Description                     |
+| ---------------------------------------------------- | ------------------------------- |
+| [MCP_INTEGRATION.md](./docs/MCP_INTEGRATION.md)      | Setup guide and troubleshooting |
+| [RALPH_QA_ENHANCED.md](./docs/RALPH_QA_ENHANCED.md)  | Enhanced QA with MCP tools      |
+| [mcp-config.example.json](./mcp-config.example.json) | Configuration template          |
+| [references/mcp-servers/](./references/mcp-servers/) | Server-specific documentation   |
+
+---
+
 ## Roadmap
 
 See [ROADMAP.md](./ROADMAP.md) for detailed plans.
@@ -526,6 +570,7 @@ See [ROADMAP.md](./ROADMAP.md) for detailed plans.
 
 | Version   | What Changed                                                              |
 | --------- | ------------------------------------------------------------------------- |
+| **v12.0** | MCP integration, 2026 tech stack updates, enhanced Ralph QA               |
 | **v11.1** | Starter templates system, ROADMAP.md, innovation features                 |
 | **v11.0** | Added miniapp-pipeline for Base Mini Apps (MiniKit + Next.js)             |
 | **v10.0** | UX Polish Loop with Playwright E2E testing for UI pipelines               |
@@ -550,6 +595,6 @@ MIT License - Free to use, modify, and share.
 </p>
 
 <p align="center">
-  <strong>App Factory v11.1</strong><br/>
+  <strong>App Factory v12.0</strong><br/>
   Tell us what you want. We'll make it for you.
 </p>

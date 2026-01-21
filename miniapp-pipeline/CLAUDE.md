@@ -573,17 +573,23 @@ Use these as canonical references for manifest fields, signing process, and trou
 
 ---
 
-## TECHNOLOGY STACK
+## TECHNOLOGY STACK (Updated January 2026)
 
-### Core (REQUIRED)
+### Core Framework
 
 | Component  | Technology           | Version |
 | ---------- | -------------------- | ------- |
-| Framework  | Next.js (App Router) | 14.0+   |
-| Language   | TypeScript           | 5.0+    |
-| Styling    | Tailwind CSS         | 3.4+    |
+| Framework  | Next.js (App Router) | 15.5+   |
+| Language   | TypeScript           | 5.3+    |
+| Styling    | Tailwind CSS         | v4      |
 | MiniKit    | @coinbase/onchainkit | Latest  |
 | Deployment | Vercel               | -       |
+
+### Farcaster Integration
+
+- **MiniKit Provider** - User context and actions
+- **Farcaster Frames** - Embeddable interactive elements
+- **Upstash Redis** - State management and leaderboards
 
 ### Asset Requirements
 
@@ -594,6 +600,12 @@ Use these as canonical references for manifest fields, signing process, and trou
 | Hero        | 1200x630   | PNG           |
 | Screenshots | 1284x2778  | PNG (up to 3) |
 | OG Image    | 1200x630   | PNG           |
+
+### Reference Documentation
+
+- `/references/web3/base-minikit.md`
+- `/references/web3/farcaster-frames.md`
+- `/references/frameworks/nextjs-15.md`
 
 ---
 

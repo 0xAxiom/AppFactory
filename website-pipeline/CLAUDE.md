@@ -731,19 +731,44 @@ When a build completes successfully (COMPLETION_PROMISE written), the following 
 
 ---
 
-## TECHNOLOGY STACK (REFERENCE)
+## TECHNOLOGY STACK (Updated January 2026)
 
-| Component     | Technology              | Version | Justification                      |
-| ------------- | ----------------------- | ------- | ---------------------------------- |
-| Framework     | Next.js                 | 14+     | App Router, SSR/SSG, Vercel-native |
-| Language      | TypeScript              | 5.0+    | Type safety                        |
-| Styling       | Tailwind CSS            | 3.4+    | Utility-first, performance         |
-| UI Components | shadcn/ui               | Latest  | Copy-paste, customizable           |
-| Animation     | Framer Motion           | 11+     | Required by web-design-guidelines  |
-| Icons         | Lucide React            | Latest  | Consistent, lightweight            |
-| State         | React Context / Zustand | Latest  | Minimal overhead                   |
-| Forms         | React Hook Form + Zod   | Latest  | Validation, performance            |
-| SEO           | next-seo                | Latest  | Comprehensive metadata             |
+### Core Framework
+
+| Component | Technology | Version | Justification                       |
+| --------- | ---------- | ------- | ----------------------------------- |
+| Framework | Next.js    | 15.5+   | App Router, React 19, Turbopack     |
+| Language  | TypeScript | 5.3+    | Strict mode, type safety            |
+| Styling   | Tailwind   | v4      | CSS-first config, container queries |
+
+### UI & Animation
+
+| Component     | Technology    | Version | Justification                     |
+| ------------- | ------------- | ------- | --------------------------------- |
+| UI Components | shadcn/ui     | Latest  | Copy-paste, customizable          |
+| Animation     | Framer Motion | 12+     | Required by web-design-guidelines |
+| Icons         | Lucide React  | Latest  | Consistent, lightweight           |
+
+### State & Forms
+
+| Component | Technology            | Version  | Justification      |
+| --------- | --------------------- | -------- | ------------------ |
+| State     | Zustand               | 5.0+     | Minimal overhead   |
+| Forms     | React Hook Form + Zod | Latest   | Validation, perf   |
+| SEO       | Next.js Metadata API  | Built-in | Native integration |
+
+### Optional AI Integration
+
+- **Vercel AI SDK 6** for chat interfaces
+- **useChat** hook for conversational UIs
+- **streamText** for server-side generation
+
+### Reference Documentation
+
+- `/references/frameworks/nextjs-15.md`
+- `/references/frameworks/tailwind-v4.md`
+- `/references/frameworks/shadcn-ui.md`
+- `/references/frameworks/vercel-ai-sdk-6.md`
 
 ---
 

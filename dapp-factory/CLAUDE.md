@@ -592,19 +592,30 @@ dapp-builds/<app-slug>/
 
 ---
 
-## TECHNOLOGY STACK
+## TECHNOLOGY STACK (Updated January 2026)
 
-### Core (REQUIRED)
+### Core Framework
 
-| Component     | Technology           | Version |
-| ------------- | -------------------- | ------- |
-| Framework     | Next.js (App Router) | 14.0+   |
-| Language      | TypeScript           | 5.0+    |
-| Styling       | Tailwind CSS         | 3.4+    |
-| UI Components | shadcn/ui            | Latest  |
-| Icons         | lucide-react         | Latest  |
-| Animations    | Framer Motion        | 11.0+   |
-| State         | Zustand              | 4.5+    |
+- **Next.js 15.5+** (App Router, React 19)
+- **TypeScript 5.3+** with strict mode
+- **Server Components** by default
+- **Turbopack** for development
+
+### Styling & UI
+
+| Component     | Technology    | Version |
+| ------------- | ------------- | ------- |
+| Styling       | Tailwind CSS  | v4      |
+| UI Components | shadcn/ui     | Latest  |
+| Icons         | lucide-react  | Latest  |
+| Animations    | Framer Motion | 12.0+   |
+| State         | Zustand       | 5.0+    |
+
+### AI Integration (AI SDK 6)
+
+- **Vercel AI SDK 6** for streaming and tool calling
+- **useChat** / **useCompletion** hooks
+- **generateText** / **streamText** server functions
 
 ### Blockchain Integration (OPTIONAL)
 
@@ -615,11 +626,18 @@ dapp-builds/<app-slug>/
 
 ### Agent Integration (Mode B Only)
 
-| Component         | Technology             | Notes                     |
-| ----------------- | ---------------------- | ------------------------- |
-| LLM Client        | OpenAI / Anthropic SDK | Provider choice           |
-| Schema Validation | Zod                    | Tool args/output          |
-| Patterns          | Rig-aligned            | TypeScript implementation |
+| Component         | Technology    | Notes                     |
+| ----------------- | ------------- | ------------------------- |
+| LLM Client        | Anthropic SDK | Claude API preferred      |
+| Schema Validation | Zod           | Tool args/output          |
+| Patterns          | Rig-aligned   | TypeScript implementation |
+
+### Reference Documentation
+
+- `/references/frameworks/nextjs-15.md`
+- `/references/frameworks/tailwind-v4.md`
+- `/references/frameworks/vercel-ai-sdk-6.md`
+- `/references/web3/solana-wallet-adapter.md`
 
 ---
 
