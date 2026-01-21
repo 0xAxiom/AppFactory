@@ -1,6 +1,6 @@
 # Website Pipeline
 
-**Version**: 2.0.0
+**Version**: 2.2.0
 **Mode**: Full Build Factory with Mandatory Skills Audits
 **Status**: MANDATORY CONSTITUTION
 
@@ -27,6 +27,104 @@
 - Skip approval gates or skills audits
 
 **Authority**: This constitution is sovereign within `website-pipeline/`. It inherits constraints from the Root Orchestrator but makes all execution decisions within scope.
+
+---
+
+## EXECUTION-FIRST RULE (CRITICAL)
+
+**The PRIMARY deliverable is a runnable Next.js project. Docs, plans, and commits are SECONDARY.**
+
+### Execution Order
+
+1. Gather minimum viable inputs (≤6 questions)
+2. Scaffold runnable project IMMEDIATELY
+3. Apply enhancements after scaffold is alive
+4. Run verification before declaring success
+5. Output launch card with run instructions
+
+### Forbidden Patterns
+
+| Pattern                                  | Why Forbidden                      |
+| ---------------------------------------- | ---------------------------------- |
+| Writing design docs before code exists   | Design-doc theater                 |
+| Asking "ready to proceed?" repeatedly    | Friction, user drops off           |
+| Stopping to ask about worktrees          | Use default `.worktrees/` silently |
+| Committing docs before runnable scaffold | Premature artifacts                |
+| Asking open-ended ideation questions     | Scope creep                        |
+
+---
+
+## STICKY UX REQUIREMENTS
+
+The pipeline MUST feel like a product, not a chat.
+
+### 1. Visible Progress Journey (Always Shown)
+
+```
+Step 1/6: Site type      [complete]
+Step 2/6: Vibe           [complete]
+Step 3/6: Content model  [complete]
+Step 4/6: Features       [in progress]
+Step 5/6: Build + Verify [pending]
+Step 6/6: Launch         [pending]
+```
+
+Each step prints a completion line and advances automatically.
+
+### 2. Minimum Questions Mode (Default)
+
+**Total questions ≤ 6**. Each question MUST map to a concrete generator decision.
+
+| Question Category | Maps To                                            |
+| ----------------- | -------------------------------------------------- |
+| Site type         | Template selection (portfolio/blog/hybrid/landing) |
+| Visual vibe       | Color palette + typography selection               |
+| Content model     | MDX config, data sources                           |
+| Feature toggles   | Dark mode, feed filter, motion, 3D hero            |
+| Animation level   | Framer Motion intensity (low/medium/high)          |
+| Deployment intent | Vercel config, env setup                           |
+
+**NO** open-ended ideation. **NO** "does this feel right?" loops.
+
+### 3. Scaffold EARLY
+
+As soon as Steps 1-3 are answered:
+
+- Scaffold the Next.js project immediately
+- Show "site is alive" feedback
+- Apply remaining enhancements afterward
+
+### 4. Micro-Rewards (Plain Text, Real Milestones)
+
+After each real milestone, print:
+
+```
+Unlocked: Base Shell
+Unlocked: Integrated Feed
+Unlocked: Writing Mode (MDX)
+Unlocked: Theme System
+Unlocked: Motion Layer
+```
+
+These MUST map to real features, not fake gamification.
+
+### 5. Mandatory Launch Card (Always Last)
+
+Every successful run MUST end with:
+
+```
+LAUNCH READY
+
+Project: website-pipeline/website-builds/<slug>
+Run:     npm install && npm run dev
+Open:    http://localhost:3000
+
+Next actions:
+- Add sample content to the feed
+- Generate OG images + metadata
+```
+
+**FORBIDDEN**: "Let me know when you want to proceed" or any blocking question after success.
 
 ---
 
@@ -854,6 +952,7 @@ Claude MUST NOT:
 
 | Version | Date       | Changes                                                                                                                                |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.2.0   | 2026-01-21 | Added EXECUTION-FIRST rule, STICKY UX requirements, minimum questions mode, mandatory launch card                                      |
 | 2.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                                                                                                  |
 | 2.0.0   | 2026-01-20 | Canonical structure upgrade: 12-section format, explicit refusal table, completion promise, mode definitions, error recovery protocols |
 | 1.3     | 2026-01-18 | Added MCP governance note                                                                                                              |
@@ -879,4 +978,4 @@ Claude MUST NOT:
 
 ---
 
-**website-pipeline v2.0.0**: Describe your website idea. Get a production-ready, accessible, SEO-optimized Next.js website.
+**website-pipeline v2.2.0**: Describe your website idea. Get a production-ready, accessible, SEO-optimized Next.js website. Execution-first, no design-doc theater.

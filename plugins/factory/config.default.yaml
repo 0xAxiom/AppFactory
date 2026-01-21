@@ -2,23 +2,39 @@
 # Default settings for the Factory plugin.
 
 # Pipeline Registry
-# Maps pipeline names to their locations in the App Factory repository.
+# Maps pipeline names to their locations and canonical entrypoints.
+# Each pipeline MUST have a run.mjs that follows the gold standard pattern.
 pipelines:
+  website:
+    root: ../../website-pipeline
+    entrypoint: scripts/run.mjs
+    output_dir: website-builds
+    description: Website pipeline (Next.js) - portfolios, blogs, landing pages
   miniapp:
     root: ../../miniapp-pipeline
+    entrypoint: scripts/run.mjs
+    output_dir: builds/miniapps
     description: Base Mini App pipeline (MiniKit + Next.js)
   dapp:
     root: ../../dapp-factory
+    entrypoint: scripts/run.mjs
+    output_dir: dapp-builds
     description: Onchain dApp pipeline (Next.js + Web3)
   agent:
     root: ../../agent-factory
+    entrypoint: scripts/run.mjs
+    output_dir: outputs
     description: AI agent scaffold pipeline (Node.js)
   app:
     root: ../../app-factory
+    entrypoint: scripts/run.mjs
+    output_dir: builds
     description: Mobile app pipeline (Expo + React Native)
   plugin:
     root: ../../plugin-factory
-    description: Claude plugin pipeline
+    entrypoint: scripts/run.mjs
+    output_dir: builds
+    description: Claude plugin pipeline (MCP servers, skills)
 
 # Execution Settings
 execution:

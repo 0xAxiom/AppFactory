@@ -1,6 +1,6 @@
 # App Factory - Root Orchestrator
 
-**Version**: 1.0.0
+**Version**: 1.2.0
 **Mode**: Orchestration Only
 **Status**: CANONICAL AUTHORITY
 
@@ -15,7 +15,7 @@
 **What This Does**:
 
 - Detects session phase (orientation, selection, planning, execution, QA)
-- Routes requests to appropriate pipeline (`app-factory/`, `dapp-factory/`, `agent-factory/`, `plugin-factory/`, `miniapp-pipeline/`)
+- Routes requests to appropriate pipeline (`app-factory/`, `website-pipeline/`, `dapp-factory/`, `agent-factory/`, `plugin-factory/`, `miniapp-pipeline/`)
 - Enforces refusal conditions
 - Delegates execution to pipelines via `/factory` command
 
@@ -42,7 +42,8 @@
 | Pipeline | Directory | Output |
 |----------|-----------|--------|
 | Mobile Apps | `app-factory/` | `app-factory/builds/` |
-| dApps | `dapp-factory/` | `dapp-factory/dapp-builds/` |
+| Websites | `website-pipeline/` | `website-pipeline/website-builds/` |
+| dApps (Web3) | `dapp-factory/` | `dapp-factory/dapp-builds/` |
 | AI Agents | `agent-factory/` | `agent-factory/outputs/` |
 | Claude Plugins | `plugin-factory/` | `plugin-factory/builds/` |
 | Base Mini Apps | `miniapp-pipeline/` | `miniapp-pipeline/builds/miniapps/` |
@@ -114,11 +115,12 @@ user@machine:~/AppFactory$ claude
 
 You: What is App Factory?
 
-Claude: App Factory is a mono-repo containing five independent pipelines
+Claude: App Factory is a mono-repo containing six independent pipelines
 for generating different types of applications:
 
 - **app-factory/** - Mobile apps (Expo + React Native)
-- **dapp-factory/** - dApps and websites (Next.js)
+- **website-pipeline/** - Websites (Next.js) - portfolios, blogs, landing pages
+- **dapp-factory/** - dApps with Web3 (Next.js + blockchain)
 - **agent-factory/** - AI agent scaffolds (Node.js)
 - **plugin-factory/** - Claude plugins (Code + MCP)
 - **miniapp-pipeline/** - Base Mini Apps (MiniKit + Next.js)
@@ -231,20 +233,67 @@ ELSE
 END IF
 ```
 
+### Website Intent Detection (CRITICAL)
+
+**HARD RULE**: When `website-pipeline/` exists, ALL website intents route there. NEVER to dapp-factory.
+
+**Website Intent Keywords** (route to website-pipeline):
+
+- "website", "web site", "site"
+- "portfolio", "personal site", "my site"
+- "blog", "landing page", "marketing site"
+- "business website", "company site"
+- "web app" (without blockchain/wallet mentions)
+
+**dApp Intent Keywords** (route to dapp-factory):
+
+- "dapp", "dApp", "web3"
+- "wallet", "connect wallet"
+- "token", "NFT", "on-chain"
+- "Solana", "Ethereum", "Base", "blockchain"
+
+**Detection Algorithm**:
+
+```
+IF user_intent contains ANY dApp_keywords THEN
+    ROUTE to dapp-factory
+ELSE IF user_intent contains ANY website_keywords THEN
+    IF website-pipeline/ EXISTS THEN
+        ROUTE to website-pipeline
+    ELSE
+        ROUTE to dapp-factory (fallback)
+    END IF
+END IF
+```
+
+**Pipeline Detection Command** (MUST use complete listing):
+
+```bash
+find . -maxdepth 2 -type d \( -name "*pipeline*" -o -name "*factory*" \) 2>/dev/null
+```
+
+**FORBIDDEN**: Using truncated listings (`ls | head`, partial directory reads) for pipeline detection.
+
 ---
 
 ## AGENT DELEGATION RULES
 
 ### Role Activation Matrix
 
-| User Intent              | Active Role                       | Delegated To         |
-| ------------------------ | --------------------------------- | -------------------- |
-| "What is App Factory?"   | Orchestrator                      | (no delegation)      |
-| "Build me an app"        | Orchestrator → Pipeline           | Pipeline Planner     |
-| "I want to make a dApp"  | Orchestrator → Pipeline           | dapp-factory Planner |
-| "/factory plan X"        | Orchestrator → Factory            | plugins/factory      |
-| "/factory run miniapp X" | Orchestrator → Factory → Pipeline | miniapp-pipeline     |
-| "Review this code"       | Orchestrator → Ralph              | Pipeline Ralph       |
+| User Intent                    | Active Role                       | Delegated To         |
+| ------------------------------ | --------------------------------- | -------------------- |
+| "What is App Factory?"         | Orchestrator                      | (no delegation)      |
+| "Build me an app"              | Orchestrator → Pipeline           | app-factory Planner  |
+| "Build me a website"           | Orchestrator → Pipeline           | website-pipeline     |
+| "Build a portfolio site"       | Orchestrator → Pipeline           | website-pipeline     |
+| "Build a landing page"         | Orchestrator → Pipeline           | website-pipeline     |
+| "Build a blog"                 | Orchestrator → Pipeline           | website-pipeline     |
+| "I want to make a dApp"        | Orchestrator → Pipeline           | dapp-factory Planner |
+| "Build with wallet/web3/chain" | Orchestrator → Pipeline           | dapp-factory Planner |
+| "/factory plan X"              | Orchestrator → Factory            | plugins/factory      |
+| "/factory run website X"       | Orchestrator → Factory → Pipeline | website-pipeline     |
+| "/factory run miniapp X"       | Orchestrator → Factory → Pipeline | miniapp-pipeline     |
+| "Review this code"             | Orchestrator → Ralph              | Pipeline Ralph       |
 
 ### Delegation Protocol
 
@@ -619,11 +668,12 @@ The orchestrator MUST NOT:
 
 ## VERSION HISTORY
 
-| Version | Date       | Changes                                |
-| ------- | ---------- | -------------------------------------- |
-| 1.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint  |
-| 1.0.0   | 2026-01-19 | Initial Root Orchestrator constitution |
+| Version | Date       | Changes                                                   |
+| ------- | ---------- | --------------------------------------------------------- |
+| 1.2.0   | 2026-01-21 | Added website-pipeline routing, explicit intent detection |
+| 1.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                     |
+| 1.0.0   | 2026-01-19 | Initial Root Orchestrator constitution                    |
 
 ---
 
-**Root Orchestrator v1.1.0**: Route, refuse, delegate, verify. Never execute without proof.
+**Root Orchestrator v1.2.0**: Route, refuse, delegate, verify. Never execute without proof.

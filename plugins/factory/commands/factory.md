@@ -69,7 +69,7 @@ Execute a full pipeline with mandatory approval gate.
 
 **Input:**
 
-- `<pipeline>`: One of `miniapp`, `dapp`, `agent`, `app`, `plugin`
+- `<pipeline>`: One of `website`, `miniapp`, `dapp`, `agent`, `app`, `plugin`
 - `<idea>`: Natural language description
 
 **Process:**
@@ -217,13 +217,14 @@ FACTORY AUDIT LOG
 
 Available pipelines are defined in `config.default.yaml`:
 
-| Pipeline | Root                   | Description             |
-| -------- | ---------------------- | ----------------------- |
-| miniapp  | ../../miniapp-pipeline | Base Mini App pipeline  |
-| dapp     | ../../dapp-factory     | Onchain dApp pipeline   |
-| agent    | ../../agent-factory    | Agent scaffold pipeline |
-| app      | ../../app-factory      | Mobile app pipeline     |
-| plugin   | ../../plugin-factory   | Claude plugin pipeline  |
+| Pipeline | Root                   | Description                          |
+| -------- | ---------------------- | ------------------------------------ |
+| website  | ../../website-pipeline | Website pipeline (portfolios, blogs) |
+| miniapp  | ../../miniapp-pipeline | Base Mini App pipeline               |
+| dapp     | ../../dapp-factory     | Onchain dApp pipeline (Web3)         |
+| agent    | ../../agent-factory    | Agent scaffold pipeline              |
+| app      | ../../app-factory      | Mobile app pipeline                  |
+| plugin   | ../../plugin-factory   | Claude plugin pipeline               |
 
 ## Delegation Model
 
