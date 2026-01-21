@@ -29,10 +29,6 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
-        continue-on-error: true
-
-      - name: Lint status
-        run: echo "Linting completed. Check above for any issues."
 
   format:
     name: Format Check
@@ -78,12 +74,74 @@ jobs:
 
       - name: Type check dapp-factory
         run: npm run type-check:dapp
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install CLI dependencies
+        run: cd CLI && npm ci
         continue-on-error: true
 
-      - name: Type check status
+      - name: Install dapp-factory dependencies
+        run: cd dapp-factory && npm ci
+
+      - name: Run tests
+        run: npm run test
+        continue-on-error: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          fail_ci_if_error: false
+          verbose: true
+        continue-on-error: true
+
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Audit root dependencies
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Install and audit CLI dependencies
         run: |
-          echo "Type checking completed."
-          echo "Note: Some legacy code may have type errors that are being tracked for improvement."
+          cd CLI
+          npm ci
+          npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Install and audit dapp-factory dependencies
+        run: |
+          cd dapp-factory
+          npm ci
+          npm audit --audit-level=high
+        continue-on-error: true
 
   validate-structure:
     name: Validate Structure
@@ -98,6 +156,7 @@ jobs:
           test -f "package.json" && echo "✓ package.json"
           test -f "README.md" && echo "✓ README.md"
           test -f "CLAUDE.md" && echo "✓ CLAUDE.md"
+          test -f "SECURITY.md" && echo "✓ SECURITY.md"
           test -f "eslint.config.js" && echo "✓ eslint.config.js"
           test -f ".prettierrc" && echo "✓ .prettierrc"
           test -f "CHANGELOG.md" && echo "✓ CHANGELOG.md"
@@ -130,37 +189,66 @@ jobs:
 
   ci-complete:
     name: CI Complete
-    needs: [lint, format, type-check, validate-structure]
+    needs: [lint, format, type-check, test, security-audit, validate-structure]
     runs-on: ubuntu-latest
     if: always()
     steps:
-      - name: Check critical jobs passed
+      - name: Check job results
         run: |
+          echo "=== CI Summary ==="
+          echo ""
+
           # Critical jobs that must pass
+          critical_failed=0
+
           if [ "${{ needs.validate-structure.result }}" != "success" ]; then
             echo "FAIL: Structure validation failed"
-            exit 1
+            critical_failed=1
+          else
+            echo "✓ Structure validation passed"
           fi
-          echo "✓ Structure validation passed"
 
-          # Non-critical jobs (report but don't fail)
           if [ "${{ needs.lint.result }}" != "success" ]; then
-            echo "WARNING: Linting has issues (non-blocking)"
+            echo "FAIL: Linting failed"
+            critical_failed=1
           else
             echo "✓ Linting passed"
           fi
 
           if [ "${{ needs.format.result }}" != "success" ]; then
-            echo "WARNING: Formatting has issues (non-blocking)"
+            echo "FAIL: Format check failed"
+            critical_failed=1
           else
-            echo "✓ Formatting passed"
+            echo "✓ Format check passed"
           fi
 
           if [ "${{ needs.type-check.result }}" != "success" ]; then
-            echo "WARNING: Type checking has issues (non-blocking)"
+            echo "FAIL: Type check failed"
+            critical_failed=1
           else
-            echo "✓ Type checking passed"
+            echo "✓ Type check passed"
+          fi
+
+          # Advisory jobs (report but don't fail CI)
+          echo ""
+          echo "=== Advisory Checks ==="
+
+          if [ "${{ needs.test.result }}" != "success" ]; then
+            echo "WARNING: Tests have issues"
+          else
+            echo "✓ Tests passed"
+          fi
+
+          if [ "${{ needs.security-audit.result }}" != "success" ]; then
+            echo "WARNING: Security audit has findings"
+          else
+            echo "✓ Security audit passed"
           fi
 
           echo ""
-          echo "CI checks completed. Review warnings above for improvements."
+          if [ $critical_failed -eq 1 ]; then
+            echo "CI FAILED: One or more critical checks failed"
+            exit 1
+          else
+            echo "CI PASSED: All critical checks passed"
+          fi

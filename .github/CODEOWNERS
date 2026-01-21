@@ -1,0 +1,21 @@
+# Default owners for everything
+* @MeltedMindz
+
+# Pipeline owners
+/app-factory/ @MeltedMindz
+/dapp-factory/ @MeltedMindz
+/agent-factory/ @MeltedMindz
+/plugin-factory/ @MeltedMindz
+/miniapp-pipeline/ @MeltedMindz
+/website-pipeline/ @MeltedMindz
+
+# Core infrastructure
+/core/ @MeltedMindz
+/CLI/ @MeltedMindz
+
+# Documentation
+/docs/ @MeltedMindz
+*.md @MeltedMindz
+
+# CI/CD
+/.github/ @MeltedMindz

@@ -18,6 +18,25 @@ AppFactory uses **Vitest** as the test framework due to its:
 
 ```
 AppFactory/
+├── vitest.config.ts              # Root test configuration
+├── tests/                        # Root-level tests
+│   ├── unit/                     # Unit tests
+│   │   ├── intent-normalization.test.ts  # Intent normalization tests
+│   │   ├── phase-detection.test.ts       # Phase transition tests
+│   │   ├── output-validation.test.ts     # Output validation tests
+│   │   ├── config-parsing.test.ts        # Config parsing tests
+│   │   └── path-safety.test.ts           # Path safety tests
+│   ├── integration/              # Integration tests
+│   │   ├── pipeline-routing.test.ts      # Pipeline routing tests
+│   │   ├── artifact-generation.test.ts   # Artifact generation tests
+│   │   └── ralph-qa-simulation.test.ts   # Ralph QA simulation tests
+│   ├── utils/                    # Test utilities
+│   │   ├── index.ts              # Utility exports
+│   │   ├── mock-claude-response.ts       # Mock AI responses
+│   │   ├── fixture-loader.ts     # Fixture loading utilities
+│   │   └── output-validator.ts   # Output validation utilities
+│   └── fixtures/                 # Test fixtures
+│
 ├── CLI/
 │   ├── vitest.config.ts          # CLI test configuration
 │   ├── src/
@@ -42,6 +61,30 @@ AppFactory/
 ```
 
 ## Running Tests
+
+### Root-Level Tests
+
+```bash
+# From repository root
+
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run unit tests only
+npm run test:unit
+
+# Run integration tests only
+npm run test:integration
+
+# Run all validations (lint + format + type-check + tests)
+npm run test:all
+```
 
 ### CLI Tests
 
@@ -78,9 +121,27 @@ npm run test:coverage
 
 ## Test Categories
 
-### Unit Tests
+### Root-Level Unit Tests
 
-Unit tests verify individual functions and modules in isolation:
+Unit tests in `tests/unit/` verify core factory logic:
+
+- **intent-normalization.test.ts**: Transforming vague user input into structured specs
+- **phase-detection.test.ts**: Pipeline phase transition logic
+- **output-validation.test.ts**: Validating generated output structures
+- **config-parsing.test.ts**: Parsing CLAUDE.md and configuration files
+- **path-safety.test.ts**: Confined write enforcement
+
+### Root-Level Integration Tests
+
+Integration tests in `tests/integration/` verify cross-cutting concerns:
+
+- **pipeline-routing.test.ts**: Correct pipeline selection based on user intent
+- **artifact-generation.test.ts**: Required files creation during pipeline execution
+- **ralph-qa-simulation.test.ts**: Quality assurance checklist validation
+
+### CLI Unit Tests
+
+Unit tests in `CLI/src/core/` verify CLI internals:
 
 - **io.test.ts**: File reading, writing, directory operations
 - **anthropic.test.ts**: API client, JSON extraction, stub mode
@@ -88,9 +149,9 @@ Unit tests verify individual functions and modules in isolation:
 - **stages.test.ts**: Pipeline stages, schema validation
 - **paths.test.ts**: Path resolution patterns
 
-### Integration Tests
+### Pipeline Integration Tests
 
-Integration tests verify component interactions:
+Integration tests in pipeline directories:
 
 - **validator.test.ts**: Full build validation scenarios
 - **generator.test.ts**: Template context generation flow
@@ -183,6 +244,17 @@ describe('module name', () => {
 
 ## Coverage
 
+### Coverage Thresholds
+
+Root-level tests have the following minimum coverage thresholds:
+
+| Metric     | Threshold |
+| ---------- | --------- |
+| Statements | 70%       |
+| Branches   | 60%       |
+| Functions  | 60%       |
+| Lines      | 70%       |
+
 ### CLI Core Module Coverage
 
 | Module       | Statements | Branches | Functions | Lines  |
@@ -206,6 +278,7 @@ the logic to ensure correctness.
 - **Pipeline stages** test schema validation and stage definitions
 - **Path utilities** test patterns rather than actual file paths
 - **Commands and UI** are not unit tested (tested via smoke tests)
+- **Root-level tests** cover factory logic independent of specific pipelines
 
 ## CI Integration
 
@@ -277,7 +350,9 @@ npx vitest --ui
 
 | Package      | Tests | Status  |
 | ------------ | ----- | ------- |
+| Root (unit)  | 159   | Passing |
+| Root (integ) | 85    | Passing |
 | CLI          | 116   | Passing |
 | dapp-factory | 53    | Passing |
 
-**Total: 169 tests passing**
+**Total: 413 tests passing**

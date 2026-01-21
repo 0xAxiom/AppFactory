@@ -1,7 +1,22 @@
 # Security Policy
 
-**Version**: 1.0.0
+**Version**: 1.1.0
 **Last Updated**: 2026-01-20
+
+---
+
+## Supported Versions
+
+The following versions of AppFactory are currently supported with security updates:
+
+| Version | Supported          | Notes                                |
+| ------- | ------------------ | ------------------------------------ |
+| 11.x    | :white_check_mark: | Current release, actively maintained |
+| 10.x    | :white_check_mark: | Security patches only                |
+| 9.x     | :x:                | End of life                          |
+| < 9.0   | :x:                | End of life                          |
+
+**Upgrade Recommendation**: We strongly recommend using the latest version (11.x) to receive all security updates and improvements.
 
 ---
 
@@ -369,9 +384,10 @@ AppFactory:
 
 ## Version History
 
-| Version | Date       | Changes                 |
-| ------- | ---------- | ----------------------- |
-| 1.0.0   | 2026-01-20 | Initial security policy |
+| Version | Date       | Changes                        |
+| ------- | ---------- | ------------------------------ |
+| 1.1.0   | 2026-01-20 | Added supported versions table |
+| 1.0.0   | 2026-01-20 | Initial security policy        |
 
 ---
 

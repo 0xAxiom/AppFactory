@@ -8,6 +8,7 @@
  * - Ralph QA engine for quality assurance
  * - Utility functions for logging, file operations, and hashing
  * - Configuration loading and validation
+ * - Constants for phases, thresholds, and quality standards
  *
  * @example
  * ```typescript
@@ -38,3 +39,6 @@ export * from './utils/index.js';
 
 // Configuration
 export * from './config/index.js';
+
+// Constants
+export * from './constants/index.js';

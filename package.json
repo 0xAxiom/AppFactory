@@ -14,8 +14,13 @@
     "type-check": "npm run type-check:cli && npm run type-check:dapp",
     "type-check:cli": "cd CLI && npx tsc --noEmit",
     "type-check:dapp": "cd dapp-factory && npx tsc --noEmit",
-    "test": "echo 'Running tests...' && npm run lint && npm run format:check && npm run type-check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
     "test:cli": "cd CLI && npm test",
+    "test:all": "npm run lint && npm run format:check && npm run type-check && npm run test",
     "validate": "npm run test",
     "prepare": "husky || true",
     "precommit": "lint-staged",
@@ -58,7 +63,10 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "@eslint/js": "^9.0.0",
+    "@vitest/coverage-v8": "^2.1.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.0.0",
@@ -67,7 +75,8 @@
     "prettier": "^3.2.0",
     "standard-version": "^9.5.0",
     "typescript": "^5.3.0",
-    "typescript-eslint": "^8.0.0"
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.1.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [

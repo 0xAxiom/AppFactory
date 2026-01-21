@@ -1,0 +1,60 @@
+name: Bug Report
+description: Report a bug in AppFactory
+labels: ["bug", "triage"]
+body:
+  - type: dropdown
+    id: pipeline
+    attributes:
+      label: Which pipeline?
+      options:
+        - app-factory
+        - dapp-factory
+        - agent-factory
+        - plugin-factory
+        - miniapp-pipeline
+        - website-pipeline
+        - Root/General
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: Describe the expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Run `claude` in app-factory
+        2. Describe "..."
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or output
+      description: Paste any relevant error messages or logs
+      render: shell
+
+  - type: input
+    id: version
+    attributes:
+      label: AppFactory version
+      description: Check package.json or CHANGELOG.md
+      placeholder: "v11.0"

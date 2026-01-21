@@ -9,8 +9,8 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Create Release
+  validate:
+    name: Validate Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,40 +27,74 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run CI checks
-        run: npm run ci
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run format check
+        run: npm run format:check
+
+      - name: Install dapp-factory dependencies
+        run: cd dapp-factory && npm ci
+
+      - name: Run type check
+        run: npm run type-check:dapp
+
+      - name: Security audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+  release:
+    name: Create Release
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Extract version from tag
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
+      - name: Validate version matches package.json
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${{ steps.version.outputs.VERSION }}"
+          echo "Package version: $PKG_VERSION"
+          echo "Tag version: $TAG_VERSION"
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "WARNING: Package version ($PKG_VERSION) does not match tag version ($TAG_VERSION)"
+          fi
+
       - name: Generate release notes
         id: release_notes
         run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+
           # Extract changelog for this version
           if [ -f "CHANGELOG.md" ]; then
             # Get content between current version header and previous version header
             sed -n "/^## \[${VERSION}\]/,/^## \[/p" CHANGELOG.md | head -n -1 > release_notes.md
             if [ -s release_notes.md ]; then
+              echo "Found changelog entry for version $VERSION"
               echo "NOTES_FILE=release_notes.md" >> $GITHUB_OUTPUT
             else
-              echo "No changelog entry found for version ${{ steps.version.outputs.VERSION }}"
+              echo "No changelog entry found for version $VERSION"
               echo "## What's Changed" > release_notes.md
               echo "" >> release_notes.md
               echo "See [CHANGELOG.md](CHANGELOG.md) for details." >> release_notes.md
               echo "NOTES_FILE=release_notes.md" >> $GITHUB_OUTPUT
             fi
           else
-            echo "## Release v${{ steps.version.outputs.VERSION }}" > release_notes.md
+            echo "## Release v$VERSION" > release_notes.md
             echo "" >> release_notes.md
             echo "See commit history for changes." >> release_notes.md
             echo "NOTES_FILE=release_notes.md" >> $GITHUB_OUTPUT
           fi
-        env:
-          VERSION: ${{ steps.version.outputs.VERSION }}
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           body_path: ${{ steps.release_notes.outputs.NOTES_FILE }}
           draft: false
@@ -84,6 +118,7 @@ jobs:
         with:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
+          cache: "npm"
 
       - name: Install CLI dependencies
         run: cd CLI && npm ci

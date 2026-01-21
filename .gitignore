@@ -4,10 +4,18 @@
 # Updates folder - internal marketing/social content drafts
 updates/
 
-# Pipeline execution logs (but NOT runs/ or builds/ - we want those tracked)
+# Pipeline execution logs and build artifacts
 **/outputs/
+**/builds/
+**/dapp-builds/
+**/website-builds/
+**/runs/
 *.log
 *.tmp
+
+# Coverage reports
+coverage/
+.nyc_output/
 
 # Runtime & local artifacts - never commit user run data
 .appfactory/

@@ -45,3 +45,16 @@ export {
   randomId,
   contentHash,
 } from './hash.js';
+
+// Date utilities
+export {
+  toISOString,
+  toDateString,
+  toCompactDate,
+  toTimestamp,
+  toHumanReadable,
+  formatDuration,
+  getRelativeTime,
+  isToday,
+  addTime,
+} from './date.js';

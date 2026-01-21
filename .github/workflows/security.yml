@@ -9,7 +9,50 @@ on:
     # Run weekly on Mondays at 00:00 UTC
     - cron: "0 0 * * 1"
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"
+
+  trufflehog:
+    name: TruffleHog Secret Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --only-verified
+
   dependency-audit:
     name: Dependency Audit
     runs-on: ubuntu-latest
@@ -21,21 +64,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Audit root dependencies
-        run: npm audit --audit-level=high || true
+        run: npm audit --audit-level=high
         continue-on-error: true
 
-      - name: Audit CLI dependencies
-        run: cd CLI && npm audit --audit-level=high || true
+      - name: Install and audit CLI dependencies
+        run: |
+          cd CLI
+          npm ci
+          npm audit --audit-level=high
         continue-on-error: true
 
-      - name: Audit dapp-factory dependencies
-        run: cd dapp-factory && npm audit --audit-level=high || true
+      - name: Install and audit dapp-factory dependencies
+        run: |
+          cd dapp-factory
+          npm ci
+          npm audit --audit-level=high
         continue-on-error: true
 
   secret-scan:
-    name: Secret Scanning
+    name: Secret Pattern Scanning
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -51,16 +101,17 @@ jobs:
           patterns=(
             'AKIA[0-9A-Z]{16}'  # AWS Access Key
             'sk-[a-zA-Z0-9]{48}'  # OpenAI API Key
-            'sk-ant-[a-zA-Z0-9-]{108}'  # Anthropic API Key
+            'sk-ant-[a-zA-Z0-9-]{95,120}'  # Anthropic API Key
             'ghp_[a-zA-Z0-9]{36}'  # GitHub Personal Access Token
             'gho_[a-zA-Z0-9]{36}'  # GitHub OAuth Token
             'npm_[a-zA-Z0-9]{36}'  # NPM Token
+            'xox[baprs]-[0-9a-zA-Z]{10,48}'  # Slack Token
           )
 
           found_secrets=0
 
           for pattern in "${patterns[@]}"; do
-            if grep -rE "$pattern" --include="*.ts" --include="*.js" --include="*.json" --exclude-dir=node_modules --exclude-dir=.git . 2>/dev/null; then
+            if grep -rE "$pattern" --include="*.ts" --include="*.js" --include="*.json" --include="*.yml" --include="*.yaml" --exclude-dir=node_modules --exclude-dir=.git . 2>/dev/null; then
               echo "WARNING: Potential secret found matching pattern: $pattern"
               found_secrets=1
             fi
@@ -73,9 +124,16 @@ jobs:
             found_secrets=1
           fi
 
+          # Check for private keys
+          if grep -rE "-----BEGIN (RSA|EC|OPENSSH|DSA|PRIVATE).*KEY-----" --include="*.pem" --include="*.key" --include="*.ts" --include="*.js" --exclude-dir=node_modules --exclude-dir=.git . 2>/dev/null; then
+            echo "WARNING: Private key pattern found"
+            found_secrets=1
+          fi
+
           if [ $found_secrets -eq 1 ]; then
+            echo ""
             echo "Secret scan found potential issues. Please review."
-            # Don't fail the build, just warn
+            exit 1
           else
             echo "No secrets detected!"
           fi
@@ -92,31 +150,8 @@ jobs:
           if [ -f "LICENSE" ] || [ -f "LICENSE.md" ] || [ -f "LICENSE.txt" ]; then
             echo "✓ License file found"
           else
-            echo "Creating MIT LICENSE file..."
-            cat > LICENSE << 'EOF'
-          MIT License
-
-          Copyright (c) 2024 MeltedMindz
-
-          Permission is hereby granted, free of charge, to any person obtaining a copy
-          of this software and associated documentation files (the "Software"), to deal
-          in the Software without restriction, including without limitation the rights
-          to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-          copies of the Software, and to permit persons to whom the Software is
-          furnished to do so, subject to the following conditions:
-
-          The above copyright notice and this permission notice shall be included in all
-          copies or substantial portions of the Software.
-
-          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-          IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-          FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-          AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-          LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-          OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-          SOFTWARE.
-          EOF
-            echo "✓ MIT License file created"
+            echo "✗ No license file found"
+            exit 1
           fi
 
       - name: Verify package.json license
@@ -127,4 +162,58 @@ jobs:
             echo "✓ Package license is MIT"
           else
             echo "⚠ Package license is not MIT: $license"
+          fi
+
+  security-complete:
+    name: Security Complete
+    needs: [codeql, trufflehog, dependency-audit, secret-scan, license-check]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Check security scan results
+        run: |
+          echo "=== Security Scan Summary ==="
+          echo ""
+
+          failed=0
+
+          if [ "${{ needs.codeql.result }}" != "success" ]; then
+            echo "WARNING: CodeQL analysis had findings"
+          else
+            echo "✓ CodeQL analysis passed"
+          fi
+
+          if [ "${{ needs.trufflehog.result }}" != "success" ]; then
+            echo "FAIL: TruffleHog found potential secrets"
+            failed=1
+          else
+            echo "✓ TruffleHog scan passed"
+          fi
+
+          if [ "${{ needs.secret-scan.result }}" != "success" ]; then
+            echo "FAIL: Secret pattern scan found issues"
+            failed=1
+          else
+            echo "✓ Secret pattern scan passed"
+          fi
+
+          if [ "${{ needs.dependency-audit.result }}" != "success" ]; then
+            echo "WARNING: Dependency audit has findings"
+          else
+            echo "✓ Dependency audit passed"
+          fi
+
+          if [ "${{ needs.license-check.result }}" != "success" ]; then
+            echo "FAIL: License check failed"
+            failed=1
+          else
+            echo "✓ License check passed"
+          fi
+
+          echo ""
+          if [ $failed -eq 1 ]; then
+            echo "SECURITY SCAN FAILED: Review findings above"
+            exit 1
+          else
+            echo "SECURITY SCAN PASSED"
           fi

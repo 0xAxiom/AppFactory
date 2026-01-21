@@ -17,10 +17,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Release automation workflow with semantic versioning
 - CONTRIBUTING.md guide for contributors
 - CHANGELOG.md with keep-a-changelog format
+- `.editorconfig` for consistent editor settings across IDEs
+- `renovate.json` for automated dependency updates
+- Core library enhancements:
+  - Date utilities (`toISOString`, `formatDuration`, `getRelativeTime`, etc.)
+  - Phase constants for all pipelines (mobile, dApp, website, agent, plugin, miniapp)
+  - Quality thresholds and standards (`RALPH_THRESHOLDS`, `SIZE_LIMITS`, etc.)
+  - Code quality thresholds and performance budgets
+- Enhanced `.gitignore` with comprehensive build artifact exclusions
 
 ### Changed
 
 - Updated package.json with proper scripts and devDependencies
+- Extended core library exports with `/constants` subpath
 
 ## [11.0.0] - 2026-01-19
 

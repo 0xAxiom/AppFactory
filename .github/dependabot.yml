@@ -3,6 +3,39 @@
 
 version: 2
 updates:
+  # Root package dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps(core)"
+    labels:
+      - "dependencies"
+      - "core"
+    groups:
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+      typescript:
+        patterns:
+          - "typescript"
+          - "typescript-eslint"
+          - "@types/*"
+      husky-lint:
+        patterns:
+          - "husky"
+          - "lint-staged"
+          - "prettier"
+      commitlint:
+        patterns:
+          - "@commitlint/*"
+
   # CLI package dependencies
   - package-ecosystem: "npm"
     directory: "/CLI"
@@ -46,6 +79,11 @@ updates:
           - "typescript"
           - "tsx"
           - "@types/*"
+      nextjs:
+        patterns:
+          - "next"
+          - "react"
+          - "react-dom"
 
   # plugin-factory example dependencies
   - package-ecosystem: "npm"
@@ -74,3 +112,8 @@ updates:
     labels:
       - "ci"
       - "dependencies"
+    groups:
+      github-actions:
+        patterns:
+          - "actions/*"
+          - "github/*"

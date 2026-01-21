@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":preserveSemverRanges"
+  ],
+  "schedule": ["before 3am on Monday"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependencies", "major"]
+    }
+  ],
+  "ignorePaths": [
+    "**/builds/**",
+    "**/outputs/**",
+    "**/dapp-builds/**",
+    "**/website-builds/**",
+    "**/vendor/**",
+    "**/runs/**"
+  ]
+}

@@ -1,0 +1,38 @@
+name: Documentation Issue
+description: Report unclear or missing documentation
+labels: ["documentation"]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Issue type
+      options:
+        - Missing documentation
+        - Unclear documentation
+        - Outdated documentation
+        - Typo or error
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Where is the issue?
+      description: File path or URL
+      placeholder: "docs/architecture/README.md or CLAUDE.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What's wrong or missing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: How should this be fixed or improved?

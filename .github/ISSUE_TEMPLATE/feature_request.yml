@@ -1,0 +1,51 @@
+name: Feature Request
+description: Suggest a new feature for AppFactory
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: pipeline
+    attributes:
+      label: Which pipeline?
+      options:
+        - app-factory
+        - dapp-factory
+        - agent-factory
+        - plugin-factory
+        - miniapp-pipeline
+        - website-pipeline
+        - Root/General
+        - New pipeline
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case or problem
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you like this to work?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you've thought of?
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority (your assessment)
+      options:
+        - Critical - Blocking my workflow
+        - High - Would significantly improve experience
+        - Medium - Nice to have
+        - Low - Someday would be nice
