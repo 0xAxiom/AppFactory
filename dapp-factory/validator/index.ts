@@ -12,8 +12,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// ESM equivalent of __filename (used implicitly by module system)
+fileURLToPath(import.meta.url);
 
 // ============================================================================
 // ZIP CONTRACT v2.0 - Enforced exactly as specified
@@ -38,11 +38,7 @@ const REQUIRED_FILES = [
 /**
  * Required core dependencies (all apps)
  */
-const REQUIRED_CORE_DEPENDENCIES = [
-  'next',
-  'react',
-  'react-dom',
-];
+const REQUIRED_CORE_DEPENDENCIES = ['next', 'react', 'react-dom'];
 
 /**
  * Solana dependencies (only required if app uses wallet integration)
@@ -82,8 +78,8 @@ const FORBIDDEN_PATTERNS = [
  * Size limits per ZIP_CONTRACT.md
  */
 const SIZE_LIMITS = {
-  totalZip: 50 * 1024 * 1024,      // 50 MB
-  singleFile: 10 * 1024 * 1024,   // 10 MB
+  totalZip: 50 * 1024 * 1024, // 50 MB
+  singleFile: 10 * 1024 * 1024, // 10 MB
   maxFiles: 10000,
 };
 
@@ -140,7 +136,7 @@ function hasWalletIntegration(buildDir: string): boolean {
     const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
 
     // Check if any Solana dependency is present
-    return SOLANA_DEPENDENCIES.some(dep => dep in allDeps);
+    return SOLANA_DEPENDENCIES.some((dep) => dep in allDeps);
   } catch {
     return false;
   }
@@ -200,11 +196,13 @@ function checkCoreDependencies(buildDir: string): CheckResult[] {
   const packagePath = path.join(buildDir, 'package.json');
 
   if (!fs.existsSync(packagePath)) {
-    return [{
-      name: 'Core Dependencies',
-      passed: false,
-      message: 'package.json not found',
-    }];
+    return [
+      {
+        name: 'Core Dependencies',
+        passed: false,
+        message: 'package.json not found',
+      },
+    ];
   }
 
   try {
@@ -243,7 +241,9 @@ function checkSolanaDependencies(buildDir: string): CheckResult[] {
       results.push({
         name: `Wallet Dependency: ${dep}`,
         passed: hasIt,
-        message: hasIt ? allDeps[dep] : 'MISSING (required for token integration)',
+        message: hasIt
+          ? allDeps[dep]
+          : 'MISSING (required for token integration)',
       });
     }
   } catch (error) {
@@ -262,11 +262,13 @@ function checkWalletProvider(buildDir: string): CheckResult[] {
   const providersPath = path.join(buildDir, 'src/app/providers.tsx');
 
   if (!fs.existsSync(providersPath)) {
-    return [{
-      name: 'Wallet Provider',
-      passed: false,
-      message: 'providers.tsx not found',
-    }];
+    return [
+      {
+        name: 'Wallet Provider',
+        passed: false,
+        message: 'providers.tsx not found',
+      },
+    ];
   }
 
   const content = fs.readFileSync(providersPath, 'utf-8');
@@ -312,11 +314,13 @@ function checkSecurityPatterns(buildDir: string): CheckResult[] {
   const srcDir = path.join(buildDir, 'src');
 
   if (!fs.existsSync(srcDir)) {
-    return [{
-      name: 'Security scan',
-      passed: false,
-      message: 'src/ directory not found',
-    }];
+    return [
+      {
+        name: 'Security scan',
+        passed: false,
+        message: 'src/ directory not found',
+      },
+    ];
   }
 
   const findings: Array<{ file: string; pattern: string }> = [];
@@ -330,7 +334,12 @@ function checkSecurityPatterns(buildDir: string): CheckResult[] {
 
       if (stat.isDirectory() && item !== 'node_modules') {
         scanDir(fullPath);
-      } else if (item.endsWith('.ts') || item.endsWith('.tsx') || item.endsWith('.js') || item.endsWith('.jsx')) {
+      } else if (
+        item.endsWith('.ts') ||
+        item.endsWith('.tsx') ||
+        item.endsWith('.js') ||
+        item.endsWith('.jsx')
+      ) {
         const content = fs.readFileSync(fullPath, 'utf-8');
 
         for (const { pattern, message } of FORBIDDEN_PATTERNS) {
@@ -375,28 +384,34 @@ function checkNotPromptPack(buildDir: string): CheckResult[] {
 
   // Count file types at root level
   const items = fs.readdirSync(buildDir);
-  const mdFiles = items.filter(f => f.endsWith('.md'));
+  const mdFiles = items.filter((f) => f.endsWith('.md'));
   const hasPackageJson = items.includes('package.json');
-  const hasSrcDir = items.includes('src') && fs.statSync(path.join(buildDir, 'src')).isDirectory();
+  const hasSrcDir =
+    items.includes('src') &&
+    fs.statSync(path.join(buildDir, 'src')).isDirectory();
 
   // Detect prompt pack pattern: mostly .md files, no src/, no valid package.json
-  const isPromptPack = mdFiles.length >= 2 && !hasSrcDir && (
-    !hasPackageJson ||
-    (() => {
-      try {
-        const pkg = JSON.parse(fs.readFileSync(path.join(buildDir, 'package.json'), 'utf-8'));
-        return !pkg.scripts?.dev || !pkg.scripts?.build;
-      } catch {
-        return true;
-      }
-    })()
-  );
+  const isPromptPack =
+    mdFiles.length >= 2 &&
+    !hasSrcDir &&
+    (!hasPackageJson ||
+      (() => {
+        try {
+          const pkg = JSON.parse(
+            fs.readFileSync(path.join(buildDir, 'package.json'), 'utf-8')
+          );
+          return !pkg.scripts?.dev || !pkg.scripts?.build;
+        } catch {
+          return true;
+        }
+      })());
 
   if (isPromptPack) {
     results.push({
       name: 'Full Build Check',
       passed: false,
-      message: 'PROMPT PACK DETECTED - This appears to be a prompt pack (only .md files), not a runnable app. Web3 Factory requires full builds with src/, package.json, and working dev/build scripts.',
+      message:
+        'PROMPT PACK DETECTED - This appears to be a prompt pack (only .md files), not a runnable app. Web3 Factory requires full builds with src/, package.json, and working dev/build scripts.',
     });
   } else {
     results.push({
@@ -417,11 +432,13 @@ function checkRequiredScripts(buildDir: string): CheckResult[] {
   const packagePath = path.join(buildDir, 'package.json');
 
   if (!fs.existsSync(packagePath)) {
-    return [{
-      name: 'Required Scripts',
-      passed: false,
-      message: 'package.json not found',
-    }];
+    return [
+      {
+        name: 'Required Scripts',
+        passed: false,
+        message: 'package.json not found',
+      },
+    ];
   }
 
   try {
@@ -434,15 +451,18 @@ function checkRequiredScripts(buildDir: string): CheckResult[] {
     results.push({
       name: 'Script: dev',
       passed: hasDev,
-      message: hasDev ? `"${scripts.dev}"` : 'MISSING - package.json must have "dev" script',
+      message: hasDev
+        ? `"${scripts.dev}"`
+        : 'MISSING - package.json must have "dev" script',
     });
 
     results.push({
       name: 'Script: build',
       passed: hasBuild,
-      message: hasBuild ? `"${scripts.build}"` : 'MISSING - package.json must have "build" script',
+      message: hasBuild
+        ? `"${scripts.build}"`
+        : 'MISSING - package.json must have "build" script',
     });
-
   } catch (error) {
     results.push({
       name: 'Required Scripts',
@@ -463,14 +483,21 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
   const srcDir = path.join(buildDir, 'src');
 
   if (!fs.existsSync(srcDir)) {
-    return [{
-      name: 'Skill Compliance',
-      passed: false,
-      message: 'src/ directory not found',
-    }];
+    return [
+      {
+        name: 'Skill Compliance',
+        passed: false,
+        message: 'src/ directory not found',
+      },
+    ];
   }
 
-  const violations: Array<{ rule: string; severity: string; file: string; message: string }> = [];
+  const violations: Array<{
+    rule: string;
+    severity: string;
+    file: string;
+    message: string;
+  }> = [];
 
   // Scan source files for common violations
   function scanFile(filePath: string) {
@@ -485,31 +512,38 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
         rule: 'bundle-imports',
         severity: 'CRITICAL',
         file: relativePath,
-        message: 'Barrel import from @/components - import from specific files instead',
+        message:
+          'Barrel import from @/components - import from specific files instead',
       });
     }
 
     // Check for sequential awaits pattern (CRITICAL)
-    const awaitMatches = content.match(/await\s+\w+\([^)]*\);\s*\n\s*await\s+\w+\([^)]*\)/g);
+    const awaitMatches = content.match(
+      /await\s+\w+\([^)]*\);\s*\n\s*await\s+\w+\([^)]*\)/g
+    );
     if (awaitMatches && awaitMatches.length > 0) {
       violations.push({
         rule: 'async-parallel',
         severity: 'CRITICAL',
         file: relativePath,
-        message: 'Sequential awaits detected - consider Promise.all for parallel operations',
+        message:
+          'Sequential awaits detected - consider Promise.all for parallel operations',
       });
     }
 
     // Web Design Guidelines checks
 
     // Check for monospace body font (HIGH)
-    if (content.match(/font-family:\s*['"]?(Monaco|Consolas|Courier|monospace)/i)) {
+    if (
+      content.match(/font-family:\s*['"]?(Monaco|Consolas|Courier|monospace)/i)
+    ) {
       if (!content.match(/\.code|\.mono|code|pre|address/i)) {
         violations.push({
           rule: 'typography-sans-serif',
           severity: 'HIGH',
           file: relativePath,
-          message: 'Monospace font used for non-code content - use sans-serif for body text',
+          message:
+            'Monospace font used for non-code content - use sans-serif for body text',
         });
       }
     }
@@ -521,13 +555,16 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
           rule: 'animation-page-entrance',
           severity: 'MEDIUM',
           file: relativePath,
-          message: 'Page missing entrance animation - add Framer Motion animation',
+          message:
+            'Page missing entrance animation - add Framer Motion animation',
         });
       }
     }
 
     // Check for spinner-only loading (MEDIUM)
-    if (content.match(/ActivityIndicator|Spinner.*loading|isLoading.*Spinner/i)) {
+    if (
+      content.match(/ActivityIndicator|Spinner.*loading|isLoading.*Spinner/i)
+    ) {
       if (!content.includes('Skeleton')) {
         violations.push({
           rule: 'loading-skeleton',
@@ -545,7 +582,8 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
           rule: 'empty-state-design',
           severity: 'MEDIUM',
           file: relativePath,
-          message: 'Basic "No items" text detected - design empty state with icon, message, and CTA',
+          message:
+            'Basic "No items" text detected - design empty state with icon, message, and CTA',
         });
       }
     }
@@ -561,7 +599,8 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
           rule: 'focus-indicators',
           severity: 'CRITICAL',
           file: relativePath,
-          message: 'outline-none without focus-visible replacement - keyboard users need focus indicators',
+          message:
+            'outline-none without focus-visible replacement - keyboard users need focus indicators',
         });
       }
     }
@@ -572,7 +611,8 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
         rule: 'compositor-animations',
         severity: 'MEDIUM',
         file: relativePath,
-        message: 'transition: all detected - specify exact properties (transform, opacity) for performance',
+        message:
+          'transition: all detected - specify exact properties (transform, opacity) for performance',
       });
     }
 
@@ -580,7 +620,11 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
     // Look for .map() patterns that might render many items
     if (content.match(/\.map\s*\(\s*\([^)]*\)\s*=>/)) {
       // Check if the file mentions any virtualization
-      if (!content.match(/VirtualizedList|react-window|react-virtualized|tanstack.*virtual/i)) {
+      if (
+        !content.match(
+          /VirtualizedList|react-window|react-virtualized|tanstack.*virtual/i
+        )
+      ) {
         // This is just a warning - can't determine list size statically
         // Ralph will do the actual verification
       }
@@ -593,7 +637,8 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
           rule: 'form-labels',
           severity: 'HIGH',
           file: relativePath,
-          message: 'Form inputs detected without labels - add <label htmlFor> or aria-label',
+          message:
+            'Form inputs detected without labels - add <label htmlFor> or aria-label',
         });
       }
     }
@@ -606,21 +651,26 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
           rule: 'touch-targets',
           severity: 'MEDIUM',
           file: relativePath,
-          message: 'Small dimensions on interactive element - ensure touch targets are ≥44px',
+          message:
+            'Small dimensions on interactive element - ensure touch targets are ≥44px',
         });
       }
     }
 
     // Check for ignoring prefers-reduced-motion (MEDIUM - accessibility)
     if (content.match(/animate|animation|transition|motion/i)) {
-      if (content.includes('framer-motion') || content.includes("from 'motion'")) {
+      if (
+        content.includes('framer-motion') ||
+        content.includes("from 'motion'")
+      ) {
         // Framer Motion - check for useReducedMotion or media query
         if (!content.match(/useReducedMotion|prefers-reduced-motion/i)) {
           violations.push({
             rule: 'reduced-motion',
             severity: 'MEDIUM',
             file: relativePath,
-            message: 'Animations without prefers-reduced-motion check - use useReducedMotion() hook',
+            message:
+              'Animations without prefers-reduced-motion check - use useReducedMotion() hook',
           });
         }
       }
@@ -646,13 +696,23 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
   scanDirectory(srcDir);
 
   // Calculate compliance scores
-  const criticalViolations = violations.filter(v => v.severity === 'CRITICAL').length;
-  const highViolations = violations.filter(v => v.severity === 'HIGH').length;
-  const mediumViolations = violations.filter(v => v.severity === 'MEDIUM').length;
+  const criticalViolations = violations.filter(
+    (v) => v.severity === 'CRITICAL'
+  ).length;
+  const highViolations = violations.filter((v) => v.severity === 'HIGH').length;
+  const mediumViolations = violations.filter(
+    (v) => v.severity === 'MEDIUM'
+  ).length;
 
   // Score calculation (simplified)
   const baseScore = 100;
-  const score = Math.max(0, baseScore - (criticalViolations * 10) - (highViolations * 5) - (mediumViolations * 2));
+  const score = Math.max(
+    0,
+    baseScore -
+      criticalViolations * 10 -
+      highViolations * 5 -
+      mediumViolations * 2
+  );
 
   // Add results
   if (criticalViolations > 0) {
@@ -662,7 +722,7 @@ function checkSkillCompliance(buildDir: string): CheckResult[] {
       message: `${criticalViolations} CRITICAL violation(s) found - must fix before proceeding`,
     });
 
-    for (const v of violations.filter(v => v.severity === 'CRITICAL')) {
+    for (const v of violations.filter((v) => v.severity === 'CRITICAL')) {
       results.push({
         name: `  ${v.rule}`,
         passed: false,
@@ -724,7 +784,9 @@ function checkFileSizes(buildDir: string): CheckResult[] {
         totalSize += stat.size;
 
         if (stat.size > SIZE_LIMITS.singleFile) {
-          oversizedFiles.push(`${path.relative(buildDir, fullPath)} (${(stat.size / 1024 / 1024).toFixed(1)} MB)`);
+          oversizedFiles.push(
+            `${path.relative(buildDir, fullPath)} (${(stat.size / 1024 / 1024).toFixed(1)} MB)`
+          );
         }
       }
     }
@@ -736,9 +798,10 @@ function checkFileSizes(buildDir: string): CheckResult[] {
   results.push({
     name: 'File count',
     passed: fileCount <= SIZE_LIMITS.maxFiles,
-    message: fileCount <= SIZE_LIMITS.maxFiles
-      ? `${fileCount} files (limit: ${SIZE_LIMITS.maxFiles})`
-      : `${fileCount} files EXCEEDS limit of ${SIZE_LIMITS.maxFiles}`,
+    message:
+      fileCount <= SIZE_LIMITS.maxFiles
+        ? `${fileCount} files (limit: ${SIZE_LIMITS.maxFiles})`
+        : `${fileCount} files EXCEEDS limit of ${SIZE_LIMITS.maxFiles}`,
   });
 
   // Total size estimate (actual zip will be smaller due to compression)
@@ -797,8 +860,11 @@ function validate(buildDir: string): ValidationResult {
   // Only add wallet checks if token integration is detected
   if (tokenEnabled) {
     checkGroups.push(
-      { name: 'Wallet Dependencies', fn: () => checkSolanaDependencies(buildDir) },
-      { name: 'Wallet Provider', fn: () => checkWalletProvider(buildDir) },
+      {
+        name: 'Wallet Dependencies',
+        fn: () => checkSolanaDependencies(buildDir),
+      },
+      { name: 'Wallet Provider', fn: () => checkWalletProvider(buildDir) }
     );
   }
 
@@ -806,7 +872,7 @@ function validate(buildDir: string): ValidationResult {
   checkGroups.push(
     { name: 'Security Patterns', fn: () => checkSecurityPatterns(buildDir) },
     { name: 'Size Limits', fn: () => checkFileSizes(buildDir) },
-    { name: 'Skill Compliance', fn: () => checkSkillCompliance(buildDir) },
+    { name: 'Skill Compliance', fn: () => checkSkillCompliance(buildDir) }
   );
 
   for (const group of checkGroups) {
@@ -853,7 +919,7 @@ function validate(buildDir: string): ValidationResult {
 function writeFactoryReadyJson(
   buildDir: string,
   passed: boolean,
-  checks: CheckResult[],
+  _checks: CheckResult[],
   errors: string[],
   tokenEnabled: boolean
 ): void {
@@ -878,39 +944,41 @@ function writeFactoryReadyJson(
     gates: {
       build: {
         status: 'SKIP' as const,
-        details: 'Run npm install && npm run build to verify'
+        details: 'Run npm install && npm run build to verify',
       },
       run: {
         status: 'SKIP' as const,
-        details: 'Run npm run dev and verify localhost:3000 responds'
+        details: 'Run npm run dev and verify localhost:3000 responds',
       },
       test: {
         status: 'SKIP' as const,
-        details: 'Run curl http://localhost:3000 to verify'
+        details: 'Run curl http://localhost:3000 to verify',
       },
       validate: {
-        status: passed ? 'PASS' as const : 'FAIL' as const,
+        status: passed ? ('PASS' as const) : ('FAIL' as const),
         details: passed
           ? 'All contract requirements met'
-          : `${errors.length} error(s): ${errors.slice(0, 3).join('; ')}${errors.length > 3 ? '...' : ''}`
+          : `${errors.length} error(s): ${errors.slice(0, 3).join('; ')}${errors.length > 3 ? '...' : ''}`,
       },
       package: {
         status: 'SKIP' as const,
-        details: 'Run npm run zip to create package'
+        details: 'Run npm run zip to create package',
       },
       launch_ready: {
-        status: passed ? 'PASS' as const : 'FAIL' as const,
-        details: passed ? 'Validation passed' : 'Fix validation errors first'
+        status: passed ? ('PASS' as const) : ('FAIL' as const),
+        details: passed ? 'Validation passed' : 'Fix validation errors first',
       },
       token_integration: {
-        status: tokenEnabled ? 'PASS' as const : 'SKIP' as const,
-        details: tokenEnabled ? 'Wallet integration detected and validated' : 'Not opted in'
+        status: tokenEnabled ? ('PASS' as const) : ('SKIP' as const),
+        details: tokenEnabled
+          ? 'Wallet integration detected and validated'
+          : 'Not opted in',
       },
       skill_compliance: {
-        status: passed ? 'PASS' as const : 'FAIL' as const,
+        status: passed ? ('PASS' as const) : ('FAIL' as const),
         details: passed
           ? 'Skill compliance checks passed (≥90%)'
-          : 'Skill compliance violations detected - see validation output'
+          : 'Skill compliance violations detected - see validation output',
       },
     },
     overall: passed ? 'PASS' : 'FAIL',

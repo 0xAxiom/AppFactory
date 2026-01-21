@@ -254,7 +254,7 @@ describe('validator module', () => {
       const results = checkForbiddenFiles(testDir);
 
       expect(results.length).toBe(1);
-      expect(results[0].passed).toBe(true);
+      expect(results[0]!.passed).toBe(true);
     });
 
     it('should detect node_modules', () => {
@@ -303,8 +303,8 @@ describe('validator module', () => {
       const results = checkCoreDependencies(testDir);
 
       expect(results.length).toBe(1);
-      expect(results[0].passed).toBe(false);
-      expect(results[0].message).toContain('not found');
+      expect(results[0]!.passed).toBe(false);
+      expect(results[0]!.message).toContain('not found');
     });
 
     it('should pass when all dependencies are present', () => {
@@ -433,7 +433,7 @@ describe('validator module', () => {
       const results = checkSecurityPatterns(srcDir);
 
       expect(results.length).toBe(1);
-      expect(results[0].pattern).toContain('private_key');
+      expect(results[0]!.pattern).toContain('private_key');
     });
 
     it('should detect privateKey pattern', () => {
@@ -462,7 +462,7 @@ describe('validator module', () => {
       const results = checkSecurityPatterns(srcDir);
 
       expect(results.length).toBe(1);
-      expect(results[0].pattern).toContain('mnemonic');
+      expect(results[0]!.pattern).toContain('mnemonic');
     });
 
     it('should detect seed_phrase pattern', () => {

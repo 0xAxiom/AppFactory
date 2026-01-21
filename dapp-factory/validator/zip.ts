@@ -12,8 +12,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import archiver from 'archiver';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// ESM module (fileURLToPath available if needed)
+void fileURLToPath;
 
 // ============================================================================
 // ZIP CONTRACT v1.0 - Exclusions
@@ -38,9 +38,7 @@ const EXCLUDE_PATTERNS = [
 /**
  * File extensions to exclude
  */
-const EXCLUDE_EXTENSIONS = [
-  '.zip',
-];
+const EXCLUDE_EXTENSIONS = ['.zip'];
 
 /**
  * Size limit per ZIP_CONTRACT.md
@@ -124,7 +122,9 @@ async function createZip(buildDir: string): Promise<string> {
       contract_version: '1.0',
     };
 
-    archive.append(JSON.stringify(manifest, null, 2), { name: 'manifest.json' });
+    archive.append(JSON.stringify(manifest, null, 2), {
+      name: 'manifest.json',
+    });
     console.log('Added: manifest.json');
 
     // Collect all files
@@ -136,10 +136,12 @@ async function createZip(buildDir: string): Promise<string> {
 
       // Check exclusions
       const shouldExclude = EXCLUDE_PATTERNS.some((pattern) => {
-        return relativePath === pattern ||
-               relativePath.startsWith(pattern + '/') ||
-               relativePath.includes('/' + pattern + '/') ||
-               relativePath.includes('/' + pattern);
+        return (
+          relativePath === pattern ||
+          relativePath.startsWith(pattern + '/') ||
+          relativePath.includes('/' + pattern + '/') ||
+          relativePath.includes('/' + pattern)
+        );
       });
 
       const hasExcludedExt = EXCLUDE_EXTENSIONS.some((ext) => {
@@ -164,7 +166,6 @@ function getFilesRecursive(dir: string, baseDir: string): string[] {
 
   for (const item of items) {
     const fullPath = path.join(dir, item);
-    const relativePath = path.relative(baseDir, fullPath);
 
     // Skip excluded directories early
     const shouldSkip = EXCLUDE_PATTERNS.some((pattern) => {
