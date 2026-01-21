@@ -5,7 +5,12 @@
  */
 
 import OpenAI from 'openai';
-import { AgentDefinition, AgentResponse, ExplainRequest, CodeSnippet } from './types.js';
+import {
+  AgentDefinition,
+  AgentResponse,
+  ExplainRequest,
+  CodeSnippet,
+} from './types.js';
 import { MaxIterationsError } from '../lib/errors.js';
 import { logger } from '../lib/logger.js';
 
@@ -52,24 +57,29 @@ export class AgentExecutionLoop {
     ];
 
     // Build tool definitions for OpenAI
-    const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = this.agent.tools.map(tool => ({
-      type: 'function',
-      function: {
-        name: tool.definition().name,
-        description: tool.definition().description,
-        parameters: tool.definition().parameters,
-      },
-    }));
+    const tools: OpenAI.Chat.Completions.ChatCompletionTool[] =
+      this.agent.tools.map((tool) => ({
+        type: 'function',
+        function: {
+          name: tool.definition().name,
+          description: tool.definition().description,
+          parameters: tool.definition().parameters,
+        },
+      }));
 
     let iteration = 0;
 
     while (iteration < maxIterations) {
-      logger.info('Agent iteration', { iteration: iteration + 1, messageCount: messages.length });
+      logger.info('Agent iteration', {
+        iteration: iteration + 1,
+        messageCount: messages.length,
+      });
 
       // Call OpenAI
       const response = await this.openai.chat.completions.create({
         model: 'gpt-4-turbo-preview',
-        messages: messages as OpenAI.Chat.Completions.ChatCompletionMessageParam[],
+        messages:
+          messages as OpenAI.Chat.Completions.ChatCompletionMessageParam[],
         tools,
         tool_choice: 'auto',
         temperature: this.agent.temperature ?? 0.7,
@@ -87,7 +97,10 @@ export class AgentExecutionLoop {
       });
 
       // Check if we're done (no tool calls)
-      if (!assistantMessage.tool_calls || assistantMessage.tool_calls.length === 0) {
+      if (
+        !assistantMessage.tool_calls ||
+        assistantMessage.tool_calls.length === 0
+      ) {
         // Parse final response
         return this.parseAgentResponse(
           assistantMessage.content || '',
@@ -104,7 +117,7 @@ export class AgentExecutionLoop {
         this.toolCallCount++;
 
         // Find and execute the tool
-        const tool = this.agent.tools.find(t => t.name === toolName);
+        const tool = this.agent.tools.find((t) => t.name === toolName);
         if (!tool) {
           messages.push({
             role: 'tool',
@@ -128,8 +141,12 @@ export class AgentExecutionLoop {
             content: JSON.stringify(result),
           });
         } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : String(error);
-          logger.warn('Tool execution failed', { tool: toolName, error: errorMessage });
+          const errorMessage =
+            error instanceof Error ? error.message : String(error);
+          logger.warn('Tool execution failed', {
+            tool: toolName,
+            error: errorMessage,
+          });
 
           messages.push({
             role: 'tool',
@@ -147,12 +164,14 @@ export class AgentExecutionLoop {
 
     messages.push({
       role: 'user',
-      content: 'You have reached the maximum number of tool calls. Please provide your best explanation based on what you have learned so far. Remember to respond with valid JSON in the specified format.',
+      content:
+        'You have reached the maximum number of tool calls. Please provide your best explanation based on what you have learned so far. Remember to respond with valid JSON in the specified format.',
     });
 
     const finalResponse = await this.openai.chat.completions.create({
       model: 'gpt-4-turbo-preview',
-      messages: messages as OpenAI.Chat.Completions.ChatCompletionMessageParam[],
+      messages:
+        messages as OpenAI.Chat.Completions.ChatCompletionMessageParam[],
       temperature: this.agent.temperature ?? 0.7,
       max_tokens: this.agent.maxTokens ?? 4000,
     });
@@ -163,7 +182,10 @@ export class AgentExecutionLoop {
     );
   }
 
-  private parseAgentResponse(content: string, executionTimeMs: number): AgentResponse {
+  private parseAgentResponse(
+    content: string,
+    executionTimeMs: number
+  ): AgentResponse {
     // Try to parse JSON response
     try {
       // Extract JSON from markdown code blocks if present

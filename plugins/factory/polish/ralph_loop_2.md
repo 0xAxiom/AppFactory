@@ -8,13 +8,13 @@
 
 ### Issues Found
 
-| # | Location | Issue | Severity |
-|---|----------|-------|----------|
-| 1 | config.default.yaml:27 | "Cannot be set to false" is just a comment, not enforcement | HIGH |
-| 2 | INVARIANTS.md:49-59 | Invariant #4 exposes internal architecture, not user-facing safety | MEDIUM |
-| 3 | config.default.yaml:47,59,67-80 | Exposes prompt-factory dependency in user-facing config | MEDIUM |
-| 4 | plugin.json | permissions.filesystem="write" but scope not explained | HIGH |
-| 5 | INVARIANTS.md:99-100 | "spotlighting mechanism" is unexplained jargon | LOW |
+| #   | Location                        | Issue                                                              | Severity |
+| --- | ------------------------------- | ------------------------------------------------------------------ | -------- |
+| 1   | config.default.yaml:27          | "Cannot be set to false" is just a comment, not enforcement        | HIGH     |
+| 2   | INVARIANTS.md:49-59             | Invariant #4 exposes internal architecture, not user-facing safety | MEDIUM   |
+| 3   | config.default.yaml:47,59,67-80 | Exposes prompt-factory dependency in user-facing config            | MEDIUM   |
+| 4   | plugin.json                     | permissions.filesystem="write" but scope not explained             | HIGH     |
+| 5   | INVARIANTS.md:99-100            | "spotlighting mechanism" is unexplained jargon                     | LOW      |
 
 ### Detailed Analysis
 
@@ -41,12 +41,15 @@ Invariant #4 ("Factory Is a Wrapper") explains internal architecture. This is in
 ## Applied Fixes
 
 ### Fix 1: config.default.yaml — Clarify comments
+
 Remove misleading enforcement claims, add explicit scope statements.
 
 ### Fix 2: INVARIANTS.md — Rewrite Invariant #4
+
 Focus on user-facing guarantee: "writes only to designated directories."
 
 ### Fix 3: Add write scope to plugin.json or README
+
 Already in README: "Output to `./builds/` directory" — but should be more prominent.
 
 ---
@@ -54,6 +57,7 @@ Already in README: "Output to `./builds/` directory" — but should be more prom
 ## Resolution Note
 
 After fixes:
+
 - Permission scope is explicitly documented
 - No false enforcement claims
 - Internal architecture details minimized in user-facing docs

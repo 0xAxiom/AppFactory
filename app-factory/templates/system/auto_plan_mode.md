@@ -15,36 +15,45 @@ Before generating a plan, Claude MUST normalize the user's raw input into a publ
 # Normalized Product Intent
 
 ## Product Name
+
 [Suggested name - memorable, app-store-ready]
 
 ## One-Line Pitch
+
 [What it is in one sentence]
 
 ## Platform
+
 iOS + Android (Expo React Native)
 
 ## Core Loop
+
 [Trigger → Action → Reward → Retention]
 
 ## Key Features (MVP)
+
 1. [Feature 1]
 2. [Feature 2]
 3. [Feature 3]
 
 ## Monetization (RevenueCat Required)
+
 - Model: [Freemium/Premium/Subscription]
 - Free tier: [What's included]
 - Paid tier: [What's gated - must be meaningful]
 - Price point: [$X.XX/mo or $XX.XX/yr]
 
 ## Visual Direction
+
 [Style, tone, aesthetic]
 
 ## Success Criteria
+
 [What makes this product "done" and shippable]
 ```
 
 **Rules:**
+
 - Treat user input as RAW INTENT, not specification
 - Infer all missing product qualities
 - Choose interpretations that produce deeper, more durable products
@@ -87,13 +96,13 @@ The plan must include ALL of the following sections:
 
 ### 1. PROJECT OVERVIEW
 
-| Field | Description |
-|-------|-------------|
-| App Name | 30 characters max, memorable |
-| Slug | lowercase-hyphenated for directory |
-| One-Line Pitch | What it does in one sentence |
-| Value Proposition | Why users will pay |
-| Category | App Store category |
+| Field             | Description                        |
+| ----------------- | ---------------------------------- |
+| App Name          | 30 characters max, memorable       |
+| Slug              | lowercase-hyphenated for directory |
+| One-Line Pitch    | What it does in one sentence       |
+| Value Proposition | Why users will pay                 |
+| Category          | App Store category                 |
 
 ### 2. CORE USER LOOP
 
@@ -110,15 +119,15 @@ Retention: What brings user back
 
 Pick ONE option. No alternatives, no "or" statements:
 
-| Layer | Decision |
-|-------|----------|
-| Framework | Expo SDK 54+ with React Native |
-| Navigation | Expo Router v4 (file-based) |
-| Language | TypeScript |
-| State Management | [Zustand / React Context] |
-| Local Database | [expo-sqlite / AsyncStorage only] |
-| Monetization | RevenueCat |
-| UI Framework | Custom design system |
+| Layer            | Decision                          |
+| ---------------- | --------------------------------- |
+| Framework        | Expo SDK 54+ with React Native    |
+| Navigation       | Expo Router v4 (file-based)       |
+| Language         | TypeScript                        |
+| State Management | [Zustand / React Context]         |
+| Local Database   | [expo-sqlite / AsyncStorage only] |
+| Monetization     | RevenueCat                        |
+| UI Framework     | Custom design system              |
 
 ### 4. PROJECT STRUCTURE
 
@@ -171,16 +180,19 @@ builds/<app-slug>/
 For each major system, document:
 
 #### Navigation System
+
 - Files: `app/_layout.tsx`, `app/*.tsx`
 - Pattern: Tab-based / Stack-based / Drawer
 - Screens: [List all screens]
 
 #### Data Persistence
+
 - Technology: expo-sqlite / AsyncStorage
 - Schema: [Tables or keys]
 - Operations: [CRUD operations needed]
 
 #### UI/Design System
+
 - Theme: `src/ui/theme.ts`
 - Components: `src/ui/components.tsx`
 - Colors: [Primary, secondary, accent]
@@ -191,24 +203,29 @@ For each major system, document:
 **This section is mandatory. All apps must have RevenueCat integration.**
 
 #### Products
+
 - Monthly: $X.XX/month
 - Annual: $XX.XX/year (XX% savings)
 
 #### Free Tier
+
 - [Feature 1] - included
 - [Feature 2] - included
 - [Limitation] - e.g., "3 items max"
 
 #### Premium Tier (gated behind RevenueCat)
+
 - [Premium Feature 1] - meaningful value
 - [Premium Feature 2] - clear upgrade path
 - Unlimited access to [core feature]
 
 #### Paywall Triggers
+
 - [When paywall appears - e.g., "after 3rd use", "on premium feature tap"]
 - [Soft paywall vs hard paywall strategy]
 
 #### Implementation Files
+
 - `src/services/purchases.ts` - RevenueCat SDK wrapper
 - `app/paywall.tsx` - Paywall UI
 - `src/hooks/usePremium.ts` - Premium state hook
@@ -216,6 +233,7 @@ For each major system, document:
 ### 7. MILESTONES (NUMBERED)
 
 **Standard milestones for every build:**
+
 1. Project Scaffold
 2. Core Screens
 3. Feature Implementation
@@ -224,6 +242,7 @@ For each major system, document:
 6. Research, Marketing & ASO
 
 Each milestone MUST have:
+
 - Clear deliverables
 - Verification checklist with pass/fail items
 - Critical items marked (CRITICAL)
@@ -231,15 +250,18 @@ Each milestone MUST have:
 ---
 
 #### Milestone 1: Project Scaffold
+
 **Goal**: Runnable project structure
 
 **Deliverables**:
+
 - package.json with all dependencies
 - TypeScript configuration
 - Expo Router base structure
 - Empty screens for navigation
 
 **Verification Checklist**:
+
 - [ ] (CRITICAL) npm install completes without errors
 - [ ] (CRITICAL) tsconfig.json configured
 - [ ] (CRITICAL) app.config.js created with bundle ID
@@ -251,14 +273,17 @@ Each milestone MUST have:
 ---
 
 #### Milestone 2: Core Screens
+
 **Goal**: Basic navigation and screen structure
 
 **Deliverables**:
+
 - Home screen with primary UI
 - [Main feature] screen
 - Tab or stack navigation working
 
 **Verification Checklist**:
+
 - [ ] (CRITICAL) npx expo start boots Metro
 - [ ] (CRITICAL) Home screen renders
 - [ ] (CRITICAL) Navigation between screens works
@@ -270,14 +295,17 @@ Each milestone MUST have:
 ---
 
 #### Milestone 3: Feature Implementation
+
 **Goal**: Core functionality working
 
 **Deliverables**:
+
 - [Feature 1] fully implemented
 - [Feature 2] fully implemented
 - Data persistence working
 
 **Verification Checklist**:
+
 - [ ] (CRITICAL) [Feature 1] works end-to-end
 - [ ] (CRITICAL) [Feature 2] works end-to-end
 - [ ] (CRITICAL) Data persists across app restart
@@ -289,15 +317,18 @@ Each milestone MUST have:
 ---
 
 #### Milestone 4: Monetization & Premium
+
 **Goal**: RevenueCat integration complete
 
 **Deliverables**:
+
 - RevenueCat SDK integrated
 - Paywall screen designed and functional
 - Premium feature gating
 - Settings screen with subscription management
 
 **Verification Checklist**:
+
 - [ ] (CRITICAL) RevenueCat SDK initializes
 - [ ] (CRITICAL) Paywall screen renders
 - [ ] (CRITICAL) Premium gating logic works
@@ -309,15 +340,18 @@ Each milestone MUST have:
 ---
 
 #### Milestone 5: Polish & Assets
+
 **Goal**: App store ready UI
 
 **Deliverables**:
+
 - Onboarding flow (3-5 screens)
 - App icon (1024x1024)
 - Splash screen
 - All UI polished to premium standard
 
 **Verification Checklist**:
+
 - [ ] (CRITICAL) App icon exists at assets/icon.png
 - [ ] (CRITICAL) Splash screen exists at assets/splash.png
 - [ ] Onboarding flow complete
@@ -329,9 +363,11 @@ Each milestone MUST have:
 ---
 
 #### Milestone 6: Research, Marketing & ASO
+
 **Goal**: All non-code deliverables complete, Ralph Mode PASS
 
 **Deliverables**:
+
 - Market research (substantive)
 - Competitor analysis (substantive)
 - ASO artifacts complete
@@ -340,6 +376,7 @@ Each milestone MUST have:
 - All documentation
 
 **Verification Checklist**:
+
 - [ ] (CRITICAL) research/market_research.md substantive
 - [ ] (CRITICAL) research/competitor_analysis.md substantive
 - [ ] (CRITICAL) research/positioning.md substantive
@@ -391,18 +428,19 @@ ls -la assets/icon.png assets/splash.png
 
 ### 8. RISKS & MITIGATIONS
 
-| Risk | Mitigation |
-|------|------------|
-| RevenueCat SDK issues | Use mock mode for development |
-| Complex feature scope | Cut to MVP, defer to v2 |
-| Design complexity | Use proven UI patterns |
-| Data schema changes | Design schema upfront, migration plan |
+| Risk                  | Mitigation                            |
+| --------------------- | ------------------------------------- |
+| RevenueCat SDK issues | Use mock mode for development         |
+| Complex feature scope | Cut to MVP, defer to v2               |
+| Design complexity     | Use proven UI patterns                |
+| Data schema changes   | Design schema upfront, migration plan |
 
 ---
 
 ## PLANNING MODE RULES
 
 ### MUST DO
+
 - Be specific and actionable (no ambiguity)
 - Include ALL 8 sections
 - Number milestones explicitly
@@ -410,6 +448,7 @@ ls -la assets/icon.png assets/splash.png
 - Commit to single tech choices (no "or")
 
 ### MUST NOT
+
 - Leave any section empty
 - Use placeholder text ("TBD", "TODO")
 - Include multiple alternatives
@@ -421,6 +460,7 @@ ls -la assets/icon.png assets/splash.png
 ## QUALITY THRESHOLD DEFINITION
 
 **≥97%** means:
+
 1. ALL critical items in the milestone checklist pass
 2. At most 1 non-critical item may fail
 3. Zero runtime errors or crashes

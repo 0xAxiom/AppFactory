@@ -29,19 +29,16 @@ This sets up a developer-ready scaffold with `Next.js`, `Wagmi`, `TailwindCSS`, 
 ### Phase 1 - Basic Game Flow
 
 1. Welcome Screen
-
    - Modify existing `page.tsx`
    - Add game title and start button
    - Keep existing wallet connection
 
 2. Category Selection
-
    - Create `/category-select` page
    - Display categories from `wordCategories.json`
    - Add category selection UI
 
 3. Game Screen
-
    - Create `/game/[category]` page
    - Implement basic word display
    - Add letter input system
@@ -54,7 +51,6 @@ This sets up a developer-ready scaffold with `Next.js`, `Wagmi`, `TailwindCSS`, 
 ### Phase 2 - Blockchain Integration
 
 1. Game State Management
-
    - Implement `GameStateProvider`
    - Add game progress tracking
    - Handle word selection logic
@@ -67,7 +63,6 @@ This sets up a developer-ready scaffold with `Next.js`, `Wagmi`, `TailwindCSS`, 
 ### Phase 3 - Additional Features
 
 1. Leaderboard System
-
    - Set up Redis integration
    - Create leaderboard UI
    - Add score tracking
@@ -99,7 +94,6 @@ This sets up a developer-ready scaffold with `Next.js`, `Wagmi`, `TailwindCSS`, 
 ### 3. `/game/[category]` – Game Screen
 
 - Display:
-
   - Word description
   - Hidden word with correct guesses revealed
   - Onscreen keyboard or letter input
@@ -134,7 +128,6 @@ This sets up a developer-ready scaffold with `Next.js`, `Wagmi`, `TailwindCSS`, 
 ## 🥉 Components
 
 - `GameStateProvider.tsx` – Global state manager for:
-
   - Selected category
   - Current word
   - Attempt count
@@ -157,14 +150,12 @@ This sets up a developer-ready scaffold with `Next.js`, `Wagmi`, `TailwindCSS`, 
 ## 🔗 Blockchain Integration
 
 - Smart contract functions:
-
   - `playGame(bool, bool, uint256)` — when game begins
   - `claimReward(bool)` — when user wins and chooses to claim
 
 - Use `viem` hooks and contract interaction patterns
 
 - Reference:
-
   - [OnchainKit LLM Docs](https://docs.base.org/builderkits/onchainkit/llms.txt)
   - [Viem LLM Docs](https://viem.sh/llms-full.txt)
 

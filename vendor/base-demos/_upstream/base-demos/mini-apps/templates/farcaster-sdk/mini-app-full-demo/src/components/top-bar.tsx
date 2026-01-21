@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useFrameContext } from "~/components/providers/frame-provider";
-import { sdk } from "@farcaster/miniapp-sdk";
+import Image from 'next/image';
+import { useFrameContext } from '~/components/providers/frame-provider';
+import { sdk } from '@farcaster/miniapp-sdk';
 
 export function TopBar() {
   const frameContext = useFrameContext();
@@ -14,25 +14,23 @@ export function TopBar() {
     }
   };
 
-  const userPfp = frameContext?.context && (frameContext.context as any)?.user?.pfpUrl 
-    ? (frameContext.context as any).user.pfpUrl 
-    : undefined;
+  const userPfp =
+    frameContext?.context && (frameContext.context as any)?.user?.pfpUrl
+      ? (frameContext.context as any).user.pfpUrl
+      : undefined;
 
   return (
     <div className="mb-6 mt-3 flex items-center justify-between">
-      <Image 
-        src="/base-logo.png" 
-        alt="Base" 
+      <Image
+        src="/base-logo.png"
+        alt="Base"
         width={120}
         height={32}
         className="h-8 object-contain"
       />
-      
+
       {userPfp && (
-        <button
-          onClick={handleProfileClick}
-          className="flex-shrink-0"
-        >
+        <button onClick={handleProfileClick} className="flex-shrink-0">
           <Image
             src={userPfp as string}
             alt="Profile"

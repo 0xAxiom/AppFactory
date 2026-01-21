@@ -98,25 +98,25 @@ export function StartGameButton() {
   };
 
   return (
-    <div className='text-center'>
+    <div className="text-center">
       {error && (
-        <div className='mb-4'>
-          <p className='text-red-500'>{error}</p>
+        <div className="mb-4">
+          <p className="text-red-500">{error}</p>
         </div>
       )}
       {success && (
-        <div className='mb-4'>
-          <p className='text-green-500'>Game started successfully! 🎮</p>
+        <div className="mb-4">
+          <p className="text-green-500">Game started successfully! 🎮</p>
         </div>
       )}
       <button
         onClick={handleStartGame}
         disabled={isLoading || !account.isConnected}
-        className='px-8 py-4 text-xl font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed'
+        className="px-8 py-4 text-xl font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
         {isLoading ? (
-          <div className='flex items-center justify-center'>
-            <div className='animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2'></div>
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
             Starting Game...
           </div>
         ) : !account.isConnected ? (

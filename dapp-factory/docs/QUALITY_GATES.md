@@ -18,11 +18,11 @@ Quality gates are mandatory checkpoints that validate code against skills before
 
 ### Skills Checked
 
-| Skill | Weight | Pass Threshold |
-|-------|--------|----------------|
-| react-best-practices | 40% | ≥90%, no CRITICAL |
-| web-interface-guidelines | 30% | ≥85% |
-| web-design-guidelines | 30% | ≥85% |
+| Skill                    | Weight | Pass Threshold    |
+| ------------------------ | ------ | ----------------- |
+| react-best-practices     | 40%    | ≥90%, no CRITICAL |
+| web-interface-guidelines | 30%    | ≥85%              |
+| web-design-guidelines    | 30%    | ≥85%              |
 
 ### Invocation
 
@@ -32,16 +32,17 @@ Quality gates are mandatory checkpoints that validate code against skills before
 **ID:** `dapp-factory:react-best-practices`
 **Trigger:** React/Next.js code present in dapp-builds/<slug>/src/
 **Inputs:**
-  - Code paths: `dapp-builds/<slug>/src/**/*.{ts,tsx}`
-  - Performance budget: LCP < 2.5s, bundle < 200KB
-**Outputs:**
-  - Report: `runs/<timestamp>/reports/agent_skills/react-best-practices.md`
-  - Fixes list: Appended to report
-**Gate Criteria:**
-  - BLOCKED if any CRITICAL violation
-  - FAIL if score < 90%
-  - CONDITIONAL if 90-94%
-  - PASS if ≥95%
+
+- Code paths: `dapp-builds/<slug>/src/**/*.{ts,tsx}`
+- Performance budget: LCP < 2.5s, bundle < 200KB
+  **Outputs:**
+- Report: `runs/<timestamp>/reports/agent_skills/react-best-practices.md`
+- Fixes list: Appended to report
+  **Gate Criteria:**
+- BLOCKED if any CRITICAL violation
+- FAIL if score < 90%
+- CONDITIONAL if 90-94%
+- PASS if ≥95%
 ```
 
 ```markdown
@@ -50,13 +51,14 @@ Quality gates are mandatory checkpoints that validate code against skills before
 **ID:** `dapp-factory:web-design-guidelines`
 **Trigger:** UI components present in dapp-builds/<slug>/src/components/
 **Inputs:**
-  - Code paths: `dapp-builds/<slug>/src/**/*.tsx`
-  - Accessibility standard: WCAG 2.1 AA
-**Outputs:**
-  - Report: `runs/<timestamp>/reports/agent_skills/web-design-guidelines.md`
-**Gate Criteria:**
-  - FAIL if score < 85%
-  - PASS if ≥85%
+
+- Code paths: `dapp-builds/<slug>/src/**/*.tsx`
+- Accessibility standard: WCAG 2.1 AA
+  **Outputs:**
+- Report: `runs/<timestamp>/reports/agent_skills/web-design-guidelines.md`
+  **Gate Criteria:**
+- FAIL if score < 85%
+- PASS if ≥85%
 ```
 
 ### Pass Criteria
@@ -91,12 +93,14 @@ Ralph incorporates skills as scoring categories:
 ## Ralph Quality Report
 
 ### Build Quality (25% weight)
+
 - [ ] npm install succeeds
 - [ ] npm run build succeeds
 - [ ] npm run dev starts on localhost:3000
 - [ ] No TypeScript errors
 
 ### React Skills Compliance (20% weight)
+
 - [ ] No CRITICAL violations (async patterns, bundle imports)
 - [ ] No HIGH violations (server components, caching)
 - [ ] Server components used by default
@@ -104,6 +108,7 @@ Ralph incorporates skills as scoring categories:
 - [ ] Overall skill score ≥95%
 
 ### Web Design Skills Compliance (25% weight)
+
 - [ ] All interactive elements have accessible names
 - [ ] Focus states visible on all focusable elements
 - [ ] Form inputs have associated labels
@@ -115,11 +120,13 @@ Ralph incorporates skills as scoring categories:
 - [ ] Overall skill score ≥95%
 
 ### Research Quality (15% weight)
+
 - [ ] market_research.md is substantive
 - [ ] competitor_analysis.md names real competitors
 - [ ] positioning.md has clear differentiation
 
 ### Documentation Quality (15% weight)
+
 - [ ] README.md explains the dApp
 - [ ] DEPLOYMENT.md has working steps
 - [ ] .env.example lists all variables
@@ -187,11 +194,11 @@ dapp-factory/
 
 ## Gate 1: Post-Build Skills Check
 
-| Skill | Score | Verdict |
-|-------|-------|---------|
-| react-best-practices | 96% | PASS |
-| web-interface-guidelines | 92% | PASS |
-| web-design-guidelines | 88% | CONDITIONAL |
+| Skill                    | Score | Verdict     |
+| ------------------------ | ----- | ----------- |
+| react-best-practices     | 96%   | PASS        |
+| web-interface-guidelines | 92%   | PASS        |
+| web-design-guidelines    | 88%   | CONDITIONAL |
 
 **Gate 1 Verdict:** CONDITIONAL (2 fixes required)
 
@@ -227,6 +234,7 @@ dapp-factory/
 ### "Max attempts reached"
 
 Pipeline enters manual intervention mode:
+
 1. Review all reports in `reports/agent_skills/`
 2. Fix violations manually
 3. Run `npm run build` to verify

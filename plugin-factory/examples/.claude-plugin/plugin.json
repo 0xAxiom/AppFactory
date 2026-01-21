@@ -5,7 +5,14 @@
   "author": {
     "name": "Plugin Factory"
   },
-  "keywords": ["claude", "plugin", "architecture", "decisions", "documentation", "adr"],
+  "keywords": [
+    "claude",
+    "plugin",
+    "architecture",
+    "decisions",
+    "documentation",
+    "adr"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

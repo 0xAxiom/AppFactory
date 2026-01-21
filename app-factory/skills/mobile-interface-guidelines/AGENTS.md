@@ -11,6 +11,7 @@
 When generating mobile applications, Claude MUST follow these rules. During Ralph QA, compliance with these rules contributes to the Mobile UI Skills category (5% of total score).
 
 **Priority Levels:**
+
 - **CRITICAL** - Must pass or build fails
 - **HIGH** - Should pass; failures reduce score significantly
 - **MEDIUM** - Should pass; failures reduce score moderately
@@ -127,7 +128,7 @@ import { Swipeable } from 'react-native-gesture-handler';
   onSwipeableRightOpen={handleDelete}
 >
   <ListItem {...item} />
-</Swipeable>
+</Swipeable>;
 ```
 
 ### TOU-5: Pull to Refresh (HIGH)
@@ -189,16 +190,10 @@ function AnimatedCard({ children }) {
   const reducedMotion = useReducedMotion();
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: reducedMotion
-      ? []
-      : [{ scale: withSpring(isPressed ? 0.95 : 1) }],
+    transform: reducedMotion ? [] : [{ scale: withSpring(isPressed ? 0.95 : 1) }],
   }));
 
-  return (
-    <Animated.View style={animatedStyle}>
-      {children}
-    </Animated.View>
-  );
+  return <Animated.View style={animatedStyle}>{children}</Animated.View>;
 }
 
 // GOOD: AccessibilityInfo API
@@ -208,10 +203,7 @@ const [reduceMotionEnabled, setReduceMotionEnabled] = useState(false);
 
 useEffect(() => {
   AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotionEnabled);
-  const subscription = AccessibilityInfo.addEventListener(
-    'reduceMotionChanged',
-    setReduceMotionEnabled
-  );
+  const subscription = AccessibilityInfo.addEventListener('reduceMotionChanged', setReduceMotionEnabled);
   return () => subscription.remove();
 }, []);
 ```
@@ -272,7 +264,7 @@ export default function Layout() {
     presentation: 'modal',
     animation: 'slide_from_bottom',
   }}
-/>
+/>;
 ```
 
 ### ANI-4: Loading Animations (MEDIUM)
@@ -286,10 +278,7 @@ function Skeleton({ width, height }) {
 
   useEffect(() => {
     opacity.value = withRepeat(
-      withSequence(
-        withTiming(0.7, { duration: 800 }),
-        withTiming(0.3, { duration: 800 })
-      ),
+      withSequence(withTiming(0.7, { duration: 800 }), withTiming(0.3, { duration: 800 })),
       -1,
       false
     );
@@ -377,17 +366,11 @@ function CustomHeader() {
 function TabBar() {
   const insets = useSafeAreaInsets();
 
-  return (
-    <View style={{ paddingBottom: insets.bottom }}>
-      {/* Tab items */}
-    </View>
-  );
+  return <View style={{ paddingBottom: insets.bottom }}>{/* Tab items */}</View>;
 }
 
 // BAD: Ignoring safe areas
-<View style={{ flex: 1 }}>
-  {/* Content blocked by notch */}
-</View>
+<View style={{ flex: 1 }}>{/* Content blocked by notch */}</View>;
 ```
 
 ### LAY-2: Platform Conventions (HIGH)
@@ -442,10 +425,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 // GOOD: Keyboard avoiding form
 function LoginForm() {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
       <ScrollView keyboardShouldPersistTaps="handled">
         <TextInput placeholder="Email" />
         <TextInput placeholder="Password" secureTextEntry />
@@ -459,10 +439,8 @@ function LoginForm() {
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-  <View style={{ flex: 1 }}>
-    {/* Form content */}
-  </View>
-</TouchableWithoutFeedback>
+  <View style={{ flex: 1 }}>{/* Form content */}</View>
+</TouchableWithoutFeedback>;
 ```
 
 ### LAY-4: Responsive Layout (MEDIUM)
@@ -518,7 +496,7 @@ const styles = StyleSheet.create({
 // BAD: Inline styles (causes re-renders)
 <View style={{ flex: 1, padding: 16 }}>
   <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Title</Text>
-</View>
+</View>;
 ```
 
 ---
@@ -536,9 +514,7 @@ function EmptyInbox() {
     <View style={styles.emptyContainer}>
       <InboxIcon size={64} color="#9CA3AF" />
       <Text style={styles.emptyTitle}>No messages yet</Text>
-      <Text style={styles.emptySubtitle}>
-        Start a conversation to see messages here
-      </Text>
+      <Text style={styles.emptySubtitle}>Start a conversation to see messages here</Text>
       <TouchableOpacity style={styles.emptyButton} onPress={handleCompose}>
         <Text style={styles.emptyButtonText}>Send Message</Text>
       </TouchableOpacity>
@@ -547,7 +523,7 @@ function EmptyInbox() {
 }
 
 // BAD: Plain text
-<Text>No messages</Text>
+<Text>No messages</Text>;
 ```
 
 ### CON-2: Error States (HIGH)
@@ -571,7 +547,7 @@ function ErrorState({ error, onRetry }) {
 }
 
 // BAD: Generic error
-<Text style={{ color: 'red' }}>Error</Text>
+<Text style={{ color: 'red' }}>Error</Text>;
 ```
 
 ### CON-3: Loading States (HIGH)
@@ -606,7 +582,7 @@ function ListLoading() {
 // BAD: Centered spinner
 <View style={styles.centered}>
   <ActivityIndicator size="large" />
-</View>
+</View>;
 ```
 
 ### CON-4: Confirmation Dialogs (MEDIUM)
@@ -618,18 +594,14 @@ import { Alert } from 'react-native';
 
 // GOOD: Confirmation before delete
 const handleDelete = () => {
-  Alert.alert(
-    'Delete Item',
-    'Are you sure? This cannot be undone.',
-    [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: confirmDelete,
-      },
-    ]
-  );
+  Alert.alert('Delete Item', 'Are you sure? This cannot be undone.', [
+    { text: 'Cancel', style: 'cancel' },
+    {
+      text: 'Delete',
+      style: 'destructive',
+      onPress: confirmDelete,
+    },
+  ]);
 };
 ```
 
@@ -641,7 +613,7 @@ Handle long text gracefully.
 // GOOD: Truncated text with numberOfLines
 <Text numberOfLines={2} ellipsizeMode="tail">
   {longDescription}
-</Text>
+</Text>;
 
 // GOOD: Expandable text
 function ExpandableText({ text, maxLines = 3 }) {
@@ -649,13 +621,9 @@ function ExpandableText({ text, maxLines = 3 }) {
 
   return (
     <View>
-      <Text numberOfLines={expanded ? undefined : maxLines}>
-        {text}
-      </Text>
+      <Text numberOfLines={expanded ? undefined : maxLines}>{text}</Text>
       <TouchableOpacity onPress={() => setExpanded(!expanded)}>
-        <Text style={styles.link}>
-          {expanded ? 'Show less' : 'Read more'}
-        </Text>
+        <Text style={styles.link}>{expanded ? 'Show less' : 'Read more'}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -748,13 +716,7 @@ function SearchScreen() {
     inputRef.current?.focus();
   }, []);
 
-  return (
-    <TextInput
-      ref={inputRef}
-      accessibilityLabel="Search"
-      placeholder="Search..."
-    />
-  );
+  return <TextInput ref={inputRef} accessibilityLabel="Search" placeholder="Search..." />;
 }
 ```
 
@@ -837,6 +799,7 @@ Group related elements for accessibility.
 Test with VoiceOver (iOS) and TalkBack (Android).
 
 **Checklist:**
+
 - [ ] All buttons/links announced with clear labels
 - [ ] Screen reader can navigate between all elements
 - [ ] Form inputs have labels read correctly
@@ -895,9 +858,7 @@ useEffect(() => {
 useEffect(() => {
   const controller = new AbortController();
 
-  fetch(url, { signal: controller.signal })
-    .then(handleResponse)
-    .catch(handleError);
+  fetch(url, { signal: controller.signal }).then(handleResponse).catch(handleError);
 
   return () => controller.abort();
 }, [url]);
@@ -976,9 +937,12 @@ const ListItem = memo(function ListItem({ item, onPress }) {
 });
 
 // GOOD: Stable callback
-const handlePress = useCallback((id) => {
-  navigation.navigate('Detail', { id });
-}, [navigation]);
+const handlePress = useCallback(
+  (id) => {
+    navigation.navigate('Detail', { id });
+  },
+  [navigation]
+);
 
 // GOOD: Memoized computation
 const sortedItems = useMemo(() => {
@@ -1012,14 +976,14 @@ function Dashboard() {
 
 During Ralph QA, these rules are checked and scored:
 
-| Category | Weight | Items |
-|----------|--------|-------|
-| Touch & Gestures | 20% | 6 rules |
-| Animation | 15% | 5 rules |
-| Layout | 20% | 5 rules |
-| Content | 15% | 5 rules |
-| Accessibility | 20% | 8 rules |
-| Performance | 20% | 6 rules |
+| Category         | Weight | Items   |
+| ---------------- | ------ | ------- |
+| Touch & Gestures | 20%    | 6 rules |
+| Animation        | 15%    | 5 rules |
+| Layout           | 20%    | 5 rules |
+| Content          | 15%    | 5 rules |
+| Accessibility    | 20%    | 8 rules |
+| Performance      | 20%    | 6 rules |
 
 **Pass Threshold:** 95% of HIGH/CRITICAL rules, 80% of MEDIUM rules
 

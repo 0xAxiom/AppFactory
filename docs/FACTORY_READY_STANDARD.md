@@ -8,15 +8,15 @@ Every project built by an App Factory pipeline must pass this standard before de
 
 ## Quick Reference
 
-| Gate | What It Proves | Required |
-|------|----------------|----------|
-| **Build** | Code compiles without errors | Yes |
-| **Run** | App/agent starts and responds | Yes |
-| **Test** | Smoke tests pass | Yes |
-| **Validate** | Contract requirements met | Yes |
-| **Package** | Ready for deployment | Yes |
-| **Launch Ready** | All gates passed, docs complete | Yes |
-| **Token Integration** | Contract address configured | Only if opted-in |
+| Gate                  | What It Proves                  | Required         |
+| --------------------- | ------------------------------- | ---------------- |
+| **Build**             | Code compiles without errors    | Yes              |
+| **Run**               | App/agent starts and responds   | Yes              |
+| **Test**              | Smoke tests pass                | Yes              |
+| **Validate**          | Contract requirements met       | Yes              |
+| **Package**           | Ready for deployment            | Yes              |
+| **Launch Ready**      | All gates passed, docs complete | Yes              |
+| **Token Integration** | Contract address configured     | Only if opted-in |
 
 ---
 
@@ -35,12 +35,14 @@ npm run build
 ```
 
 ### Pass Criteria
+
 - [ ] `npm install` exits with code 0
 - [ ] `npm run build` exits with code 0 (if build script exists)
 - [ ] No TypeScript errors (if TypeScript project)
 - [ ] No missing peer dependencies
 
 ### Fail Examples
+
 - Unresolved imports
 - TypeScript type errors
 - Missing required dependencies
@@ -54,18 +56,20 @@ npm run build
 
 ### Requirements
 
-| Pipeline | Run Command | Expected Behavior |
-|----------|-------------|-------------------|
-| **the-factory** (Mobile) | `npx expo start` | Expo dev server starts, QR code displayed |
-| **web3-factory** (Web) | `npm run dev` | Next.js server starts on localhost:3000 |
-| **agent-factory** (Agent) | `npm run dev` or `npm start` | HTTP server starts, responds to requests |
+| Pipeline                  | Run Command                  | Expected Behavior                         |
+| ------------------------- | ---------------------------- | ----------------------------------------- |
+| **the-factory** (Mobile)  | `npx expo start`             | Expo dev server starts, QR code displayed |
+| **web3-factory** (Web)    | `npm run dev`                | Next.js server starts on localhost:3000   |
+| **agent-factory** (Agent) | `npm run dev` or `npm start` | HTTP server starts, responds to requests  |
 
 ### Pass Criteria
+
 - [ ] Server/process starts without crashing
 - [ ] Listens on expected port (3000 for web, 8080 for agents)
 - [ ] Responds to basic request (health check or root route)
 
 ### Fail Examples
+
 - Server crashes on startup
 - Port already in use (not a code problem, but must be documented)
 - Missing environment variables cause crash
@@ -81,18 +85,20 @@ npm run build
 
 Each generated project must include smoke tests that verify:
 
-| Pipeline | Smoke Test | What It Checks |
-|----------|------------|----------------|
-| **the-factory** | Manual boot test | App loads without crash |
-| **web3-factory** | `curl localhost:3000` | Returns 200, HTML contains expected title |
-| **agent-factory** | `curl localhost:8080/health` | Returns 200, JSON with status: ok |
+| Pipeline          | Smoke Test                   | What It Checks                            |
+| ----------------- | ---------------------------- | ----------------------------------------- |
+| **the-factory**   | Manual boot test             | App loads without crash                   |
+| **web3-factory**  | `curl localhost:3000`        | Returns 200, HTML contains expected title |
+| **agent-factory** | `curl localhost:8080/health` | Returns 200, JSON with status: ok         |
 
 ### Pass Criteria
+
 - [ ] At least one smoke test documented in TESTING.md
 - [ ] Smoke test passes when run against fresh build
 - [ ] Expected output documented (so user knows what "pass" looks like)
 
 ### Fail Examples
+
 - No tests documented
 - Tests documented but fail
 - Tests require external services not available locally
@@ -107,13 +113,14 @@ Each generated project must include smoke tests that verify:
 
 Each pipeline has a validation script:
 
-| Pipeline | Validator | Contract |
-|----------|-----------|----------|
-| **the-factory** | `scripts/build_proof_gate.sh` | Expo build requirements |
-| **web3-factory** | `npm run validate` | Factory Ready Standard |
-| **agent-factory** | `npm run validate` | Factory Ready Standard |
+| Pipeline          | Validator                     | Contract                |
+| ----------------- | ----------------------------- | ----------------------- |
+| **the-factory**   | `scripts/build_proof_gate.sh` | Expo build requirements |
+| **web3-factory**  | `npm run validate`            | Factory Ready Standard  |
+| **agent-factory** | `npm run validate`            | Factory Ready Standard  |
 
 ### Pass Criteria
+
 - [ ] Required files present (see pipeline-specific contract)
 - [ ] Forbidden files absent (no .env, no node_modules, no secrets)
 - [ ] No hardcoded secrets or private keys
@@ -121,6 +128,7 @@ Each pipeline has a validation script:
 - [ ] Package.json has correct name and version
 
 ### Fail Examples
+
 - Missing required file (e.g., no tsconfig.json)
 - Forbidden file present (e.g., .env.local committed)
 - Hardcoded API key in source
@@ -134,13 +142,14 @@ Each pipeline has a validation script:
 
 ### Requirements
 
-| Pipeline | Package Method | Output |
-|----------|----------------|--------|
-| **the-factory** | EAS Build or local Expo | APK/IPA for app stores |
-| **web3-factory** | Push to GitHub | Repository ready for deployment |
-| **agent-factory** | Push to GitHub | Repository ready for deployment |
+| Pipeline          | Package Method          | Output                          |
+| ----------------- | ----------------------- | ------------------------------- |
+| **the-factory**   | EAS Build or local Expo | APK/IPA for app stores          |
+| **web3-factory**  | Push to GitHub          | Repository ready for deployment |
+| **agent-factory** | Push to GitHub          | Repository ready for deployment |
 
 ### Pass Criteria
+
 - [ ] Code pushed to GitHub repository
 - [ ] Repository is accessible (public or with appropriate access configured)
 - [ ] All required files included in commit
@@ -148,6 +157,7 @@ Each pipeline has a validation script:
 - [ ] factory_ready.json present (generated by validator)
 
 ### Fail Examples
+
 - Repository not pushed to GitHub
 - Private repo without appropriate access configured
 - Committed secrets in repository history
@@ -163,15 +173,16 @@ Each pipeline has a validation script:
 
 Every generated project must include:
 
-| File | Purpose | Required |
-|------|---------|----------|
-| `README.md` | Project overview | Yes |
-| `RUNBOOK.md` | Exact steps to run locally | Yes |
-| `TESTING.md` | How to verify it works | Yes |
-| `LAUNCH_CHECKLIST.md` | Pre/post-launch checks | Yes |
-| `FACTORY_IMPORT.md` | Deployment preparation guide | Yes |
+| File                  | Purpose                      | Required |
+| --------------------- | ---------------------------- | -------- |
+| `README.md`           | Project overview             | Yes      |
+| `RUNBOOK.md`          | Exact steps to run locally   | Yes      |
+| `TESTING.md`          | How to verify it works       | Yes      |
+| `LAUNCH_CHECKLIST.md` | Pre/post-launch checks       | Yes      |
+| `FACTORY_IMPORT.md`   | Deployment preparation guide | Yes      |
 
 ### Pass Criteria
+
 - [ ] All 5 docs present and non-empty
 - [ ] RUNBOOK commands are copy-pasteable
 - [ ] TESTING includes expected output
@@ -179,6 +190,7 @@ Every generated project must include:
 - [ ] FACTORY_IMPORT has preparation instructions
 
 ### Fail Examples
+
 - Missing documentation file
 - RUNBOOK commands reference files that don't exist
 - TESTING doesn't say what "pass" looks like
@@ -194,26 +206,29 @@ If token integration is OFF, this gate is automatically PASS and no token-relate
 
 ### Requirements (When Opted In)
 
-| Item | Location | Purpose |
-|------|----------|---------|
-| Config variable | `.env.example` or `src/config/constants.ts` | Where to paste contract address |
+| Item               | Location                                    | Purpose                              |
+| ------------------ | ------------------------------------------- | ------------------------------------ |
+| Config variable    | `.env.example` or `src/config/constants.ts` | Where to paste contract address      |
 | Integration module | `src/lib/token/` or `src/services/token.ts` | Clean interface for token operations |
-| Documentation | `TOKEN_INTEGRATION.md` | How to configure after launch |
-| Dry run mode | Stubbed provider or mock | Test without real chain calls |
+| Documentation      | `TOKEN_INTEGRATION.md`                      | How to configure after launch        |
+| Dry run mode       | Stubbed provider or mock                    | Test without real chain calls        |
 
 ### Pass Criteria (When Opted In)
+
 - [ ] Config variable clearly documented
 - [ ] Integration module compiles
 - [ ] Dry run mode works without real contract
 - [ ] TOKEN_INTEGRATION.md explains post-launch steps
 
 ### Fail Examples (When Opted In)
+
 - Hardcoded contract address (must be configurable)
 - Integration requires real chain connection to build
 - No documentation for where to paste address
 - Token logic crashes if address not configured
 
 ### Auto-Pass Criteria (When Opted Out)
+
 - [ ] No token-related imports or dependencies
 - [ ] No TOKEN_INTEGRATION.md file
 - [ ] No token config variables
@@ -244,24 +259,21 @@ Every pipeline validator must produce a `factory_ready.json` file:
     "token_integration": { "status": "SKIP", "details": "not opted in" }
   },
   "overall": "PASS",
-  "next_steps": [
-    "Push to GitHub",
-    "Prepare project metadata",
-    "Await Factory Launchpad availability"
-  ]
+  "next_steps": ["Push to GitHub", "Prepare project metadata", "Await Factory Launchpad availability"]
 }
 ```
 
 ### Status Values
 
-| Status | Meaning |
-|--------|---------|
-| `PASS` | Gate requirements fully met |
-| `FAIL` | Gate requirements not met (see details) |
+| Status | Meaning                                                         |
+| ------ | --------------------------------------------------------------- |
+| `PASS` | Gate requirements fully met                                     |
+| `FAIL` | Gate requirements not met (see details)                         |
 | `SKIP` | Gate not applicable (e.g., token integration when not opted in) |
-| `WARN` | Gate passed with non-blocking warnings |
+| `WARN` | Gate passed with non-blocking warnings                          |
 
 ### Overall Status
+
 - `PASS` - All required gates passed, project is launch-ready
 - `FAIL` - One or more required gates failed, see details for remediation
 
@@ -271,27 +283,27 @@ Every pipeline validator must produce a `factory_ready.json` file:
 
 ### Common Build Failures
 
-| Error | Likely Cause | Fix |
-|-------|--------------|-----|
-| `npm ERR! peer dep` | Mismatched peer dependencies | Run `npm install --legacy-peer-deps` or fix versions |
-| `Cannot find module X` | Missing dependency | Add to package.json and reinstall |
-| `TS2307: Cannot find module` | Missing types | Install `@types/X` package |
+| Error                        | Likely Cause                 | Fix                                                  |
+| ---------------------------- | ---------------------------- | ---------------------------------------------------- |
+| `npm ERR! peer dep`          | Mismatched peer dependencies | Run `npm install --legacy-peer-deps` or fix versions |
+| `Cannot find module X`       | Missing dependency           | Add to package.json and reinstall                    |
+| `TS2307: Cannot find module` | Missing types                | Install `@types/X` package                           |
 
 ### Common Run Failures
 
-| Error | Likely Cause | Fix |
-|-------|--------------|-----|
-| `EADDRINUSE` | Port already in use | Kill process on port or use different port |
+| Error                  | Likely Cause                 | Fix                                          |
+| ---------------------- | ---------------------------- | -------------------------------------------- |
+| `EADDRINUSE`           | Port already in use          | Kill process on port or use different port   |
 | `Missing required env` | Environment variable not set | Copy .env.example to .env and fill in values |
-| `Crash on startup` | Syntax error or bad import | Check console output, fix code |
+| `Crash on startup`     | Syntax error or bad import   | Check console output, fix code               |
 
 ### Common Validate Failures
 
-| Error | Likely Cause | Fix |
-|-------|--------------|-----|
-| `Missing required file` | File not created | Check build output, create file |
-| `Forbidden file present` | Committed something bad | Remove file, add to .gitignore |
-| `Hardcoded secret detected` | API key in source | Move to environment variable |
+| Error                       | Likely Cause            | Fix                             |
+| --------------------------- | ----------------------- | ------------------------------- |
+| `Missing required file`     | File not created        | Check build output, create file |
+| `Forbidden file present`    | Committed something bad | Remove file, add to .gitignore  |
+| `Hardcoded secret detected` | API key in source       | Move to environment variable    |
 
 ---
 
@@ -300,18 +312,21 @@ Every pipeline validator must produce a `factory_ready.json` file:
 Each pipeline may add requirements on top of this standard:
 
 ### the-factory (Mobile)
+
 - Expo SDK version compatibility
 - Required assets (icon.png, splash.png)
 - RevenueCat configuration
 - Privacy policy present
 
 ### web3-factory (Web)
+
 - Next.js configuration
 - Tailwind CSS setup
 - Wallet adapter configuration (if token-enabled)
 - Solana dependencies (if token-enabled)
 
 ### agent-factory (Agent)
+
 - agent.json manifest valid
 - HTTP interface with /health and /process endpoints
 - No shell permissions by default
@@ -321,9 +336,9 @@ Each pipeline may add requirements on top of this standard:
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | 2026-01-13 | Initial release |
+| Version | Date       | Changes         |
+| ------- | ---------- | --------------- |
+| 1.0     | 2026-01-13 | Initial release |
 
 ---
 

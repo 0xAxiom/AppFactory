@@ -1,9 +1,11 @@
 function extractProductInfo() {
   const asin = window.location.pathname.match(/\/dp\/([A-Z0-9]{10})/)?.[1];
-  
-  const priceElement = document.querySelector('.a-price-whole, .a-price .a-offscreen');
+
+  const priceElement = document.querySelector(
+    '.a-price-whole, .a-price .a-offscreen'
+  );
   let price = null;
-  
+
   if (priceElement) {
     const priceText = priceElement.textContent || priceElement.innerText;
     const priceMatch = priceText.match(/[\d,]+\.?\d*/);
@@ -11,37 +13,39 @@ function extractProductInfo() {
       price = parseFloat(priceMatch[0].replace(',', ''));
     }
   }
-  
-  const titleElement = document.querySelector('#productTitle, [data-feature-name="title"] h1');
+
+  const titleElement = document.querySelector(
+    '#productTitle, [data-feature-name="title"] h1'
+  );
   const title = titleElement ? titleElement.textContent.trim() : '';
-  
+
   return { asin, price, title };
 }
 
 function createBasePayButton() {
   const { asin, price, title } = extractProductInfo();
-  
+
   if (!asin) return;
-  
+
   const container = document.createElement('div');
   container.className = 'base-pay-container';
-  
+
   const button = document.createElement('button');
   button.className = 'base-pay-button';
-  
+
   const logo = document.createElement('img');
   logo.src = chrome.runtime.getURL('BasePayWhiteLogo.png');
   logo.alt = 'Base Pay';
-  
+
   button.appendChild(logo);
-  
+
   button.addEventListener('click', () => {
     const checkoutUrl = `http://localhost:3000/checkout?asin=${asin}&price=${price}&title=${encodeURIComponent(title)}`;
     window.open(checkoutUrl, '_blank');
   });
-  
+
   container.appendChild(button);
-  
+
   return container;
 }
 
@@ -51,16 +55,16 @@ function insertBasePayButton() {
     console.log('Base Pay button already exists');
     return;
   }
-  
+
   console.log('Trying to insert Base Pay button...');
-  
+
   // FORCE IT AT THE TOP - create a sticky banner at the very top of the page
   const basePayButton = createBasePayButton();
   if (!basePayButton) {
     console.log('Failed to create base pay button');
     return;
   }
-  
+
   // Create a banner container that sticks to the top
   const banner = document.createElement('div');
   banner.id = 'base-pay-banner';
@@ -78,7 +82,7 @@ function insertBasePayButton() {
     justify-content: center;
     align-items: center;
   `;
-  
+
   // Add some text and the button
   const text = document.createElement('span');
   text.textContent = 'Buy this with USDC on Base: ';
@@ -88,18 +92,18 @@ function insertBasePayButton() {
     margin-right: 15px;
     font-size: 14px;
   `;
-  
+
   banner.appendChild(text);
   banner.appendChild(basePayButton);
-  
+
   // Add some top margin to the body so content isn't hidden
   document.body.style.marginTop = '55px';
-  
+
   // Insert at the very beginning of body
   document.body.insertBefore(banner, document.body.firstChild);
-  
+
   console.log('Base Pay button inserted as top banner - GUARANTEED VISIBLE!');
-  
+
   // Add a close button
   const closeBtn = document.createElement('button');
   closeBtn.textContent = '×';
@@ -124,22 +128,24 @@ function insertBasePayButton() {
 
 function init() {
   if (window.location.pathname.includes('/dp/')) {
-    console.log('Amazon product page detected, initializing Base Pay button insertion');
-    
+    console.log(
+      'Amazon product page detected, initializing Base Pay button insertion'
+    );
+
     // Try multiple times with increasing delays
     setTimeout(insertBasePayButton, 1000);
     setTimeout(insertBasePayButton, 2000);
     setTimeout(insertBasePayButton, 3000);
-    
+
     const observer = new MutationObserver(() => {
       if (!document.querySelector('.base-pay-container')) {
         insertBasePayButton();
       }
     });
-    
+
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
   }
 }

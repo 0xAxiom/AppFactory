@@ -40,9 +40,9 @@ This app uses the **quickstart configuration** from the Base Account SDK:
 ```tsx
 const sdk = createBaseAccountSDK({
   subAccounts: {
-    creation: 'on-connect',    // Auto-create sub account on connect
-    defaultAccount: 'sub',      // Use sub account for transactions by default
-  }
+    creation: 'on-connect', // Auto-create sub account on connect
+    defaultAccount: 'sub', // Use sub account for transactions by default
+  },
 });
 ```
 
@@ -65,7 +65,7 @@ const sdk = createBaseAccountSDK({
 The USDC recipient address is set in `app/page.tsx`:
 
 ```tsx
-const RECIPIENT_ADDRESS = "0xd8da6bf26964af9d7eed9e03e53415d37aa96045";
+const RECIPIENT_ADDRESS = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
 ```
 
 ### USDC Contract
@@ -73,7 +73,7 @@ const RECIPIENT_ADDRESS = "0xd8da6bf26964af9d7eed9e03e53415d37aa96045";
 The app uses the USDC contract on Base Sepolia:
 
 ```tsx
-const USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
+const USDC_ADDRESS = '0x036CbD53842c5426634e7929541eC2318f3dCF7e';
 ```
 
 ## Learn More
@@ -85,4 +85,3 @@ const USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 ## License
 
 MIT
-

@@ -36,7 +36,9 @@ export class ValidationError extends AgentError {
 
 export class PathTraversalError extends AgentError {
   constructor(path: string) {
-    super(`Path traversal attempt blocked: ${path}`, 'PATH_TRAVERSAL', 403, { path });
+    super(`Path traversal attempt blocked: ${path}`, 'PATH_TRAVERSAL', 403, {
+      path,
+    });
     this.name = 'PathTraversalError';
   }
 }
@@ -50,14 +52,24 @@ export class DirectoryNotFoundError extends AgentError {
 
 export class FileUnreadableError extends AgentError {
   constructor(path: string, reason?: string) {
-    super(`File unreadable: ${path}${reason ? ` (${reason})` : ''}`, 'FILE_UNREADABLE', 400, { path, reason });
+    super(
+      `File unreadable: ${path}${reason ? ` (${reason})` : ''}`,
+      'FILE_UNREADABLE',
+      400,
+      { path, reason }
+    );
     this.name = 'FileUnreadableError';
   }
 }
 
 export class MaxIterationsError extends AgentError {
   constructor(iterations: number) {
-    super(`Maximum iterations (${iterations}) exceeded`, 'MAX_ITERATIONS', 200, { iterations });
+    super(
+      `Maximum iterations (${iterations}) exceeded`,
+      'MAX_ITERATIONS',
+      200,
+      { iterations }
+    );
     this.name = 'MaxIterationsError';
   }
 }
@@ -71,12 +83,17 @@ export class RateLimitError extends AgentError {
 
 export class LLMTimeoutError extends AgentError {
   constructor(timeoutMs: number) {
-    super(`LLM request timed out after ${timeoutMs}ms`, 'LLM_TIMEOUT', 504, { timeoutMs });
+    super(`LLM request timed out after ${timeoutMs}ms`, 'LLM_TIMEOUT', 504, {
+      timeoutMs,
+    });
     this.name = 'LLMTimeoutError';
   }
 }
 
-export function handleError(error: unknown): { statusCode: number; body: object } {
+export function handleError(error: unknown): {
+  statusCode: number;
+  body: object;
+} {
   if (error instanceof AgentError) {
     return {
       statusCode: error.statusCode,

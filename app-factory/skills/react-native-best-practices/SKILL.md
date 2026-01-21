@@ -9,10 +9,12 @@
 ## When to Activate
 
 This skill activates during:
+
 - **Milestone 3** (Feature Implementation) - After core features are built
 - **Phase 4** (Final Ralph QA) - As a scored compliance category
 
 Trigger phrases:
+
 - "Check React Native performance"
 - "Review code for best practices"
 - "Optimize component performance"
@@ -29,15 +31,15 @@ Trigger phrases:
 
 ## Rule Categories (by Priority)
 
-| Priority | Category | Impact | Description |
-|----------|----------|--------|-------------|
-| 1 | Eliminating Waterfalls | CRITICAL | Async patterns that prevent sequential blocking |
-| 2 | Bundle Optimization | CRITICAL | Import patterns that reduce bundle size |
-| 3 | List Performance | HIGH | FlatList/SectionList optimization |
-| 4 | Re-render Prevention | MEDIUM | Memoization and state patterns |
-| 5 | Memory Management | MEDIUM | Cleanup and resource handling |
-| 6 | Animation Performance | MEDIUM | Reanimated and gesture patterns |
-| 7 | Platform Patterns | LOW | iOS/Android specific optimizations |
+| Priority | Category               | Impact   | Description                                     |
+| -------- | ---------------------- | -------- | ----------------------------------------------- |
+| 1        | Eliminating Waterfalls | CRITICAL | Async patterns that prevent sequential blocking |
+| 2        | Bundle Optimization    | CRITICAL | Import patterns that reduce bundle size         |
+| 3        | List Performance       | HIGH     | FlatList/SectionList optimization               |
+| 4        | Re-render Prevention   | MEDIUM   | Memoization and state patterns                  |
+| 5        | Memory Management      | MEDIUM   | Cleanup and resource handling                   |
+| 6        | Animation Performance  | MEDIUM   | Reanimated and gesture patterns                 |
+| 7        | Platform Patterns      | LOW      | iOS/Android specific optimizations              |
 
 ---
 
@@ -70,11 +72,7 @@ const posts = await getPosts();
 const comments = await getComments();
 
 // GOOD
-const [user, posts, comments] = await Promise.all([
-  getUser(),
-  getPosts(),
-  getComments(),
-]);
+const [user, posts, comments] = await Promise.all([getUser(), getPosts(), getComments()]);
 ```
 
 ```typescript

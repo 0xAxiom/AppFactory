@@ -21,11 +21,20 @@ export default function PaywallScreen() {
   const [offerings, setOfferings] = useState<PurchasesOffering | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  const { purchase, restore, isLoading: isPurchasing, isPremium } = usePremiumStore();
 
-  const privacyUrl = Constants.expoConfig?.extra?.privacyUrl || process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL;
-  const termsUrl = Constants.expoConfig?.extra?.termsUrl || process.env.EXPO_PUBLIC_TERMS_OF_SERVICE_URL;
+  const {
+    purchase,
+    restore,
+    isLoading: isPurchasing,
+    isPremium,
+  } = usePremiumStore();
+
+  const privacyUrl =
+    Constants.expoConfig?.extra?.privacyUrl ||
+    process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL;
+  const termsUrl =
+    Constants.expoConfig?.extra?.termsUrl ||
+    process.env.EXPO_PUBLIC_TERMS_OF_SERVICE_URL;
 
   useEffect(() => {
     if (isPremium) {
@@ -40,11 +49,13 @@ export default function PaywallScreen() {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       const fetchedOfferings = await getOfferings();
-      
+
       if (!fetchedOfferings?.current) {
-        setError('No subscription plans available. Please check your RevenueCat configuration.');
+        setError(
+          'No subscription plans available. Please check your RevenueCat configuration.'
+        );
       } else {
         setOfferings(fetchedOfferings.current);
       }
@@ -75,12 +86,18 @@ export default function PaywallScreen() {
     try {
       const success = await restore();
       if (success) {
-        Alert.alert('Purchases Restored', 'Your subscription has been restored.');
+        Alert.alert(
+          'Purchases Restored',
+          'Your subscription has been restored.'
+        );
       } else {
         Alert.alert('No Purchases Found', 'No previous purchases were found.');
       }
     } catch (err) {
-      Alert.alert('Restore Failed', 'Failed to restore purchases. Please try again.');
+      Alert.alert(
+        'Restore Failed',
+        'Failed to restore purchases. Please try again.'
+      );
     }
   };
 
@@ -107,8 +124,8 @@ export default function PaywallScreen() {
   if (error) {
     return (
       <SafeAreaView style={styles.container}>
-        <ErrorState 
-          message={error} 
+        <ErrorState
+          message={error}
           onRetry={loadOfferings}
           retryLabel="Retry"
         />
@@ -119,7 +136,7 @@ export default function PaywallScreen() {
   if (!offerings || !offerings.availablePackages.length) {
     return (
       <SafeAreaView style={styles.container}>
-        <ErrorState 
+        <ErrorState
           title="No Plans Available"
           message="Subscription plans are not configured. Please contact support."
         />
@@ -133,13 +150,11 @@ export default function PaywallScreen() {
         <View style={styles.header}>
           <Text style={styles.title}>Upgrade to Premium</Text>
           <Text style={styles.subtitle}>
-            Unlock unlimited features and get the most out of {{APP_NAME}}.
+            Unlock unlimited features and get the most out of {{ APP_NAME }}.
           </Text>
         </View>
 
-        <View style={styles.features}>
-          {{PREMIUM_FEATURES}}
-        </View>
+        <View style={styles.features}>{{ PREMIUM_FEATURES }}</View>
 
         <View style={styles.packages}>
           {offerings.availablePackages.map((pkg) => (
@@ -152,13 +167,13 @@ export default function PaywallScreen() {
                   {pkg.storeProduct.priceString}
                 </Text>
               </View>
-              
+
               {pkg.storeProduct.subscriptionPeriod && (
                 <Text style={styles.packagePeriod}>
                   per {pkg.storeProduct.subscriptionPeriod}
                 </Text>
               )}
-              
+
               <Button
                 title={`Subscribe ${pkg.storeProduct.priceString}`}
                 onPress={() => handlePurchase(pkg)}
@@ -179,8 +194,9 @@ export default function PaywallScreen() {
           />
 
           <Text style={styles.disclaimer}>
-            Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period. 
-            Cancel anytime in your device settings.
+            Subscriptions automatically renew unless cancelled at least 24 hours
+            before the end of the current period. Cancel anytime in your device
+            settings.
           </Text>
 
           <View style={styles.links}>

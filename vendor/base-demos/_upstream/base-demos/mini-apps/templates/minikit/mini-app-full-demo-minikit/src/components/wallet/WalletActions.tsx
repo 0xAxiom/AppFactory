@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   useAccount,
   useSendTransaction,
@@ -11,24 +11,24 @@ import {
   useConnect,
   useSwitchChain,
   useChainId,
-} from "wagmi";
-import { config } from "~/components/providers/WagmiProvider";
-import { Button } from "~/components/ui/Button";
-import { truncateAddress } from "~/lib/truncateAddress";
-import { base, optimism } from "wagmi/chains";
-import { BaseError, UserRejectedRequestError } from "viem";
+} from 'wagmi';
+import { config } from '~/components/providers/WagmiProvider';
+import { Button } from '~/components/ui/Button';
+import { truncateAddress } from '~/lib/truncateAddress';
+import { base, optimism } from 'wagmi/chains';
+import { BaseError, UserRejectedRequestError } from 'viem';
 
-import { SignInWithBaseButton } from "@base-org/account-ui/react";
-import { createBaseAccountSDK } from "@base-org/account";
-import { METADATA } from "~/lib/utils";
-import { SiweMessage } from "siwe";
+import { SignInWithBaseButton } from '@base-org/account-ui/react';
+import { createBaseAccountSDK } from '@base-org/account';
+import { METADATA } from '~/lib/utils';
+import { SiweMessage } from 'siwe';
 
 // dylsteck.base.eth
-const RECIPIENT_ADDRESS = "0x8342A48694A74044116F330db5050a267b28dD85";
+const RECIPIENT_ADDRESS = '0x8342A48694A74044116F330db5050a267b28dD85';
 
 const baseAccountSDK = createBaseAccountSDK({
   appName: METADATA.name,
-  appLogoUrl: METADATA.iconImageUrl
+  appLogoUrl: METADATA.iconImageUrl,
 });
 
 const renderError = (error: Error | null): React.ReactElement | null => {
@@ -73,13 +73,13 @@ export function WalletConnect() {
           }
           className="w-full"
         >
-          {isConnected ? "Disconnect" : "Connect"}
+          {isConnected ? 'Disconnect' : 'Connect'}
         </Button>
       </div>
 
       {/* Base Account Sign In Button */}
       <div className="mb-4">
-        <SignInWithBaseButton 
+        <SignInWithBaseButton
           align="center"
           variant="solid"
           colorScheme="light"
@@ -97,7 +97,9 @@ export function WalletConnect() {
           <div className="flex justify-between items-center text-sm">
             <div>
               <span className="text-muted-foreground">Address:</span>
-              <div className="font-mono text-foreground mt-1">{truncateAddress(address)}</div>
+              <div className="font-mono text-foreground mt-1">
+                {truncateAddress(address)}
+              </div>
             </div>
             <div className="text-right">
               <span className="text-muted-foreground">Chain:</span>
@@ -129,7 +131,7 @@ export function SignMessage() {
       });
     }
 
-    signMessage({ message: "Hello from Frames v2!" });
+    signMessage({ message: 'Hello from Frames v2!' });
   }, [connectAsync, isConnected, signMessage]);
 
   return (
@@ -176,9 +178,9 @@ export function SignSiweMessage() {
     const siweMessage = new SiweMessage({
       domain: window.location.host,
       address,
-      statement: "Sign in with Ethereum to the app.",
+      statement: 'Sign in with Ethereum to the app.',
       uri: window.location.origin,
-      version: "1",
+      version: '1',
       chainId: chainId || base.id,
       nonce: Math.random().toString(36).substring(2, 15),
     });
@@ -241,14 +243,16 @@ export function SendEth() {
       {data && (
         <div className="mt-2 p-2 bg-gray-100 rounded text-xs">
           <div className="text-gray-600 mb-1">Response</div>
-          <div className="text-green-600 font-mono break-all">Hash: {truncateAddress(data)}</div>
+          <div className="text-green-600 font-mono break-all">
+            Hash: {truncateAddress(data)}
+          </div>
           <div className="text-green-600 font-mono">
-            Status:{" "}
+            Status:{' '}
             {isConfirming
-              ? "Confirming..."
+              ? 'Confirming...'
               : isConfirmed
-              ? "Confirmed!"
-              : "Pending"}
+                ? 'Confirmed!'
+                : 'Pending'}
           </div>
         </div>
       )}
@@ -269,17 +273,17 @@ export function SignTypedData() {
   const signTyped = useCallback((): void => {
     signTypedData({
       domain: {
-        name: "Frames v2 Demo",
-        version: "1",
+        name: 'Frames v2 Demo',
+        version: '1',
         chainId,
       },
       types: {
-        Message: [{ name: "content", type: "string" }],
+        Message: [{ name: 'content', type: 'string' }],
       },
       message: {
-        content: "Hello from Frames v2!",
+        content: 'Hello from Frames v2!',
       },
-      primaryType: "Message",
+      primaryType: 'Message',
     });
   }, [chainId, signTypedData]);
 
@@ -317,7 +321,7 @@ export function SwitchChain() {
         disabled={isSwitchChainPending}
         isLoading={isSwitchChainPending}
       >
-        Switch to {chainId === base.id ? "Optimism" : "Base"}
+        Switch to {chainId === base.id ? 'Optimism' : 'Base'}
       </Button>
       {isSwitchChainError && renderError(switchChainError)}
     </>
@@ -343,7 +347,7 @@ export function SendTransaction() {
     sendTransaction(
       {
         to: RECIPIENT_ADDRESS as `0x${string}`,
-        data: "0x9846cd9efc000023c0",
+        data: '0x9846cd9efc000023c0',
       },
       {
         onSuccess: (hash) => {
@@ -366,19 +370,19 @@ export function SendTransaction() {
       {txHash && (
         <div className="mt-2 p-2 bg-gray-100 rounded text-xs">
           <div className="text-gray-600 mb-1">Response</div>
-          <div className="text-green-600 font-mono break-all">Hash: {truncateAddress(txHash)}</div>
+          <div className="text-green-600 font-mono break-all">
+            Hash: {truncateAddress(txHash)}
+          </div>
           <div className="text-green-600 font-mono">
-            Status:{" "}
+            Status:{' '}
             {isConfirming
-              ? "Confirming..."
+              ? 'Confirming...'
               : isConfirmed
-              ? "Confirmed!"
-              : "Pending"}
+                ? 'Confirmed!'
+                : 'Pending'}
           </div>
         </div>
       )}
     </>
   );
 }
-
- 

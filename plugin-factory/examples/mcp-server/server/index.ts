@@ -12,18 +12,34 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 // Import tools
-import { queryDecisions, queryDecisionsSchema } from '../src/tools/query-decisions.js';
+import {
+  queryDecisions,
+  queryDecisionsSchema,
+} from '../src/tools/query-decisions.js';
 import { addDecision, addDecisionSchema } from '../src/tools/add-decision.js';
 import { getDecision, getDecisionSchema } from '../src/tools/get-decision.js';
 import { linkCommit, linkCommitSchema } from '../src/tools/link-commit.js';
-import { listProjects, listProjectsSchema } from '../src/tools/list-projects.js';
-import { exportDecisions, exportDecisionsSchema } from '../src/tools/export-decisions.js';
+import {
+  listProjects,
+  listProjectsSchema,
+} from '../src/tools/list-projects.js';
+import {
+  exportDecisions,
+  exportDecisionsSchema,
+} from '../src/tools/export-decisions.js';
 
 // Import resources
-import { getRecentResource, getProjectResource, getFileResource } from '../src/resources/decisions.js';
+import {
+  getRecentResource,
+  getProjectResource,
+  getFileResource,
+} from '../src/resources/decisions.js';
 
 // Import prompts
-import { generateWhyPrompt, generateDecisionSummary } from '../src/prompts/why-prompt.js';
+import {
+  generateWhyPrompt,
+  generateDecisionSummary,
+} from '../src/prompts/why-prompt.js';
 
 // Initialize database (imports run schema creation)
 import '../src/db/schema.js';
@@ -94,7 +110,9 @@ server.resource(
   'decisions://project/*',
   'Architectural decisions for a specific project',
   async (uri) => {
-    const projectPath = decodeURIComponent(uri.pathname.replace('/project/', ''));
+    const projectPath = decodeURIComponent(
+      uri.pathname.replace('/project/', '')
+    );
     return getProjectResource(projectPath);
   }
 );
@@ -116,10 +134,16 @@ server.prompt(
   'why_prompt',
   'Template for asking "why" questions about the codebase with relevant decision context',
   {
-    question: z.string().describe('The question to answer, e.g., "Why do we use Zustand?"'),
-    project: z.string().optional().describe('Optional project path to scope the search'),
+    question: z
+      .string()
+      .describe('The question to answer, e.g., "Why do we use Zustand?"'),
+    project: z
+      .string()
+      .optional()
+      .describe('Optional project path to scope the search'),
   },
-  async (args) => generateWhyPrompt(args as Parameters<typeof generateWhyPrompt>[0])
+  async (args) =>
+    generateWhyPrompt(args as Parameters<typeof generateWhyPrompt>[0])
 );
 
 server.prompt(
@@ -127,9 +151,15 @@ server.prompt(
   'Generate an architectural decision summary for onboarding new team members',
   {
     project: z.string().describe('Project path to summarize decisions for'),
-    category: z.string().optional().describe('Optional category to focus on (e.g., "authentication")'),
+    category: z
+      .string()
+      .optional()
+      .describe('Optional category to focus on (e.g., "authentication")'),
   },
-  async (args) => generateDecisionSummary(args as Parameters<typeof generateDecisionSummary>[0])
+  async (args) =>
+    generateDecisionSummary(
+      args as Parameters<typeof generateDecisionSummary>[0]
+    )
 );
 
 // ============================================================================

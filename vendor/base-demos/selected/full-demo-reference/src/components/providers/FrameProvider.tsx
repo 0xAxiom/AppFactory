@@ -1,7 +1,13 @@
-'use client'
+'use client';
 
 import { useMiniKit, useIsInMiniApp } from '@coinbase/onchainkit/minikit';
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from 'react';
 
 interface SafeAreaInsets {
   top: number;
@@ -41,7 +47,7 @@ const FrameContext = createContext<FrameContextType>(null);
 
 export const useFrameContext = () => useContext(FrameContext);
 
-export default function FrameProvider({ children }: { children: ReactNode }){
+export default function FrameProvider({ children }: { children: ReactNode }) {
   const [frameContext, setFrameContext] = useState<FrameContextType>(null);
   const { context } = useMiniKit();
   const { isInMiniApp } = useIsInMiniApp();
@@ -50,26 +56,26 @@ export default function FrameProvider({ children }: { children: ReactNode }){
     const init = async () => {
       try {
         // Small delay to ensure context is fully loaded
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-        setFrameContext({ 
-          context: context, 
-          isInMiniApp: isInMiniApp ?? false 
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        setFrameContext({
+          context: context,
+          isInMiniApp: isInMiniApp ?? false,
         });
-        
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        setFrameContext({ 
-          context: { error: 'Failed to initialize' }, 
-          isInMiniApp: false 
+        setFrameContext({
+          context: { error: 'Failed to initialize' },
+          isInMiniApp: false,
         });
       }
-    }
-    
-    init();
-  }, [context, isInMiniApp])
+    };
 
-  return(
+    init();
+  }, [context, isInMiniApp]);
+
+  return (
     <FrameContext.Provider value={frameContext}>
       {children}
     </FrameContext.Provider>

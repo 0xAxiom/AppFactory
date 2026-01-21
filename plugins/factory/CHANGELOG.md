@@ -16,6 +16,7 @@ First public release of the Factory plugin for the Claude Plugin Marketplace.
 #### Added
 
 **Commands**
+
 - `/factory help` — Display command reference and behavioral contract
 - `/factory plan <idea>` — Generate execution plan without running
 - `/factory run <pipeline> <idea>` — Execute pipeline with mandatory approval gate
@@ -23,6 +24,7 @@ First public release of the Factory plugin for the Claude Plugin Marketplace.
 - `/factory audit` — View execution audit log
 
 **Pipelines**
+
 - `miniapp` — Base Mini App generation (MiniKit + Next.js)
 - `dapp` — Onchain dApp generation (Next.js + Web3)
 - `agent` — AI agent scaffold generation (Node.js + Rig)
@@ -30,16 +32,19 @@ First public release of the Factory plugin for the Claude Plugin Marketplace.
 - `plugin` — Claude plugin generation (MCP + Skills)
 
 **Agents**
+
 - `factory-executor` — Handles plan generation and approved execution
 - `factory-ralph` — Orchestrates adversarial QA review loops
 
 **Governance**
+
 - Plan-first execution model
 - Mandatory approval gates (cannot be bypassed)
 - Full audit logging via prompt-factory
 - Offline-by-default operation
 
 **Documentation**
+
 - README.md — Marketplace-ready documentation
 - INVARIANTS.md — Non-negotiable behavioral constraints
 - PROOF_GATE.md — Verification checklist

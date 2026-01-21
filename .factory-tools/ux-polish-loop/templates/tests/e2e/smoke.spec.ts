@@ -123,7 +123,9 @@ test.describe('Navigation', () => {
         expect(url).toContain(href);
 
         // Verify page loaded without error
-        await expect(page.locator('text=Something went wrong')).not.toBeVisible();
+        await expect(
+          page.locator('text=Something went wrong')
+        ).not.toBeVisible();
       }
     }
   });
@@ -170,7 +172,9 @@ test.describe('Accessibility Basics', () => {
     await page.waitForLoadState('networkidle');
 
     // Get all buttons and links
-    const interactive = page.locator('button, a[href], input, select, textarea, [tabindex="0"]');
+    const interactive = page.locator(
+      'button, a[href], input, select, textarea, [tabindex="0"]'
+    );
     const count = await interactive.count();
 
     // Tab through elements and verify focus is visible

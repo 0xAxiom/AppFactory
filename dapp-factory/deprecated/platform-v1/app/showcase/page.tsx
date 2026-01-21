@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { ExternalLink, Check, Clock } from "lucide-react";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ExternalLink, Check, Clock } from 'lucide-react';
 
 interface ShowcaseApp {
   id: string;
@@ -13,7 +13,7 @@ interface ShowcaseApp {
   creator_wallet: string;
   draft_url: string;
   production_url: string | null;
-  status: "draft" | "deployed";
+  status: 'draft' | 'deployed';
   twitter: string | null;
   website: string | null;
   created_at: string;
@@ -26,13 +26,13 @@ export default function ShowcasePage() {
   useEffect(() => {
     async function fetchApps() {
       try {
-        const response = await fetch("/api/showcase");
+        const response = await fetch('/api/showcase');
         const data = await response.json();
         if (data.success) {
           setApps(data.apps);
         }
       } catch (error) {
-        console.error("Failed to fetch apps:", error);
+        console.error('Failed to fetch apps:', error);
       } finally {
         setLoading(false);
       }
@@ -46,7 +46,9 @@ export default function ShowcasePage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold mb-2">Showcase</h1>
-          <p className="text-zinc-400">Apps built and launched with Web3 Factory</p>
+          <p className="text-zinc-400">
+            Apps built and launched with Web3 Factory
+          </p>
         </div>
         <Link
           href="/upload"
@@ -72,10 +74,7 @@ export default function ShowcasePage() {
       ) : apps.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-zinc-400 mb-4">No apps launched yet.</p>
-          <Link
-            href="/upload"
-            className="text-blue-500 hover:underline"
-          >
+          <Link href="/upload" className="text-blue-500 hover:underline">
             Be the first to launch →
           </Link>
         </div>
@@ -92,7 +91,7 @@ export default function ShowcasePage() {
 
 function AppCard({ app }: { app: ShowcaseApp }) {
   const appUrl = app.production_url || app.draft_url;
-  const isDeployed = app.status === "deployed";
+  const isDeployed = app.status === 'deployed';
 
   return (
     <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-zinc-700 transition">
@@ -101,7 +100,7 @@ function AppCard({ app }: { app: ShowcaseApp }) {
         <span
           className={`
             flex items-center gap-1 text-xs px-2 py-1 rounded-full
-            ${isDeployed ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"}
+            ${isDeployed ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'}
           `}
         >
           {isDeployed ? (
@@ -116,7 +115,9 @@ function AppCard({ app }: { app: ShowcaseApp }) {
         </span>
       </div>
 
-      <p className="text-zinc-400 text-sm mb-4 line-clamp-2">{app.description}</p>
+      <p className="text-zinc-400 text-sm mb-4 line-clamp-2">
+        {app.description}
+      </p>
 
       <div className="flex items-center gap-4 mb-4">
         <div className="flex items-center gap-1">
@@ -145,7 +146,7 @@ function AppCard({ app }: { app: ShowcaseApp }) {
 
         {app.twitter && (
           <a
-            href={`https://twitter.com/${app.twitter.replace("@", "")}`}
+            href={`https://twitter.com/${app.twitter.replace('@', '')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-zinc-500 hover:text-white transition"

@@ -1,9 +1,11 @@
 # Scaffold Plan
 
 ## Template
+
 MiniKit Next.js Starter (based on upstream new-mini-app-quickstart)
 
 ## Routes
+
 - `/` - Main app: view active commitments, create new
 - `/commitment/[id]` - View single commitment details
 - `/api/webhook` - Farcaster notification webhook
@@ -14,6 +16,7 @@ MiniKit Next.js Starter (based on upstream new-mini-app-quickstart)
 ## Components
 
 ### Core Components
+
 - `CommitmentCard.tsx` - Display a single commitment
 - `CreateCommitmentForm.tsx` - Form to create new commitment
 - `PartnerSelector.tsx` - Search/select accountability partner by FID
@@ -22,10 +25,12 @@ MiniKit Next.js Starter (based on upstream new-mini-app-quickstart)
 - `CountdownTimer.tsx` - Time remaining display
 
 ### Layout Components
+
 - `Header.tsx` - App header with user info
 - `TabNav.tsx` - Switch between My Commitments / Partner Requests
 
 ### State/Hooks
+
 - `useCommitments.ts` - Fetch user's commitments
 - `usePartnerRequests.ts` - Fetch commitments needing verification
 - `useCreateCommitment.ts` - Mutation for creating commitment
@@ -33,6 +38,7 @@ MiniKit Next.js Starter (based on upstream new-mini-app-quickstart)
 ## Data Layer
 
 ### State Management
+
 - React Query for server state
 - Local state for forms
 - Wagmi for wallet connection
@@ -56,6 +62,7 @@ interface Commitment {
 ```
 
 ## Assets Required
+
 - Icon: 1024x1024 PNG (target/checkmark theme)
 - Splash: 200x200 PNG
 - Hero: 1200x630 PNG
@@ -63,6 +70,7 @@ interface Commitment {
 - OG Image: 1200x630 PNG
 
 ## Dependencies
+
 ```json
 {
   "@coinbase/onchainkit": "^1.0.3",
@@ -77,6 +85,7 @@ interface Commitment {
 ```
 
 ## Color Scheme
+
 - Primary: #10B981 (Emerald - success/achievement)
 - Secondary: #F59E0B (Amber - stakes/warning)
 - Background: #0A0A0A (Dark)
@@ -85,6 +94,7 @@ interface Commitment {
 ## User Flows
 
 ### Create Commitment
+
 1. Tap "New Commitment"
 2. Enter goal description
 3. Select stake amount (presets: 0.001, 0.005, 0.01, 0.05 ETH)
@@ -95,6 +105,7 @@ interface Commitment {
 8. Share to Farcaster
 
 ### Verify as Partner
+
 1. Receive notification of partner request
 2. Open commitment details
 3. When deadline passes, verify:
@@ -102,6 +113,7 @@ interface Commitment {
    - "They failed" → Receive 95% of stake
 
 ### Complete Own Goal
+
 1. View active commitment
 2. Wait for partner verification after deadline
 3. Receive stake back (if verified complete)

@@ -27,12 +27,12 @@ interface BasePayCallback {
 export async function POST(request: NextRequest) {
   try {
     const data: BasePayCallback = await request.json();
-    
+
     console.log('Received Base Pay callback data:', data);
-    
+
     // Store user data temporarily (in production, use a proper database or session)
     // For now, we'll send it back to the client via a redirect or message
-    
+
     // Validate the data
     if (!data.address || !data.address.address1 || !data.address.city) {
       return NextResponse.json(
@@ -40,10 +40,10 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    
+
     // In a real app, you'd store this data and redirect the user
     // For this demo, we'll use localStorage and postMessage to communicate with the parent window
-    
+
     const html = `
       <!DOCTYPE html>
       <html>
@@ -76,13 +76,12 @@ export async function POST(request: NextRequest) {
         </body>
       </html>
     `;
-    
+
     return new NextResponse(html, {
       headers: {
         'Content-Type': 'text/html',
       },
     });
-    
   } catch (error) {
     console.error('Callback error:', error);
     return NextResponse.json(

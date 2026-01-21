@@ -69,5 +69,6 @@ Respond with:
 ## Natural Language Support
 
 Support question-style queries:
+
 - "Why do we use Zustand?" -> Search for zustand, state, redux decisions
 - "How is auth handled?" -> Search for auth, authentication, login decisions

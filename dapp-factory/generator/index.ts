@@ -39,7 +39,7 @@ function generateSlug(idea: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, '')
     .split(/\s+/)
-    .filter(w => w.length > 2)
+    .filter((w) => w.length > 2)
     .slice(0, 3);
 
   return words.join('-') || 'web3-app';
@@ -51,7 +51,7 @@ function generateSlug(idea: string): string {
 function generateAppName(slug: string): string {
   return slug
     .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
 
@@ -156,7 +156,9 @@ This generates intermediate prompt files for debugging or manual workflows.
   const idea = args.join(' ');
 
   if (idea.length < 10) {
-    console.error('\nError: Provide a more detailed app idea (at least 10 characters).\n');
+    console.error(
+      '\nError: Provide a more detailed app idea (at least 10 characters).\n'
+    );
     process.exit(1);
   }
 

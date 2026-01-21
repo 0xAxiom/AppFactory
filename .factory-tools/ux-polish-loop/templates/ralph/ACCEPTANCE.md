@@ -81,12 +81,12 @@ Mark as verified only when you can prove it passes.
 
 Issues that MUST be fixed before completion promise:
 
-| Severity | Description | Blocks Promise? |
-|----------|-------------|-----------------|
-| CRITICAL | App crash, data loss, security | YES |
-| HIGH | Major feature broken, bad UX | YES |
-| MEDIUM | Minor feature issue, cosmetic | NO (document in QA_NOTES) |
-| LOW | Nice-to-have improvement | NO |
+| Severity | Description                    | Blocks Promise?           |
+| -------- | ------------------------------ | ------------------------- |
+| CRITICAL | App crash, data loss, security | YES                       |
+| HIGH     | Major feature broken, bad UX   | YES                       |
+| MEDIUM   | Minor feature issue, cosmetic  | NO (document in QA_NOTES) |
+| LOW      | Nice-to-have improvement       | NO                        |
 
 ---
 

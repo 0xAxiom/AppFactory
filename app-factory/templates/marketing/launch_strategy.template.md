@@ -7,6 +7,7 @@
 ## Launch Phases
 
 ### Phase 1: Pre-Launch Preparation
+
 - [ ] Finalize app and submit to stores
 - [ ] Set up landing page (optional)
 - [ ] Create social media accounts
@@ -17,12 +18,14 @@
 - [ ] Set up analytics to track launch
 
 ### Phase 2: Launch Day
+
 - [ ] Publish all launch content
 - [ ] Post to communities
 - [ ] Engage with every comment/reply
 - [ ] Monitor for issues
 
 ### Phase 3: Post-Launch
+
 - [ ] Respond to all reviews
 - [ ] Gather feedback for next version
 - [ ] Write retrospective
@@ -34,6 +37,7 @@
 **Best for:** Apps with broad appeal, novel concepts, or strong visuals.
 
 ### Preparation
+
 - [ ] Create Product Hunt account (https://producthunt.com)
 - [ ] Build "upcoming" page before launch
 - [ ] Gather 5-10 friends/supporters to upvote on launch day
@@ -44,11 +48,13 @@
   - Maker comment (first comment from you)
 
 ### Launch Day Tactics
+
 - **Best days:** Tuesday, Wednesday, Thursday
 - **Best time:** 12:01 AM PT (Product Hunt resets at midnight PT)
 - **Post early:** Be live before most of the US wakes up
 
 ### Maker Comment Template
+
 ```
 Hey Product Hunt! 👋
 
@@ -77,6 +83,7 @@ I'd love your feedback! What features would you want to see?
 ### Reddit
 
 **Relevant subreddits** (choose 3-5):
+
 - r/SideProject - for indie makers
 - r/apps - general app discussion
 - r/iOSProgramming - if iOS-focused
@@ -84,12 +91,14 @@ I'd love your feedback! What features would you want to see?
 - r/[your-niche] - e.g., r/productivity, r/fitness, r/meditation
 
 **Rules:**
+
 - Read subreddit rules before posting
 - Don't spam - one post per subreddit
 - Engage genuinely in comments
 - Share your story, not just the app
 
 **Post template:**
+
 ```
 Title: I built [what it does] - [unique angle]
 
@@ -113,11 +122,13 @@ It's free to try on [iOS/Android]. Would love feedback from this community!
 **URL:** https://www.indiehackers.com
 
 **Best sections:**
+
 - Product launches
 - Milestones (share revenue/user numbers)
 - Ask IH (for feedback)
 
 **What works:**
+
 - Transparent revenue numbers
 - Behind-the-scenes building stories
 - Lessons learned
@@ -129,6 +140,7 @@ It's free to try on [iOS/Android]. Would love feedback from this community!
 **Format:** "Show HN: [App Name] – [One-line description]"
 
 **Tips:**
+
 - Technical audience - explain how it works
 - Be ready for critical feedback
 - Respond to every comment
@@ -137,6 +149,7 @@ It's free to try on [iOS/Android]. Would love feedback from this community!
 ### Twitter/X
 
 **Launch thread structure:**
+
 1. Hook: "I just launched [App Name]"
 2. Problem you're solving
 3. Screenshot/video of the app
@@ -150,6 +163,7 @@ It's free to try on [iOS/Android]. Would love feedback from this community!
 ### Discord Communities
 
 **Relevant servers:**
+
 - Indie Hackers Discord
 - WIP (Work in Progress)
 - Expo Discord (for Expo apps)
@@ -160,11 +174,13 @@ It's free to try on [iOS/Android]. Would love feedback from this community!
 ## Email Launch (If You Have a List)
 
 ### Subject lines that work:
+
 - "{{APP_NAME}} is live! 🚀"
 - "I finally built the [thing] I always wanted"
 - "After [X months], it's here"
 
 ### Email structure:
+
 1. Personal greeting
 2. Announcement (1-2 sentences)
 3. What problem it solves
@@ -177,38 +193,43 @@ It's free to try on [iOS/Android]. Would love feedback from this community!
 ## Measuring Success
 
 ### First 24 Hours
+
 - [ ] Track downloads (App Store Connect / Play Console)
 - [ ] Monitor Product Hunt ranking (if applicable)
 - [ ] Count social mentions
 - [ ] Note any viral posts
 
 ### First Week Metrics
-| Metric | Goal | Actual |
-|--------|------|--------|
-| Downloads | 100+ | |
-| App Store rating | 4.5+ | |
-| Reviews | 10+ | |
-| Website visits | 500+ | |
-| Social followers | 50+ | |
+
+| Metric           | Goal | Actual |
+| ---------------- | ---- | ------ |
+| Downloads        | 100+ |        |
+| App Store rating | 4.5+ |        |
+| Reviews          | 10+  |        |
+| Website visits   | 500+ |        |
+| Social followers | 50+  |        |
 
 ### RevenueCat Metrics
-| Metric | Goal | Actual |
-|--------|------|--------|
-| Trial starts | 20+ | |
-| Conversions | 5+ | |
-| MRR | $50+ | |
+
+| Metric       | Goal | Actual |
+| ------------ | ---- | ------ |
+| Trial starts | 20+  |        |
+| Conversions  | 5+   |        |
+| MRR          | $50+ |        |
 
 ---
 
 ## Post-Launch Momentum
 
 ### Immediate Follow-Up
+
 - [ ] Respond to all reviews (especially negative ones)
 - [ ] Ship quick fixes based on feedback
 - [ ] Share milestone updates (#buildinpublic)
 - [ ] Reach out to app review sites/blogs
 
 ### Growth Phase
+
 - [ ] Plan next version based on feedback
 - [ ] Start content marketing (blog, YouTube, etc.)
 - [ ] Consider paid acquisition (if unit economics work)
@@ -218,16 +239,17 @@ It's free to try on [iOS/Android]. Would love feedback from this community!
 
 ## App Review Sites to Contact
 
-| Site | Type | URL |
-|------|------|-----|
-| AppAdvice | iOS reviews | https://appadvice.com |
+| Site           | Type            | URL                       |
+| -------------- | --------------- | ------------------------- |
+| AppAdvice      | iOS reviews     | https://appadvice.com     |
 | Android Police | Android reviews | https://androidpolice.com |
-| 148Apps | iOS reviews | https://www.148apps.com |
-| Droid Life | Android reviews | https://droidlife.com |
-| Product Hunt | Launch platform | https://producthunt.com |
-| BetaList | Pre-launch | https://betalist.com |
+| 148Apps        | iOS reviews     | https://www.148apps.com   |
+| Droid Life     | Android reviews | https://droidlife.com     |
+| Product Hunt   | Launch platform | https://producthunt.com   |
+| BetaList       | Pre-launch      | https://betalist.com      |
 
 **Pitch template:**
+
 ```
 Subject: New [category] app for review: {{APP_NAME}}
 

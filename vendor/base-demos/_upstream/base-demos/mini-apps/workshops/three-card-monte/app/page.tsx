@@ -15,7 +15,6 @@ export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const [frameAdded, setFrameAdded] = useState(false);
 
-
   const addFrame = useAddFrame();
   const openUrl = useOpenUrl();
 
@@ -56,7 +55,6 @@ export default function App() {
 
     return null;
   }, [context, frameAdded, handleAddFrame]);
-
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">

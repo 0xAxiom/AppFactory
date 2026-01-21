@@ -143,6 +143,7 @@ For each skill you want to update:
 ### Step 4: Document
 
 Update this file with:
+
 - New "Last Synced" date
 - Any notable changes from upstream
 - Any customizations you made
@@ -162,30 +163,38 @@ Each skill follows this structure:
 **Source:** Origin URL
 
 ## When to Activate
+
 - Phase triggers
 - Keyword triggers
 
 ## How to Use This Skill
+
 1. During Build: ...
 2. During Ralph: ...
 
 ## Quick Reference
+
 ### CRITICAL Rules
+
 [Code examples]
 
 ### HIGH Rules
+
 [Code examples]
 
 ## Compliance Scoring
+
 [Scoring formula and thresholds]
 
 ## Integration with Ralph
+
 [How Ralph uses this skill]
 ```
 
 ### AGENTS.md (Agent Consumption)
 
 Contains the full rules in a format optimized for LLM consumption:
+
 - All rules with IDs
 - Bad/Good code examples
 - Severity levels
@@ -195,13 +204,13 @@ Contains the full rules in a format optimized for LLM consumption:
 
 ## Pipelines Using Agent-Skills
 
-| Pipeline | Skills Used | Integration Point |
-|----------|-------------|-------------------|
-| app-factory | react-native-best-practices, mobile-ui-guidelines, mobile-interface-guidelines, expo-standards | Phase 3 (Build), Phase 4 (Ralph) |
-| dapp-factory | react-best-practices, web-design-guidelines, web-interface-guidelines, vercel-deploy | Phase 3 (Build), Phase 4 (Ralph) |
-| website-pipeline | react-best-practices, web-design-guidelines, seo-guidelines | Phase 4-5 (Build), Phase 6 (Audit) |
-| agent-factory | None (backend-only) | N/A |
-| plugin-factory | None (non-UI) | N/A |
+| Pipeline         | Skills Used                                                                                    | Integration Point                  |
+| ---------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------- |
+| app-factory      | react-native-best-practices, mobile-ui-guidelines, mobile-interface-guidelines, expo-standards | Phase 3 (Build), Phase 4 (Ralph)   |
+| dapp-factory     | react-best-practices, web-design-guidelines, web-interface-guidelines, vercel-deploy           | Phase 3 (Build), Phase 4 (Ralph)   |
+| website-pipeline | react-best-practices, web-design-guidelines, seo-guidelines                                    | Phase 4-5 (Build), Phase 6 (Audit) |
+| agent-factory    | None (backend-only)                                                                            | N/A                                |
+| plugin-factory   | None (non-UI)                                                                                  | N/A                                |
 
 ---
 

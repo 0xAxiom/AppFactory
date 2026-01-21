@@ -9,12 +9,14 @@ Ralph Mode is an adversarial review process that blocks success until the build 
 ## THE ROLES
 
 ### Ralph (Adversary)
+
 - Reviews the build critically
 - Identifies issues that block shipping
 - Demands specific fixes
 - Blocks success until satisfied
 
 ### Builder (Executor)
+
 - Fixes issues raised by Ralph
 - Documents what was fixed
 - Cannot claim success without Ralph's approval
@@ -47,12 +49,14 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 ## RALPH'S REVIEW CHECKLIST
 
 ### 1. Functional Completeness
+
 - [ ] All features from `inputs/dream_spec.md` are implemented
 - [ ] Core user flow works end-to-end
 - [ ] No placeholder "TODO" implementations
 - [ ] Data persists correctly across app restarts
 
 ### 2. UI/UX Quality
+
 - [ ] Design matches premium subscription positioning
 - [ ] UI is domain-specific (not generic template)
 - [ ] Onboarding flow exists and is polished
@@ -63,12 +67,14 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - [ ] Empty states are designed (not blank)
 
 ### 3. Technical Soundness
+
 - [ ] `npm install` completes without errors
 - [ ] `npx expo start` boots without fatal errors
 - [ ] No TypeScript compilation errors
 - [ ] No obvious runtime crashes
 
 ### 4. Production Readiness
+
 - [ ] RevenueCat integration is correct (or properly mocked for dev)
 - [ ] App icon exists (1024x1024)
 - [ ] Splash screen exists
@@ -77,12 +83,14 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - [ ] App name is set in config
 
 ### 5. Spec Compliance
+
 - [ ] Every feature in dream_spec.md is implemented
 - [ ] Non-goals are respected (no scope creep)
 - [ ] Quality bars from spec are met
 - [ ] Deliverables checklist is satisfied
 
 ### 6. Research Artifacts (MANDATORY - BLOCKING)
+
 - [ ] `research/market_research.md` exists and is substantive
 - [ ] `research/competitor_analysis.md` exists and is substantive
 - [ ] `research/positioning.md` exists and is substantive
@@ -90,6 +98,7 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - [ ] Research contains actual analysis (not placeholder text)
 
 ### 7. ASO Artifacts (MANDATORY - BLOCKING)
+
 - [ ] `aso/app_title.txt` exists (max 30 chars)
 - [ ] `aso/subtitle.txt` exists (max 30 chars)
 - [ ] `aso/description.md` exists and is compelling
@@ -98,6 +107,7 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - [ ] ASO is specific to this app (not generic)
 
 ### 8. Marketing Artifacts (MANDATORY - BLOCKING)
+
 - [ ] `marketing/launch_thread.md` exists (10+ tweet thread)
 - [ ] `marketing/landing_copy.md` exists (headline + body copy)
 - [ ] `marketing/press_kit.md` exists (one-pager for press)
@@ -106,6 +116,7 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - [ ] Marketing copy is compelling and ready to post
 
 ### 9. React Native Skills Compliance (5% weight)
+
 - [ ] No CRITICAL violations (async patterns, barrel imports)
 - [ ] No HIGH violations (FlatList usage, memory cleanup)
 - [ ] Promise.all used for parallel data fetching
@@ -116,6 +127,7 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 **Reference:** `skills/react-native-best-practices/AGENTS.md`
 
 ### 10. Mobile UI Skills Compliance (5% weight)
+
 - [ ] Touch targets meet minimum size (44pt iOS / 48dp Android)
 - [ ] All interactive elements have accessibility labels
 - [ ] Skeleton loaders for async content (not spinners)
@@ -128,22 +140,23 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 
 ### 11. Mobile Interface Guidelines Compliance (5% weight)
 
-| Priority | Check | How to Verify |
-|----------|-------|---------------|
-| HIGH | Touch targets ≥44pt iOS / 48dp Android | Measure all buttons, links, icons |
-| HIGH | FlatList for lists >20 items | No ScrollView with many items |
-| HIGH | Memory cleanup in useEffect | All subscriptions/timers cleaned up |
-| HIGH | VoiceOver/TalkBack compatible | Test with screen reader |
-| HIGH | Safe areas with SafeAreaView | Notch/home indicator respected |
-| MEDIUM | Gesture responders don't conflict | Pan/swipe gestures work smoothly |
-| MEDIUM | prefers-reduced-motion respected | Check for reduced motion |
-| MEDIUM | Reanimated for animations | Not using LayoutAnimation |
-| MEDIUM | TextInput keyboard handling | Keyboard doesn't cover inputs |
-| MEDIUM | Platform-specific adaptations | iOS/Android differences handled |
+| Priority | Check                                  | How to Verify                       |
+| -------- | -------------------------------------- | ----------------------------------- |
+| HIGH     | Touch targets ≥44pt iOS / 48dp Android | Measure all buttons, links, icons   |
+| HIGH     | FlatList for lists >20 items           | No ScrollView with many items       |
+| HIGH     | Memory cleanup in useEffect            | All subscriptions/timers cleaned up |
+| HIGH     | VoiceOver/TalkBack compatible          | Test with screen reader             |
+| HIGH     | Safe areas with SafeAreaView           | Notch/home indicator respected      |
+| MEDIUM   | Gesture responders don't conflict      | Pan/swipe gestures work smoothly    |
+| MEDIUM   | prefers-reduced-motion respected       | Check for reduced motion            |
+| MEDIUM   | Reanimated for animations              | Not using LayoutAnimation           |
+| MEDIUM   | TextInput keyboard handling            | Keyboard doesn't cover inputs       |
+| MEDIUM   | Platform-specific adaptations          | iOS/Android differences handled     |
 
 **Reference:** `skills/mobile-interface-guidelines/AGENTS.md`
 
 **Critical Items (Must Pass):**
+
 - Touch targets ≥44pt iOS / 48dp Android
 - FlatList for lists >20 items
 - Memory cleanup in useEffect
@@ -164,11 +177,13 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 ## Verdict: [PASS / FAIL]
 
 ## Summary
+
 [2-3 sentence overall assessment]
 
 ## Issues Found
 
 ### Issue 1: [Title]
+
 - **Category**: [Functional / UI / Technical / Production / Spec]
 - **Severity**: [Blocking / Major / Minor]
 - **Location**: [File path or area]
@@ -176,15 +191,19 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - **Required Fix**: [Specific action needed]
 
 ### Issue 2: [Title]
+
 [Same structure]
 
 ## Passed Checks
+
 - [List checks that passed]
 
 ## Deferred (Non-Blocking)
+
 - [Issues that are acceptable for MVP but noted]
 
 ## Next Steps
+
 [If FAIL: What builder must fix before next review]
 [If PASS: Confirmation that build is ready]
 ```
@@ -196,24 +215,28 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 ```markdown
 # Builder Resolution - Iteration [N]
 
-**Responding to**: polish/ralph_report_[N].md
+**Responding to**: polish/ralph*report*[N].md
 **Date**: [ISO timestamp]
 
 ## Fixes Applied
 
 ### Issue 1: [Title from Ralph's report]
+
 - **Status**: [Fixed / Partially Fixed / Cannot Fix]
 - **Changes Made**: [What was done]
 - **Files Modified**: [List of files]
 - **Verification**: [How to confirm the fix]
 
 ### Issue 2: [Title from Ralph's report]
+
 [Same structure]
 
 ## Notes
+
 [Any context for Ralph's next review]
 
 ## Ready for Re-Review
+
 [Confirmation that fixes are complete]
 ```
 
@@ -232,9 +255,11 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 ## VERDICT: [PASS / FAIL]
 
 ## Summary
+
 [Final assessment of the build]
 
 ## Quality Score
+
 - Functional Completeness: [1-5] (15%)
 - UI/UX Quality: [1-5] (15%)
 - Technical Soundness: [1-5] (10%)
@@ -248,12 +273,15 @@ If FAIL after 3 → Write ralph_final_verdict.md (FAIL) → HARD FAILURE
 - Mobile Interface Guidelines: [1-5] (2.5%)
 
 ## [If PASS] Approval
+
 This build meets App Factory quality standards and is approved for shipping.
 
 ## [If FAIL] Failure Reason
+
 [Explanation of why the build cannot be approved after 3 iterations]
 
 ## Remaining Issues
+
 [List any outstanding issues - for PASS these are minor; for FAIL these are blocking]
 ```
 
@@ -262,12 +290,14 @@ This build meets App Factory quality standards and is approved for shipping.
 ## RALPH'S RULES
 
 ### RALPH MAY
+
 - Demand fixes for any issue on the checklist
 - Be strict about spec compliance
 - Require specific improvements
 - Block success indefinitely (up to max iterations)
 
 ### RALPH MUST NOT
+
 - Expand scope beyond `dream_spec.md`
 - Request features marked as non-goals
 - Add "nice to have" requirements
@@ -276,6 +306,7 @@ This build meets App Factory quality standards and is approved for shipping.
 - Demand perfection beyond MVP quality
 
 ### SCOPE BOUNDARY
+
 The spec is law. If something is in the spec, it must be implemented.
 If something is NOT in the spec, Ralph cannot demand it.
 
@@ -288,12 +319,15 @@ If something is NOT in the spec, Ralph cannot demand it.
 - **Each iteration**: Ralph reviews, Builder fixes, cycle repeats
 
 ### Escalation Path
+
 - Iteration 1: Full review, all issues identified
 - Iteration 2: Focus on unfixed issues from iteration 1
 - Iteration 3: Final chance, only blocking issues matter
 
 ### Hard Failure
+
 If after 3 iterations Ralph cannot approve:
+
 1. Write `ralph_final_verdict.md` with FAIL
 2. Document all remaining blocking issues
 3. The build is considered failed
@@ -323,6 +357,7 @@ polish/
 Ralph Mode activates automatically after the Dream Executor completes the build.
 
 The build directory must exist at `builds/<app-slug>/` with:
+
 - package.json
 - app.config.js or app.json
 - src/ directory with screens
@@ -340,6 +375,7 @@ If the build directory is incomplete, Ralph FAILS immediately with "Incomplete B
 ## SUCCESS DEFINITION
 
 A build is successful when:
+
 1. Ralph issues a PASS verdict
 2. `polish/ralph_final_verdict.md` contains "VERDICT: PASS"
 3. All blocking issues are resolved

@@ -1,37 +1,32 @@
 "use client";
 
-import {
-  useMiniKit,
-  useOpenUrl,     
-} from "@coinbase/onchainkit/minikit";
+import { useMiniKit, useOpenUrl } from "@coinbase/onchainkit/minikit";
 
 import { useEffect, useMemo, useState } from "react";
 import ShoutoutCard from "./components/ShoutCard";
 import ActionButtons from "./components/ActionButtons";
 import UserHeader from "./components/UserHeader";
-import { sdk } from '@farcaster/frame-sdk';
+import { sdk } from "@farcaster/frame-sdk";
 
 import { useFollowers } from "@/hooks/useFollowers";
-
 
 // Base URL for the application
 const BASE_URL = process.env.NEXT_PUBLIC_URL;
 
-
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
- 
+
   const { followers } = useFollowers(context?.user?.fid || 20390);
-  
+
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 4;
-  
+
   const paginatedFollowers = useMemo(() => {
     if (!followers || followers.length === 0) return [];
     const startIndex = currentPage * pageSize;
     return followers.slice(startIndex, startIndex + pageSize);
   }, [followers, currentPage]);
-  
+
   const hasMorePages = useMemo(() => {
     return followers && (currentPage + 1) * pageSize < followers.length;
   }, [followers, currentPage]);
@@ -43,7 +38,6 @@ export default function App() {
 
   useEffect(() => {
     if (!isFrameReady) {
-      
       setFrameReady();
     }
   }, [setFrameReady, isFrameReady]);
@@ -51,16 +45,18 @@ export default function App() {
   const handleSendShoutout = async (friendUsername: string) => {
     // Create a personalized shoutout message
     const shoutoutMessage = `Just wanted to give a huge shoutout to @${friendUsername}! 🙌 #ShoutoutGenerator`;
-    
+
     try {
       // Use composeCast instead of deeplinking
       await sdk.actions.composeCast({
-        text: shoutoutMessage
+        text: shoutoutMessage,
       });
     } catch (error) {
       console.error("Error composing cast:", error);
       // Fallback to openUrl if composeCast fails
-      openUrl(`https://warpcast.com/~/compose?text=${encodeURIComponent(shoutoutMessage)}`);
+      openUrl(
+        `https://warpcast.com/~/compose?text=${encodeURIComponent(shoutoutMessage)}`,
+      );
     }
   };
 
@@ -70,18 +66,18 @@ export default function App() {
       console.error("Cannot share shoutout: friendUsername is undefined");
       return;
     }
-    
+
     // Create the share message
     const shareMessage = `I just shouted out @${friendUsername} using Shoutout Generator 🙌\n${BASE_URL}`;
-    
+
     // Create the OG image URL
     const ogImageUrl = `${BASE_URL}/api/og-image?username=${encodeURIComponent(username)}&friend=${encodeURIComponent(friendUsername)}`;
-    
+
     try {
       // Use composeCast instead of deeplinking
       await sdk.actions.composeCast({
         text: shareMessage,
-        embeds: [ogImageUrl]
+        embeds: [ogImageUrl],
       });
     } catch (error) {
       console.error("Error composing cast with embed:", error);
@@ -96,10 +92,7 @@ export default function App() {
       <div className="w-screen max-w-[520px]">
         {/* Header with user info */}
         <div className="p-3">
-          <UserHeader 
-            username={username} 
-            fid={context?.user?.fid} 
-          />
+          <UserHeader username={username} fid={context?.user?.fid} />
         </div>
 
         <main className="font-serif p-4">
@@ -116,21 +109,21 @@ export default function App() {
               BUILT ON BASE WITH MINIKIT
             </button>
           </div>
-          
-          <ShoutoutCard 
-            username={username} 
-            message="You're awesome!" 
-            type="primary" 
+
+          <ShoutoutCard
+            username={username}
+            message="You're awesome!"
+            type="primary"
           />
-          
+
           {/* Friends list section */}
           <h2 className="text-xl font-bold mt-8 mb-4">Your Friends</h2>
-          
+
           {followers && followers.length > 0 ? (
             <>
               {paginatedFollowers.map((friend) => {
                 const validUsername = friend.username || `friend${friend.fid}`;
-                
+
                 return (
                   <ShoutoutCard
                     key={friend.fid}
@@ -142,7 +135,7 @@ export default function App() {
                   />
                 );
               })}
-              
+
               {/* Pagination controls */}
               <div className="flex justify-center mt-6 space-x-4">
                 {currentPage > 0 && (
@@ -153,7 +146,7 @@ export default function App() {
                     Previous
                   </button>
                 )}
-                
+
                 {hasMorePages && (
                   <button
                     onClick={() => setCurrentPage(currentPage + 1)}
@@ -169,10 +162,9 @@ export default function App() {
               No friends found. Try following more people on Farcaster!
             </div>
           )}
-          
+
           <ActionButtons appUrl={BASE_URL} />
         </main>
-
       </div>
     </div>
   );

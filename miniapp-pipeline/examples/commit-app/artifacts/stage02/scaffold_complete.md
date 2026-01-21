@@ -3,6 +3,7 @@
 ## Files Generated
 
 ### Configuration
+
 - [x] `package.json` - Dependencies and scripts
 - [x] `tsconfig.json` - TypeScript configuration
 - [x] `next.config.ts` - Next.js configuration
@@ -13,6 +14,7 @@
 - [x] `minikit.config.ts` - MiniKit manifest configuration
 
 ### App Routes
+
 - [x] `app/layout.tsx` - Root layout with providers
 - [x] `app/page.tsx` - Main application page
 - [x] `app/globals.css` - Global styles
@@ -21,6 +23,7 @@
 - [x] `app/api/webhook/route.ts` - Notification webhook
 
 ### Components
+
 - [x] `CommitmentCard` - Inline component in page.tsx
 - [x] Create form - Inline in page.tsx
 - [x] Tab navigation - Inline in page.tsx

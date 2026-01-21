@@ -279,10 +279,10 @@ Build Completes
 
 ## Audit Results
 
-| Skill | Score | Violations | Verdict |
-|-------|-------|------------|---------|
-| react-best-practices | 96% | 2 MEDIUM | PASS |
-| web-design-guidelines | 92% | 1 MEDIUM | PASS |
+| Skill                 | Score | Violations | Verdict |
+| --------------------- | ----- | ---------- | ------- |
+| react-best-practices  | 96%   | 2 MEDIUM   | PASS    |
+| web-design-guidelines | 92%   | 1 MEDIUM   | PASS    |
 
 ## Combined Verdict: PASS
 
@@ -307,10 +307,10 @@ Build Completes
 
 ## Re-audit Results
 
-| Skill | Score | Verdict |
-|-------|-------|---------|
-| react-best-practices | 100% | PASS |
-| web-design-guidelines | 96% | PASS |
+| Skill                 | Score | Verdict |
+| --------------------- | ----- | ------- |
+| react-best-practices  | 100%  | PASS    |
+| web-design-guidelines | 96%   | PASS    |
 
 **Final Verdict: PASS**
 ```
@@ -321,41 +321,41 @@ Build Completes
 
 ### Why Next.js 14?
 
-| Consideration | Decision | Rationale |
-|---------------|----------|-----------|
-| SSR/SSG | Next.js | Built-in, optimized |
-| React Server Components | Supported | Better performance |
-| Vercel deployment | Native | Zero-config |
-| Image optimization | next/image | Automatic |
-| Font optimization | next/font | Automatic |
-| SEO | Strong | Built-in metadata API |
+| Consideration           | Decision   | Rationale             |
+| ----------------------- | ---------- | --------------------- |
+| SSR/SSG                 | Next.js    | Built-in, optimized   |
+| React Server Components | Supported  | Better performance    |
+| Vercel deployment       | Native     | Zero-config           |
+| Image optimization      | next/image | Automatic             |
+| Font optimization       | next/font  | Automatic             |
+| SEO                     | Strong     | Built-in metadata API |
 
 ### Why Tailwind CSS?
 
-| Consideration | Decision | Rationale |
-|---------------|----------|-----------|
-| Design system | Utility-first | Easy to customize |
-| Bundle size | JIT | Only used classes shipped |
-| Dark mode | Built-in | `dark:` variants |
-| Responsive | Built-in | `sm:`, `md:`, etc. |
+| Consideration | Decision      | Rationale                 |
+| ------------- | ------------- | ------------------------- |
+| Design system | Utility-first | Easy to customize         |
+| Bundle size   | JIT           | Only used classes shipped |
+| Dark mode     | Built-in      | `dark:` variants          |
+| Responsive    | Built-in      | `sm:`, `md:`, etc.        |
 
 ### Why shadcn/ui?
 
-| Consideration | Decision | Rationale |
-|---------------|----------|-----------|
-| Customization | Copy-paste | Full control |
-| Accessibility | Radix primitives | WCAG compliant |
-| Dependencies | Minimal | Not an npm package |
-| Styling | Tailwind | Consistent with stack |
+| Consideration | Decision         | Rationale             |
+| ------------- | ---------------- | --------------------- |
+| Customization | Copy-paste       | Full control          |
+| Accessibility | Radix primitives | WCAG compliant        |
+| Dependencies  | Minimal          | Not an npm package    |
+| Styling       | Tailwind         | Consistent with stack |
 
 ### Why Framer Motion?
 
-| Consideration | Decision | Rationale |
-|---------------|----------|-----------|
-| web-design-guidelines | Required | AN1 rule |
-| Performance | Optimized | GPU-accelerated |
-| API | Declarative | Easy to use |
-| SSR | Compatible | Works with Next.js |
+| Consideration         | Decision    | Rationale          |
+| --------------------- | ----------- | ------------------ |
+| web-design-guidelines | Required    | AN1 rule           |
+| Performance           | Optimized   | GPU-accelerated    |
+| API                   | Declarative | Easy to use        |
+| SSR                   | Compatible  | Works with Next.js |
 
 ---
 

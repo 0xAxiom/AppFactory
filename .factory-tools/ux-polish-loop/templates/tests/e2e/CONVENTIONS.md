@@ -20,7 +20,7 @@ Add `data-testid` attributes to key interactive elements:
 
 ```tsx
 // Good - stable selector
-<button data-testid="submit-contact-form">Submit</button>
+<button data-testid="submit-contact-form">Submit</button>;
 
 // Test
 await page.locator('[data-testid="submit-contact-form"]').click();
@@ -208,26 +208,10 @@ test('homepage visual', async ({ page }) => {
 export function ContactForm() {
   return (
     <form data-testid="contact-form">
-      <input
-        data-testid="contact-form-name"
-        name="name"
-        aria-label="Name"
-      />
-      <input
-        data-testid="contact-form-email"
-        type="email"
-        name="email"
-        aria-label="Email"
-      />
-      <textarea
-        data-testid="contact-form-message"
-        name="message"
-        aria-label="Message"
-      />
-      <button
-        data-testid="contact-form-submit"
-        type="submit"
-      >
+      <input data-testid="contact-form-name" name="name" aria-label="Name" />
+      <input data-testid="contact-form-email" type="email" name="email" aria-label="Email" />
+      <textarea data-testid="contact-form-message" name="message" aria-label="Message" />
+      <button data-testid="contact-form-submit" type="submit">
         Submit
       </button>
     </form>

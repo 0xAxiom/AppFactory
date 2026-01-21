@@ -232,6 +232,7 @@ File: `artifacts/stage07/hardening_report.md`
 # Production Hardening Report
 
 ## Generated: [timestamp]
+
 ## Slug: [slug]
 
 ---
@@ -239,23 +240,27 @@ File: `artifacts/stage07/hardening_report.md`
 ## Components Added/Updated
 
 ### Error Handling
+
 - [x] ErrorBoundary component created
 - [x] Wraps main app content
 - [x] Graceful fallback UI
 - [x] Error logging for debugging
 
 ### Loading States
+
 - [x] LoadingState component created
 - [x] Shows during initialization
 - [x] Prevents flash of content
 
 ### Browser Fallback
+
 - [x] ClientWrapper enhanced
 - [x] Detects non-client context
 - [x] Shows "Get Base App" message
 - [x] Links to Base app download
 
 ### Layout Improvements
+
 - [x] Added viewport meta for mobile
 - [x] Disabled user scaling (prevents zoom issues)
 - [x] Added fc:frame meta tag
@@ -266,30 +271,35 @@ File: `artifacts/stage07/hardening_report.md`
 ## Checklist
 
 ### Error Handling
+
 - [ ] All async operations have try/catch
 - [ ] Network errors are caught
 - [ ] User sees friendly error messages
 - [ ] Errors are logged for debugging
 
 ### Performance
+
 - [ ] No unnecessary re-renders
 - [ ] Images are optimized
 - [ ] No layout shift on load
 - [ ] First paint is fast
 
 ### Accessibility
+
 - [ ] Semantic HTML used
 - [ ] Interactive elements are focusable
 - [ ] Color contrast is sufficient
 - [ ] Touch targets are 44px minimum
 
 ### Security
+
 - [ ] No secrets in client code
 - [ ] API keys in environment variables only
 - [ ] Wallet interactions are safe
 - [ ] No XSS vulnerabilities
 
 ### Mobile
+
 - [ ] Works at 390px width
 - [ ] Touch scrolling works
 - [ ] No horizontal overflow
@@ -299,29 +309,32 @@ File: `artifacts/stage07/hardening_report.md`
 
 ## Files Modified
 
-| File | Changes |
-|------|---------|
-| `components/ErrorBoundary.tsx` | Created |
-| `components/LoadingState.tsx` | Created |
-| `components/ClientWrapper.tsx` | Enhanced |
-| `app/layout.tsx` | Updated meta, viewport |
-| `app/page.tsx` | Wrapped with ClientWrapper |
+| File                           | Changes                    |
+| ------------------------------ | -------------------------- |
+| `components/ErrorBoundary.tsx` | Created                    |
+| `components/LoadingState.tsx`  | Created                    |
+| `components/ClientWrapper.tsx` | Enhanced                   |
+| `app/layout.tsx`               | Updated meta, viewport     |
+| `app/page.tsx`                 | Wrapped with ClientWrapper |
 
 ---
 
 ## Testing Notes
 
 ### Test Error Boundary
+
 1. Temporarily add `throw new Error('test')` in a component
 2. Verify fallback UI appears
 3. Remove the error
 
 ### Test Browser Fallback
+
 1. Open app URL directly in desktop browser
 2. Verify "Get Base App" message appears
 3. Verify link works
 
 ### Test Loading State
+
 1. Throttle network in DevTools
 2. Reload page
 3. Verify loading indicator appears

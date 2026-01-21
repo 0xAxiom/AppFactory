@@ -49,6 +49,7 @@ builds/miniapps/<slug>/app/
 ## Generated Files
 
 ### package.json
+
 ```json
 {
   "name": "[slug]",
@@ -82,6 +83,7 @@ builds/miniapps/<slug>/app/
 ```
 
 ### tsconfig.json
+
 ```json
 {
   "compilerOptions": {
@@ -107,16 +109,18 @@ builds/miniapps/<slug>/app/
 ```
 
 ### next.config.js
+
 ```javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
 ```
 
 ### .env.example
+
 ```
 # Required for manifest
 NEXT_PUBLIC_URL=https://your-app.vercel.app
@@ -126,6 +130,7 @@ NEXT_PUBLIC_URL=https://your-app.vercel.app
 ```
 
 ### app/layout.tsx
+
 ```typescript
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -158,16 +163,13 @@ export default function RootLayout({
 ```
 
 ### app/.well-known/farcaster.json/route.ts
+
 ```typescript
 import { minikitConfig } from '@/minikit.config';
 
-function withValidProperties(
-  properties: Record<string, undefined | string | string[]>
-) {
+function withValidProperties(properties: Record<string, undefined | string | string[]>) {
   return Object.fromEntries(
-    Object.entries(properties).filter(([_, value]) =>
-      Array.isArray(value) ? value.length > 0 : !!value
-    )
+    Object.entries(properties).filter(([_, value]) => (Array.isArray(value) ? value.length > 0 : !!value))
   );
 }
 
@@ -200,6 +202,7 @@ export async function GET() {
 ```
 
 ### components/ClientWrapper.tsx
+
 ```typescript
 'use client';
 
@@ -265,11 +268,13 @@ File: `artifacts/stage02/scaffold_complete.md`
 # Scaffold Complete
 
 ## Generated: [timestamp]
+
 ## Slug: [slug]
 
 ## Files Created
 
 ### Configuration
+
 - [x] package.json
 - [x] tsconfig.json
 - [x] next.config.js
@@ -280,6 +285,7 @@ File: `artifacts/stage02/scaffold_complete.md`
 - [x] minikit.config.ts
 
 ### App Routes
+
 - [x] app/layout.tsx
 - [x] app/page.tsx
 - [x] app/globals.css
@@ -287,10 +293,12 @@ File: `artifacts/stage02/scaffold_complete.md`
 - [x] app/api/webhook/route.ts (if applicable)
 
 ### Components
+
 - [x] components/ClientWrapper.tsx
 - [x] [other components]
 
 ### Assets (Placeholders)
+
 - [x] public/icon.png (1024x1024)
 - [x] public/splash.png (200x200)
 - [x] public/hero.png (1200x630)
@@ -300,6 +308,7 @@ File: `artifacts/stage02/scaffold_complete.md`
 ## Verification
 
 To verify scaffold:
+
 1. cd builds/miniapps/[slug]/app
 2. npm install
 3. npm run dev
@@ -307,6 +316,7 @@ To verify scaffold:
 5. Visit http://localhost:3000/.well-known/farcaster.json
 
 ## Next Step
+
 Proceed to Stage M3 (Manifest & Metadata Authoring)
 ```
 

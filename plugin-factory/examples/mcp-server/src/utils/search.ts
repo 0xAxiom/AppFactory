@@ -9,14 +9,30 @@
  * Common synonyms for search terms
  */
 const SYNONYMS: Record<string, string[]> = {
-  'state': ['state-management', 'store', 'redux', 'zustand', 'jotai', 'recoil', 'context'],
-  'auth': ['authentication', 'authorization', 'login', 'oauth', 'jwt', 'session'],
-  'api': ['rest', 'graphql', 'trpc', 'endpoint', 'fetch', 'axios'],
-  'styling': ['css', 'styles', 'tailwind', 'styled-components', 'sass', 'scss'],
-  'testing': ['test', 'tests', 'jest', 'vitest', 'cypress', 'playwright'],
-  'database': ['db', 'sql', 'postgres', 'mysql', 'mongodb', 'prisma', 'orm'],
-  'build': ['bundler', 'webpack', 'vite', 'esbuild', 'rollup', 'parcel'],
-  'deploy': ['deployment', 'ci', 'cd', 'docker', 'kubernetes', 'vercel', 'netlify'],
+  state: [
+    'state-management',
+    'store',
+    'redux',
+    'zustand',
+    'jotai',
+    'recoil',
+    'context',
+  ],
+  auth: ['authentication', 'authorization', 'login', 'oauth', 'jwt', 'session'],
+  api: ['rest', 'graphql', 'trpc', 'endpoint', 'fetch', 'axios'],
+  styling: ['css', 'styles', 'tailwind', 'styled-components', 'sass', 'scss'],
+  testing: ['test', 'tests', 'jest', 'vitest', 'cypress', 'playwright'],
+  database: ['db', 'sql', 'postgres', 'mysql', 'mongodb', 'prisma', 'orm'],
+  build: ['bundler', 'webpack', 'vite', 'esbuild', 'rollup', 'parcel'],
+  deploy: [
+    'deployment',
+    'ci',
+    'cd',
+    'docker',
+    'kubernetes',
+    'vercel',
+    'netlify',
+  ],
 };
 
 /**
@@ -54,18 +70,48 @@ export function expandQuery(query: string): string[] {
 export function parseQuestion(question: string): string[] {
   // Remove question words and common words
   const stopWords = [
-    'why', 'what', 'how', 'when', 'where', 'who',
-    'do', 'did', 'does', 'is', 'are', 'was', 'were', 'will', 'would',
-    'we', 'you', 'they', 'i', 'the', 'a', 'an',
-    'use', 'using', 'used', 'choose', 'chose', 'chosen',
-    'instead', 'of', 'for', 'to', 'from', 'with', 'about',
+    'why',
+    'what',
+    'how',
+    'when',
+    'where',
+    'who',
+    'do',
+    'did',
+    'does',
+    'is',
+    'are',
+    'was',
+    'were',
+    'will',
+    'would',
+    'we',
+    'you',
+    'they',
+    'i',
+    'the',
+    'a',
+    'an',
+    'use',
+    'using',
+    'used',
+    'choose',
+    'chose',
+    'chosen',
+    'instead',
+    'of',
+    'for',
+    'to',
+    'from',
+    'with',
+    'about',
   ];
 
   const words = question
     .toLowerCase()
     .replace(/[?.,!'"]/g, '')
     .split(/\s+/)
-    .filter(word => !stopWords.includes(word) && word.length > 1);
+    .filter((word) => !stopWords.includes(word) && word.length > 1);
 
   return words;
 }
@@ -79,8 +125,8 @@ export function scoreRelevance(
 ): number {
   let score = 0;
   const reasoning = decision.reasoning.toLowerCase();
-  const tags = decision.tags.map(t => t.toLowerCase());
-  const files = decision.files.map(f => f.toLowerCase());
+  const tags = decision.tags.map((t) => t.toLowerCase());
+  const files = decision.files.map((f) => f.toLowerCase());
 
   for (const term of queryTerms) {
     // Exact match in reasoning
@@ -89,12 +135,12 @@ export function scoreRelevance(
     }
 
     // Match in tags (higher weight)
-    if (tags.some(t => t.includes(term) || term.includes(t))) {
+    if (tags.some((t) => t.includes(term) || term.includes(t))) {
       score += 20;
     }
 
     // Match in files
-    if (files.some(f => f.includes(term))) {
+    if (files.some((f) => f.includes(term))) {
       score += 5;
     }
   }
@@ -127,19 +173,30 @@ export function extractKeywords(text: string): string[] {
   for (const pattern of techPatterns) {
     const matches = text.match(pattern);
     if (matches) {
-      keywords.push(...matches.map(m => m.toLowerCase()));
+      keywords.push(...matches.map((m) => m.toLowerCase()));
     }
   }
 
   // Concept keywords
   const concepts = [
-    'state-management', 'authentication', 'authorization',
-    'caching', 'performance', 'security', 'testing',
-    'deployment', 'architecture', 'refactor', 'migration',
+    'state-management',
+    'authentication',
+    'authorization',
+    'caching',
+    'performance',
+    'security',
+    'testing',
+    'deployment',
+    'architecture',
+    'refactor',
+    'migration',
   ];
 
   for (const concept of concepts) {
-    if (lowerText.includes(concept.replace('-', ' ')) || lowerText.includes(concept)) {
+    if (
+      lowerText.includes(concept.replace('-', ' ')) ||
+      lowerText.includes(concept)
+    ) {
       keywords.push(concept);
     }
   }

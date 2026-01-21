@@ -26,18 +26,19 @@ curl -X POST http://localhost:8080/explain \
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start with hot reload (tsx watch) |
-| `npm run build` | Compile TypeScript |
-| `npm start` | Build and run production |
-| `npm run typecheck` | Check types without building |
+| Command             | Description                       |
+| ------------------- | --------------------------------- |
+| `npm run dev`       | Start with hot reload (tsx watch) |
+| `npm run build`     | Compile TypeScript                |
+| `npm start`         | Build and run production          |
+| `npm run typecheck` | Check types without building      |
 
 ---
 
 ## Endpoints
 
 ### GET /
+
 Returns agent info and available endpoints.
 
 ```bash
@@ -45,6 +46,7 @@ curl http://localhost:8080/
 ```
 
 ### GET /health
+
 Returns health status for monitoring.
 
 ```bash
@@ -52,6 +54,7 @@ curl http://localhost:8080/health
 ```
 
 ### POST /explain
+
 Main endpoint - explain a codebase.
 
 ```bash
@@ -125,21 +128,28 @@ LOG_LEVEL=debug npm run dev
 ## Troubleshooting
 
 ### "OPENAI_API_KEY environment variable is required"
+
 Add your API key to `.env` file.
 
 ### "Directory not allowed"
+
 The requested directory isn't in `ALLOWED_ROOTS`. Either:
+
 - Add it to `ALLOWED_ROOTS`
 - Remove `ALLOWED_ROOTS` to allow any directory (use with caution)
 
 ### "Path traversal attempt blocked"
+
 The path contains `..` which is blocked for security. Use absolute paths.
 
 ### "File too large"
+
 File exceeds `MAX_FILE_SIZE_KB`. Increase the limit or use line ranges.
 
 ### Timeout / Max Iterations
+
 Complex questions may hit the iteration limit. Try:
+
 - More specific questions
 - Increasing `MAX_TOOL_ITERATIONS`
 
@@ -161,7 +171,12 @@ curl http://localhost:8080/health
 All logs are JSON-formatted for easy parsing:
 
 ```json
-{"timestamp":"2026-01-17T10:00:00.000Z","level":"info","message":"Request received","context":{"method":"POST","path":"/explain"}}
+{
+  "timestamp": "2026-01-17T10:00:00.000Z",
+  "level": "info",
+  "message": "Request received",
+  "context": { "method": "POST", "path": "/explain" }
+}
 ```
 
 Parse with jq:
@@ -177,6 +192,7 @@ npm run dev 2>&1 | jq 'select(.level == "error")'
 ### Tool Execution
 
 Tools are executed iteratively by the agent:
+
 1. Agent decides which tool to call
 2. Tool executes and returns result
 3. Agent decides next action

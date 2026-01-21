@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     // Check if nonce has been used before
     let nonceUsed = false;
     if (isKVAvailable()) {
-      nonceUsed = await kv.exists(`used_nonce:${nonce}`) === 1;
+      nonceUsed = (await kv.exists(`used_nonce:${nonce}`)) === 1;
     } else {
       nonceUsed = usedNonces.has(nonce);
     }
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       chain: base,
       transport: http(),
     });
-    
+
     const isValid = await publicClient.verifyMessage({
       address: address as `0x${string}`,
       message,
@@ -100,20 +100,16 @@ export async function POST(request: NextRequest) {
         address,
       });
     } else {
-      return NextResponse.json(
-        { error: 'Invalid signature' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
     }
   } catch (error) {
     console.error('Error verifying message:', error);
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to verify signature',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        details: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );
   }
 }
-

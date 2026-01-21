@@ -21,16 +21,19 @@ Define the app's visual personality:
 ## Visual Identity
 
 ### Brand Personality
+
 - [Primary trait - e.g., "Professional yet approachable"]
 - [Secondary trait - e.g., "Modern and clean"]
 - [Tertiary trait - e.g., "Trust-inspiring"]
 
 ### Design Philosophy
+
 - [Core design principle 1]
 - [Core design principle 2]
 - [Core design principle 3]
 
 ### Domain Alignment
+
 - This app serves [domain/purpose]
 - Visual language should evoke [relevant industry aesthetics]
 - Avoid generic [crypto/tech/startup] aesthetics unless domain-appropriate
@@ -80,6 +83,7 @@ Define semantic color tokens with WCAG AA compliance:
 ```
 
 **Requirements**:
+
 - All text must meet WCAG AA contrast ratios (4.5:1 for body, 3:1 for large text)
 - Define both light and dark mode palettes if applicable
 - Include hover, focus, and active state colors
@@ -127,6 +131,7 @@ Define complete typography system:
 ```
 
 **Requirements**:
+
 - Body text uses sans-serif (NEVER monospace for body)
 - Monospace reserved for code, addresses, and technical data only
 - Clear hierarchy: display > h1 > h2 > h3 > body > caption
@@ -185,18 +190,18 @@ npx shadcn@latest add button card dialog input label tabs toast skeleton avatar 
 
 **Required Components**:
 
-| Component | Usage | shadcn Component |
-|-----------|-------|------------------|
-| Primary Button | Main CTAs | `Button` variant="default" |
-| Secondary Button | Secondary actions | `Button` variant="secondary" |
-| Ghost Button | Tertiary actions | `Button` variant="ghost" |
-| Card | Content containers | `Card` with proper padding |
-| Dialog | Modals, confirmations | `Dialog` with backdrop blur |
-| Input | Form fields | `Input` with proper labels |
-| Toast | Notifications | `Toast` with Sonner |
-| Skeleton | Loading states | `Skeleton` for every async content |
-| Avatar | User/wallet display | `Avatar` with fallback |
-| Badge | Status indicators | `Badge` with semantic colors |
+| Component        | Usage                 | shadcn Component                   |
+| ---------------- | --------------------- | ---------------------------------- |
+| Primary Button   | Main CTAs             | `Button` variant="default"         |
+| Secondary Button | Secondary actions     | `Button` variant="secondary"       |
+| Ghost Button     | Tertiary actions      | `Button` variant="ghost"           |
+| Card             | Content containers    | `Card` with proper padding         |
+| Dialog           | Modals, confirmations | `Dialog` with backdrop blur        |
+| Input            | Form fields           | `Input` with proper labels         |
+| Toast            | Notifications         | `Toast` with Sonner                |
+| Skeleton         | Loading states        | `Skeleton` for every async content |
+| Avatar           | User/wallet display   | `Avatar` with fallback             |
+| Badge            | Status indicators     | `Badge` with semantic colors       |
 
 ### Section 6: Animation & Motion
 
@@ -207,25 +212,26 @@ npx shadcn@latest add button card dialog input label tabs toast skeleton avatar 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.3, ease: "easeOut" }
+  transition: { duration: 0.3, ease: 'easeOut' },
 };
 
 const scaleOnHover = {
   whileHover: { scale: 1.02 },
   whileTap: { scale: 0.98 },
-  transition: { duration: 0.15 }
+  transition: { duration: 0.15 },
 };
 
 const staggerChildren = {
   animate: {
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 ```
 
 **Animation Guidelines**:
+
 - Micro-interactions: 100-200ms (quick, responsive)
 - Page transitions: 200-400ms (smooth, not sluggish)
 - Loading animations: Continuous, subtle
@@ -233,6 +239,7 @@ const staggerChildren = {
 - Respect `prefers-reduced-motion`
 
 **Required Animation Patterns**:
+
 1. **Page/section entrance**: Fade in + slide up
 2. **Card hover**: Subtle lift with shadow increase
 3. **Button interactions**: Scale + color transition
@@ -259,6 +266,7 @@ Define the visual depth system:
 ```
 
 **Required Effects**:
+
 - Cards: Subtle border + hover glow
 - Modals: Backdrop blur + shadow
 - Buttons: Hover color shift + optional glow
@@ -269,6 +277,7 @@ Define the visual depth system:
 Every interactive element MUST have defined states:
 
 #### Loading States
+
 ```typescript
 // Every async operation needs a loading state
 <Button disabled={isLoading}>
@@ -287,14 +296,10 @@ Every interactive element MUST have defined states:
 ```
 
 #### Empty States
+
 ```tsx
 // Empty states must be designed, not blank
-function EmptyState({
-  icon: Icon,
-  title,
-  description,
-  action
-}: EmptyStateProps) {
+function EmptyState({ icon: Icon, title, description, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
       <div className="rounded-full bg-muted p-4 mb-4">
@@ -309,13 +314,10 @@ function EmptyState({
 ```
 
 #### Error States
+
 ```tsx
 // Errors must be helpful, not raw
-function ErrorState({
-  title = "Something went wrong",
-  message,
-  onRetry
-}: ErrorStateProps) {
+function ErrorState({ title = 'Something went wrong', message, onRetry }: ErrorStateProps) {
   return (
     <Card className="p-6 border-destructive/50 bg-destructive/5">
       <div className="flex items-start gap-4">
@@ -342,15 +344,16 @@ Define breakpoints and mobile-first approach:
 ```typescript
 // Tailwind breakpoints (mobile-first)
 const breakpoints = {
-  sm: '640px',   // Large phones
-  md: '768px',   // Tablets
-  lg: '1024px',  // Laptops
-  xl: '1280px',  // Desktops
-  '2xl': '1536px' // Large screens
+  sm: '640px', // Large phones
+  md: '768px', // Tablets
+  lg: '1024px', // Laptops
+  xl: '1280px', // Desktops
+  '2xl': '1536px', // Large screens
 };
 ```
 
 **Required Responsive Patterns**:
+
 1. **Navigation**: Hamburger menu on mobile, full nav on desktop
 2. **Grid layouts**: Single column mobile, multi-column desktop
 3. **Typography**: Scaled appropriately per breakpoint
@@ -362,6 +365,7 @@ const breakpoints = {
 Define blockchain-specific UX:
 
 #### Wallet Connection
+
 ```tsx
 // Wallet connection must be secondary, not primary
 function Header() {
@@ -376,6 +380,7 @@ function Header() {
 ```
 
 #### Transaction States
+
 ```tsx
 // All transactions need clear state feedback
 type TxState = 'idle' | 'signing' | 'confirming' | 'success' | 'error';
@@ -384,22 +389,19 @@ function TransactionButton({ onSubmit }: Props) {
   const [state, setState] = useState<TxState>('idle');
 
   const stateContent = {
-    idle: "Send Transaction",
-    signing: "Waiting for signature...",
-    confirming: "Confirming...",
-    success: "Success!",
-    error: "Failed - Retry"
+    idle: 'Send Transaction',
+    signing: 'Waiting for signature...',
+    confirming: 'Confirming...',
+    success: 'Success!',
+    error: 'Failed - Retry',
   };
 
-  return (
-    <Button disabled={state === 'signing' || state === 'confirming'}>
-      {stateContent[state]}
-    </Button>
-  );
+  return <Button disabled={state === 'signing' || state === 'confirming'}>{stateContent[state]}</Button>;
 }
 ```
 
 #### Address Display
+
 ```tsx
 // Addresses must be truncated and copyable
 function AddressDisplay({ address }: { address: string }) {
@@ -424,12 +426,14 @@ function AddressDisplay({ address }: { address: string }) {
 Before finalizing design spec, verify:
 
 ### Visual Quality
+
 - [ ] Color palette defines ALL semantic colors
 - [ ] Typography scale is complete with all variants
 - [ ] Spacing scale is consistent (4px base or 8px base)
 - [ ] All interactive states are defined (hover, focus, active, disabled)
 
 ### Component Coverage
+
 - [ ] shadcn/ui components are specified
 - [ ] Custom components have detailed specifications
 - [ ] Loading skeletons defined for all async content
@@ -437,6 +441,7 @@ Before finalizing design spec, verify:
 - [ ] Error states have helpful messaging and retry actions
 
 ### Animation & Motion
+
 - [ ] Framer Motion patterns defined
 - [ ] Micro-interactions specified for all interactive elements
 - [ ] Page transitions defined
@@ -444,6 +449,7 @@ Before finalizing design spec, verify:
 - [ ] Reduced motion alternatives considered
 
 ### Accessibility
+
 - [ ] Color contrast meets WCAG AA (4.5:1 minimum)
 - [ ] Focus states are visible
 - [ ] Touch targets are 44px minimum
@@ -451,6 +457,7 @@ Before finalizing design spec, verify:
 - [ ] Reduced motion is respected
 
 ### Responsive
+
 - [ ] Mobile layout is defined
 - [ ] Tablet layout is defined
 - [ ] Desktop layout is defined
@@ -458,6 +465,7 @@ Before finalizing design spec, verify:
 - [ ] Typography scales appropriately
 
 ### Web3 Specific
+
 - [ ] Wallet connection is secondary, not dominant
 - [ ] Transaction states are clearly defined
 - [ ] Address display is truncated and copyable

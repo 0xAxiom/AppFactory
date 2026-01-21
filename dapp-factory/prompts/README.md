@@ -28,15 +28,15 @@ The Web3 Factory uses a prompt-driven pipeline where each stage (W1-W7) has a de
 
 ## Stage Prompt Files
 
-| Stage | File | Purpose |
-|-------|------|---------|
-| W1 | `W1_product_reality_gate.md` | Validate Web3 idea necessity |
-| W2 | `W2_token_role_economic_contract.md` | Define token role and economics |
-| W3 | `W3_uiux_design_contract.md` | Specify domain-authentic UI/UX |
-| W4 | `W4_web_architecture_lockin.md` | Define web application architecture |
-| W5 | `W5_bags_sdk_integration.md` | Configure Bags SDK for token creation |
-| W6 | `W6_runtime_sanity_harness.md` | Validate runtime functionality |
-| W7 | `W7_final_build_ship.md` | Generate complete production app |
+| Stage | File                                 | Purpose                               |
+| ----- | ------------------------------------ | ------------------------------------- |
+| W1    | `W1_product_reality_gate.md`         | Validate Web3 idea necessity          |
+| W2    | `W2_token_role_economic_contract.md` | Define token role and economics       |
+| W3    | `W3_uiux_design_contract.md`         | Specify domain-authentic UI/UX        |
+| W4    | `W4_web_architecture_lockin.md`      | Define web application architecture   |
+| W5    | `W5_bags_sdk_integration.md`         | Configure Bags SDK for token creation |
+| W6    | `W6_runtime_sanity_harness.md`       | Validate runtime functionality        |
+| W7    | `W7_final_build_ship.md`             | Generate complete production app      |
 
 ## Prompt Contract Elements
 
@@ -63,6 +63,7 @@ The Web3 Factory pipeline:
 ## Error Handling
 
 Pipeline **MUST FAIL** if:
+
 - Prompt file is missing or unreadable
 - Prompt hash doesn't match expected value in index
 - Stage output doesn't conform to prompt contract

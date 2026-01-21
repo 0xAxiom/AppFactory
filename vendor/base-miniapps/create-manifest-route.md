@@ -14,13 +14,9 @@ Create a Next.js route handler at `app/.well-known/farcaster.json/route.ts`:
 ```typescript
 import { minikitConfig } from '@/minikit.config';
 
-function withValidProperties(
-  properties: Record<string, undefined | string | string[]>
-) {
+function withValidProperties(properties: Record<string, undefined | string | string[]>) {
   return Object.fromEntries(
-    Object.entries(properties).filter(([_, value]) =>
-      Array.isArray(value) ? value.length > 0 : !!value
-    )
+    Object.entries(properties).filter(([_, value]) => (Array.isArray(value) ? value.length > 0 : !!value))
   );
 }
 
@@ -96,31 +92,29 @@ export async function GET() {
 ```typescript
 export const minikitConfig = {
   accountAssociation: {
-    header: "",  // Fill after signing
-    payload: "", // Fill after signing
-    signature: "" // Fill after signing
+    header: '', // Fill after signing
+    payload: '', // Fill after signing
+    signature: '', // Fill after signing
   },
   miniapp: {
-    version: "1",
-    name: "Your App Name",
-    subtitle: "Brief tagline",
-    description: "Detailed description of your mini app",
-    screenshotUrls: [
-      "https://yourdomain.com/screenshots/1.png"
-    ],
-    iconUrl: "https://yourdomain.com/icon.png",
-    splashImageUrl: "https://yourdomain.com/splash.png",
-    splashBackgroundColor: "#FFFFFF",
-    homeUrl: "https://yourdomain.com",
-    webhookUrl: "https://yourdomain.com/api/webhook",
-    primaryCategory: "social",
-    tags: ["base", "miniapp"],
-    heroImageUrl: "https://yourdomain.com/hero.png",
-    tagline: "Marketing tagline",
-    ogTitle: "Your App Name",
-    ogDescription: "Social sharing description",
-    ogImageUrl: "https://yourdomain.com/og.png"
-  }
+    version: '1',
+    name: 'Your App Name',
+    subtitle: 'Brief tagline',
+    description: 'Detailed description of your mini app',
+    screenshotUrls: ['https://yourdomain.com/screenshots/1.png'],
+    iconUrl: 'https://yourdomain.com/icon.png',
+    splashImageUrl: 'https://yourdomain.com/splash.png',
+    splashBackgroundColor: '#FFFFFF',
+    homeUrl: 'https://yourdomain.com',
+    webhookUrl: 'https://yourdomain.com/api/webhook',
+    primaryCategory: 'social',
+    tags: ['base', 'miniapp'],
+    heroImageUrl: 'https://yourdomain.com/hero.png',
+    tagline: 'Marketing tagline',
+    ogTitle: 'Your App Name',
+    ogDescription: 'Social sharing description',
+    ogImageUrl: 'https://yourdomain.com/og.png',
+  },
 } as const;
 
 export type MinikitConfig = typeof minikitConfig;
@@ -131,13 +125,9 @@ export type MinikitConfig = typeof minikitConfig;
 The `withValidProperties` function filters out undefined or empty values:
 
 ```typescript
-function withValidProperties(
-  properties: Record<string, undefined | string | string[]>
-) {
+function withValidProperties(properties: Record<string, undefined | string | string[]>) {
   return Object.fromEntries(
-    Object.entries(properties).filter(([_, value]) =>
-      Array.isArray(value) ? value.length > 0 : !!value
-    )
+    Object.entries(properties).filter(([_, value]) => (Array.isArray(value) ? value.length > 0 : !!value))
   );
 }
 ```

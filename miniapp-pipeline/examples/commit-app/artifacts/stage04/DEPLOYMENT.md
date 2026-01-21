@@ -1,6 +1,7 @@
 # Deployment Guide
 
 ## Prerequisites
+
 - Vercel account
 - GitHub repository with the app code
 - CDP API key from https://portal.cdp.coinbase.com/
@@ -8,6 +9,7 @@
 ## Steps
 
 ### 1. Push to GitHub
+
 ```bash
 cd commit-app/app
 git init
@@ -18,6 +20,7 @@ git push -u origin main
 ```
 
 ### 2. Import to Vercel
+
 1. Go to https://vercel.com/new
 2. Import your GitHub repository
 3. Keep default settings for Next.js
@@ -27,11 +30,11 @@ git push -u origin main
 
 In Vercel project settings → Environment Variables:
 
-| Variable | Value |
-|----------|-------|
-| `NEXT_PUBLIC_URL` | https://your-app.vercel.app |
-| `NEXT_PUBLIC_ONCHAINKIT_API_KEY` | Your CDP API key |
-| `NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME` | Commit |
+| Variable                              | Value                       |
+| ------------------------------------- | --------------------------- |
+| `NEXT_PUBLIC_URL`                     | https://your-app.vercel.app |
+| `NEXT_PUBLIC_ONCHAINKIT_API_KEY`      | Your CDP API key            |
+| `NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME` | Commit                      |
 
 ### 4. CRITICAL: Disable Deployment Protection
 

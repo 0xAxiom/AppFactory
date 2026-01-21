@@ -98,7 +98,7 @@ async function processOrder(orderId: string) {
 ```typescript
 async function processOrder(orderId: string) {
   const orderPromise = getOrder(orderId);
-  const inventoryPromise = orderPromise.then(o => checkInventory(o.items));
+  const inventoryPromise = orderPromise.then((o) => checkInventory(o.items));
 
   const order = await orderPromise;
   validateOrder(order);
@@ -180,9 +180,7 @@ function PhotoButton({ useCamera }: Props) {
 
 ```typescript
 function PhotoButton({ useCamera }: Props) {
-  const handler = useCamera
-    ? require('expo-camera').takePicture
-    : require('expo-image-picker').launchImageLibraryAsync;
+  const handler = useCamera ? require('expo-camera').takePicture : require('expo-image-picker').launchImageLibraryAsync;
   // ...
 }
 ```
@@ -592,10 +590,7 @@ Use react-native-reanimated for gesture-driven animations.
 const pan = useRef(new Animated.ValueXY()).current;
 
 const panResponder = PanResponder.create({
-  onPanResponderMove: Animated.event([
-    null,
-    { dx: pan.x, dy: pan.y },
-  ]),
+  onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }]),
 });
 ```
 
@@ -705,9 +700,7 @@ For small differences, use `Platform.select`.
 
 ```typescript
 const styles = StyleSheet.create({
-  shadow: Platform.OS === 'ios'
-    ? { shadowColor: '#000', shadowOffset: { width: 0, height: 2 } }
-    : { elevation: 4 },
+  shadow: Platform.OS === 'ios' ? { shadowColor: '#000', shadowOffset: { width: 0, height: 2 } } : { elevation: 4 },
 });
 ```
 
@@ -767,15 +760,15 @@ function Screen() {
 
 ## Summary
 
-| Category | Impact | Key Rules |
-|----------|--------|-----------|
-| Eliminating Waterfalls | CRITICAL | Defer await, Promise.all, start early |
-| Bundle Optimization | CRITICAL | No barrel imports, lazy load, conditional require |
-| List Performance | HIGH | FlatList always, memoize items, getItemLayout |
-| Re-render Prevention | MEDIUM | memo, useCallback, stable refs |
-| Memory Management | MEDIUM | Cleanup effects, abort controllers |
-| Animation Performance | MEDIUM | Native driver, Reanimated |
-| Platform Patterns | LOW | Platform extensions, safe areas |
+| Category               | Impact   | Key Rules                                         |
+| ---------------------- | -------- | ------------------------------------------------- |
+| Eliminating Waterfalls | CRITICAL | Defer await, Promise.all, start early             |
+| Bundle Optimization    | CRITICAL | No barrel imports, lazy load, conditional require |
+| List Performance       | HIGH     | FlatList always, memoize items, getItemLayout     |
+| Re-render Prevention   | MEDIUM   | memo, useCallback, stable refs                    |
+| Memory Management      | MEDIUM   | Cleanup effects, abort controllers                |
+| Animation Performance  | MEDIUM   | Native driver, Reanimated                         |
+| Platform Patterns      | LOW      | Platform extensions, safe areas                   |
 
 ---
 

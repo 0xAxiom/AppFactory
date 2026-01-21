@@ -63,12 +63,27 @@ const MEDIUM_SIGNAL_PATTERNS = [
 
 // Keywords that indicate architectural significance
 const ARCHITECTURAL_KEYWORDS = [
-  'migration', 'refactor', 'upgrade', 'replace', 'switch',
-  'authentication', 'authorization', 'security',
-  'database', 'schema', 'model',
-  'api', 'endpoint', 'route',
-  'state', 'store', 'context',
-  'deploy', 'build', 'ci', 'cd',
+  'migration',
+  'refactor',
+  'upgrade',
+  'replace',
+  'switch',
+  'authentication',
+  'authorization',
+  'security',
+  'database',
+  'schema',
+  'model',
+  'api',
+  'endpoint',
+  'route',
+  'state',
+  'store',
+  'context',
+  'deploy',
+  'build',
+  'ci',
+  'cd',
 ];
 
 /**
@@ -103,7 +118,9 @@ function extractFilePath(toolResult) {
   // Handle different tool result formats
   if (typeof toolResult === 'string') {
     // Look for file path patterns
-    const pathMatch = toolResult.match(/(?:File|Created|Updated|Wrote).*?[`"']?([\/\w\-\.]+\.\w+)[`"']?/i);
+    const pathMatch = toolResult.match(
+      /(?:File|Created|Updated|Wrote).*?[`"']?([\/\w\-\.]+\.\w+)[`"']?/i
+    );
     if (pathMatch) return pathMatch[1];
 
     // Look for absolute paths
@@ -156,28 +173,32 @@ async function main() {
   if (signalLevel === 'high') {
     // High signal - always suggest recording decision
     const fileName = path.basename(filePath);
-    console.log(JSON.stringify({
-      type: 'decision_detected',
-      level: 'high',
-      file: filePath,
-      message: `Architectural decision detected: ${fileName} was modified. Consider using /decision to record why.`
-    }));
+    console.log(
+      JSON.stringify({
+        type: 'decision_detected',
+        level: 'high',
+        file: filePath,
+        message: `Architectural decision detected: ${fileName} was modified. Consider using /decision to record why.`,
+      })
+    );
   } else if (signalLevel === 'medium') {
     // Medium signal - softer suggestion
     const fileName = path.basename(filePath);
-    console.log(JSON.stringify({
-      type: 'decision_detected',
-      level: 'medium',
-      file: filePath,
-      message: `${fileName} looks architectural. Use /decision if this represents a design choice.`
-    }));
+    console.log(
+      JSON.stringify({
+        type: 'decision_detected',
+        level: 'medium',
+        file: filePath,
+        message: `${fileName} looks architectural. Use /decision if this represents a design choice.`,
+      })
+    );
   }
 
   // Exit cleanly
   process.exit(0);
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Decision detection error:', err.message);
   process.exit(1);
 });

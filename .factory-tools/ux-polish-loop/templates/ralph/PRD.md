@@ -14,10 +14,10 @@
 
 ## Target Users
 
-| User Type | Description | Primary Goal |
-|-----------|-------------|--------------|
-| {{USER_TYPE_1}} | {{DESCRIPTION_1}} | {{GOAL_1}} |
-| {{USER_TYPE_2}} | {{DESCRIPTION_2}} | {{GOAL_2}} |
+| User Type       | Description       | Primary Goal |
+| --------------- | ----------------- | ------------ |
+| {{USER_TYPE_1}} | {{DESCRIPTION_1}} | {{GOAL_1}}   |
+| {{USER_TYPE_2}} | {{DESCRIPTION_2}} | {{GOAL_2}}   |
 
 ---
 
@@ -43,10 +43,10 @@
 
 ## Pages / Routes
 
-| Route | Purpose | Key Components |
-|-------|---------|----------------|
-| `/` | Home page | Hero, Features, CTA |
-| `/about` | About page | Team, Mission, Values |
+| Route                 | Purpose    | Key Components        |
+| --------------------- | ---------- | --------------------- |
+| `/`                   | Home page  | Hero, Features, CTA   |
+| `/about`              | About page | Team, Mission, Values |
 | {{ADDITIONAL_ROUTES}} |
 
 ---
@@ -55,11 +55,11 @@
 
 ### Performance
 
-| Metric | Target |
-|--------|--------|
-| LCP | < 2.5s |
-| FID | < 100ms |
-| CLS | < 0.1 |
+| Metric         | Target  |
+| -------------- | ------- |
+| LCP            | < 2.5s  |
+| FID            | < 100ms |
+| CLS            | < 0.1   |
 | Initial Bundle | < 200KB |
 
 ### Browser Support

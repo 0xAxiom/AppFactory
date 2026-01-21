@@ -37,7 +37,7 @@
           "description": "Token name (max 32 characters)"
         },
         "symbol": {
-          "type": "string", 
+          "type": "string",
           "maxLength": 10,
           "description": "Token symbol (max 10 characters)"
         },
@@ -169,7 +169,13 @@
                     "description": "Description of contributor's role"
                   }
                 },
-                "required": ["provider", "username", "bps", "claimer_type", "role_description"]
+                "required": [
+                  "provider",
+                  "username",
+                  "bps",
+                  "claimer_type",
+                  "role_description"
+                ]
               }
             ]
           },
@@ -206,7 +212,7 @@
               "description": "Creator percentage (creator_bps / 100)"
             },
             "social_percentage": {
-              "type": "number", 
+              "type": "number",
               "description": "Social claimers percentage"
             },
             "partner_percentage": {
@@ -215,7 +221,11 @@
               "description": "Partner percentage (always 25%)"
             }
           },
-          "required": ["creator_percentage", "social_percentage", "partner_percentage"]
+          "required": [
+            "creator_percentage",
+            "social_percentage",
+            "partner_percentage"
+          ]
         },
         "explicit_bps_validation": {
           "type": "boolean",
@@ -223,10 +233,18 @@
           "description": "BPS validation is explicit in Token Launch v2"
         }
       },
-      "required": ["config_required", "partner_attribution", "fee_claimers", "total_bps", "creator_bps", "partner_bps", "explicit_bps_validation"]
+      "required": [
+        "config_required",
+        "partner_attribution",
+        "fee_claimers",
+        "total_bps",
+        "creator_bps",
+        "partner_bps",
+        "explicit_bps_validation"
+      ]
     },
     "social_provider_config": {
-      "type": "object", 
+      "type": "object",
       "description": "Social provider resolution configuration - required if requires_token_creation is true",
       "properties": {
         "has_social_claimers": {
@@ -235,7 +253,7 @@
         },
         "social_providers_used": {
           "type": "array",
-          "items": {"enum": ["github", "twitter", "kick"]},
+          "items": { "enum": ["github", "twitter", "kick"] },
           "description": "List of social providers used"
         },
         "github_claimers_count": {
@@ -247,7 +265,7 @@
           "description": "Number of Twitter fee claimers"
         },
         "kick_claimers_count": {
-          "type": "number", 
+          "type": "number",
           "description": "Number of Kick fee claimers"
         },
         "social_resolution_strategy": {
@@ -260,7 +278,11 @@
           "description": "Username validation is always required"
         }
       },
-      "required": ["has_social_claimers", "social_resolution_strategy", "username_validation_required"]
+      "required": [
+        "has_social_claimers",
+        "social_resolution_strategy",
+        "username_validation_required"
+      ]
     },
     "lookup_table_config": {
       "type": "object",
@@ -293,7 +315,12 @@
           "description": "LUT usage strategy"
         }
       },
-      "required": ["use_bags_lut", "custom_lut_required", "fee_claimers_count", "lut_threshold"]
+      "required": [
+        "use_bags_lut",
+        "custom_lut_required",
+        "fee_claimers_count",
+        "lut_threshold"
+      ]
     },
     "tipping_config": {
       "type": "object",
@@ -346,11 +373,16 @@
         },
         "required_env_vars": {
           "type": "array",
-          "items": {"type": "string"},
+          "items": { "type": "string" },
           "description": "List of required environment variables"
         }
       },
-      "required": ["network", "api_base_url", "api_version", "required_env_vars"]
+      "required": [
+        "network",
+        "api_base_url",
+        "api_version",
+        "required_env_vars"
+      ]
     },
     "program_ids": {
       "type": "object",
@@ -391,7 +423,13 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["image/png", "image/jpg", "image/jpeg", "image/gif", "image/webp"]
+            "enum": [
+              "image/png",
+              "image/jpg",
+              "image/jpeg",
+              "image/gif",
+              "image/webp"
+            ]
           },
           "description": "Supported file types"
         },
@@ -430,21 +468,23 @@
           "description": "Maximum number of retry attempts"
         }
       },
-      "required": ["build_id", "input_hash", "deterministic_params", "retry_strategy", "max_retries"]
+      "required": [
+        "build_id",
+        "input_hash",
+        "deterministic_params",
+        "retry_strategy",
+        "max_retries"
+      ]
     }
   },
-  "required": [
-    "app_configuration",
-    "environment_config", 
-    "idempotency_config"
-  ],
+  "required": ["app_configuration", "environment_config", "idempotency_config"],
   "allOf": [
     {
       "if": {
         "properties": {
           "app_configuration": {
             "properties": {
-              "requires_token_creation": {"const": true}
+              "requires_token_creation": { "const": true }
             }
           }
         }
@@ -452,7 +492,7 @@
       "then": {
         "required": [
           "token_metadata",
-          "token_launch_params", 
+          "token_launch_params",
           "fee_share_config_v2",
           "social_provider_config",
           "lookup_table_config",
@@ -466,7 +506,7 @@
         "properties": {
           "app_configuration": {
             "properties": {
-              "requires_token_creation": {"const": false}
+              "requires_token_creation": { "const": false }
             }
           }
         }
@@ -474,13 +514,13 @@
       "then": {
         "not": {
           "anyOf": [
-            {"required": ["token_metadata"]},
-            {"required": ["token_launch_params"]},
-            {"required": ["fee_share_config_v2"]},
-            {"required": ["social_provider_config"]},
-            {"required": ["lookup_table_config"]},
-            {"required": ["program_ids"]},
-            {"required": ["file_upload_config"]}
+            { "required": ["token_metadata"] },
+            { "required": ["token_launch_params"] },
+            { "required": ["fee_share_config_v2"] },
+            { "required": ["social_provider_config"] },
+            { "required": ["lookup_table_config"] },
+            { "required": ["program_ids"] },
+            { "required": ["file_upload_config"] }
           ]
         }
       }

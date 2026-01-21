@@ -230,13 +230,13 @@ The entire Ralph run is DONE when all 5 pipelines have this marker.
 
 After each iteration, update this section:
 
-| Pipeline | Iter 1 | Iter 2 | Iter 3 | Iter 4 | Iter 5 | Polished |
-|----------|--------|--------|--------|--------|--------|----------|
-| app-factory | DONE | DONE | DONE | DONE | DONE | ✅ |
-| dapp-factory | DONE | DONE | DONE | DONE | DONE | ✅ |
-| agent-factory | DONE | DONE | DONE | DONE | DONE | ✅ |
-| plugin-factory | DONE | DONE | DONE | DONE | DONE | ✅ |
-| website-pipeline | DONE | DONE | DONE | DONE | DONE | ✅ |
+| Pipeline         | Iter 1 | Iter 2 | Iter 3 | Iter 4 | Iter 5 | Polished |
+| ---------------- | ------ | ------ | ------ | ------ | ------ | -------- |
+| app-factory      | DONE   | DONE   | DONE   | DONE   | DONE   | ✅       |
+| dapp-factory     | DONE   | DONE   | DONE   | DONE   | DONE   | ✅       |
+| agent-factory    | DONE   | DONE   | DONE   | DONE   | DONE   | ✅       |
+| plugin-factory   | DONE   | DONE   | DONE   | DONE   | DONE   | ✅       |
+| website-pipeline | DONE   | DONE   | DONE   | DONE   | DONE   | ✅       |
 
 ---
 

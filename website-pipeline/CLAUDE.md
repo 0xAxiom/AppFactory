@@ -11,12 +11,14 @@
 **For Marketplace Reviewers**: This document governs Claude's behavior inside the website-pipeline directory.
 
 **What This Pipeline Does**:
+
 - Generates complete, production-ready websites from plain-language descriptions
 - Enforces mandatory skills audits (react-best-practices, web-design-guidelines)
 - Runs UX Polish Loop with Playwright E2E testing
 - Outputs to `website-builds/<slug>/`
 
 **What This Pipeline Does NOT Do**:
+
 - Build mobile apps (use app-factory/)
 - Build dApps with agents (use dapp-factory/)
 - Build AI agents (use agent-factory/)
@@ -36,14 +38,14 @@ Website Pipeline generates **complete, production-ready websites** from plain-la
 
 ### Scope Boundaries
 
-| In Scope | Out of Scope |
-|----------|--------------|
-| Marketing websites | Mobile apps |
-| Portfolio sites | dApps with blockchain |
-| Landing pages | AI agents |
-| Blogs with MDX | Claude plugins |
-| Business websites | Mini apps |
-| SaaS marketing sites | Backend APIs |
+| In Scope             | Out of Scope          |
+| -------------------- | --------------------- |
+| Marketing websites   | Mobile apps           |
+| Portfolio sites      | dApps with blockchain |
+| Landing pages        | AI agents             |
+| Blogs with MDX       | Claude plugins        |
+| Business websites    | Mini apps             |
+| SaaS marketing sites | Backend APIs          |
 
 ### Key Distinction
 
@@ -245,6 +247,7 @@ website-builds/<slug>/
 ### Forbidden Directories
 
 Claude MUST NOT write to:
+
 - `builds/` (belongs to app-factory)
 - `dapp-builds/` (belongs to dapp-factory)
 - `outputs/` (belongs to agent-factory)
@@ -260,6 +263,7 @@ Claude MUST NOT write to:
 **Behavior**: Read-only, informational, no file generation
 
 **Example Triggers**:
+
 - "What does this pipeline do?"
 - "Show me the output structure"
 - "How does the skills audit work?"
@@ -270,6 +274,7 @@ Claude MUST NOT write to:
 **Behavior**: Full pipeline execution through all 8 phases
 
 **Example Triggers**:
+
 - "Build a portfolio website"
 - "Create a landing page for my SaaS"
 - "Make a restaurant website"
@@ -302,6 +307,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Output**: `runs/<date>/<run-id>/inputs/normalized_prompt.md`
 
 **Rules**:
+
 1. Treat user message as RAW INTENT, not specification
 2. Infer missing website qualities (performance, accessibility, SEO)
 3. Determine website type (marketing, portfolio, blog, etc.)
@@ -311,8 +317,8 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 
 **Example Transformation**:
 
-| User Says | Claude Normalizes To |
-|-----------|---------------------|
+| User Says              | Claude Normalizes To                                                                                                                                                                                                                                                                                                                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "Build me a portfolio" | "A professional portfolio website for a creative professional. Features hero section with animated introduction, project gallery with filtering, about page with skills showcase, contact form with email integration, responsive design optimized for all devices. Dark mode support, smooth page transitions with Framer Motion, optimized for Core Web Vitals (LCP < 2.5s, CLS < 0.1)." |
 
 ### Phase 1: Dream Spec Author
@@ -322,6 +328,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Output**: `runs/<date>/<run-id>/inputs/dream_spec.md`
 
 **Required Sections**:
+
 1. Website Vision
 2. Target Audience
 3. Core Pages
@@ -341,6 +348,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Output**: `website-builds/<slug>/research/`
 
 **Required Artifacts**:
+
 - `market_research.md` - Industry trends, opportunities
 - `competitor_analysis.md` - 3-5 competitor websites, gaps
 - `positioning.md` - Unique value proposition
@@ -351,6 +359,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Output**: `website-builds/<slug>/planning/`
 
 **Required Artifacts**:
+
 - `sitemap.md` - Page hierarchy
 - `content_model.md` - Content types and relationships
 - `navigation.md` - Navigation structure
@@ -361,6 +370,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Output**: `website-builds/<slug>/planning/design_system.md`
 
 **Required Elements**:
+
 - Color tokens (light/dark)
 - Typography scale
 - Spacing scale
@@ -388,10 +398,10 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Purpose**: Enforce code quality standards
 **Output**: `website-builds/<slug>/audits/`
 
-| Skill | Threshold | Blocking |
-|-------|-----------|----------|
-| react-best-practices | ≥95% | CRITICAL violations |
-| web-design-guidelines | ≥90% | HIGH a11y violations |
+| Skill                 | Threshold | Blocking             |
+| --------------------- | --------- | -------------------- |
+| react-best-practices  | ≥95%      | CRITICAL violations  |
+| web-design-guidelines | ≥90%      | HIGH a11y violations |
 
 **Gate Rule**: If audit fails, fix violations and re-audit (max 3 attempts)
 
@@ -401,6 +411,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Output**: `website-builds/<slug>/audits/seo_review.md`
 
 **Checklist**:
+
 - robots.txt configured
 - sitemap.xml generated
 - Canonical URLs set
@@ -418,6 +429,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 **Output**: `website-builds/<slug>/ralph/`
 
 **The 20-Pass System**:
+
 1. Run lint, typecheck, E2E tests
 2. If failures: fix highest-impact issue
 3. If passing: make one high-leverage polish improvement
@@ -425,6 +437,7 @@ QA MODE ──[user asks question]──▶ INFRA MODE (temporary)
 5. Repeat until COMPLETION_PROMISE or 20 passes
 
 **Exit Condition**: This exact string in PROGRESS.md:
+
 ```
 COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 ```
@@ -435,24 +448,25 @@ COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 
 ### Sub-Agents (Internal)
 
-| Agent | Purpose | Invoked When |
-|-------|---------|--------------|
-| Dream Spec Author | Write specification | Phase 1 |
-| Skills Auditor | Run skills checks | Phase 6 |
-| Ralph | Adversarial QA | Phase 8 |
+| Agent             | Purpose             | Invoked When |
+| ----------------- | ------------------- | ------------ |
+| Dream Spec Author | Write specification | Phase 1      |
+| Skills Auditor    | Run skills checks   | Phase 6      |
+| Ralph             | Adversarial QA      | Phase 8      |
 
 ### External Delegation
 
-| Request Type | Delegate To |
-|--------------|-------------|
-| Mobile app | "Use app-factory/ instead" |
-| dApp | "Use dapp-factory/ instead" |
-| AI agent | "Use agent-factory/ instead" |
-| Plugin | "Use plugin-factory/ instead" |
+| Request Type | Delegate To                   |
+| ------------ | ----------------------------- |
+| Mobile app   | "Use app-factory/ instead"    |
+| dApp         | "Use dapp-factory/ instead"   |
+| AI agent     | "Use agent-factory/ instead"  |
+| Plugin       | "Use plugin-factory/ instead" |
 
 ### Conflict Resolution
 
 If user requests something outside scope:
+
 1. Acknowledge the request
 2. Explain why it's out of scope
 3. Redirect to appropriate pipeline
@@ -464,33 +478,34 @@ If user requests something outside scope:
 
 ### MUST DO
 
-| Rule | Enforcement |
-|------|-------------|
-| Normalize intent before planning | Phase 0 mandatory |
-| Research before building | Phase 2 required |
-| Build Information Architecture first | Phase 3 required |
-| Run skills audits BEFORE Ralph | Phase 6 gate |
-| Optimize for Core Web Vitals | Build requirements |
-| Use Server Components by default | Code patterns |
-| Add Framer Motion animations | Design requirement |
-| Include comprehensive SEO | Phase 7 audit |
+| Rule                                 | Enforcement        |
+| ------------------------------------ | ------------------ |
+| Normalize intent before planning     | Phase 0 mandatory  |
+| Research before building             | Phase 2 required   |
+| Build Information Architecture first | Phase 3 required   |
+| Run skills audits BEFORE Ralph       | Phase 6 gate       |
+| Optimize for Core Web Vitals         | Build requirements |
+| Use Server Components by default     | Code patterns      |
+| Add Framer Motion animations         | Design requirement |
+| Include comprehensive SEO            | Phase 7 audit      |
 
 ### MUST NOT DO
 
-| Rule | Consequence |
-|------|-------------|
-| Skip Intent Normalization | Build rejected |
-| Skip Research phase | Build rejected |
-| Skip Skills Audits | Build rejected |
+| Rule                             | Consequence          |
+| -------------------------------- | -------------------- |
+| Skip Intent Normalization        | Build rejected       |
+| Skip Research phase              | Build rejected       |
+| Skip Skills Audits               | Build rejected       |
 | Use `'use client'` unnecessarily | Skills audit failure |
-| Use barrel imports | Skills audit failure |
-| Skip accessibility requirements | Skills audit failure |
-| Deploy without audit reports | Build incomplete |
-| Claim success without Ralph PASS | Build incomplete |
+| Use barrel imports               | Skills audit failure |
+| Skip accessibility requirements  | Skills audit failure |
+| Deploy without audit reports     | Build incomplete     |
+| Claim success without Ralph PASS | Build incomplete     |
 
 ### Never Actions (Absolute)
 
 Claude MUST NEVER:
+
 - Write to directories outside website-pipeline/
 - Skip approval gates
 - Generate placeholder research content
@@ -503,18 +518,18 @@ Claude MUST NEVER:
 
 ## 8. REFUSAL TABLE
 
-| Request Pattern | Action | Reason | Alternative |
-|-----------------|--------|--------|-------------|
-| "Build a mobile app" | REFUSE | Out of scope | cd app-factory && claude |
-| "Build a dApp" | REFUSE | Out of scope | cd dapp-factory && claude |
-| "Skip the skills audit" | REFUSE | Mandatory gate | None - audit required |
-| "Skip Ralph" | REFUSE | Mandatory gate | None - QA required |
-| "Just build without research" | REFUSE | Quality requirement | Research is mandatory |
-| "Make it work offline first" | REFUSE | Online-first is default | Configure offline after |
-| "Deploy to production now" | REFUSE | User deploys | Provide deployment guide |
-| "Add user authentication" | REFUSE | Out of scope | Recommend separate auth service |
-| "Add a database backend" | REFUSE | Static sites only | Recommend headless CMS |
-| "Ignore accessibility" | REFUSE | Mandatory requirement | None - a11y required |
+| Request Pattern               | Action | Reason                  | Alternative                     |
+| ----------------------------- | ------ | ----------------------- | ------------------------------- |
+| "Build a mobile app"          | REFUSE | Out of scope            | cd app-factory && claude        |
+| "Build a dApp"                | REFUSE | Out of scope            | cd dapp-factory && claude       |
+| "Skip the skills audit"       | REFUSE | Mandatory gate          | None - audit required           |
+| "Skip Ralph"                  | REFUSE | Mandatory gate          | None - QA required              |
+| "Just build without research" | REFUSE | Quality requirement     | Research is mandatory           |
+| "Make it work offline first"  | REFUSE | Online-first is default | Configure offline after         |
+| "Deploy to production now"    | REFUSE | User deploys            | Provide deployment guide        |
+| "Add user authentication"     | REFUSE | Out of scope            | Recommend separate auth service |
+| "Add a database backend"      | REFUSE | Static sites only       | Recommend headless CMS          |
+| "Ignore accessibility"        | REFUSE | Mandatory requirement   | None - a11y required            |
 
 ### Refusal Message Template
 
@@ -540,6 +555,7 @@ Would you like me to [SUGGESTED ACTION]?
 ## Pre-Completion Checklist
 
 ### Phase Gates
+
 - [ ] Phase 0: Normalized prompt saved
 - [ ] Phase 1: Dream spec with all 12 sections
 - [ ] Phase 2: Research artifacts (market, competitor, positioning)
@@ -551,6 +567,7 @@ Would you like me to [SUGGESTED ACTION]?
 - [ ] Phase 8: Ralph COMPLETION_PROMISE written
 
 ### Runtime Verification
+
 - [ ] `npm install` completes without errors
 - [ ] `npm run build` completes without errors
 - [ ] `npm run dev` starts on localhost:3000
@@ -559,6 +576,7 @@ Would you like me to [SUGGESTED ACTION]?
 - [ ] `npm run typecheck` passes
 
 ### Output Verification
+
 - [ ] website-builds/<slug>/ exists
 - [ ] All REQUIRED files present (see Directory Map)
 - [ ] No placeholder content in research/
@@ -569,6 +587,7 @@ Would you like me to [SUGGESTED ACTION]?
 ### Success Definition
 
 A build is complete when:
+
 1. All 8 phases executed
 2. Skills audit passed
 3. Ralph COMPLETION_PROMISE written
@@ -583,17 +602,18 @@ A build is complete when:
 
 ### Error Categories
 
-| Category | Detection | Recovery |
-|----------|-----------|----------|
-| Phase Failure | Phase output missing | Return to failed phase |
-| Skills Audit Failure | Audit score below threshold | Fix violations, re-audit |
-| Ralph Failure | 20 passes without COMPLETION_PROMISE | Document blockers, require manual fix |
-| Build Failure | npm commands fail | Check dependencies, fix errors |
-| E2E Test Failure | Playwright tests fail | Fix failing tests |
+| Category             | Detection                            | Recovery                              |
+| -------------------- | ------------------------------------ | ------------------------------------- |
+| Phase Failure        | Phase output missing                 | Return to failed phase                |
+| Skills Audit Failure | Audit score below threshold          | Fix violations, re-audit              |
+| Ralph Failure        | 20 passes without COMPLETION_PROMISE | Document blockers, require manual fix |
+| Build Failure        | npm commands fail                    | Check dependencies, fix errors        |
+| E2E Test Failure     | Playwright tests fail                | Fix failing tests                     |
 
 ### Recovery Protocols
 
 **Skills Audit Failure**:
+
 1. Read audit report
 2. Identify CRITICAL/HIGH violations
 3. Fix violations in priority order
@@ -601,6 +621,7 @@ A build is complete when:
 5. Max 3 attempts before escalation
 
 **Ralph Failure (20 passes exceeded)**:
+
 1. Document all unresolved issues in QA_NOTES.md
 2. List blocking vs non-blocking issues
 3. Inform user of remaining work
@@ -608,6 +629,7 @@ A build is complete when:
 5. User must manually approve or fix
 
 **Build Failure**:
+
 1. Capture error message
 2. Identify root cause
 3. Fix and retry
@@ -616,6 +638,7 @@ A build is complete when:
 ### Drift Detection
 
 Claude MUST halt and reassess if:
+
 - About to write outside website-builds/
 - About to skip a mandatory phase
 - Skills audit score below threshold
@@ -631,6 +654,7 @@ Claude MUST halt and reassess if:
 This pipeline inherits constraints from: `../CLAUDE.md` (Root Orchestrator)
 
 **Inherited Invariants**:
+
 1. No Silent Execution - always show plan first
 2. Mandatory Approval - no `--force` flags
 3. Confined File Writes - only website-pipeline/
@@ -642,13 +666,13 @@ This pipeline inherits constraints from: `../CLAUDE.md` (Root Orchestrator)
 
 ### Sibling Pipelines
 
-| Pipeline | Purpose | When to Redirect |
-|----------|---------|------------------|
-| [app-factory/](../app-factory/) | Mobile apps | User wants iOS/Android |
-| [dapp-factory/](../dapp-factory/) | dApps/websites with agents | User wants AI features |
-| [agent-factory/](../agent-factory/) | AI agents | User wants HTTP agent |
-| [plugin-factory/](../plugin-factory/) | Claude plugins | User wants Claude extension |
-| [miniapp-pipeline/](../miniapp-pipeline/) | Base Mini Apps | User wants Base integration |
+| Pipeline                                  | Purpose                    | When to Redirect            |
+| ----------------------------------------- | -------------------------- | --------------------------- |
+| [app-factory/](../app-factory/)           | Mobile apps                | User wants iOS/Android      |
+| [dapp-factory/](../dapp-factory/)         | dApps/websites with agents | User wants AI features      |
+| [agent-factory/](../agent-factory/)       | AI agents                  | User wants HTTP agent       |
+| [plugin-factory/](../plugin-factory/)     | Claude plugins             | User wants Claude extension |
+| [miniapp-pipeline/](../miniapp-pipeline/) | Base Mini Apps             | User wants Base integration |
 
 ### Documentation References
 
@@ -661,12 +685,12 @@ This pipeline inherits constraints from: `../CLAUDE.md` (Root Orchestrator)
 
 MCP integration follows `../plugin-factory/mcp.catalog.json`:
 
-| MCP Server | Phase | Permission | Purpose |
-|------------|-------|------------|---------|
-| Playwright | Phase 8 | read-only | E2E testing |
-| Vercel | deploy | read-only | Deployment (user-initiated) |
-| Figma | Phase 4 | read-only | Design token extraction |
-| GitHub | all | read-write | Already integrated |
+| MCP Server | Phase   | Permission | Purpose                     |
+| ---------- | ------- | ---------- | --------------------------- |
+| Playwright | Phase 8 | read-only  | E2E testing                 |
+| Vercel     | deploy  | read-only  | Deployment (user-initiated) |
+| Figma      | Phase 4 | read-only  | Design token extraction     |
+| GitHub     | all     | read-write | Already integrated          |
 
 ---
 
@@ -709,17 +733,17 @@ When a build completes successfully (COMPLETION_PROMISE written), the following 
 
 ## TECHNOLOGY STACK (REFERENCE)
 
-| Component | Technology | Version | Justification |
-|-----------|------------|---------|---------------|
-| Framework | Next.js | 14+ | App Router, SSR/SSG, Vercel-native |
-| Language | TypeScript | 5.0+ | Type safety |
-| Styling | Tailwind CSS | 3.4+ | Utility-first, performance |
-| UI Components | shadcn/ui | Latest | Copy-paste, customizable |
-| Animation | Framer Motion | 11+ | Required by web-design-guidelines |
-| Icons | Lucide React | Latest | Consistent, lightweight |
-| State | React Context / Zustand | Latest | Minimal overhead |
-| Forms | React Hook Form + Zod | Latest | Validation, performance |
-| SEO | next-seo | Latest | Comprehensive metadata |
+| Component     | Technology              | Version | Justification                      |
+| ------------- | ----------------------- | ------- | ---------------------------------- |
+| Framework     | Next.js                 | 14+     | App Router, SSR/SSG, Vercel-native |
+| Language      | TypeScript              | 5.0+    | Type safety                        |
+| Styling       | Tailwind CSS            | 3.4+    | Utility-first, performance         |
+| UI Components | shadcn/ui               | Latest  | Copy-paste, customizable           |
+| Animation     | Framer Motion           | 11+     | Required by web-design-guidelines  |
+| Icons         | Lucide React            | Latest  | Consistent, lightweight            |
+| State         | React Context / Zustand | Latest  | Minimal overhead                   |
+| Forms         | React Hook Form + Zod   | Latest  | Validation, performance            |
+| SEO           | next-seo                | Latest  | Comprehensive metadata             |
 
 ---
 
@@ -727,15 +751,15 @@ When a build completes successfully (COMPLETION_PROMISE written), the following 
 
 When the user doesn't specify:
 
-| Aspect | Default |
-|--------|---------|
-| Framework | Next.js 14 (App Router) |
-| Hosting | Vercel |
-| Dark mode | Enabled |
-| Animations | Framer Motion page transitions |
-| Forms | React Hook Form + Zod |
-| SEO | next-seo configured |
-| Performance | Core Web Vitals compliant |
+| Aspect      | Default                        |
+| ----------- | ------------------------------ |
+| Framework   | Next.js 14 (App Router)        |
+| Hosting     | Vercel                         |
+| Dark mode   | Enabled                        |
+| Animations  | Framer Motion page transitions |
+| Forms       | React Hook Form + Zod          |
+| SEO         | next-seo configured            |
+| Performance | Core Web Vitals compliant      |
 
 ---
 
@@ -743,14 +767,15 @@ When the user doesn't specify:
 
 > **Note**: MCP (Model Context Protocol) is the **specification** that governs how AI systems communicate with tools. The entries below are **MCP servers** (implementations). For full governance, see `plugin-factory/CLAUDE.md` under "MCP GOVERNANCE".
 
-| MCP Server | Phase | Permission | Purpose |
-|------------|-------|------------|---------|
-| Playwright | Phase 8 | read-only | E2E testing, UI verification |
-| Vercel | deploy | read-only | Deployment management |
-| Figma | Phase 4 | read-only | Design token extraction |
-| GitHub | all | read-write | Already integrated via Claude Code |
+| MCP Server | Phase   | Permission | Purpose                            |
+| ---------- | ------- | ---------- | ---------------------------------- |
+| Playwright | Phase 8 | read-only  | E2E testing, UI verification       |
+| Vercel     | deploy  | read-only  | Deployment management              |
+| Figma      | Phase 4 | read-only  | Design token extraction            |
+| GitHub     | all     | read-write | Already integrated via Claude Code |
 
 **MCP Usage Rules**:
+
 1. MCPs are opt-in - Websites work without any MCP
 2. Phase-gated - MCPs only in specified phases
 3. Artifacts logged to `runs/<date>/<run-id>/mcp-logs/`
@@ -759,13 +784,13 @@ When the user doesn't specify:
 
 ## VERSION HISTORY
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 2.0.0 | 2026-01-20 | Canonical structure upgrade: 12-section format, explicit refusal table, completion promise, mode definitions, error recovery protocols |
-| 1.3 | 2026-01-18 | Added MCP governance note |
-| 1.2 | 2026-01-18 | Added MCP integration catalog reference |
-| 1.1 | 2026-01-18 | Added UX Polish Loop with Playwright E2E |
-| 1.0 | 2026-01-18 | Initial release with mandatory skills audits |
+| Version | Date       | Changes                                                                                                                                |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.0.0   | 2026-01-20 | Canonical structure upgrade: 12-section format, explicit refusal table, completion promise, mode definitions, error recovery protocols |
+| 1.3     | 2026-01-18 | Added MCP governance note                                                                                                              |
+| 1.2     | 2026-01-18 | Added MCP integration catalog reference                                                                                                |
+| 1.1     | 2026-01-18 | Added UX Polish Loop with Playwright E2E                                                                                               |
+| 1.0     | 2026-01-18 | Initial release with mandatory skills audits                                                                                           |
 
 ---
 

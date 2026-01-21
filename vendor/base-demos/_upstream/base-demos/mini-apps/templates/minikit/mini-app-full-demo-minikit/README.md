@@ -23,5 +23,6 @@ $ yarn dev
 To test your mini app in Farcaster's playground or in Base App, you'll want to use a tunneling tool like [ngrok](https://ngrok.com/)
 
 ## Relevant Links
+
 - [Mini Apps in Base App Docs](https://docs.base.org/base-app/introduction/mini-apps)
 - [MiniKit Docs](https://docs.base.org/base-app/build-with-minikit/overview)

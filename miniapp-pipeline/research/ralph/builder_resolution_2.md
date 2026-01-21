@@ -12,8 +12,8 @@
 **Action**: Updated `app/.well-known/farcaster.json/route.ts.template` to use OnchainKit's `withValidManifest` exactly matching upstream pattern.
 
 ```typescript
-import { withValidManifest } from "@coinbase/onchainkit/minikit";
-import { minikitConfig } from "@/minikit.config";
+import { withValidManifest } from '@coinbase/onchainkit/minikit';
+import { minikitConfig } from '@/minikit.config';
 
 export async function GET() {
   return Response.json(withValidManifest(minikitConfig));
@@ -29,6 +29,7 @@ export async function GET() {
 ### 1. Providers Template Full Hierarchy
 
 **Action**: Updated `providers.tsx.template` to include:
+
 - WagmiProvider with Base chain config
 - QueryClientProvider
 - MiniKitProvider

@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface GameControlsProps {
-  onStart: () => void
-  onReset: () => void
-  onShuffle: () => void
-  gameStarted: boolean
-  gameEnded: boolean
-  isShuffling: boolean
+  onStart: () => void;
+  onReset: () => void;
+  onShuffle: () => void;
+  gameStarted: boolean;
+  gameEnded: boolean;
+  isShuffling: boolean;
 }
 
 export const GameControls = ({
@@ -23,7 +23,10 @@ export const GameControls = ({
   return (
     <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
       {!gameStarted && (
-        <Button onClick={onStart} className="bg-green-600 hover:bg-green-700 text-sm sm:text-base px-3 sm:px-4">
+        <Button
+          onClick={onStart}
+          className="bg-green-600 hover:bg-green-700 text-sm sm:text-base px-3 sm:px-4"
+        >
           Start Game
         </Button>
       )}
@@ -55,5 +58,5 @@ export const GameControls = ({
         </Button>
       )}
     </div>
-  )
-}
+  );
+};

@@ -1,19 +1,18 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
-import FrameProvider from "~/components/providers/frame-provider";
-
+import FrameProvider from '~/components/providers/frame-provider';
 
 const WagmiProvider = dynamic(
-  () => import("~/components/providers/wagmi-provider"),
+  () => import('~/components/providers/wagmi-provider'),
   {
     ssr: false,
   }
 );
 
 const ErudaProvider = dynamic(
-  () => import("~/components/providers/eruda-provider"),
+  () => import('~/components/providers/eruda-provider'),
   {
     ssr: false,
   }

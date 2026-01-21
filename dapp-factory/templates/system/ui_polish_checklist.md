@@ -281,27 +281,29 @@ Open the app and evaluate within 30 seconds:
 
 ### Scoring Guide
 
-| Section | Weight | Pass Criteria |
-|---------|--------|---------------|
-| First Impressions | 15% | All checks pass |
-| Component Quality | 20% | All checks pass |
-| State Management | 20% | All checks pass |
-| Animation & Motion | 10% | All checks pass |
-| Layout & Spacing | 10% | All checks pass |
-| Color & Contrast | 10% | All checks pass |
-| Web3-Specific UX | 10% | All checks pass |
-| shadcn/ui Integration | 5% | All checks pass |
+| Section               | Weight | Pass Criteria   |
+| --------------------- | ------ | --------------- |
+| First Impressions     | 15%    | All checks pass |
+| Component Quality     | 20%    | All checks pass |
+| State Management      | 20%    | All checks pass |
+| Animation & Motion    | 10%    | All checks pass |
+| Layout & Spacing      | 10%    | All checks pass |
+| Color & Contrast      | 10%    | All checks pass |
+| Web3-Specific UX      | 10%    | All checks pass |
+| shadcn/ui Integration | 5%     | All checks pass |
 
 ### Verdict Rules
 
 **PASS**: All sections pass, no FAIL conditions triggered
 
 **CONDITIONAL PASS**: Minor issues in 1-2 sections that don't trigger FAIL conditions
+
 - List specific issues
 - Issues must be fixable in under 30 minutes
 - Re-verify after fixes
 
 **FAIL**: Any FAIL condition is triggered, or 3+ sections have issues
+
 - List all failing sections
 - Prioritize fixes by impact
 - Re-run full checklist after fixes
@@ -319,16 +321,16 @@ Open the app and evaluate within 30 seconds:
 
 ## Quick Reference: Common Failures
 
-| Issue | Fix |
-|-------|-----|
-| Monospace body text | Change font-family to Inter/system sans |
-| No loading states | Add Skeleton components for async content |
-| No hover states | Add hover: classes to all interactive elements |
-| Blank empty states | Design EmptyState component |
-| Raw error messages | Wrap errors in ErrorState component |
-| Wallet dominates UI | Move wallet button to header right, reduce size |
-| Instant transitions | Add transition-all duration-200 |
-| Inconsistent spacing | Apply consistent padding scale |
+| Issue                | Fix                                             |
+| -------------------- | ----------------------------------------------- |
+| Monospace body text  | Change font-family to Inter/system sans         |
+| No loading states    | Add Skeleton components for async content       |
+| No hover states      | Add hover: classes to all interactive elements  |
+| Blank empty states   | Design EmptyState component                     |
+| Raw error messages   | Wrap errors in ErrorState component             |
+| Wallet dominates UI  | Move wallet button to header right, reduce size |
+| Instant transitions  | Add transition-all duration-200                 |
+| Inconsistent spacing | Apply consistent padding scale                  |
 
 ---
 

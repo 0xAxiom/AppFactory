@@ -18,10 +18,10 @@ Quality gates are mandatory checkpoints that validate code against skills before
 
 ### Skills Checked
 
-| Skill | Weight | Pass Threshold |
-|-------|--------|----------------|
-| mobile-ui-guidelines | 50% | ≥85%, no CRITICAL |
-| mobile-interface-guidelines | 50% | ≥85% |
+| Skill                       | Weight | Pass Threshold    |
+| --------------------------- | ------ | ----------------- |
+| mobile-ui-guidelines        | 50%    | ≥85%, no CRITICAL |
+| mobile-interface-guidelines | 50%    | ≥85%              |
 
 ### Invocation
 
@@ -31,14 +31,15 @@ Quality gates are mandatory checkpoints that validate code against skills before
 **ID:** `app-factory:mobile-ui-guidelines`
 **Trigger:** Screen components present in builds/<slug>/app/
 **Inputs:**
-  - Code paths: `builds/<slug>/app/**/*.tsx`
-  - Code paths: `builds/<slug>/src/components/**/*.tsx`
-**Outputs:**
-  - Report: `runs/<timestamp>/reports/agent_skills/mobile-ui-guidelines.md`
-**Gate Criteria:**
-  - BLOCKED if touch target < 44pt
-  - FAIL if score < 85%
-  - PASS if ≥85%
+
+- Code paths: `builds/<slug>/app/**/*.tsx`
+- Code paths: `builds/<slug>/src/components/**/*.tsx`
+  **Outputs:**
+- Report: `runs/<timestamp>/reports/agent_skills/mobile-ui-guidelines.md`
+  **Gate Criteria:**
+- BLOCKED if touch target < 44pt
+- FAIL if score < 85%
+- PASS if ≥85%
 ```
 
 ```markdown
@@ -47,13 +48,14 @@ Quality gates are mandatory checkpoints that validate code against skills before
 **ID:** `app-factory:mobile-interface-guidelines`
 **Trigger:** UI code present
 **Inputs:**
-  - Code paths: `builds/<slug>/**/*.tsx`
-**Outputs:**
-  - Report: `runs/<timestamp>/reports/agent_skills/mobile-interface-guidelines.md`
-**Gate Criteria:**
-  - BLOCKED if CRITICAL violation (a11y, safe areas)
-  - FAIL if score < 85%
-  - PASS if ≥85%
+
+- Code paths: `builds/<slug>/**/*.tsx`
+  **Outputs:**
+- Report: `runs/<timestamp>/reports/agent_skills/mobile-interface-guidelines.md`
+  **Gate Criteria:**
+- BLOCKED if CRITICAL violation (a11y, safe areas)
+- FAIL if score < 85%
+- PASS if ≥85%
 ```
 
 ---
@@ -65,10 +67,10 @@ Quality gates are mandatory checkpoints that validate code against skills before
 
 ### Skills Checked
 
-| Skill | Weight | Pass Threshold |
-|-------|--------|----------------|
-| react-native-best-practices | 60% | ≥90%, no CRITICAL |
-| expo-standards | 40% | ≥85% |
+| Skill                       | Weight | Pass Threshold    |
+| --------------------------- | ------ | ----------------- |
+| react-native-best-practices | 60%    | ≥90%, no CRITICAL |
+| expo-standards              | 40%    | ≥85%              |
 
 ### Invocation
 
@@ -78,15 +80,16 @@ Quality gates are mandatory checkpoints that validate code against skills before
 **ID:** `app-factory:react-native-best-practices`
 **Trigger:** React Native code present
 **Inputs:**
-  - Code paths: `builds/<slug>/src/**/*.{ts,tsx}`
-  - Code paths: `builds/<slug>/app/**/*.tsx`
-**Outputs:**
-  - Report: `runs/<timestamp>/reports/agent_skills/react-native-best-practices.md`
-**Gate Criteria:**
-  - BLOCKED if any CRITICAL violation
-  - FAIL if score < 90%
-  - CONDITIONAL if 90-94%
-  - PASS if ≥95%
+
+- Code paths: `builds/<slug>/src/**/*.{ts,tsx}`
+- Code paths: `builds/<slug>/app/**/*.tsx`
+  **Outputs:**
+- Report: `runs/<timestamp>/reports/agent_skills/react-native-best-practices.md`
+  **Gate Criteria:**
+- BLOCKED if any CRITICAL violation
+- FAIL if score < 90%
+- CONDITIONAL if 90-94%
+- PASS if ≥95%
 ```
 
 ### Critical Rules
@@ -151,12 +154,14 @@ useEffect(() => {
 ## Ralph Quality Report
 
 ### Build Quality (25% weight)
+
 - [ ] npm install succeeds
 - [ ] npx expo start launches
 - [ ] No TypeScript errors
 - [ ] App runs in Expo Go
 
 ### React Native Skills Compliance (20% weight)
+
 - [ ] No CRITICAL violations
 - [ ] Promise.all for parallel operations
 - [ ] FlatList for long lists
@@ -165,6 +170,7 @@ useEffect(() => {
 - [ ] Overall skill score ≥95%
 
 ### Mobile UI Skills Compliance (25% weight)
+
 - [ ] Touch targets ≥44pt (iOS) / 48dp (Android)
 - [ ] Accessibility labels on all interactive elements
 - [ ] Skeleton loaders for async content
@@ -174,12 +180,14 @@ useEffect(() => {
 - [ ] Overall skill score ≥95%
 
 ### Monetization Quality (15% weight)
+
 - [ ] RevenueCat SDK integrated
 - [ ] Paywall screen implemented
 - [ ] Premium features gated
 - [ ] Sandbox mode works
 
 ### Research & ASO Quality (15% weight)
+
 - [ ] market_research.md is substantive
 - [ ] competitor_analysis.md names real apps
 - [ ] ASO materials complete
@@ -235,6 +243,7 @@ app-factory/
 ### "Max attempts reached"
 
 Pipeline enters manual intervention mode:
+
 1. Review all reports in `reports/agent_skills/`
 2. Fix violations manually
 3. Run `npx expo start` to verify

@@ -15,6 +15,7 @@ Comprehensive mobile UI/UX quality rules for building accessible, performant, an
 ## Activation
 
 This skill activates automatically during:
+
 - **Milestone 2 (Core Screens):** Accessibility and touch target checks
 - **Milestone 3 (Features):** Performance and list optimization checks
 - **Phase 4 (Ralph QA):** Mandatory scoring category (part of Mobile UI Skills, 5% weight)
@@ -23,14 +24,14 @@ This skill activates automatically during:
 
 ## Categories
 
-| Category | Rules | Priority | Focus |
-|----------|-------|----------|-------|
-| **Touch & Gestures** | 6 | HIGH | Touch targets, gestures, haptics |
-| **Animation** | 5 | MEDIUM | Motion preferences, performance |
-| **Layout** | 5 | HIGH | Safe areas, responsive, platform |
-| **Content** | 5 | MEDIUM | Empty states, error handling |
-| **Accessibility** | 8 | HIGH | VoiceOver, TalkBack, contrast |
-| **Performance** | 6 | HIGH | FlatList, memory, main thread |
+| Category             | Rules | Priority | Focus                            |
+| -------------------- | ----- | -------- | -------------------------------- |
+| **Touch & Gestures** | 6     | HIGH     | Touch targets, gestures, haptics |
+| **Animation**        | 5     | MEDIUM   | Motion preferences, performance  |
+| **Layout**           | 5     | HIGH     | Safe areas, responsive, platform |
+| **Content**          | 5     | MEDIUM   | Empty states, error handling     |
+| **Accessibility**    | 8     | HIGH     | VoiceOver, TalkBack, contrast    |
+| **Performance**      | 6     | HIGH     | FlatList, memory, main thread    |
 
 ---
 

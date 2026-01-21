@@ -7,12 +7,12 @@
 
 ## Registered Skills
 
-| Skill ID | Location | Source | Purpose |
-|----------|----------|--------|---------|
-| `dapp-factory:react-best-practices` | `skills/react-best-practices/` | Vercel agent-skills | React/Next.js performance |
-| `dapp-factory:web-design-guidelines` | `skills/web-design-guidelines/` | Vercel agent-skills | UI/UX/accessibility |
-| `dapp-factory:web-interface-guidelines` | `skills/web-interface-guidelines/` | Internal | Web-specific patterns |
-| `dapp-factory:vercel-deploy` | `skills/vercel-deploy/` | Internal | Deployment guidance |
+| Skill ID                                | Location                           | Source              | Purpose                   |
+| --------------------------------------- | ---------------------------------- | ------------------- | ------------------------- |
+| `dapp-factory:react-best-practices`     | `skills/react-best-practices/`     | Vercel agent-skills | React/Next.js performance |
+| `dapp-factory:web-design-guidelines`    | `skills/web-design-guidelines/`    | Vercel agent-skills | UI/UX/accessibility       |
+| `dapp-factory:web-interface-guidelines` | `skills/web-interface-guidelines/` | Internal            | Web-specific patterns     |
+| `dapp-factory:vercel-deploy`            | `skills/vercel-deploy/`            | Internal            | Deployment guidance       |
 
 ---
 
@@ -153,11 +153,7 @@ import { motion } from 'framer-motion';
 
 export default function Page() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
       Content
     </motion.div>
   );
@@ -167,17 +163,21 @@ export default function Page() {
 ```tsx
 // LS1: Skeleton Loaders
 // BAD
-{isLoading ? <Spinner /> : <Content data={data} />}
+{
+  isLoading ? <Spinner /> : <Content data={data} />;
+}
 
 // GOOD
-{isLoading ? (
-  <div className="space-y-4">
-    <Skeleton className="h-8 w-3/4" />
-    <Skeleton className="h-4 w-full" />
-  </div>
-) : (
-  <Content data={data} />
-)}
+{
+  isLoading ? (
+    <div className="space-y-4">
+      <Skeleton className="h-8 w-3/4" />
+      <Skeleton className="h-4 w-full" />
+    </div>
+  ) : (
+    <Content data={data} />
+  );
+}
 ```
 
 ### When Checked
@@ -211,14 +211,18 @@ See `skills/web-design-guidelines/AGENTS.md` for complete rules.
 ```tsx
 // FM4: Error Messages
 // BAD
-{error && <span className="error">Invalid</span>}
+{
+  error && <span className="error">Invalid</span>;
+}
 
 // GOOD
-{error && (
-  <span role="alert" className="text-destructive text-sm mt-1">
-    Please enter a valid email address (e.g., name@example.com)
-  </span>
-)}
+{
+  error && (
+    <span role="alert" className="text-destructive text-sm mt-1">
+      Please enter a valid email address (e.g., name@example.com)
+    </span>
+  );
+}
 ```
 
 **Empty/Error States:**
@@ -226,21 +230,23 @@ See `skills/web-design-guidelines/AGENTS.md` for complete rules.
 ```tsx
 // ES1: Designed Empty States
 // BAD
-{items.length === 0 && <p>No items</p>}
+{
+  items.length === 0 && <p>No items</p>;
+}
 
 // GOOD
-{items.length === 0 && (
-  <div className="flex flex-col items-center py-16">
-    <div className="rounded-full bg-muted p-4 mb-4">
-      <InboxIcon className="h-8 w-8 text-muted-foreground" />
+{
+  items.length === 0 && (
+    <div className="flex flex-col items-center py-16">
+      <div className="rounded-full bg-muted p-4 mb-4">
+        <InboxIcon className="h-8 w-8 text-muted-foreground" />
+      </div>
+      <h3 className="text-lg font-semibold mb-2">No items yet</h3>
+      <p className="text-muted-foreground text-center max-w-sm mb-6">Get started by creating your first item.</p>
+      <Button>Create Item</Button>
     </div>
-    <h3 className="text-lg font-semibold mb-2">No items yet</h3>
-    <p className="text-muted-foreground text-center max-w-sm mb-6">
-      Get started by creating your first item.
-    </p>
-    <Button>Create Item</Button>
-  </div>
-)}
+  );
+}
 ```
 
 ### When Checked
@@ -295,11 +301,11 @@ Ralph report includes skill scores:
 ```markdown
 ## Skills Compliance Summary
 
-| Skill | Score | Status |
-|-------|-------|--------|
-| react-best-practices | 96% | PASS |
-| web-design-guidelines | 94% | CONDITIONAL |
-| web-interface-guidelines | 98% | PASS |
+| Skill                    | Score | Status      |
+| ------------------------ | ----- | ----------- |
+| react-best-practices     | 96%   | PASS        |
+| web-design-guidelines    | 94%   | CONDITIONAL |
+| web-interface-guidelines | 98%   | PASS        |
 
 ### Violations Found
 

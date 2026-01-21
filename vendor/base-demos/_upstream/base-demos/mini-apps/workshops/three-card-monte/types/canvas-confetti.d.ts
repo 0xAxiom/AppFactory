@@ -1,4 +1,4 @@
-declare module 'canvas-confetti' {
+declare module "canvas-confetti" {
   interface ConfettiOptions {
     particleCount?: number;
     angle?: number;
@@ -19,12 +19,17 @@ declare module 'canvas-confetti' {
     disableForReducedMotion?: boolean;
   }
 
-  type ConfettiCannon = (options?: ConfettiOptions) => Promise<{ reset: () => void }>;
-  
+  type ConfettiCannon = (
+    options?: ConfettiOptions,
+  ) => Promise<{ reset: () => void }>;
+
   const confetti: ConfettiCannon & {
     reset: () => void;
-    create: (canvas: HTMLCanvasElement, options?: { resize?: boolean, useWorker?: boolean }) => ConfettiCannon;
+    create: (
+      canvas: HTMLCanvasElement,
+      options?: { resize?: boolean; useWorker?: boolean },
+    ) => ConfettiCannon;
   };
-  
+
   export default confetti;
-} 
+}

@@ -7,12 +7,12 @@
 
 ## Registered Skills
 
-| Skill ID | Location | Source | Purpose |
-|----------|----------|--------|---------|
-| `app-factory:react-native-best-practices` | `skills/react-native-best-practices/` | Adapted from Vercel | RN performance |
-| `app-factory:mobile-ui-guidelines` | `skills/mobile-ui-guidelines/` | Internal | Mobile UI/UX |
-| `app-factory:mobile-interface-guidelines` | `skills/mobile-interface-guidelines/` | Internal | Touch, a11y, perf |
-| `app-factory:expo-standards` | `skills/expo-standards/` | Internal | Expo-specific |
+| Skill ID                                  | Location                              | Source              | Purpose           |
+| ----------------------------------------- | ------------------------------------- | ------------------- | ----------------- |
+| `app-factory:react-native-best-practices` | `skills/react-native-best-practices/` | Adapted from Vercel | RN performance    |
+| `app-factory:mobile-ui-guidelines`        | `skills/mobile-ui-guidelines/`        | Internal            | Mobile UI/UX      |
+| `app-factory:mobile-interface-guidelines` | `skills/mobile-interface-guidelines/` | Internal            | Touch, a11y, perf |
+| `app-factory:expo-standards`              | `skills/expo-standards/`              | Internal            | Expo-specific     |
 
 ---
 
@@ -153,14 +153,14 @@ See `skills/react-native-best-practices/AGENTS.md` for complete rules.
 // BAD
 <View style={{ flex: 1 }}>
   <Content />
-</View>
+</View>;
 
 // GOOD
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 <SafeAreaView style={{ flex: 1 }}>
   <Content />
-</SafeAreaView>
+</SafeAreaView>;
 ```
 
 **HIGH Rules:**
@@ -168,36 +168,42 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 ```tsx
 // skeleton-loading: Skeleton loaders for async content
 // BAD
-{isLoading ? <ActivityIndicator /> : <Content />}
+{
+  isLoading ? <ActivityIndicator /> : <Content />;
+}
 
 // GOOD
-{isLoading ? (
-  <View style={styles.skeleton}>
-    <SkeletonPlaceholder>
-      <View style={{ height: 20, width: '80%', borderRadius: 4 }} />
-    </SkeletonPlaceholder>
-  </View>
-) : (
-  <Content />
-)}
+{
+  isLoading ? (
+    <View style={styles.skeleton}>
+      <SkeletonPlaceholder>
+        <View style={{ height: 20, width: '80%', borderRadius: 4 }} />
+      </SkeletonPlaceholder>
+    </View>
+  ) : (
+    <Content />
+  );
+}
 ```
 
 ```tsx
 // empty-states: Designed empty states with CTAs
 // BAD
-{items.length === 0 && <Text>No items</Text>}
+{
+  items.length === 0 && <Text>No items</Text>;
+}
 
 // GOOD
-{items.length === 0 && (
-  <View style={styles.emptyState}>
-    <EmptyIcon size={48} color="#888" />
-    <Text style={styles.emptyTitle}>No items yet</Text>
-    <Text style={styles.emptySubtitle}>
-      Create your first item to get started
-    </Text>
-    <Button onPress={createItem}>Create Item</Button>
-  </View>
-)}
+{
+  items.length === 0 && (
+    <View style={styles.emptyState}>
+      <EmptyIcon size={48} color="#888" />
+      <Text style={styles.emptyTitle}>No items yet</Text>
+      <Text style={styles.emptySubtitle}>Create your first item to get started</Text>
+      <Button onPress={createItem}>Create Item</Button>
+    </View>
+  );
+}
 ```
 
 ### When Checked
@@ -235,11 +241,9 @@ import { useReducedMotion } from 'react-native-reanimated';
 
 const prefersReducedMotion = useReducedMotion();
 
-<Animated.View
-  entering={prefersReducedMotion ? undefined : FadeIn.duration(300)}
->
+<Animated.View entering={prefersReducedMotion ? undefined : FadeIn.duration(300)}>
   <Content />
-</Animated.View>
+</Animated.View>;
 ```
 
 **Performance:**
@@ -267,7 +271,7 @@ useEffect(() => {
   maxToRenderPerBatch={10}
   windowSize={5}
   initialNumToRender={10}
-  getItemLayout={getItemLayout}  // If fixed height
+  getItemLayout={getItemLayout} // If fixed height
 />
 ```
 
@@ -293,31 +297,29 @@ See `skills/mobile-interface-guidelines/AGENTS.md` for complete rules.
 // app.config.js - Proper configuration
 export default {
   expo: {
-    name: "App Name",
-    slug: "app-name",
-    version: "1.0.0",
-    orientation: "portrait",
-    icon: "./assets/icon.png",
+    name: 'App Name',
+    slug: 'app-name',
+    version: '1.0.0',
+    orientation: 'portrait',
+    icon: './assets/icon.png',
     splash: {
-      image: "./assets/splash.png",
-      resizeMode: "contain",
-      backgroundColor: "#ffffff"
+      image: './assets/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '#ffffff',
     },
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.example.app"
+      bundleIdentifier: 'com.example.app',
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#ffffff"
+        foregroundImage: './assets/adaptive-icon.png',
+        backgroundColor: '#ffffff',
       },
-      package: "com.example.app"
+      package: 'com.example.app',
     },
-    plugins: [
-      "expo-router"
-    ]
-  }
+    plugins: ['expo-router'],
+  },
 };
 ```
 
@@ -378,12 +380,12 @@ Ralph report includes skill scores:
 ```markdown
 ## Skills Compliance Summary
 
-| Skill | Score | Status |
-|-------|-------|--------|
-| react-native-best-practices | 94% | CONDITIONAL |
-| mobile-ui-guidelines | 98% | PASS |
-| mobile-interface-guidelines | 96% | PASS |
-| expo-standards | 100% | PASS |
+| Skill                       | Score | Status      |
+| --------------------------- | ----- | ----------- |
+| react-native-best-practices | 94%   | CONDITIONAL |
+| mobile-ui-guidelines        | 98%   | PASS        |
+| mobile-interface-guidelines | 96%   | PASS        |
+| expo-standards              | 100%  | PASS        |
 
 ### Violations Found
 

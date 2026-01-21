@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export default function ErudaProvider() {
   useEffect(() => {
-    import("eruda").then((eruda) => {
+    import('eruda').then((eruda) => {
       if (!window.eruda) {
         window.eruda = eruda.default;
         const erudaInstance = eruda.default as {
-          init: (config?: { 
-            defaults?: { 
-              displaySize?: number; 
+          init: (config?: {
+            defaults?: {
+              displaySize?: number;
               transparency?: number;
             };
             tool?: string[];
@@ -23,12 +23,15 @@ export default function ErudaProvider() {
             transparency: 0.8,
           },
         });
-        
+
         setTimeout(() => {
-          erudaInstance.position({ x: window.innerWidth - 60, y: window.innerHeight - 60 });
+          erudaInstance.position({
+            x: window.innerWidth - 60,
+            y: window.innerHeight - 60,
+          });
         }, 100);
-        
-        console.log("Eruda initialized for debugging");
+
+        console.log('Eruda initialized for debugging');
       }
     });
   }, []);

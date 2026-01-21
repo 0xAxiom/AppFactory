@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 import { useMiniKit, useQuickAuth } from '@coinbase/onchainkit/minikit';
 import { useEffect } from 'react';
 
-const Demo = dynamic(() => import("~/components/Demo"), {
+const Demo = dynamic(() => import('~/components/Demo'), {
   ssr: false,
 });
 
@@ -33,10 +33,11 @@ export default function App() {
   // this to meet your needs. See the /app/api/auth/route.ts file for more details.
   // Note: If you don't need to verify the user's identity, you can get their FID and other user data
   // via `context.user.fid`.
-  const { data: authData, isLoading: isAuthLoading, error: authError } = useQuickAuth<AuthResponse>(
-    "/api/auth",
-    { method: "GET" }
-  );
+  const {
+    data: authData,
+    isLoading: isAuthLoading,
+    error: authError,
+  } = useQuickAuth<AuthResponse>('/api/auth', { method: 'GET' });
 
   return <Demo />;
 }

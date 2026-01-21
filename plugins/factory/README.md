@@ -24,6 +24,7 @@ Factory is designed with explicit consent and minimal permissions:
 ## Privacy & Data
 
 **All data stays local.** Factory:
+
 - Writes files only to `./builds/` directory
 - Writes audit logs to your local filesystem only
 - Does not send telemetry, analytics, or usage data
@@ -58,23 +59,23 @@ Runs 3 rounds of code review and produces a verdict file.
 
 ## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `/factory help` | Show command reference |
-| `/factory plan <idea>` | Generate execution plan (no execution) |
-| `/factory run <pipeline> <idea>` | Execute with mandatory approval gate |
-| `/factory ralph <path> [--loops N]` | Code review (1-5 loops) |
-| `/factory audit` | View execution history |
+| Command                             | Purpose                                |
+| ----------------------------------- | -------------------------------------- |
+| `/factory help`                     | Show command reference                 |
+| `/factory plan <idea>`              | Generate execution plan (no execution) |
+| `/factory run <pipeline> <idea>`    | Execute with mandatory approval gate   |
+| `/factory ralph <path> [--loops N]` | Code review (1-5 loops)                |
+| `/factory audit`                    | View execution history                 |
 
 ## Available Pipelines
 
-| Pipeline | What It Creates |
-|----------|-----------------|
-| `miniapp` | Base Mini Apps (MiniKit + Next.js) |
-| `dapp` | Web3 dApps (Next.js + wallet integration) |
-| `agent` | AI agent scaffolds (Node.js) |
-| `app` | Mobile apps (Expo + React Native) |
-| `plugin` | Claude Code plugins |
+| Pipeline  | What It Creates                           |
+| --------- | ----------------------------------------- |
+| `miniapp` | Base Mini Apps (MiniKit + Next.js)        |
+| `dapp`    | Web3 dApps (Next.js + wallet integration) |
+| `agent`   | AI agent scaffolds (Node.js)              |
+| `app`     | Mobile apps (Expo + React Native)         |
+| `plugin`  | Claude Code plugins                       |
 
 ## How It Works
 
@@ -88,6 +89,7 @@ Runs 3 rounds of code review and produces a verdict file.
 ## Configuration
 
 Pipeline paths are defined in `config.default.yaml`. Default settings:
+
 - Offline mode enabled (no network calls)
 - Approval required for all executions
 - Output confined to `./builds/` directory
@@ -95,6 +97,7 @@ Pipeline paths are defined in `config.default.yaml`. Default settings:
 ## Behavioral Guarantees
 
 See [INVARIANTS.md](./INVARIANTS.md) for the non-negotiable constraints:
+
 - No silent execution
 - Mandatory approval gates
 - Confined file writes (`./builds/` only)

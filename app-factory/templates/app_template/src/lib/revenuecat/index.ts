@@ -13,8 +13,12 @@ export interface RevenueCatConfig {
 }
 
 export const initPurchases = async (): Promise<void> => {
-  const iosKey = Constants.expoConfig?.extra?.iosApiKey || process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY;
-  const androidKey = Constants.expoConfig?.extra?.androidApiKey || process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY;
+  const iosKey =
+    Constants.expoConfig?.extra?.iosApiKey ||
+    process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY;
+  const androidKey =
+    Constants.expoConfig?.extra?.androidApiKey ||
+    process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY;
 
   if (__DEV__) {
     Purchases.setLogLevel(LOG_LEVEL.DEBUG);
@@ -27,8 +31,13 @@ export const initPurchases = async (): Promise<void> => {
       await Purchases.configure({ apiKey: androidKey });
     } else {
       if (__DEV__) {
-        console.warn('RevenueCat: No API key configured for platform:', Platform.OS);
-        console.warn('Make sure to set EXPO_PUBLIC_REVENUECAT_IOS_API_KEY or EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY');
+        console.warn(
+          'RevenueCat: No API key configured for platform:',
+          Platform.OS
+        );
+        console.warn(
+          'Make sure to set EXPO_PUBLIC_REVENUECAT_IOS_API_KEY or EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY'
+        );
       }
     }
   } catch (error) {

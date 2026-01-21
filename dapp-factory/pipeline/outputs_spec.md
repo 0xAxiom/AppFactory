@@ -15,7 +15,7 @@ web3-factory/
 │   │   ├── web3_idea.json                    # Validated Web3 concept
 │   │   └── w1_execution.md                   # Validation analysis
 │   ├── w2/
-│   │   ├── token_model.json                  # Complete token specification  
+│   │   ├── token_model.json                  # Complete token specification
 │   │   └── w2_execution.md                   # Token design rationale
 │   ├── w3/
 │   │   ├── web3_architecture.json            # Web app technical spec
@@ -42,18 +42,22 @@ web3-factory/
 ### W1 Outputs
 
 #### `w1/web3_idea.json`
+
 **Purpose**: Validated Web3 concept with justification
 **Schema**: `web3-factory/schemas/w1_web3_idea.json`
 
 **Key Fields**:
+
 - `idea_validation`: Core concept and target users
 - `onchain_requirements`: Why blockchain is needed
 - `token_justification`: Why token serves functional purpose
 - `validation_result`: Pass/fail for each validation test
 
 #### `w1/w1_execution.md`
+
 **Purpose**: Human-readable validation analysis
 **Contents**:
+
 - Original idea parsing
 - Web3 validation test results
 - Recommendations and reasoning
@@ -61,13 +65,15 @@ web3-factory/
 
 ---
 
-### W2 Outputs  
+### W2 Outputs
 
 #### `w2/token_model.json`
+
 **Purpose**: Complete token economics and role definition
 **Schema**: `web3-factory/schemas/w2_token_model.json`
 
 **Key Fields**:
+
 - `token_definition`: Name, symbol, primary role
 - `supply_model`: Total supply, inflation, burn mechanisms
 - `ownership_model`: Distribution and vesting
@@ -75,10 +81,12 @@ web3-factory/
 - `app_behavior`: How token affects user experience
 
 #### `w2/w2_execution.md`
+
 **Purpose**: Token design rationale and alternatives considered
 **Contents**:
+
 - Token role selection reasoning
-- Economic model justification  
+- Economic model justification
 - Fee routing configuration details
 - App behavior mapping
 
@@ -87,10 +95,12 @@ web3-factory/
 ### W3 Outputs
 
 #### `w3/web3_architecture.json`
+
 **Purpose**: Complete web application technical specification  
 **Schema**: `web3-factory/schemas/w3_web3_architecture.json`
 
 **Key Fields**:
+
 - `framework_selection`: Next.js vs. Vite + React choice
 - `wallet_integration`: Solana Wallet Adapter configuration
 - `solana_integration`: RPC strategy and transaction patterns
@@ -99,8 +109,10 @@ web3-factory/
 - `performance_requirements`: Load times and responsiveness
 
 #### `w3/w3_execution.md`
+
 **Purpose**: Architecture decisions and trade-offs
 **Contents**:
+
 - Framework selection rationale
 - Wallet integration strategy
 - Performance considerations
@@ -111,10 +123,12 @@ web3-factory/
 ### W4 Outputs
 
 #### `w4/bags_config.json`
+
 **Purpose**: Complete Bags SDK configuration for token creation
 **Schema**: `web3-factory/schemas/w4_bags_config.json`
 
 **Key Fields**:
+
 - `token_parameters`: Name, symbol, supply for Bags SDK
 - `bags_configuration`: SDK version, endpoints, env vars
 - `fee_routing_config`: App Factory partner key integration
@@ -122,8 +136,10 @@ web3-factory/
 - `integration_points`: SDK methods for creation and management
 
 #### `w4/w4_execution.md`
+
 **Purpose**: Configuration preparation and environment validation
 **Contents**:
+
 - Environment requirements validation
 - Partner key integration setup
 - Idempotency strategy explanation
@@ -134,18 +150,22 @@ web3-factory/
 ### W5 Outputs
 
 #### `w5/build_manifest.json`
+
 **Purpose**: Complete build execution record with token creation
 **Schema**: `web3-factory/schemas/w5_build_manifest.json`
 
 **Key Fields**:
+
 - `build_execution`: App name, timestamp, framework used
 - `token_creation`: Token address, transaction ID, creator wallet
 - `app_integration`: Integration status checkpoints
 - `production_readiness`: Deployment readiness checklist
 
 #### `w5/w5_execution.md`
+
 **Purpose**: Complete build process log
 **Contents**:
+
 - Token creation process log
 - Web app generation steps
 - Integration verification
@@ -156,11 +176,12 @@ web3-factory/
 ### Web Application Structure
 
 #### Core Application Files
+
 ```
 builds/<app_name>/
 ├── package.json              # Complete dependencies with Bags SDK
 ├── next.config.js            # Next.js configuration (if Next.js)
-├── vite.config.js            # Vite configuration (if Vite)  
+├── vite.config.js            # Vite configuration (if Vite)
 ├── tailwind.config.js        # Styling configuration
 ├── .env.example              # Environment variables template
 ├── README.md                 # Complete setup guide
@@ -184,15 +205,17 @@ builds/<app_name>/
 ### Token Creation Artifacts
 
 #### `token/token_plan.json`
+
 **Purpose**: Token creation plan used for generation
 **Contents**:
+
 ```json
 {
   "buildId": "deterministic_build_id",
   "inputHash": "sha256_of_inputs",
   "tokenConfig": {
     "name": "Token Name",
-    "symbol": "SYMBOL", 
+    "symbol": "SYMBOL",
     "totalSupply": "1000000",
     "decimals": 9
   },
@@ -205,12 +228,15 @@ builds/<app_name>/
 ```
 
 #### `token/bags_config.json`
+
 **Purpose**: Exact Bags SDK configuration used
 **Contents**: Copy of W4 bags_config.json with any runtime modifications
 
 #### `token/token_receipt.json`
+
 **Purpose**: Deterministic token creation receipt for idempotency
 **Contents**:
+
 ```json
 {
   "buildId": "deterministic_build_id",
@@ -232,44 +258,53 @@ builds/<app_name>/
 ```
 
 #### `token/token_receipt.md`
+
 **Purpose**: Human-readable token information
 **Contents**:
+
 ```markdown
 # Token Creation Receipt
 
 ## Token Information
+
 - **Name**: Token Name
-- **Symbol**: SYMBOL  
+- **Symbol**: SYMBOL
 - **Address**: solana_token_mint_address
 - **Network**: mainnet-beta
 - **Created**: 2024-01-08T12:00:00.000Z
 
 ## Fee Routing
+
 - **Creator**: 75% → creator_wallet_address
 - **App Factory Partner**: 25% → FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7
 
 ## Integration Details
+
 - **Bags SDK**: @bagsfm/bags-sdk@1.x.x
 - **Transaction**: solana_transaction_signature
 - **Build ID**: deterministic_build_id
 
 ## Verification
+
 View on Solana Explorer: https://solscan.io/token/solana_token_mint_address
 ```
 
 ## File Naming Conventions
 
 ### Run Directories
+
 - **Format**: `web3-<timestamp>-<hash>`
 - **Timestamp**: `MMDDH-MSS` (month, day, hour, minute, second)
 - **Hash**: First 4 characters of SHA256 hash of idea text
 
-### Build Directories  
+### Build Directories
+
 - **Format**: `<sanitized_app_name>`
 - **Sanitization**: Lowercase, alphanumeric + underscores only
 - **Example**: `defi_analytics_dashboard`
 
 ### Token Artifacts
+
 - **Deterministic Build ID**: SHA256 hash of W1-W4 stage outputs (first 16 chars)
 - **Input Hash**: SHA256 of token creation parameters for idempotency
 - **Timestamps**: ISO 8601 UTC format with timezone
@@ -277,16 +312,19 @@ View on Solana Explorer: https://solscan.io/token/solana_token_mint_address
 ## Security Considerations
 
 ### Safe for Git
+
 - **No Secrets**: All token artifacts safe for public repositories
 - **Public Keys Only**: Wallet addresses are public information
 - **Transaction IDs**: Blockchain transactions are public
 
 ### Environment Separation
+
 - **Development**: All artifacts include network identifier
 - **Production**: Clear separation via environment variables
 - **API Keys**: Never written to disk, environment only
 
 ### Idempotency Guarantees
+
 - **Build ID**: Same inputs always produce same build ID
 - **Receipt Checking**: Safe re-runs via receipt file existence
 - **Input Hashing**: Detect configuration changes requiring new token
@@ -294,16 +332,19 @@ View on Solana Explorer: https://solscan.io/token/solana_token_mint_address
 ## Quality Assurance
 
 ### Schema Validation
+
 - All JSON outputs validate against schemas in `web3-factory/schemas/`
 - Validation occurs at stage completion
 - Failed validation stops pipeline with detailed error
 
 ### Artifact Completeness
+
 - W5 must generate all required token artifacts
 - Missing artifacts indicate build failure
 - Deployment readiness verified via checklist
 
 ### Auditability
+
 - Complete chain of artifacts from idea to token
-- All decisions documented in execution logs  
+- All decisions documented in execution logs
 - Token creation fully traceable via receipts

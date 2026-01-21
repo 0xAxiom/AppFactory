@@ -51,11 +51,13 @@ export interface AnalyticsEvents {
 }
 
 // Check if PostHog is configured
-const POSTHOG_API_KEY = Constants.expoConfig?.extra?.posthogApiKey
-  || process.env.EXPO_PUBLIC_POSTHOG_API_KEY;
-const POSTHOG_HOST = Constants.expoConfig?.extra?.posthogHost
-  || process.env.EXPO_PUBLIC_POSTHOG_HOST
-  || 'https://app.posthog.com';
+const POSTHOG_API_KEY =
+  Constants.expoConfig?.extra?.posthogApiKey ||
+  process.env.EXPO_PUBLIC_POSTHOG_API_KEY;
+const POSTHOG_HOST =
+  Constants.expoConfig?.extra?.posthogHost ||
+  process.env.EXPO_PUBLIC_POSTHOG_HOST ||
+  'https://app.posthog.com';
 
 const isConfigured = Boolean(POSTHOG_API_KEY);
 
@@ -74,7 +76,9 @@ async function getPostHog() {
       });
     } catch (error) {
       if (__DEV__) {
-        console.warn('PostHog not installed. Run: npx expo install posthog-react-native');
+        console.warn(
+          'PostHog not installed. Run: npx expo install posthog-react-native'
+        );
       }
       return null;
     }
@@ -107,7 +111,10 @@ export const analytics = {
   /**
    * Identify a user (call after purchase or sign-in)
    */
-  async identify(userId: string, traits?: Record<string, unknown>): Promise<void> {
+  async identify(
+    userId: string,
+    traits?: Record<string, unknown>
+  ): Promise<void> {
     const posthog = await getPostHog();
     if (posthog) {
       posthog.identify(userId, traits);
@@ -131,7 +138,10 @@ export const analytics = {
   /**
    * Track screen view
    */
-  async screen(screenName: string, properties?: Record<string, unknown>): Promise<void> {
+  async screen(
+    screenName: string,
+    properties?: Record<string, unknown>
+  ): Promise<void> {
     const posthog = await getPostHog();
     if (posthog) {
       posthog.screen(screenName, properties);

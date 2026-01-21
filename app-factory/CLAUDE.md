@@ -11,12 +11,14 @@
 **For Marketplace Reviewers**: This document governs Claude's behavior inside the app-factory directory.
 
 **What This Pipeline Does**:
+
 - Transforms raw app ideas into complete, publishable mobile applications
 - Generates Expo React Native codebases with RevenueCat monetization (non-negotiable)
 - Outputs market research, ASO materials, and marketing content
 - Outputs to `builds/<app-slug>/`
 
 **What This Pipeline Does NOT Do**:
+
 - Build websites (use website-pipeline/ or dapp-factory/)
 - Build AI agents (use agent-factory/)
 - Build Claude plugins (use plugin-factory/)
@@ -36,14 +38,14 @@ App Factory transforms **raw app ideas** into **publishable mobile products**. N
 
 ### Scope Boundaries
 
-| In Scope | Out of Scope |
-|----------|--------------|
-| iOS mobile apps | Websites |
-| Android mobile apps | dApps/blockchain |
-| Expo React Native | AI agents |
-| RevenueCat monetization | Claude plugins |
-| Offline-first apps | Mini apps |
-| Local storage (SQLite) | Backend APIs |
+| In Scope                | Out of Scope     |
+| ----------------------- | ---------------- |
+| iOS mobile apps         | Websites         |
+| Android mobile apps     | dApps/blockchain |
+| Expo React Native       | AI agents        |
+| RevenueCat monetization | Claude plugins   |
+| Offline-first apps      | Mini apps        |
+| Local storage (SQLite)  | Backend APIs     |
 
 ### Key Distinction
 
@@ -204,6 +206,7 @@ builds/<app-slug>/
 ### Forbidden Directories
 
 Claude MUST NOT write to:
+
 - `website-builds/` (belongs to website-pipeline)
 - `dapp-builds/` (belongs to dapp-factory)
 - `outputs/` (belongs to agent-factory)
@@ -219,6 +222,7 @@ Claude MUST NOT write to:
 **Behavior**: Read-only, informational, no file generation
 
 **Example Triggers**:
+
 - "What does this pipeline do?"
 - "How does RevenueCat integration work?"
 - "What skills are used?"
@@ -229,6 +233,7 @@ Claude MUST NOT write to:
 **Behavior**: Full pipeline execution through all 4 phases, 6 milestones
 
 **Example Triggers**:
+
 - "I want to make an app where you fly a plane"
 - "Build a meditation app"
 - "Create a habit tracker"
@@ -263,6 +268,7 @@ QA MODE ──[final milestone + ≥97%]──▶ BUILD COMPLETE
 **Output**: `runs/<date>/<run-id>/inputs/normalized_prompt.md`
 
 **Rules**:
+
 1. Treat user message as RAW INTENT, not specification
 2. Infer ALL missing product qualities:
    - Platform (default: iOS + Android via Expo)
@@ -276,35 +282,44 @@ QA MODE ──[final milestone + ≥97%]──▶ BUILD COMPLETE
 5. If multiple interpretations exist, choose the one that produces a deeper, more durable product
 
 **Normalized Prompt Format**:
+
 ```markdown
 # Normalized Product Intent
 
 ## Product Name
+
 [Suggested name]
 
 ## One-Line Pitch
+
 [What it is in one sentence]
 
 ## Platform
+
 iOS + Android (Expo React Native)
 
 ## Core Loop
+
 [Trigger → Action → Reward → Retention]
 
 ## Key Features
+
 1. [Feature 1]
 2. [Feature 2]
 3. [Feature 3]
 
 ## Monetization
+
 [Model: Freemium/Premium/Subscription]
 [Free tier: what's included]
 [Paid tier: what's gated behind RevenueCat]
 
 ## Visual Direction
+
 [Style, tone, aesthetic]
 
 ## Success Criteria
+
 [What makes this product "done"]
 ```
 
@@ -315,6 +330,7 @@ iOS + Android (Expo React Native)
 **Output**: `runs/<date>/<run-id>/planning/plan.md`
 
 **Required 9 Sections**:
+
 1. Project Overview (name, pitch, value proposition)
 2. Core User Loop (trigger → action → reward → retention)
 3. Tech Stack (committed choices, no alternatives)
@@ -341,6 +357,7 @@ iOS + Android (Expo React Native)
 | 6 | Research/Marketing | all artifacts | YES |
 
 **After Each Milestone**:
+
 1. IMPLEMENT milestone deliverables
 2. VERIFY using checklist
 3. RUN Ralph QA loop until ≥97%
@@ -352,17 +369,20 @@ iOS + Android (Expo React Native)
 **Output**: `builds/<app-slug>/research/`, `aso/`, `marketing/`
 
 **Required Research**:
+
 - `market_research.md` - Market size, trends, opportunities
 - `competitor_analysis.md` - Direct/indirect competitors, gaps
 - `positioning.md` - Unique value, differentiation
 
 **Required ASO**:
+
 - `app_title.txt` - Max 30 characters
 - `subtitle.txt` - Max 30 characters
 - `description.md` - Full App Store description
 - `keywords.txt` - Max 100 characters total
 
 **Required Marketing**:
+
 - `launch_thread.md` - Twitter/X thread (10+ tweets)
 - `landing_copy.md` - Landing page headline + copy
 - `press_blurb.md` - Press one-pager
@@ -374,6 +394,7 @@ iOS + Android (Expo React Native)
 **Output**: `runs/<date>/<run-id>/polish/ralph_final_verdict.md`
 
 **Process**:
+
 1. Run final Ralph QA (must reach ≥97%)
 2. Write `ralph_final_verdict.md` = PASS
 3. Output complete build to `builds/<app-slug>/`
@@ -385,26 +406,27 @@ iOS + Android (Expo React Native)
 
 ### Sub-Agents (Internal)
 
-| Agent | Purpose | Invoked When |
-|-------|---------|--------------|
-| Intent Normalizer | Upgrade raw input | Phase 0 |
-| Plan Author | Write implementation plan | Phase 1 |
-| Skills Auditor | Check code quality rules | Each milestone |
-| Ralph | Adversarial QA | After each milestone |
+| Agent             | Purpose                   | Invoked When         |
+| ----------------- | ------------------------- | -------------------- |
+| Intent Normalizer | Upgrade raw input         | Phase 0              |
+| Plan Author       | Write implementation plan | Phase 1              |
+| Skills Auditor    | Check code quality rules  | Each milestone       |
+| Ralph             | Adversarial QA            | After each milestone |
 
 ### External Delegation
 
-| Request Type | Delegate To |
-|--------------|-------------|
-| Website | "Use website-pipeline/ instead" |
-| dApp | "Use dapp-factory/ instead" |
-| AI agent | "Use agent-factory/ instead" |
-| Plugin | "Use plugin-factory/ instead" |
-| Mini app | "Use miniapp-pipeline/ instead" |
+| Request Type | Delegate To                     |
+| ------------ | ------------------------------- |
+| Website      | "Use website-pipeline/ instead" |
+| dApp         | "Use dapp-factory/ instead"     |
+| AI agent     | "Use agent-factory/ instead"    |
+| Plugin       | "Use plugin-factory/ instead"   |
+| Mini app     | "Use miniapp-pipeline/ instead" |
 
 ### Conflict Resolution
 
 If user requests something outside scope:
+
 1. Acknowledge the request
 2. Explain why it's out of scope
 3. Redirect to appropriate pipeline
@@ -416,29 +438,30 @@ If user requests something outside scope:
 
 ### MUST DO (Absolute Rules)
 
-| Rule | Enforcement |
-|------|-------------|
-| Treat every user message as product request | Phase 0 mandatory |
-| Include RevenueCat in every mobile app | Phase 2, Milestone 4 |
-| Run to completion without stopping | BUILD MODE rule |
-| Run Ralph after every milestone | Quality gate |
-| Generate substantive research (not placeholder) | Phase 3 validation |
-| Gate meaningful features behind RevenueCat | Monetization requirement |
+| Rule                                            | Enforcement              |
+| ----------------------------------------------- | ------------------------ |
+| Treat every user message as product request     | Phase 0 mandatory        |
+| Include RevenueCat in every mobile app          | Phase 2, Milestone 4     |
+| Run to completion without stopping              | BUILD MODE rule          |
+| Run Ralph after every milestone                 | Quality gate             |
+| Generate substantive research (not placeholder) | Phase 3 validation       |
+| Gate meaningful features behind RevenueCat      | Monetization requirement |
 
 ### MUST NOT DO (Absolute Rules)
 
-| Rule | Consequence |
-|------|-------------|
-| Ask user to write a better prompt | Violates Intent Normalization |
-| Stop early for any reason | Violates completion requirement |
-| Ship demos, toys, or half-products | Violates quality standard |
-| Skip monetization integration | Violates RevenueCat requirement |
-| Ask clarifying questions mid-build | Violates flow requirement |
-| Pause for user confirmation | Violates autonomy requirement |
+| Rule                               | Consequence                     |
+| ---------------------------------- | ------------------------------- |
+| Ask user to write a better prompt  | Violates Intent Normalization   |
+| Stop early for any reason          | Violates completion requirement |
+| Ship demos, toys, or half-products | Violates quality standard       |
+| Skip monetization integration      | Violates RevenueCat requirement |
+| Ask clarifying questions mid-build | Violates flow requirement       |
+| Pause for user confirmation        | Violates autonomy requirement   |
 
 ### Never Actions (Absolute)
 
 Claude MUST NEVER:
+
 - Write to directories outside app-factory/
 - Skip RevenueCat integration
 - Generate placeholder research content
@@ -451,18 +474,18 @@ Claude MUST NEVER:
 
 ## 8. REFUSAL TABLE
 
-| Request Pattern | Action | Reason | Alternative |
-|-----------------|--------|--------|-------------|
-| "Build a website" | REFUSE | Out of scope | cd website-pipeline && claude |
-| "Build a dApp" | REFUSE | Out of scope | cd dapp-factory && claude |
-| "Skip RevenueCat" | REFUSE | Non-negotiable | None - monetization required |
-| "Skip Ralph QA" | REFUSE | Mandatory gate | None - QA required |
-| "Just build the MVP" | REFUSE | No half-products | Full product or nothing |
-| "Add backend/API" | REFUSE | Local-only default | Describe backend in user intent |
-| "Add user authentication" | REFUSE | Guest-first default | Can add in future version |
-| "Stop and let me review" | REFUSE | No mid-build stops | Wait for completion |
-| "What should I build?" | REFUSE | Requires idea | Describe your app idea |
-| "Build for web only" | REFUSE | Mobile pipeline | Use website-pipeline |
+| Request Pattern           | Action | Reason              | Alternative                     |
+| ------------------------- | ------ | ------------------- | ------------------------------- |
+| "Build a website"         | REFUSE | Out of scope        | cd website-pipeline && claude   |
+| "Build a dApp"            | REFUSE | Out of scope        | cd dapp-factory && claude       |
+| "Skip RevenueCat"         | REFUSE | Non-negotiable      | None - monetization required    |
+| "Skip Ralph QA"           | REFUSE | Mandatory gate      | None - QA required              |
+| "Just build the MVP"      | REFUSE | No half-products    | Full product or nothing         |
+| "Add backend/API"         | REFUSE | Local-only default  | Describe backend in user intent |
+| "Add user authentication" | REFUSE | Guest-first default | Can add in future version       |
+| "Stop and let me review"  | REFUSE | No mid-build stops  | Wait for completion             |
+| "What should I build?"    | REFUSE | Requires idea       | Describe your app idea          |
+| "Build for web only"      | REFUSE | Mobile pipeline     | Use website-pipeline            |
 
 ### Refusal Message Template
 
@@ -488,6 +511,7 @@ Would you like me to [SUGGESTED ACTION]?
 ## Pre-Completion Checklist
 
 ### Phase Gates
+
 - [ ] Phase 0: Normalized prompt saved
 - [ ] Phase 1: Plan with all 9 sections
 - [ ] Phase 2: All 6 milestones complete, each with ≥97% Ralph
@@ -495,6 +519,7 @@ Would you like me to [SUGGESTED ACTION]?
 - [ ] Phase 4: Final Ralph verdict = PASS
 
 ### Runtime Verification
+
 - [ ] `npm install` completes without errors
 - [ ] `npx expo start` launches successfully
 - [ ] App runs in Expo Go (iOS/Android)
@@ -502,6 +527,7 @@ Would you like me to [SUGGESTED ACTION]?
 - [ ] Premium features gated correctly
 
 ### Output Verification
+
 - [ ] builds/<app-slug>/ exists
 - [ ] All REQUIRED files present (see Directory Map)
 - [ ] No placeholder content in research/
@@ -512,6 +538,7 @@ Would you like me to [SUGGESTED ACTION]?
 ### Success Definition
 
 A build is complete when:
+
 1. All 4 phases executed
 2. All 6 milestones complete with ≥97% Ralph
 3. RevenueCat integrated and functional
@@ -555,29 +582,32 @@ RevenueCat Setup:
 
 ### Error Categories
 
-| Category | Detection | Recovery |
-|----------|-----------|----------|
-| Phase Failure | Phase output missing | Return to failed phase |
-| Milestone Failure | Milestone deliverables missing | Complete milestone |
-| Ralph Failure | Quality < 97% after 3 iterations | Document blockers, continue |
-| Build Failure | npm/expo commands fail | Fix errors, retry |
-| Runtime Crash | App crashes on launch | Debug and fix |
+| Category          | Detection                        | Recovery                    |
+| ----------------- | -------------------------------- | --------------------------- |
+| Phase Failure     | Phase output missing             | Return to failed phase      |
+| Milestone Failure | Milestone deliverables missing   | Complete milestone          |
+| Ralph Failure     | Quality < 97% after 3 iterations | Document blockers, continue |
+| Build Failure     | npm/expo commands fail           | Fix errors, retry           |
+| Runtime Crash     | App crashes on launch            | Debug and fix               |
 
 ### Recovery Protocols
 
 **Ralph Failure (3 iterations, still < 97%)**:
+
 1. Document all unresolved issues
 2. Continue to next milestone if blocking issues are isolated
 3. Address in final Ralph loop
 4. If final loop fails, document and inform user
 
 **Build Failure (npm install/expo start fails)**:
+
 1. Capture error message
 2. Identify root cause (dependency conflict, config error)
 3. Fix and retry
 4. If unfixable, document and inform user
 
 **RevenueCat Integration Failure**:
+
 1. Verify SDK installation
 2. Check configuration
 3. Ensure sandbox mode enabled
@@ -586,6 +616,7 @@ RevenueCat Setup:
 ### Drift Detection
 
 Claude MUST halt and reassess if:
+
 - About to write outside builds/
 - About to skip RevenueCat integration
 - Quality stays below 97% after 3 iterations per milestone
@@ -600,6 +631,7 @@ Claude MUST halt and reassess if:
 This pipeline inherits constraints from: `../CLAUDE.md` (Root Orchestrator)
 
 **Inherited Invariants**:
+
 1. No Silent Execution - always show plan first
 2. Mandatory Approval - no `--force` flags
 3. Confined File Writes - only app-factory/
@@ -611,13 +643,13 @@ This pipeline inherits constraints from: `../CLAUDE.md` (Root Orchestrator)
 
 ### Sibling Pipelines
 
-| Pipeline | Purpose | When to Redirect |
-|----------|---------|------------------|
-| [website-pipeline/](../website-pipeline/) | Static websites | User wants marketing site |
-| [dapp-factory/](../dapp-factory/) | dApps with agents | User wants AI features |
-| [agent-factory/](../agent-factory/) | AI agents | User wants HTTP agent |
-| [plugin-factory/](../plugin-factory/) | Claude plugins | User wants Claude extension |
-| [miniapp-pipeline/](../miniapp-pipeline/) | Base Mini Apps | User wants Base integration |
+| Pipeline                                  | Purpose           | When to Redirect            |
+| ----------------------------------------- | ----------------- | --------------------------- |
+| [website-pipeline/](../website-pipeline/) | Static websites   | User wants marketing site   |
+| [dapp-factory/](../dapp-factory/)         | dApps with agents | User wants AI features      |
+| [agent-factory/](../agent-factory/)       | AI agents         | User wants HTTP agent       |
+| [plugin-factory/](../plugin-factory/)     | Claude plugins    | User wants Claude extension |
+| [miniapp-pipeline/](../miniapp-pipeline/) | Base Mini Apps    | User wants Base integration |
 
 ### Documentation References
 
@@ -631,12 +663,12 @@ This pipeline inherits constraints from: `../CLAUDE.md` (Root Orchestrator)
 
 MCP integration follows `../plugin-factory/mcp.catalog.json`:
 
-| MCP Server | Phase | Permission | Purpose |
-|------------|-------|------------|---------|
-| Playwright | verify, ralph | read-only | E2E (web exports only) |
-| Stripe | build | mutating (approval) | Alternative monetization |
-| Figma | research, build | read-only | Design extraction |
-| GitHub | all | read-write | Already integrated |
+| MCP Server | Phase           | Permission          | Purpose                  |
+| ---------- | --------------- | ------------------- | ------------------------ |
+| Playwright | verify, ralph   | read-only           | E2E (web exports only)   |
+| Stripe     | build           | mutating (approval) | Alternative monetization |
+| Figma      | research, build | read-only           | Design extraction        |
+| GitHub     | all             | read-write          | Already integrated       |
 
 ---
 
@@ -710,37 +742,40 @@ When a build completes successfully (Ralph PASS), the following are guaranteed:
 
 ### Registered Skills
 
-| Skill | Purpose | When Checked |
-|-------|---------|--------------|
-| react-native-best-practices | Performance patterns | After Milestone 3 |
-| mobile-ui-guidelines | UI/UX standards | After Milestone 2 |
+| Skill                       | Purpose                           | When Checked                |
+| --------------------------- | --------------------------------- | --------------------------- |
+| react-native-best-practices | Performance patterns              | After Milestone 3           |
+| mobile-ui-guidelines        | UI/UX standards                   | After Milestone 2           |
 | mobile-interface-guidelines | Touch, accessibility, performance | After Milestone 2, 3, Final |
-| expo-standards | Expo-specific patterns | Throughout build |
+| expo-standards              | Expo-specific patterns            | Throughout build            |
 
 ### Violation Handling
 
-| Severity | Action | Blocks Progress |
-|----------|--------|-----------------|
-| CRITICAL | Fix immediately | YES |
-| HIGH | Fix before next milestone | YES (after 2nd occurrence) |
-| MEDIUM | Fix before Ralph | NO |
-| LOW | Document, can defer | NO |
+| Severity | Action                    | Blocks Progress            |
+| -------- | ------------------------- | -------------------------- |
+| CRITICAL | Fix immediately           | YES                        |
+| HIGH     | Fix before next milestone | YES (after 2nd occurrence) |
+| MEDIUM   | Fix before Ralph          | NO                         |
+| LOW      | Document, can defer       | NO                         |
 
 ### Key Rules (CRITICAL)
 
 **React Native Performance**:
+
 - Use `Promise.all` for parallel fetching
 - Avoid barrel imports (`import from '@/components'`)
 - Use FlatList for lists > 10 items
 - Clean up useEffect subscriptions
 
 **Mobile UI**:
+
 - Touch targets ≥44pt (iOS) / 48dp (Android)
 - Accessibility labels on all interactive elements
 - Skeleton loaders for async content
 - Designed empty/error states with CTAs
 
 **Mobile Interface**:
+
 - SafeAreaView for safe areas
 - VoiceOver/TalkBack compatible
 - Respect prefers-reduced-motion
@@ -750,15 +785,15 @@ When a build completes successfully (Ralph PASS), the following are guaranteed:
 
 ## TECHNOLOGY STACK (LOCKED)
 
-| Layer | Technology | Version |
-|-------|------------|---------|
-| Framework | React Native + Expo | SDK 54+ |
-| Navigation | Expo Router | v4 |
-| Language | TypeScript | 5.0+ |
-| Monetization | RevenueCat | Latest |
-| Database | expo-sqlite | Latest |
-| Preferences | AsyncStorage | Latest |
-| State | Zustand or React Context | Latest |
+| Layer        | Technology               | Version |
+| ------------ | ------------------------ | ------- |
+| Framework    | React Native + Expo      | SDK 54+ |
+| Navigation   | Expo Router              | v4      |
+| Language     | TypeScript               | 5.0+    |
+| Monetization | RevenueCat               | Latest  |
+| Database     | expo-sqlite              | Latest  |
+| Preferences  | AsyncStorage             | Latest  |
+| State        | Zustand or React Context | Latest  |
 
 ---
 
@@ -766,14 +801,14 @@ When a build completes successfully (Ralph PASS), the following are guaranteed:
 
 When user doesn't specify:
 
-| Aspect | Default |
-|--------|---------|
-| Platform | iOS + Android (Expo) |
-| Monetization | Freemium: $4.99/mo or $29.99/yr |
-| Data storage | Local-only (offline-first) |
-| Backend | None |
-| Authentication | Guest-first (no login) |
-| Quality | Premium, subscription-worthy |
+| Aspect         | Default                         |
+| -------------- | ------------------------------- |
+| Platform       | iOS + Android (Expo)            |
+| Monetization   | Freemium: $4.99/mo or $29.99/yr |
+| Data storage   | Local-only (offline-first)      |
+| Backend        | None                            |
+| Authentication | Guest-first (no login)          |
+| Quality        | Premium, subscription-worthy    |
 
 ---
 
@@ -781,14 +816,15 @@ When user doesn't specify:
 
 > **Note**: MCP is the **specification** governing AI-tool communication. Entries below are **MCP servers** (implementations). See `plugin-factory/CLAUDE.md` for full governance.
 
-| MCP Server | Phase | Permission | Purpose |
-|------------|-------|------------|---------|
-| Playwright | verify, ralph | read-only | E2E for web exports |
-| Stripe | build | mutating (approval) | Alternative monetization |
-| Figma | research, build | read-only | Design extraction |
-| GitHub | all | read-write | Already integrated |
+| MCP Server | Phase           | Permission          | Purpose                  |
+| ---------- | --------------- | ------------------- | ------------------------ |
+| Playwright | verify, ralph   | read-only           | E2E for web exports      |
+| Stripe     | build           | mutating (approval) | Alternative monetization |
+| Figma      | research, build | read-only           | Design extraction        |
+| GitHub     | all             | read-write          | Already integrated       |
 
 **Rules**:
+
 1. MCPs are opt-in - RevenueCat remains default
 2. Playwright only for web exports
 3. Approval required for mutations
@@ -798,14 +834,14 @@ When user doesn't specify:
 
 ## VERSION HISTORY
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 8.0.0 | 2026-01-20 | Canonical structure upgrade: 12-section format, explicit refusal table, completion promise, mode definitions, error recovery protocols |
-| 7.4 | 2026-01-18 | Added MCP governance note |
-| 7.3 | 2026-01-18 | Added MCP integration catalog |
-| 7.2 | 2026-01-18 | Optional UX Polish Loop |
-| 7.1 | 2026-01-15 | mobile-interface-guidelines skill |
-| 7.0 | 2026-01-14 | Intent Normalization, RevenueCat non-negotiable |
+| Version | Date       | Changes                                                                                                                                |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 8.0.0   | 2026-01-20 | Canonical structure upgrade: 12-section format, explicit refusal table, completion promise, mode definitions, error recovery protocols |
+| 7.4     | 2026-01-18 | Added MCP governance note                                                                                                              |
+| 7.3     | 2026-01-18 | Added MCP integration catalog                                                                                                          |
+| 7.2     | 2026-01-18 | Optional UX Polish Loop                                                                                                                |
+| 7.1     | 2026-01-15 | mobile-interface-guidelines skill                                                                                                      |
+| 7.0     | 2026-01-14 | Intent Normalization, RevenueCat non-negotiable                                                                                        |
 
 ---
 

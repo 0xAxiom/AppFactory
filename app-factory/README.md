@@ -31,6 +31,7 @@ I want to make an app where you fly a plane
 ```
 
 Claude will:
+
 1. **Normalize your intent** → "A flight simulation game with realistic physics, multiple aircraft, mission-based progression, and premium planes via RevenueCat"
 2. **Plan** → Comprehensive 9-section implementation plan
 3. **Build** → Complete Expo React Native app, milestone by milestone
@@ -103,6 +104,7 @@ builds/<app-slug>/
 ```
 
 **Execution artifacts** (in `runs/`):
+
 ```
 runs/YYYY-MM-DD/build-<timestamp>/
 ├── inputs/
@@ -141,6 +143,7 @@ When you describe an app, Claude automatically:
 5. **Finalizes** - Completes all deliverables and confirms success
 
 **Milestones:**
+
 1. Project scaffold (config, dependencies)
 2. Core screens (navigation, main UI)
 3. Feature implementation (core functionality)
@@ -151,11 +154,13 @@ When you describe an app, Claude automatically:
 **Intent Normalization Example:**
 
 Your input:
+
 ```
 I want to make an app where you fly a plane
 ```
 
 Claude normalizes to:
+
 ```
 Product: SkyPilot
 Pitch: Master the skies in a realistic flight simulator with stunning visuals
@@ -182,6 +187,7 @@ Every build includes **Ralph Mode** - automatic adversarial QA:
 - Must pass on research, ASO, AND marketing
 
 **Quality threshold (≥97%):**
+
 - ALL critical items must pass
 - At most 3% non-critical items can fail
 - Zero runtime errors
@@ -191,14 +197,14 @@ Every build includes **Ralph Mode** - automatic adversarial QA:
 
 ## Technology Stack
 
-| Component | Technology |
-|-----------|------------|
-| Framework | Expo SDK 54+ |
-| Language | TypeScript |
-| Navigation | Expo Router v4 |
-| Monetization | RevenueCat |
-| Storage | expo-sqlite + AsyncStorage |
-| State | Zustand or React Context |
+| Component    | Technology                 |
+| ------------ | -------------------------- |
+| Framework    | Expo SDK 54+               |
+| Language     | TypeScript                 |
+| Navigation   | Expo Router v4             |
+| Monetization | RevenueCat                 |
+| Storage      | expo-sqlite + AsyncStorage |
+| State        | Zustand or React Context   |
 
 ---
 
@@ -206,29 +212,32 @@ Every build includes **Ralph Mode** - automatic adversarial QA:
 
 When you don't specify:
 
-| Aspect | Default |
-|--------|---------|
-| Monetization | Freemium: $4.99/mo or $29.99/yr |
-| Data storage | Local-only (offline-first) |
-| Backend | None |
-| Authentication | Guest-first (no login) |
-| Platform | iOS + Android |
+| Aspect         | Default                         |
+| -------------- | ------------------------------- |
+| Monetization   | Freemium: $4.99/mo or $29.99/yr |
+| Data storage   | Local-only (offline-first)      |
+| Backend        | None                            |
+| Authentication | Guest-first (no login)          |
+| Platform       | iOS + Android                   |
 
 ---
 
 ## Troubleshooting
 
 ### npm install fails
+
 ```bash
 npm install --legacy-peer-deps
 ```
 
 ### Expo won't start
+
 ```bash
 npx expo start --clear
 ```
 
 ### App crashes
+
 1. Check Metro for red errors
 2. Verify dependencies installed
 3. See `RUNBOOK.md` in build directory
@@ -239,11 +248,11 @@ npx expo start --clear
 
 The `scripts/` directory contains helper utilities for debugging and CI. **Normal users don't need these** - just use `claude`.
 
-| Script | Purpose |
-|--------|---------|
-| `build_proof_gate.sh` | CI validation |
-| `ralph/ralph.sh` | Debug: manual Ralph |
-| `auto_plan_build.sh` | Debug: standalone planning |
+| Script                | Purpose                    |
+| --------------------- | -------------------------- |
+| `build_proof_gate.sh` | CI validation              |
+| `ralph/ralph.sh`      | Debug: manual Ralph        |
+| `auto_plan_build.sh`  | Debug: standalone planning |
 
 ---
 

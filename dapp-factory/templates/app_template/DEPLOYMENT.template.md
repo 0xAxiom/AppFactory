@@ -49,10 +49,10 @@ If your app uses environment variables:
 1. Go to Project Settings > Environment Variables
 2. Add each variable from `.env.example`:
 
-| Variable | Description |
-|----------|-------------|
-| `NEXT_PUBLIC_APP_URL` | Your production URL (e.g., https://your-app.vercel.app) |
-| `NEXT_PUBLIC_SOLANA_NETWORK` | `devnet` for testing, `mainnet-beta` for production |
+| Variable                     | Description                                             |
+| ---------------------------- | ------------------------------------------------------- |
+| `NEXT_PUBLIC_APP_URL`        | Your production URL (e.g., https://your-app.vercel.app) |
+| `NEXT_PUBLIC_SOLANA_NETWORK` | `devnet` for testing, `mainnet-beta` for production     |
 
 3. Redeploy to apply changes
 
@@ -96,10 +96,10 @@ vercel --prod
 
 Add these records at your domain registrar:
 
-| Type | Name | Value |
-|------|------|-------|
-| A | @ | 76.76.21.21 |
-| CNAME | www | cname.vercel-dns.com |
+| Type  | Name | Value                |
+| ----- | ---- | -------------------- |
+| A     | @    | 76.76.21.21          |
+| CNAME | www  | cname.vercel-dns.com |
 
 ---
 
@@ -107,26 +107,28 @@ Add these records at your domain registrar:
 
 ### Required
 
-| Variable | Description | Example |
-|----------|-------------|---------|
+| Variable              | Description    | Example                    |
+| --------------------- | -------------- | -------------------------- |
 | `NEXT_PUBLIC_APP_URL` | Production URL | `https://myapp.vercel.app` |
 
 ### Token-Enabled Apps
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SOLANA_NETWORK` | Solana cluster | `devnet` or `mainnet-beta` |
-| `NEXT_PUBLIC_SOLANA_RPC_URL` | Custom RPC (optional) | `https://api.mainnet-beta.solana.com` |
-| `NEXT_PUBLIC_TOKEN_MINT` | Token address (if using) | `So11111111111111111111111111111111111111112` |
+| Variable                     | Description              | Example                                       |
+| ---------------------------- | ------------------------ | --------------------------------------------- |
+| `NEXT_PUBLIC_SOLANA_NETWORK` | Solana cluster           | `devnet` or `mainnet-beta`                    |
+| `NEXT_PUBLIC_SOLANA_RPC_URL` | Custom RPC (optional)    | `https://api.mainnet-beta.solana.com`         |
+| `NEXT_PUBLIC_TOKEN_MINT`     | Token address (if using) | `So11111111111111111111111111111111111111112` |
 
 ### Setting Variables
 
 **Via Dashboard:**
+
 1. Project Settings > Environment Variables
 2. Add key-value pairs
 3. Choose environments (Production, Preview, Development)
 
 **Via CLI:**
+
 ```bash
 vercel env add NEXT_PUBLIC_SOLANA_NETWORK
 # Enter value when prompted
@@ -227,11 +229,11 @@ export default function RootLayout({ children }) {
 
 The `vercel.json` includes security headers:
 
-| Header | Value | Purpose |
-|--------|-------|---------|
-| X-Content-Type-Options | nosniff | Prevent MIME sniffing |
-| X-Frame-Options | DENY | Prevent clickjacking |
-| X-XSS-Protection | 1; mode=block | XSS filtering |
+| Header                 | Value         | Purpose               |
+| ---------------------- | ------------- | --------------------- |
+| X-Content-Type-Options | nosniff       | Prevent MIME sniffing |
+| X-Frame-Options        | DENY          | Prevent clickjacking  |
+| X-XSS-Protection       | 1; mode=block | XSS filtering         |
 
 ### Add CSP (Advanced)
 
@@ -260,12 +262,14 @@ For token-enabled apps, add Content Security Policy:
 ### Logs
 
 View real-time logs:
+
 - Dashboard: Project > Logs
 - CLI: `vercel logs`
 
 ### Alerts
 
 Set up alerts in Project Settings > Notifications for:
+
 - Failed deployments
 - Error rate spikes
 - Performance degradation
@@ -275,11 +279,13 @@ Set up alerts in Project Settings > Notifications for:
 ## Costs
 
 ### Free Tier (Hobby)
+
 - Unlimited deployments
 - 100GB bandwidth/month
 - Serverless function limits apply
 
 ### Pro Tier ($20/month)
+
 - More bandwidth
 - Team collaboration
 - Advanced analytics
@@ -330,16 +336,19 @@ vercel env pull
 ## Troubleshooting
 
 ### "Build failed"
+
 - Check Vercel logs for specific error
 - Run `npm run build` locally
 - Ensure all dependencies are in package.json
 
 ### "500 Internal Server Error"
+
 - Check Function Logs in Vercel dashboard
 - Verify environment variables are set
 - Check for runtime errors in API routes
 
 ### "Wallet not connecting" (Token-enabled)
+
 - Verify RPC URL is accessible
 - Check CORS headers if using custom RPC
 - Ensure wallet adapter is properly configured

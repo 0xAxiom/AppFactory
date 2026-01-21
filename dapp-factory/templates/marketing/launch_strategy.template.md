@@ -7,6 +7,7 @@
 ## Launch Phases
 
 ### Phase 1: Pre-Launch Preparation
+
 - [ ] App deployed to production URL
 - [ ] Set up landing page (optional but recommended)
 - [ ] Create social media accounts (Twitter/X essential)
@@ -17,6 +18,7 @@
 - [ ] Set up analytics (Plausible, PostHog, or similar)
 
 ### Phase 2: Launch Day
+
 - [ ] Publish all launch content
 - [ ] Post to communities
 - [ ] Engage with every comment/reply
@@ -24,6 +26,7 @@
 - [ ] Share on personal networks
 
 ### Phase 3: Post-Launch
+
 - [ ] Respond to all feedback
 - [ ] Fix critical bugs immediately
 - [ ] Gather insights for next version
@@ -36,6 +39,7 @@
 **Best for:** Web apps with broad appeal, novel concepts, or strong visuals.
 
 ### Preparation
+
 - [ ] Create Product Hunt account (https://producthunt.com)
 - [ ] Build "upcoming" page before launch
 - [ ] Gather 5-10 friends/supporters to upvote on launch day
@@ -46,11 +50,13 @@
   - Maker comment (first comment from you)
 
 ### Launch Timing
+
 - **Best days:** Tuesday, Wednesday, Thursday
 - **Best time:** 12:01 AM PT (Product Hunt resets at midnight PT)
 - **Post early:** Be live before most of the US wakes up
 
 ### Maker Comment Template
+
 ```
 Hey Product Hunt!
 
@@ -85,6 +91,7 @@ Try it free at [URL]. I'd love your feedback!
 ### Launch Thread Structure
 
 **Tweet 1 (Hook):**
+
 ```
 I just launched {{APP_NAME}}
 
@@ -96,6 +103,7 @@ Here's how it works:
 ```
 
 **Tweet 2 (Problem):**
+
 ```
 The problem:
 
@@ -105,6 +113,7 @@ The problem:
 ```
 
 **Tweet 3 (Solution with visual):**
+
 ```
 So I built {{APP_NAME}}
 
@@ -114,6 +123,7 @@ So I built {{APP_NAME}}
 ```
 
 **Tweets 4-6 (Features):**
+
 ```
 Feature 1: [Name]
 
@@ -123,6 +133,7 @@ Feature 1: [Name]
 ```
 
 **Tweet 7 (Building journey):**
+
 ```
 Built this in [timeframe] using:
 
@@ -134,6 +145,7 @@ Built this in [timeframe] using:
 ```
 
 **Tweet 8 (CTA):**
+
 ```
 Try it free: [URL]
 
@@ -146,6 +158,7 @@ If you find it useful:
 ```
 
 ### Hashtags
+
 `#buildinpublic #indiehackers #webdev #nextjs`
 
 For Web3 apps: `#solana #web3 #defi`
@@ -157,9 +170,11 @@ For Web3 apps: `#solana #web3 #defi`
 **Best for:** Technical products, developer tools, or novel approaches.
 
 ### Format
+
 **Title:** `Show HN: {{APP_NAME}} – [One-line description]`
 
 ### Post Content
+
 ```
 Hi HN,
 
@@ -185,6 +200,7 @@ I'd love feedback, especially on [specific aspect].
 ```
 
 ### Tips
+
 - Post 6-9 AM PT on weekdays
 - Be ready for critical feedback
 - Respond to every comment thoughtfully
@@ -197,25 +213,30 @@ I'd love feedback, especially on [specific aspect].
 **Relevant subreddits** (choose 3-5):
 
 ### General
+
 - r/SideProject - for indie makers
 - r/webdev - web developers
 - r/InternetIsBeautiful - beautiful/useful websites
 
 ### Web3/Crypto (if token-enabled)
+
 - r/solana - Solana ecosystem
 - r/CryptoCurrency - general crypto
 - r/defi - DeFi applications
 
 ### Niche
+
 - r/[your-niche] - e.g., r/productivity, r/startups
 
 ### Rules
+
 - Read subreddit rules before posting
 - Don't spam - one post per subreddit
 - Engage genuinely in comments
 - Share your story, not just the product
 
 ### Post Template
+
 ```
 Title: I built [what it does] - [unique angle]
 
@@ -241,11 +262,13 @@ Would love feedback from this community!
 **URL:** https://www.indiehackers.com
 
 ### Best Sections
+
 - Product launches
 - Milestones (share user/revenue numbers)
 - Ask IH (for feedback)
 
 ### What Works
+
 - Transparent metrics
 - Behind-the-scenes building stories
 - Lessons learned
@@ -256,11 +279,13 @@ Would love feedback from this community!
 ## Email Launch (If You Have a List)
 
 ### Subject Lines That Work
+
 - "{{APP_NAME}} is live!"
 - "I finally built the [thing] I always wanted"
 - "After [X months], it's here"
 
 ### Email Structure
+
 1. Personal greeting
 2. Announcement (1-2 sentences)
 3. What problem it solves
@@ -273,12 +298,14 @@ Would love feedback from this community!
 ## Web3 Community Launch (Token-Enabled Apps)
 
 ### Solana-Specific Communities
+
 - **Solana Discord** - Share in appropriate channels
 - **Superteam** - Apply for ecosystem support
 - **Magic Eden Discord** - If NFT-related
 - **Twitter Solana community** - Use #Solana hashtag
 
 ### Launch Messaging for Web3
+
 ```
 Just launched {{APP_NAME}} on @solana
 
@@ -295,6 +322,7 @@ Built with @solaboratory wallet adapter + Next.js
 ```
 
 ### Web3 Launch Tips
+
 - Focus on user benefit, not blockchain tech
 - Make wallet connection optional if possible
 - Show the app works before requiring wallet
@@ -305,6 +333,7 @@ Built with @solaboratory wallet adapter + Next.js
 ## Measuring Success
 
 ### First 24 Hours
+
 - [ ] Track unique visitors (analytics)
 - [ ] Monitor Product Hunt ranking (if applicable)
 - [ ] Count social mentions/shares
@@ -312,33 +341,35 @@ Built with @solaboratory wallet adapter + Next.js
 
 ### First Week Metrics
 
-| Metric | Goal | Actual |
-|--------|------|--------|
-| Unique visitors | 500+ | |
-| Signups/accounts | 50+ | |
-| Social followers | 100+ | |
-| Product Hunt upvotes | 100+ | |
-| Return visitors | 20%+ | |
+| Metric               | Goal | Actual |
+| -------------------- | ---- | ------ |
+| Unique visitors      | 500+ |        |
+| Signups/accounts     | 50+  |        |
+| Social followers     | 100+ |        |
+| Product Hunt upvotes | 100+ |        |
+| Return visitors      | 20%+ |        |
 
 ### Token-Enabled Metrics (if applicable)
 
-| Metric | Goal | Actual |
-|--------|------|--------|
-| Wallet connections | 50+ | |
-| Transactions | 10+ | |
-| Token holders | 20+ | |
+| Metric             | Goal | Actual |
+| ------------------ | ---- | ------ |
+| Wallet connections | 50+  |        |
+| Transactions       | 10+  |        |
+| Token holders      | 20+  |        |
 
 ---
 
 ## Post-Launch Momentum
 
 ### Immediate Follow-Up
+
 - [ ] Respond to all feedback quickly
 - [ ] Ship quick fixes based on feedback
 - [ ] Share milestone updates (#buildinpublic)
 - [ ] Reach out to tech blogs/newsletters
 
 ### Growth Phase
+
 - [ ] Plan next version based on feedback
 - [ ] Start content marketing (blog posts, tutorials)
 - [ ] Build referral/invite system
@@ -348,24 +379,25 @@ Built with @solaboratory wallet adapter + Next.js
 
 ## Tech Newsletters/Blogs to Contact
 
-| Publication | Type | URL |
-|-------------|------|-----|
-| Product Hunt | Launch platform | https://producthunt.com |
-| BetaList | Pre-launch | https://betalist.com |
-| Hacker Newsletter | Weekly digest | https://hackernewsletter.com |
-| TLDR | Daily newsletter | https://tldr.tech |
-| Console.dev | Dev tools | https://console.dev |
-| Bytes.dev | React/JS | https://bytes.dev |
+| Publication       | Type             | URL                          |
+| ----------------- | ---------------- | ---------------------------- |
+| Product Hunt      | Launch platform  | https://producthunt.com      |
+| BetaList          | Pre-launch       | https://betalist.com         |
+| Hacker Newsletter | Weekly digest    | https://hackernewsletter.com |
+| TLDR              | Daily newsletter | https://tldr.tech            |
+| Console.dev       | Dev tools        | https://console.dev          |
+| Bytes.dev         | React/JS         | https://bytes.dev            |
 
 **For Web3 apps:**
 
-| Publication | Type | URL |
-|-------------|------|-----|
-| The Defiant | DeFi news | https://thedefiant.io |
-| Bankless | Crypto media | https://bankless.com |
-| Solana Newsletter | Ecosystem | https://solana.com/newsletter |
+| Publication       | Type         | URL                           |
+| ----------------- | ------------ | ----------------------------- |
+| The Defiant       | DeFi news    | https://thedefiant.io         |
+| Bankless          | Crypto media | https://bankless.com          |
+| Solana Newsletter | Ecosystem    | https://solana.com/newsletter |
 
 ### Pitch Template
+
 ```
 Subject: New [category] web app for your readers: {{APP_NAME}}
 

@@ -4,65 +4,104 @@
     "framework_selection": {
       "type": "object",
       "properties": {
-        "primary_framework": {"enum": ["nextjs", "vite_react"]},
-        "framework_version": {"type": "string"},
-        "selection_rationale": {"type": "string"},
-        "deployment_target": {"type": "string"}
+        "primary_framework": { "enum": ["nextjs", "vite_react"] },
+        "framework_version": { "type": "string" },
+        "selection_rationale": { "type": "string" },
+        "deployment_target": { "type": "string" }
       },
-      "required": ["primary_framework", "framework_version", "selection_rationale", "deployment_target"]
+      "required": [
+        "primary_framework",
+        "framework_version",
+        "selection_rationale",
+        "deployment_target"
+      ]
     },
     "wallet_integration": {
       "type": "object",
       "properties": {
-        "wallet_adapter": {"type": "string"},
-        "supported_wallets": {"type": "array", "items": {"type": "string"}},
-        "connection_strategy": {"type": "string"},
-        "auto_connect": {"type": "boolean"}
+        "wallet_adapter": { "type": "string" },
+        "supported_wallets": { "type": "array", "items": { "type": "string" } },
+        "connection_strategy": { "type": "string" },
+        "auto_connect": { "type": "boolean" }
       },
-      "required": ["wallet_adapter", "supported_wallets", "connection_strategy", "auto_connect"]
+      "required": [
+        "wallet_adapter",
+        "supported_wallets",
+        "connection_strategy",
+        "auto_connect"
+      ]
     },
     "solana_integration": {
       "type": "object",
       "properties": {
-        "rpc_strategy": {"type": "string"},
-        "network": {"enum": ["mainnet", "devnet", "testnet"]},
-        "token_program": {"type": "string"},
-        "read_methods": {"type": "array", "items": {"type": "string"}},
-        "write_methods": {"type": "array", "items": {"type": "string"}}
+        "rpc_strategy": { "type": "string" },
+        "network": { "enum": ["mainnet", "devnet", "testnet"] },
+        "token_program": { "type": "string" },
+        "read_methods": { "type": "array", "items": { "type": "string" } },
+        "write_methods": { "type": "array", "items": { "type": "string" } }
       },
-      "required": ["rpc_strategy", "network", "token_program", "read_methods", "write_methods"]
+      "required": [
+        "rpc_strategy",
+        "network",
+        "token_program",
+        "read_methods",
+        "write_methods"
+      ]
     },
     "app_structure": {
       "type": "object",
       "properties": {
-        "pages_screens": {"type": "array", "items": {"type": "string"}},
-        "core_components": {"type": "array", "items": {"type": "string"}},
-        "state_management": {"type": "string"},
-        "routing_strategy": {"type": "string"}
+        "pages_screens": { "type": "array", "items": { "type": "string" } },
+        "core_components": { "type": "array", "items": { "type": "string" } },
+        "state_management": { "type": "string" },
+        "routing_strategy": { "type": "string" }
       },
-      "required": ["pages_screens", "core_components", "state_management", "routing_strategy"]
+      "required": [
+        "pages_screens",
+        "core_components",
+        "state_management",
+        "routing_strategy"
+      ]
     },
     "failure_modes": {
       "type": "object",
       "properties": {
-        "no_wallet_behavior": {"type": "string"},
-        "rpc_unavailable_behavior": {"type": "string"},
-        "network_mismatch_behavior": {"type": "string"},
-        "insufficient_tokens_behavior": {"type": "string"},
-        "transaction_failure_behavior": {"type": "string"}
+        "no_wallet_behavior": { "type": "string" },
+        "rpc_unavailable_behavior": { "type": "string" },
+        "network_mismatch_behavior": { "type": "string" },
+        "insufficient_tokens_behavior": { "type": "string" },
+        "transaction_failure_behavior": { "type": "string" }
       },
-      "required": ["no_wallet_behavior", "rpc_unavailable_behavior", "network_mismatch_behavior", "insufficient_tokens_behavior", "transaction_failure_behavior"]
+      "required": [
+        "no_wallet_behavior",
+        "rpc_unavailable_behavior",
+        "network_mismatch_behavior",
+        "insufficient_tokens_behavior",
+        "transaction_failure_behavior"
+      ]
     },
     "performance_requirements": {
       "type": "object",
       "properties": {
-        "initial_load_time": {"type": "string"},
-        "wallet_connection_time": {"type": "string"},
-        "transaction_confirmation_time": {"type": "string"},
-        "offline_capabilities": {"type": "string"}
+        "initial_load_time": { "type": "string" },
+        "wallet_connection_time": { "type": "string" },
+        "transaction_confirmation_time": { "type": "string" },
+        "offline_capabilities": { "type": "string" }
       },
-      "required": ["initial_load_time", "wallet_connection_time", "transaction_confirmation_time", "offline_capabilities"]
+      "required": [
+        "initial_load_time",
+        "wallet_connection_time",
+        "transaction_confirmation_time",
+        "offline_capabilities"
+      ]
     }
   },
-  "required": ["framework_selection", "wallet_integration", "solana_integration", "app_structure", "failure_modes", "performance_requirements"]
+  "required": [
+    "framework_selection",
+    "wallet_integration",
+    "solana_integration",
+    "app_structure",
+    "failure_modes",
+    "performance_requirements"
+  ]
 }

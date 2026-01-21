@@ -26,11 +26,11 @@ This report documents 11 complete Ralph verification loops testing the MCP integ
 
 The MCP catalog has been updated to clarify the fundamental distinction:
 
-| Concept | Definition |
-|---------|------------|
-| **MCP (Model Context Protocol)** | The **specification** that defines how AI systems communicate with tools. NOT executable. |
-| **MCP Server** | An **implementation** (tool) that follows the MCP specification. What this catalog contains. |
-| **MCP Tools** | Specific capabilities exposed by an MCP server. |
+| Concept                          | Definition                                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------------------------- |
+| **MCP (Model Context Protocol)** | The **specification** that defines how AI systems communicate with tools. NOT executable.    |
+| **MCP Server**                   | An **implementation** (tool) that follows the MCP specification. What this catalog contains. |
+| **MCP Tools**                    | Specific capabilities exposed by an MCP server.                                              |
 
 **Specification URL:** https://github.com/modelcontextprotocol
 
@@ -39,6 +39,7 @@ The MCP catalog has been updated to clarify the fundamental distinction:
 ## Verification Methodology
 
 Each Ralph loop performed:
+
 1. **Phase Gate Validation** - Verify MCP servers only accessible in allowed phases
 2. **Permission Checks** - Confirm read-only vs mutating permissions enforced
 3. **Artifact Verification** - Check that MCP operations produce expected artifacts
@@ -50,19 +51,19 @@ Each Ralph loop performed:
 
 ## Loop Results Summary
 
-| Loop | Focus | Status | Issues |
-|------|-------|--------|--------|
-| 1 | Catalog Structure Validation | **PASS** | 0 |
-| 2 | Phase Gate Enforcement (dapp-factory) | **PASS** | 0 |
-| 3 | Phase Gate Enforcement (app-factory) | **PASS** | 0 |
-| 4 | Phase Gate Enforcement (Other Pipelines) | **PASS** | 0 |
-| 5 | Permission Level Enforcement | **PASS** | 0 |
-| 6 | Missing Environment Variables | **PASS** | 0 |
-| 7 | Artifact Output Verification | **PASS** | 0 |
-| 8 | Conflict Detection | **PASS** | 0 |
-| 9 | Deterministic Pipeline Completion | **PASS** | 0 |
-| 10 | Silent Failure Detection | **PASS** | 0 |
-| 11 | MCP Governance Compliance | **PASS** | 0 |
+| Loop | Focus                                    | Status   | Issues |
+| ---- | ---------------------------------------- | -------- | ------ |
+| 1    | Catalog Structure Validation             | **PASS** | 0      |
+| 2    | Phase Gate Enforcement (dapp-factory)    | **PASS** | 0      |
+| 3    | Phase Gate Enforcement (app-factory)     | **PASS** | 0      |
+| 4    | Phase Gate Enforcement (Other Pipelines) | **PASS** | 0      |
+| 5    | Permission Level Enforcement             | **PASS** | 0      |
+| 6    | Missing Environment Variables            | **PASS** | 0      |
+| 7    | Artifact Output Verification             | **PASS** | 0      |
+| 8    | Conflict Detection                       | **PASS** | 0      |
+| 9    | Deterministic Pipeline Completion        | **PASS** | 0      |
+| 10   | Silent Failure Detection                 | **PASS** | 0      |
+| 11   | MCP Governance Compliance                | **PASS** | 0      |
 
 ---
 
@@ -72,13 +73,13 @@ Each Ralph loop performed:
 
 ### Checks Performed
 
-| Check | Result |
-|-------|--------|
-| JSON syntax valid | PASS |
-| All required fields present | PASS |
-| Pipeline mappings complete | PASS |
-| Phase mappings consistent | PASS |
-| No duplicate MCP definitions | PASS |
+| Check                        | Result |
+| ---------------------------- | ------ |
+| JSON syntax valid            | PASS   |
+| All required fields present  | PASS   |
+| Pipeline mappings complete   | PASS   |
+| Phase mappings consistent    | PASS   |
+| No duplicate MCP definitions | PASS   |
 
 ### Findings
 
@@ -92,13 +93,13 @@ The catalog is structurally sound with all 7 MCP servers properly defined and al
 
 ### Test Cases
 
-| MCP | Allowed Phases | Test: Wrong Phase | Result |
-|-----|---------------|-------------------|--------|
-| Playwright | verify, ralph | build | BLOCKED (PASS) |
-| Vercel | deploy | research | BLOCKED (PASS) |
-| Stripe | build | verify | BLOCKED (PASS) |
-| Supabase | build, verify | deploy | BLOCKED (PASS) |
-| Figma | research, build | ralph | BLOCKED (PASS) |
+| MCP        | Allowed Phases  | Test: Wrong Phase | Result         |
+| ---------- | --------------- | ----------------- | -------------- |
+| Playwright | verify, ralph   | build             | BLOCKED (PASS) |
+| Vercel     | deploy          | research          | BLOCKED (PASS) |
+| Stripe     | build           | verify            | BLOCKED (PASS) |
+| Supabase   | build, verify   | deploy            | BLOCKED (PASS) |
+| Figma      | research, build | ralph             | BLOCKED (PASS) |
 
 ### Findings
 
@@ -112,11 +113,11 @@ All phase gates correctly enforce access restrictions for dapp-factory.
 
 ### Test Cases
 
-| MCP | Allowed Phases | Test: Wrong Phase | Result |
-|-----|---------------|-------------------|--------|
-| Playwright | verify, ralph | build | BLOCKED (PASS) |
-| Stripe | build | verify | BLOCKED (PASS) |
-| Figma | research, build | ralph | BLOCKED (PASS) |
+| MCP        | Allowed Phases  | Test: Wrong Phase | Result         |
+| ---------- | --------------- | ----------------- | -------------- |
+| Playwright | verify, ralph   | build             | BLOCKED (PASS) |
+| Stripe     | build           | verify            | BLOCKED (PASS) |
+| Figma      | research, build | ralph             | BLOCKED (PASS) |
 
 ### Findings
 
@@ -130,12 +131,12 @@ All phase gates correctly enforce access restrictions for app-factory.
 
 ### Test Summary
 
-| Pipeline | MCPs Tested | Phase Violations Found | Status |
-|----------|-------------|----------------------|--------|
-| agent-factory | Supabase, Cloudflare | 0 | PASS |
-| plugin-factory | GitHub only | N/A | PASS |
-| miniapp-pipeline | Playwright, Vercel | 0 | PASS |
-| website-pipeline | Playwright, Figma | 0 | PASS |
+| Pipeline         | MCPs Tested          | Phase Violations Found | Status |
+| ---------------- | -------------------- | ---------------------- | ------ |
+| agent-factory    | Supabase, Cloudflare | 0                      | PASS   |
+| plugin-factory   | GitHub only          | N/A                    | PASS   |
+| miniapp-pipeline | Playwright, Vercel   | 0                      | PASS   |
+| website-pipeline | Playwright, Figma    | 0                      | PASS   |
 
 ### Findings
 
@@ -149,15 +150,15 @@ All pipelines correctly restrict MCP server access to allowed phases.
 
 ### Test Cases
 
-| MCP | Permission Level | Approval Required | Result |
-|-----|-----------------|-------------------|--------|
-| Playwright | read-only | No | PASS |
-| Vercel | read-only | No | PASS |
-| Stripe | mutating | Yes | PASS |
-| Supabase | read-only | No | PASS |
-| Figma | read-only | No | PASS |
-| Cloudflare | read-only | Yes (for mutations) | PASS |
-| GitHub | read-write | No | PASS |
+| MCP        | Permission Level | Approval Required   | Result |
+| ---------- | ---------------- | ------------------- | ------ |
+| Playwright | read-only        | No                  | PASS   |
+| Vercel     | read-only        | No                  | PASS   |
+| Stripe     | mutating         | Yes                 | PASS   |
+| Supabase   | read-only        | No                  | PASS   |
+| Figma      | read-only        | No                  | PASS   |
+| Cloudflare | read-only        | Yes (for mutations) | PASS   |
+| GitHub     | read-write       | No                  | PASS   |
 
 ### Findings
 
@@ -171,11 +172,11 @@ Permission levels are correctly configured. Mutating MCP servers (Stripe, Cloudf
 
 ### Test Cases
 
-| MCP | Required Env Var | Failure Behavior | Result |
-|-----|-----------------|------------------|--------|
-| Stripe | STRIPE_SECRET_KEY | fail-fast | PASS |
-| Supabase | SUPABASE_ACCESS_TOKEN | fail-fast | PASS |
-| Cloudflare | CLOUDFLARE_API_TOKEN | fail-fast | PASS |
+| MCP        | Required Env Var      | Failure Behavior | Result |
+| ---------- | --------------------- | ---------------- | ------ |
+| Stripe     | STRIPE_SECRET_KEY     | fail-fast        | PASS   |
+| Supabase   | SUPABASE_ACCESS_TOKEN | fail-fast        | PASS   |
+| Cloudflare | CLOUDFLARE_API_TOKEN  | fail-fast        | PASS   |
 
 ### Findings
 
@@ -189,12 +190,12 @@ All MCP servers with required environment variables have proper failure behavior
 
 ### Expected Artifacts
 
-| MCP | Artifact Directory | Expected Files | Result |
-|-----|-------------------|----------------|--------|
-| Playwright | ralph/screenshots/ | *.png, *.json | PASS |
-| Vercel | deploy/ | deployment-log.md | PASS |
-| Figma | planning/ | design-tokens.json | PASS |
-| Supabase | migrations/ | migration-*.sql | PASS |
+| MCP        | Artifact Directory | Expected Files     | Result |
+| ---------- | ------------------ | ------------------ | ------ |
+| Playwright | ralph/screenshots/ | _.png, _.json      | PASS   |
+| Vercel     | deploy/            | deployment-log.md  | PASS   |
+| Figma      | planning/          | design-tokens.json | PASS   |
+| Supabase   | migrations/        | migration-\*.sql   | PASS   |
 
 ### Findings
 
@@ -208,14 +209,14 @@ All MCP servers have artifact output paths and file patterns defined.
 
 ### Shared MCP Usage (All Isolated by Pipeline)
 
-| MCP + Phase | Pipelines Using |
-|-------------|----------------|
-| figma:research | app-factory, dapp-factory, website-pipeline |
-| github:research | All 6 pipelines |
-| stripe:build | app-factory, dapp-factory |
+| MCP + Phase       | Pipelines Using                                               |
+| ----------------- | ------------------------------------------------------------- |
+| figma:research    | app-factory, dapp-factory, website-pipeline                   |
+| github:research   | All 6 pipelines                                               |
+| stripe:build      | app-factory, dapp-factory                                     |
 | playwright:verify | app-factory, dapp-factory, miniapp-pipeline, website-pipeline |
-| supabase:build | dapp-factory, agent-factory, miniapp-pipeline |
-| vercel:deploy | dapp-factory, miniapp-pipeline, website-pipeline |
+| supabase:build    | dapp-factory, agent-factory, miniapp-pipeline                 |
+| vercel:deploy     | dapp-factory, miniapp-pipeline, website-pipeline              |
 
 ### Findings
 
@@ -229,14 +230,14 @@ No conflicts detected. Multiple pipelines using the same MCP server are isolated
 
 ### Pipeline Configuration
 
-| Pipeline | MCPs Defined | Phases Mapped | Safe Defaults |
-|----------|-------------|---------------|---------------|
-| app-factory | PASS | PASS | PASS |
-| dapp-factory | PASS | PASS | PASS |
-| agent-factory | PASS | PASS | PASS |
-| plugin-factory | PASS | PASS | PASS |
-| miniapp-pipeline | PASS | PASS | PASS |
-| website-pipeline | PASS | PASS | PASS |
+| Pipeline         | MCPs Defined | Phases Mapped | Safe Defaults |
+| ---------------- | ------------ | ------------- | ------------- |
+| app-factory      | PASS         | PASS          | PASS          |
+| dapp-factory     | PASS         | PASS          | PASS          |
+| agent-factory    | PASS         | PASS          | PASS          |
+| plugin-factory   | PASS         | PASS          | PASS          |
+| miniapp-pipeline | PASS         | PASS          | PASS          |
+| website-pipeline | PASS         | PASS          | PASS          |
 
 ### Findings
 
@@ -250,15 +251,15 @@ All pipelines have MCP servers as opt-in only. Safe mode defaults ensure predict
 
 ### Failure Behavior Coverage
 
-| MCP | Failure Behavior Defined | Result |
-|-----|------------------------|--------|
-| Playwright | Yes (timeout, element not found, navigation error) | PASS |
-| Vercel | Yes (auth error, rate limit, network error) | PASS |
-| Stripe | Yes (auth error, API error, webhook error) | PASS |
-| Supabase | Yes (auth error, query error, migration error) | PASS |
-| Figma | Yes (auth error, file not found, rate limit) | PASS |
-| Cloudflare | Yes (auth error, deploy error, storage error) | PASS |
-| GitHub | Yes (auth error, rate limit, not found) | PASS |
+| MCP        | Failure Behavior Defined                           | Result |
+| ---------- | -------------------------------------------------- | ------ |
+| Playwright | Yes (timeout, element not found, navigation error) | PASS   |
+| Vercel     | Yes (auth error, rate limit, network error)        | PASS   |
+| Stripe     | Yes (auth error, API error, webhook error)         | PASS   |
+| Supabase   | Yes (auth error, query error, migration error)     | PASS   |
+| Figma      | Yes (auth error, file not found, rate limit)       | PASS   |
+| Cloudflare | Yes (auth error, deploy error, storage error)      | PASS   |
+| GitHub     | Yes (auth error, rate limit, not found)            | PASS   |
 
 ### Global Rules
 
@@ -277,17 +278,18 @@ All MCP servers have comprehensive failure behavior defined. Global rules ensure
 
 ### Checks Performed
 
-| Check | Result |
-|-------|--------|
-| mcpGovernance section exists | PASS |
-| Specification URL defined | PASS |
-| MCP vs MCP Server distinction documented | PASS |
-| Governance note explains MCP not executable | PASS |
-| Catalog version >= 1.1.0 | PASS |
+| Check                                       | Result |
+| ------------------------------------------- | ------ |
+| mcpGovernance section exists                | PASS   |
+| Specification URL defined                   | PASS   |
+| MCP vs MCP Server distinction documented    | PASS   |
+| Governance note explains MCP not executable | PASS   |
+| Catalog version >= 1.1.0                    | PASS   |
 
 ### Findings
 
 The catalog properly documents that:
+
 - MCP is the **specification** (https://github.com/modelcontextprotocol)
 - MCP servers are **implementations** that follow the MCP spec
 - MCP itself is not a tool, not a server, and not something you install
@@ -314,21 +316,22 @@ The MCP integration and governance documentation was designed correctly.
 
 ### Qualitative Assessment
 
-| Criterion | Assessment |
-|-----------|------------|
-| Phase gating enforced | Verified |
-| Permissions correctly applied | Verified |
-| Artifacts documented | Verified |
-| Failure handling complete | Verified |
-| No global MCP access | Verified |
-| Verification doesn't bypass | Verified |
-| No prod mutations by default | Verified |
-| **MCP governance documented** | **Verified** |
+| Criterion                            | Assessment   |
+| ------------------------------------ | ------------ |
+| Phase gating enforced                | Verified     |
+| Permissions correctly applied        | Verified     |
+| Artifacts documented                 | Verified     |
+| Failure handling complete            | Verified     |
+| No global MCP access                 | Verified     |
+| Verification doesn't bypass          | Verified     |
+| No prod mutations by default         | Verified     |
+| **MCP governance documented**        | **Verified** |
 | **MCP spec vs server distinguished** | **Verified** |
 
 ### Overall Confidence: **HIGH**
 
 The MCP integration is ready for production use. A brand-new contributor can understand:
+
 - Why MCP is the governing specification (not a tool)
 - What each MCP server does (documented in catalog)
 - Where each MCP server is allowed (phase mapping per pipeline)
@@ -348,18 +351,18 @@ The MCP integration is ready for production use. A brand-new contributor can und
 
 ## Appendix: Files Created/Updated
 
-| File | Purpose |
-|------|---------|
-| `plugin-factory/mcp.catalog.json` | Canonical MCP server catalog (v1.1.0) |
-| `plugin-factory/CLAUDE.md` | MCP governance section added (v1.2) |
-| `dapp-factory/CLAUDE.md` | MCP governance note added (v8.3) |
-| `app-factory/CLAUDE.md` | MCP governance note added (v7.4) |
-| `agent-factory/CLAUDE.md` | MCP governance note added (v3.2) |
-| `miniapp-pipeline/CLAUDE.md` | MCP governance note added (v1.2) |
-| `website-pipeline/CLAUDE.md` | MCP governance note added (v1.3) |
-| `verification/ralph-mcp-integration-report.md` | This report |
-| `verification/run_all_loops.js` | Verification script (11 loops) |
-| `verification/loop_results.json` | Raw loop results |
+| File                                           | Purpose                               |
+| ---------------------------------------------- | ------------------------------------- |
+| `plugin-factory/mcp.catalog.json`              | Canonical MCP server catalog (v1.1.0) |
+| `plugin-factory/CLAUDE.md`                     | MCP governance section added (v1.2)   |
+| `dapp-factory/CLAUDE.md`                       | MCP governance note added (v8.3)      |
+| `app-factory/CLAUDE.md`                        | MCP governance note added (v7.4)      |
+| `agent-factory/CLAUDE.md`                      | MCP governance note added (v3.2)      |
+| `miniapp-pipeline/CLAUDE.md`                   | MCP governance note added (v1.2)      |
+| `website-pipeline/CLAUDE.md`                   | MCP governance note added (v1.3)      |
+| `verification/ralph-mcp-integration-report.md` | This report                           |
+| `verification/run_all_loops.js`                | Verification script (11 loops)        |
+| `verification/loop_results.json`               | Raw loop results                      |
 
 ---
 

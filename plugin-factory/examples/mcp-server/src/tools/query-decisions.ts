@@ -9,12 +9,25 @@ import { z } from 'zod';
 import { searchDecisions, getProjectDecisions } from '../db/queries.js';
 
 export const queryDecisionsSchema = {
-  query: z.string().describe('Search query - can be keywords or a question like "why do we use Zustand?"'),
-  project: z.string().optional().describe('Limit search to a specific project path'),
-  limit: z.number().optional().default(20).describe('Maximum number of results to return'),
+  query: z
+    .string()
+    .describe(
+      'Search query - can be keywords or a question like "why do we use Zustand?"'
+    ),
+  project: z
+    .string()
+    .optional()
+    .describe('Limit search to a specific project path'),
+  limit: z
+    .number()
+    .optional()
+    .default(20)
+    .describe('Maximum number of results to return'),
 };
 
-export type QueryDecisionsInput = z.infer<z.ZodObject<typeof queryDecisionsSchema>>;
+export type QueryDecisionsInput = z.infer<
+  z.ZodObject<typeof queryDecisionsSchema>
+>;
 
 export async function queryDecisions(input: QueryDecisionsInput) {
   const { query, project, limit } = input;
@@ -52,24 +65,31 @@ export async function queryDecisions(input: QueryDecisionsInput) {
   return formatResults(decisions, `Results for "${query}"`);
 }
 
-function formatResults(decisions: ReturnType<typeof searchDecisions>, header: string) {
-  const formatted = decisions.map(d => {
-    const lines = [
-      `**#${d.id}** | ${new Date(d.created_at).toLocaleDateString()} | ${d.project_name}`,
-      `> ${d.reasoning.substring(0, 150)}${d.reasoning.length > 150 ? '...' : ''}`,
-      `Files: ${d.files.slice(0, 3).join(', ')}${d.files.length > 3 ? ` (+${d.files.length - 3} more)` : ''}`,
-    ];
+function formatResults(
+  decisions: ReturnType<typeof searchDecisions>,
+  header: string
+) {
+  const formatted = decisions
+    .map((d) => {
+      const lines = [
+        `**#${d.id}** | ${new Date(d.created_at).toLocaleDateString()} | ${d.project_name}`,
+        `> ${d.reasoning.substring(0, 150)}${d.reasoning.length > 150 ? '...' : ''}`,
+        `Files: ${d.files.slice(0, 3).join(', ')}${d.files.length > 3 ? ` (+${d.files.length - 3} more)` : ''}`,
+      ];
 
-    if (d.commit_hash) {
-      lines.push(`Commit: ${d.commit_hash}${d.commit_url ? ` ([view](${d.commit_url}))` : ''}`);
-    }
+      if (d.commit_hash) {
+        lines.push(
+          `Commit: ${d.commit_hash}${d.commit_url ? ` ([view](${d.commit_url}))` : ''}`
+        );
+      }
 
-    if (d.tags.length > 0) {
-      lines.push(`Tags: ${d.tags.map(t => `#${t}`).join(' ')}`);
-    }
+      if (d.tags.length > 0) {
+        lines.push(`Tags: ${d.tags.map((t) => `#${t}`).join(' ')}`);
+      }
 
-    return lines.join('\n');
-  }).join('\n\n---\n\n');
+      return lines.join('\n');
+    })
+    .join('\n\n---\n\n');
 
   return {
     content: [

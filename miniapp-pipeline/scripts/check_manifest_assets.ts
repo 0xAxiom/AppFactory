@@ -114,7 +114,9 @@ for (const asset of requiredAssets) {
 }
 
 console.log('-'.repeat(60));
-console.log(`Assets: ${assetsPassing}/${assetsChecked} required assets present`);
+console.log(
+  `Assets: ${assetsPassing}/${assetsChecked} required assets present`
+);
 console.log('');
 
 if (hasErrors) {

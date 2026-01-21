@@ -18,9 +18,9 @@ Developers spend **35-50% of their time** reading and understanding existing cod
 
 ### Market Size
 
-| Segment | Size | Growth |
-|---------|------|--------|
-| Developer Tools Market | $32B (2025) | 12% CAGR |
+| Segment                 | Size         | Growth   |
+| ----------------------- | ------------ | -------- |
+| Developer Tools Market  | $32B (2025)  | 12% CAGR |
 | Code Intelligence Tools | $4.2B (2025) | 18% CAGR |
 | AI-Assisted Development | $1.8B (2025) | 45% CAGR |
 
@@ -39,6 +39,7 @@ Developers spend **35-50% of their time** reading and understanding existing cod
 ### 1. Codebase Complexity Growth
 
 Average codebase size has grown 3x in 10 years:
+
 - More dependencies (avg npm project: 1,500+ transitive deps)
 - Microservices architectures (distributed code understanding)
 - Multi-language repositories (polyglot challenges)
@@ -67,13 +68,13 @@ Average codebase size has grown 3x in 10 years:
 
 ### Primary Use Cases
 
-| Use Case | Pain Point | Value Delivered |
-|----------|------------|-----------------|
-| Onboarding | "Where do I even start?" | Guided codebase tours |
-| Debugging | "Why does this break?" | Trace data flow to root cause |
-| Feature Work | "How does similar feature X work?" | Pattern discovery |
-| Code Review | "What does this change actually do?" | Impact analysis |
-| Refactoring | "What depends on this?" | Dependency mapping |
+| Use Case     | Pain Point                           | Value Delivered               |
+| ------------ | ------------------------------------ | ----------------------------- |
+| Onboarding   | "Where do I even start?"             | Guided codebase tours         |
+| Debugging    | "Why does this break?"               | Trace data flow to root cause |
+| Feature Work | "How does similar feature X work?"   | Pattern discovery             |
+| Code Review  | "What does this change actually do?" | Impact analysis               |
+| Refactoring  | "What depends on this?"              | Dependency mapping            |
 
 ### Quantified Value
 
@@ -126,16 +127,17 @@ Average codebase size has grown 3x in 10 years:
 
 ## Pricing Models in Market
 
-| Model | Examples | Typical Price |
-|-------|----------|---------------|
-| Freemium + Pro | GitHub Copilot, Cursor | $10-20/month |
-| Usage-Based | OpenAI API | $0.01-0.03/1K tokens |
-| Enterprise | Sourcegraph, CodeStream | $29-99/seat/month |
-| Open Source | Various | Free + hosting costs |
+| Model          | Examples                | Typical Price        |
+| -------------- | ----------------------- | -------------------- |
+| Freemium + Pro | GitHub Copilot, Cursor  | $10-20/month         |
+| Usage-Based    | OpenAI API              | $0.01-0.03/1K tokens |
+| Enterprise     | Sourcegraph, CodeStream | $29-99/seat/month    |
+| Open Source    | Various                 | Free + hosting costs |
 
 ### Our Positioning
 
 Open-source agent with BYOK (Bring Your Own Key) model:
+
 - Free to self-host
 - Users pay LLM costs directly
 - Premium features possible later

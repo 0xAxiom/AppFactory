@@ -12,7 +12,13 @@ import { createServer, IncomingMessage, ServerResponse } from 'node:http';
 import { logger } from './lib/logger.js';
 import { ValidationError, handleError } from './lib/errors.js';
 import { isPathAllowed } from './lib/path-validator.js';
-import { createCodebaseExplainerAgent, AgentExecutionLoop, ExplainRequestSchema, ExplainRequest, ExplainResponse } from './agent/index.js';
+import {
+  createCodebaseExplainerAgent,
+  AgentExecutionLoop,
+  ExplainRequestSchema,
+  ExplainRequest,
+  ExplainResponse,
+} from './agent/index.js';
 
 // ============================================================================
 // Configuration
@@ -74,7 +80,9 @@ async function handleExplain(body: unknown): Promise<ExplainResponse> {
 
   // Validate directory is allowed
   if (!isPathAllowed(request.directory)) {
-    throw new ValidationError(`Directory not allowed: ${request.directory}. Check ALLOWED_ROOTS configuration.`);
+    throw new ValidationError(
+      `Directory not allowed: ${request.directory}. Check ALLOWED_ROOTS configuration.`
+    );
   }
 
   logger.info('Processing explain request', {
@@ -103,68 +111,78 @@ async function handleExplain(body: unknown): Promise<ExplainResponse> {
 // HTTP Server
 // ============================================================================
 
-const server = createServer(async (req: IncomingMessage, res: ServerResponse) => {
-  const startTime = Date.now();
+const server = createServer(
+  async (req: IncomingMessage, res: ServerResponse) => {
+    const startTime = Date.now();
 
-  // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    });
-    res.end();
-    return;
-  }
-
-  const url = new URL(req.url || '/', `http://localhost:${CONFIG.port}`);
-
-  logger.info('Request received', { method: req.method, path: url.pathname });
-
-  try {
-    // Health check
-    if (req.method === 'GET' && url.pathname === '/health') {
-      return sendJSON(res, 200, {
-        status: 'ok',
-        name: CONFIG.name,
-        version: CONFIG.version,
-        uptime: process.uptime(),
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
       });
+      res.end();
+      return;
     }
 
-    // Info endpoint
-    if (req.method === 'GET' && url.pathname === '/') {
-      return sendJSON(res, 200, {
-        name: CONFIG.name,
-        version: CONFIG.version,
-        description: 'AI agent that explores and explains codebases',
-        architecture: 'Rig-aligned with typed tools and execution loop',
-        endpoints: {
-          'GET /': 'Agent info',
-          'GET /health': 'Health check',
-          'POST /explain': 'Explain codebase (main endpoint)',
-        },
-        tools: ['list_directory', 'read_file', 'search_code', 'analyze_imports'],
+    const url = new URL(req.url || '/', `http://localhost:${CONFIG.port}`);
+
+    logger.info('Request received', { method: req.method, path: url.pathname });
+
+    try {
+      // Health check
+      if (req.method === 'GET' && url.pathname === '/health') {
+        return sendJSON(res, 200, {
+          status: 'ok',
+          name: CONFIG.name,
+          version: CONFIG.version,
+          uptime: process.uptime(),
+        });
+      }
+
+      // Info endpoint
+      if (req.method === 'GET' && url.pathname === '/') {
+        return sendJSON(res, 200, {
+          name: CONFIG.name,
+          version: CONFIG.version,
+          description: 'AI agent that explores and explains codebases',
+          architecture: 'Rig-aligned with typed tools and execution loop',
+          endpoints: {
+            'GET /': 'Agent info',
+            'GET /health': 'Health check',
+            'POST /explain': 'Explain codebase (main endpoint)',
+          },
+          tools: [
+            'list_directory',
+            'read_file',
+            'search_code',
+            'analyze_imports',
+          ],
+        });
+      }
+
+      // Explain endpoint
+      if (req.method === 'POST' && url.pathname === '/explain') {
+        const body = await parseBody(req);
+        const result = await handleExplain(body);
+
+        logger.info('Request completed', { duration: Date.now() - startTime });
+        return sendJSON(res, 200, result);
+      }
+
+      // 404 for unknown routes
+      sendJSON(res, 404, { error: 'Not found', code: 'NOT_FOUND' });
+    } catch (error) {
+      const { statusCode, body } = handleError(error);
+      logger.error('Request failed', {
+        error: body,
+        duration: Date.now() - startTime,
       });
+      sendJSON(res, statusCode, body);
     }
-
-    // Explain endpoint
-    if (req.method === 'POST' && url.pathname === '/explain') {
-      const body = await parseBody(req);
-      const result = await handleExplain(body);
-
-      logger.info('Request completed', { duration: Date.now() - startTime });
-      return sendJSON(res, 200, result);
-    }
-
-    // 404 for unknown routes
-    sendJSON(res, 404, { error: 'Not found', code: 'NOT_FOUND' });
-  } catch (error) {
-    const { statusCode, body } = handleError(error);
-    logger.error('Request failed', { error: body, duration: Date.now() - startTime });
-    sendJSON(res, statusCode, body);
   }
-});
+);
 
 // ============================================================================
 // Graceful Shutdown
@@ -185,7 +203,11 @@ process.on('SIGINT', () => {
 // ============================================================================
 
 server.listen(CONFIG.port, () => {
-  logger.info('Agent started', { name: CONFIG.name, version: CONFIG.version, port: CONFIG.port });
+  logger.info('Agent started', {
+    name: CONFIG.name,
+    version: CONFIG.version,
+    port: CONFIG.port,
+  });
   console.log(`
 ╔══════════════════════════════════════════════════════════════╗
 ║                    CODEBASE EXPLAINER                        ║

@@ -1,9 +1,5 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-import {
-  base,
-  mainnet,
-  sepolia,
-} from 'wagmi/chains';
+import { base, mainnet, sepolia } from 'wagmi/chains';
 
 export const config = getDefaultConfig({
   appName: 'RainbowKit demo',

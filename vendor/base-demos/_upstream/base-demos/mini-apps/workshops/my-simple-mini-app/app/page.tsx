@@ -99,7 +99,7 @@ export default function App() {
         </header>
 
         <main className="flex-1">
-        {/* Update this section to add your own components or pages */}
+          {/* Update this section to add your own components or pages */}
           {activeTab === "home" && <Home setActiveTab={setActiveTab} />}
           {activeTab === "features" && <Features setActiveTab={setActiveTab} />}
         </main>

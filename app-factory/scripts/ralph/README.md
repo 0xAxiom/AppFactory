@@ -5,6 +5,7 @@ Ralph Wiggum is a bash-driven iteration loop that re-feeds prompts into Claude C
 ## Prerequisites
 
 ### Required
+
 - **jq**: JSON processor
   ```bash
   brew install jq
@@ -15,6 +16,7 @@ Ralph Wiggum is a bash-driven iteration loop that re-feeds prompts into Claude C
   ```
 
 ### Optional
+
 - **npx**: For running Expo commands (usually included with Node.js)
 
 ## Installation
@@ -99,6 +101,7 @@ quality_percentage = (passed_items / total_items) * 100
 ### Threshold Meaning
 
 ≥97% means:
+
 1. ALL critical items pass
 2. At most 1-2 non-critical items may fail
 3. No runtime errors or crashes
@@ -168,53 +171,58 @@ Ralph maintains a human-readable progress log at `progress.txt`:
 
 Ralph Wiggum complements the existing Ralph Mode in App Factory:
 
-| Aspect | Ralph Mode (Manual) | Ralph Wiggum (Automated) |
-|--------|---------------------|--------------------------|
-| Invocation | Claude plays both roles | Bash script drives loop |
-| Tracking | Markdown reports | JSON PRD + progress.txt |
-| Iterations | Max 3 | Configurable (default 5) |
-| Quality | Subjective verdict | Quantitative ≥97% |
-| Scope | Final QA only | Per-milestone gating |
+| Aspect     | Ralph Mode (Manual)     | Ralph Wiggum (Automated) |
+| ---------- | ----------------------- | ------------------------ |
+| Invocation | Claude plays both roles | Bash script drives loop  |
+| Tracking   | Markdown reports        | JSON PRD + progress.txt  |
+| Iterations | Max 3                   | Configurable (default 5) |
+| Quality    | Subjective verdict      | Quantitative ≥97%        |
+| Scope      | Final QA only           | Per-milestone gating     |
 
 Both systems serve the same goal: ensuring quality before shipping.
 
 ## Troubleshooting
 
 ### jq not found
+
 ```bash
 brew install jq
 ```
 
 ### claude not found
+
 ```bash
 npm install -g @anthropic/claude-code
 ```
 
 ### Permission denied
+
 ```bash
 chmod +x ralph.sh
 ```
 
 ### Quality stuck below threshold
+
 1. Check which critical items are failing
 2. Review iteration results in `iteration_N_result.md`
 3. Manually fix blocking issues
 4. Re-run Ralph
 
 ### PRD not updating
+
 - Ensure jq is working: `jq --version`
 - Check file permissions on prd.json
 - Verify JSON is valid: `jq . prd.json`
 
 ## Files Reference
 
-| File | Purpose |
-|------|---------|
-| `ralph.sh` | Main loop script |
-| `prd.json` | PRD with milestones and checklists |
-| `prompt.md` | Default prompt template (regenerated per milestone) |
-| `progress.txt` | Human-readable progress log |
-| `iteration_N_result.md` | Results from each Claude iteration |
+| File                    | Purpose                                             |
+| ----------------------- | --------------------------------------------------- |
+| `ralph.sh`              | Main loop script                                    |
+| `prd.json`              | PRD with milestones and checklists                  |
+| `prompt.md`             | Default prompt template (regenerated per milestone) |
+| `progress.txt`          | Human-readable progress log                         |
+| `iteration_N_result.md` | Results from each Claude iteration                  |
 
 ## License
 

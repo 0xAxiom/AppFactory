@@ -114,6 +114,7 @@ The MiniApp Pipeline transforms user ideas into production-ready Base Mini Apps 
 ## Directory Structure
 
 ### Pipeline Root
+
 ```
 miniapp-pipeline/
 ├── CLAUDE.md              # Pipeline constitution
@@ -160,6 +161,7 @@ miniapp-pipeline/
 ```
 
 ### Build Output Structure
+
 ```
 builds/miniapps/<slug>/
 ├── app/                           # Next.js application
@@ -229,6 +231,7 @@ builds/miniapps/<slug>/
 **Schema**: `schemas/normalized_prompt.schema.json`
 
 Fields:
+
 - name (string, max 32)
 - tagline (string, max 30)
 - description (string, max 170)
@@ -246,6 +249,7 @@ Fields:
 **Schema**: `schemas/scaffold_plan.schema.json`
 
 Fields:
+
 - template (string)
 - routes (array)
 - components (array)
@@ -296,6 +300,7 @@ Fields:
 **Gate**: All checks pass
 
 Checks:
+
 1. npm install succeeds
 2. npm run build succeeds
 3. npm run lint passes (if configured)
@@ -317,6 +322,7 @@ Checks:
 **Gate**: Ralph approval
 
 Process:
+
 1. Ralph reviews (produces `ralph_report_N.md`)
 2. Builder resolves (produces `builder_resolution_N.md`)
 3. Repeat max 3 times
@@ -327,16 +333,19 @@ Process:
 ## Technology Stack
 
 ### Application
+
 - **Framework**: Next.js 14+ (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS (default) or CSS Modules
 - **SDK**: MiniKit for Base integration
 
 ### Deployment
+
 - **Platform**: Vercel (recommended)
 - **Domain**: Vercel-provided or custom
 
 ### Validation
+
 - **Build**: npm scripts
 - **Manifest**: Custom TypeScript validators
 - **QA**: Ralph adversarial review
@@ -346,6 +355,7 @@ Process:
 ## Integration Points
 
 ### With Base App
+
 ```
 Your App                    Base App
 ────────                    ────────
@@ -355,6 +365,7 @@ Your App                    Base App
 ```
 
 ### With MiniKit SDK
+
 ```typescript
 import { MiniKit } from '@coinbase/minikit';
 
@@ -376,16 +387,19 @@ const address = await sdk.wallet.getAddress();
 ## Quality Gates
 
 ### Gate 1: Account Association (M5)
+
 - Blocks progress until signed
 - Validates via config check
 - Manual user action required
 
 ### Gate 2: Proof Gate (M8)
+
 - Automated validation
 - All checks must pass
 - Blocks without passing
 
 ### Gate 3: Ralph Mode (M10)
+
 - Adversarial review
 - Max 3 iterations
 - Must achieve approval
@@ -395,6 +409,7 @@ const address = await sdk.wallet.getAddress();
 ## Error Handling
 
 ### Build Failures
+
 ```
 Failure in M8 → Identify failing check
              → Return to appropriate stage
@@ -402,6 +417,7 @@ Failure in M8 → Identify failing check
 ```
 
 ### Missing Association
+
 ```
 Empty fields in M5 → Output reminder
                    → Block progress
@@ -409,6 +425,7 @@ Empty fields in M5 → Output reminder
 ```
 
 ### Ralph Rejection
+
 ```
 Rejected 3x → Document unresolved issues
            → Provide manual guidance
@@ -420,9 +437,11 @@ Rejected 3x → Document unresolved issues
 ## Caching Strategy
 
 ### Vendor Documentation
+
 Location: `vendor/base-miniapps/`
 
 Cached files:
+
 - create-new-miniapp.md
 - manifest.md
 - sign-manifest.md
@@ -432,6 +451,7 @@ Cached files:
 Refresh policy: Quarterly or on major Base updates
 
 ### Build Artifacts
+
 Location: `builds/miniapps/<slug>/artifacts/`
 
 Retained: All stage outputs

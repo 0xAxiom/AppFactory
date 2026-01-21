@@ -13,29 +13,29 @@ This document tracks all modifications made to files extracted from `_upstream/b
 
 ### Files Copied As-Is
 
-| File | Notes |
-|------|-------|
+| File                                      | Notes                            |
+| ----------------------------------------- | -------------------------------- |
 | `app/.well-known/farcaster.json/route.ts` | Uses `withValidManifest` pattern |
-| `app/api/auth/route.ts` | Quick auth endpoint |
-| `app/success/page.tsx` | Success page |
-| `eslint.config.mjs` | ESLint config |
-| `next.config.ts` | Next.js config |
-| `tsconfig.json` | TypeScript config |
-| `public/*` | Asset files |
+| `app/api/auth/route.ts`                   | Quick auth endpoint              |
+| `app/success/page.tsx`                    | Success page                     |
+| `eslint.config.mjs`                       | ESLint config                    |
+| `next.config.ts`                          | Next.js config                   |
+| `tsconfig.json`                           | TypeScript config                |
+| `public/*`                                | Asset files                      |
 
 ### Files Modified
 
-| File | Modification |
-|------|--------------|
+| File           | Modification                                        |
+| -------------- | --------------------------------------------------- |
 | `package.json` | Removed `package-lock.json` - regenerate on install |
 
 ### Files Removed
 
-| File | Reason |
-|------|--------|
-| `node_modules/` | Generated on install |
+| File                | Reason                |
+| ------------------- | --------------------- |
+| `node_modules/`     | Generated on install  |
 | `package-lock.json` | Regenerate on install |
-| `.next/` | Build artifact |
+| `.next/`            | Build artifact        |
 
 ---
 
@@ -49,17 +49,18 @@ Reference-only extraction of component patterns. Not intended for direct use.
 
 ### Files Extracted
 
-| Directory | Contents |
-|-----------|----------|
-| `src/components/actions/` | SDK action component examples |
-| `src/components/providers/` | Provider setup patterns |
-| `src/components/ui/` | UI component examples |
-| `src/components/wallet/` | Wallet integration patterns |
-| `src/components/Demo.tsx` | Main demo component |
+| Directory                   | Contents                      |
+| --------------------------- | ----------------------------- |
+| `src/components/actions/`   | SDK action component examples |
+| `src/components/providers/` | Provider setup patterns       |
+| `src/components/ui/`        | UI component examples         |
+| `src/components/wallet/`    | Wallet integration patterns   |
+| `src/components/Demo.tsx`   | Main demo component           |
 
 ### Usage Notes
 
 These components demonstrate patterns for:
+
 - `sdk.actions.*` calls
 - Wallet connection flows
 - Transaction signing
@@ -74,24 +75,26 @@ These components demonstrate patterns for:
 
 ### Files Extracted and Renamed
 
-| Original Path | New Name | Purpose |
-|---------------|----------|---------|
-| `app/api/webhook/route.ts` | `webhook-handler.ts` | Farcaster webhook handling |
-| `app/api/notify/route.ts` | `notify-endpoint.ts` | Send notification endpoint |
-| `lib/notification.ts` | `notification.ts` | Notification CRUD utils |
+| Original Path                | New Name                 | Purpose                    |
+| ---------------------------- | ------------------------ | -------------------------- |
+| `app/api/webhook/route.ts`   | `webhook-handler.ts`     | Farcaster webhook handling |
+| `app/api/notify/route.ts`    | `notify-endpoint.ts`     | Send notification endpoint |
+| `lib/notification.ts`        | `notification.ts`        | Notification CRUD utils    |
 | `lib/notification-client.ts` | `notification-client.ts` | Farcaster notification API |
-| `lib/redis.ts` | `redis.ts` | Redis/Upstash client |
+| `lib/redis.ts`               | `redis.ts`               | Redis/Upstash client       |
 
 ### Integration Notes
 
 To use the notification module:
 
 1. Install dependencies:
+
    ```bash
    npm install @upstash/redis @farcaster/frame-sdk
    ```
 
 2. Set environment variables:
+
    ```bash
    UPSTASH_REDIS_REST_URL=
    UPSTASH_REDIS_REST_TOKEN=
@@ -110,14 +113,14 @@ To use the notification module:
 
 When integrating into miniapp-pipeline templates, these values should become template variables:
 
-| Hardcoded Value | Template Variable |
-|-----------------|-------------------|
-| `"Cubey"` | `{{APP_NAME}}` |
-| `"Your AI Ad Companion"` | `{{APP_SUBTITLE}}` |
-| `"Ads"` | `{{APP_DESCRIPTION}}` |
-| `"#000000"` | `{{SPLASH_COLOR}}` |
-| `"social"` | `{{PRIMARY_CATEGORY}}` |
-| `["marketing", "ads", ...]` | `{{TAGS}}` |
+| Hardcoded Value             | Template Variable      |
+| --------------------------- | ---------------------- |
+| `"Cubey"`                   | `{{APP_NAME}}`         |
+| `"Your AI Ad Companion"`    | `{{APP_SUBTITLE}}`     |
+| `"Ads"`                     | `{{APP_DESCRIPTION}}`  |
+| `"#000000"`                 | `{{SPLASH_COLOR}}`     |
+| `"social"`                  | `{{PRIMARY_CATEGORY}}` |
+| `["marketing", "ads", ...]` | `{{TAGS}}`             |
 
 ---
 
@@ -139,4 +142,4 @@ find full-demo-reference/src/components -type f | wc -l
 
 ---
 
-*Last updated: 2026-01-18*
+_Last updated: 2026-01-18_

@@ -8,8 +8,20 @@ import { Command } from 'commander';
 import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { validateFactoryStructure, getScriptsDir, getTemplatesDir, getSchemasDir } from '../core/paths.js';
-import { printBanner, printHeader, printSuccess, printError, printWarning, printInfo } from '../ui/banner.js';
+import {
+  validateFactoryStructure,
+  getScriptsDir,
+  getTemplatesDir,
+  getSchemasDir,
+} from '../core/paths.js';
+import {
+  printBanner,
+  printHeader,
+  printSuccess,
+  printError,
+  printWarning,
+  printInfo,
+} from '../ui/banner.js';
 import { fileExists, listFiles } from '../core/io.js';
 
 const execAsync = promisify(exec);
@@ -41,7 +53,7 @@ export function createDoctorCommand(): Command {
         name: '.env file',
         passed: hasEnv,
         message: hasEnv ? '.env file found' : '.env file not found',
-        fix: hasEnv ? undefined : 'cp .env.example .env'
+        fix: hasEnv ? undefined : 'cp .env.example .env',
       });
 
       // Check 2: ANTHROPIC_API_KEY is set
@@ -50,17 +62,20 @@ export function createDoctorCommand(): Command {
         name: 'ANTHROPIC_API_KEY',
         passed: hasApiKey,
         message: hasApiKey ? 'API key is set' : 'API key is not set',
-        fix: hasApiKey ? undefined : 'Add ANTHROPIC_API_KEY=sk-ant-... to .env'
+        fix: hasApiKey ? undefined : 'Add ANTHROPIC_API_KEY=sk-ant-... to .env',
       });
 
       // Check 3: API key format
-      const apiKeyValid = process.env.ANTHROPIC_API_KEY?.startsWith('sk-ant-') ?? false;
+      const apiKeyValid =
+        process.env.ANTHROPIC_API_KEY?.startsWith('sk-ant-') ?? false;
       if (hasApiKey) {
         checks.push({
           name: 'API key format',
           passed: apiKeyValid,
-          message: apiKeyValid ? 'API key format valid' : 'API key format invalid',
-          fix: apiKeyValid ? undefined : 'API key should start with sk-ant-'
+          message: apiKeyValid
+            ? 'API key format valid'
+            : 'API key format invalid',
+          fix: apiKeyValid ? undefined : 'API key should start with sk-ant-',
         });
       }
 
@@ -74,15 +89,17 @@ export function createDoctorCommand(): Command {
         checks.push({
           name: 'Node.js version',
           passed: nodeOk,
-          message: nodeOk ? `Node.js ${nodeVersion} (>= 18 required)` : `Node.js ${nodeVersion} (requires >= 18)`,
-          fix: nodeOk ? undefined : 'Install Node.js 18 or higher'
+          message: nodeOk
+            ? `Node.js ${nodeVersion} (>= 18 required)`
+            : `Node.js ${nodeVersion} (requires >= 18)`,
+          fix: nodeOk ? undefined : 'Install Node.js 18 or higher',
         });
       } catch {
         checks.push({
           name: 'Node.js version',
           passed: false,
           message: 'Node.js not found',
-          fix: 'Install Node.js 18 or higher'
+          fix: 'Install Node.js 18 or higher',
         });
       }
 
@@ -91,8 +108,12 @@ export function createDoctorCommand(): Command {
       checks.push({
         name: 'Factory structure',
         passed: factoryCheck.valid,
-        message: factoryCheck.valid ? 'Repository structure valid' : `Missing: ${factoryCheck.errors.join(', ')}`,
-        fix: factoryCheck.valid ? undefined : 'Ensure you are in the correct repository'
+        message: factoryCheck.valid
+          ? 'Repository structure valid'
+          : `Missing: ${factoryCheck.errors.join(', ')}`,
+        fix: factoryCheck.valid
+          ? undefined
+          : 'Ensure you are in the correct repository',
       });
 
       // Check 6: Templates exist
@@ -103,8 +124,10 @@ export function createDoctorCommand(): Command {
         checks.push({
           name: 'Stage templates',
           passed: hasTemplates,
-          message: hasTemplates ? `${templates.length} templates found` : `Only ${templates.length} templates (expected 15+)`,
-          fix: hasTemplates ? undefined : 'Repository may be incomplete'
+          message: hasTemplates
+            ? `${templates.length} templates found`
+            : `Only ${templates.length} templates (expected 15+)`,
+          fix: hasTemplates ? undefined : 'Repository may be incomplete',
         });
       }
 
@@ -116,8 +139,10 @@ export function createDoctorCommand(): Command {
         checks.push({
           name: 'JSON schemas',
           passed: hasSchemas,
-          message: hasSchemas ? `${schemas.length} schemas found` : `Only ${schemas.length} schemas (expected 10+)`,
-          fix: hasSchemas ? undefined : 'Repository may be incomplete'
+          message: hasSchemas
+            ? `${schemas.length} schemas found`
+            : `Only ${schemas.length} schemas (expected 10+)`,
+          fix: hasSchemas ? undefined : 'Repository may be incomplete',
         });
       }
 
@@ -129,8 +154,10 @@ export function createDoctorCommand(): Command {
         checks.push({
           name: 'Enforcement scripts',
           passed: hasScripts,
-          message: hasScripts ? `${scripts.length} scripts found` : `Only ${scripts.length} scripts (expected 20+)`,
-          fix: hasScripts ? undefined : 'Repository may be incomplete'
+          message: hasScripts
+            ? `${scripts.length} scripts found`
+            : `Only ${scripts.length} scripts (expected 20+)`,
+          fix: hasScripts ? undefined : 'Repository may be incomplete',
         });
       }
 
@@ -146,7 +173,7 @@ export function createDoctorCommand(): Command {
         name: 'npm',
         passed: hasNpm,
         message: hasNpm ? 'npm available' : 'npm not found',
-        fix: hasNpm ? undefined : 'Install npm (comes with Node.js)'
+        fix: hasNpm ? undefined : 'Install npm (comes with Node.js)',
       });
 
       // Check 10: expo-cli available
@@ -161,25 +188,31 @@ export function createDoctorCommand(): Command {
         name: 'Expo CLI',
         passed: hasExpo,
         message: hasExpo ? 'Expo CLI available' : 'Expo CLI not found',
-        fix: hasExpo ? undefined : 'npm install -g expo-cli'
+        fix: hasExpo ? undefined : 'npm install -g expo-cli',
       });
 
       // Output results
       if (options.json) {
-        const passed = checks.filter(c => c.passed).length;
-        const failed = checks.filter(c => !c.passed).length;
+        const passed = checks.filter((c) => c.passed).length;
+        const failed = checks.filter((c) => !c.passed).length;
 
-        console.log(JSON.stringify({
-          passed,
-          failed,
-          total: checks.length,
-          checks: checks.map(c => ({
-            name: c.name,
-            passed: c.passed,
-            message: c.message,
-            ...(c.fix && { fix: c.fix })
-          }))
-        }, null, 2));
+        console.log(
+          JSON.stringify(
+            {
+              passed,
+              failed,
+              total: checks.length,
+              checks: checks.map((c) => ({
+                name: c.name,
+                passed: c.passed,
+                message: c.message,
+                ...(c.fix && { fix: c.fix }),
+              })),
+            },
+            null,
+            2
+          )
+        );
 
         process.exit(failed > 0 ? 3 : 0);
       }
@@ -200,15 +233,17 @@ export function createDoctorCommand(): Command {
 
       console.log();
 
-      const passed = checks.filter(c => c.passed).length;
-      const failed = checks.filter(c => !c.passed).length;
+      const passed = checks.filter((c) => c.passed).length;
+      const failed = checks.filter((c) => !c.passed).length;
 
       if (failed === 0) {
         printSuccess(`All ${passed} checks passed!`);
         console.log('\nYour environment is ready to use App Factory.');
         process.exit(0);
       } else {
-        printWarning(`${passed}/${checks.length} checks passed, ${failed} failed`);
+        printWarning(
+          `${passed}/${checks.length} checks passed, ${failed} failed`
+        );
         console.log('\nPlease fix the issues above before using App Factory.');
         process.exit(3);
       }

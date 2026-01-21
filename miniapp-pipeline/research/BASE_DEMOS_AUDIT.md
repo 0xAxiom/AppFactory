@@ -23,18 +23,18 @@ The Farcaster SDK template (`farcaster-sdk/mini-app-full-demo/`) uses newer wagm
 
 ### Mini Apps Directory (`mini-apps/`)
 
-| Path | Purpose | Framework | Priority |
-|------|---------|-----------|----------|
-| `templates/minikit/new-mini-app-quickstart/` | Official starter | Next.js 15.3.6 | **HIGH** |
-| `templates/minikit/mini-app-full-demo-minikit/` | Feature demo | Next.js 15.5.7 | **HIGH** |
-| `templates/minikit/vite-mini/` | Vite alternative | Vite | LOW |
-| `templates/farcaster-sdk/mini-app-full-demo/` | Pure SDK | Next.js | MEDIUM |
-| `workshops/my-simple-mini-app/` | Notifications | Next.js | **HIGH** |
-| `workshops/three-card-monte/` | Gaming + TX | Next.js | MEDIUM |
-| `workshops/mini-neynar/` | Neynar API | Next.js | LOW |
-| `workshops/my-mini-zora/` | Zora NFTs | Next.js | LOW |
-| `workshops/mini-app-route/` | Routing | Next.js | LOW |
-| `workshops/mini-app-wrapped/` | Provider wrap | Next.js | LOW |
+| Path                                            | Purpose          | Framework      | Priority |
+| ----------------------------------------------- | ---------------- | -------------- | -------- |
+| `templates/minikit/new-mini-app-quickstart/`    | Official starter | Next.js 15.3.6 | **HIGH** |
+| `templates/minikit/mini-app-full-demo-minikit/` | Feature demo     | Next.js 15.5.7 | **HIGH** |
+| `templates/minikit/vite-mini/`                  | Vite alternative | Vite           | LOW      |
+| `templates/farcaster-sdk/mini-app-full-demo/`   | Pure SDK         | Next.js        | MEDIUM   |
+| `workshops/my-simple-mini-app/`                 | Notifications    | Next.js        | **HIGH** |
+| `workshops/three-card-monte/`                   | Gaming + TX      | Next.js        | MEDIUM   |
+| `workshops/mini-neynar/`                        | Neynar API       | Next.js        | LOW      |
+| `workshops/my-mini-zora/`                       | Zora NFTs        | Next.js        | LOW      |
+| `workshops/mini-app-route/`                     | Routing          | Next.js        | LOW      |
+| `workshops/mini-app-wrapped/`                   | Provider wrap    | Next.js        | LOW      |
 
 ### Other Directories (Not Relevant to Mini Apps)
 
@@ -51,34 +51,35 @@ The Farcaster SDK template (`farcaster-sdk/mini-app-full-demo/`) uses newer wagm
 **Location**: `minikit.config.ts` (centralized)
 
 ```typescript
-const ROOT_URL = process.env.NEXT_PUBLIC_URL ||
+const ROOT_URL =
+  process.env.NEXT_PUBLIC_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : 'http://localhost:3000');
 
 export const minikitConfig = {
   accountAssociation: {
-    header: "",    // Filled after signing
-    payload: "",   // Filled after signing
-    signature: ""  // Filled after signing
+    header: '', // Filled after signing
+    payload: '', // Filled after signing
+    signature: '', // Filled after signing
   },
   miniapp: {
-    version: "1",
-    name: "App Name",
-    subtitle: "Short description",
-    description: "Full description",
+    version: '1',
+    name: 'App Name',
+    subtitle: 'Short description',
+    description: 'Full description',
     screenshotUrls: [`${ROOT_URL}/screenshot.png`],
     iconUrl: `${ROOT_URL}/icon.png`,
     splashImageUrl: `${ROOT_URL}/splash.png`,
-    splashBackgroundColor: "#000000",
+    splashBackgroundColor: '#000000',
     homeUrl: ROOT_URL,
     webhookUrl: `${ROOT_URL}/api/webhook`,
-    primaryCategory: "social",
-    tags: ["tag1", "tag2"],
+    primaryCategory: 'social',
+    tags: ['tag1', 'tag2'],
     heroImageUrl: `${ROOT_URL}/hero.png`,
-    tagline: "",
-    ogTitle: "",
-    ogDescription: "",
+    tagline: '',
+    ogTitle: '',
+    ogDescription: '',
     ogImageUrl: `${ROOT_URL}/og.png`,
   },
 } as const;
@@ -89,8 +90,8 @@ export const minikitConfig = {
 **Location**: `app/.well-known/farcaster.json/route.ts`
 
 ```typescript
-import { withValidManifest } from "@coinbase/onchainkit/minikit";
-import { minikitConfig } from "../../../minikit.config";
+import { withValidManifest } from '@coinbase/onchainkit/minikit';
+import { minikitConfig } from '../../../minikit.config';
 
 export async function GET() {
   return Response.json(withValidManifest(minikitConfig));
@@ -146,16 +147,16 @@ export async function POST(request: Request) {
 
   // Handle events
   switch (event.event) {
-    case "frame_added":
+    case 'frame_added':
       // User added the mini app
       break;
-    case "frame_removed":
+    case 'frame_removed':
       // User removed the mini app
       break;
-    case "notifications_enabled":
+    case 'notifications_enabled':
       // User enabled notifications
       break;
-    case "notifications_disabled":
+    case 'notifications_disabled':
       // User disabled notifications
       break;
   }
@@ -190,22 +191,22 @@ export default function FrameProvider({ children }) {
 **Location**: Various action components
 
 ```typescript
-import { sdk } from "@farcaster/miniapp-sdk";
+import { sdk } from '@farcaster/miniapp-sdk';
 
 // Available actions (from validate.txt and implementations)
-sdk.actions.ready()              // Required - dismiss splash screen
-sdk.actions.signIn({ nonce })    // Sign in user
-sdk.actions.composeCast(params)  // Create a cast
-sdk.actions.viewProfile({ fid }) // View user profile
-sdk.actions.viewToken({ token }) // View token
-sdk.actions.sendToken(params)    // Send token
-sdk.actions.swapToken(params)    // Swap tokens
-sdk.actions.openMiniApp(params)  // Open another mini app
-sdk.actions.close()              // Close the mini app
-sdk.actions.openUrl(url)         // Open external URL
-sdk.actions.viewCast({ hash })   // View a cast
-sdk.actions.addMiniApp()         // Add to user's apps
-sdk.actions.requestCameraAndMicrophoneAccess()  // Media permissions
+sdk.actions.ready(); // Required - dismiss splash screen
+sdk.actions.signIn({ nonce }); // Sign in user
+sdk.actions.composeCast(params); // Create a cast
+sdk.actions.viewProfile({ fid }); // View user profile
+sdk.actions.viewToken({ token }); // View token
+sdk.actions.sendToken(params); // Send token
+sdk.actions.swapToken(params); // Swap tokens
+sdk.actions.openMiniApp(params); // Open another mini app
+sdk.actions.close(); // Close the mini app
+sdk.actions.openUrl(url); // Open external URL
+sdk.actions.viewCast({ hash }); // View a cast
+sdk.actions.addMiniApp(); // Add to user's apps
+sdk.actions.requestCameraAndMicrophoneAccess(); // Media permissions
 ```
 
 ---
@@ -285,23 +286,23 @@ UPSTASH_REDIS_REST_TOKEN=
 
 ### Essential Files (Must Extract)
 
-| Source | Target | Purpose |
-|--------|--------|---------|
-| `minikit.config.ts` | `templates/app_template/minikit.config.ts.template` | Config pattern |
+| Source                                    | Target                                                                    | Purpose           |
+| ----------------------------------------- | ------------------------------------------------------------------------- | ----------------- |
+| `minikit.config.ts`                       | `templates/app_template/minikit.config.ts.template`                       | Config pattern    |
 | `app/.well-known/farcaster.json/route.ts` | `templates/app_template/app/.well-known/farcaster.json/route.ts.template` | Manifest endpoint |
-| `app/rootProvider.tsx` or `providers.tsx` | `templates/app_template/app/providers.tsx.template` | Provider setup |
-| `package.json` | `templates/app_template/package.json.template` | Dependencies |
+| `app/rootProvider.tsx` or `providers.tsx` | `templates/app_template/app/providers.tsx.template`                       | Provider setup    |
+| `package.json`                            | `templates/app_template/package.json.template`                            | Dependencies      |
 
 ### Optional Files (Feature Modules)
 
-| Source | Feature | Extract Condition |
-|--------|---------|-------------------|
-| `app/api/webhook/route.ts` | Webhooks | If notifications needed |
-| `app/api/notify/route.ts` | Push notifications | If notifications needed |
-| `lib/notification.ts` | Notification utils | If notifications needed |
-| `lib/redis.ts` | Redis client | If notifications needed |
-| `components/wallet/` | Wallet components | If wallet UI needed |
-| `components/actions/` | SDK actions | If action UI needed |
+| Source                     | Feature            | Extract Condition       |
+| -------------------------- | ------------------ | ----------------------- |
+| `app/api/webhook/route.ts` | Webhooks           | If notifications needed |
+| `app/api/notify/route.ts`  | Push notifications | If notifications needed |
+| `lib/notification.ts`      | Notification utils | If notifications needed |
+| `lib/redis.ts`             | Redis client       | If notifications needed |
+| `components/wallet/`       | Wallet components  | If wallet UI needed     |
+| `components/actions/`      | SDK actions        | If action UI needed     |
 
 ---
 
@@ -325,6 +326,7 @@ Both can coexist. MiniKit uses Farcaster SDK internally.
 ### 3. Account Association Workflow
 
 The account association (signing) is a **manual step** that must happen after deployment:
+
 1. Deploy app to production URL
 2. Visit https://farcaster.xyz/~/developers/mini-apps/manifest
 3. Enter domain and sign with Farcaster wallet
@@ -336,6 +338,7 @@ This matches our existing M5 manual step in miniapp-pipeline.
 ### 4. Key Registry Verification
 
 Webhook handlers verify FID ownership via the Key Registry contract on Optimism:
+
 - Address: `0x00000000Fc1237824fb747aBDE0FF18990E59b7e`
 - This is critical for security - validates webhook caller owns the FID
 
@@ -359,19 +362,25 @@ Send notifications via Farcaster API
 ## Gaps Identified
 
 ### 1. No Testing Examples
+
 None of the templates include test files. Our pipeline should add:
+
 - Unit tests for components
 - Integration tests for manifest endpoint
 - E2E tests for mini app flow
 
 ### 2. No CI/CD Configuration
+
 No GitHub Actions or similar. Our pipeline provides this via proof gate.
 
 ### 3. No TypeScript Strictness
+
 Most templates use basic TypeScript config. Could be stricter.
 
 ### 4. Hardcoded Values
+
 Some templates have hardcoded values that should be templated:
+
 - App names
 - Colors
 - Categories
@@ -390,6 +399,7 @@ Some templates have hardcoded values that should be templated:
 ### For Proof Gate Updates
 
 Add checks from `mini-app-validation/validate.txt`:
+
 - SDK ready call verification (`sdk.actions.ready()`)
 - Manifest field validation
 - Image dimension checks
@@ -397,6 +407,7 @@ Add checks from `mini-app-validation/validate.txt`:
 ### Version Pinning
 
 Pin to specific versions instead of `latest`:
+
 ```json
 {
   "@coinbase/onchainkit": "^1.0.3",
@@ -427,4 +438,4 @@ mini-apps/workshops/my-simple-mini-app/
 
 ---
 
-*Audit completed for miniapp-pipeline integration planning.*
+_Audit completed for miniapp-pipeline integration planning._

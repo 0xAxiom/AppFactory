@@ -1,19 +1,22 @@
-"use client";
+'use client';
 
-import { ListItem } from "@worldcoin/mini-apps-ui-kit-react";
-import { WalletActionDefinition, WalletPageType } from "~/types";
-import { WalletConnect } from "~/components/wallet/wallet-actions";
+import { ListItem } from '@worldcoin/mini-apps-ui-kit-react';
+import { WalletActionDefinition, WalletPageType } from '~/types';
+import { WalletConnect } from '~/components/wallet/wallet-actions';
 
 interface WalletListProps {
   walletActions: WalletActionDefinition[];
   onWalletActionSelect: (walletActionId: WalletPageType) => void;
 }
 
-export function WalletList({ walletActions, onWalletActionSelect }: WalletListProps) {
+export function WalletList({
+  walletActions,
+  onWalletActionSelect,
+}: WalletListProps) {
   return (
     <div className="space-y-4">
       <WalletConnect />
-      
+
       <div className="space-y-2">
         {walletActions.map((walletAction) => {
           const IconComponent = walletAction.icon;

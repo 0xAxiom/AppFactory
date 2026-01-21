@@ -47,17 +47,21 @@ Design and UI guidelines for building the frontend.
 
 ```css
 /* Font stack */
-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+font-family:
+  'Inter',
+  system-ui,
+  -apple-system,
+  sans-serif;
 
 /* Scale */
---text-xs: 0.75rem;    /* 12px */
---text-sm: 0.875rem;   /* 14px */
---text-base: 1rem;     /* 16px */
---text-lg: 1.125rem;   /* 18px */
---text-xl: 1.25rem;    /* 20px */
---text-2xl: 1.5rem;    /* 24px */
---text-3xl: 1.875rem;  /* 30px */
---text-4xl: 2.25rem;   /* 36px */
+--text-xs: 0.75rem; /* 12px */
+--text-sm: 0.875rem; /* 14px */
+--text-base: 1rem; /* 16px */
+--text-lg: 1.125rem; /* 18px */
+--text-xl: 1.25rem; /* 20px */
+--text-2xl: 1.5rem; /* 24px */
+--text-3xl: 1.875rem; /* 30px */
+--text-4xl: 2.25rem; /* 36px */
 ```
 
 ### Spacing
@@ -90,9 +94,7 @@ interface ButtonProps {
 
 ```tsx
 // Standard card with subtle border
-<div className="bg-surface border border-border rounded-xl p-6">
-  {children}
-</div>
+<div className="bg-surface border border-border rounded-xl p-6">{children}</div>
 ```
 
 ### Input
@@ -111,9 +113,7 @@ interface ButtonProps {
 ```tsx
 // Centered modal with backdrop
 <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-  <div className="bg-surface border border-border rounded-2xl p-6 max-w-md w-full mx-4">
-    {children}
-  </div>
+  <div className="bg-surface border border-border rounded-2xl p-6 max-w-md w-full mx-4">{children}</div>
 </div>
 ```
 
@@ -129,15 +129,11 @@ export default function Page() {
     <main className="min-h-screen bg-base">
       {/* Navigation */}
       <nav className="border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          {/* Logo, nav links, wallet button */}
-        </div>
+        <div className="max-w-7xl mx-auto px-4 py-4">{/* Logo, nav links, wallet button */}</div>
       </nav>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Page content */}
-      </div>
+      <div className="max-w-7xl mx-auto px-4 py-8">{/* Page content */}</div>
     </main>
   );
 }
@@ -161,10 +157,10 @@ xl: 1280px
 ### Connect Button
 
 ```tsx
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 // Style override for dark theme
-<WalletMultiButton className="!bg-accent hover:!bg-accent-hover" />
+<WalletMultiButton className="!bg-accent hover:!bg-accent-hover" />;
 ```
 
 ### Balance Display
@@ -180,7 +176,7 @@ function TokenBalance() {
     <div className="flex items-center gap-2 px-3 py-1.5 bg-elevated rounded-lg">
       <span className="text-sm text-secondary">Balance:</span>
       <span className="text-sm font-medium text-primary">
-        {loading ? "..." : `${balance?.toLocaleString() ?? 0} TOKEN`}
+        {loading ? '...' : `${balance?.toLocaleString() ?? 0} TOKEN`}
       </span>
     </div>
   );
@@ -221,9 +217,7 @@ function TokenBalance() {
 ### Inline Error
 
 ```tsx
-<p className="text-sm text-error mt-1">
-  {errorMessage}
-</p>
+<p className="text-sm text-error mt-1">{errorMessage}</p>
 ```
 
 ### Toast Notification

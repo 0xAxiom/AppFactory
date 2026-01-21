@@ -33,7 +33,7 @@ Provide clear, step-by-step instructions for deploying the mini app to Vercel.
 
 File: `artifacts/stage04/DEPLOYMENT.md`
 
-```markdown
+````markdown
 # Deployment Guide
 
 ## Overview
@@ -70,6 +70,7 @@ git remote add origin https://github.com/[username]/[repo-name].git
 # Push
 git push -u origin main
 ```
+````
 
 ---
 
@@ -136,14 +137,17 @@ After initial deployment:
 ## Step 5: Verify Deployment
 
 ### Check App Loads
+
 Visit: `https://[your-project].vercel.app`
 
 Expected: Your mini app's main page loads.
 
 ### Check Manifest
+
 Visit: `https://[your-project].vercel.app/.well-known/farcaster.json`
 
 Expected: JSON response with your manifest data:
+
 ```json
 {
   "accountAssociation": {
@@ -162,16 +166,19 @@ Expected: JSON response with your manifest data:
 ### Troubleshooting
 
 **404 on manifest?**
+
 - Check that `app/.well-known/farcaster.json/route.ts` exists
 - Verify file exports a `GET` function
 - Redeploy after fixing
 
 **Build failed?**
+
 - Check Vercel build logs
 - Run `npm run build` locally to debug
 - Fix errors and push again
 
 **Manifest returns HTML/login page?**
+
 - Deployment Protection is still enabled
 - Go back to Step 4
 
@@ -180,6 +187,7 @@ Expected: JSON response with your manifest data:
 ## Deployment Complete
 
 Your mini app is now deployed at:
+
 ```
 https://[your-project].vercel.app
 ```
@@ -201,6 +209,7 @@ If you want to use a custom domain:
 5. Redeploy
 
 Note: You'll need to redo account association if you change domains.
+
 ```
 
 ## Validation
@@ -219,3 +228,4 @@ Note: You'll need to redo account association if you change domains.
 ## Next Stage
 
 After user completes deployment, proceed to Stage M5 (Account Association).
+```

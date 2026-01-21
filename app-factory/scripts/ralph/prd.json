@@ -12,12 +12,36 @@
       "status": "pending",
       "quality": 0,
       "checklist": [
-        { "item": "Project overview section exists and is specific", "critical": true, "status": "pending" },
-        { "item": "Core user loop defined with clear steps", "critical": true, "status": "pending" },
-        { "item": "Tech stack committed (no alternatives)", "critical": true, "status": "pending" },
-        { "item": "File tree/project structure proposed", "critical": false, "status": "pending" },
-        { "item": "Milestones explicitly numbered", "critical": true, "status": "pending" },
-        { "item": "Each milestone has verification checklist", "critical": true, "status": "pending" }
+        {
+          "item": "Project overview section exists and is specific",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Core user loop defined with clear steps",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Tech stack committed (no alternatives)",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "File tree/project structure proposed",
+          "critical": false,
+          "status": "pending"
+        },
+        {
+          "item": "Milestones explicitly numbered",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Each milestone has verification checklist",
+          "critical": true,
+          "status": "pending"
+        }
       ]
     },
     {
@@ -27,11 +51,31 @@
       "status": "pending",
       "quality": 0,
       "checklist": [
-        { "item": "package.json created with correct dependencies", "critical": true, "status": "pending" },
-        { "item": "tsconfig.json configured properly", "critical": true, "status": "pending" },
-        { "item": "app.config.js or app.json created", "critical": true, "status": "pending" },
-        { "item": "Directory structure matches plan", "critical": false, "status": "pending" },
-        { "item": "npm install completes without errors", "critical": true, "status": "pending" }
+        {
+          "item": "package.json created with correct dependencies",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "tsconfig.json configured properly",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "app.config.js or app.json created",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Directory structure matches plan",
+          "critical": false,
+          "status": "pending"
+        },
+        {
+          "item": "npm install completes without errors",
+          "critical": true,
+          "status": "pending"
+        }
       ]
     },
     {
@@ -41,11 +85,31 @@
       "status": "pending",
       "quality": 0,
       "checklist": [
-        { "item": "Main screens created and navigable", "critical": true, "status": "pending" },
-        { "item": "Core user flow works end-to-end", "critical": true, "status": "pending" },
-        { "item": "Data persistence implemented", "critical": false, "status": "pending" },
-        { "item": "No TypeScript errors", "critical": true, "status": "pending" },
-        { "item": "npx expo start boots without fatal errors", "critical": true, "status": "pending" }
+        {
+          "item": "Main screens created and navigable",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Core user flow works end-to-end",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Data persistence implemented",
+          "critical": false,
+          "status": "pending"
+        },
+        {
+          "item": "No TypeScript errors",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "npx expo start boots without fatal errors",
+          "critical": true,
+          "status": "pending"
+        }
       ]
     },
     {
@@ -55,11 +119,31 @@
       "status": "pending",
       "quality": 0,
       "checklist": [
-        { "item": "RevenueCat SDK integrated", "critical": true, "status": "pending" },
-        { "item": "Paywall screen implemented", "critical": true, "status": "pending" },
-        { "item": "Onboarding flow complete", "critical": false, "status": "pending" },
-        { "item": "Settings screen with subscription management", "critical": true, "status": "pending" },
-        { "item": "Premium feature gating works", "critical": true, "status": "pending" }
+        {
+          "item": "RevenueCat SDK integrated",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Paywall screen implemented",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Onboarding flow complete",
+          "critical": false,
+          "status": "pending"
+        },
+        {
+          "item": "Settings screen with subscription management",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Premium feature gating works",
+          "critical": true,
+          "status": "pending"
+        }
       ]
     },
     {
@@ -69,16 +153,56 @@
       "status": "pending",
       "quality": 0,
       "checklist": [
-        { "item": "App icon (1024x1024) exists", "critical": true, "status": "pending" },
-        { "item": "Splash screen exists", "critical": true, "status": "pending" },
-        { "item": "research/market_research.md is substantive", "critical": true, "status": "pending" },
-        { "item": "research/competitor_analysis.md is substantive", "critical": true, "status": "pending" },
-        { "item": "research/positioning.md is substantive", "critical": true, "status": "pending" },
-        { "item": "aso/app_title.txt exists (max 30 chars)", "critical": true, "status": "pending" },
-        { "item": "aso/subtitle.txt exists (max 30 chars)", "critical": true, "status": "pending" },
-        { "item": "aso/description.md is compelling", "critical": true, "status": "pending" },
-        { "item": "aso/keywords.txt exists (max 100 chars)", "critical": true, "status": "pending" },
-        { "item": "privacy_policy.md exists", "critical": true, "status": "pending" },
+        {
+          "item": "App icon (1024x1024) exists",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Splash screen exists",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "research/market_research.md is substantive",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "research/competitor_analysis.md is substantive",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "research/positioning.md is substantive",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "aso/app_title.txt exists (max 30 chars)",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "aso/subtitle.txt exists (max 30 chars)",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "aso/description.md is compelling",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "aso/keywords.txt exists (max 100 chars)",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "privacy_policy.md exists",
+          "critical": true,
+          "status": "pending"
+        },
         { "item": "README.md exists", "critical": false, "status": "pending" },
         { "item": "RUNBOOK.md exists", "critical": false, "status": "pending" }
       ]
@@ -90,14 +214,46 @@
       "status": "pending",
       "quality": 0,
       "checklist": [
-        { "item": "npm install completes without errors", "critical": true, "status": "pending" },
-        { "item": "npx expo start boots Metro successfully", "critical": true, "status": "pending" },
-        { "item": "No TypeScript compilation errors", "critical": true, "status": "pending" },
-        { "item": "App loads in simulator without crash", "critical": true, "status": "pending" },
-        { "item": "Core user flow works end-to-end", "critical": true, "status": "pending" },
-        { "item": "All research artifacts substantive (not placeholder)", "critical": true, "status": "pending" },
-        { "item": "All ASO artifacts complete", "critical": true, "status": "pending" },
-        { "item": "Ralph Mode PASS verdict issued", "critical": true, "status": "pending" }
+        {
+          "item": "npm install completes without errors",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "npx expo start boots Metro successfully",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "No TypeScript compilation errors",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "App loads in simulator without crash",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Core user flow works end-to-end",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "All research artifacts substantive (not placeholder)",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "All ASO artifacts complete",
+          "critical": true,
+          "status": "pending"
+        },
+        {
+          "item": "Ralph Mode PASS verdict issued",
+          "critical": true,
+          "status": "pending"
+        }
       ]
     }
   ],

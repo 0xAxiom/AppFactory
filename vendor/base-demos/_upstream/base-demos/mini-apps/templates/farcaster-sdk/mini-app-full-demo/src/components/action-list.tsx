@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ListItem } from "@worldcoin/mini-apps-ui-kit-react";
-import { ActionDefinition, ActionPageType } from "~/types";
+import { ListItem } from '@worldcoin/mini-apps-ui-kit-react';
+import { ActionDefinition, ActionPageType } from '~/types';
 
 interface ActionListProps {
   actions: ActionDefinition[];

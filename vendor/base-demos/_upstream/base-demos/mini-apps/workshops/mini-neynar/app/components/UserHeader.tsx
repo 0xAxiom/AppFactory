@@ -23,7 +23,11 @@ interface UserHeaderProps {
   schemaId?: `0x${string}`;
 }
 
-export default function UserHeader({ username, fid, schemaId }: UserHeaderProps) {
+export default function UserHeader({
+  username,
+  fid,
+  schemaId,
+}: UserHeaderProps) {
   const { address } = useAccount();
 
   return (
@@ -35,20 +39,18 @@ export default function UserHeader({ username, fid, schemaId }: UserHeaderProps)
           {fid && <span className="text-xs text-gray-500">FID: {fid}</span>}
         </div>
       </div>
-      
+
       {/* Wallet control section */}
       <Wallet className="[&>div:nth-child(2)]:!opacity-100">
-        <ConnectWallet 
-          className="bg-[#0052FF] hover:bg-[#0049E5] text-white font-medium py-1 px-3 text-sm rounded-lg transition-colors flex items-center"
-        >
+        <ConnectWallet className="bg-[#0052FF] hover:bg-[#0049E5] text-white font-medium py-1 px-3 text-sm rounded-lg transition-colors flex items-center">
           <Avatar className="h-5 w-5 mr-2" />
           <ConnectWalletText>
             {address ? "Account" : "Connect Wallet"}
           </ConnectWalletText>
         </ConnectWallet>
         <WalletDropdown>
-          <Identity 
-            className="px-4 pt-3 pb-2" 
+          <Identity
+            className="px-4 pt-3 pb-2"
             hasCopyAddressOnClick
             address={address || undefined}
             schemaId={schemaId}
@@ -69,4 +71,4 @@ export default function UserHeader({ username, fid, schemaId }: UserHeaderProps)
       </Wallet>
     </div>
   );
-} 
+}

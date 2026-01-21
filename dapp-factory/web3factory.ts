@@ -2,7 +2,7 @@
 
 /**
  * Web3 Factory CLI Entry Point
- * 
+ *
  * Provides the `web3 idea <IDEA_TEXT>` command interface
  */
 
@@ -11,7 +11,7 @@ import * as path from 'path';
 
 async function main() {
   const args = process.argv.slice(2);
-  
+
   if (args.length === 0) {
     console.log(`
 Web3 Factory - Production-Grade Tokenized Web App Generator
@@ -39,7 +39,7 @@ Output:
   }
 
   const command = args[0];
-  
+
   if (command === 'idea') {
     if (args.length < 2) {
       console.error('Error: Please provide an idea text');
@@ -60,14 +60,12 @@ Output:
       console.log('✅ Web3 Factory completed successfully!');
       console.log('📁 Check ./web3-builds/ for your generated app');
       console.log('📋 Check ./runs/ for detailed execution logs');
-      
     } catch (error) {
       console.error('');
       console.error('❌ Web3 Factory failed:');
       console.error(error instanceof Error ? error.message : error);
       process.exit(1);
     }
-
   } else {
     console.error(`Unknown command: ${command}`);
     console.error('Available commands: idea');
@@ -81,7 +79,7 @@ process.on('unhandledRejection', (reason, promise) => {
   process.exit(1);
 });
 
-// Handle uncaught exceptions  
+// Handle uncaught exceptions
 process.on('uncaughtException', (error) => {
   console.error('Uncaught Exception:', error);
   process.exit(1);

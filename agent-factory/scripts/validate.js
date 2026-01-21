@@ -24,14 +24,31 @@ const CONFIG = {
   requiredFiles: ['agent.json', 'package.json', 'src'],
 
   forbiddenPatterns: [
-    /^\.env$/, /^\.env\..+$/, /\.pem$/, /\.key$/, /\.crt$/,
-    /^credentials\.json$/, /^secrets\.json$/, /\.secret$/,
-    /^node_modules$/, /^node_modules\//, /^dist\//, /^build\//,
-    /\.log$/, /^\.DS_Store$/, /^\.git$/, /^\.git\//,
-    /\.exe$/, /\.dll$/, /\.so$/, /\.dylib$/, /\.sh$/, /\.bat$/
+    /^\.env$/,
+    /^\.env\..+$/,
+    /\.pem$/,
+    /\.key$/,
+    /\.crt$/,
+    /^credentials\.json$/,
+    /^secrets\.json$/,
+    /\.secret$/,
+    /^node_modules$/,
+    /^node_modules\//,
+    /^dist\//,
+    /^build\//,
+    /\.log$/,
+    /^\.DS_Store$/,
+    /^\.git$/,
+    /^\.git\//,
+    /\.exe$/,
+    /\.dll$/,
+    /\.so$/,
+    /\.dylib$/,
+    /\.sh$/,
+    /\.bat$/,
   ],
 
-  allowedDotfiles: ['.nvmrc', '.npmrc', '.env.example']
+  allowedDotfiles: ['.nvmrc', '.npmrc', '.env.example'],
 };
 
 // ============================================================
@@ -66,7 +83,10 @@ function validate(projectPath) {
       if (!agentJson.runtime?.entrypoint) {
         errors.push('agent.json: missing runtime.entrypoint');
       } else {
-        const entrypointPath = path.join(projectPath, agentJson.runtime.entrypoint);
+        const entrypointPath = path.join(
+          projectPath,
+          agentJson.runtime.entrypoint
+        );
         if (!fs.existsSync(entrypointPath)) {
           errors.push(`Entrypoint not found: ${agentJson.runtime.entrypoint}`);
         }
@@ -130,7 +150,9 @@ function validate(projectPath) {
         totalSize += stat.size;
 
         if (stat.size > CONFIG.maxFileSize) {
-          errors.push(`File too large: ${relativePath} (${(stat.size / 1024 / 1024).toFixed(2)} MB)`);
+          errors.push(
+            `File too large: ${relativePath} (${(stat.size / 1024 / 1024).toFixed(2)} MB)`
+          );
         }
       }
     }
@@ -147,7 +169,9 @@ function validate(projectPath) {
   }
 
   if (totalSize > CONFIG.maxZipSize) {
-    errors.push(`Total size too large: ${(totalSize / 1024 / 1024).toFixed(2)} MB (max 10 MB)`);
+    errors.push(
+      `Total size too large: ${(totalSize / 1024 / 1024).toFixed(2)} MB (max 10 MB)`
+    );
   }
 
   return { errors, warnings, fileCount, totalSize };
@@ -166,7 +190,7 @@ const result = validate(resolved);
 
 if (result.errors.length > 0) {
   console.log('ERRORS:');
-  result.errors.forEach(e => console.log(`  - ${e}`));
+  result.errors.forEach((e) => console.log(`  - ${e}`));
   console.log('');
   writeFactoryReadyJson(resolved, false, result);
   process.exit(1);
@@ -204,44 +228,64 @@ function writeFactoryReadyJson(projectPath, passed, result) {
     project: {
       name: agentName,
       pipeline: 'agent-factory',
-      path: projectPath
+      path: projectPath,
     },
     gates: {
       build: {
         status: passed ? 'pass' : 'fail',
         checks: [
-          { name: 'package.json exists', passed: !result.errors.some(e => e.includes('Missing package.json')) },
-          { name: 'agent.json valid', passed: !result.errors.some(e => e.includes('agent.json')) },
-          { name: 'src/ directory exists', passed: !result.errors.some(e => e.includes('Missing src/')) }
-        ]
+          {
+            name: 'package.json exists',
+            passed: !result.errors.some((e) =>
+              e.includes('Missing package.json')
+            ),
+          },
+          {
+            name: 'agent.json valid',
+            passed: !result.errors.some((e) => e.includes('agent.json')),
+          },
+          {
+            name: 'src/ directory exists',
+            passed: !result.errors.some((e) => e.includes('Missing src/')),
+          },
+        ],
       },
       run: { status: 'not_checked', note: 'Run npm run dev to verify' },
-      test: { status: 'not_checked', note: 'Run curl http://localhost:8080/health to verify' },
+      test: {
+        status: 'not_checked',
+        note: 'Run curl http://localhost:8080/health to verify',
+      },
       validate: {
         status: passed ? 'pass' : 'fail',
         file_count: result.fileCount,
         total_size_kb: Math.round(result.totalSize / 1024),
-        errors: result.errors
+        errors: result.errors,
       },
       package: { status: 'pass', note: 'Push to GitHub for launchpad import' },
       launch_ready: {
         status: passed ? 'pass' : 'fail',
         checks: [
-          { name: 'No forbidden files', passed: !result.errors.some(e => e.includes('Forbidden')) },
-          { name: 'Size under limit', passed: !result.errors.some(e => e.includes('too large')) }
-        ]
+          {
+            name: 'No forbidden files',
+            passed: !result.errors.some((e) => e.includes('Forbidden')),
+          },
+          {
+            name: 'Size under limit',
+            passed: !result.errors.some((e) => e.includes('too large')),
+          },
+        ],
       },
       token_integration: {
         status: tokenEnabled ? 'enabled' : 'disabled',
         note: tokenEnabled
           ? 'Set TOKEN_CONTRACT_ADDRESS in .env after launch'
-          : 'Token integration not enabled for this agent'
-      }
+          : 'Token integration not enabled for this agent',
+      },
     },
     overall: passed ? 'PASS' : 'FAIL',
     next_steps: passed
       ? ['Push to GitHub', 'Prepare for Factory Launchpad (coming soon)']
-      : ['Fix errors listed above', 'Run npm run validate again']
+      : ['Fix errors listed above', 'Run npm run validate again'],
   };
 
   const outputPath = path.join(projectPath, 'factory_ready.json');

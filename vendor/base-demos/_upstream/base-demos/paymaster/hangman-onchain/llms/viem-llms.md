@@ -152,10 +152,7 @@ Next, we send a User Operation to the Bundler. For the example below, we will se
 
 ```ts twoslash
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -203,10 +200,7 @@ If you do not wish to pass an account around to every Action that requires an `a
 
 ```ts twoslash
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -255,10 +249,7 @@ The example below uses [Pimlico's Paymaster API](https://docs.pimlico.io/infra/p
 
 ```ts twoslash [example.ts (on Client)]
 import { http } from 'viem';
-import {
-  createBundlerClient,
-  createPaymasterClient,
-} from 'viem/account-abstraction';
+import { createBundlerClient, createPaymasterClient } from 'viem/account-abstraction';
 import { account, client } from './config.ts';
 
 const paymasterClient = createPaymasterClient({
@@ -313,10 +304,7 @@ const hash = await bundlerClient.sendUserOperation({
 ```ts twoslash [config.ts] filename="config.ts"
 // @noErrors
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -342,10 +330,7 @@ If your Bundler also accepts Paymaster sponsorship (like [Pimlico](https://www.p
 
 ```ts twoslash [example.ts (on Client)]
 import { http } from 'viem';
-import {
-  createBundlerClient,
-  createPaymasterClient,
-} from 'viem/account-abstraction';
+import { createBundlerClient, createPaymasterClient } from 'viem/account-abstraction';
 import { account, client } from './config.ts';
 
 const paymasterClient = createPaymasterClient({
@@ -393,10 +378,7 @@ const hash = await bundlerClient.sendUserOperation({
 ```ts twoslash [config.ts] filename="config.ts"
 // @noErrors
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -975,9 +957,7 @@ const client = createWalletClient({
 ```ts
 import { providers } from 'ethers';
 
-const provider = new providers.WebSocketProvider(
-  'wss://eth-mainnet.g.alchemy.com/v2/<apiKey>'
-); // [!code hl]
+const provider = new providers.WebSocketProvider('wss://eth-mainnet.g.alchemy.com/v2/<apiKey>'); // [!code hl]
 ```
 
 ##### viem
@@ -1568,9 +1548,7 @@ const json = parseAbi([
 ```ts
 import { utils } from 'ethers';
 
-const fragment = utils.Fragment.from(
-  'function balanceOf(address owner) view returns (uint)'
-); // [!code hl]
+const fragment = utils.Fragment.from('function balanceOf(address owner) view returns (uint)'); // [!code hl]
 ```
 
 ##### viem
@@ -1578,9 +1556,7 @@ const fragment = utils.Fragment.from(
 ```ts
 import { parseAbiItem } from 'viem';
 
-const abiItem = parseAbiItem(
-  'function balanceOf(address owner) view returns (uint)'
-); // [!code hl]
+const abiItem = parseAbiItem('function balanceOf(address owner) view returns (uint)'); // [!code hl]
 ```
 
 #### ParamType.from
@@ -1915,9 +1891,7 @@ const result = decodeFunctionResult({
 ```ts
 import { Interface, FunctionFragment } from '@ethersproject/abi';
 
-const hash = Interface.getSighash(
-  FunctionFragment.from('function ownerOf(uint256)')
-); // [!code hl]
+const hash = Interface.getSighash(FunctionFragment.from('function ownerOf(uint256)')); // [!code hl]
 ```
 
 ##### viem
@@ -1992,8 +1966,7 @@ const address = getContractAddress({ from: '0x...', nonce: 5 }); // [!code hl]
 import { utils } from 'ethers';
 
 const from = '0x8ba1f109551bD432803012645Ac136ddd64DBA72'; // [!code hl]
-const salt =
-  '0x7c5ea36004851c764c44143b1dcb59679b11c9a68e5f41497f6cf3d480715331'; // [!code hl]
+const salt = '0x7c5ea36004851c764c44143b1dcb59679b11c9a68e5f41497f6cf3d480715331'; // [!code hl]
 const initCode = '0x6394198df16000526103ff60206004601c335afa6040516060f3'; // [!code hl]
 const initCodeHash = utils.keccak256(initCode); // [!code hl]
 
@@ -2161,9 +2134,7 @@ stringToHex('Hello world', { size: 32 }); // [!code hl]
 ```ts
 import { utils } from 'ethers';
 
-utils.parseBytes32String(
-  '0x48656c6c6f20776f726c642e0000000000000000000000000000000000000000'
-); // [!code hl]
+utils.parseBytes32String('0x48656c6c6f20776f726c642e0000000000000000000000000000000000000000'); // [!code hl]
 // "Hello world"
 ```
 
@@ -2172,10 +2143,7 @@ utils.parseBytes32String(
 ```ts
 import { hexToString } from 'viem';
 
-hexToString(
-  '0x48656c6c6f20776f726c642e0000000000000000000000000000000000000000',
-  { size: 32 }
-); // [!code hl]
+hexToString('0x48656c6c6f20776f726c642e0000000000000000000000000000000000000000', { size: 32 }); // [!code hl]
 // "Hello world"
 ```
 
@@ -2556,9 +2524,7 @@ stringToBytes('Hello World'); // [!code hl]
 ```ts
 import { utils } from 'ethers';
 
-utils.toUtf8String(
-  new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
-); // [!code hl]
+utils.toUtf8String(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])); // [!code hl]
 ```
 
 ##### viem
@@ -2566,9 +2532,7 @@ utils.toUtf8String(
 ```ts
 import { bytesToString } from 'viem';
 
-bytesToString(
-  new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
-); // [!code hl]
+bytesToString(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])); // [!code hl]
 ```
 
 ### Transaction Utilities
@@ -2701,9 +2665,7 @@ However, this only works if all the inputs are named (some compilers will strip 
 ```ts
 client.writeContract({
   address: '0x…',
-  abi: parseAbi([
-    'function transferFrom(address, address, uint256) returns (bool)',
-  ]),
+  abi: parseAbi(['function transferFrom(address, address, uint256) returns (bool)']),
   functionName: 'transferFrom',
   args: ['0x…', '0x…', 100n],
 });
@@ -4006,11 +3968,7 @@ WebAuthn Account owners are currently supported on the following Smart Account i
 :::code-group
 
 ```ts twoslash [example.ts]
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { client } from './client';
 
 // 1. Register a credential (ie. passkey).
@@ -4206,10 +4164,7 @@ Sets Paymaster configuration for the Bundler Client to be utilized on User Opera
 
 ```ts twoslash
 // @noErrors
-import {
-  createPaymasterClient,
-  createBundlerClient,
-} from 'viem/account-abstraction';
+import { createPaymasterClient, createBundlerClient } from 'viem/account-abstraction';
 import { http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { client } from './config';
@@ -4316,10 +4271,7 @@ Paymaster specific fields.
 
 ```ts twoslash
 // @noErrors
-import {
-  createPaymasterClient,
-  createBundlerClient,
-} from 'viem/account-abstraction';
+import { createPaymasterClient, createBundlerClient } from 'viem/account-abstraction';
 import { http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { client } from './config';
@@ -4458,10 +4410,7 @@ import { createPaymasterClient } from 'viem/account-abstraction';
 
 ```ts twoslash
 import { http } from 'viem';
-import {
-  createBundlerClient,
-  createPaymasterClient,
-} from 'viem/account-abstraction';
+import { createBundlerClient, createPaymasterClient } from 'viem/account-abstraction';
 import { sepolia } from 'viem/chains';
 
 const paymasterClient = createPaymasterClient({
@@ -4615,10 +4564,7 @@ const receipt = await bundlerClient.waitForUserOperationReceipt({ hash });
 
 ```ts twoslash [config.ts] filename="config.ts"
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -4761,10 +4707,7 @@ Next, we will send a User Operation to the Bundler. For the example below, we wi
 
 ```ts twoslash
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -4812,10 +4755,7 @@ If you do not wish to pass an account around to every Action that requires an `a
 
 ```ts twoslash
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -4864,10 +4804,7 @@ The example below uses [Pimlico's Paymaster API](https://docs.pimlico.io/infra/p
 
 ```ts twoslash [example.ts (on Client)]
 import { http } from 'viem';
-import {
-  createBundlerClient,
-  createPaymasterClient,
-} from 'viem/account-abstraction';
+import { createBundlerClient, createPaymasterClient } from 'viem/account-abstraction';
 import { account, client } from './config.ts';
 
 const paymasterClient = createPaymasterClient({
@@ -4922,10 +4859,7 @@ const hash = await bundlerClient.sendUserOperation({
 ```ts twoslash [config.ts] filename="config.ts"
 // @noErrors
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -4951,10 +4885,7 @@ If your Bundler also supports Paymaster sponsorshop (`pm_` JSON-RPC methods), yo
 
 ```ts twoslash [example.ts (on Client)]
 import { http } from 'viem';
-import {
-  createBundlerClient,
-  createPaymasterClient,
-} from 'viem/account-abstraction';
+import { createBundlerClient, createPaymasterClient } from 'viem/account-abstraction';
 import { account, client } from './config.ts';
 
 const paymasterClient = createPaymasterClient({
@@ -5002,10 +4933,7 @@ const hash = await bundlerClient.sendUserOperation({
 ```ts twoslash [config.ts] filename="config.ts"
 // @noErrors
 import { createPublicClient, http, parseEther } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { mainnet } from 'viem/chains';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -5327,9 +5255,7 @@ hashMessage({
 // Hash a bytes data value.
 hashMessage({
   message: {
-    raw: Uint8Array.from([
-      104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100,
-    ]),
+    raw: Uint8Array.from([104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]),
   },
   verifierDomain: {
     name: 'Smart Account',
@@ -6809,11 +6735,7 @@ const hash = await client.execute({
       to: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
       abi,
       functionName: 'transferFrom',
-      args: [
-        '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
-        '0x0000000000000000000000000000000000000000',
-        100n,
-      ],
+      args: ['0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC', '0x0000000000000000000000000000000000000000', 100n],
     },
   ],
 });
@@ -7324,11 +7246,7 @@ const hash = await client.execute({
           to: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
           abi,
           functionName: 'transferFrom',
-          args: [
-            '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
-            '0x0000000000000000000000000000000000000000',
-            100n,
-          ],
+          args: ['0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC', '0x0000000000000000000000000000000000000000', 100n],
         },
       ],
     },
@@ -8205,9 +8123,7 @@ const client = createClient({
 }).extend(erc7895Actions()); // [!code focus]
 
 const subAccount = await client.addSubAccount({
-  keys: [
-    { key: '0x0000000000000000000000000000000000000000', type: 'address' },
-  ],
+  keys: [{ key: '0x0000000000000000000000000000000000000000', type: 'address' }],
   type: 'create',
 });
 ```
@@ -8422,10 +8338,7 @@ You can also pass in [Human Readable](/docs/glossary/terms#human-readable-abi) p
 ```ts
 import { encodeAbiParameters, parseAbiParameters } from 'viem';
 
-const encodedData = encodeAbiParameters(
-  parseAbiParameters('string x, uint y, bool z'),
-  ['wagmi', 420n, true]
-);
+const encodedData = encodeAbiParameters(parseAbiParameters('string x, uint y, bool z'), ['wagmi', 420n, true]);
 // 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001a4000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000057761676d69000000000000000000000000000000000000000000000000000000
 ```
 
@@ -8544,10 +8457,7 @@ encodePacked(
   [
     '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     'hello world',
-    [
-      '0xdeadbeefdeadbeefdeadbeefdeadbeef',
-      '0xcafebabecafebabecafebabecafebabe',
-    ],
+    ['0xdeadbeefdeadbeefdeadbeefdeadbeef', '0xcafebabecafebabecafebabecafebabe'],
   ]
 );
 // 0xd8da6bf26964af9d7eed9e03e53415d37aa9604568656c6c6f20776f726c64deadbeefdeadbeefdeadbeefdeadbeef00000000000000000000000000000000cafebabecafebabecafebabecafebabe00000000000000000000000000000000
@@ -8573,10 +8483,7 @@ encodePacked(
   [
     '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     'hello world',
-    [
-      '0xdeadbeefdeadbeefdeadbeefdeadbeef',
-      '0xcafebabecafebabecafebabecafebabe',
-    ],
+    ['0xdeadbeefdeadbeefdeadbeefdeadbeef', '0xcafebabecafebabecafebabecafebabe'],
   ]
 );
 ```
@@ -8594,10 +8501,7 @@ encodePacked(
     // [!code focus:5]
     '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     'hello world',
-    [
-      '0xdeadbeefdeadbeefdeadbeefdeadbeef',
-      '0xcafebabecafebabecafebabecafebabe',
-    ],
+    ['0xdeadbeefdeadbeefdeadbeefdeadbeef', '0xcafebabecafebabecafebabecafebabe'],
   ]
 );
 ```
@@ -9235,13 +9139,7 @@ This is useful for chains that have a different Block or Transaction structure t
 ### Usage
 
 ```tsx
-import {
-  defineBlock,
-  defineChain,
-  defineTransaction,
-  defineTransactionReceipt,
-  defineTransactionRequest,
-} from 'viem';
+import { defineBlock, defineChain, defineTransaction, defineTransactionReceipt, defineTransactionRequest } from 'viem';
 
 export const example = defineChain({
   /* ... */
@@ -9351,9 +9249,7 @@ const example = defineChain({
     // [!code focus:11]
     transactionReceipt: defineTransactionReceipt({
       exclude: ['effectiveGasPrice'],
-      format(
-        args: RpcTransactionReceiptOverrides
-      ): TransactionReceiptOverrides {
+      format(args: RpcTransactionReceiptOverrides): TransactionReceiptOverrides {
         return {
           l1Fee: hexToBigInt(args.l1Fee),
         };
@@ -9389,9 +9285,7 @@ const example = defineChain({
     // [!code focus:11]
     transactionRequest: defineTransactionRequest({
       exclude: ['effectiveGasPrice'],
-      format(
-        args: TransactionRequestOverrides
-      ): RpcTransactionRequestOverrides {
+      format(args: TransactionRequestOverrides): RpcTransactionRequestOverrides {
         return {
           secondaryFee: numberToHex(args.secondaryFee),
         };
@@ -9602,12 +9496,7 @@ Below is a naive implementation of implementing a [geth Debug](https://geth.ethe
 
 ```ts twoslash {12-21,23-29}
 // @noErrors
-import {
-  createClient,
-  http,
-  formatTransactionRequest,
-  type CallParameters,
-} from 'viem';
+import { createClient, http, formatTransactionRequest, type CallParameters } from 'viem';
 import { mainnet } from 'viem/chains';
 
 const debugClient = createClient({
@@ -13385,9 +13274,7 @@ const contract = getContract({
   },
 });
 
-const balance = await contract.read.balanceOf([
-  '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
-]);
+const balance = await contract.read.balanceOf(['0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC']);
 const hash = await contract.write.mint([69420]);
 const logs = await contract.getEvents.Transfer();
 const unwatch = contract.watchEvent.Transfer(
@@ -13951,8 +13838,7 @@ Block hash to include logs from. Mutually exclusive with `fromBlock`/`toBlock`.
 ```ts
 const logs = await publicClient.getContractEvents({
   abi: erc20Abi,
-  blockHash:
-    '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d', // [!code focus]
+  blockHash: '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d', // [!code focus]
 });
 ```
 
@@ -15341,8 +15227,7 @@ const data = await publicClient.readContract({
         {
           // [!code focus]
           slot: '0x3ea2f1d0abf3fc66cf29eebb70cbd4e7fe762ef8a09bcc06c8edf641230afec0', // [!code focus]
-          value:
-            '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
+          value: '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
         }, // [!code focus]
       ], // [!code focus]
     }, // [!code focus]
@@ -15551,9 +15436,7 @@ try {
   });
 } catch (err) {
   if (err instanceof BaseError) {
-    const revertError = err.walk(
-      (err) => err instanceof ContractFunctionRevertedError
-    );
+    const revertError = err.walk((err) => err instanceof ContractFunctionRevertedError);
     if (revertError instanceof ContractFunctionRevertedError) {
       const errorName = revertError.data?.errorName ?? '';
       // do something with `errorName`
@@ -24166,12 +24049,7 @@ Internally performs a contract write to the [`proveWithdrawalTransaction` functi
 :::code-group
 
 ```ts [example.ts]
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL1,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL1 } from './config';
 
 const receipt = await getTransactionReceipt(publicClientL2, {
   hash: '0xbbdd0957a82a057a76b5f093de251635ac4ddc6e2d0c4aa7fbf82d73e4e11039',
@@ -25406,11 +25284,7 @@ import { commitmentsToVersionedHashes } from 'viem';
 :::code-group
 
 ```ts twoslash [example.ts]
-import {
-  blobsToCommitments,
-  commitmentsToVersionedHashes,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, commitmentsToVersionedHashes, toBlobs } from 'viem';
 import { kzg } from './kzg';
 
 const blobs = toBlobs({ data: '0x1234' });
@@ -25447,11 +25321,7 @@ List of versioned hashes corresponding to the input commitments.
 List of commitments to transform into versioned hashes.
 
 ```ts twoslash
-import {
-  blobsToCommitments,
-  commitmentsToVersionedHashes,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, commitmentsToVersionedHashes, toBlobs } from 'viem';
 import { kzg } from './kzg';
 // ---cut---
 const blobs = toBlobs({ data: '0x1234' });
@@ -25469,11 +25339,7 @@ const versionedHashes = commitmentsToVersionedHashes({
 The output type.
 
 ```ts twoslash
-import {
-  blobsToCommitments,
-  commitmentsToVersionedHashes,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, commitmentsToVersionedHashes, toBlobs } from 'viem';
 import { kzg } from './kzg';
 // ---cut---
 const blobs = toBlobs({ data: '0x1234' });
@@ -25494,11 +25360,7 @@ versionedHashes; // [!code focus]
 Version to tag onto the hashes. Defaults to `1`.
 
 ```ts twoslash
-import {
-  blobsToCommitments,
-  commitmentsToVersionedHashes,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, commitmentsToVersionedHashes, toBlobs } from 'viem';
 import { kzg } from './kzg';
 // ---cut---
 const blobs = toBlobs({ data: '0x1234' });
@@ -25527,8 +25389,7 @@ import { compactSignatureToSignature } from 'viem';
 compactSignatureToSignature({
   // [!code focus:10]
   r: '0x68a020a209d3d56c46f38cc50a33f704f4a9a10a59377f8dd762ac66910e9b90',
-  yParityAndS:
-    '0x7e865ad05c4035ab5792787d4a0297a43617ae897930a6fe4d822b8faea52064',
+  yParityAndS: '0x7e865ad05c4035ab5792787d4a0297a43617ae897930a6fe4d822b8faea52064',
 });
 // {
 //   r: '0x68a020a209d3d56c46f38cc50a33f704f4a9a10a59377f8dd762ac66910e9b90',
@@ -25888,16 +25749,10 @@ import { fromBytes } from 'viem';
 ```ts
 import { fromBytes } from 'viem';
 
-fromBytes(
-  new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]),
-  'string'
-);
+fromBytes(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]), 'string');
 // 'Hello world'
 
-fromBytes(
-  new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]),
-  'hex'
-);
+fromBytes(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]), 'hex');
 // '0x48656c6c6f20576f726c6421'
 
 fromBytes(new Uint8Array([1, 164]), 'number');
@@ -25938,8 +25793,7 @@ fromBytes(
 ```ts
 fromBytes(
   new Uint8Array([
-    72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]),
   {
     // [!code focus]
@@ -25970,8 +25824,7 @@ bytesToHex(
 bytesToHex(
   // [!code focus:5]
   new Uint8Array([
-    72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]),
   { size: 32 }
 );
@@ -25996,8 +25849,7 @@ bytesToString(
 bytesToString(
   // [!code focus:5]
   new Uint8Array([
-    72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]),
   { size: 32 }
 );
@@ -26018,10 +25870,7 @@ bytesToNumber(new Uint8Array([1, 164])); // [!code focus:2]
 
 bytesToNumber(
   // [!code focus:5]
-  new Uint8Array([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 1, 164,
-  ]),
+  new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 164]),
   { size: 32 }
 );
 // 420
@@ -26038,17 +25887,15 @@ import { bytesToBigInt } from 'viem';
 
 bytesToBigInt(
   // [!code focus:4]
-  new Uint8Array([
-    12, 92, 243, 146, 17, 135, 111, 181, 229, 136, 67, 39, 250, 86, 252, 11, 117,
-  ])
+  new Uint8Array([12, 92, 243, 146, 17, 135, 111, 181, 229, 136, 67, 39, 250, 86, 252, 11, 117])
 );
 // 4206942069420694206942069420694206942069n
 
 bytesToBigInt(
   // [!code focus:5]
   new Uint8Array([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 92, 243, 146, 17, 135,
-    111, 181, 229, 136, 67, 39, 250, 86, 252, 11, 117,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 92, 243, 146, 17, 135, 111, 181, 229, 136, 67, 39, 250, 86, 252,
+    11, 117,
   ]),
   { size: 32 }
 );
@@ -26069,10 +25916,7 @@ bytesToBool(new Uint8Array([1])); // [!code focus:2]
 
 bytesToBool(
   // [!code focus:5]
-  new Uint8Array([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 1,
-  ]),
+  new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]),
   { size: 32 }
 );
 // true
@@ -26171,10 +26015,7 @@ import { hexToNumber } from 'viem';
 hexToNumber('0x1a4');
 // 420
 
-hexToNumber(
-  '0x00000000000000000000000000000000000000000000000000000000000001a4',
-  { size: 32 }
-);
+hexToNumber('0x00000000000000000000000000000000000000000000000000000000000001a4', { size: 32 });
 // 420
 ```
 
@@ -26190,10 +26031,7 @@ import { hexToBigInt } from 'viem';
 hexToBigInt('0xc5cf39211876fb5e5884327fa56fc0b75');
 // 4206942069420694206942069420694206942069n
 
-hexToBigInt(
-  '0x0000000000000000000000000000000c5cf39211876fb5e5884327fa56fc0b75',
-  { size: 32 }
-);
+hexToBigInt('0x0000000000000000000000000000000c5cf39211876fb5e5884327fa56fc0b75', { size: 32 });
 // 4206942069420694206942069420694206942069n
 ```
 
@@ -26209,10 +26047,7 @@ import { hexToString } from 'viem';
 hexToString('0x48656c6c6f20576f726c6421');
 // "Hello World!"
 
-hexToString(
-  '0x48656c6c6f20576f726c64210000000000000000000000000000000000000000',
-  { size: 32 }
-);
+hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000000000000000', { size: 32 });
 // "Hello World!"
 ```
 
@@ -26228,10 +26063,7 @@ import { hexToBytes } from 'viem';
 hexToBytes('0x48656c6c6f20576f726c6421');
 // Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
 
-hexToBytes(
-  '0x48656c6c6f20576f726c64210000000000000000000000000000000000000000',
-  { size: 32 }
-);
+hexToBytes('0x48656c6c6f20576f726c64210000000000000000000000000000000000000000', { size: 32 });
 // Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 ```
 
@@ -26450,8 +26282,7 @@ A hash of the to-be-deployed contract’s bytecode
 
 ```ts
 getContractAddress({
-  bytecodeHash:
-    '0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54', // [!code focus:1]
+  bytecodeHash: '0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54', // [!code focus:1]
   from: '0xc961145a54C96E3aE9bAA048c4F4D6b04C13916b',
   opcode: 'CREATE2',
   salt: toBytes('wagmi'),
@@ -26774,10 +26605,7 @@ import { isAddressEqual } from 'viem';
 ```ts
 import { isAddressEqual } from 'viem';
 
-isAddressEqual(
-  '0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac',
-  '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC'
-); // [!code focus:2]
+isAddressEqual('0xa5cc3c03994db5b0d9a5eEdD10Cabab0813678ac', '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC'); // [!code focus:2]
 // true
 ```
 
@@ -27896,8 +27724,7 @@ import { serializeCompactSignature } from 'viem';
 serializeCompactSignature({
   // [!code focus:8]
   r: '0x68a020a209d3d56c46f38cc50a33f704f4a9a10a59377f8dd762ac66910e9b90',
-  yParityAndS:
-    '0x7e865ad05c4035ab5792787d4a0297a43617ae897930a6fe4d822b8faea52064',
+  yParityAndS: '0x7e865ad05c4035ab5792787d4a0297a43617ae897930a6fe4d822b8faea52064',
 });
 // "0x68a020a209d3d56c46f38cc50a33f704f4a9a10a59377f8dd762ac66910e9b907e865ad05c4035ab5792787d4a0297a43617ae897930a6fe4d822b8faea52064"
 ```
@@ -28553,12 +28380,7 @@ Alternatively, you can reach for the lower-level API and insert the blobs, commi
 :::code-group
 
 ```ts twoslash [example.ts]
-import {
-  blobsToCommitments,
-  blobsToProofs,
-  toBlobSidecars,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, blobsToProofs, toBlobSidecars, toBlobs } from 'viem';
 import { kzg } from './kzg';
 
 const blobs = toBlobs({ data: '0x...' });
@@ -28593,12 +28415,7 @@ Blob sidecars from the input data.
 Blobs to transform into blob sidecars.
 
 ```ts twoslash
-import {
-  blobsToCommitments,
-  blobsToProofs,
-  toBlobSidecars,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, blobsToProofs, toBlobSidecars, toBlobs } from 'viem';
 import { kzg } from './kzg';
 
 const blobs = toBlobs({ data: '0x...' }); // [!code focus]
@@ -28619,12 +28436,7 @@ const sidecars = toBlobSidecars({
 Commitments corresponding to the input blobs.
 
 ```ts twoslash
-import {
-  blobsToCommitments,
-  blobsToProofs,
-  toBlobSidecars,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, blobsToProofs, toBlobSidecars, toBlobs } from 'viem';
 import { kzg } from './kzg';
 
 const blobs = toBlobs({ data: '0x...' });
@@ -28681,12 +28493,7 @@ const sidecars = toBlobSidecars({
 Proofs corresponding to the input blobs.
 
 ```ts twoslash
-import {
-  blobsToCommitments,
-  blobsToProofs,
-  toBlobSidecars,
-  toBlobs,
-} from 'viem';
+import { blobsToCommitments, blobsToProofs, toBlobSidecars, toBlobs } from 'viem';
 import { kzg } from './kzg';
 
 const blobs = toBlobs({ data: '0x...' });
@@ -28979,9 +28786,7 @@ import { toEventSelector } from 'viem';
 const selector_1 = toEventSelector('Transfer(address,address,uint256)');
 // @log: Output: 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
 
-const selector_2 = toEventSelector(
-  'Transfer(address indexed from, address indexed to, uint256 amount)'
-);
+const selector_2 = toEventSelector('Transfer(address indexed from, address indexed to, uint256 amount)');
 // @log: Output: 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
 
 // or from an `AbiEvent` on your contract ABI
@@ -29031,9 +28836,7 @@ import { toEventSignature } from 'viem';
 import { toEventSignature } from 'viem';
 
 // from event definition
-const signature_1 = toEventSignature(
-  'event Transfer(address indexed from, address indexed to, uint256 amount)'
-);
+const signature_1 = toEventSignature('event Transfer(address indexed from, address indexed to, uint256 amount)');
 // @log: Output: Transfer(address,address,uint256)
 
 // from an `AbiEvent` on your contract ABI
@@ -29315,15 +29118,10 @@ Encodes a byte array to a hex value.
 ```ts
 import { bytesToHex } from 'viem';
 
-bytesToHex(
-  new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
-);
+bytesToHex(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]));
 // "0x48656c6c6f20576f726c6421"
 
-bytesToHex(
-  new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]),
-  { size: 32 }
-);
+bytesToHex(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]), { size: 32 });
 // "0x48656c6c6f20576f726c64210000000000000000000000000000000000000000"
 ```
 
@@ -29943,12 +29741,7 @@ Here is an end-to-end overview of how to execute a deposit transaction. We will 
 
 ```ts [deposit.ts]
 import { getL2TransactionHashes } from 'viem/op-stack';
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL1,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL1 } from './config';
 
 // Build parameters for the transaction on the L2.
 const args = await publicClientL2.buildDepositTransaction({
@@ -30259,12 +30052,7 @@ When the transaction has been processed, the `mint` value (1 Ether) will be debi
 
 ```ts [deposit.ts]
 // Import Viem Clients.
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL1,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL1 } from './config';
 
 // Build parameters for the transaction on the L2.
 const args = await publicClientL2.buildDepositTransaction({
@@ -30341,12 +30129,7 @@ Once we have the transaction receipt from the Mainnet (L1) chain, we can extract
 
 ```ts [deposit.ts]
 // Import Viem Clients.
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL1,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL1 } from './config';
 
 // Build parameters for the transaction on the L2.
 const args = await publicClientL2.buildDepositTransaction({
@@ -30428,12 +30211,7 @@ Once the `waitForTransactionReceipt` call resolves, the transaction has been pro
 
 ```ts [deposit.ts]
 // Import Viem Clients.
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL1,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL1 } from './config';
 
 // Build parameters for the transaction on the L2.
 const args = await publicClientL2.buildDepositTransaction({
@@ -30541,13 +30319,7 @@ Here is a complete end-to-end overview of how to execute a withdrawal. Don't wor
 
 ```ts [withdrawal.ts]
 import { getWithdrawals } from 'viem/op-stack';
-import {
-  account,
-  publicClientL1,
-  walletClientL1,
-  publicClientL2,
-  walletClientL2,
-} from './config';
+import { account, publicClientL1, walletClientL1, publicClientL2, walletClientL2 } from './config';
 
 // Build parameters to initiate the withdrawal transaction on the L1.
 const args = await publicClientL1.buildInitiateWithdrawal({
@@ -30602,11 +30374,7 @@ const finalizeReceipt = await publicClientL1.waitForTransactionReceipt({
 ```ts [config.ts (JSON-RPC Account)]
 import { createPublicClient, createWalletClient, custom, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 // Retrieve Account from an EIP-1193 Provider.
 export const [account] = await window.ethereum.request({
@@ -30639,11 +30407,7 @@ export const walletClientL2 = createWalletClient({
 ```ts [config.ts (Local Account)]
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 export const account = privateKeyToAccount('0x...');
 
@@ -30695,11 +30459,7 @@ The example belows how to set up a Client for either a **JSON-RPC Account (Brows
 // Import Viem modules.
 import { createPublicClient, createWalletClient, custom, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 // Retrieve Account from an EIP-1193 Provider.
 export const [account] = await window.ethereum.request({
@@ -30733,11 +30493,7 @@ export const walletClientL2 = createWalletClient({
 // Import Viem modules.
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 export const account = privateKeyToAccount('0x...');
 
@@ -30775,12 +30531,7 @@ In the example below, we are initiating a withdrawal for **1 Ether** from the L2
 :::code-group
 
 ```ts [withdrawal.ts]
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL2,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL2 } from './config';
 
 // 1. Build parameters to initiate the withdrawal transaction on the L1.
 const args = await publicClientL1.buildInitiateWithdrawal({
@@ -30798,11 +30549,7 @@ const receipt = await publicClientL2.waitForTransactionReceipt({ hash });
 ```ts [config.ts (JSON-RPC Account)]
 import { createPublicClient, createWalletClient, custom, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 // Retrieve Account from an EIP-1193 Provider.
 export const [account] = await window.ethereum.request({
@@ -30835,11 +30582,7 @@ export const walletClientL2 = createWalletClient({
 ```ts [config.ts (Local Account)]
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 export const account = privateKeyToAccount('0x...');
 
@@ -30879,13 +30622,7 @@ Once the L2 output has been proposed, we will need to build the parameters for t
 :::code-group
 
 ```ts [withdrawal.ts]
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL1,
-  walletClientL2,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL1, walletClientL2 } from './config';
 
 // (Shortcut) Get receipt from transaction created in Step 1.
 const receipt = await publicClientL2.getTransactionReceipt({ hash: '0x...' });
@@ -30917,11 +30654,7 @@ const receipt = await publicClientL1.waitForTransactionReceipt({
 ```ts [config.ts (JSON-RPC Account)]
 import { createPublicClient, createWalletClient, custom, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 // Retrieve Account from an EIP-1193 Provider.
 export const [account] = await window.ethereum.request({
@@ -30954,11 +30687,7 @@ export const walletClientL2 = createWalletClient({
 ```ts [config.ts (Local Account)]
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 export const account = privateKeyToAccount('0x...');
 
@@ -31029,13 +30758,7 @@ Once the withdrawal has been successfully finalized (3), then the withdrawal is 
 
 ```ts [withdrawal.ts]
 import { getWithdrawals } from 'viem/op-stack';
-import {
-  account,
-  publicClientL1,
-  publicClientL2,
-  walletClientL1,
-  walletClientL2,
-} from './config';
+import { account, publicClientL1, publicClientL2, walletClientL1, walletClientL2 } from './config';
 
 // (Shortcut) Get receipt from transaction created in Step 1.
 const receipt = await publicClientL2.getTransactionReceipt({ hash: '0x...' });
@@ -31067,11 +30790,7 @@ const receipt = await publicClientL1.waitForTransactionReceipt({
 ```ts [config.ts (JSON-RPC Account)]
 import { createPublicClient, createWalletClient, custom, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 // Retrieve Account from an EIP-1193 Provider.
 export const [account] = await window.ethereum.request({
@@ -31104,11 +30823,7 @@ export const walletClientL2 = createWalletClient({
 ```ts [config.ts (Local Account)]
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { mainnet, optimism } from 'viem/chains';
-import {
-  publicActionsL1,
-  walletActionsL1,
-  walletActionsL2,
-} from 'viem/op-stack';
+import { publicActionsL1, walletActionsL1, walletActionsL2 } from 'viem/op-stack';
 
 export const account = privateKeyToAccount('0x...');
 
@@ -31355,8 +31070,7 @@ const l2Hash = getL2TransactionHash({
       to: '0x1a1E021A302C237453D3D45c7B82B19cEEB7E2e6', // [!code focus]
       version: 0n, // [!code focus]
     }, // [!code focus]
-    blockHash:
-      '0x634c52556471c589f42db9131467e0c9484f5c73049e32d1a74e2a4ce0f91d57', // [!code focus]
+    blockHash: '0x634c52556471c589f42db9131467e0c9484f5c73049e32d1a74e2a4ce0f91d57', // [!code focus]
     eventName: 'TransactionDeposited', // [!code focus]
     logIndex: 109, // [!code focus]
   }, // [!code focus]
@@ -31425,16 +31139,14 @@ import { getSourceHash } from 'viem';
 // User Deposit
 const sourceHash = getSourceHash({
   domain: 'userDeposit',
-  l1BlockHash:
-    '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
+  l1BlockHash: '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
   l1LogIndex: 196,
 });
 
 // L1 attributes deposited
 const sourceHash = getSourceHash({
   domain: 'l1InfoDeposit',
-  l1BlockHash:
-    '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
+  l1BlockHash: '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
   sequenceNumber: 1,
 });
 ```
@@ -31456,8 +31168,7 @@ The domain of the deposit transaction.
 ```ts
 const sourceHash = getSourceHash({
   domain: 'userDeposit', // [!code focus]
-  l1BlockHash:
-    '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
+  l1BlockHash: '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
   l1LogIndex: 196,
 });
 ```
@@ -31471,8 +31182,7 @@ The hash of the L1 block the deposit transaction was included in.
 ```ts
 const sourceHash = getSourceHash({
   domain: 'userDeposit',
-  l1BlockHash:
-    '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7', // [!code focus]
+  l1BlockHash: '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7', // [!code focus]
   l1LogIndex: 196,
 });
 ```
@@ -31486,8 +31196,7 @@ The index of the L1 log. **Only required for `"userDeposit"` domain.**
 ```ts
 const sourceHash = getSourceHash({
   domain: 'userDeposit',
-  l1BlockHash:
-    '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
+  l1BlockHash: '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
   l1LogIndex: 196, // [!code focus]
 });
 ```
@@ -31501,8 +31210,7 @@ The sequence number (difference between L2 block number and first L2 epoch block
 ```ts
 const sourceHash = getSourceHash({
   domain: 'l1InfoDeposit',
-  l1BlockHash:
-    '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
+  l1BlockHash: '0x9ba3933dc6ce43c145349770a39c30f9b647f17668f004bd2e05c80a2e7262f7',
   sequenceNumber: 1, // [!code focus]
 });
 ```
@@ -31524,8 +31232,7 @@ import { getWithdrawalHashStorageSlot } from 'viem';
 
 const slot = getWithdrawalHashStorageSlot({
   // [!code hl]
-  withdrawalHash:
-    '0xB1C3824DEF40047847145E069BF467AA67E906611B9F5EF31515338DB0AABFA2', // [!code hl]
+  withdrawalHash: '0xB1C3824DEF40047847145E069BF467AA67E906611B9F5EF31515338DB0AABFA2', // [!code hl]
 }); // [!code hl]
 ```
 
@@ -31545,8 +31252,7 @@ Hash emitted from the L2 withdrawal `MessagePassed` event.
 
 ```ts
 const slot = getWithdrawalHashStorageSlot({
-  withdrawalHash:
-    '0xB1C3824DEF40047847145E069BF467AA67E906611B9F5EF31515338DB0AABFA2', // [!code focus]
+  withdrawalHash: '0xB1C3824DEF40047847145E069BF467AA67E906611B9F5EF31515338DB0AABFA2', // [!code focus]
 });
 ```
 
@@ -31724,8 +31430,7 @@ const serialized = serializeTransaction({
   from: '0x977f82a600a1414e583f7f13623f1ac5d58b1c0b',
   gas: 21000n,
   mint: parseEther('1'),
-  sourceHash:
-    '0x18040f35752170c3339ddcd850f185c9cc46bdef4d6e1f2ab323f4d3d7104319',
+  sourceHash: '0x18040f35752170c3339ddcd850f185c9cc46bdef4d6e1f2ab323f4d3d7104319',
   value: parseEther('1'),
   type: 'deposit',
 });
@@ -36732,10 +36437,7 @@ export const owner = privateKeyToAccount('0x...');
 ```
 
 ```ts twoslash [owner.ts (Passkey)] filename="owner.ts"
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 
 // Register a credential (ie. passkey).
 const credential = await createWebAuthnCredential({ name: 'Wallet' });
@@ -37553,10 +37255,7 @@ import { createWebAuthnCredential } from 'viem/account-abstraction';
 ### Usage
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 
 // Register a credential (ie. passkey). // [!code focus]
 const credential = await createWebAuthnCredential({
@@ -37585,10 +37284,7 @@ A P-256 WebAuthn Credential.
 An `ArrayBuffer`, `TypedArray`, or `DataView` used as a cryptographic challenge.
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 const credential = await createWebAuthnCredential({
   challenge: new Uint8Array([1, 2, 3]), // [!code focus]
@@ -37605,10 +37301,7 @@ Credential creation function. Useful for environments that do not support the We
 
 ```ts twoslash
 // @noErrors
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 import * as passkey from 'react-native-passkeys'; // [!code focus]
 
@@ -37629,10 +37322,7 @@ const account = toWebAuthnAccount({
 List of credential IDs to exclude from the creation. This property can be used to prevent creation of a credential if it already exists.
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 const credential = await createWebAuthnCredential({
   excludeCredentialIds: ['abc', 'def'], // [!code focus]
@@ -37647,10 +37337,7 @@ const credential = await createWebAuthnCredential({
 Name to identify the credential.
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 const credential = await createWebAuthnCredential({
   name: 'Example', // [!code focus]
@@ -37668,10 +37355,7 @@ const account = toWebAuthnAccount({
 An object describing the relying party that requested the credential creation
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 const credential = await createWebAuthnCredential({
   name: 'Example',
@@ -37694,10 +37378,7 @@ const account = toWebAuthnAccount({
 A numerical hint, in milliseconds, which indicates the time the calling web app is willing to wait for the creation operation to complete.
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 const credential = await createWebAuthnCredential({
   name: 'Example',
@@ -37728,10 +37409,7 @@ import { toWebAuthnAccount } from 'viem/account-abstraction';
 ### Usage
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 
 // Register a credential (ie. passkey).
 const credential = await createWebAuthnCredential({
@@ -37760,10 +37438,7 @@ A WebAuthn Account.
 A P256 WebAuthn Credential.
 
 ```ts twoslash
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 const credential = await createWebAuthnCredential({
   name: 'Example',
@@ -37783,10 +37458,7 @@ Credential request function. Useful for environments that do not support the Web
 
 ```ts twoslash
 // @noErrors
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 import * as passkey from 'react-native-passkeys'; // [!code focus]
 
@@ -37809,10 +37481,7 @@ Relying Party ID.
 
 ```ts twoslash
 // @noErrors
-import {
-  createWebAuthnCredential,
-  toWebAuthnAccount,
-} from 'viem/account-abstraction';
+import { createWebAuthnCredential, toWebAuthnAccount } from 'viem/account-abstraction';
 // ---cut---
 import * as passkey from 'react-native-passkeys'; // [!code focus]
 
@@ -37852,10 +37521,7 @@ const gas = await bundlerClient.estimateUserOperationGas({
 
 ```ts twoslash [config.ts] filename="config.ts"
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -37906,10 +37572,7 @@ const gas = await bundlerClient.estimateUserOperationGas({
 
 ```ts twoslash [config.ts]
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -37971,10 +37634,7 @@ export const wagmiAbi = [
 
 ```ts twoslash [config.ts]
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -38469,8 +38129,7 @@ const gas = await bundlerClient.estimateUserOperationGas({
         {
           // [!code focus]
           slot: '0x3ea2f1d0abf3fc66cf29eebb70cbd4e7fe762ef8a09bcc06c8edf641230afec0', // [!code focus]
-          value:
-            '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
+          value: '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
         }, // [!code focus]
       ], // [!code focus]
     }, // [!code focus]
@@ -38727,10 +38386,7 @@ const userOperation = await bundlerClient.prepareUserOperation({
 
 ```ts twoslash [config.ts] filename="config.ts"
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -38781,10 +38437,7 @@ const userOperation = await bundlerClient.prepareUserOperation({
 
 ```ts twoslash [config.ts] filename="config.ts"
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -38846,10 +38499,7 @@ export const wagmiAbi = [
 
 ```ts twoslash [config.ts] filename="config.ts"
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -39334,8 +38984,7 @@ const userOperation = await bundlerClient.prepareUserOperation({
         {
           // [!code focus]
           slot: '0x3ea2f1d0abf3fc66cf29eebb70cbd4e7fe762ef8a09bcc06c8edf641230afec0', // [!code focus]
-          value:
-            '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
+          value: '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
         }, // [!code focus]
       ], // [!code focus]
     }, // [!code focus]
@@ -39391,10 +39040,7 @@ const hash = await bundlerClient.sendUserOperation({
 
 ```ts twoslash [config.ts] filename="config.ts"
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -39445,10 +39091,7 @@ const hash = await bundlerClient.sendUserOperation({
 
 ```ts twoslash [config.ts] filename="config.ts"
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -39510,10 +39153,7 @@ export const wagmiAbi = [
 
 ```ts twoslash [config.ts]
 import { createPublicClient, http } from 'viem';
-import {
-  createBundlerClient,
-  toCoinbaseSmartAccount,
-} from 'viem/account-abstraction';
+import { createBundlerClient, toCoinbaseSmartAccount } from 'viem/account-abstraction';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
@@ -41240,9 +40880,7 @@ import { createWalletClient, http } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
-const account = mnemonicToAccount(
-  'legal winner thank year wave sausage worth useful legal winner thank yellow'
-); // [!code focus]
+const account = mnemonicToAccount('legal winner thank year wave sausage worth useful legal winner thank yellow'); // [!code focus]
 
 const client = createWalletClient({
   account,
@@ -41306,12 +40944,9 @@ The account index to use in the path (`"m/44'/60'/${accountIndex}'/0/0"`) to der
 ```ts twoslash
 import { mnemonicToAccount } from 'viem/accounts';
 // ---cut---
-const account = mnemonicToAccount(
-  'legal winner thank year wave sausage worth useful legal winner thank yellow',
-  {
-    accountIndex: 1, // [!code focus]
-  }
-);
+const account = mnemonicToAccount('legal winner thank year wave sausage worth useful legal winner thank yellow', {
+  accountIndex: 1, // [!code focus]
+});
 ```
 
 #### options.addressIndex
@@ -41324,13 +40959,10 @@ The address index to use in the path (`"m/44'/60'/0'/0/${addressIndex}"`) to der
 ```ts twoslash
 import { mnemonicToAccount } from 'viem/accounts';
 // ---cut---
-const account = mnemonicToAccount(
-  'legal winner thank year wave sausage worth useful legal winner thank yellow',
-  {
-    accountIndex: 1,
-    addressIndex: 6, // [!code focus]
-  }
-);
+const account = mnemonicToAccount('legal winner thank year wave sausage worth useful legal winner thank yellow', {
+  accountIndex: 1,
+  addressIndex: 6, // [!code focus]
+});
 ```
 
 #### options.changeIndex
@@ -41343,14 +40975,11 @@ The change index to use in the path (`"m/44'/60'/0'/${changeIndex}/0"`) to deriv
 ```ts twoslash
 import { mnemonicToAccount } from 'viem/accounts';
 // ---cut---
-const account = mnemonicToAccount(
-  'legal winner thank year wave sausage worth useful legal winner thank yellow',
-  {
-    accountIndex: 1,
-    addressIndex: 6,
-    changeIndex: 2, // [!code focus]
-  }
-);
+const account = mnemonicToAccount('legal winner thank year wave sausage worth useful legal winner thank yellow', {
+  accountIndex: 1,
+  addressIndex: 6,
+  changeIndex: 2, // [!code focus]
+});
 ```
 
 #### options.path
@@ -41362,12 +40991,9 @@ The HD path to use to derive a private key.
 ```ts twoslash
 import { mnemonicToAccount } from 'viem/accounts';
 // ---cut---
-const account = mnemonicToAccount(
-  'legal winner thank year wave sausage worth useful legal winner thank yellow',
-  {
-    path: "m/44'/60'/5'/0/2", // [!code focus]
-  }
-);
+const account = mnemonicToAccount('legal winner thank year wave sausage worth useful legal winner thank yellow', {
+  path: "m/44'/60'/5'/0/2", // [!code focus]
+});
 ```
 
 ## privateKeyToAccount \[A function to create a Private Key Account.]
@@ -41393,9 +41019,7 @@ import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
 
-const account = privateKeyToAccount(
-  '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
-); // [!code focus]
+const account = privateKeyToAccount('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'); // [!code focus]
 
 const client = createWalletClient({
   account,
@@ -42012,13 +41636,7 @@ import { toAccount } from 'viem/accounts';
 ### Usage
 
 ```ts
-import {
-  signMessage,
-  signTransaction,
-  signTypedData,
-  privateKeyToAddress,
-  toAccount,
-} from 'viem/accounts';
+import { signMessage, signTransaction, signTypedData, privateKeyToAddress, toAccount } from 'viem/accounts';
 
 const privateKey = '0x...';
 
@@ -42538,8 +42156,7 @@ const data = await publicClient.call({
         {
           // [!code focus]
           slot: '0x3ea2f1d0abf3fc66cf29eebb70cbd4e7fe762ef8a09bcc06c8edf641230afec0', // [!code focus]
-          value:
-            '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
+          value: '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
         }, // [!code focus]
       ], // [!code focus]
     }, // [!code focus]
@@ -42889,9 +42506,7 @@ import { publicClient } from './client';
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ), // [!code focus]
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'), // [!code focus]
 });
 ```
 
@@ -42951,9 +42566,7 @@ import { parseAbiItem } from 'viem';
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:4]
     from: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -42973,9 +42586,7 @@ import { parseAbiItem } from 'viem';
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:8]
     // '0xd8da...' OR '0xa5cc...' OR '0xa152...'
@@ -42999,9 +42610,7 @@ import { parseAbiItem } from 'viem';
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   fromBlock: 16330000n, // [!code focus]
   toBlock: 16330050n, // [!code focus]
 });
@@ -43039,9 +42648,7 @@ import { parseAbiItem } from 'viem';
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
 });
 const logs = await publicClient.getFilterLogs({ filter });
 
@@ -43058,9 +42665,7 @@ import { parseAbiItem } from 'viem';
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   strict: true,
 });
 const logs = await publicClient.getFilterLogs({ filter });
@@ -43104,9 +42709,7 @@ import { parseAbiItem } from 'viem'; // [!code focus]
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ), // [!code focus]
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'), // [!code focus]
 });
 ```
 
@@ -43123,9 +42726,7 @@ import { parseAbiItem } from 'viem';
 
 const filter = await publicClient.createEventFilter({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:4]
     from: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -43216,8 +42817,7 @@ Otherwise, for EIP-1559 Transactions, viem will estimate the fees using a combin
 ```ts twoslash [example.ts]
 import { publicClient } from './client';
 
-const { maxFeePerGas, maxPriorityFeePerGas } =
-  await publicClient.estimateFeesPerGas();
+const { maxFeePerGas, maxPriorityFeePerGas } = await publicClient.estimateFeesPerGas();
 // @log: {
 // @log:   maxFeePerGas: 15_000_000_000n,
 // @log:   maxPriorityFeePerGas: 1_000_000_000n,
@@ -43261,10 +42861,9 @@ Optional Chain override. Used to infer the fees per gas from [`chain.fees.estima
 // ---cut---
 import { optimism } from 'viem/chains'; // [!code focus]
 
-const { maxFeePerGas, maxPriorityFeePerGas } =
-  await publicClient.estimateFeesPerGas({
-    chain: optimism, // [!code focus]
-  });
+const { maxFeePerGas, maxPriorityFeePerGas } = await publicClient.estimateFeesPerGas({
+  chain: optimism, // [!code focus]
+});
 ```
 
 #### type (optional)
@@ -43520,8 +43119,7 @@ const data = await publicClient.estimateGas({
         {
           // [!code focus]
           slot: '0x3ea2f1d0abf3fc66cf29eebb70cbd4e7fe762ef8a09bcc06c8edf641230afec0', // [!code focus]
-          value:
-            '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
+          value: '0x00000000000000000000000000000000000000000000000000000000000001a4', // [!code focus]
         }, // [!code focus]
       ], // [!code focus]
     }, // [!code focus]
@@ -43766,8 +43364,7 @@ Information at a given block hash.
 // [!include ~/snippets/publicClient.ts]
 // ---cut---
 const block = await publicClient.getBlock({
-  blockHash:
-    '0x89644bbd5c8d682a2e9611170e6c1f02573d866d286f006cbf517eec7254ec2d', // [!code focus]
+  blockHash: '0x89644bbd5c8d682a2e9611170e6c1f02573d866d286f006cbf517eec7254ec2d', // [!code focus]
 });
 ```
 
@@ -43929,8 +43526,7 @@ Count at a given block hash.
 // [!include ~/snippets/publicClient.ts]
 // ---cut---
 const count = await publicClient.getBlockTransactionCount({
-  blockHash:
-    '0x89644bbd5c8d682a2e9611170e6c1f02573d866d286f006cbf517eec7254ec2d', // [!code focus]
+  blockHash: '0x89644bbd5c8d682a2e9611170e6c1f02573d866d286f006cbf517eec7254ec2d', // [!code focus]
 });
 ```
 
@@ -44306,9 +43902,7 @@ import { publicClient } from './client';
 const filter = await publicClient.createEventFilter({
   // [!code focus:99]
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed, address indexed, uint256)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed, address indexed, uint256)'),
 });
 const logs = await publicClient.getFilterChanges({ filter });
 // @log: Output: [{ ... }, { ... }, { ... }]
@@ -44406,9 +44000,7 @@ import { publicClient } from './client';
 const filter = await publicClient.createEventFilter({
   // [!code focus:99]
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed, address indexed, uint256)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed, address indexed, uint256)'),
 });
 const logs = await publicClient.getFilterLogs({ filter });
 // @log: [{ ... }, { ... }, { ... }]
@@ -44531,9 +44123,7 @@ import { publicClient } from './client';
 const logs = await publicClient.getLogs({
   // [!code focus:99]
   address: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256)'),
   args: {
     from: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     to: '0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac',
@@ -44634,9 +44224,7 @@ import { publicClient } from './client';
 
 const logs = await publicClient.getLogs({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ), // [!code focus]
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'), // [!code focus]
 });
 ```
 
@@ -44663,9 +44251,7 @@ import { parseAbiItem } from 'viem';
 
 const logs = await publicClient.getLogs({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:4]
     from: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -44685,9 +44271,7 @@ import { parseAbiItem } from 'viem';
 
 const logs = await publicClient.getLogs({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:8]
     // '0xd8da...' OR '0xa5cc...' OR '0xa152...'
@@ -44711,9 +44295,7 @@ import { parseAbiItem } from 'viem';
 
 const logs = await publicClient.getLogs({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   fromBlock: 16330000n, // [!code focus]
   toBlock: 16330050n, // [!code focus]
 });
@@ -44751,9 +44333,7 @@ import { parseAbiItem } from 'viem';
 
 const logs = await publicClient.getLogs({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
 });
 
 logs[0].args;
@@ -44769,9 +44349,7 @@ import { parseAbiItem } from 'viem';
 
 const logs = await publicClient.getLogs({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   strict: true,
 });
 
@@ -44815,9 +44393,7 @@ A [`parseAbiItem` utility](/docs/abi/parseAbiItem) is exported from viem that co
 import { parseAbiItem } from 'viem';
 
 const logs = await publicClient.getLogs({
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ), // [!code focus]
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'), // [!code focus]
 });
 ```
 
@@ -44833,9 +44409,7 @@ A list of _indexed_ event arguments.
 import { parseAbiItem } from 'viem';
 
 const logs = await publicClient.getLogs({
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:4]
     from: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -44882,8 +44456,7 @@ Block hash to include logs from. Mutually exclusive with `fromBlock`/`toBlock`.
 // [!include ~/snippets/publicClient.ts]
 // ---cut---
 const logs = await publicClient.getLogs({
-  blockHash:
-    '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d', // [!code focus]
+  blockHash: '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d', // [!code focus]
 });
 ```
 
@@ -44910,9 +44483,7 @@ import { publicClient } from './client';
 
 const proof = await publicClient.getProof({
   address: '0x4200000000000000000000000000000000000016',
-  storageKeys: [
-    '0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99',
-  ],
+  storageKeys: ['0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99'],
 });
 ```
 
@@ -44947,9 +44518,7 @@ Account address.
 // ---cut---
 const proof = await publicClient.getProof({
   address: '0x4200000000000000000000000000000000000016', // [!code focus]
-  storageKeys: [
-    '0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99',
-  ],
+  storageKeys: ['0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99'],
   blockNumber: 42069n,
 });
 ```
@@ -44982,9 +44551,7 @@ Proof at a given block number.
 ```ts
 const proof = await publicClient.getProof({
   address: '0x4200000000000000000000000000000000000016',
-  storageKeys: [
-    '0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99',
-  ],
+  storageKeys: ['0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99'],
   blockNumber: 42069n, // [!code focus]
 });
 ```
@@ -44999,9 +44566,7 @@ Proof at a given block tag.
 ```ts
 const proof = await publicClient.getProof({
   address: '0x4200000000000000000000000000000000000016',
-  storageKeys: [
-    '0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99',
-  ],
+  storageKeys: ['0x4a932049252365b3eedbc5190e18949f2ec11f39d3bef2d259764799a1b27d99'],
   blockTag: 'latest', // [!code focus]
 });
 ```
@@ -45077,8 +44642,7 @@ Get information about a transaction given a block hash (and index).
 // [!include ~/snippets/publicClient.ts]
 // ---cut---
 const transaction = await publicClient.getTransaction({
-  blockHash:
-    '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d', // [!code focus:2]
+  blockHash: '0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d', // [!code focus:2]
   index: 0,
 });
 ```
@@ -45494,11 +45058,7 @@ const result = await client.simulateBlocks({
           to: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
           abi,
           functionName: 'transferFrom',
-          args: [
-            '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
-            '0x0000000000000000000000000000000000000000',
-            100n,
-          ],
+          args: ['0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC', '0x0000000000000000000000000000000000000000', 100n],
         },
       ],
     },
@@ -45829,10 +45389,7 @@ The `calls` property also accepts **Contract Calls**, and can be used via the `a
 import { parseAbi, parseEther } from 'viem';
 import { client } from './config';
 
-const abi = parseAbi([
-  'function mint()',
-  'function transfer(address, uint256) returns (bool)',
-]);
+const abi = parseAbi(['function mint()', 'function transfer(address, uint256) returns (bool)']);
 
 const { results } = await client.simulateCalls({
   account: '0x5a0b54d5dc17e482fe8b0bdca5320161b95fb929',
@@ -45900,10 +45457,7 @@ Providing the `traceAssetChanges` parameter (with an `account`) will return asse
 import { parseAbi, parseEther } from 'viem';
 import { client } from './config';
 
-const abi = parseAbi([
-  'function mint()',
-  'function transfer(address, uint256) returns (bool)',
-]);
+const abi = parseAbi(['function mint()', 'function transfer(address, uint256) returns (bool)']);
 
 const { assetChanges, results } = await client.simulateCalls({
   account: '0x5a0b54d5dc17e482fe8b0bdca5320161b95fb929',
@@ -45990,10 +45544,7 @@ It is also worth noting that `simulateCalls` also supports "reading" contracts.
 import { parseAbi } from 'viem';
 import { client } from './config';
 
-const abi = parseAbi([
-  'function totalSupply() returns (uint256)',
-  'function ownerOf(uint256) returns (address)',
-]);
+const abi = parseAbi(['function totalSupply() returns (uint256)', 'function ownerOf(uint256) returns (address)']);
 
 const { results } = await client.simulateCalls({
   calls: [
@@ -47571,9 +47122,7 @@ import { wagmiAbi } from './abi';
 
 const unwatch = publicClient.watchEvent({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ), // [!code focus]
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'), // [!code focus]
   onLogs: (logs) => console.log(logs),
 });
 // @log: > [{ ... }, { ... }, { ... }]
@@ -47639,9 +47188,7 @@ import { publicClient } from './client';
 
 const unwatch = publicClient.watchEvent({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:4]
     from: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -47677,9 +47224,7 @@ import { parseAbiItem } from 'viem';
 
 const unwatch = publicClient.watchEvent({
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:8]
     // '0xd8da...' OR '0xa5cc...' OR '0xa152...'
@@ -47766,9 +47311,7 @@ import { parseAbiItem } from 'viem'; // [!code focus]
 
 const unwatch = publicClient.watchEvent({
   address: '0xfba3912ca04dd458c843e2ee08967fc04f3579c2',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ), // [!code focus]
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'), // [!code focus]
   onLogs: (logs) => console.log(logs),
 });
 ```
@@ -47786,9 +47329,7 @@ import { parseAbiItem } from 'viem';
 
 const unwatch = publicClient.watchEvent({
   address: '0xfba3912ca04dd458c843e2ee08967fc04f3579c2',
-  event: parseAbiItem(
-    'event Transfer(address indexed from, address indexed to, uint256 value)'
-  ),
+  event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
   args: {
     // [!code focus:4]
     from: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -48939,8 +48480,7 @@ import { testClient } from './client';
 await testClient.setCode({
   // [!code focus:4]
   address: '0xe846c6fcf817734ca4527b28ccb4aea2b6663c79',
-  bytecode:
-    '0x60806040526000600355600019600955600c80546001600160a01b031916737a250d5630b4cf539739df...',
+  bytecode: '0x60806040526000600355600019600955600c80546001600160a01b031916737a250d5630b4cf539739df...',
 });
 ```
 
@@ -48968,8 +48508,7 @@ The account address.
 ```ts
 await testClient.setCode({
   address: '0xe846c6fcf817734ca4527b28ccb4aea2b6663c79', // [!code focus]
-  bytecode:
-    '0x60806040526000600355600019600955600c80546001600160a01b031916737a250d5630b4cf539739df...',
+  bytecode: '0x60806040526000600355600019600955600c80546001600160a01b031916737a250d5630b4cf539739df...',
 });
 ```
 
@@ -48982,8 +48521,7 @@ The stored bytecode.
 ```ts
 await testClient.setCode({
   address: '0xe846c6fcf817734ca4527b28ccb4aea2b6663c79',
-  bytecode:
-    '0x60806040526000600355600019600955600c80546001600160a01b031916737a250d5630b4cf539739df...', // [!code focus]
+  bytecode: '0x60806040526000600355600019600955600c80546001600160a01b031916737a250d5630b4cf539739df...', // [!code focus]
 });
 ```
 
@@ -50388,11 +49926,7 @@ const { id } = await walletClient.sendCalls({
       to: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
       abi,
       functionName: 'transferFrom',
-      args: [
-        '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
-        '0x0000000000000000000000000000000000000000',
-        100n,
-      ],
+      args: ['0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC', '0x0000000000000000000000000000000000000000', 100n],
     },
   ],
 });
@@ -52543,13 +52077,9 @@ import { mainnet } from 'viem/chains';
 // ---cut---
 const client = createPublicClient({
   chain: mainnet,
-  transport: fallback(
-    [
-      http('https://1.rpc.thirdweb.com/...'),
-      http('https://mainnet.infura.io/v3/...'),
-    ],
-    { rank: true }
-  ), // [!code focus]
+  transport: fallback([http('https://1.rpc.thirdweb.com/...'), http('https://mainnet.infura.io/v3/...')], {
+    rank: true,
+  }), // [!code focus]
 });
 ```
 
@@ -52561,24 +52091,18 @@ import { mainnet } from 'viem/chains';
 // ---cut---
 const client = createPublicClient({
   chain: mainnet,
-  transport: fallback(
-    [
-      http('https://1.rpc.thirdweb.com/...'),
-      http('https://mainnet.infura.io/v3/...'),
-    ],
-    {
-      // [!code focus:9]
-      rank: {
-        interval: 60_000,
-        sampleCount: 5,
-        timeout: 500,
-        weights: {
-          latency: 0.3,
-          stability: 0.7,
-        },
+  transport: fallback([http('https://1.rpc.thirdweb.com/...'), http('https://mainnet.infura.io/v3/...')], {
+    // [!code focus:9]
+    rank: {
+      interval: 60_000,
+      sampleCount: 5,
+      timeout: 500,
+      weights: {
+        latency: 0.3,
+        stability: 0.7,
       },
-    }
-  ),
+    },
+  }),
 });
 ```
 
@@ -54728,8 +54252,7 @@ const message = createSiweMessage({
   nonce: 'foobarbaz',
   uri: 'https://example.com/path',
   version: '1',
-  statement:
-    'I accept the ExampleOrg Terms of Service: https://example.com/tos', // [!code focus]
+  statement: 'I accept the ExampleOrg Terms of Service: https://example.com/tos', // [!code focus]
 });
 ```
 
@@ -54895,10 +54418,7 @@ import { getL2HashFromPriorityOp } from 'viem/zksync';
 const receipt = await client.waitForTransactionReceipt({
   hash: '0x...',
 });
-const l2Hash = getL2HashFromPriorityOp(
-  receipt,
-  await zksyncClient.getMainContractAddress()
-);
+const l2Hash = getL2HashFromPriorityOp(receipt, await zksyncClient.getMainContractAddress());
 ```
 
 ```ts [config.ts]

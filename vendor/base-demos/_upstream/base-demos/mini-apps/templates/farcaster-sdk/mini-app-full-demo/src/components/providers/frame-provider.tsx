@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { sdk } from "@farcaster/miniapp-sdk";
-import { createContext, useContext, useEffect, useState } from "react";
+import { sdk } from '@farcaster/miniapp-sdk';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 interface SafeAreaInsets {
   top: number;
@@ -41,7 +41,11 @@ const FrameContext = createContext<FrameContextType>(null);
 
 export const useFrameContext = () => useContext(FrameContext);
 
-export default function FrameProvider({ children }: { children: React.ReactNode }){
+export default function FrameProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [frameContext, setFrameContext] = useState<FrameContextType>(null);
 
   useEffect(() => {
@@ -49,23 +53,22 @@ export default function FrameProvider({ children }: { children: React.ReactNode 
       try {
         const context = await sdk.context;
         sdk.actions.ready();
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
         const isInMiniApp = await sdk.isInMiniApp();
         setFrameContext({ context, isInMiniApp });
-        
       } catch {
-        setFrameContext({ 
-          context: { error: 'Failed to initialize' }, 
-          isInMiniApp: false 
+        setFrameContext({
+          context: { error: 'Failed to initialize' },
+          isInMiniApp: false,
         });
       }
-    }
-    
-    init();
-  }, [])
+    };
 
-  return(
+    init();
+  }, []);
+
+  return (
     <FrameContext.Provider value={frameContext}>
       {children}
     </FrameContext.Provider>

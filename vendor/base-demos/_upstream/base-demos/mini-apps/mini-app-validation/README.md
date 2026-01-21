@@ -9,7 +9,7 @@ This validator searches your mini app code for specific patterns that work in ot
 ## What it checks for
 
 - **Environment Detection**: `isInMiniApp()` calls
-- **Haptics**: Haptic feedback API usage  
+- **Haptics**: Haptic feedback API usage
 - **Warpcast Composer URLs**: Direct links to Warpcast compose
 - **Token Operations**: `swapToken`, `viewToken`, `sendToken` actions
 - **Direct HTML Links**: `<a href>` tags and external links
@@ -29,4 +29,4 @@ The validator provides a simple report listing any compatibility issues found, o
 
 ---
 
-*This is a read-only validator - it only reports findings and does not modify code or suggest fixes.*
+_This is a read-only validator - it only reports findings and does not modify code or suggest fixes._

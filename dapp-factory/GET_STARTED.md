@@ -37,6 +37,7 @@ npm install && npm run dev
 3. Answer when asked about token integration
 
 **Example:**
+
 ```
 Make a roast battle app where users compete in 1v1 voice battles
 and the community votes on the winner
@@ -76,6 +77,7 @@ npm run dev
 ```
 
 Open http://localhost:3000 and verify:
+
 - [ ] App loads without errors
 - [ ] Core features work
 - [ ] (If token-enabled) Wallet connect button appears
@@ -99,6 +101,7 @@ npx tsx ../../validator/index.ts
 ```
 
 This checks:
+
 - Required files exist
 - Core dependencies present
 - Required scripts present (dev, build)
@@ -137,7 +140,8 @@ npm install --legacy-peer-deps
 ### Validation Failed
 
 Check error messages. Common issues:
-- Missing required files (package.json, src/app/*)
+
+- Missing required files (package.json, src/app/\*)
 - Missing dev or build scripts
 - Forbidden files included (.env, node_modules)
 
@@ -149,24 +153,24 @@ This means the output contains only `.md` files without runnable code. The build
 
 ## Cost Summary
 
-| Item | Cost |
-|------|------|
-| Web3 Factory tools | Free |
-| Local development | Free |
-| Claude Code | Your subscription |
+| Item               | Cost              |
+| ------------------ | ----------------- |
+| Web3 Factory tools | Free              |
+| Local development  | Free              |
+| Claude Code        | Your subscription |
 
 ---
 
 ## Quick Reference
 
-| Step | Where | What |
-|------|-------|------|
-| 1 | dapp-factory/ | Describe app to Claude |
-| 2 | dapp-builds/app/ | Claude builds complete app |
-| 3 | dapp-builds/app/ | Test with npm run dev |
-| 4 | dapp-builds/app/ | Build with npm run build |
-| 5 | dapp-builds/app/ | Validate (optional) |
-| 6 | GitHub | Push when ready |
+| Step | Where            | What                       |
+| ---- | ---------------- | -------------------------- |
+| 1    | dapp-factory/    | Describe app to Claude     |
+| 2    | dapp-builds/app/ | Claude builds complete app |
+| 3    | dapp-builds/app/ | Test with npm run dev      |
+| 4    | dapp-builds/app/ | Build with npm run build   |
+| 5    | dapp-builds/app/ | Validate (optional)        |
+| 6    | GitHub           | Push when ready            |
 
 ---
 

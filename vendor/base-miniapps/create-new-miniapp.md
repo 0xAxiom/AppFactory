@@ -38,31 +38,28 @@ The `minikit.config.ts` file manages your manifest and embed metadata. Configure
 ```typescript
 export const minikitConfig = {
   accountAssociation: {
-    header: "",
-    payload: "",
-    signature: ""
+    header: '',
+    payload: '',
+    signature: '',
   },
   miniapp: {
-    version: "1",
-    name: "Your App Name",
-    subtitle: "Brief tagline",
-    description: "Detailed description of your mini app",
-    screenshotUrls: [
-      "https://yourdomain.com/screenshots/1.png",
-      "https://yourdomain.com/screenshots/2.png"
-    ],
-    iconUrl: "https://yourdomain.com/icon.png",
-    splashImageUrl: "https://yourdomain.com/splash.png",
-    splashBackgroundColor: "#FFFFFF",
-    homeUrl: "https://yourdomain.com",
-    webhookUrl: "https://yourdomain.com/api/webhook",
-    primaryCategory: "social",
-    tags: ["base", "miniapp"],
-    heroImageUrl: "https://yourdomain.com/hero.png",
-    ogTitle: "Your App Name",
-    ogDescription: "Social sharing description",
-    ogImageUrl: "https://yourdomain.com/og.png"
-  }
+    version: '1',
+    name: 'Your App Name',
+    subtitle: 'Brief tagline',
+    description: 'Detailed description of your mini app',
+    screenshotUrls: ['https://yourdomain.com/screenshots/1.png', 'https://yourdomain.com/screenshots/2.png'],
+    iconUrl: 'https://yourdomain.com/icon.png',
+    splashImageUrl: 'https://yourdomain.com/splash.png',
+    splashBackgroundColor: '#FFFFFF',
+    homeUrl: 'https://yourdomain.com',
+    webhookUrl: 'https://yourdomain.com/api/webhook',
+    primaryCategory: 'social',
+    tags: ['base', 'miniapp'],
+    heroImageUrl: 'https://yourdomain.com/hero.png',
+    ogTitle: 'Your App Name',
+    ogDescription: 'Social sharing description',
+    ogImageUrl: 'https://yourdomain.com/og.png',
+  },
 } as const;
 ```
 
@@ -79,6 +76,7 @@ This step proves you own the domain:
 7. Copy the generated `accountAssociation` object
 
 The result contains three fields:
+
 - `header`: Encoded association header
 - `payload`: Encoded domain payload
 - `signature`: Cryptographic signature
@@ -118,20 +116,20 @@ Create a post within the Base app containing your app's URL. This makes it disco
 
 ### Required Manifest Fields
 
-| Field | Type | Constraints |
-|-------|------|-------------|
-| version | string | Must be "1" |
-| name | string | Max 32 chars |
-| homeUrl | string | HTTPS, max 1024 chars |
-| iconUrl | string | PNG 1024×1024, no transparency |
-| splashImageUrl | string | ~200×200px |
-| splashBackgroundColor | string | Hex color |
-| primaryCategory | string | See category list |
-| tags | string[] | Max 5, ≤20 chars each |
-| subtitle | string | Max 30 chars |
-| description | string | Max 170 chars |
-| heroImageUrl | string | 1200×630px (1.91:1) |
-| screenshotUrls | string[] | Max 3, 1284×2778px portrait |
+| Field                 | Type     | Constraints                    |
+| --------------------- | -------- | ------------------------------ |
+| version               | string   | Must be "1"                    |
+| name                  | string   | Max 32 chars                   |
+| homeUrl               | string   | HTTPS, max 1024 chars          |
+| iconUrl               | string   | PNG 1024×1024, no transparency |
+| splashImageUrl        | string   | ~200×200px                     |
+| splashBackgroundColor | string   | Hex color                      |
+| primaryCategory       | string   | See category list              |
+| tags                  | string[] | Max 5, ≤20 chars each          |
+| subtitle              | string   | Max 30 chars                   |
+| description           | string   | Max 170 chars                  |
+| heroImageUrl          | string   | 1200×630px (1.91:1)            |
+| screenshotUrls        | string[] | Max 3, 1284×2778px portrait    |
 
 ### Valid Categories
 

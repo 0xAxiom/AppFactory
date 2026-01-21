@@ -59,7 +59,8 @@ export default function Home() {
 
   const [activeTab, setActiveTab] = useState<'my' | 'verify'>('my');
   const [showCreate, setShowCreate] = useState(false);
-  const [commitments, setCommitments] = useState<Commitment[]>(DEMO_COMMITMENTS);
+  const [commitments, setCommitments] =
+    useState<Commitment[]>(DEMO_COMMITMENTS);
 
   // Create form state
   const [goal, setGoal] = useState('');
@@ -70,9 +71,9 @@ export default function Home() {
   const userFid = (context as any)?.user?.fid || 1234;
   const username = (context as any)?.user?.username || 'you';
 
-  const myCommitments = commitments.filter(c => c.creatorFid === userFid);
+  const myCommitments = commitments.filter((c) => c.creatorFid === userFid);
   const verifyRequests = commitments.filter(
-    c => c.partnerFid === userFid && c.status === 'pending_verification'
+    (c) => c.partnerFid === userFid && c.status === 'pending_verification'
   );
 
   const handleCreateCommitment = () => {
@@ -98,17 +99,17 @@ export default function Home() {
   };
 
   const handleVerify = (id: string, success: boolean) => {
-    setCommitments(commitments.map(c =>
-      c.id === id
-        ? { ...c, status: success ? 'completed' : 'failed' }
-        : c
-    ));
+    setCommitments(
+      commitments.map((c) =>
+        c.id === id ? { ...c, status: success ? 'completed' : 'failed' } : c
+      )
+    );
   };
 
   // Check for deadlines and update status
   useEffect(() => {
-    setCommitments(current =>
-      current.map(c => {
+    setCommitments((current) =>
+      current.map((c) => {
         if (c.status === 'active' && isPast(c.deadline)) {
           return { ...c, status: 'pending_verification' };
         }
@@ -223,7 +224,9 @@ export default function Home() {
                   className="input"
                   placeholder="@username"
                   value={partnerUsername}
-                  onChange={(e) => setPartnerUsername(e.target.value.replace('@', ''))}
+                  onChange={(e) =>
+                    setPartnerUsername(e.target.value.replace('@', ''))
+                  }
                 />
               </div>
 
@@ -239,7 +242,11 @@ export default function Home() {
                       className={`stake-preset flex-1 ${deadlineDays === days ? 'selected' : ''}`}
                       onClick={() => setDeadlineDays(days)}
                     >
-                      {days === 1 ? '1 day' : days === 30 ? '1 month' : `${days} days`}
+                      {days === 1
+                        ? '1 day'
+                        : days === 30
+                          ? '1 month'
+                          : `${days} days`}
                     </button>
                   ))}
                 </div>
@@ -248,11 +255,20 @@ export default function Home() {
               {/* Summary */}
               <div className="p-3 rounded-lg bg-[#0A0A0A] border border-[#262626]">
                 <p className="text-sm text-[#A3A3A3]">
-                  You're staking <span className="text-[#10B981] font-mono">{stakeAmount} ETH</span> that
-                  you'll complete this by {format(Date.now() + deadlineDays * 24 * 60 * 60 * 1000, 'MMM d, yyyy')}.
+                  You're staking{' '}
+                  <span className="text-[#10B981] font-mono">
+                    {stakeAmount} ETH
+                  </span>{' '}
+                  that you'll complete this by{' '}
+                  {format(
+                    Date.now() + deadlineDays * 24 * 60 * 60 * 1000,
+                    'MMM d, yyyy'
+                  )}
+                  .
                 </p>
                 <p className="text-sm text-[#A3A3A3] mt-1">
-                  If you fail, @{partnerUsername || 'partner'} gets 95% of your stake.
+                  If you fail, @{partnerUsername || 'partner'} gets 95% of your
+                  stake.
                 </p>
               </div>
 
@@ -269,7 +285,11 @@ export default function Home() {
 
           {/* Commitments List */}
           {myCommitments.map((commitment) => (
-            <CommitmentCard key={commitment.id} commitment={commitment} isOwner />
+            <CommitmentCard
+              key={commitment.id}
+              commitment={commitment}
+              isOwner
+            />
           ))}
 
           {myCommitments.length === 0 && !showCreate && (
@@ -286,12 +306,15 @@ export default function Home() {
             <div key={commitment.id} className="commitment-card">
               <div className="flex justify-between items-start mb-3">
                 <span className="badge badge-pending">Needs Verification</span>
-                <span className="font-mono text-[#F59E0B]">{commitment.stakeAmount} ETH</span>
+                <span className="font-mono text-[#F59E0B]">
+                  {commitment.stakeAmount} ETH
+                </span>
               </div>
 
               <p className="font-medium mb-2">{commitment.goal}</p>
               <p className="text-sm text-[#A3A3A3] mb-4">
-                @{commitment.creatorUsername} committed on {format(commitment.createdAt, 'MMM d')}
+                @{commitment.creatorUsername} committed on{' '}
+                {format(commitment.createdAt, 'MMM d')}
               </p>
 
               <div className="flex gap-2">
@@ -310,7 +333,8 @@ export default function Home() {
               </div>
 
               <p className="text-xs text-[#A3A3A3] mt-3 text-center">
-                If they failed, you receive {(parseFloat(commitment.stakeAmount) * 0.95).toFixed(4)} ETH
+                If they failed, you receive{' '}
+                {(parseFloat(commitment.stakeAmount) * 0.95).toFixed(4)} ETH
               </p>
             </div>
           ))}
@@ -319,7 +343,9 @@ export default function Home() {
             <div className="text-center py-12 text-[#A3A3A3]">
               <p className="text-4xl mb-4">✅</p>
               <p>No pending verifications</p>
-              <p className="text-sm mt-1">Check back when your friends' deadlines pass</p>
+              <p className="text-sm mt-1">
+                Check back when your friends' deadlines pass
+              </p>
             </div>
           )}
         </div>
@@ -340,7 +366,7 @@ export default function Home() {
 // Commitment Card Component
 function CommitmentCard({
   commitment,
-  isOwner = false
+  isOwner = false,
 }: {
   commitment: Commitment;
   isOwner?: boolean;
@@ -348,7 +374,10 @@ function CommitmentCard({
   const isExpired = isPast(commitment.deadline);
   const statusConfig = {
     active: { badge: 'badge-active', text: 'Active' },
-    pending_verification: { badge: 'badge-pending', text: 'Awaiting Verification' },
+    pending_verification: {
+      badge: 'badge-pending',
+      text: 'Awaiting Verification',
+    },
     completed: { badge: 'badge-completed', text: 'Completed' },
     failed: { badge: 'badge-failed', text: 'Failed' },
   };
@@ -359,7 +388,9 @@ function CommitmentCard({
     <div className={`commitment-card ${commitment.status}`}>
       <div className="flex justify-between items-start mb-3">
         <span className={`badge ${badge}`}>{text}</span>
-        <span className="font-mono text-[#10B981]">{commitment.stakeAmount} ETH</span>
+        <span className="font-mono text-[#10B981]">
+          {commitment.stakeAmount} ETH
+        </span>
       </div>
 
       <p className="font-medium mb-2">{commitment.goal}</p>
@@ -369,20 +400,23 @@ function CommitmentCard({
         <span>
           {commitment.status === 'active'
             ? `${formatDistanceToNow(commitment.deadline)} left`
-            : `Due ${format(commitment.deadline, 'MMM d')}`
-          }
+            : `Due ${format(commitment.deadline, 'MMM d')}`}
         </span>
       </div>
 
       {commitment.status === 'completed' && (
         <div className="mt-3 p-2 rounded-lg bg-[#10B981]/10 text-center">
-          <p className="text-sm text-[#10B981]">🎉 Goal achieved! Stake returned.</p>
+          <p className="text-sm text-[#10B981]">
+            🎉 Goal achieved! Stake returned.
+          </p>
         </div>
       )}
 
       {commitment.status === 'failed' && (
         <div className="mt-3 p-2 rounded-lg bg-[#EF4444]/10 text-center">
-          <p className="text-sm text-[#EF4444]">Stake forfeited to @{commitment.partnerUsername}</p>
+          <p className="text-sm text-[#EF4444]">
+            Stake forfeited to @{commitment.partnerUsername}
+          </p>
         </div>
       )}
     </div>

@@ -9,9 +9,11 @@
 ## When to Activate
 
 This skill activates during:
+
 - **Phase 4** (Ralph Polish Loop) - As a scored compliance category (25% weight)
 
 Trigger phrases:
+
 - "Review my UI"
 - "Check accessibility"
 - "Audit design"
@@ -29,18 +31,18 @@ Trigger phrases:
 
 ## Rule Categories
 
-| Category | Rules | Priority |
-|----------|-------|----------|
-| Accessibility | 12 | HIGH |
-| Focus States | 6 | HIGH |
-| Forms | 10 | MEDIUM |
-| Animation | 8 | MEDIUM |
-| Typography | 6 | MEDIUM |
-| Images | 5 | MEDIUM |
-| Loading States | 6 | MEDIUM |
-| Empty/Error States | 6 | MEDIUM |
-| Dark Mode | 4 | LOW |
-| Localization | 4 | LOW |
+| Category           | Rules | Priority |
+| ------------------ | ----- | -------- |
+| Accessibility      | 12    | HIGH     |
+| Focus States       | 6     | HIGH     |
+| Forms              | 10    | MEDIUM   |
+| Animation          | 8     | MEDIUM   |
+| Typography         | 6     | MEDIUM   |
+| Images             | 5     | MEDIUM   |
+| Loading States     | 6     | MEDIUM   |
+| Empty/Error States | 6     | MEDIUM   |
+| Dark Mode          | 4     | LOW      |
+| Localization       | 4     | LOW      |
 
 ---
 
@@ -115,10 +117,7 @@ All functionality must be keyboard accessible.
 **Correct:**
 
 ```tsx
-<button
-  onClick={handleAction}
-  onKeyDown={(e) => e.key === 'Enter' && handleAction()}
->
+<button onClick={handleAction} onKeyDown={(e) => e.key === 'Enter' && handleAction()}>
   Action
 </button>
 ```
@@ -201,10 +200,7 @@ Respect user's motion preferences.
 **Incorrect:**
 
 ```tsx
-<motion.div
-  animate={{ x: 100, rotate: 360 }}
-  transition={{ duration: 1 }}
-/>
+<motion.div animate={{ x: 100, rotate: 360 }} transition={{ duration: 1 }} />
 ```
 
 **Correct:**
@@ -215,7 +211,7 @@ const prefersReducedMotion = useReducedMotion();
 <motion.div
   animate={{ x: 100, rotate: prefersReducedMotion ? 0 : 360 }}
   transition={{ duration: prefersReducedMotion ? 0 : 1 }}
-/>
+/>;
 ```
 
 ---
@@ -272,8 +268,8 @@ Focus styles should match your design system.
 ```tsx
 <Button
   className={cn(
-    "focus-visible:outline-none focus-visible:ring-2",
-    "focus-visible:ring-ring focus-visible:ring-offset-2"
+    'focus-visible:outline-none focus-visible:ring-2',
+    'focus-visible:ring-ring focus-visible:ring-offset-2'
   )}
 >
   Click me
@@ -345,17 +341,21 @@ Show clear, specific error messages.
 **Incorrect:**
 
 ```tsx
-{error && <span className="error">Invalid</span>}
+{
+  error && <span className="error">Invalid</span>;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{error && (
-  <span role="alert" className="text-destructive text-sm mt-1">
-    Please enter a valid email address (e.g., name@example.com)
-  </span>
-)}
+{
+  error && (
+    <span role="alert" className="text-destructive text-sm mt-1">
+      Please enter a valid email address (e.g., name@example.com)
+    </span>
+  );
+}
 ```
 
 ### FM5: Required Field Indication
@@ -378,10 +378,7 @@ Disabled elements should look disabled.
 **Correct:**
 
 ```tsx
-<Button
-  disabled={isSubmitting}
-  className="disabled:opacity-50 disabled:cursor-not-allowed"
->
+<Button disabled={isSubmitting} className="disabled:opacity-50 disabled:cursor-not-allowed">
   {isSubmitting ? 'Submitting...' : 'Submit'}
 </Button>
 ```
@@ -409,11 +406,7 @@ import { motion } from 'framer-motion';
 
 export default function Page() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
       Content
     </motion.div>
   );
@@ -433,11 +426,7 @@ Interactive elements need feedback.
 **Correct:**
 
 ```tsx
-<motion.button
-  whileHover={{ scale: 1.02 }}
-  whileTap={{ scale: 0.98 }}
-  transition={{ duration: 0.15 }}
->
+<motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.15 }}>
   Click me
 </motion.button>
 ```
@@ -469,17 +458,13 @@ Animate only transform and opacity for performance.
 **Incorrect:**
 
 ```tsx
-<motion.div
-  animate={{ left: 100, width: 200, height: 200 }}
-/>
+<motion.div animate={{ left: 100, width: 200, height: 200 }} />
 ```
 
 **Correct:**
 
 ```tsx
-<motion.div
-  animate={{ x: 100, scale: 1.2 }}
-/>
+<motion.div animate={{ x: 100, scale: 1.2 }} />
 ```
 
 ### AN5: Stagger List Animations
@@ -493,22 +478,22 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
+    transition: { staggerChildren: 0.1 },
+  },
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { opacity: 1, y: 0 },
 };
 
 <motion.ul variants={container} initial="hidden" animate="show">
-  {items.map(i => (
+  {items.map((i) => (
     <motion.li key={i.id} variants={item}>
       {i.name}
     </motion.li>
   ))}
-</motion.ul>
+</motion.ul>;
 ```
 
 ---
@@ -531,10 +516,16 @@ body {
 
 ```css
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
-code, pre, .address {
+code,
+pre,
+.address {
   font-family: 'JetBrains Mono', monospace;
 }
 ```
@@ -594,21 +585,25 @@ Show skeletons, not spinners, for content.
 **Incorrect:**
 
 ```tsx
-{isLoading ? <Spinner /> : <Content data={data} />}
+{
+  isLoading ? <Spinner /> : <Content data={data} />;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{isLoading ? (
-  <div className="space-y-4">
-    <Skeleton className="h-8 w-3/4" />
-    <Skeleton className="h-4 w-full" />
-    <Skeleton className="h-4 w-2/3" />
-  </div>
-) : (
-  <Content data={data} />
-)}
+{
+  isLoading ? (
+    <div className="space-y-4">
+      <Skeleton className="h-8 w-3/4" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-2/3" />
+    </div>
+  ) : (
+    <Content data={data} />
+  );
+}
 ```
 
 ### LS2: Button Loading States
@@ -653,24 +648,26 @@ Empty states need icon, message, and CTA.
 **Incorrect:**
 
 ```tsx
-{items.length === 0 && <p>No items</p>}
+{
+  items.length === 0 && <p>No items</p>;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{items.length === 0 && (
-  <div className="flex flex-col items-center py-16">
-    <div className="rounded-full bg-muted p-4 mb-4">
-      <InboxIcon className="h-8 w-8 text-muted-foreground" />
+{
+  items.length === 0 && (
+    <div className="flex flex-col items-center py-16">
+      <div className="rounded-full bg-muted p-4 mb-4">
+        <InboxIcon className="h-8 w-8 text-muted-foreground" />
+      </div>
+      <h3 className="text-lg font-semibold mb-2">No items yet</h3>
+      <p className="text-muted-foreground text-center max-w-sm mb-6">Get started by creating your first item.</p>
+      <Button>Create Item</Button>
     </div>
-    <h3 className="text-lg font-semibold mb-2">No items yet</h3>
-    <p className="text-muted-foreground text-center max-w-sm mb-6">
-      Get started by creating your first item.
-    </p>
-    <Button>Create Item</Button>
-  </div>
-)}
+  );
+}
 ```
 
 ### ES2: Styled Error States
@@ -680,26 +677,30 @@ Errors need styled presentation and retry option.
 **Incorrect:**
 
 ```tsx
-{error && <p className="text-red-500">{error.message}</p>}
+{
+  error && <p className="text-red-500">{error.message}</p>;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{error && (
-  <Card className="border-destructive/50 bg-destructive/5 p-6">
-    <div className="flex items-start gap-4">
-      <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
-      <div>
-        <h4 className="font-semibold text-destructive">Something went wrong</h4>
-        <p className="text-sm text-muted-foreground mt-1">{error.message}</p>
-        <Button variant="outline" size="sm" className="mt-4" onClick={retry}>
-          Try Again
-        </Button>
+{
+  error && (
+    <Card className="border-destructive/50 bg-destructive/5 p-6">
+      <div className="flex items-start gap-4">
+        <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
+        <div>
+          <h4 className="font-semibold text-destructive">Something went wrong</h4>
+          <p className="text-sm text-muted-foreground mt-1">{error.message}</p>
+          <Button variant="outline" size="sm" className="mt-4" onClick={retry}>
+            Try Again
+          </Button>
+        </div>
       </div>
-    </div>
-  </Card>
-)}
+    </Card>
+  );
+}
 ```
 
 ---

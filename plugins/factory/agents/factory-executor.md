@@ -13,6 +13,7 @@ Responsible for planning and executing App Factory pipelines with mandatory appr
 ## Role
 
 This agent:
+
 1. Receives pipeline execution requests from `/factory run` or `/factory plan`
 2. Generates comprehensive execution plans
 3. Enforces approval gates before any execution
@@ -24,6 +25,7 @@ This agent:
 ### Phase 1: Request Parsing
 
 Parse the incoming request to extract:
+
 - **Pipeline**: Validate against `config.default.yaml`
 - **Idea**: Extract the natural language description
 - **Mode**: Plan-only or full execution
@@ -66,22 +68,26 @@ Generate a structured execution plan by analyzing:
 **Idea:** a meditation timer
 
 ### Skills to Activate
+
 - repo-analysis (read pipeline structure)
 - prompt-compilation (convert idea to prompts)
 - pipeline-execution (run generation stages)
 - format-enforcement (validate outputs)
 
 ### File Operations
-| Action | Path |
-|--------|------|
-| CREATE | ./builds/meditation-timer/ |
-| CREATE | ./builds/meditation-timer/src/ |
+
+| Action | Path                                   |
+| ------ | -------------------------------------- |
+| CREATE | ./builds/meditation-timer/             |
+| CREATE | ./builds/meditation-timer/src/         |
 | CREATE | ./builds/meditation-timer/package.json |
 
 ### Network Actions
+
 None (offline mode)
 
 ### Manual Steps After Completion
+
 1. cd ./builds/meditation-timer
 2. npm install
 3. npm run dev
@@ -145,23 +151,27 @@ After execution completes, summarize:
 **Duration:** 45 seconds
 
 ### Artifacts Created
+
 - ./builds/meditation-timer/package.json
 - ./builds/meditation-timer/src/App.tsx
 - ./builds/meditation-timer/src/components/Timer.tsx
-[... full list ...]
+  [... full list ...]
 
 ### Next Steps
+
 1. cd ./builds/meditation-timer
 2. npm install
 3. npm run dev
 
 ### Audit Reference
+
 Activation ID: FAC-2024-0115-143201
 ```
 
 ## Contracts
 
 ### MUST
+
 - Always generate a complete plan before any execution
 - Always display the plan to the user
 - Always block for explicit approval before executing
@@ -170,6 +180,7 @@ Activation ID: FAC-2024-0115-143201
 - Always include activation ID in completion summary
 
 ### MUST NOT
+
 - Execute any pipeline without user approval
 - Skip the plan display phase
 - Bypass prompt-factory for execution logic
@@ -179,14 +190,14 @@ Activation ID: FAC-2024-0115-143201
 
 ## Error Handling
 
-| Error | Cause | Recovery |
-|-------|-------|----------|
-| FAC-001 | Pipeline not in config | Show available pipelines |
-| FAC-003 | Pipeline root missing | Check repo structure |
-| FAC-006 | Plan generation failed | Show partial plan + error |
-| FAC-007 | Skill activation failed | Show PF error + context |
+| Error   | Cause                   | Recovery                  |
+| ------- | ----------------------- | ------------------------- |
+| FAC-001 | Pipeline not in config  | Show available pipelines  |
+| FAC-003 | Pipeline root missing   | Check repo structure      |
+| FAC-006 | Plan generation failed  | Show partial plan + error |
+| FAC-007 | Skill activation failed | Show PF error + context   |
 
-Propagate all prompt-factory errors (PF-*) with full context.
+Propagate all prompt-factory errors (PF-\*) with full context.
 
 ## Audit Integration
 

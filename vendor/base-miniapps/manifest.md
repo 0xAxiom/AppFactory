@@ -10,6 +10,7 @@ The manifest file (`farcaster.json`) defines how a mini app appears and function
 ## File Location
 
 The manifest must be accessible at:
+
 ```
 https://yourdomain.com/.well-known/farcaster.json
 ```
@@ -37,10 +38,7 @@ https://yourdomain.com/.well-known/farcaster.json
     "primaryCategory": "social",
     "tags": ["tag1", "tag2"],
     "heroImageUrl": "https://domain.com/hero.png",
-    "screenshotUrls": [
-      "https://domain.com/screenshot1.png",
-      "https://domain.com/screenshot2.png"
-    ],
+    "screenshotUrls": ["https://domain.com/screenshot1.png", "https://domain.com/screenshot2.png"],
     "ogTitle": "OG Title",
     "ogDescription": "OG Description",
     "ogImageUrl": "https://domain.com/og.png",
@@ -55,61 +53,61 @@ https://yourdomain.com/.well-known/farcaster.json
 
 Proves domain ownership through cryptographic verification.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| header | string | Encoded association header |
-| payload | string | Encoded domain payload |
-| signature | string | Cryptographic signature |
+| Field     | Type   | Description                |
+| --------- | ------ | -------------------------- |
+| header    | string | Encoded association header |
+| payload   | string | Encoded domain payload     |
+| signature | string | Cryptographic signature    |
 
 Generated via Base Build's Account Association tool.
 
 ### Identity Fields (Required)
 
-| Field | Type | Constraints | Description |
-|-------|------|-------------|-------------|
-| version | string | Must be "1" | Manifest version |
-| name | string | Max 32 chars | App name displayed in Base |
-| homeUrl | string | HTTPS, max 1024 chars | Default launch URL |
-| iconUrl | string | PNG 1024×1024, no transparency | App icon |
+| Field   | Type   | Constraints                    | Description                |
+| ------- | ------ | ------------------------------ | -------------------------- |
+| version | string | Must be "1"                    | Manifest version           |
+| name    | string | Max 32 chars                   | App name displayed in Base |
+| homeUrl | string | HTTPS, max 1024 chars          | Default launch URL         |
+| iconUrl | string | PNG 1024×1024, no transparency | App icon                   |
 
 ### Loading Experience (Required)
 
-| Field | Type | Constraints | Description |
-|-------|------|-------------|-------------|
-| splashImageUrl | string | ~200×200px recommended | Loading screen image |
-| splashBackgroundColor | string | Hex format (#RRGGBB) | Background during load |
+| Field                 | Type   | Constraints            | Description            |
+| --------------------- | ------ | ---------------------- | ---------------------- |
+| splashImageUrl        | string | ~200×200px recommended | Loading screen image   |
+| splashBackgroundColor | string | Hex format (#RRGGBB)   | Background during load |
 
 ### Discovery & Search (Required)
 
-| Field | Type | Constraints | Description |
-|-------|------|-------------|-------------|
-| primaryCategory | string | See category list | Main classification |
-| tags | string[] | Max 5, ≤20 chars each, lowercase, no spaces/emojis | Searchable tags |
-| noindex | boolean | Default: false | Set true for dev/staging |
+| Field           | Type     | Constraints                                        | Description              |
+| --------------- | -------- | -------------------------------------------------- | ------------------------ |
+| primaryCategory | string   | See category list                                  | Main classification      |
+| tags            | string[] | Max 5, ≤20 chars each, lowercase, no spaces/emojis | Searchable tags          |
+| noindex         | boolean  | Default: false                                     | Set true for dev/staging |
 
 ### Display Information (Required)
 
-| Field | Type | Constraints | Description |
-|-------|------|-------------|-------------|
-| subtitle | string | Max 30 chars | Text under name |
-| description | string | Max 170 chars | Promo text |
-| tagline | string | Max 30 chars | Marketing tagline |
-| heroImageUrl | string | 1200×630px (1.91:1 ratio) | Hero graphic |
-| screenshotUrls | string[] | Max 3, 1284×2778px portrait | App screenshots |
+| Field          | Type     | Constraints                 | Description       |
+| -------------- | -------- | --------------------------- | ----------------- |
+| subtitle       | string   | Max 30 chars                | Text under name   |
+| description    | string   | Max 170 chars               | Promo text        |
+| tagline        | string   | Max 30 chars                | Marketing tagline |
+| heroImageUrl   | string   | 1200×630px (1.91:1 ratio)   | Hero graphic      |
+| screenshotUrls | string[] | Max 3, 1284×2778px portrait | App screenshots   |
 
 ### Notifications (Optional)
 
-| Field | Type | Constraints | Description |
-|-------|------|-------------|-------------|
+| Field      | Type   | Constraints           | Description              |
+| ---------- | ------ | --------------------- | ------------------------ |
 | webhookUrl | string | HTTPS, max 1024 chars | POST endpoint for events |
 
 ### Social Sharing (Optional)
 
-| Field | Type | Constraints | Description |
-|-------|------|-------------|-------------|
-| ogTitle | string | Max 30 chars | Open Graph title |
-| ogDescription | string | Max 100 chars | OG description |
-| ogImageUrl | string | 1200×630px (1.91:1) | OG image |
+| Field         | Type   | Constraints         | Description      |
+| ------------- | ------ | ------------------- | ---------------- |
+| ogTitle       | string | Max 30 chars        | Open Graph title |
+| ogDescription | string | Max 100 chars       | OG description   |
+| ogImageUrl    | string | 1200×630px (1.91:1) | OG image         |
 
 ## Valid Categories
 
@@ -131,13 +129,13 @@ art-creativity
 
 ## Image Specifications
 
-| Asset | Dimensions | Format | Notes |
-|-------|-----------|--------|-------|
-| Icon | 1024×1024px | PNG | No transparency |
-| Splash | ~200×200px | PNG/JPG | Centered on background |
-| Hero | 1200×630px | PNG/JPG | 1.91:1 aspect ratio |
+| Asset       | Dimensions  | Format  | Notes                       |
+| ----------- | ----------- | ------- | --------------------------- |
+| Icon        | 1024×1024px | PNG     | No transparency             |
+| Splash      | ~200×200px  | PNG/JPG | Centered on background      |
+| Hero        | 1200×630px  | PNG/JPG | 1.91:1 aspect ratio         |
 | Screenshots | 1284×2778px | PNG/JPG | Portrait orientation, max 3 |
-| OG Image | 1200×630px | PNG/JPG | 1.91:1 aspect ratio |
+| OG Image    | 1200×630px  | PNG/JPG | 1.91:1 aspect ratio         |
 
 ## Key Constraints
 
@@ -150,6 +148,7 @@ art-creativity
 ## Validation
 
 Test your manifest:
+
 1. Visit `https://yourdomain.com/.well-known/farcaster.json`
 2. Use Base Build Preview tool at `base.dev/preview`
 3. Check JSON syntax with JSONLint

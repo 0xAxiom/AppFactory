@@ -15,6 +15,7 @@ The Codebase Explainer Agent transforms the frustrating experience of diving int
 ## Core Capabilities
 
 ### Must-Have (P0)
+
 - **Directory Analysis**: Scan project structure, identify key files
 - **Intelligent File Reading**: Read files with context windowing for large files
 - **Pattern Search**: Find code matching patterns (function definitions, imports, usage)
@@ -22,6 +23,7 @@ The Codebase Explainer Agent transforms the frustrating experience of diving int
 - **Code Snippet Extraction**: Pull relevant code with line numbers and context
 
 ### Should-Have (P1)
+
 - **Dependency Tracing**: Follow import chains to understand data flow
 - **Multi-File Correlation**: Connect related code across files
 - **Language Detection**: Adapt analysis based on detected language
@@ -34,21 +36,21 @@ The Codebase Explainer Agent transforms the frustrating experience of diving int
 
 This agent follows patterns from the [Rig framework](https://github.com/0xPlaygrounds/rig):
 
-| Concept | Rig (Rust) | Implementation (TypeScript) |
-|---------|------------|---------------------------|
-| Agent Definition | `Agent<M>` struct | `AgentDefinition` interface |
-| Tool System | `Tool` trait | `Tool<Args, Output>` interface |
-| Execution Loop | `PromptRequest` | `AgentExecutionLoop` class |
-| Tool Definitions | `ToolDefinition` | JSON Schema + Zod |
+| Concept          | Rig (Rust)        | Implementation (TypeScript)    |
+| ---------------- | ----------------- | ------------------------------ |
+| Agent Definition | `Agent<M>` struct | `AgentDefinition` interface    |
+| Tool System      | `Tool` trait      | `Tool<Args, Output>` interface |
+| Execution Loop   | `PromptRequest`   | `AgentExecutionLoop` class     |
+| Tool Definitions | `ToolDefinition`  | JSON Schema + Zod              |
 
 ### Tools
 
-| Tool | Purpose | Args | Output |
-|------|---------|------|--------|
-| `list_directory` | Discover structure | path, maxDepth | entries[], counts |
-| `read_file` | Read file content | path, startLine, endLine | content, language |
-| `search_code` | Find patterns | pattern, directory, fileGlob | matches[] |
-| `analyze_imports` | Trace dependencies | file, direction | imports[], exports[] |
+| Tool              | Purpose            | Args                         | Output               |
+| ----------------- | ------------------ | ---------------------------- | -------------------- |
+| `list_directory`  | Discover structure | path, maxDepth               | entries[], counts    |
+| `read_file`       | Read file content  | path, startLine, endLine     | content, language    |
+| `search_code`     | Find patterns      | pattern, directory, fileGlob | matches[]            |
+| `analyze_imports` | Trace dependencies | file, direction              | imports[], exports[] |
 
 ### Execution Flow
 
@@ -121,6 +123,7 @@ Final Response (JSON)
 ## Safety Rules
 
 ### MUST DO
+
 - Validate all paths stay within configured root directory
 - Reject paths containing `..` traversal
 - Respect file read limits (500KB default)
@@ -128,6 +131,7 @@ Final Response (JSON)
 - Timeout long-running operations
 
 ### MUST NOT
+
 - Execute any code found in the codebase
 - Read files outside the specified directory
 - Store or transmit file contents beyond the response
@@ -138,26 +142,28 @@ Final Response (JSON)
 
 ## Environment Variables
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `OPENAI_API_KEY` | Yes | - | OpenAI API key |
-| `PORT` | No | 8080 | HTTP server port |
-| `MAX_TOOL_ITERATIONS` | No | 10 | Max tool calls per request |
-| `MAX_FILE_SIZE_KB` | No | 500 | Max file size to read |
-| `LOG_LEVEL` | No | info | Logging verbosity |
-| `ALLOWED_ROOTS` | No | - | Comma-separated allowed directories |
+| Variable              | Required | Default | Description                         |
+| --------------------- | -------- | ------- | ----------------------------------- |
+| `OPENAI_API_KEY`      | Yes      | -       | OpenAI API key                      |
+| `PORT`                | No       | 8080    | HTTP server port                    |
+| `MAX_TOOL_ITERATIONS` | No       | 10      | Max tool calls per request          |
+| `MAX_FILE_SIZE_KB`    | No       | 500     | Max file size to read               |
+| `LOG_LEVEL`           | No       | info    | Logging verbosity                   |
+| `ALLOWED_ROOTS`       | No       | -       | Comma-separated allowed directories |
 
 ---
 
 ## Success Criteria
 
 ### Functional
+
 - [x] Accepts POST /explain with valid input
 - [x] Returns structured explanation with code snippets
 - [x] All 4 tools work correctly
 - [x] Error responses are helpful, not cryptic
 
 ### Quality
+
 - [x] TypeScript compiles without errors
 - [x] All tool args/outputs match Zod schemas
 - [x] Execution loop respects max iterations
@@ -165,6 +171,7 @@ Final Response (JSON)
 - [x] Structured logging with context
 
 ### Rig Alignment
+
 - [x] Agent definition matches Rig `Agent<M>` pattern
 - [x] Tools implement typed interface with definition() and call()
 - [x] Execution loop follows PromptRequest pattern

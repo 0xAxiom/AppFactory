@@ -9,7 +9,14 @@ import ora from 'ora';
 import { loadRunManifest, executeBuild } from '../core/pipeline.js';
 import { getRunPath, listRecentRuns } from '../core/paths.js';
 import { logger } from '../core/logging.js';
-import { printBanner, printHeader, printCompletionBanner, printFailureBanner, printInfo, printWarning } from '../ui/banner.js';
+import {
+  printBanner,
+  printHeader,
+  printCompletionBanner,
+  printFailureBanner,
+  printInfo,
+  printWarning,
+} from '../ui/banner.js';
 import { formatKeyValue, formatNextSteps } from '../ui/format.js';
 import { confirm, selectRun } from '../ui/prompts.js';
 
@@ -42,16 +49,25 @@ export function createResumeCommand(): Command {
         }
 
         // Filter to runs that can be resumed (not completed)
-        const resumableRuns: Array<{ id: string; date: string; status: string; ideaCount: number }> = [];
+        const resumableRuns: Array<{
+          id: string;
+          date: string;
+          status: string;
+          ideaCount: number;
+        }> = [];
 
         for (const rp of runs) {
           const manifest = loadRunManifest(rp);
-          if (manifest && (manifest.run_status === 'in_progress' || manifest.run_status === 'failed')) {
+          if (
+            manifest &&
+            (manifest.run_status === 'in_progress' ||
+              manifest.run_status === 'failed')
+          ) {
             resumableRuns.push({
               id: manifest.run_id,
               date: manifest.date.split('T')[0],
               status: manifest.run_status,
-              ideaCount: Object.keys(manifest.per_idea).length
+              ideaCount: Object.keys(manifest.per_idea).length,
             });
           }
         }
@@ -82,13 +98,18 @@ export function createResumeCommand(): Command {
       }
 
       if (!options.json) {
-        console.log(formatKeyValue([
-          { key: 'Run ID', value: manifest.run_id },
-          { key: 'Date', value: manifest.date.split('T')[0] },
-          { key: 'Command', value: manifest.command_invoked },
-          { key: 'Status', value: manifest.run_status },
-          { key: 'Stages Completed', value: manifest.stages_completed.join(', ') || 'none' }
-        ]));
+        console.log(
+          formatKeyValue([
+            { key: 'Run ID', value: manifest.run_id },
+            { key: 'Date', value: manifest.date.split('T')[0] },
+            { key: 'Command', value: manifest.command_invoked },
+            { key: 'Status', value: manifest.run_status },
+            {
+              key: 'Stages Completed',
+              value: manifest.stages_completed.join(', ') || 'none',
+            },
+          ])
+        );
         console.log();
       }
 
@@ -118,8 +139,9 @@ export function createResumeCommand(): Command {
           resumeAction = 'stage01';
         } else {
           // Stage 01 complete, check for in-progress builds
-          const inProgress = Object.entries(manifest.per_idea)
-            .find(([_, status]) => status.status === 'in_progress');
+          const inProgress = Object.entries(manifest.per_idea).find(
+            ([_, status]) => status.status === 'in_progress'
+          );
 
           if (inProgress) {
             resumeAction = 'build';
@@ -128,9 +150,13 @@ export function createResumeCommand(): Command {
             resumeAction = 'none';
           }
         }
-      } else if (manifest.command_invoked === 'build' || manifest.command_invoked === 'dream') {
-        const inProgress = Object.entries(manifest.per_idea)
-          .find(([_, status]) => status.status === 'in_progress');
+      } else if (
+        manifest.command_invoked === 'build' ||
+        manifest.command_invoked === 'dream'
+      ) {
+        const inProgress = Object.entries(manifest.per_idea).find(
+          ([_, status]) => status.status === 'in_progress'
+        );
 
         if (inProgress) {
           resumeAction = 'build';
@@ -140,7 +166,9 @@ export function createResumeCommand(): Command {
 
       if (resumeAction === 'none') {
         if (manifest.failure) {
-          printWarning(`Run failed at stage ${manifest.failure.stage}: ${manifest.failure.error}`);
+          printWarning(
+            `Run failed at stage ${manifest.failure.stage}: ${manifest.failure.error}`
+          );
           printInfo('The issue may need to be resolved before resuming.');
         } else {
           printInfo('No actions to resume.');
@@ -174,14 +202,16 @@ export function createResumeCommand(): Command {
           spinner.text = `Resuming build for ${resumeTarget}...`;
 
           const result = await executeBuild(resumeTarget, {
-            model: options.model
+            model: options.model,
           });
 
           spinner.stop();
 
           if (!result.success) {
             if (options.json) {
-              console.log(JSON.stringify({ success: false, error: result.error }, null, 2));
+              console.log(
+                JSON.stringify({ success: false, error: result.error }, null, 2)
+              );
             } else {
               printFailureBanner('resume', result.error || 'Unknown error');
             }
@@ -189,27 +219,37 @@ export function createResumeCommand(): Command {
           }
 
           if (options.json) {
-            console.log(JSON.stringify({
-              success: true,
-              action: 'build',
-              target: resumeTarget,
-              buildPath: result.buildPath,
-              duration: Date.now() - startTime
-            }, null, 2));
+            console.log(
+              JSON.stringify(
+                {
+                  success: true,
+                  action: 'build',
+                  target: resumeTarget,
+                  buildPath: result.buildPath,
+                  duration: Date.now() - startTime,
+                },
+                null,
+                2
+              )
+            );
           } else {
             const duration = Date.now() - startTime;
             printCompletionBanner('resume', duration);
 
-            console.log(formatNextSteps([
-              `Build path: ${result.buildPath}`,
-              `Navigate: cd "${result.buildPath}/app"`,
-              `Start dev: npx expo start`
-            ]));
+            console.log(
+              formatNextSteps([
+                `Build path: ${result.buildPath}`,
+                `Navigate: cd "${result.buildPath}/app"`,
+                `Start dev: npx expo start`,
+              ])
+            );
           }
         } else {
           // Stage 01 resume - re-run the run command
           spinner.stop();
-          printInfo('Stage 01 resume not yet implemented. Please start a new run.');
+          printInfo(
+            'Stage 01 resume not yet implemented. Please start a new run.'
+          );
           process.exit(1);
         }
 

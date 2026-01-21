@@ -7,6 +7,7 @@
 ## Who is Ralph?
 
 Ralph Wiggum is a skeptical reviewer persona. Ralph:
+
 - Finds issues, doesn't assume things work
 - Checks every requirement, no exceptions
 - Scores objectively using checklists
@@ -37,49 +38,49 @@ Ralph Wiggum is a skeptical reviewer persona. Ralph:
 
 ### Structure Quality (5 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 1 | .claude-plugin/plugin.json exists | File present at correct path |
-| 2 | plugin.json is valid JSON | `cat .claude-plugin/plugin.json \| jq .` |
-| 3 | plugin.json has required fields | name, version, description present |
-| 4 | Components at plugin ROOT | commands/, hooks/, etc. NOT in .claude-plugin/ |
-| 5 | All referenced files exist | Check every path in plugin.json and hooks.json |
+| #   | Check                             | How to Verify                                  |
+| --- | --------------------------------- | ---------------------------------------------- |
+| 1   | .claude-plugin/plugin.json exists | File present at correct path                   |
+| 2   | plugin.json is valid JSON         | `cat .claude-plugin/plugin.json \| jq .`       |
+| 3   | plugin.json has required fields   | name, version, description present             |
+| 4   | Components at plugin ROOT         | commands/, hooks/, etc. NOT in .claude-plugin/ |
+| 5   | All referenced files exist        | Check every path in plugin.json and hooks.json |
 
 ### Command Quality (if present) (4 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 6 | Commands have YAML frontmatter | `---` block at top with name, description |
-| 7 | Command names are valid | Lowercase, hyphens, no spaces |
-| 8 | Commands have descriptions | Clear description in frontmatter |
-| 9 | Example invocations provided | At least one example per command |
+| #   | Check                          | How to Verify                             |
+| --- | ------------------------------ | ----------------------------------------- |
+| 6   | Commands have YAML frontmatter | `---` block at top with name, description |
+| 7   | Command names are valid        | Lowercase, hyphens, no spaces             |
+| 8   | Commands have descriptions     | Clear description in frontmatter          |
+| 9   | Example invocations provided   | At least one example per command          |
 
 ### Hook Quality (if present) (4 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 10 | hooks.json is valid JSON | `cat hooks/hooks.json \| jq .` |
-| 11 | Event names correct case | PostToolUse, not postToolUse |
-| 12 | Matchers are valid regex | Test pattern against expected matches |
-| 13 | Referenced scripts exist | Check scripts/ directory |
+| #   | Check                    | How to Verify                         |
+| --- | ------------------------ | ------------------------------------- |
+| 10  | hooks.json is valid JSON | `cat hooks/hooks.json \| jq .`        |
+| 11  | Event names correct case | PostToolUse, not postToolUse          |
+| 12  | Matchers are valid regex | Test pattern against expected matches |
+| 13  | Referenced scripts exist | Check scripts/ directory              |
 
 ### Security Quality (4 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 14 | No hardcoded secrets | Search for API keys, tokens, passwords |
-| 15 | SECURITY.md exists | File present with content |
-| 16 | SECURITY.md documents permissions | All permissions listed and justified |
-| 17 | Minimal permissions | No unnecessary shell/network/filesystem access |
+| #   | Check                             | How to Verify                                  |
+| --- | --------------------------------- | ---------------------------------------------- |
+| 14  | No hardcoded secrets              | Search for API keys, tokens, passwords         |
+| 15  | SECURITY.md exists                | File present with content                      |
+| 16  | SECURITY.md documents permissions | All permissions listed and justified           |
+| 17  | Minimal permissions               | No unnecessary shell/network/filesystem access |
 
 ### Documentation Quality (4 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 18 | README.md exists | File present with content |
-| 19 | INSTALL.md has working steps | Can follow instructions to install |
-| 20 | EXAMPLES.md has real examples | At least 2 working examples |
-| 21 | All examples accurate | Examples match actual functionality |
+| #   | Check                         | How to Verify                       |
+| --- | ----------------------------- | ----------------------------------- |
+| 18  | README.md exists              | File present with content           |
+| 19  | INSTALL.md has working steps  | Can follow instructions to install  |
+| 20  | EXAMPLES.md has real examples | At least 2 working examples         |
+| 21  | All examples accurate         | Examples match actual functionality |
 
 ---
 
@@ -87,47 +88,48 @@ Ralph Wiggum is a skeptical reviewer persona. Ralph:
 
 ### Build Quality (4 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 1 | npm install completes | Run `npm install`, no errors |
-| 2 | npm run build compiles | Run `npm run build`, no errors |
-| 3 | Server starts without errors | `npm run dev` starts |
-| 4 | No TypeScript errors | `npx tsc --noEmit` passes |
+| #   | Check                        | How to Verify                  |
+| --- | ---------------------------- | ------------------------------ |
+| 1   | npm install completes        | Run `npm install`, no errors   |
+| 2   | npm run build compiles       | Run `npm run build`, no errors |
+| 3   | Server starts without errors | `npm run dev` starts           |
+| 4   | No TypeScript errors         | `npx tsc --noEmit` passes      |
 
 ### Server Quality (6 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 5 | manifest.json exists | File present at root |
-| 6 | manifest.json is valid | `cat manifest.json \| jq .` |
-| 7 | At least one tool/resource/prompt | Check server implementation |
-| 8 | Tools have Zod schemas | Input validation present |
-| 9 | Error handling present | Try/catch with proper MCP errors |
-| 10 | Graceful shutdown | SIGTERM/SIGINT handlers |
+| #   | Check                             | How to Verify                    |
+| --- | --------------------------------- | -------------------------------- |
+| 5   | manifest.json exists              | File present at root             |
+| 6   | manifest.json is valid            | `cat manifest.json \| jq .`      |
+| 7   | At least one tool/resource/prompt | Check server implementation      |
+| 8   | Tools have Zod schemas            | Input validation present         |
+| 9   | Error handling present            | Try/catch with proper MCP errors |
+| 10  | Graceful shutdown                 | SIGTERM/SIGINT handlers          |
 
 ### Security Quality (4 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 11 | No hardcoded secrets | Search for API keys, tokens, passwords |
-| 12 | SECURITY.md exists | File present with content |
-| 13 | Input validation on all tools | Zod schemas reject invalid input |
-| 14 | manifest.json declares permissions | Permissions object present and minimal |
+| #   | Check                              | How to Verify                          |
+| --- | ---------------------------------- | -------------------------------------- |
+| 11  | No hardcoded secrets               | Search for API keys, tokens, passwords |
+| 12  | SECURITY.md exists                 | File present with content              |
+| 13  | Input validation on all tools      | Zod schemas reject invalid input       |
+| 14  | manifest.json declares permissions | Permissions object present and minimal |
 
 ### Documentation Quality (4 items)
 
-| # | Check | How to Verify |
-|---|-------|---------------|
-| 15 | README.md explains server | Clear description of purpose |
-| 16 | INSTALL.md has working steps | Can follow instructions to install |
-| 17 | EXAMPLES.md has tool examples | At least one example per tool |
-| 18 | MCPB packaging documented | Instructions for creating .mcpb |
+| #   | Check                         | How to Verify                      |
+| --- | ----------------------------- | ---------------------------------- |
+| 15  | README.md explains server     | Clear description of purpose       |
+| 16  | INSTALL.md has working steps  | Can follow instructions to install |
+| 17  | EXAMPLES.md has tool examples | At least one example per tool      |
+| 18  | MCPB packaging documented     | Instructions for creating .mcpb    |
 
 ---
 
 ## Scoring
 
 ### Claude Code Plugin (21 items)
+
 - Structure: 5 items
 - Commands: 4 items (if present, else skip)
 - Hooks: 4 items (if present, else skip)
@@ -137,6 +139,7 @@ Ralph Wiggum is a skeptical reviewer persona. Ralph:
 **Pass threshold:** 97% = must pass 20+ items (1 allowed failure)
 
 ### MCP Server (18 items)
+
 - Build: 4 items
 - Server: 6 items
 - Security: 4 items
@@ -149,12 +152,14 @@ Ralph Wiggum is a skeptical reviewer persona. Ralph:
 These items MUST pass regardless of overall score:
 
 **Claude Code Plugin:**
+
 - .claude-plugin/plugin.json exists
 - plugin.json is valid JSON
 - Components at plugin ROOT (not in .claude-plugin/)
 - No hardcoded secrets
 
 **MCP Server:**
+
 - npm install completes
 - npm run build compiles
 - Server starts without errors
@@ -182,13 +187,15 @@ If any critical item fails, verdict is FAIL.
 ## Checklist
 
 ### Structure Quality (Claude Code) | Build Quality (MCP)
+
 - [x] Check 1
 - [x] Check 2
 - [ ] Check 3 ← BLOCKING
 
 ### [Category]
+
 - [x] Check N
-...
+      ...
 
 ---
 
@@ -218,21 +225,25 @@ If any critical item fails, verdict is FAIL.
 ## Iteration Rules
 
 ### Iteration 1
+
 - Full review of all items
 - Document all failures
 - Builder fixes all blocking issues
 
 ### Iteration 2
+
 - Re-review failed items only
 - Verify fixes work
 - Check for regressions
 
 ### Iteration 3 (Final)
+
 - Complete re-review
 - If still failing, document why
 - Prepare hard failure report
 
 ### After 3 Iterations
+
 - Plugin is a HARD FAIL
 - Write final verdict explaining unresolved issues
 - Do not continue generating
@@ -271,6 +282,7 @@ Plugin meets all quality requirements.
 ### Final Score: XX% (X/X passed)
 
 ### Summary
+
 - Structure/Build quality: All passing
 - [Commands/Server] quality: All passing
 - Security quality: All passing
@@ -281,11 +293,13 @@ Plugin is ready for distribution.
 ### Next Steps
 
 #### For Claude Code Plugin:
+
 1. Copy `builds/{{plugin-name}}/` to your project
 2. Reload Claude Code
 3. Test: `/<command-name> --help`
 
 #### For MCP Server:
+
 1. cd builds/{{plugin-name}}
 2. npm install && npm run build
 3. Add to claude_desktop_config.json
@@ -331,22 +345,26 @@ Plugin failed to meet quality threshold after 3 iterations.
 ### Claude Code Plugin Issues
 
 **Structure:**
+
 - Components inside .claude-plugin/ instead of ROOT
 - Missing plugin.json
 - Invalid JSON syntax
 
 **Commands:**
+
 - Missing YAML frontmatter
 - Invalid command names (spaces, uppercase)
 - No examples provided
 
 **Hooks:**
+
 - Wrong event name case (postToolUse vs PostToolUse)
 - Invalid regex in matcher
 - Missing referenced scripts
 - Scripts not executable
 
 **Security:**
+
 - Hardcoded API keys
 - Overly broad permissions
 - Missing SECURITY.md
@@ -354,22 +372,26 @@ Plugin failed to meet quality threshold after 3 iterations.
 ### MCP Server Issues
 
 **Build:**
+
 - Missing dependencies in package.json
 - TypeScript compilation errors
 - Import path errors (missing .js extension)
 
 **Server:**
+
 - Missing Zod schemas for tool inputs
 - No error handling
 - Missing graceful shutdown
 - manifest.json missing required fields
 
 **Security:**
+
 - Hardcoded secrets
 - No input validation
 - Overly broad filesystem permissions
 
 **Documentation:**
+
 - INSTALL.md steps don't work
 - Examples don't match actual API
 - Missing MCPB packaging instructions
@@ -387,6 +409,7 @@ The Ralph Loop is Claude reviewing its own work:
 5. Repeat until PASS or 3 FAILs
 
 This is NOT two separate agents. It's Claude switching perspectives:
+
 - Builder: "I generated this plugin"
 - Ralph: "Let me verify this actually works"
 

@@ -15,9 +15,9 @@ An AI agent that explores and explains unfamiliar codebases through natural lang
 
 Instead of manually searching through files, tracing imports, and piecing together how code works, you ask questions like:
 
-- *"How does authentication work in this project?"*
-- *"What is the main entry point?"*
-- *"How does data flow from the API to the database?"*
+- _"How does authentication work in this project?"_
+- _"What is the main entry point?"_
+- _"How does data flow from the API to the database?"_
 
 The agent **autonomously explores** the codebase using specialized tools, then synthesizes a clear explanation with annotated code snippets.
 
@@ -53,11 +53,11 @@ This agent follows the **Rig framework** patterns - a production-grade architect
 
 ### Rig Alignment
 
-| Concept | Rig (Rust) | This Agent (TypeScript) |
-|---------|------------|-------------------------|
-| Agent Definition | `Agent<M>` struct | `AgentDefinition` interface |
-| Tool System | `Tool` trait | `Tool<Args, Output>` interface |
-| Execution Loop | `PromptRequest` | `AgentExecutionLoop` class |
+| Concept          | Rig (Rust)        | This Agent (TypeScript)        |
+| ---------------- | ----------------- | ------------------------------ |
+| Agent Definition | `Agent<M>` struct | `AgentDefinition` interface    |
+| Tool System      | `Tool` trait      | `Tool<Args, Output>` interface |
+| Execution Loop   | `PromptRequest`   | `AgentExecutionLoop` class     |
 
 ### How It Works
 
@@ -230,14 +230,14 @@ curl -X POST http://localhost:8080/explain \
 
 #### Request Schema
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `question` | string | Yes | Natural language question (1-2000 chars) |
-| `directory` | string | Yes | Absolute path to codebase root |
-| `options.maxFiles` | number | No | Max files to read (default: 20) |
-| `options.maxDepth` | number | No | Max directory depth (default: 5) |
-| `options.includePatterns` | string[] | No | File patterns to include |
-| `options.excludePatterns` | string[] | No | File patterns to exclude |
+| Field                     | Type     | Required | Description                              |
+| ------------------------- | -------- | -------- | ---------------------------------------- |
+| `question`                | string   | Yes      | Natural language question (1-2000 chars) |
+| `directory`               | string   | Yes      | Absolute path to codebase root           |
+| `options.maxFiles`        | number   | No       | Max files to read (default: 20)          |
+| `options.maxDepth`        | number   | No       | Max directory depth (default: 5)         |
+| `options.includePatterns` | string[] | No       | File patterns to include                 |
+| `options.excludePatterns` | string[] | No       | File patterns to exclude                 |
 
 #### Response Schema
 
@@ -259,10 +259,7 @@ curl -X POST http://localhost:8080/explain \
     "executionTimeMs": 4200,
     "confidence": "high"
   },
-  "suggestedQuestions": [
-    "How are validation errors different from processing errors?",
-    "Where are errors logged?"
-  ]
+  "suggestedQuestions": ["How are validation errors different from processing errors?", "Where are errors logged?"]
 }
 ```
 
@@ -272,14 +269,14 @@ curl -X POST http://localhost:8080/explain \
 
 ### Environment Variables
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `OPENAI_API_KEY` | **Yes** | - | OpenAI API key for GPT-4 |
-| `PORT` | No | 8080 | HTTP server port |
-| `MAX_TOOL_ITERATIONS` | No | 10 | Max tool calls per request |
-| `MAX_FILE_SIZE_KB` | No | 500 | Max file size to read |
-| `LOG_LEVEL` | No | info | Logging level (debug/info/warn/error) |
-| `ALLOWED_ROOTS` | No | (any) | Comma-separated allowed directories |
+| Variable              | Required | Default | Description                           |
+| --------------------- | -------- | ------- | ------------------------------------- |
+| `OPENAI_API_KEY`      | **Yes**  | -       | OpenAI API key for GPT-4              |
+| `PORT`                | No       | 8080    | HTTP server port                      |
+| `MAX_TOOL_ITERATIONS` | No       | 10      | Max tool calls per request            |
+| `MAX_FILE_SIZE_KB`    | No       | 500     | Max file size to read                 |
+| `LOG_LEVEL`           | No       | info    | Logging level (debug/info/warn/error) |
+| `ALLOWED_ROOTS`       | No       | (any)   | Comma-separated allowed directories   |
 
 ### Security Configuration
 
@@ -381,6 +378,7 @@ curl -X POST http://localhost:8080/explain \
 ### Read-Only Operation
 
 The agent **only reads** files. It cannot:
+
 - Execute code found in the codebase
 - Modify any files
 - Access files outside the specified directory
@@ -389,6 +387,7 @@ The agent **only reads** files. It cannot:
 ### Path Traversal Prevention
 
 All paths are validated:
+
 - Resolved to absolute paths
 - Checked against allowed root
 - `..` patterns are rejected
@@ -434,6 +433,7 @@ docker run -p 8080:8080 \
 ### Cloud Platforms
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions for:
+
 - Railway
 - Render
 - Fly.io

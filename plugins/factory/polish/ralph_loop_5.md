@@ -13,6 +13,7 @@
 **Assessment:** VALID but MITIGATED
 
 **Evidence of mitigation:**
+
 - README explicitly states: "Does not modify files outside designated output directories"
 - INVARIANTS.md #3: "Confined File Writes" — only to `./builds/`
 - config.default.yaml: `output_base: ./builds`
@@ -29,6 +30,7 @@
 **Assessment:** VALID but MITIGATED
 
 **Evidence of mitigation:**
+
 - User must approve every execution
 - Code is generated from templates in local repository, not from network
 - User ideas are treated as data, not instructions (INVARIANTS #6)
@@ -60,6 +62,7 @@
 **Assessment:** VALID but ACCEPTABLE
 
 **Evidence:**
+
 - This plugin is designed for AppFactory specifically
 - Plugin description now says "for App Factory pipelines"
 - Not intended as general-purpose tool
@@ -87,6 +90,7 @@
 **Assessment:** VALID but MITIGATED
 
 **Evidence:**
+
 - Factory doesn't create these itself—it delegates to existing pipelines
 - It's a command interface, not a code generator
 - All complexity lives in the underlying pipelines, not in this plugin
@@ -102,6 +106,7 @@
 **Assessment:** VALID but HANDLED
 
 **Evidence:**
+
 - Error FAC-003: "Pipeline root not found"
 - Plugin validates paths before execution
 - Error handling documented in commands/factory.md
@@ -117,6 +122,7 @@
 **Assessment:** PARTIALLY VALID
 
 **Evidence:**
+
 - config.default.yaml: `approval_timeout: 300` (5 minutes)
 - INVARIANTS.md #2: "Timeout does not auto-approve; it cancels"
 
@@ -126,16 +132,16 @@
 
 ## Rejection Risk Summary
 
-| # | Reason | Severity | Mitigated? |
-|---|--------|----------|------------|
-| 1 | Writes files | Medium | ✅ Yes |
-| 2 | Generates code | Medium | ✅ Yes |
-| 3 | Unpublished dependency | High | ⚠️ Partial |
-| 4 | Relative paths | Low | ✅ Acceptable |
-| 5 | No screenshots | Low | ✅ N/A for CLI |
-| 6 | Scope too large | Medium | ✅ Yes |
-| 7 | Missing pipelines | Low | ✅ Yes |
-| 8 | Timeout unclear | Low | ✅ Yes |
+| #   | Reason                 | Severity | Mitigated?     |
+| --- | ---------------------- | -------- | -------------- |
+| 1   | Writes files           | Medium   | ✅ Yes         |
+| 2   | Generates code         | Medium   | ✅ Yes         |
+| 3   | Unpublished dependency | High     | ⚠️ Partial     |
+| 4   | Relative paths         | Low      | ✅ Acceptable  |
+| 5   | No screenshots         | Low      | ✅ N/A for CLI |
+| 6   | Scope too large        | Medium   | ✅ Yes         |
+| 7   | Missing pipelines      | Low      | ✅ Yes         |
+| 8   | Timeout unclear        | Low      | ✅ Yes         |
 
 ---
 
@@ -150,6 +156,7 @@
 ## Final Assessment
 
 The plugin has been hardened against the most likely rejection reasons:
+
 - Permission scope is explicit and confined
 - User approval is mandatory and cannot be bypassed
 - Data handling is local-only with no telemetry

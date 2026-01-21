@@ -38,6 +38,7 @@ Arguments:
 ## Validation
 
 Before linking:
+
 1. Verify decision ID exists
 2. Verify commit hash exists in git history
 3. Get full commit hash if short hash provided
@@ -49,6 +50,7 @@ git rev-parse --verify [commit-hash]
 ## Response Format
 
 Success:
+
 ```
 Linked decision #42 to commit abc1234def5678
 

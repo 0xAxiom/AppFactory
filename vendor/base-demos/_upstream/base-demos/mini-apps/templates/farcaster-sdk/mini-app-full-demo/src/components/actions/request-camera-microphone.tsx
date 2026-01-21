@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { sdk } from "@farcaster/miniapp-sdk";
-import { Button } from "~/components/ui/button";
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { sdk } from '@farcaster/miniapp-sdk';
+import { Button } from '~/components/ui/button';
 
-type CaptureMode = "camera" | "microphone";
+type CaptureMode = 'camera' | 'microphone';
 
 export function RequestCameraMicrophoneAction() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,7 +13,7 @@ export function RequestCameraMicrophoneAction() {
   const [hasContext, setHasContext] = useState<boolean>(false);
   const [hasPermissions, setHasPermissions] = useState<boolean>(false);
 
-  const [mode, setMode] = useState<CaptureMode>("camera");
+  const [mode, setMode] = useState<CaptureMode>('camera');
   const [isCapturing, setIsCapturing] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
 
@@ -26,7 +26,7 @@ export function RequestCameraMicrophoneAction() {
 
   const isWebPlatformNote = useMemo(
     () =>
-      "Camera and microphone access is not supported in web mini apps and will reject on web.",
+      'Camera and microphone access is not supported in web mini apps and will reject on web.',
     []
   );
 
@@ -73,7 +73,7 @@ export function RequestCameraMicrophoneAction() {
       setHasContext(contextExists);
       setHasPermissions(permissionsGranted);
     } catch (err) {
-      console.error("Context check error:", err);
+      console.error('Context check error:', err);
       setHasContext(false);
       setHasPermissions(false);
     }
@@ -86,12 +86,12 @@ export function RequestCameraMicrophoneAction() {
       setResult(undefined);
 
       await sdk.actions.requestCameraAndMicrophoneAccess();
-      setResult("Camera and microphone access granted!");
+      setResult('Camera and microphone access granted!');
 
       await checkContext();
     } catch (err) {
-      console.error("Request camera/microphone access error:", err);
-      setError("Access denied or not supported.");
+      console.error('Request camera/microphone access error:', err);
+      setError('Access denied or not supported.');
     } finally {
       setLoading(false);
     }
@@ -103,7 +103,7 @@ export function RequestCameraMicrophoneAction() {
       setError(undefined);
       setResult(undefined);
 
-      if (mode === "camera") {
+      if (mode === 'camera') {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { width: 640, height: 480 },
           audio: false,
@@ -120,18 +120,24 @@ export function RequestCameraMicrophoneAction() {
             }
           };
         }
-        
-        setResult("Camera started successfully!");
+
+        setResult('Camera started successfully!');
       } else {
         // Microphone level meter via Web Audio API
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const audioContext = new (
+          window.AudioContext || (window as any).webkitAudioContext
+        )();
         audioContextRef.current = audioContext;
-        
-        const constraints: MediaStreamConstraints = { video: false, audio: true };
-        const micStream = await navigator.mediaDevices.getUserMedia(constraints);
+
+        const constraints: MediaStreamConstraints = {
+          video: false,
+          audio: true,
+        };
+        const micStream =
+          await navigator.mediaDevices.getUserMedia(constraints);
         streamRef.current = micStream;
-        
+
         const source = audioContext.createMediaStreamSource(micStream);
         const analyser = audioContext.createAnalyser();
         analyser.fftSize = 2048;
@@ -154,14 +160,16 @@ export function RequestCameraMicrophoneAction() {
           rafRef.current = requestAnimationFrame(updateLevel);
         };
         rafRef.current = requestAnimationFrame(updateLevel);
-        
-        setResult("Microphone started successfully!");
+
+        setResult('Microphone started successfully!');
       }
 
       setIsCapturing(true);
     } catch (err) {
-      console.error("Start capture error:", err);
-      setError("Failed to start capture. Check permissions and platform support.");
+      console.error('Start capture error:', err);
+      setError(
+        'Failed to start capture. Check permissions and platform support.'
+      );
       stopAll();
     } finally {
       setLoading(false);
@@ -170,7 +178,7 @@ export function RequestCameraMicrophoneAction() {
 
   const stopCapture = useCallback((): void => {
     stopAll();
-    setResult("Capture stopped.");
+    setResult('Capture stopped.');
   }, [stopAll]);
 
   // Stop capture when mode changes to avoid mixed constraints
@@ -203,8 +211,8 @@ export function RequestCameraMicrophoneAction() {
         </div>
         <div className="text-xs text-blue-700 dark:text-blue-300">
           {hasPermissions
-            ? "Feature supported - permissions granted"
-            : "Feature not supported or permissions not granted"}
+            ? 'Feature supported - permissions granted'
+            : 'Feature not supported or permissions not granted'}
         </div>
       </div>
 
@@ -212,22 +220,22 @@ export function RequestCameraMicrophoneAction() {
       <div className="grid grid-cols-2 gap-2">
         <Button
           className={
-            mode === "camera"
-              ? ""
-              : "bg-gray-200 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-700"
+            mode === 'camera'
+              ? ''
+              : 'bg-gray-200 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-700'
           }
-          onClick={() => setMode("camera")}
+          onClick={() => setMode('camera')}
           disabled={loading}
         >
           Camera
         </Button>
         <Button
           className={
-            mode === "microphone"
-              ? ""
-              : "bg-gray-200 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-700"
+            mode === 'microphone'
+              ? ''
+              : 'bg-gray-200 text-gray-900 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-700'
           }
-          onClick={() => setMode("microphone")}
+          onClick={() => setMode('microphone')}
           disabled={loading}
         >
           Microphone
@@ -238,12 +246,12 @@ export function RequestCameraMicrophoneAction() {
       <div className="grid grid-cols-2 gap-2">
         {hasContext && (
           <Button onClick={handleRequestAccess} disabled={loading}>
-            {loading ? "Requesting..." : "Request Access"}
+            {loading ? 'Requesting...' : 'Request Access'}
           </Button>
         )}
         {!isCapturing ? (
           <Button onClick={startCapture} disabled={loading || !hasPermissions}>
-            {loading ? "Starting..." : `Start ${mode}`}
+            {loading ? 'Starting...' : `Start ${mode}`}
           </Button>
         ) : (
           <Button
@@ -257,26 +265,36 @@ export function RequestCameraMicrophoneAction() {
       </div>
 
       {/* Live preview / meter */}
-      {isCapturing && mode === "camera" && (
-        <div style={{ width: "100%", height: "400px", backgroundColor: "black", borderRadius: "8px", overflow: "hidden" }}>
+      {isCapturing && mode === 'camera' && (
+        <div
+          style={{
+            width: '100%',
+            height: '400px',
+            backgroundColor: 'black',
+            borderRadius: '8px',
+            overflow: 'hidden',
+          }}
+        >
           <video
             ref={videoRef}
             autoPlay
             playsInline
             muted
             style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              transform: "scaleX(-1)",
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transform: 'scaleX(-1)',
             }}
           />
         </div>
       )}
 
-      {isCapturing && mode === "microphone" && (
+      {isCapturing && mode === 'microphone' && (
         <div className="p-3 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-gray-200 dark:border-gray-800">
-          <div className="text-xs mb-2 text-gray-700 dark:text-gray-300">Mic level</div>
+          <div className="text-xs mb-2 text-gray-700 dark:text-gray-300">
+            Mic level
+          </div>
           <div className="w-full h-3 bg-gray-200 dark:bg-gray-800 rounded">
             <div
               className="h-3 bg-emerald-500 rounded transition-[width] duration-75"
@@ -302,15 +320,23 @@ export function RequestCameraMicrophoneAction() {
       {/* Messages */}
       {error && (
         <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
-          <div className="text-sm font-medium text-red-900 dark:text-red-100 mb-1">Error</div>
-          <div className="text-xs text-red-700 dark:text-red-300 whitespace-pre-wrap">{error}</div>
+          <div className="text-sm font-medium text-red-900 dark:text-red-100 mb-1">
+            Error
+          </div>
+          <div className="text-xs text-red-700 dark:text-red-300 whitespace-pre-wrap">
+            {error}
+          </div>
         </div>
       )}
 
       {result && !loading && (
         <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-          <div className="text-sm font-medium text-green-900 dark:text-green-100 mb-1">Success</div>
-          <div className="text-xs text-green-700 dark:text-green-300 whitespace-pre-wrap">{result}</div>
+          <div className="text-sm font-medium text-green-900 dark:text-green-100 mb-1">
+            Success
+          </div>
+          <div className="text-xs text-green-700 dark:text-green-300 whitespace-pre-wrap">
+            {result}
+          </div>
         </div>
       )}
     </div>

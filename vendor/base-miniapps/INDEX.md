@@ -9,13 +9,13 @@ This directory contains cached documentation from the official Base Mini Apps do
 
 ## Cached Documents
 
-| File | Source URL | Description |
-|------|-----------|-------------|
-| `create-new-miniapp.md` | /mini-apps/quickstart/create-new-miniapp | Quickstart guide for creating a new mini app |
-| `manifest.md` | /mini-apps/core-concepts/manifest | Manifest file specification and field reference |
-| `sign-manifest.md` | /mini-apps/technical-guides/sign-manifest | Account association and signing process |
-| `common-issues.md` | /mini-apps/troubleshooting/common-issues | Troubleshooting guide and common problems |
-| `create-manifest-route.md` | /cookbook/minikit/create-manifest | Cookbook guide for manifest route implementation |
+| File                       | Source URL                                | Description                                      |
+| -------------------------- | ----------------------------------------- | ------------------------------------------------ |
+| `create-new-miniapp.md`    | /mini-apps/quickstart/create-new-miniapp  | Quickstart guide for creating a new mini app     |
+| `manifest.md`              | /mini-apps/core-concepts/manifest         | Manifest file specification and field reference  |
+| `sign-manifest.md`         | /mini-apps/technical-guides/sign-manifest | Account association and signing process          |
+| `common-issues.md`         | /mini-apps/troubleshooting/common-issues  | Troubleshooting guide and common problems        |
+| `create-manifest-route.md` | /cookbook/minikit/create-manifest         | Cookbook guide for manifest route implementation |
 
 ## Usage
 
@@ -29,6 +29,7 @@ When implementing Base Mini Apps through the `miniapp-pipeline/`:
 ## Refresh Policy
 
 These docs should be refreshed:
+
 - When Base releases major updates to MiniKit
 - When manifest specification changes
 - When new required fields are added

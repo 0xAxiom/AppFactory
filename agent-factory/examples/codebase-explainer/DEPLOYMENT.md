@@ -76,7 +76,7 @@ services:
   codebase-explainer:
     build: .
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ALLOWED_ROOTS=/data
@@ -84,7 +84,7 @@ services:
     volumes:
       - ./codebases:/data:ro
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/health"]
+      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:8080/health']
       interval: 30s
       timeout: 3s
       retries: 3
@@ -137,19 +137,19 @@ fly deploy
 
 ### Required
 
-| Variable | Description |
-|----------|-------------|
+| Variable         | Description              |
+| ---------------- | ------------------------ |
 | `OPENAI_API_KEY` | OpenAI API key for GPT-4 |
 
 ### Optional
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | 8080 | HTTP server port |
-| `MAX_TOOL_ITERATIONS` | 10 | Max tool calls per request |
-| `MAX_FILE_SIZE_KB` | 500 | Max file size to read |
-| `LOG_LEVEL` | info | Logging level |
-| `ALLOWED_ROOTS` | (all) | Comma-separated allowed directories |
+| Variable              | Default | Description                         |
+| --------------------- | ------- | ----------------------------------- |
+| `PORT`                | 8080    | HTTP server port                    |
+| `MAX_TOOL_ITERATIONS` | 10      | Max tool calls per request          |
+| `MAX_FILE_SIZE_KB`    | 500     | Max file size to read               |
+| `LOG_LEVEL`           | info    | Logging level                       |
+| `ALLOWED_ROOTS`       | (all)   | Comma-separated allowed directories |
 
 ---
 
@@ -244,6 +244,7 @@ Use a load balancer (nginx, HAProxy, cloud LB) to distribute traffic.
 ### Caching
 
 Consider caching for:
+
 - Frequently asked questions about the same codebase
 - Directory listings (short TTL)
 
@@ -254,6 +255,7 @@ Consider caching for:
 ### Container won't start
 
 Check API key:
+
 ```bash
 docker logs codebase-explainer
 # Look for "OPENAI_API_KEY environment variable is required"
@@ -268,6 +270,7 @@ docker logs codebase-explainer
 ### Permission denied on files
 
 Mount volume as read-only:
+
 ```bash
 -v /path:/data:ro
 ```

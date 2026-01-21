@@ -7,6 +7,7 @@
 ## When to Activate
 
 This skill activates during:
+
 - **Milestone 1** (Project Scaffold) - During initial setup
 - **Throughout Build** - As reference for Expo patterns
 
@@ -14,12 +15,12 @@ This skill activates during:
 
 ## Rule Categories
 
-| Category | Priority |
-|----------|----------|
-| Expo Router | HIGH |
-| Configuration | MEDIUM |
-| Assets | MEDIUM |
-| Native Modules | LOW |
+| Category       | Priority |
+| -------------- | -------- |
+| Expo Router    | HIGH     |
+| Configuration  | MEDIUM   |
+| Assets         | MEDIUM   |
+| Native Modules | LOW      |
 
 ---
 
@@ -138,27 +139,21 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Home color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Home color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color, size }) => (
-            <Search color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Search color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color, size }) => (
-            <Settings color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Settings color={color} size={size} />,
         }}
       />
     </Tabs>
@@ -303,6 +298,7 @@ Configure eas.json for build profiles.
 Icon must be exactly 1024x1024 PNG, no transparency.
 
 **Requirements:**
+
 - Size: 1024x1024 pixels
 - Format: PNG
 - No transparency (solid background)
@@ -324,6 +320,7 @@ splash: {
 ```
 
 **Splash image requirements:**
+
 - Recommended: 1284x2778 (iPhone 14 Pro Max)
 - Format: PNG
 - Keep logo centered in safe area
@@ -416,14 +413,10 @@ async function pickImage() {
   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
   if (status !== 'granted') {
-    Alert.alert(
-      'Permission needed',
-      'Please grant photo library access to select images.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Settings', onPress: () => Linking.openSettings() },
-      ]
-    );
+    Alert.alert('Permission needed', 'Please grant photo library access to select images.', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Settings', onPress: () => Linking.openSettings() },
+    ]);
     return null;
   }
 
@@ -530,7 +523,7 @@ export async function initPurchases() {
 }
 ```
 
-**In _layout.tsx:**
+**In \_layout.tsx:**
 
 ```tsx
 useEffect(() => {

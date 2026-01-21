@@ -14,10 +14,8 @@ export default function OnboardingWelcome() {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome to {{APP_NAME}}</Text>
-          <Text style={styles.subtitle}>
-            {{ONBOARDING_WELCOME_MESSAGE}}
-          </Text>
+          <Text style={styles.title}>Welcome to {{ APP_NAME }}</Text>
+          <Text style={styles.subtitle}>{{ ONBOARDING_WELCOME_MESSAGE }}</Text>
         </View>
 
         <View style={styles.hero}>
@@ -34,7 +32,7 @@ export default function OnboardingWelcome() {
             variant="primary"
             style={styles.primaryButton}
           />
-          
+
           <Button
             title="Skip for now"
             onPress={() => router.replace('/(tabs)')}

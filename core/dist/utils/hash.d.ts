@@ -29,7 +29,10 @@ export declare function hashObject(obj: unknown, length?: number): string;
  * @param suffix - Optional suffix for the run ID
  * @returns Run ID in format: YYYYMMDD_HHMMSS_<pipeline>_<suffix>
  */
-export declare function generateRunId(pipeline: string, suffix?: string): string;
+export declare function generateRunId(
+  pipeline: string,
+  suffix?: string
+): string;
 /**
  * Generate a content-addressed run ID
  *
@@ -37,7 +40,10 @@ export declare function generateRunId(pipeline: string, suffix?: string): string
  * @param intent - User intent/prompt
  * @returns Run ID with content hash
  */
-export declare function generateContentAddressedRunId(pipeline: string, intent: string): string;
+export declare function generateContentAddressedRunId(
+  pipeline: string,
+  intent: string
+): string;
 /**
  * Generate a slug from a name
  *

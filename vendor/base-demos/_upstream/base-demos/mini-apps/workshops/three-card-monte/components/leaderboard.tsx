@@ -25,7 +25,23 @@ const dummyLeaderboardData: LeaderboardEntry[] = [
 ];
 
 // List of avatars to assign randomly
-const avatarList = ["👑", "🍀", "👁️", "🧙", "🃏", "👐", "🔍", "🎯", "🐣", "🌱", "🦊", "🐼", "🦁", "🐯", "🦄"];
+const avatarList = [
+  "👑",
+  "🍀",
+  "👁️",
+  "🧙",
+  "🃏",
+  "👐",
+  "🔍",
+  "🎯",
+  "🐣",
+  "🌱",
+  "🦊",
+  "🐼",
+  "🦁",
+  "🐯",
+  "🦄",
+];
 
 interface LeaderboardProps {
   isOpen: boolean;
@@ -34,8 +50,15 @@ interface LeaderboardProps {
   userName?: string;
 }
 
-export const Leaderboard = ({ isOpen, onClose, userScore, userName }: LeaderboardProps) => {
-  const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
+export const Leaderboard = ({
+  isOpen,
+  onClose,
+  userScore,
+  userName,
+}: LeaderboardProps) => {
+  const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>(
+    [],
+  );
   const [userEntryAdded, setUserEntryAdded] = useState(false);
 
   // Get a random avatar
@@ -52,7 +75,13 @@ export const Leaderboard = ({ isOpen, onClose, userScore, userName }: Leaderboar
 
   useEffect(() => {
     // Check if we need to add a user entry
-    if (isOpen && userScore !== undefined && userName && !userEntryAdded && userScore > 0) {
+    if (
+      isOpen &&
+      userScore !== undefined &&
+      userName &&
+      !userEntryAdded &&
+      userScore > 0
+    ) {
       // Create a new entry for the user
       const newUserEntry: LeaderboardEntry = {
         id: Date.now(), // Use timestamp as a unique ID
@@ -74,7 +103,9 @@ export const Leaderboard = ({ isOpen, onClose, userScore, userName }: Leaderboar
   if (!isOpen) return null;
 
   // Find user's position in the leaderboard
-  const userPosition = userName ? leaderboardData.findIndex(entry => entry.name === userName) : -1;
+  const userPosition = userName
+    ? leaderboardData.findIndex((entry) => entry.name === userName)
+    : -1;
 
   return (
     <AnimatePresence>
@@ -94,7 +125,9 @@ export const Leaderboard = ({ isOpen, onClose, userScore, userName }: Leaderboar
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-4 border-b border-gray-700 flex justify-between items-center">
-              <h2 className="text-xl font-bold text-yellow-300">🏆 Leaderboard</h2>
+              <h2 className="text-xl font-bold text-yellow-300">
+                🏆 Leaderboard
+              </h2>
               <button
                 onClick={onClose}
                 className="p-1 rounded-full hover:bg-gray-700 transition-colors"
@@ -120,7 +153,10 @@ export const Leaderboard = ({ isOpen, onClose, userScore, userName }: Leaderboar
               {userScore !== undefined && userName && (
                 <div className="mb-4 p-3 bg-blue-900/40 rounded-lg border border-blue-700/50">
                   <p className="text-center text-white">
-                    {userName}&apos;s score: <span className="font-bold text-yellow-300">{userScore}</span>
+                    {userName}&apos;s score:{" "}
+                    <span className="font-bold text-yellow-300">
+                      {userScore}
+                    </span>
                     {userPosition >= 0 && (
                       <span className="ml-2 text-sm text-blue-300">
                         (Rank: {userPosition + 1})
@@ -135,28 +171,41 @@ export const Leaderboard = ({ isOpen, onClose, userScore, userName }: Leaderboar
                   <motion.div
                     key={entry.id}
                     className={`flex items-center p-3 rounded-lg ${
-                      entry.name === userName ? "bg-blue-900/30 border border-blue-700/50" :
-                      index < 3 ? "bg-gradient-to-r from-gray-800 to-gray-700" : "bg-gray-800/50"
+                      entry.name === userName
+                        ? "bg-blue-900/30 border border-blue-700/50"
+                        : index < 3
+                          ? "bg-gradient-to-r from-gray-800 to-gray-700"
+                          : "bg-gray-800/50"
                     }`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
                     <div className="flex-shrink-0 w-8 text-center font-bold">
-                      {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `#${index + 1}`}
+                      {index === 0
+                        ? "🥇"
+                        : index === 1
+                          ? "🥈"
+                          : index === 2
+                            ? "🥉"
+                            : `#${index + 1}`}
                     </div>
-                    
+
                     <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-lg mr-2">
                       {entry.avatar}
                     </div>
-                    
+
                     <div className="flex-grow">
                       <p className="font-medium text-white">
                         {entry.name}
-                        {entry.name === userName && <span className="ml-2 text-xs text-blue-300">(You)</span>}
+                        {entry.name === userName && (
+                          <span className="ml-2 text-xs text-blue-300">
+                            (You)
+                          </span>
+                        )}
                       </p>
                     </div>
-                    
+
                     <div className="flex-shrink-0 font-bold text-yellow-300">
                       {entry.score}
                     </div>
@@ -169,4 +218,4 @@ export const Leaderboard = ({ isOpen, onClose, userScore, userName }: Leaderboar
       )}
     </AnimatePresence>
   );
-}; 
+};

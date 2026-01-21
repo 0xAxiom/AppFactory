@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   devIndicators: false,
@@ -13,24 +13,24 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/:path*",
+        source: '/:path*',
         headers: [
           {
-            key: "Content-Security-Policy",
-            value: "frame-ancestors *"
+            key: 'Content-Security-Policy',
+            value: 'frame-ancestors *',
           },
           {
-            key: "X-Frame-Options",
-            value: "SAMEORIGIN"
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
           },
           {
-            key: "Access-Control-Allow-Origin",
-            value: "*"
-          }
-        ]
-      }
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
     ];
-  }
+  },
 };
 
 export default nextConfig;

@@ -6,14 +6,35 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { Tool, ToolDefinition, SearchCodeArgs, SearchCodeOutput, SearchMatch } from '../types.js';
+import {
+  Tool,
+  ToolDefinition,
+  SearchCodeArgs,
+  SearchCodeOutput,
+  SearchMatch,
+} from '../types.js';
 import { validatePath } from '../../lib/path-validator.js';
 import { logger } from '../../lib/logger.js';
 
 const DEFAULT_MAX_RESULTS = 50;
 
 // Default file patterns to search
-const DEFAULT_FILE_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.py', '.go', '.rs', '.java', '.rb', '.php', '.c', '.cpp', '.h', '.hpp'];
+const DEFAULT_FILE_EXTENSIONS = [
+  '.ts',
+  '.tsx',
+  '.js',
+  '.jsx',
+  '.py',
+  '.go',
+  '.rs',
+  '.java',
+  '.rb',
+  '.php',
+  '.c',
+  '.cpp',
+  '.h',
+  '.hpp',
+];
 
 export class SearchCodeTool implements Tool<SearchCodeArgs, SearchCodeOutput> {
   readonly name = 'search_code';
@@ -27,7 +48,8 @@ export class SearchCodeTool implements Tool<SearchCodeArgs, SearchCodeOutput> {
   definition(): ToolDefinition {
     return {
       name: this.name,
-      description: 'Search for code matching a pattern (regex or literal). Returns matching lines with context.',
+      description:
+        'Search for code matching a pattern (regex or literal). Returns matching lines with context.',
       parameters: {
         type: 'object',
         properties: {
@@ -37,7 +59,8 @@ export class SearchCodeTool implements Tool<SearchCodeArgs, SearchCodeOutput> {
           },
           directory: {
             type: 'string',
-            description: 'Directory to search in (relative to codebase root, defaults to root)',
+            description:
+              'Directory to search in (relative to codebase root, defaults to root)',
           },
           fileGlob: {
             type: 'string',
@@ -64,7 +87,11 @@ export class SearchCodeTool implements Tool<SearchCodeArgs, SearchCodeOutput> {
     // Validate path
     const validatedPath = validatePath(searchDir, this.rootDirectory);
 
-    logger.debug('Searching code', { pattern: args.pattern, directory: validatedPath, fileGlob: args.fileGlob });
+    logger.debug('Searching code', {
+      pattern: args.pattern,
+      directory: validatedPath,
+      fileGlob: args.fileGlob,
+    });
 
     // Build regex
     let regex: RegExp;
@@ -72,7 +99,10 @@ export class SearchCodeTool implements Tool<SearchCodeArgs, SearchCodeOutput> {
       regex = new RegExp(args.pattern, 'gi');
     } catch (err) {
       // If invalid regex, treat as literal
-      regex = new RegExp(args.pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      regex = new RegExp(
+        args.pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+        'gi'
+      );
     }
 
     // Parse file glob to extension filter
@@ -139,7 +169,17 @@ export class SearchCodeTool implements Tool<SearchCodeArgs, SearchCodeOutput> {
         if (matches.length >= maxResults) break;
 
         // Skip hidden and non-essential directories
-        if (item.startsWith('.') || ['node_modules', 'dist', 'build', '__pycache__', '.next', 'coverage'].includes(item)) {
+        if (
+          item.startsWith('.') ||
+          [
+            'node_modules',
+            'dist',
+            'build',
+            '__pycache__',
+            '.next',
+            'coverage',
+          ].includes(item)
+        ) {
           continue;
         }
 
@@ -179,7 +219,7 @@ export class SearchCodeTool implements Tool<SearchCodeArgs, SearchCodeOutput> {
 
     if (match[1]) {
       // Handle {ts,tsx} pattern
-      return match[1].split(',').map(ext => `.${ext.trim()}`);
+      return match[1].split(',').map((ext) => `.${ext.trim()}`);
     } else if (match[2]) {
       // Handle single extension
       return [`.${match[2]}`];

@@ -85,27 +85,49 @@ export interface ExecutionMetadata {
 // ============================================================================
 
 export const ExplainRequestSchema = z.object({
-  question: z.string().min(1).max(2000).describe('Natural language question about the codebase'),
+  question: z
+    .string()
+    .min(1)
+    .max(2000)
+    .describe('Natural language question about the codebase'),
   directory: z.string().min(1).describe('Absolute path to codebase root'),
-  options: z.object({
-    maxFiles: z.number().min(1).max(100).default(20).describe('Max files to read'),
-    maxDepth: z.number().min(1).max(10).default(5).describe('Max directory depth'),
-    includePatterns: z.array(z.string()).default(['**/*.ts', '**/*.js', '**/*.py', '**/*.go', '**/*.rs']),
-    excludePatterns: z.array(z.string()).default(['**/node_modules/**', '**/.git/**', '**/dist/**']),
-  }).optional(),
+  options: z
+    .object({
+      maxFiles: z
+        .number()
+        .min(1)
+        .max(100)
+        .default(20)
+        .describe('Max files to read'),
+      maxDepth: z
+        .number()
+        .min(1)
+        .max(10)
+        .default(5)
+        .describe('Max directory depth'),
+      includePatterns: z
+        .array(z.string())
+        .default(['**/*.ts', '**/*.js', '**/*.py', '**/*.go', '**/*.rs']),
+      excludePatterns: z
+        .array(z.string())
+        .default(['**/node_modules/**', '**/.git/**', '**/dist/**']),
+    })
+    .optional(),
 });
 
 export type ExplainRequest = z.infer<typeof ExplainRequestSchema>;
 
 export const ExplainResponseSchema = z.object({
   explanation: z.string().describe('Clear, structured explanation'),
-  codeSnippets: z.array(z.object({
-    file: z.string(),
-    startLine: z.number(),
-    endLine: z.number(),
-    content: z.string(),
-    relevance: z.string().describe('Why this snippet matters'),
-  })),
+  codeSnippets: z.array(
+    z.object({
+      file: z.string(),
+      startLine: z.number(),
+      endLine: z.number(),
+      content: z.string(),
+      relevance: z.string().describe('Why this snippet matters'),
+    })
+  ),
   metadata: z.object({
     filesExamined: z.number(),
     toolCalls: z.number(),

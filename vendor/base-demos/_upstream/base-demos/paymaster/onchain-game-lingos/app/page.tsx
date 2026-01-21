@@ -146,10 +146,10 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <div className='text-center'>
-          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4'></div>
-          <p className='text-lg'>Loading...</p>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-lg">Loading...</p>
         </div>
       </div>
     );
@@ -157,12 +157,12 @@ export default function App() {
 
   if (error) {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <div className='text-center'>
-          <p className='text-red-500 mb-4'>{error}</p>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <p className="text-red-500 mb-4">{error}</p>
           <button
             onClick={handleRestart}
-            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Try Again
           </button>
@@ -173,12 +173,12 @@ export default function App() {
 
   if (!currentLingo) {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <div className='text-center'>
-          <p className='text-red-500 mb-4'>No lingo available</p>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <p className="text-red-500 mb-4">No lingo available</p>
           <button
             onClick={handleRestart}
-            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Return to Home
           </button>
@@ -188,26 +188,26 @@ export default function App() {
   }
 
   return (
-    <div className='flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]'>
-      <div className='absolute right-4 top-4 z-10'>
-        <div className='wallet-container'>
+    <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
+      <div className="absolute right-4 top-4 z-10">
+        <div className="wallet-container">
           <Wallet>
             <ConnectWallet>
-              <Avatar className='h-6 w-6' />
+              <Avatar className="h-6 w-6" />
               <Name />
             </ConnectWallet>
             <WalletDropdown>
-              <Identity className='px-4 pt-3 pb-2' hasCopyAddressOnClick>
+              <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
                 <Avatar />
                 <Name />
                 <Address />
                 <EthBalance />
               </Identity>
               <WalletDropdownLink
-                icon='wallet'
-                href='https://keys.coinbase.com'
-                target='_blank'
-                rel='noopener noreferrer'
+                icon="wallet"
+                href="https://keys.coinbase.com"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Wallet
               </WalletDropdownLink>
@@ -217,43 +217,43 @@ export default function App() {
         </div>
       </div>
 
-      <div className='w-full max-w-md mx-auto px-4 py-3'>
-        <div className='text-center mb-12'>
+      <div className="w-full max-w-md mx-auto px-4 py-3">
+        <div className="text-center mb-12">
           <h1
-            className='text-6xl font-extrabold text-[var(--app-foreground)] tracking-tight cursor-pointer hover:opacity-80 transition-opacity'
+            className="text-6xl font-extrabold text-[var(--app-foreground)] tracking-tight cursor-pointer hover:opacity-80 transition-opacity"
             onClick={() => setGameState('home')}
           >
             Lingos
           </h1>
-          <div className='h-1 w-24 bg-[var(--app-foreground)] mx-auto mt-4 rounded-full'></div>
+          <div className="h-1 w-24 bg-[var(--app-foreground)] mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div className='text-center mb-8'>
+        <div className="text-center mb-8">
           <ScoreDisplay score={score} />
         </div>
 
-        <main className='flex-1'>
-          <div className='bg-white rounded-lg p-6 shadow-sm mb-6'>
-            <div className='mb-4'>
-              <p className='text-sm text-gray-500'>
+        <main className="flex-1">
+          <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
+            <div className="mb-4">
+              <p className="text-sm text-gray-500">
                 {currentLingo.language} - {currentLingo.category}
               </p>
-              <p className='text-lg font-bold italic text-black'>
+              <p className="text-lg font-bold italic text-black">
                 {currentLingo.prompt}
               </p>
-              <p className='text-sm text-gray-600 mt-2'>
+              <p className="text-sm text-gray-600 mt-2">
                 {currentLingo.description}
               </p>
             </div>
 
-            <div className='grid grid-cols-2 gap-4'>
+            <div className="grid grid-cols-2 gap-4">
               {currentLingo.choices.map((choice, index) => (
                 <Button
                   key={index}
                   variant={selectedChoice === choice ? 'primary' : 'secondary'}
-                  size='lg'
+                  size="lg"
                   onClick={() => handleChoiceSelect(choice)}
-                  className='w-full'
+                  className="w-full"
                   disabled={selectedChoice !== null}
                 >
                   {choice}

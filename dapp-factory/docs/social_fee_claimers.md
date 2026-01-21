@@ -18,11 +18,12 @@ Social fee claimers enable developers, contributors, and team members to receive
 const githubFeeClaimer = {
   provider: 'github',
   username: 'lead_developer', // GitHub username without @
-  bps: 1000 // 10% of fees
+  bps: 1000, // 10% of fees
 };
 ```
 
 **Use Cases**:
+
 - Lead developers receive ongoing token revenue
 - Open source contributors get equity for contributions
 - Technical team members receive automated compensation
@@ -36,13 +37,14 @@ const githubFeeClaimer = {
 
 ```typescript
 const twitterFeeClaimer = {
-  provider: 'twitter', 
+  provider: 'twitter',
   username: '@marketing_lead', // Twitter handle with @
-  bps: 500 // 5% of fees
+  bps: 500, // 5% of fees
 };
 ```
 
 **Use Cases**:
+
 - Marketing team members receive token revenue
 - Community managers earn from engagement-driven growth
 - Social media contributors get equity for reach
@@ -58,11 +60,12 @@ const twitterFeeClaimer = {
 const kickFeeClaimer = {
   provider: 'kick',
   username: 'gaming_streamer', // Kick username
-  bps: 300 // 3% of fees
+  bps: 300, // 3% of fees
 };
 ```
 
 **Use Cases**:
+
 - Gaming streamers receive token revenue from game-related apps
 - Community streaming events generate automatic rewards
 - Content creators earn from token-powered gaming apps
@@ -74,8 +77,8 @@ const kickFeeClaimer = {
 ```typescript
 enum SupportedSocialProvider {
   GITHUB = 'github',
-  TWITTER = 'twitter', 
-  KICK = 'kick'
+  TWITTER = 'twitter',
+  KICK = 'kick',
 }
 
 interface SocialFeeClaimer {
@@ -105,12 +108,12 @@ async function resolveSocialFeeClaimer(claimer: SocialFeeClaimer): Promise<Walle
   try {
     const resolvedWallet = await bagsApi.resolveSocialProvider({
       provider: claimer.provider,
-      username: claimer.username
+      username: claimer.username,
     });
-    
+
     return {
       wallet: resolvedWallet.address,
-      bps: claimer.bps
+      bps: claimer.bps,
     };
   } catch (error) {
     throw new Error(`Failed to resolve ${claimer.provider} username ${claimer.username}: ${error.message}`);
@@ -126,27 +129,27 @@ async function resolveSocialFeeClaimer(claimer: SocialFeeClaimer): Promise<Walle
 const openSourceFeeClaimers = [
   {
     wallet: process.env.CREATOR_WALLET_ADDRESS,
-    bps: 6000 // Project lead: 60%
+    bps: 6000, // Project lead: 60%
   },
   {
     provider: 'github',
     username: 'core_developer',
-    bps: 1500 // Core dev: 15%
+    bps: 1500, // Core dev: 15%
   },
   {
-    provider: 'github', 
+    provider: 'github',
     username: 'ui_designer',
-    bps: 1000 // UI designer: 10%
+    bps: 1000, // UI designer: 10%
   },
   {
     provider: 'twitter',
     username: '@community_manager',
-    bps: 500 // Community: 5%
+    bps: 500, // Community: 5%
   },
   {
-    wallet: "partner_payout_address", // App Factory
-    bps: 1000 // Partner: 10%
-  }
+    wallet: 'partner_payout_address', // App Factory
+    bps: 1000, // Partner: 10%
+  },
 ];
 ```
 
@@ -156,27 +159,27 @@ const openSourceFeeClaimers = [
 const startupFeeClaimers = [
   {
     wallet: process.env.CREATOR_WALLET_ADDRESS,
-    bps: 4000 // Founder: 40%
+    bps: 4000, // Founder: 40%
   },
   {
     provider: 'github',
     username: 'cto_engineer',
-    bps: 2000 // CTO: 20%
+    bps: 2000, // CTO: 20%
   },
   {
     provider: 'twitter',
     username: '@marketing_head',
-    bps: 1500 // Marketing: 15%
+    bps: 1500, // Marketing: 15%
   },
   {
     provider: 'github',
     username: 'backend_dev',
-    bps: 1000 // Backend dev: 10%
+    bps: 1000, // Backend dev: 10%
   },
   {
-    wallet: "partner_payout_address", // App Factory  
-    bps: 1500 // Partner: 15%
-  }
+    wallet: 'partner_payout_address', // App Factory
+    bps: 1500, // Partner: 15%
+  },
 ];
 ```
 
@@ -186,27 +189,27 @@ const startupFeeClaimers = [
 const gamingFeeClaimers = [
   {
     wallet: process.env.CREATOR_WALLET_ADDRESS,
-    bps: 5000 // Game creator: 50%
+    bps: 5000, // Game creator: 50%
   },
   {
     provider: 'kick',
     username: 'top_streamer',
-    bps: 2000 // Top streamer: 20%
+    bps: 2000, // Top streamer: 20%
   },
   {
     provider: 'github',
     username: 'game_dev',
-    bps: 1500 // Game developer: 15%
+    bps: 1500, // Game developer: 15%
   },
   {
     provider: 'twitter',
     username: '@esports_manager',
-    bps: 1000 // Esports: 10%
+    bps: 1000, // Esports: 10%
   },
   {
-    wallet: "partner_payout_address", // App Factory
-    bps: 500 // Partner: 5%
-  }
+    wallet: 'partner_payout_address', // App Factory
+    bps: 500, // Partner: 5%
+  },
 ];
 ```
 
@@ -250,7 +253,7 @@ W5 must implement resolution and error handling:
 ```typescript
 async function prepareFeeClaimers(feeClaimers: FeeClaimer[]): Promise<WalletFeeClaimer[]> {
   const resolved: WalletFeeClaimer[] = [];
-  
+
   for (const claimer of feeClaimers) {
     if ('provider' in claimer) {
       // Social fee claimer - resolve to wallet
@@ -265,7 +268,7 @@ async function prepareFeeClaimers(feeClaimers: FeeClaimer[]): Promise<WalletFeeC
       resolved.push(claimer);
     }
   }
-  
+
   return resolved;
 }
 ```
@@ -279,7 +282,7 @@ enum SocialResolutionError {
   USERNAME_NOT_FOUND = 'username_not_found',
   WALLET_NOT_CONNECTED = 'wallet_not_connected',
   PROVIDER_UNAVAILABLE = 'provider_unavailable',
-  INVALID_USERNAME = 'invalid_username'
+  INVALID_USERNAME = 'invalid_username',
 }
 
 interface SocialResolutionResult {
@@ -295,11 +298,11 @@ interface SocialResolutionResult {
 ```typescript
 function validateFeeClaimersBPS(feeClaimers: FeeClaimer[]): void {
   const totalBPS = feeClaimers.reduce((sum, claimer) => sum + claimer.bps, 0);
-  
+
   if (totalBPS !== 10000) {
     throw new Error(`Fee claimers BPS must total 10000, got ${totalBPS}`);
   }
-  
+
   // Validate individual claimer BPS
   for (const claimer of feeClaimers) {
     if (claimer.bps <= 0 || claimer.bps >= 10000) {
@@ -320,14 +323,14 @@ function validateSocialUsername(provider: SupportedSocialProvider, username: str
         throw new Error(`Invalid GitHub username format: ${username}`);
       }
       break;
-      
+
     case SupportedSocialProvider.TWITTER:
       // Twitter handles: @ prefix, alphanumeric, underscores, max 15 chars
       if (!/^@[a-zA-Z0-9_]{1,15}$/.test(username)) {
         throw new Error(`Invalid Twitter handle format: ${username}`);
       }
       break;
-      
+
     case SupportedSocialProvider.KICK:
       // Kick usernames: alphanumeric, underscores, max 25 chars
       if (!/^[a-zA-Z0-9_]{1,25}$/.test(username)) {
@@ -354,7 +357,7 @@ Social fee claimers create a new model for developer compensation:
 GitHub integration is strategically critical because:
 
 1. **Developer Identity**: GitHub is primary professional identity for developers
-2. **Contribution Tracking**: Commit history provides contribution evidence  
+2. **Contribution Tracking**: Commit history provides contribution evidence
 3. **Open Source Incentives**: Creates direct financial incentives for OS contributions
 4. **Team Coordination**: Simplifies revenue sharing for development teams
 
@@ -365,14 +368,14 @@ GitHub integration is strategically critical because:
 const contributorReward = {
   provider: 'github',
   username: 'frequent_contributor',
-  bps: 500 // 5% ongoing revenue share
+  bps: 500, // 5% ongoing revenue share
 };
 
 // Example: Marketing team member receives 3% of token fees
 const marketingReward = {
   provider: 'twitter',
   username: '@growth_hacker',
-  bps: 300 // 3% ongoing revenue share
+  bps: 300, // 3% ongoing revenue share
 };
 ```
 
@@ -383,6 +386,7 @@ This creates powerful incentives for collaborative development and community bui
 ### Additional Social Providers
 
 Potential future integrations:
+
 - **Discord**: Server roles and contribution tracking
 - **LinkedIn**: Professional network integration
 - **Telegram**: Community management rewards
@@ -390,6 +394,7 @@ Potential future integrations:
 ### Dynamic Fee Distribution
 
 Future capabilities could include:
+
 - **Contribution-Based**: Fees based on actual contribution metrics
 - **Time-Based**: Fee percentages that change over project lifecycle
 - **Performance-Based**: Revenue sharing based on app performance metrics

@@ -39,7 +39,7 @@ export async function getDecision(input: GetDecisionInput) {
     `**Updated:** ${new Date(decision.updated_at).toLocaleString()}`,
     '',
     '## Files Affected',
-    decision.files.map(f => `- \`${f}\``).join('\n'),
+    decision.files.map((f) => `- \`${f}\``).join('\n'),
     '',
     '## Reasoning',
     decision.reasoning,
@@ -48,7 +48,7 @@ export async function getDecision(input: GetDecisionInput) {
 
   if (decision.tags.length > 0) {
     details.push('## Tags');
-    details.push(decision.tags.map(t => `#${t}`).join(' '));
+    details.push(decision.tags.map((t) => `#${t}`).join(' '));
     details.push('');
   }
 

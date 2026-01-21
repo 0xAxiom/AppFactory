@@ -18,29 +18,29 @@ export function formatTable(
 
   // Calculate column widths
   const widths = headers.map((h, i) => {
-    const maxRowWidth = Math.max(...rows.map(r => (r[i] || '').length));
+    const maxRowWidth = Math.max(...rows.map((r) => (r[i] || '').length));
     return Math.max(h.length, maxRowWidth);
   });
 
   // Format header
-  const headerRow = headers.map((h, i) =>
-    h.padEnd(widths[i])
-  ).join(' '.repeat(padding));
+  const headerRow = headers
+    .map((h, i) => h.padEnd(widths[i]))
+    .join(' '.repeat(padding));
 
-  const separator = widths.map(w => '─'.repeat(w)).join('─'.repeat(padding));
+  const separator = widths.map((w) => '─'.repeat(w)).join('─'.repeat(padding));
 
   // Format rows
-  const formattedRows = rows.map(row =>
-    row.map((cell, i) =>
-      (cell || '').padEnd(widths[i])
-    ).join(' '.repeat(padding))
+  const formattedRows = rows.map((row) =>
+    row
+      .map((cell, i) => (cell || '').padEnd(widths[i]))
+      .join(' '.repeat(padding))
   );
 
   // Build table
   const lines = [
     color ? chalk.bold(headerRow) : headerRow,
     color ? chalk.gray(separator) : separator,
-    ...formattedRows
+    ...formattedRows,
   ];
 
   return lines.join('\n');
@@ -55,31 +55,38 @@ export function formatKeyValue(
 ): string {
   const { keyWidth, separator = ':' } = options;
 
-  const maxKeyLen = keyWidth || Math.max(...items.map(i => i.key.length));
+  const maxKeyLen = keyWidth || Math.max(...items.map((i) => i.key.length));
 
-  return items.map(item => {
-    const key = item.key.padEnd(maxKeyLen);
-    const colorFn = item.color ? (chalk as unknown as Record<string, (s: string) => string>)[item.color] || ((s: string) => s) : (s: string) => s;
-    return `${chalk.gray(key)} ${separator} ${colorFn(item.value)}`;
-  }).join('\n');
+  return items
+    .map((item) => {
+      const key = item.key.padEnd(maxKeyLen);
+      const colorFn = item.color
+        ? (chalk as unknown as Record<string, (s: string) => string>)[
+            item.color
+          ] || ((s: string) => s)
+        : (s: string) => s;
+      return `${chalk.gray(key)} ${separator} ${colorFn(item.value)}`;
+    })
+    .join('\n');
 }
 
 /**
  * Format a numbered list
  */
 export function formatNumberedList(items: string[]): string {
-  return items.map((item, i) =>
-    `${chalk.cyan((i + 1).toString().padStart(2))}. ${item}`
-  ).join('\n');
+  return items
+    .map((item, i) => `${chalk.cyan((i + 1).toString().padStart(2))}. ${item}`)
+    .join('\n');
 }
 
 /**
  * Format a bulleted list
  */
-export function formatBulletList(items: string[], bullet: string = '•'): string {
-  return items.map(item =>
-    `  ${chalk.cyan(bullet)} ${item}`
-  ).join('\n');
+export function formatBulletList(
+  items: string[],
+  bullet: string = '•'
+): string {
+  return items.map((item) => `  ${chalk.cyan(bullet)} ${item}`).join('\n');
 }
 
 /**
@@ -94,7 +101,7 @@ export function formatIdeaSummary(idea: {
 }): string {
   const lines = [
     `${chalk.bold(idea.name)} ${chalk.gray(`(${idea.id})`)}`,
-    `  Rank: ${chalk.cyan(String(idea.rank))}  Score: ${chalk.green(String(idea.score))}`
+    `  Rank: ${chalk.cyan(String(idea.rank))}  Score: ${chalk.green(String(idea.score))}`,
   ];
 
   if (idea.description) {
@@ -115,8 +122,12 @@ export function formatRunSummary(run: {
   ideaCount: number;
   stagesCompleted: number;
 }): string {
-  const statusColor = run.status === 'completed' ? 'green' :
-    run.status === 'failed' ? 'red' : 'yellow';
+  const statusColor =
+    run.status === 'completed'
+      ? 'green'
+      : run.status === 'failed'
+        ? 'red'
+        : 'yellow';
 
   return formatKeyValue([
     { key: 'Run ID', value: run.id },
@@ -124,7 +135,7 @@ export function formatRunSummary(run: {
     { key: 'Status', value: run.status, color: statusColor },
     { key: 'Command', value: run.command },
     { key: 'Ideas', value: String(run.ideaCount) },
-    { key: 'Stages', value: String(run.stagesCompleted) }
+    { key: 'Stages', value: String(run.stagesCompleted) },
   ]);
 }
 
@@ -141,7 +152,7 @@ export function formatBuildSummary(build: {
     { key: 'Build ID', value: build.id },
     { key: 'App', value: build.ideaName },
     { key: 'Path', value: build.path },
-    { key: 'Created', value: build.timestamp }
+    { key: 'Created', value: build.timestamp },
   ]);
 }
 
@@ -201,27 +212,29 @@ export function formatBox(
   options: { title?: string; padding?: number; color?: string } = {}
 ): string {
   const { title, padding = 1, color = 'cyan' } = options;
-  const colorFn = (chalk as unknown as Record<string, (s: string) => string>)[color] || ((s: string) => s);
+  const colorFn =
+    (chalk as unknown as Record<string, (s: string) => string>)[color] ||
+    ((s: string) => s);
 
   const lines = text.split('\n');
-  const maxLen = Math.max(...lines.map(l => l.length), (title?.length || 0) + 4);
-  const innerWidth = maxLen + (padding * 2);
+  const maxLen = Math.max(
+    ...lines.map((l) => l.length),
+    (title?.length || 0) + 4
+  );
+  const innerWidth = maxLen + padding * 2;
 
-  const topBorder = title ?
-    `┌─ ${title} ${'─'.repeat(innerWidth - title.length - 3)}┐` :
-    `┌${'─'.repeat(innerWidth)}┐`;
+  const topBorder = title
+    ? `┌─ ${title} ${'─'.repeat(innerWidth - title.length - 3)}┐`
+    : `┌${'─'.repeat(innerWidth)}┐`;
 
   const bottomBorder = `└${'─'.repeat(innerWidth)}┘`;
 
-  const formattedLines = lines.map(line =>
-    `│${' '.repeat(padding)}${line.padEnd(maxLen)}${' '.repeat(padding)}│`
+  const formattedLines = lines.map(
+    (line) =>
+      `│${' '.repeat(padding)}${line.padEnd(maxLen)}${' '.repeat(padding)}│`
   );
 
-  return colorFn([
-    topBorder,
-    ...formattedLines,
-    bottomBorder
-  ].join('\n'));
+  return colorFn([topBorder, ...formattedLines, bottomBorder].join('\n'));
 }
 
 /**
@@ -229,9 +242,9 @@ export function formatBox(
  */
 export function formatNextSteps(steps: string[]): string {
   const header = chalk.bold('\nNext Steps:');
-  const formatted = steps.map((step, i) =>
-    `  ${chalk.cyan((i + 1) + '.')} ${step}`
-  ).join('\n');
+  const formatted = steps
+    .map((step, i) => `  ${chalk.cyan(i + 1 + '.')} ${step}`)
+    .join('\n');
 
   return `${header}\n${formatted}`;
 }

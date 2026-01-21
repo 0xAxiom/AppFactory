@@ -8,11 +8,11 @@
 
 ## Summary
 
-| Metric | Value |
-|--------|-------|
-| Total Passes | 0 |
-| Fixes Applied | 0 |
-| Polish Applied | 0 |
+| Metric         | Value       |
+| -------------- | ----------- |
+| Total Passes   | 0           |
+| Fixes Applied  | 0           |
+| Polish Applied | 0           |
 | Current Status | Not Started |
 
 ---
@@ -34,19 +34,23 @@ Copy this template for each pass:
 **Status:** PASS | FAIL
 
 ### Checks Run
+
 - lint: PASS | FAIL
 - typecheck: PASS | FAIL | N/A
 - test: PASS | FAIL | N/A
 - test:e2e: PASS | FAIL
 
 ### Issue Addressed
+
 [Description of what was fixed or improved]
 
 ### Files Changed
+
 - path/to/file1.tsx
 - path/to/file2.ts
 
 ### Next Iteration Focus
+
 [What should be addressed in the next pass]
 ```
 
@@ -61,6 +65,7 @@ COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 ```
 
 Do NOT add this line unless:
+
 - All E2E tests pass
 - All lint/typecheck passes
 - All acceptance criteria in ACCEPTANCE.md are verified

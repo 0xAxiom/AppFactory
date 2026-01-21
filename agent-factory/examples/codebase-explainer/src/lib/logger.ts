@@ -23,7 +23,11 @@ function shouldLog(level: LogEntry['level']): boolean {
   return LEVEL_PRIORITY[level] >= LEVEL_PRIORITY[LOG_LEVEL];
 }
 
-export function log(level: LogEntry['level'], message: string, context?: Record<string, unknown>): void {
+export function log(
+  level: LogEntry['level'],
+  message: string,
+  context?: Record<string, unknown>
+): void {
   if (!shouldLog(level)) return;
 
   const entry: LogEntry = {

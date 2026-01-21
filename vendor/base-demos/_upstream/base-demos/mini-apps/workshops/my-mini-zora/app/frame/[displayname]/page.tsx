@@ -1,8 +1,12 @@
 import { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: { displayname: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { displayname: string };
+}): Promise<Metadata> {
   const displayName = params.displayname;
-  const cleanDisplayName = displayName.replace(/\s+/g, '');
+  const cleanDisplayName = displayName.replace(/\s+/g, "");
   const encodedDisplayName = encodeURIComponent(cleanDisplayName);
   const blobUrl = `https://${process.env.BLOB_ACCOUNT}.public.blob.vercel-storage.com/images/${encodedDisplayName}.png`;
 
@@ -39,8 +43,10 @@ export default function FramePage() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4">
       <h1 className="text-2xl font-bold mb-4">Zora Collage Frame</h1>
-       
-      <p className="mt-4 text-gray-400">To see this frame, share it on Farcaster.</p>
+
+      <p className="mt-4 text-gray-400">
+        To see this frame, share it on Farcaster.
+      </p>
     </main>
   );
 }

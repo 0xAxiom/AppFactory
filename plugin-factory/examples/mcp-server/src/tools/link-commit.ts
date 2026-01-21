@@ -11,7 +11,10 @@ import { linkCommit as linkCommitInDb, getDecision } from '../db/queries.js';
 export const linkCommitSchema = {
   decision_id: z.number().describe('ID of the decision to link'),
   commit_hash: z.string().describe('Git commit hash (short or full)'),
-  commit_url: z.string().optional().describe('URL to view the commit (e.g., GitHub link)'),
+  commit_url: z
+    .string()
+    .optional()
+    .describe('URL to view the commit (e.g., GitHub link)'),
 };
 
 export type LinkCommitInput = z.infer<z.ZodObject<typeof linkCommitSchema>>;
@@ -35,9 +38,10 @@ export async function linkCommit(input: LinkCommitInput) {
 
   // Check if already linked
   if (decision.commit_hash) {
-    const updateConfirm = decision.commit_hash !== commit_hash
-      ? `\n\nNote: This decision was previously linked to commit ${decision.commit_hash}. The link has been updated.`
-      : '';
+    const updateConfirm =
+      decision.commit_hash !== commit_hash
+        ? `\n\nNote: This decision was previously linked to commit ${decision.commit_hash}. The link has been updated.`
+        : '';
 
     if (decision.commit_hash === commit_hash) {
       return {

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import { Button } from "~/components/ui/Button";
-import { useOpenUrl } from "@coinbase/onchainkit/minikit";
+import { useState, useCallback } from 'react';
+import { Button } from '~/components/ui/Button';
+import { useOpenUrl } from '@coinbase/onchainkit/minikit';
 
 export function OpenUrlAction() {
-  const [customUrl, setCustomUrl] = useState<string>("https://google.com");
-  
+  const [customUrl, setCustomUrl] = useState<string>('https://google.com');
+
   // Call the hook at component level
   const openUrl = useOpenUrl();
 
@@ -17,7 +17,9 @@ export function OpenUrlAction() {
   return (
     <div className="mb-4">
       <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
-        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">useOpenUrl()</pre>
+        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">
+          useOpenUrl()
+        </pre>
       </div>
       <div className="mb-2">
         <input
@@ -31,4 +33,4 @@ export function OpenUrlAction() {
       <Button onClick={handleOpenUrl}>Open Link</Button>
     </div>
   );
-} 
+}

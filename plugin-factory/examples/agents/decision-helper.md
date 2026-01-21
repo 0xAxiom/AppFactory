@@ -19,26 +19,33 @@ Transform input into this structure:
 
 ```markdown
 ## Decision Summary
+
 [One clear sentence describing what was decided]
 
 ## Context
+
 [What situation led to this decision? What problem were you solving?]
 
 ## Decision
+
 [The specific choice that was made]
 
 ## Reasoning
+
 [Why this choice over alternatives]
 
 ## Alternatives Considered
+
 - [Alternative 1]: [Why not chosen]
 - [Alternative 2]: [Why not chosen]
 
 ## Consequences
+
 - [Positive consequence 1]
 - [Negative consequence / tradeoff 1]
 
 ## Tags
+
 #tag1 #tag2 #tag3
 ```
 
@@ -48,38 +55,47 @@ Transform input into this structure:
 "went with zustand cuz redux is overkill"
 
 **Output:**
+
 ```markdown
 ## Decision Summary
+
 Use Zustand for client-side state management instead of Redux.
 
 ## Context
+
 The application needs global state for user preferences and UI state. Team evaluated state management options.
 
 ## Decision
+
 Adopted Zustand as the state management library.
 
 ## Reasoning
+
 - Minimal bundle size (~1KB vs Redux's ~7KB + middleware)
 - Simpler API with less boilerplate
 - No need for Redux DevTools given app complexity
 - TypeScript support out of the box
 
 ## Alternatives Considered
+
 - **Redux**: Too much boilerplate for our needs, larger bundle
 - **React Context**: Would work but Zustand provides better DX for our use case
 - **Jotai/Recoil**: Atomic model not needed for our state shape
 
 ## Consequences
+
 - Positive: Faster development, smaller bundle
 - Tradeoff: Less ecosystem tooling than Redux
 
 ## Tags
+
 #state-management #zustand #redux #frontend #bundle-size
 ```
 
 ## How to Use This Agent
 
 Invoke when:
+
 - User has rough notes about a decision
 - Decision reasoning is unclear or incomplete
 - Migrating existing ADRs into the system

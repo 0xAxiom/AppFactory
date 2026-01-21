@@ -30,13 +30,13 @@ A pipeline is "polished" when it meets all criteria in `COMMON_ACCEPTANCE.md`.
 
 ## Files in This Directory
 
-| File | Purpose |
-|------|---------|
-| `README.md` | This file - explains Ralph runs |
-| `PIPELINE_INDEX.md` | Inventory of all pipelines |
-| `RUN_LOG.md` | Append-only log of all iterations |
-| `COMMON_ACCEPTANCE.md` | Shared acceptance checklist |
-| `NEXT_PROMPTS.md` | Human-in-the-loop prompts for remaining iterations |
+| File                   | Purpose                                            |
+| ---------------------- | -------------------------------------------------- |
+| `README.md`            | This file - explains Ralph runs                    |
+| `PIPELINE_INDEX.md`    | Inventory of all pipelines                         |
+| `RUN_LOG.md`           | Append-only log of all iterations                  |
+| `COMMON_ACCEPTANCE.md` | Shared acceptance checklist                        |
+| `NEXT_PROMPTS.md`      | Human-in-the-loop prompts for remaining iterations |
 
 ---
 
@@ -78,8 +78,11 @@ Every pipeline README must have:
 \`\`\`bash
 cd <pipeline-name>
 claude
+
 # Describe your idea
+
 # When done:
+
 cd <output-dir>/<slug>
 npm install
 npm run dev

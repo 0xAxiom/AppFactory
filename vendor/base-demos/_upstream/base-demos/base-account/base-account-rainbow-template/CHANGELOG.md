@@ -243,7 +243,6 @@
 ### Patch Changes
 
 - 6982833: Updated the following packages:
-
   - `next` to `^14.1.3`
   - `eslint-config-next` to `^14.1.3`
   - `@types/react` to `^18.2.64`

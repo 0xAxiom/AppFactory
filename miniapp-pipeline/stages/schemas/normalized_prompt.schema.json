@@ -78,12 +78,7 @@
     },
     "onchainRequirements": {
       "type": "string",
-      "enum": [
-        "none",
-        "wallet-connection",
-        "transactions",
-        "smart-contracts"
-      ],
+      "enum": ["none", "wallet-connection", "transactions", "smart-contracts"],
       "description": "Level of blockchain integration required"
     },
     "additionalNotes": {

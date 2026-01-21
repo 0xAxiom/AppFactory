@@ -10,28 +10,29 @@
 
 **Can a reviewer understand this in 2 minutes?**
 
-| Aspect | Time to Understand | Pass? |
-|--------|-------------------|-------|
-| Plugin purpose | 10 seconds | ✅ |
-| Safety model | 20 seconds | ✅ |
-| Command surface | 30 seconds | ✅ |
-| Privacy stance | 15 seconds | ✅ |
-| What it generates | 20 seconds | ✅ |
+| Aspect            | Time to Understand | Pass? |
+| ----------------- | ------------------ | ----- |
+| Plugin purpose    | 10 seconds         | ✅    |
+| Safety model      | 20 seconds         | ✅    |
+| Command surface   | 30 seconds         | ✅    |
+| Privacy stance    | 15 seconds         | ✅    |
+| What it generates | 20 seconds         | ✅    |
 
 **Total: ~95 seconds — PASS**
 
 ### Issues Found
 
-| # | Location | Issue | Severity |
-|---|----------|-------|----------|
-| 1 | README:85 | "skills to activate" is internal jargon | LOW |
-| 2 | README | No single-sentence summary at very top | LOW |
-| 3 | PROOF_GATE.md | References prompt-factory in troubleshooting | MEDIUM |
-| 4 | commands/factory.md | Still has extensive prompt-factory references | MEDIUM |
+| #   | Location            | Issue                                         | Severity |
+| --- | ------------------- | --------------------------------------------- | -------- |
+| 1   | README:85           | "skills to activate" is internal jargon       | LOW      |
+| 2   | README              | No single-sentence summary at very top        | LOW      |
+| 3   | PROOF_GATE.md       | References prompt-factory in troubleshooting  | MEDIUM   |
+| 4   | commands/factory.md | Still has extensive prompt-factory references | MEDIUM   |
 
 ### Detailed Analysis
 
 **README Ordering — GOOD**
+
 1. Title + one-liner ✓
 2. What it is ✓
 3. Key principle ✓
@@ -44,6 +45,7 @@
 10. How it works ✓
 
 **Tone — GOOD**
+
 - No hype or marketing language
 - Conservative claims
 - Explicit limitations
@@ -72,6 +74,7 @@ Line 85 mentions "skills to activate" which is internal terminology. Users don't
 ## Resolution Note
 
 After fixes:
+
 - README is fully user-facing with no internal jargon
 - Reviewer can understand the plugin in under 2 minutes
 - Troubleshooting doesn't expose internal architecture

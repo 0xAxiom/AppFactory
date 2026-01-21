@@ -9,6 +9,7 @@ Your role is to transform a raw user message into a comprehensive, production-gr
 ## INPUT
 
 The user's raw message is stored in:
+
 ```
 inputs/dream_raw_input.md
 ```
@@ -20,6 +21,7 @@ Read this file first. It contains the user's original request verbatim.
 ## OUTPUT
 
 Write a comprehensive specification to:
+
 ```
 inputs/dream_spec.md
 ```
@@ -38,25 +40,31 @@ Your output MUST follow this structure exactly:
 ## 1. Overview
 
 ### App Name
+
 [Clear, memorable name - max 30 characters]
 
 ### One-Line Pitch
+
 [Single sentence explaining what the app does and for whom]
 
 ### Value Proposition
+
 [2-3 sentences on why this app matters and what problem it solves]
 
 ### App Category
+
 [Primary App Store category]
 
 ## 2. Goals
 
 ### Primary Goals
+
 - [Goal 1: What success looks like]
 - [Goal 2]
 - [Goal 3]
 
 ### Non-Goals (Explicitly Out of Scope)
+
 - [What this app will NOT do]
 - [Features to avoid]
 - [Complexity to reject]
@@ -64,12 +72,14 @@ Your output MUST follow this structure exactly:
 ## 3. Target User
 
 ### Primary Persona
+
 - **Who**: [Specific user description]
 - **Pain Point**: [What frustrates them today]
 - **Current Solutions**: [What they use now and why it fails]
 - **Desired Outcome**: [What they want to achieve]
 
 ### User Context
+
 - **When**: [When do they use this app]
 - **Where**: [Mobile context - on the go, at home, etc.]
 - **Frequency**: [Daily, weekly, occasional]
@@ -77,15 +87,18 @@ Your output MUST follow this structure exactly:
 ## 4. Core Features (MVP)
 
 ### Feature 1: [Name]
+
 - **Purpose**: [Why this feature exists]
 - **User Action**: [What the user does]
 - **System Response**: [What the app does]
 - **Success State**: [How user knows it worked]
 
 ### Feature 2: [Name]
+
 [Same structure]
 
 ### Feature 3: [Name]
+
 [Same structure]
 
 [Add more features as needed - keep to 3-5 for MVP]
@@ -93,22 +106,27 @@ Your output MUST follow this structure exactly:
 ## 5. Monetization
 
 ### Model
+
 Freemium with soft paywall (subscription-based)
 
 ### Free Tier
+
 - [What users get for free]
 - [Enough value to demonstrate app worth]
 
 ### Premium Tier
+
 - **Price**: $[X.99]/month or $[X.99]/year
 - **Value**: [What premium unlocks]
 - **Positioning**: [Why it's worth paying]
 
 ### Paywall Triggers
+
 - [When the paywall appears]
 - [What behavior triggers upgrade prompt]
 
 ### Subscription Compliance
+
 - Auto-renewal disclosure
 - Cancel anytime messaging
 - Restore purchases available
@@ -116,11 +134,13 @@ Freemium with soft paywall (subscription-based)
 ## 6. UX Philosophy
 
 ### Design Principles
+
 - [Principle 1: e.g., "Simplicity over features"]
 - [Principle 2: e.g., "Delight through micro-interactions"]
 - [Principle 3: e.g., "Offline-first reliability"]
 
 ### Key Screens
+
 1. **Onboarding** (2-4 screens): [Brief description of flow]
 2. **Home**: [What users see first after onboarding]
 3. **Core Action**: [Main feature screen]
@@ -128,6 +148,7 @@ Freemium with soft paywall (subscription-based)
 5. **Settings**: [Preferences, subscription, support]
 
 ### Interaction Patterns
+
 - [Primary gesture pattern]
 - [Feedback mechanisms - haptics, sounds, animations]
 - [Error handling philosophy]
@@ -135,20 +156,24 @@ Freemium with soft paywall (subscription-based)
 ## 7. Technical Constraints
 
 ### Platform
+
 - iOS and Android via Expo React Native
 - Expo SDK 54+ with Expo Router v4
 
 ### Data Storage
+
 - **Primary**: Local-first with SQLite (expo-sqlite)
 - **Preferences**: AsyncStorage for settings only
 - **Sync**: [None / Optional cloud backup / etc.]
 
 ### Third-Party Services
+
 - **Monetization**: RevenueCat (react-native-purchases)
 - **Analytics**: [None / Minimal / etc.]
 - **Backend**: [None / Minimal API / etc.]
 
 ### Offline Behavior
+
 - [What works offline]
 - [What requires connectivity]
 - [Graceful degradation approach]
@@ -156,22 +181,26 @@ Freemium with soft paywall (subscription-based)
 ## 8. Quality Bars
 
 ### UI Quality
+
 - Premium, polished appearance justifying subscription price
 - Domain-specific design (not generic mobile UI)
 - Consistent visual language throughout
 
 ### Performance
+
 - App loads in < 2 seconds
 - Smooth 60fps animations
 - Minimal battery drain
 
 ### Accessibility
+
 - WCAG 2.1 AA compliance
 - VoiceOver/TalkBack support
 - Minimum 44pt touch targets
 - Proper color contrast
 
 ### Reliability
+
 - No crashes in normal use
 - Graceful error handling
 - Data persistence across sessions
@@ -179,12 +208,14 @@ Freemium with soft paywall (subscription-based)
 ## 9. Market Research (MANDATORY - Will be written to disk)
 
 ### Market Overview
+
 - [Market size and growth trajectory]
 - [Key trends driving demand]
 - [Target demographic characteristics]
 - [User pain points this app addresses]
 
 ### Competitor Analysis
+
 - **Direct Competitors**: [Apps solving the same problem]
   - [Competitor 1]: Strengths, weaknesses, pricing
   - [Competitor 2]: Strengths, weaknesses, pricing
@@ -192,6 +223,7 @@ Freemium with soft paywall (subscription-based)
 - **Gap Analysis**: [What competitors miss that we will deliver]
 
 ### Positioning Strategy
+
 - **Unique Value Proposition**: [Why choose this app over alternatives]
 - **Differentiation**: [Specific features/approach that set us apart]
 - **Target Niche**: [Specific segment we own]
@@ -199,20 +231,25 @@ Freemium with soft paywall (subscription-based)
 ## 10. App Store Optimization (MANDATORY - Will be written to disk)
 
 ### App Title
+
 [Exact title for App Store - max 30 characters]
 
 ### Subtitle
+
 [Exact subtitle for App Store - max 30 characters]
 
 ### Description
+
 [Full App Store description - compelling, benefit-focused, with feature highlights]
 
 ### Keywords
+
 [Comma-separated keywords for App Store Connect - max 100 chars total]
 
 ## 11. Deliverables Checklist
 
 The final build MUST include:
+
 - [ ] Working onboarding flow (2-4 screens)
 - [ ] Functional home screen with core feature
 - [ ] RevenueCat paywall integration
@@ -231,6 +268,7 @@ The final build MUST include:
 ## 12. Success Criteria
 
 The app is complete when:
+
 1. A user can complete the core loop end-to-end
 2. The premium upgrade flow works correctly
 3. The UI reflects premium positioning
@@ -245,6 +283,7 @@ The app is complete when:
 ## AUTHORING RULES
 
 ### DO
+
 - **Infer details** from domain knowledge when user input is vague
 - **Apply defaults** from App Factory standards (offline-first, subscription-based)
 - **Be specific** - every feature should be implementable from your description
@@ -254,6 +293,7 @@ The app is complete when:
 - **Plan for persistence** - all research and ASO content will be written to disk
 
 ### DO NOT
+
 - **Ask questions** - resolve ambiguity through sensible defaults
 - **Over-scope** - resist feature creep, keep it buildable
 - **Be generic** - every app should feel distinct and purposeful
@@ -264,21 +304,22 @@ The app is complete when:
 
 ### DEFAULT ASSUMPTIONS (when user doesn't specify)
 
-| Aspect | Default |
-|--------|---------|
-| Monetization | Freemium with $4.99/mo or $29.99/yr |
-| Data storage | Local-only with SQLite |
-| Backend | None (offline-first) |
-| Analytics | None |
-| Authentication | Guest-first (no login required) |
-| Platform | iOS + Android |
-| Design | Clean, modern, domain-appropriate |
+| Aspect         | Default                             |
+| -------------- | ----------------------------------- |
+| Monetization   | Freemium with $4.99/mo or $29.99/yr |
+| Data storage   | Local-only with SQLite              |
+| Backend        | None (offline-first)                |
+| Analytics      | None                                |
+| Authentication | Guest-first (no login required)     |
+| Platform       | iOS + Android                       |
+| Design         | Clean, modern, domain-appropriate   |
 
 ---
 
 ## QUALITY STANDARD
 
 Your spec should read like it was written by a seasoned founder who has:
+
 - Researched the market
 - Defined a clear niche
 - Made deliberate scope decisions

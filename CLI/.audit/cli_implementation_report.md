@@ -71,14 +71,14 @@ The CLI features a full interactive menu system accessible via `npm start`:
 
 ### How CLI Maps to app-factory Pipeline
 
-| CLI Command | Pipeline Stages | Factory Equivalent |
-|-------------|-----------------|-------------------|
-| `appfactory run` | Stage 01 | `run app factory` |
-| `appfactory build <idea>` | Stages 02-10 | `build <IDEA_ID_OR_NAME>` |
-| `appfactory dream "<idea>"` | Stage 01 (dream) + 02-10 | `dream <IDEA_TEXT>` |
-| `appfactory doctor` | N/A (validation only) | N/A |
-| `appfactory list` | N/A (read-only) | `show status` |
-| `appfactory resume <runId>` | Resume interrupted | N/A |
+| CLI Command                 | Pipeline Stages          | Factory Equivalent        |
+| --------------------------- | ------------------------ | ------------------------- |
+| `appfactory run`            | Stage 01                 | `run app factory`         |
+| `appfactory build <idea>`   | Stages 02-10             | `build <IDEA_ID_OR_NAME>` |
+| `appfactory dream "<idea>"` | Stage 01 (dream) + 02-10 | `dream <IDEA_TEXT>`       |
+| `appfactory doctor`         | N/A (validation only)    | N/A                       |
+| `appfactory list`           | N/A (read-only)          | `show status`             |
+| `appfactory resume <runId>` | Resume interrupted       | N/A                       |
 
 ### Stage Execution Model
 
@@ -92,13 +92,13 @@ The CLI executes stages in the same order as `app-factory/`:
 
 The CLI reuses the following from `app-factory/`:
 
-| Asset Type | Location | Usage |
-|-----------|----------|-------|
-| Stage Templates | `app-factory/templates/agents/*.md` | Read as prompts |
-| JSON Schemas | `app-factory/schemas/*.json` | Validate stage outputs |
-| Enforcement Scripts | `app-factory/scripts/*.sh` | Execute via child_process |
-| Standards Document | `app-factory/standards/mobile_app_best_practices_2026.md` | Include in prompts |
-| Vendor Docs | `app-factory/vendor/` | Reference during stages |
+| Asset Type          | Location                                                  | Usage                     |
+| ------------------- | --------------------------------------------------------- | ------------------------- |
+| Stage Templates     | `app-factory/templates/agents/*.md`                       | Read as prompts           |
+| JSON Schemas        | `app-factory/schemas/*.json`                              | Validate stage outputs    |
+| Enforcement Scripts | `app-factory/scripts/*.sh`                                | Execute via child_process |
+| Standards Document  | `app-factory/standards/mobile_app_best_practices_2026.md` | Include in prompts        |
+| Vendor Docs         | `app-factory/vendor/`                                     | Reference during stages   |
 
 ---
 
@@ -149,74 +149,74 @@ All enforcement gates from Stage 10 are preserved:
 
 ### `appfactory run`
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Execute Stage 01 | Implemented | |
-| Generate 10 ideas | Implemented | Schema enforces count |
-| Create run manifest | Implemented | |
-| Create idea directories | Implemented | |
-| Update leaderboard | Implemented | |
-| Custom intake input | Implemented | -i, -f flags |
-| JSON output | Implemented | --json flag |
+| Feature                 | Status      | Notes                 |
+| ----------------------- | ----------- | --------------------- |
+| Execute Stage 01        | Implemented |                       |
+| Generate 10 ideas       | Implemented | Schema enforces count |
+| Create run manifest     | Implemented |                       |
+| Create idea directories | Implemented |                       |
+| Update leaderboard      | Implemented |                       |
+| Custom intake input     | Implemented | -i, -f flags          |
+| JSON output             | Implemented | --json flag           |
 
 ### `appfactory build <idea>`
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Resolve idea by ID/name/slug | Implemented | |
-| Execute stages 02-10 | Implemented | |
-| Skip completed stages | Implemented | |
-| Run enforcement scripts | Implemented | |
-| Create build directory | Implemented | |
-| Interactive idea selection | Implemented | |
-| JSON output | Implemented | --json flag |
+| Feature                      | Status      | Notes       |
+| ---------------------------- | ----------- | ----------- |
+| Resolve idea by ID/name/slug | Implemented |             |
+| Execute stages 02-10         | Implemented |             |
+| Skip completed stages        | Implemented |             |
+| Run enforcement scripts      | Implemented |             |
+| Create build directory       | Implemented |             |
+| Interactive idea selection   | Implemented |             |
+| JSON output                  | Implemented | --json flag |
 
 ### `appfactory dream "<idea>"`
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Parse idea prompt | Implemented | |
-| Execute Stage 01 (dream) | Implemented | |
-| Execute stages 02-10 | Implemented | |
-| Progress indicator | Implemented | Spinner with stage updates |
-| JSON output | Implemented | --json flag |
+| Feature                  | Status      | Notes                      |
+| ------------------------ | ----------- | -------------------------- |
+| Parse idea prompt        | Implemented |                            |
+| Execute Stage 01 (dream) | Implemented |                            |
+| Execute stages 02-10     | Implemented |                            |
+| Progress indicator       | Implemented | Spinner with stage updates |
+| JSON output              | Implemented | --json flag                |
 
 ### `appfactory doctor`
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Check .env file | Implemented | |
-| Validate API key format | Implemented | |
-| Check Node.js version | Implemented | |
-| Validate repo structure | Implemented | |
-| Check templates exist | Implemented | |
-| Check schemas exist | Implemented | |
-| Check scripts exist | Implemented | |
-| Check npm available | Implemented | |
-| Check Expo CLI | Implemented | |
-| JSON output | Implemented | --json flag |
+| Feature                 | Status      | Notes       |
+| ----------------------- | ----------- | ----------- |
+| Check .env file         | Implemented |             |
+| Validate API key format | Implemented |             |
+| Check Node.js version   | Implemented |             |
+| Validate repo structure | Implemented |             |
+| Check templates exist   | Implemented |             |
+| Check schemas exist     | Implemented |             |
+| Check scripts exist     | Implemented |             |
+| Check npm available     | Implemented |             |
+| Check Expo CLI          | Implemented |             |
+| JSON output             | Implemented | --json flag |
 
 ### `appfactory list`
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| List recent runs | Implemented | |
-| List builds | Implemented | |
-| List ideas | Implemented | Sorted by score |
-| Filter by type | Implemented | --runs, --builds, --ideas |
-| Limit results | Implemented | -n flag |
-| JSON output | Implemented | --json flag |
+| Feature          | Status      | Notes                     |
+| ---------------- | ----------- | ------------------------- |
+| List recent runs | Implemented |                           |
+| List builds      | Implemented |                           |
+| List ideas       | Implemented | Sorted by score           |
+| Filter by type   | Implemented | --runs, --builds, --ideas |
+| Limit results    | Implemented | -n flag                   |
+| JSON output      | Implemented | --json flag               |
 
 ### `appfactory resume <runId>`
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| List resumable runs | Implemented | |
-| Detect incomplete stages | Implemented | |
-| Resume build stages | Implemented | |
-| Resume Stage 01 | Partial | Needs re-run |
-| Interactive selection | Implemented | |
-| JSON output | Implemented | --json flag |
+| Feature                  | Status      | Notes        |
+| ------------------------ | ----------- | ------------ |
+| List resumable runs      | Implemented |              |
+| Detect incomplete stages | Implemented |              |
+| Resume build stages      | Implemented |              |
+| Resume Stage 01          | Partial     | Needs re-run |
+| Interactive selection    | Implemented |              |
+| JSON output              | Implemented | --json flag  |
 
 ---
 
@@ -243,20 +243,20 @@ Located at `tests/smoke.ts`, the smoke tests verify:
 The CLI supports a `--stub` flag for testing without API calls:
 
 ```typescript
-setStubMode(true);  // Enables mock responses
-addStubResponse(prompt, response);  // Add custom stub
+setStubMode(true); // Enables mock responses
+addStubResponse(prompt, response); // Add custom stub
 ```
 
 ---
 
 ## Exit Codes
 
-| Code | Meaning | When Used |
-|------|---------|-----------|
-| 0 | Success | Command completed successfully |
-| 1 | User Error | Invalid input, missing arguments |
-| 2 | Pipeline Error | Stage execution failed |
-| 3 | Configuration Error | Missing API key, invalid repo |
+| Code | Meaning             | When Used                        |
+| ---- | ------------------- | -------------------------------- |
+| 0    | Success             | Command completed successfully   |
+| 1    | User Error          | Invalid input, missing arguments |
+| 2    | Pipeline Error      | Stage execution failed           |
+| 3    | Configuration Error | Missing API key, invalid repo    |
 
 ---
 
@@ -273,15 +273,15 @@ The following operations are not automated by the CLI:
 
 ## Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
+| Package           | Version | Purpose                |
+| ----------------- | ------- | ---------------------- |
 | @anthropic-ai/sdk | ^0.32.0 | Official Anthropic SDK |
-| ajv | ^8.17.1 | JSON Schema validation |
-| chalk | ^5.3.0 | Terminal colors |
-| commander | ^12.1.0 | CLI argument parsing |
-| dotenv | ^16.4.5 | Environment variables |
-| inquirer | ^12.2.0 | Interactive prompts |
-| ora | ^8.1.0 | Spinners |
+| ajv               | ^8.17.1 | JSON Schema validation |
+| chalk             | ^5.3.0  | Terminal colors        |
+| commander         | ^12.1.0 | CLI argument parsing   |
+| dotenv            | ^16.4.5 | Environment variables  |
+| inquirer          | ^12.2.0 | Interactive prompts    |
+| ora               | ^8.1.0  | Spinners               |
 
 ---
 
@@ -289,13 +289,13 @@ The following operations are not automated by the CLI:
 
 ### Environment Variables
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| ANTHROPIC_API_KEY | Yes | - | API key |
-| ANTHROPIC_MODEL | No | claude-sonnet-4-20250514 | Model |
-| APPFACTORY_MAX_TOKENS | No | 16000 | Max tokens |
-| APPFACTORY_TEMPERATURE | No | 0.3 | Temperature |
-| APPFACTORY_OUTPUT_ROOT | No | app-factory/ | Output root |
+| Variable               | Required | Default                  | Description |
+| ---------------------- | -------- | ------------------------ | ----------- |
+| ANTHROPIC_API_KEY      | Yes      | -                        | API key     |
+| ANTHROPIC_MODEL        | No       | claude-sonnet-4-20250514 | Model       |
+| APPFACTORY_MAX_TOKENS  | No       | 16000                    | Max tokens  |
+| APPFACTORY_TEMPERATURE | No       | 0.3                      | Temperature |
+| APPFACTORY_OUTPUT_ROOT | No       | app-factory/             | Output root |
 
 ---
 
@@ -331,4 +331,4 @@ The CLI is a faithful executor of the App Factory pipeline, using the Anthropic 
 
 ---
 
-*Report completed: 2026-01-10*
+_Report completed: 2026-01-10_

@@ -8,11 +8,41 @@
 import ora from 'ora';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import { printBanner, printHeader, printSuccess, printError, printInfo, printWarning, printDivider, printCompletionBanner, printFailureBanner } from './ui/banner.js';
-import { showMainMenu, clearScreen, pressEnterToContinue, confirmAction, getTextInput, selectFromList, showHelp, showSection, showTip } from './ui/menu.js';
+import {
+  printBanner,
+  printHeader,
+  printSuccess,
+  printError,
+  printInfo,
+  printWarning,
+  printDivider,
+  printCompletionBanner,
+  printFailureBanner,
+} from './ui/banner.js';
+import {
+  showMainMenu,
+  clearScreen,
+  pressEnterToContinue,
+  confirmAction,
+  getTextInput,
+  selectFromList,
+  showHelp,
+  showSection,
+  showTip,
+} from './ui/menu.js';
 import { formatTable, formatNextSteps } from './ui/format.js';
-import { executeRun, executeBuild, executeDream, loadRunManifest, loadIdeaIndex } from './core/pipeline.js';
-import { listRecentRuns, listBuilds, validateFactoryStructure } from './core/paths.js';
+import {
+  executeRun,
+  executeBuild,
+  executeDream,
+  loadRunManifest,
+  loadIdeaIndex,
+} from './core/pipeline.js';
+import {
+  listRecentRuns,
+  listBuilds,
+  validateFactoryStructure,
+} from './core/paths.js';
 import { getModTime, fileExists } from './core/io.js';
 import path from 'path';
 
@@ -24,12 +54,18 @@ export async function runInteractive(): Promise<void> {
   clearScreen();
   printBanner();
 
-  console.log(chalk.gray('  Welcome to App Factory! Generate store-ready mobile apps with AI.\n'));
+  console.log(
+    chalk.gray(
+      '  Welcome to App Factory! Generate store-ready mobile apps with AI.\n'
+    )
+  );
 
   // Quick environment check
   const envCheck = validateFactoryStructure();
   if (!envCheck.valid) {
-    printWarning('Some configuration issues detected. Run "System Check" for details.');
+    printWarning(
+      'Some configuration issues detected. Run "System Check" for details.'
+    );
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -99,7 +135,9 @@ async function handleRun(): Promise<void> {
   printBanner();
   printHeader('Run App Factory - Generate Ideas');
 
-  console.log(chalk.gray('  This will execute Stage 01 to generate 10 ranked app ideas'));
+  console.log(
+    chalk.gray('  This will execute Stage 01 to generate 10 ranked app ideas')
+  );
   console.log(chalk.gray('  based on current market research and trends.\n'));
 
   // Check API key
@@ -119,9 +157,9 @@ async function handleRun(): Promise<void> {
       message: 'How would you like to generate ideas?',
       choices: [
         { name: 'Use default market research (recommended)', value: 'default' },
-        { name: 'Provide custom requirements', value: 'custom' }
-      ]
-    }
+        { name: 'Provide custom requirements', value: 'custom' },
+      ],
+    },
   ]);
 
   let intakeContent: string | undefined;
@@ -135,7 +173,11 @@ async function handleRun(): Promise<void> {
 
   // Confirm
   console.log();
-  if (!await confirmAction('Start generating ideas? (This will use API credits)')) {
+  if (
+    !(await confirmAction(
+      'Start generating ideas? (This will use API credits)'
+    ))
+  ) {
     clearScreen();
     printBanner();
     return;
@@ -145,7 +187,7 @@ async function handleRun(): Promise<void> {
   console.log();
   const spinner = ora({
     text: 'Generating ideas... This may take a few minutes',
-    color: 'cyan'
+    color: 'cyan',
   }).start();
 
   const startTime = Date.now();
@@ -166,11 +208,11 @@ async function handleRun(): Promise<void> {
       showSection('Generated Ideas');
 
       const headers = ['#', 'Name', 'Score', 'ID'];
-      const rows = result.ideas.map(idea => [
+      const rows = result.ideas.map((idea) => [
         String(idea.rank),
         idea.name,
         String(idea.validation_score),
-        idea.id
+        idea.id,
       ]);
 
       console.log(formatTable(headers, rows));
@@ -179,10 +221,12 @@ async function handleRun(): Promise<void> {
       printSuccess(`${result.ideas.length} ideas generated!`);
       console.log();
 
-      console.log(formatNextSteps([
-        'Select "Build an Idea" from the main menu to build one',
-        `Run path: ${result.runPath}`
-      ]));
+      console.log(
+        formatNextSteps([
+          'Select "Build an Idea" from the main menu to build one',
+          `Run path: ${result.runPath}`,
+        ])
+      );
     }
   } catch (err) {
     spinner.stop();
@@ -202,7 +246,11 @@ async function handleBuild(): Promise<void> {
   printBanner();
   printHeader('Build an Idea');
 
-  console.log(chalk.gray('  Select an idea from a previous run to build into a complete app.\n'));
+  console.log(
+    chalk.gray(
+      '  Select an idea from a previous run to build into a complete app.\n'
+    )
+  );
 
   // Get recent runs with ideas
   const runs = listRecentRuns(10);
@@ -228,7 +276,7 @@ async function handleBuild(): Promise<void> {
             rank: idea.rank,
             score: idea.validation_score,
             runId: manifest?.run_id || path.basename(runPath),
-            directory: idea.directory
+            directory: idea.directory,
           });
         }
       }
@@ -250,9 +298,9 @@ async function handleBuild(): Promise<void> {
   // Let user select an idea
   showSection('Available Ideas (sorted by score)');
 
-  const choices = allIdeas.slice(0, 20).map(idea => ({
+  const choices = allIdeas.slice(0, 20).map((idea) => ({
     name: `${idea.name.padEnd(30)} Score: ${String(idea.score).padEnd(5)} ID: ${idea.id}`,
-    value: idea.id
+    value: idea.id,
   }));
 
   choices.push({ name: chalk.gray('← Back to main menu'), value: 'back' });
@@ -265,13 +313,17 @@ async function handleBuild(): Promise<void> {
     return;
   }
 
-  const selectedIdea = allIdeas.find(i => i.id === selectedId);
+  const selectedIdea = allIdeas.find((i) => i.id === selectedId);
 
   console.log();
   printInfo(`Selected: ${selectedIdea?.name}`);
   console.log();
 
-  if (!await confirmAction('Start building this app? (This will use API credits)')) {
+  if (
+    !(await confirmAction(
+      'Start building this app? (This will use API credits)'
+    ))
+  ) {
     clearScreen();
     printBanner();
     return;
@@ -281,11 +333,23 @@ async function handleBuild(): Promise<void> {
   console.log();
   const spinner = ora({
     text: 'Building app... This may take several minutes',
-    color: 'cyan'
+    color: 'cyan',
   }).start();
 
   // Update spinner with stage progress
-  const stages = ['02', '02.5', '02.7', '03', '04', '05', '06', '07', '08', '09', '10'];
+  const stages = [
+    '02',
+    '02.5',
+    '02.7',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+  ];
   let stageIndex = 0;
 
   const stageInterval = setInterval(() => {
@@ -312,12 +376,14 @@ async function handleBuild(): Promise<void> {
       printSuccess(`App "${selectedIdea?.name}" built successfully!`);
       console.log();
 
-      console.log(formatNextSteps([
-        `Navigate to: cd "${result.buildPath}/app"`,
-        'Install dependencies: npm install',
-        'Start development: npx expo start',
-        'Build for stores: eas build --platform all'
-      ]));
+      console.log(
+        formatNextSteps([
+          `Navigate to: cd "${result.buildPath}/app"`,
+          'Install dependencies: npm install',
+          'Start development: npx expo start',
+          'Build for stores: eas build --platform all',
+        ])
+      );
     }
   } catch (err) {
     clearInterval(stageInterval);
@@ -338,10 +404,18 @@ async function handleDream(): Promise<void> {
   printBanner();
   printHeader('Dream Mode - Your Idea → Complete App');
 
-  console.log(chalk.gray('  Describe your app idea and watch it transform into a complete,'));
+  console.log(
+    chalk.gray(
+      '  Describe your app idea and watch it transform into a complete,'
+    )
+  );
   console.log(chalk.gray('  store-ready Expo React Native application.\n'));
 
-  console.log(chalk.yellow('  Note: This runs the full pipeline and may take 10-20 minutes.\n'));
+  console.log(
+    chalk.yellow(
+      '  Note: This runs the full pipeline and may take 10-20 minutes.\n'
+    )
+  );
 
   // Check API key
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -370,7 +444,11 @@ async function handleDream(): Promise<void> {
   console.log(chalk.cyan('  Your idea:'));
   console.log(chalk.white(`  "${ideaPrompt}"\n`));
 
-  if (!await confirmAction('Start building your dream app? (This will use significant API credits)')) {
+  if (
+    !(await confirmAction(
+      'Start building your dream app? (This will use significant API credits)'
+    ))
+  ) {
     clearScreen();
     printBanner();
     return;
@@ -380,10 +458,23 @@ async function handleDream(): Promise<void> {
   console.log();
   const spinner = ora({
     text: 'Dreaming... Stage 01 (Idea Validation)',
-    color: 'cyan'
+    color: 'cyan',
   }).start();
 
-  const stages = ['01', '02', '02.5', '02.7', '03', '04', '05', '06', '07', '08', '09', '10'];
+  const stages = [
+    '01',
+    '02',
+    '02.5',
+    '02.7',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+  ];
   let stageIndex = 0;
 
   const stageInterval = setInterval(() => {
@@ -410,12 +501,14 @@ async function handleDream(): Promise<void> {
       printSuccess('Your dream app has been created!');
       console.log();
 
-      console.log(formatNextSteps([
-        `Navigate to: cd "${result.buildPath}/app"`,
-        'Install dependencies: npm install',
-        'Start development: npx expo start',
-        'Build for stores: eas build --platform all'
-      ]));
+      console.log(
+        formatNextSteps([
+          `Navigate to: cd "${result.buildPath}/app"`,
+          'Install dependencies: npm install',
+          'Start development: npx expo start',
+          'Build for stores: eas build --platform all',
+        ])
+      );
     }
   } catch (err) {
     clearInterval(stageInterval);
@@ -440,7 +533,13 @@ async function handleList(): Promise<void> {
   showSection('Recent Runs');
 
   const runPaths = listRecentRuns(10);
-  const runs: Array<{ id: string; date: string; command: string; status: string; ideas: number }> = [];
+  const runs: Array<{
+    id: string;
+    date: string;
+    command: string;
+    status: string;
+    ideas: number;
+  }> = [];
 
   for (const runPath of runPaths) {
     const manifest = loadRunManifest(runPath);
@@ -448,10 +547,13 @@ async function handleList(): Promise<void> {
 
     runs.push({
       id: manifest?.run_id || path.basename(runPath),
-      date: manifest?.date?.split('T')[0] || modTime?.toISOString().split('T')[0] || 'unknown',
+      date:
+        manifest?.date?.split('T')[0] ||
+        modTime?.toISOString().split('T')[0] ||
+        'unknown',
       command: manifest?.command_invoked || 'unknown',
       status: manifest?.run_status || 'unknown',
-      ideas: Object.keys(manifest?.per_idea || {}).length
+      ideas: Object.keys(manifest?.per_idea || {}).length,
     });
   }
 
@@ -459,12 +561,12 @@ async function handleList(): Promise<void> {
     printInfo('No runs found yet.');
   } else {
     const headers = ['Run ID', 'Date', 'Type', 'Status', 'Ideas'];
-    const rows = runs.map(r => [
+    const rows = runs.map((r) => [
       r.id.substring(0, 25),
       r.date,
       r.command,
       r.status,
-      String(r.ideas)
+      String(r.ideas),
     ]);
     console.log(formatTable(headers, rows));
   }
@@ -478,11 +580,11 @@ async function handleList(): Promise<void> {
     printInfo('No builds found yet.');
   } else {
     const headers = ['App Name', 'Date'];
-    const rows = buildPaths.slice(0, 10).map(bp => {
+    const rows = buildPaths.slice(0, 10).map((bp) => {
       const modTime = getModTime(bp);
       return [
         path.basename(bp).substring(0, 40),
-        modTime?.toISOString().split('T')[0] || 'unknown'
+        modTime?.toISOString().split('T')[0] || 'unknown',
       ];
     });
     console.log(formatTable(headers, rows));
@@ -511,11 +613,15 @@ async function handleResume(): Promise<void> {
 
   for (const runPath of runs) {
     const manifest = loadRunManifest(runPath);
-    if (manifest && (manifest.run_status === 'in_progress' || manifest.run_status === 'failed')) {
+    if (
+      manifest &&
+      (manifest.run_status === 'in_progress' ||
+        manifest.run_status === 'failed')
+    ) {
       resumable.push({
         id: manifest.run_id,
         status: manifest.run_status,
-        runPath
+        runPath,
       });
     }
   }
@@ -531,9 +637,9 @@ async function handleResume(): Promise<void> {
 
   showSection('Resumable Runs');
 
-  const choices = resumable.map(r => ({
+  const choices = resumable.map((r) => ({
     name: `${r.id.padEnd(35)} Status: ${r.status}`,
-    value: r.id
+    value: r.id,
   }));
 
   choices.push({ name: chalk.gray('← Back to main menu'), value: 'back' });
@@ -547,7 +653,9 @@ async function handleResume(): Promise<void> {
   }
 
   printInfo(`Resuming run: ${selectedId}`);
-  printWarning('Resume functionality is limited. You may need to re-run the build command.');
+  printWarning(
+    'Resume functionality is limited. You may need to re-run the build command.'
+  );
 
   await pressEnterToContinue();
   clearScreen();
@@ -564,7 +672,12 @@ async function handleDoctor(): Promise<void> {
 
   console.log(chalk.gray('  Checking your environment...\n'));
 
-  const checks: Array<{ name: string; passed: boolean; message: string; fix?: string }> = [];
+  const checks: Array<{
+    name: string;
+    passed: boolean;
+    message: string;
+    fix?: string;
+  }> = [];
 
   // Check .env
   const hasEnv = fileExists(path.join(process.cwd(), '.env'));
@@ -572,7 +685,7 @@ async function handleDoctor(): Promise<void> {
     name: '.env file',
     passed: hasEnv,
     message: hasEnv ? 'Found' : 'Not found',
-    fix: 'cp .env.example .env'
+    fix: 'cp .env.example .env',
   });
 
   // Check API key
@@ -581,7 +694,7 @@ async function handleDoctor(): Promise<void> {
     name: 'API Key',
     passed: hasKey,
     message: hasKey ? 'Set' : 'Not set',
-    fix: 'Add ANTHROPIC_API_KEY to .env'
+    fix: 'Add ANTHROPIC_API_KEY to .env',
   });
 
   // Check API key format
@@ -591,7 +704,7 @@ async function handleDoctor(): Promise<void> {
       name: 'API Key Format',
       passed: !!validFormat,
       message: validFormat ? 'Valid' : 'Invalid format',
-      fix: 'Key should start with sk-ant-'
+      fix: 'Key should start with sk-ant-',
     });
   }
 
@@ -601,7 +714,7 @@ async function handleDoctor(): Promise<void> {
     name: 'Repository',
     passed: structure.valid,
     message: structure.valid ? 'Valid' : structure.errors[0],
-    fix: 'Ensure you are in the correct repository'
+    fix: 'Ensure you are in the correct repository',
   });
 
   // Display results
@@ -609,9 +722,13 @@ async function handleDoctor(): Promise<void> {
 
   for (const check of checks) {
     if (check.passed) {
-      console.log(`  ${chalk.green('✓')} ${check.name.padEnd(20)} ${chalk.gray(check.message)}`);
+      console.log(
+        `  ${chalk.green('✓')} ${check.name.padEnd(20)} ${chalk.gray(check.message)}`
+      );
     } else {
-      console.log(`  ${chalk.red('✗')} ${check.name.padEnd(20)} ${chalk.red(check.message)}`);
+      console.log(
+        `  ${chalk.red('✗')} ${check.name.padEnd(20)} ${chalk.red(check.message)}`
+      );
       if (check.fix) {
         console.log(`    ${chalk.yellow('→')} ${chalk.gray(check.fix)}`);
       }
@@ -621,13 +738,15 @@ async function handleDoctor(): Promise<void> {
   console.log();
   printDivider();
 
-  const passed = checks.filter(c => c.passed).length;
+  const passed = checks.filter((c) => c.passed).length;
   const total = checks.length;
 
   if (passed === total) {
     printSuccess(`All ${total} checks passed! You're ready to go.`);
   } else {
-    printWarning(`${passed}/${total} checks passed. Please fix the issues above.`);
+    printWarning(
+      `${passed}/${total} checks passed. Please fix the issues above.`
+    );
   }
 
   console.log();

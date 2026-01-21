@@ -11,13 +11,13 @@
 
 **AppFactory** is a monorepo containing five independent code generation pipelines:
 
-| Pipeline | Directory | Purpose |
-|----------|-----------|---------|
-| Mobile Apps | `app-factory/` | Expo + React Native apps |
-| dApps | `dapp-factory/` | Next.js + Web3 web apps |
-| Agents | `agent-factory/` | Node.js AI agent scaffolds |
-| Plugins | `plugin-factory/` | Claude Code plugins |
-| Mini Apps | `miniapp-pipeline/` | Base Mini Apps (MiniKit) |
+| Pipeline    | Directory           | Purpose                    |
+| ----------- | ------------------- | -------------------------- |
+| Mobile Apps | `app-factory/`      | Expo + React Native apps   |
+| dApps       | `dapp-factory/`     | Next.js + Web3 web apps    |
+| Agents      | `agent-factory/`    | Node.js AI agent scaffolds |
+| Plugins     | `plugin-factory/`   | Claude Code plugins        |
+| Mini Apps   | `miniapp-pipeline/` | Base Mini Apps (MiniKit)   |
 
 Each pipeline operates independently with its own `CLAUDE.md` constitution. The repository root is **not executable**—it only redirects users to pipeline directories.
 
@@ -36,12 +36,14 @@ The `plugins/` directory contains Claude Code plugins that provide interfaces to
 5. **Audit logging** — records all operations
 
 **Technical Architecture:**
+
 - Factory is a **thin wrapper** around `prompt-factory`
 - prompt-factory contains the governance engine (skills, contracts, audit)
 - Factory handles: command parsing, plan display, approval blocking
 - prompt-factory handles: skill execution, contract enforcement, security
 
 **Command Surface (v1.0):**
+
 ```
 /factory help                     # Display help
 /factory plan <idea>              # Plan without executing
@@ -94,12 +96,14 @@ Pipeline directories (../../app-factory, etc.)
 ## Marketplace Submission Context
 
 **What reviewers need to understand:**
+
 1. Factory is part of a larger ecosystem (AppFactory)
 2. It deliberately constrains itself to plan-and-approve patterns
 3. It does not execute silently or autonomously
 4. It requires a sibling plugin (prompt-factory) to function
 
 **Potential reviewer concerns:**
+
 - Dependency on prompt-factory (not separately available)
 - Relative paths assume monorepo structure
 - "Pipelines" concept may need explanation

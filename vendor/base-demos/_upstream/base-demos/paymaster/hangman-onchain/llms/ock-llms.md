@@ -1256,7 +1256,6 @@ This guide covers common issues you may encounter while using OnchainKit. If you
 ### Environment Setup
 
 - **Missing API Key**
-
   - Error: "Project ID is required for this component"
   - Solution: Add your Client API Key to `.env`:
 
@@ -1271,9 +1270,7 @@ CopyNEXT_PUBLIC_CDP_API_KEY=YOUR_PUBLIC_API_KEY
     - Vite: `VITE_PUBLIC_ONCHAINKIT_API_KEY`
     - Astro: `PUBLIC_ONCHAINKIT_API_KEY`
 - **Contracts Not Available** - Error: "Contracts are not available" or "Contracts not available for LifecycleStatus"
-
   - Solutions:
-
     - Verify `NEXT_PUBLIC_ONCHAINKIT_API_KEY` is set correctly
     - For Checkout component with `chargeHandler`, also set:
 
@@ -1287,7 +1284,6 @@ CopyNEXT_PUBLIC_CDP_API_KEY=YOUR_PUBLIC_API_KEY
 ### Dependencies
 
 - **Version Compatibility** - Issue: Unexpected behavior or type errors
-
   - Solution: Ensure compatible versions:
 
     ```vocs_Code
@@ -1304,7 +1300,6 @@ CopyNEXT_PUBLIC_CDP_API_KEY=YOUR_PUBLIC_API_KEY
 ### Provider Configuration
 
 - **Missing OnchainKitProvider**
-
   - Error: "OnchainKit context not found"
   - Solution: Wrap your app with OnchainKitProvider and [configure](https://docs.base.org/builderkits/onchainkit/getting-started) properly:
 
@@ -1353,7 +1348,6 @@ export default function App({ children }) {
 ### Theme Issues
 
 - **Dark Mode Not Working**
-
   - Error: "Dark mode styles not applying"
   - Solution: Configure Tailwind and OnchainKit properly:
 

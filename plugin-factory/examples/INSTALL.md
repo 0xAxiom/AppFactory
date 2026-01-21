@@ -1,6 +1,7 @@
 # Installation Guide
 
 Decision Memory has two components:
+
 1. **Claude Code Plugin** - Captures decisions during coding sessions
 2. **MCP Server** - Stores and queries decisions
 
@@ -119,6 +120,7 @@ Quit and reopen Claude Desktop for the configuration to take effect.
 ### Step 6: Verify MCP Server
 
 In Claude Desktop, ask:
+
 ```
 What architectural decisions have been recorded?
 ```
@@ -128,6 +130,7 @@ You should see a response using the `query_decisions` tool.
 ## Database Location
 
 Decisions are stored in:
+
 ```
 ~/.decision-memory/decisions.db
 ```
@@ -167,6 +170,7 @@ node dist/server/index.js
 ```
 
 Common issues:
+
 - Missing dependencies: Run `npm install`
 - TypeScript errors: Check Node.js version (18+)
 - Database permissions: Check `~/.decision-memory/` is writable

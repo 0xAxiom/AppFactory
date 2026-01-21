@@ -16,27 +16,27 @@ The App Factory pipeline consists of 20 stage templates that transform market re
 
 ### Stage Execution Sequence
 
-| Stage | Template File | Purpose | Command Mode |
-|-------|--------------|---------|--------------|
-| 01 | `01_dream.md` | Market Research + 10 Ranked Ideas | `run` |
-| 01_dream | `01_dream.md` (variant) | Single Idea Validation | `dream` |
-| 02 | `02_product_spec.md` | Product Specification | `build` |
-| 02.5 | `02.5_product_reality.md` | Core Loop & Domain Model | `build` |
-| 02.7 | `02.7_dependency_resolution.md` | Dependency Planning | `build` |
-| 03 | `03_ux.md` | UX Design | `build` |
-| 04 | `04_monetization.md` | Monetization Strategy | `build` |
-| 05 | `05_architecture.md` | Technical Architecture | `build` |
-| 06 | `06_builder_handoff.md` | Implementation Handoff | `build` |
-| 07 | `07_polish.md` | Quality Standards | `build` |
-| 08 | `08_brand.md` | Brand Identity | `build` |
-| 08.5 | `08.5_visual_identity_assets.md` | Visual Identity Assets | `build` |
-| 09 | `09_release_planning.md` | Release Planning + ASO | `build` |
-| 09.1 | `09.1_app_naming.md` | App Naming | `build` |
-| 09.2 | `09.2_policy_pages.md` | Privacy/Terms | `build` |
-| 09.5 | `09.5_runtime_sanity_harness.md` | Runtime Verification | `build` |
-| 09.7 | `09.7_build_contract_synthesis.md` | Build Contract | `build` |
-| 10.1 | `10.1_design_authenticity_check.md` | Design Authenticity | `build` |
-| 10 | `10_app_builder.md` | Expo React Native Build | `build/dream` |
+| Stage    | Template File                       | Purpose                           | Command Mode  |
+| -------- | ----------------------------------- | --------------------------------- | ------------- |
+| 01       | `01_dream.md`                       | Market Research + 10 Ranked Ideas | `run`         |
+| 01_dream | `01_dream.md` (variant)             | Single Idea Validation            | `dream`       |
+| 02       | `02_product_spec.md`                | Product Specification             | `build`       |
+| 02.5     | `02.5_product_reality.md`           | Core Loop & Domain Model          | `build`       |
+| 02.7     | `02.7_dependency_resolution.md`     | Dependency Planning               | `build`       |
+| 03       | `03_ux.md`                          | UX Design                         | `build`       |
+| 04       | `04_monetization.md`                | Monetization Strategy             | `build`       |
+| 05       | `05_architecture.md`                | Technical Architecture            | `build`       |
+| 06       | `06_builder_handoff.md`             | Implementation Handoff            | `build`       |
+| 07       | `07_polish.md`                      | Quality Standards                 | `build`       |
+| 08       | `08_brand.md`                       | Brand Identity                    | `build`       |
+| 08.5     | `08.5_visual_identity_assets.md`    | Visual Identity Assets            | `build`       |
+| 09       | `09_release_planning.md`            | Release Planning + ASO            | `build`       |
+| 09.1     | `09.1_app_naming.md`                | App Naming                        | `build`       |
+| 09.2     | `09.2_policy_pages.md`              | Privacy/Terms                     | `build`       |
+| 09.5     | `09.5_runtime_sanity_harness.md`    | Runtime Verification              | `build`       |
+| 09.7     | `09.7_build_contract_synthesis.md`  | Build Contract                    | `build`       |
+| 10.1     | `10.1_design_authenticity_check.md` | Design Authenticity               | `build`       |
+| 10       | `10_app_builder.md`                 | Expo React Native Build           | `build/dream` |
 
 ---
 
@@ -44,24 +44,24 @@ The App Factory pipeline consists of 20 stage templates that transform market re
 
 ### REUSE DIRECTLY (Reference via Path Resolution)
 
-| Asset Type | Path | CLI Usage |
-|-----------|------|-----------|
-| Stage Templates | `app-factory/templates/agents/*.md` | Read and render as prompts |
-| JSON Schemas | `app-factory/schemas/*.json` | Validate stage outputs |
-| Enforcement Scripts | `app-factory/scripts/*.sh` | Execute via child_process |
-| Standards Document | `app-factory/standards/mobile_app_best_practices_2026.md` | Include in prompts |
-| Vendor Docs | `app-factory/vendor/` | Reference for stages |
-| Runbooks | `app-factory/runbooks/*.md` | Execution reference |
+| Asset Type          | Path                                                      | CLI Usage                  |
+| ------------------- | --------------------------------------------------------- | -------------------------- |
+| Stage Templates     | `app-factory/templates/agents/*.md`                       | Read and render as prompts |
+| JSON Schemas        | `app-factory/schemas/*.json`                              | Validate stage outputs     |
+| Enforcement Scripts | `app-factory/scripts/*.sh`                                | Execute via child_process  |
+| Standards Document  | `app-factory/standards/mobile_app_best_practices_2026.md` | Include in prompts         |
+| Vendor Docs         | `app-factory/vendor/`                                     | Reference for stages       |
+| Runbooks            | `app-factory/runbooks/*.md`                               | Execution reference        |
 
 ### REIMPLEMENT (CLI-Specific)
 
-| Component | Reason |
-|-----------|--------|
+| Component             | Reason                           |
+| --------------------- | -------------------------------- |
 | Run manifest creation | CLI must write run_manifest.json |
-| Stage execution loop | CLI orchestrates API calls |
-| Idea index management | CLI manages idea_index.json |
-| Progress tracking | CLI tracks stage_status.json |
-| Leaderboard updates | CLI appends to leaderboard files |
+| Stage execution loop  | CLI orchestrates API calls       |
+| Idea index management | CLI manages idea_index.json      |
+| Progress tracking     | CLI tracks stage_status.json     |
+| Leaderboard updates   | CLI appends to leaderboard files |
 
 ---
 
@@ -142,17 +142,17 @@ builds/<idea_dir>/<build_id>/
 
 ### Mandatory Gates (CLI Must Execute)
 
-| Script | Purpose | Exit Code |
-|--------|---------|-----------|
-| `verify_build_contract_present.sh` | Contract exists | 0=pass |
-| `verify_build_contract_sections.sh` | 14 sections present | 0=pass |
-| `verify_build_prompt_is_comprehensive.sh` | Contract quality | 0=pass |
-| `validate_dependencies.sh` | npm packages valid | 0=pass |
-| `build_proof_gate.sh` | npm install + expo check | 0=pass |
-| `verify_uiux_implementation.sh` | UI quality | 0=pass |
-| `generate_assets.sh` | Asset generation | 0=pass |
-| `verify_assets_present.sh` | Assets exist | 0=pass |
-| `aggregate_market_research.sh` | Research bundling | 0=pass |
+| Script                                    | Purpose                  | Exit Code |
+| ----------------------------------------- | ------------------------ | --------- |
+| `verify_build_contract_present.sh`        | Contract exists          | 0=pass    |
+| `verify_build_contract_sections.sh`       | 14 sections present      | 0=pass    |
+| `verify_build_prompt_is_comprehensive.sh` | Contract quality         | 0=pass    |
+| `validate_dependencies.sh`                | npm packages valid       | 0=pass    |
+| `build_proof_gate.sh`                     | npm install + expo check | 0=pass    |
+| `verify_uiux_implementation.sh`           | UI quality               | 0=pass    |
+| `generate_assets.sh`                      | Asset generation         | 0=pass    |
+| `verify_assets_present.sh`                | Assets exist             | 0=pass    |
+| `aggregate_market_research.sh`            | Research bundling        | 0=pass    |
 
 ### Execution Order
 
@@ -321,11 +321,7 @@ interface StageResult {
   executionLogPath: string;
 }
 
-async function executeStage(
-  stageId: string,
-  inputs: StageInputs,
-  config: PipelineConfig
-): Promise<StageResult>;
+async function executeStage(stageId: string, inputs: StageInputs, config: PipelineConfig): Promise<StageResult>;
 ```
 
 ### Error Handling
@@ -351,4 +347,4 @@ The CLI is a faithful executor of the same pipeline, using the Anthropic API ins
 
 ---
 
-*Audit completed: 2026-01-10*
+_Audit completed: 2026-01-10_

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -6,13 +6,15 @@ export default function Home() {
       {/* Hero */}
       <div className="text-center mb-16">
         <h1 className="text-5xl font-bold mb-6">
-          Build Web3 Apps.<br />
-          Launch Tokens.<br />
+          Build Web3 Apps.
+          <br />
+          Launch Tokens.
+          <br />
           <span className="text-blue-500">In Minutes.</span>
         </h1>
         <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
-          Generate build instructions, build locally with your own AI, upload, and launch.
-          No AI costs on our side. You&apos;re in control.
+          Generate build instructions, build locally with your own AI, upload,
+          and launch. No AI costs on our side. You&apos;re in control.
         </p>
         <div className="flex gap-4 justify-center">
           <Link
@@ -76,7 +78,10 @@ export default function Home() {
       <div className="mt-16 text-center">
         <h3 className="text-xl font-bold mb-4">Ready to build?</h3>
         <p className="text-zinc-400 mb-6">
-          Start with <code className="bg-zinc-800 px-2 py-1 rounded">npm run generate &quot;your idea&quot;</code>
+          Start with{' '}
+          <code className="bg-zinc-800 px-2 py-1 rounded">
+            npm run generate &quot;your idea&quot;
+          </code>
         </p>
         <Link
           href="https://github.com/your-repo/web3-factory"
@@ -89,7 +94,15 @@ export default function Home() {
   );
 }
 
-function Step({ number, title, description }: { number: number; title: string; description: string }) {
+function Step({
+  number,
+  title,
+  description,
+}: {
+  number: number;
+  title: string;
+  description: string;
+}) {
   return (
     <div className="text-center">
       <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
@@ -101,7 +114,13 @@ function Step({ number, title, description }: { number: number; title: string; d
   );
 }
 
-function Feature({ title, description }: { title: string; description: string }) {
+function Feature({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   return (
     <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
       <h3 className="text-lg font-semibold mb-2">{title}</h3>

@@ -11,11 +11,13 @@ Run these tests after every build to verify basic functionality.
 ### Test 1: App Launches
 
 **Steps:**
+
 1. Run `npx expo start`
 2. Open in simulator or device
 3. Wait for app to load
 
 **Expected result:**
+
 - Splash screen appears
 - No red error screen
 - App transitions to first screen
@@ -27,12 +29,14 @@ Run these tests after every build to verify basic functionality.
 ### Test 2: Onboarding Flow
 
 **Steps:**
+
 1. Launch app (first time, or clear app data)
 2. Observe onboarding screens
 3. Tap through all onboarding steps
 4. Complete onboarding
 
 **Expected result:**
+
 - 2-4 onboarding screens appear
 - Each screen has clear content
 - "Continue" or "Next" buttons work
@@ -45,11 +49,13 @@ Run these tests after every build to verify basic functionality.
 ### Test 3: Main Functionality
 
 **Steps:**
+
 1. Navigate to home screen
 2. Attempt the core feature of the app
 3. Verify data persists (if applicable)
 
 **Expected result:**
+
 - Core feature responds to input
 - UI updates appropriately
 - No freezing or unresponsive states
@@ -61,10 +67,12 @@ Run these tests after every build to verify basic functionality.
 ### Test 4: Paywall Display
 
 **Steps:**
+
 1. Navigate to premium feature (or settings > upgrade)
 2. Observe paywall screen
 
 **Expected result:**
+
 - Paywall displays with pricing
 - Subscription options visible
 - Close/dismiss button works
@@ -76,11 +84,13 @@ Run these tests after every build to verify basic functionality.
 ### Test 5: Settings Screen
 
 **Steps:**
+
 1. Navigate to settings
 2. Check available options
 3. Test any toggles or preferences
 
 **Expected result:**
+
 - Settings screen loads
 - Options are tappable
 - Preferences persist after app restart
@@ -92,11 +102,13 @@ Run these tests after every build to verify basic functionality.
 ### Test 6: Offline Behavior
 
 **Steps:**
+
 1. Enable airplane mode on device
 2. Launch app
 3. Use main features
 
 **Expected result:**
+
 - App launches without network
 - Local data loads
 - Features work offline (if designed for offline)
@@ -107,14 +119,14 @@ Run these tests after every build to verify basic functionality.
 
 ## Test Summary Checklist
 
-| Test | Status |
-|------|--------|
-| App Launches | [ ] PASS / [ ] FAIL |
-| Onboarding Flow | [ ] PASS / [ ] FAIL |
+| Test               | Status              |
+| ------------------ | ------------------- |
+| App Launches       | [ ] PASS / [ ] FAIL |
+| Onboarding Flow    | [ ] PASS / [ ] FAIL |
 | Main Functionality | [ ] PASS / [ ] FAIL |
-| Paywall Display | [ ] PASS / [ ] FAIL |
-| Settings Screen | [ ] PASS / [ ] FAIL |
-| Offline Behavior | [ ] PASS / [ ] FAIL |
+| Paywall Display    | [ ] PASS / [ ] FAIL |
+| Settings Screen    | [ ] PASS / [ ] FAIL |
+| Offline Behavior   | [ ] PASS / [ ] FAIL |
 
 **Overall: [ ] PASS / [ ] FAIL**
 

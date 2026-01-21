@@ -18,12 +18,28 @@ import { execSync } from 'node:child_process';
 // ============================================================
 
 const EXCLUDE = [
-  '.env', '.env.*', '!.env.example',
-  'node_modules', 'dist', 'build', '.cache',
-  '*.log', '.DS_Store', '.git', '.gitignore',
-  '*.pem', '*.key', '*.crt', '*.secret',
-  '*.exe', '*.dll', '*.so', '*.dylib', '*.sh', '*.bat',
-  '*.zip'
+  '.env',
+  '.env.*',
+  '!.env.example',
+  'node_modules',
+  'dist',
+  'build',
+  '.cache',
+  '*.log',
+  '.DS_Store',
+  '.git',
+  '.gitignore',
+  '*.pem',
+  '*.key',
+  '*.crt',
+  '*.secret',
+  '*.exe',
+  '*.dll',
+  '*.so',
+  '*.dylib',
+  '*.sh',
+  '*.bat',
+  '*.zip',
 ];
 
 // ============================================================
@@ -34,7 +50,8 @@ function shouldInclude(name, relativePath) {
   for (const pattern of EXCLUDE) {
     if (pattern.startsWith('!')) continue;
     if (pattern === name) return false;
-    if (pattern.startsWith('*.') && name.endsWith(pattern.slice(1))) return false;
+    if (pattern.startsWith('*.') && name.endsWith(pattern.slice(1)))
+      return false;
     if (relativePath.startsWith(pattern + '/')) return false;
   }
 
@@ -102,10 +119,10 @@ const zipPath = path.join(resolved, zipName);
 // Collect files
 const files = collectFiles(resolved);
 console.log(`Files to include: ${files.length}`);
-files.forEach(f => console.log(`  ${f.relativePath}`));
+files.forEach((f) => console.log(`  ${f.relativePath}`));
 
 // Create ZIP using system zip command
-const fileList = files.map(f => f.relativePath);
+const fileList = files.map((f) => f.relativePath);
 const listPath = path.join(resolved, '.zipfiles.tmp');
 
 try {
@@ -116,12 +133,13 @@ try {
     fs.unlinkSync(zipPath);
   }
 
-  execSync(`cd "${resolved}" && zip -@ "${zipPath}" < .zipfiles.tmp`, { stdio: 'pipe' });
+  execSync(`cd "${resolved}" && zip -@ "${zipPath}" < .zipfiles.tmp`, {
+    stdio: 'pipe',
+  });
 
   const stat = fs.statSync(zipPath);
   console.log(`\nCreated: ${zipName}`);
   console.log(`Size: ${(stat.size / 1024).toFixed(1)} KB\n`);
-
 } catch (e) {
   console.error(`\nERROR: Failed to create ZIP`);
   console.error(`Make sure 'zip' command is installed.\n`);

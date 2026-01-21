@@ -18,10 +18,10 @@ Quality gates are mandatory checkpoints that validate websites against skills be
 
 ### Skills Checked
 
-| Skill | Weight | Pass Threshold |
-|-------|--------|----------------|
-| react-best-practices | 55% | ≥95%, no CRITICAL |
-| web-design-guidelines | 45% | ≥90%, no HIGH a11y |
+| Skill                 | Weight | Pass Threshold     |
+| --------------------- | ------ | ------------------ |
+| react-best-practices  | 55%    | ≥95%, no CRITICAL  |
+| web-design-guidelines | 45%    | ≥90%, no HIGH a11y |
 
 ### Invocation
 
@@ -31,28 +31,30 @@ Quality gates are mandatory checkpoints that validate websites against skills be
 **ID:** `website-pipeline:react-best-practices`
 **Trigger:** Build phase complete
 **Inputs:**
-  - Code paths: `website-builds/<slug>/src/**/*.{ts,tsx}`
-  - Performance budget: LCP < 2.5s, bundle < 200KB
-**Outputs:**
-  - Report: `website-builds/<slug>/audits/react-best-practices.md`
-**Gate Criteria:**
-  - BLOCKED if any CRITICAL violation
-  - FAIL if score < 95%
-  - PASS if ≥95%
+
+- Code paths: `website-builds/<slug>/src/**/*.{ts,tsx}`
+- Performance budget: LCP < 2.5s, bundle < 200KB
+  **Outputs:**
+- Report: `website-builds/<slug>/audits/react-best-practices.md`
+  **Gate Criteria:**
+- BLOCKED if any CRITICAL violation
+- FAIL if score < 95%
+- PASS if ≥95%
 
 ### Skill: web-design-guidelines
 
 **ID:** `website-pipeline:web-design-guidelines`
 **Trigger:** Build phase complete
 **Inputs:**
-  - Code paths: `website-builds/<slug>/src/**/*.tsx`
-  - Accessibility standard: WCAG 2.1 AA
-**Outputs:**
-  - Report: `website-builds/<slug>/audits/web-design-guidelines.md`
-**Gate Criteria:**
-  - BLOCKED if any HIGH accessibility violation
-  - FAIL if score < 90%
-  - PASS if ≥90%
+
+- Code paths: `website-builds/<slug>/src/**/*.tsx`
+- Accessibility standard: WCAG 2.1 AA
+  **Outputs:**
+- Report: `website-builds/<slug>/audits/web-design-guidelines.md`
+  **Gate Criteria:**
+- BLOCKED if any HIGH accessibility violation
+- FAIL if score < 90%
+- PASS if ≥90%
 ```
 
 ### Pass Criteria
@@ -83,6 +85,7 @@ Gate 1 PASS if:
 All items must pass:
 
 #### Technical SEO
+
 - [ ] robots.txt exists and is valid
 - [ ] sitemap.xml is generated (or sitemap.ts)
 - [ ] Canonical URLs are set
@@ -91,6 +94,7 @@ All items must pass:
 - [ ] HTTPS ready
 
 #### On-Page SEO
+
 - [ ] Unique title tags on all pages (< 60 chars)
 - [ ] Meta descriptions on all pages (150-160 chars)
 - [ ] One H1 per page
@@ -99,12 +103,14 @@ All items must pass:
 - [ ] Descriptive anchor text for links
 
 #### Performance SEO
+
 - [ ] LCP < 2.5s (Lighthouse)
 - [ ] Images use next/image
 - [ ] Fonts use next/font
 - [ ] No render-blocking resources
 
 #### Social SEO
+
 - [ ] Open Graph tags present
 - [ ] Twitter Card tags present
 - [ ] OG image exists (1200x630)
@@ -140,6 +146,7 @@ Gate 2 PASS if:
 ## Ralph Quality Report
 
 ### Build Quality (20% weight)
+
 - [ ] npm install succeeds
 - [ ] npm run build succeeds
 - [ ] npm run dev starts on localhost:3000
@@ -147,6 +154,7 @@ Gate 2 PASS if:
 - [ ] vercel.json is valid
 
 ### Skills Compliance (30% weight)
+
 - [ ] react-best-practices audit: PASS
 - [ ] web-design-guidelines audit: PASS
 - [ ] All CRITICAL issues resolved
@@ -154,12 +162,14 @@ Gate 2 PASS if:
 - [ ] Audit reports present in audits/
 
 ### SEO Quality (20% weight)
+
 - [ ] SEO review: PASS
 - [ ] All Technical SEO items pass
 - [ ] All On-Page SEO items pass
 - [ ] OG image present and correct size
 
 ### Content Quality (15% weight)
+
 - [ ] No placeholder text ("Lorem ipsum", "TODO")
 - [ ] All images have meaningful alt text
 - [ ] Contact form functional (if present)
@@ -167,6 +177,7 @@ Gate 2 PASS if:
 - [ ] 404 page is designed (not default)
 
 ### Documentation Quality (15% weight)
+
 - [ ] README.md explains the website
 - [ ] DEPLOYMENT.md has working steps
 - [ ] .env.example lists all variables
@@ -233,21 +244,21 @@ runs/YYYY-MM-DD/website-<timestamp>/
 
 ## Gate 1: Skills Audit
 
-| Skill | Score | Violations | Verdict |
-|-------|-------|------------|---------|
-| react-best-practices | 97% | 1 MEDIUM | PASS |
-| web-design-guidelines | 92% | 2 MEDIUM | PASS |
+| Skill                 | Score | Violations | Verdict |
+| --------------------- | ----- | ---------- | ------- |
+| react-best-practices  | 97%   | 1 MEDIUM   | PASS    |
+| web-design-guidelines | 92%   | 2 MEDIUM   | PASS    |
 
 **Gate 1 Verdict:** PASS
 
 ## Gate 2: SEO Review
 
-| Category | Passed | Failed |
-|----------|--------|--------|
-| Technical SEO | 8 | 0 |
-| On-Page SEO | 10 | 0 |
-| Performance SEO | 6 | 0 |
-| Social SEO | 5 | 0 |
+| Category        | Passed | Failed |
+| --------------- | ------ | ------ |
+| Technical SEO   | 8      | 0      |
+| On-Page SEO     | 10     | 0      |
+| Performance SEO | 6      | 0      |
+| Social SEO      | 5      | 0      |
 
 **Gate 2 Verdict:** PASS
 
@@ -296,6 +307,7 @@ runs/YYYY-MM-DD/website-<timestamp>/
 ### "Ralph fails after 3 iterations"
 
 Pipeline enters manual intervention:
+
 1. Review `runs/.../polish/ralph_final_verdict.md`
 2. Fix remaining issues manually
 3. Run verification commands

@@ -9,11 +9,21 @@ import { z } from 'zod';
 import { exportDecisions as exportDecisionsFromDb } from '../db/queries.js';
 
 export const exportDecisionsSchema = {
-  project: z.string().optional().describe('Project path to export (omit for all projects)'),
-  format: z.enum(['json', 'markdown', 'adr']).default('markdown').describe('Export format: json, markdown, or adr (Architecture Decision Records)'),
+  project: z
+    .string()
+    .optional()
+    .describe('Project path to export (omit for all projects)'),
+  format: z
+    .enum(['json', 'markdown', 'adr'])
+    .default('markdown')
+    .describe(
+      'Export format: json, markdown, or adr (Architecture Decision Records)'
+    ),
 };
 
-export type ExportDecisionsInput = z.infer<z.ZodObject<typeof exportDecisionsSchema>>;
+export type ExportDecisionsInput = z.infer<
+  z.ZodObject<typeof exportDecisionsSchema>
+>;
 
 export async function exportDecisions(input: ExportDecisionsInput) {
   const { project, format } = input;

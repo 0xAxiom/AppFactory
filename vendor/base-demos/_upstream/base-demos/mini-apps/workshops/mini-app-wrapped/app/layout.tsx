@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { MiniKitProvider } from "@/providers/minikitprovider";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { MiniKitProvider } from '@/providers/minikitprovider';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const generateMetadata = (): Metadata => {
@@ -18,13 +18,13 @@ export const generateMetadata = (): Metadata => {
     title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
     description: `${process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME} - A MiniKit App`,
     other: {
-      "fc:frame": JSON.stringify({
+      'fc:frame': JSON.stringify({
         version: process.env.NEXT_PUBLIC_VERSION,
         imageUrl: process.env.NEXT_PUBLIC_IMAGE_URL,
         button: {
           title: `Launch ${process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME}`,
           action: {
-            type: "launch_frame",
+            type: 'launch_frame',
             name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
             url: URL,
             splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE_URL,
@@ -46,10 +46,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MiniKitProvider>
-          {children}
-        </MiniKitProvider>
-       
+        <MiniKitProvider>{children}</MiniKitProvider>
       </body>
     </html>
   );

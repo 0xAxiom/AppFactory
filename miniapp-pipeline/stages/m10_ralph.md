@@ -12,12 +12,14 @@ Rigorous quality assurance through adversarial review. Ralph is a meticulous QA 
 ## Ralph Persona
 
 Ralph is:
+
 - **Thorough**: Checks every detail
 - **Critical**: Assumes nothing works until proven
 - **Constructive**: Provides actionable feedback
 - **Fair**: Acknowledges what works well
 
 Ralph is NOT:
+
 - Mean-spirited
 - Unreasonable
 - Looking for perfection (looking for production-ready)
@@ -71,6 +73,7 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 ## Ralph Review Checklist
 
 ### Manifest Correctness
+
 - [ ] All required fields present
 - [ ] Character limits respected (name ≤32, subtitle ≤30, description ≤170)
 - [ ] Image URLs are absolute and use HTTPS
@@ -81,6 +84,7 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 - [ ] version is "1"
 
 ### Account Association
+
 - [ ] header field is non-empty
 - [ ] payload field is non-empty
 - [ ] signature field is non-empty
@@ -88,12 +92,14 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 - [ ] Domain matches deployment URL
 
 ### Preview Tool
+
 - [ ] Embeds tab shows correct render
 - [ ] Account Association tab shows all green
 - [ ] Metadata tab shows no warnings
 - [ ] Launch action works
 
 ### Code Quality
+
 - [ ] TypeScript compiles without errors
 - [ ] No ESLint warnings (if configured)
 - [ ] No console.log statements in production code
@@ -102,6 +108,7 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 - [ ] Browser fallback works correctly
 
 ### Functional Testing
+
 - [ ] App loads without errors
 - [ ] Core user flow works end-to-end
 - [ ] Data persists correctly (if applicable)
@@ -110,6 +117,7 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 - [ ] Wallet connection works (if applicable)
 
 ### UX Review
+
 - [ ] App loads in under 3 seconds
 - [ ] Core interaction is intuitive
 - [ ] Touch targets are at least 44px
@@ -118,6 +126,7 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 - [ ] No layout shift on load
 
 ### Security
+
 - [ ] No secrets in client-side code
 - [ ] No API keys exposed
 - [ ] .env.example doesn't contain real values
@@ -125,6 +134,7 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 - [ ] No XSS vulnerabilities
 
 ### Documentation
+
 - [ ] README explains what the app does
 - [ ] Setup instructions are clear
 - [ ] Environment variables are documented
@@ -138,9 +148,11 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 # Ralph Report #[N]
 
 ## Review Date
+
 [timestamp]
 
 ## App Reviewed
+
 - Name: [App Name]
 - URL: [URL]
 - Slug: [slug]
@@ -158,12 +170,14 @@ Maximum 3 iterations. After iteration 3, Ralph must render final verdict.
 Issues that block publication or cause failures.
 
 ### Issue C1: [Title]
+
 - **Location**: [file:line or area]
 - **Description**: [What's wrong]
 - **Impact**: [What breaks or fails]
 - **Suggested Fix**: [How to resolve]
 
 ### Issue C2: [Title]
+
 ...
 
 ---
@@ -173,12 +187,14 @@ Issues that block publication or cause failures.
 Significant issues affecting user experience or quality.
 
 ### Issue M1: [Title]
+
 - **Location**: [file:line or area]
 - **Description**: [What's wrong]
 - **Impact**: [How it affects users]
 - **Suggested Fix**: [How to resolve]
 
 ### Issue M2: [Title]
+
 ...
 
 ---
@@ -188,11 +204,13 @@ Significant issues affecting user experience or quality.
 Polish items that would improve the app.
 
 ### Issue m1: [Title]
+
 - **Location**: [file:line or area]
 - **Description**: [What could be better]
 - **Suggested Fix**: [How to improve]
 
 ### Issue m2: [Title]
+
 ...
 
 ---
@@ -213,6 +231,7 @@ What Ralph verified as working correctly:
 [x] **NEEDS WORK** - Address issues above
 
 ### For Next Iteration
+
 1. [Priority item to fix]
 2. [Priority item to fix]
 3. ...
@@ -224,6 +243,7 @@ What Ralph verified as working correctly:
 # Builder Resolution #[N]
 
 ## Response to Ralph Report #[N]
+
 [timestamp]
 
 ---
@@ -231,12 +251,14 @@ What Ralph verified as working correctly:
 ## Critical Issues Resolved
 
 ### C1: [Issue Title]
+
 - **Status**: ✅ Fixed
 - **Resolution**: [What was done]
 - **Files Changed**: [list of files]
 - **Verification**: [How to verify fix]
 
 ### C2: [Issue Title]
+
 - **Status**: ✅ Fixed / ⏸️ Deferred
 - **Resolution**: [What was done or why deferred]
 
@@ -245,10 +267,12 @@ What Ralph verified as working correctly:
 ## Major Issues Resolved
 
 ### M1: [Issue Title]
+
 - **Status**: ✅ Fixed
 - **Resolution**: [What was done]
 
 ### M2: [Issue Title]
+
 - **Status**: ⏸️ Deferred
 - **Reason**: [Why deferred, when will be addressed]
 
@@ -257,6 +281,7 @@ What Ralph verified as working correctly:
 ## Minor Issues Addressed
 
 ### m1: [Issue Title]
+
 - **Status**: ✅ Fixed / ⏸️ Deferred / ❌ Won't Fix
 - **Notes**: [Any relevant notes]
 
@@ -264,8 +289,8 @@ What Ralph verified as working correctly:
 
 ## Changes Made
 
-| File | Change |
-|------|--------|
+| File   | Change        |
+| ------ | ------------- |
 | [path] | [description] |
 | [path] | [description] |
 
@@ -284,7 +309,9 @@ What Ralph verified as working correctly:
 # Ralph Final Verdict
 
 ## App: [App Name]
+
 ## Date: [timestamp]
+
 ## Iterations: [N]
 
 ---
@@ -304,11 +331,13 @@ This mini app is ready for publication.
 **Quality Score**: [X]/100
 
 **Strengths**:
+
 - [Strength 1]
 - [Strength 2]
 - [Strength 3]
 
 **Remaining Polish Items** (optional post-launch):
+
 - [Minor item 1]
 - [Minor item 2]
 
@@ -323,10 +352,12 @@ OR
 This mini app requires additional work before publication.
 
 **Unresolved Issues**:
+
 1. [Issue and guidance]
 2. [Issue and guidance]
 
 **Recommended Actions**:
+
 1. [What user should do]
 2. [What user should do]
 
@@ -351,13 +382,16 @@ Ralph has completed adversarial review of this mini app.
 ## Gate Behavior
 
 ### Approval Criteria
+
 - Zero critical issues
 - Zero major issues (or explicitly deferred with justification)
 - Proof gate passes
 - Preview tool shows all green
 
 ### After 3 Iterations
+
 If issues remain after 3 iterations:
+
 1. Document all unresolved issues
 2. Provide clear guidance for manual resolution
 3. Verdict is "NEEDS MANUAL WORK"
@@ -373,6 +407,7 @@ If issues remain after 3 iterations:
 ## Completion
 
 After Ralph approves (or user addresses remaining issues):
+
 - Mini app is ready for publication
 - User follows PUBLISH.md instructions
 - Pipeline is complete

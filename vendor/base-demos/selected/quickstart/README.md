@@ -1,6 +1,6 @@
 # Waitlist Mini App Quickstart
 
-This is a demo Mini App application built using OnchainKit and the Farcaster SDK. Build a waitlist sign-up mini app for your company that can be published to the Base app and Farcaster. 
+This is a demo Mini App application built using OnchainKit and the Farcaster SDK. Build a waitlist sign-up mini app for your company that can be published to the Base app and Farcaster.
 
 > [!IMPORTANT]  
 > Before interacting with this demo, please review our [disclaimer](#disclaimer) — there are **no official tokens or apps** associated with Cubey, Base, or Coinbase.
@@ -9,14 +9,14 @@ This is a demo Mini App application built using OnchainKit and the Farcaster SDK
 
 Before getting started, make sure you have:
 
-* Base app account
-* A [Farcaster](https://farcaster.xyz/) account
-* [Vercel](https://vercel.com/) account for hosting the application
-* [Coinbase Developer Platform](https://portal.cdp.coinbase.com/) Client API Key
+- Base app account
+- A [Farcaster](https://farcaster.xyz/) account
+- [Vercel](https://vercel.com/) account for hosting the application
+- [Coinbase Developer Platform](https://portal.cdp.coinbase.com/) Client API Key
 
 ## Getting Started
 
-### 1. Clone this repository 
+### 1. Clone this repository
 
 ```bash
 git clone https://github.com/base/demos.git
@@ -100,15 +100,15 @@ Update your `minikit.config.ts` file to include the `accountAssociation` object:
 
 ```ts
 export const minikitConfig = {
-    accountAssociation: {
-        "header": "your-header-here",
-        "payload": "your-payload-here",
-        "signature": "your-signature-here"
-    },
-    frame: {
-        // ... rest of your frame configuration
-    },
-}
+  accountAssociation: {
+    header: 'your-header-here',
+    payload: 'your-payload-here',
+    signature: 'your-signature-here',
+  },
+  frame: {
+    // ... rest of your frame configuration
+  },
+};
 ```
 
 ### 3. Deploy Updates
@@ -135,25 +135,25 @@ To publish your app, create a post in the Base app with your app's URL.
 
 For detailed step-by-step instructions, see the [Create a Mini App tutorial](https://docs.base.org/docs/mini-apps/quickstart/create-new-miniapp/) in the Base documentation.
 
-
 ---
 
-## Disclaimer  
+## Disclaimer
 
-This project is a **demo application** created by the **Base / Coinbase Developer Relations team** for **educational and demonstration purposes only**.  
+This project is a **demo application** created by the **Base / Coinbase Developer Relations team** for **educational and demonstration purposes only**.
 
-**There is no token, cryptocurrency, or investment product associated with Cubey, Base, or Coinbase.**  
+**There is no token, cryptocurrency, or investment product associated with Cubey, Base, or Coinbase.**
 
-Any social media pages, tokens, or applications claiming to be affiliated with, endorsed by, or officially connected to Cubey, Base, or Coinbase are **unauthorized and fraudulent**.  
+Any social media pages, tokens, or applications claiming to be affiliated with, endorsed by, or officially connected to Cubey, Base, or Coinbase are **unauthorized and fraudulent**.
 
-We do **not** endorse or support any third-party tokens, apps, or projects using the Cubey name or branding.  
+We do **not** endorse or support any third-party tokens, apps, or projects using the Cubey name or branding.
 
 > [!WARNING]
 > Do **not** purchase, trade, or interact with any tokens or applications claiming affiliation with Coinbase, Base, or Cubey.  
-> Coinbase and Base will never issue a token or ask you to connect your wallet for this demo.  
+> Coinbase and Base will never issue a token or ask you to connect your wallet for this demo.
 
-For official Base developer resources, please visit:  
-- [https://base.org](https://base.org)  
-- [https://docs.base.org](https://docs.base.org)  
+For official Base developer resources, please visit:
+
+- [https://base.org](https://base.org)
+- [https://docs.base.org](https://docs.base.org)
 
 ---

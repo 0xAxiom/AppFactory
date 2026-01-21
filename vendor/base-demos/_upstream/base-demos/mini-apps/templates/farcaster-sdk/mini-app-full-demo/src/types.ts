@@ -1,8 +1,26 @@
-import React from "react";
+import React from 'react';
 
-export type TabType = "actions" | "context" | "wallet";
-export type ActionPageType = "list" | "signin" | "quickauth" | "openurl" | "openminiapp" | "farcaster" | "viewprofile" | "viewtoken" | "swaptoken" | "sendtoken" | "viewcast" | "composecast" | "addminiapp" | "closeminiapp" | "runtime" | "requestcameramicrophone" | "haptics" | "spendpermission";
-export type WalletPageType = "list" | "basepay" | "wallet";
+export type TabType = 'actions' | 'context' | 'wallet';
+export type ActionPageType =
+  | 'list'
+  | 'signin'
+  | 'quickauth'
+  | 'openurl'
+  | 'openminiapp'
+  | 'farcaster'
+  | 'viewprofile'
+  | 'viewtoken'
+  | 'swaptoken'
+  | 'sendtoken'
+  | 'viewcast'
+  | 'composecast'
+  | 'addminiapp'
+  | 'closeminiapp'
+  | 'runtime'
+  | 'requestcameramicrophone'
+  | 'haptics'
+  | 'spendpermission';
+export type WalletPageType = 'list' | 'basepay' | 'wallet';
 
 export interface ActionDefinition {
   id: ActionPageType;

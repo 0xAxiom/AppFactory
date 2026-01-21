@@ -25,18 +25,18 @@ This document provides a concrete plan for integrating Rig concepts into the age
 **Current**: 10-section comprehensive specification
 **Rig Mapping**: Aligns with agent definition
 
-| Spec Section | Rig Concept | Alignment |
-|--------------|-------------|-----------|
-| Agent Vision | `description` field | Direct |
-| Core Capabilities | Implied by tools | Partial |
-| Input/Output Contract | `Tool::Args`, `Tool::Output` | Direct |
-| Tool Definitions | `Tool` trait | Direct |
-| Error Handling | `Tool::Error`, `AgentError` | Direct |
-| Safety Rules | Not in Rig | Keep as extension |
-| Environment Variables | External config | Keep as-is |
-| Token Integration | Rig-onchain-kit | Indirect |
-| Deployment Strategy | External | Keep as-is |
-| Success Criteria | Not in Rig | Keep as extension |
+| Spec Section          | Rig Concept                  | Alignment         |
+| --------------------- | ---------------------------- | ----------------- |
+| Agent Vision          | `description` field          | Direct            |
+| Core Capabilities     | Implied by tools             | Partial           |
+| Input/Output Contract | `Tool::Args`, `Tool::Output` | Direct            |
+| Tool Definitions      | `Tool` trait                 | Direct            |
+| Error Handling        | `Tool::Error`, `AgentError`  | Direct            |
+| Safety Rules          | Not in Rig                   | Keep as extension |
+| Environment Variables | External config              | Keep as-is        |
+| Token Integration     | Rig-onchain-kit              | Indirect          |
+| Deployment Strategy   | External                     | Keep as-is        |
+| Success Criteria      | Not in Rig                   | Keep as extension |
 
 **Action**: Update spec template to use Rig terminology
 
@@ -51,13 +51,13 @@ This document provides a concrete plan for integrating Rig concepts into the age
 **Current**: Complete agent scaffold
 **Rig Mapping**: Maps to `Agent<M>` construction
 
-| Generated File | Rig Concept | Action |
-|----------------|-------------|--------|
-| `agent.json` | `Agent` struct | Align schema |
-| `src/index.ts` | HTTP wrapper | Keep (deployment) |
-| Tool code | `Tool` trait | Add interface |
-| Logging | `tracing` | Keep pattern |
-| Errors | `AgentError` | Align types |
+| Generated File | Rig Concept    | Action            |
+| -------------- | -------------- | ----------------- |
+| `agent.json`   | `Agent` struct | Align schema      |
+| `src/index.ts` | HTTP wrapper   | Keep (deployment) |
+| Tool code      | `Tool` trait   | Add interface     |
+| Logging        | `tracing`      | Keep pattern      |
+| Errors         | `AgentError`   | Align types       |
 
 **Action**: Generate code that mirrors Rig patterns in TypeScript
 
@@ -73,12 +73,12 @@ This document provides a concrete plan for integrating Rig concepts into the age
 
 ### Terminology Changes
 
-| Old Term | New Term | Reason |
-|----------|----------|--------|
-| "Agent scaffold" | "Agent" | Rig alignment |
-| "Tool definitions" | "Tools" | Rig alignment |
-| "HTTP server" | "Agent Runtime" | Clarify separation |
-| "Process endpoint" | "Agent Invocation" | Rig alignment |
+| Old Term           | New Term           | Reason             |
+| ------------------ | ------------------ | ------------------ |
+| "Agent scaffold"   | "Agent"            | Rig alignment      |
+| "Tool definitions" | "Tools"            | Rig alignment      |
+| "HTTP server"      | "Agent Runtime"    | Clarify separation |
+| "Process endpoint" | "Agent Invocation" | Rig alignment      |
 
 ### New Abstractions to Add
 
@@ -144,8 +144,12 @@ interface ExecutionLoop {
       {
         "name": "<tool-name>",
         "description": "<tool-description>",
-        "parameters": { /* JSON Schema */ },
-        "returns": { /* JSON Schema */ }
+        "parameters": {
+          /* JSON Schema */
+        },
+        "returns": {
+          /* JSON Schema */
+        }
       }
     ],
     "dynamicContext": {
@@ -174,18 +178,18 @@ interface ExecutionLoop {
 
 Code/documentation that exists to **teach concepts** but isn't required in production.
 
-| Item | Type | Purpose |
-|------|------|---------|
-| Concept comments | Educational | Explain Rig alignment |
-| Type definitions | Production | Enable tooling |
-| Step-by-step docs | Educational | Guide understanding |
-| Reference links | Educational | Point to Rig source |
-| Generated code | Production | Runnable agent |
-| Tests | Production | Quality assurance |
+| Item              | Type        | Purpose               |
+| ----------------- | ----------- | --------------------- |
+| Concept comments  | Educational | Explain Rig alignment |
+| Type definitions  | Production  | Enable tooling        |
+| Step-by-step docs | Educational | Guide understanding   |
+| Reference links   | Educational | Point to Rig source   |
+| Generated code    | Production  | Runnable agent        |
+| Tests             | Production  | Quality assurance     |
 
 ### Example: Educational Comments
 
-```typescript
+````typescript
 /**
  * This agent follows the Rig Agent pattern:
  * @see https://github.com/0xPlaygrounds/rig
@@ -203,11 +207,12 @@ Code/documentation that exists to **teach concepts** but isn't required in produ
 export class YouTubeSummarizerAgent implements Agent {
   // ...
 }
-```
+````
 
 ### Production Code Requirements
 
 All generated code must be:
+
 1. **Runnable** without educational comments
 2. **Type-safe** using Zod or similar
 3. **Testable** with mock LLM responses
@@ -396,7 +401,7 @@ export class ExecutionLoop {
     while (iteration < maxIterations) {
       const response = await this.llm.complete({
         messages,
-        tools: this.agent.tools.map(t => t.definition()),
+        tools: this.agent.tools.map((t) => t.definition()),
         systemPrompt: this.agent.preamble,
       });
 
@@ -406,7 +411,7 @@ export class ExecutionLoop {
 
       // Execute tool calls
       for (const toolCall of response.toolCalls) {
-        const tool = this.agent.tools.find(t => t.name === toolCall.name);
+        const tool = this.agent.tools.find((t) => t.name === toolCall.name);
         if (!tool) throw new Error(`Unknown tool: ${toolCall.name}`);
 
         logger.info('Executing tool', { tool: toolCall.name });
@@ -454,6 +459,7 @@ export class ExecutionLoop {
 This integration plan provides a concrete path for incorporating Rig concepts into the agent-factory pipeline. By treating Rig as a conceptual foundation rather than a runtime dependency, we preserve user accessibility while establishing rigorous agent architecture.
 
 The key changes are:
+
 1. **Schema alignment** with Rig's `Agent` and `Tool` types
 2. **Code structure** that mirrors Rig patterns in TypeScript
 3. **Educational content** that explains Rig concepts

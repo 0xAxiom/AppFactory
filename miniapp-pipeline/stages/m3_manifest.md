@@ -37,30 +37,30 @@ Configure the manifest with app-specific values and ensure all placeholder asset
 ```typescript
 export const minikitConfig = {
   accountAssociation: {
-    header: "",   // FILL AFTER SIGNING - Stage M5
-    payload: "",  // FILL AFTER SIGNING - Stage M5
-    signature: "" // FILL AFTER SIGNING - Stage M5
+    header: '', // FILL AFTER SIGNING - Stage M5
+    payload: '', // FILL AFTER SIGNING - Stage M5
+    signature: '', // FILL AFTER SIGNING - Stage M5
   },
   miniapp: {
-    version: "1",
-    name: "[From normalized_prompt.name]",
-    subtitle: "[From normalized_prompt.tagline]",
-    description: "[From normalized_prompt.description]",
-    screenshotUrls: [
-      "${URL}/screenshots/1.png"
+    version: '1',
+    name: '[From normalized_prompt.name]',
+    subtitle: '[From normalized_prompt.tagline]',
+    description: '[From normalized_prompt.description]',
+    screenshotUrls: ['${URL}/screenshots/1.png'],
+    iconUrl: '${URL}/icon.png',
+    splashImageUrl: '${URL}/splash.png',
+    splashBackgroundColor: '#[brand-color]',
+    homeUrl: '${URL}',
+    primaryCategory: '[From normalized_prompt.category]',
+    tags: [
+      /* From normalized_prompt.tags */
     ],
-    iconUrl: "${URL}/icon.png",
-    splashImageUrl: "${URL}/splash.png",
-    splashBackgroundColor: "#[brand-color]",
-    homeUrl: "${URL}",
-    primaryCategory: "[From normalized_prompt.category]",
-    tags: [/* From normalized_prompt.tags */],
-    heroImageUrl: "${URL}/hero.png",
-    tagline: "[From normalized_prompt.tagline]",
-    ogTitle: "[From normalized_prompt.name]",
-    ogDescription: "[From normalized_prompt.description]",
-    ogImageUrl: "${URL}/og.png"
-  }
+    heroImageUrl: '${URL}/hero.png',
+    tagline: '[From normalized_prompt.tagline]',
+    ogTitle: '[From normalized_prompt.name]',
+    ogDescription: '[From normalized_prompt.description]',
+    ogImageUrl: '${URL}/og.png',
+  },
 } as const;
 
 export type MinikitConfig = typeof minikitConfig;
@@ -69,58 +69,64 @@ export type MinikitConfig = typeof minikitConfig;
 ### Placeholder Image Generation
 
 Images should be simple placeholders that:
+
 - Have correct dimensions
 - Use a solid brand color background
 - Include white text identifying the image type
 - Are valid PNG/JPG files
 
-| Image | Dimensions | Content |
-|-------|-----------|---------|
-| icon.png | 1024x1024 | "[App Name]" centered |
-| splash.png | 200x200 | "[App Name]" centered |
-| hero.png | 1200x630 | "[App Name] - [Tagline]" |
-| og.png | 1200x630 | "[App Name] - [Description]" |
-| screenshots/1.png | 1284x2778 | "Screenshot Placeholder" |
+| Image             | Dimensions | Content                      |
+| ----------------- | ---------- | ---------------------------- |
+| icon.png          | 1024x1024  | "[App Name]" centered        |
+| splash.png        | 200x200    | "[App Name]" centered        |
+| hero.png          | 1200x630   | "[App Name] - [Tagline]"     |
+| og.png            | 1200x630   | "[App Name] - [Description]" |
+| screenshots/1.png | 1284x2778  | "Screenshot Placeholder"     |
 
 ### Output File
 
 File: `artifacts/stage03/manifest_config.md`
 
-```markdown
+````markdown
 # Manifest Configuration
 
 ## Generated: [timestamp]
+
 ## Slug: [slug]
 
 ## Values Applied
 
 ### Identity
-| Field | Value | Char Count | Max |
-|-------|-------|-----------|-----|
-| name | [value] | [n] | 32 |
-| subtitle | [value] | [n] | 30 |
-| tagline | [value] | [n] | 30 |
-| description | [value] | [n] | 170 |
+
+| Field       | Value   | Char Count | Max |
+| ----------- | ------- | ---------- | --- |
+| name        | [value] | [n]        | 32  |
+| subtitle    | [value] | [n]        | 30  |
+| tagline     | [value] | [n]        | 30  |
+| description | [value] | [n]        | 170 |
 
 ### Discovery
-| Field | Value |
-|-------|-------|
-| primaryCategory | [category] |
-| tags | [tag1, tag2, ...] |
+
+| Field           | Value             |
+| --------------- | ----------------- |
+| primaryCategory | [category]        |
+| tags            | [tag1, tag2, ...] |
 
 ### Branding
-| Field | Value |
-|-------|-------|
+
+| Field                 | Value  |
+| --------------------- | ------ |
 | splashBackgroundColor | #[hex] |
 
 ### Assets
-| Asset | Path | Dimensions |
-|-------|------|-----------|
-| Icon | /icon.png | 1024x1024 |
-| Splash | /splash.png | 200x200 |
-| Hero | /hero.png | 1200x630 |
-| OG Image | /og.png | 1200x630 |
-| Screenshot 1 | /screenshots/1.png | 1284x2778 |
+
+| Asset        | Path               | Dimensions |
+| ------------ | ------------------ | ---------- |
+| Icon         | /icon.png          | 1024x1024  |
+| Splash       | /splash.png        | 200x200    |
+| Hero         | /hero.png          | 1200x630   |
+| OG Image     | /og.png            | 1200x630   |
+| Screenshot 1 | /screenshots/1.png | 1284x2778  |
 
 ## Manifest Preview
 
@@ -141,6 +147,7 @@ The manifest will be served at `/.well-known/farcaster.json`:
   }
 }
 ```
+````
 
 ## Validation Checklist
 
@@ -155,6 +162,7 @@ The manifest will be served at `/.well-known/farcaster.json`:
 ## Next Step
 
 Proceed to Stage M4 (Vercel Deployment Plan)
+
 ```
 
 ## Character Limit Validation
@@ -172,6 +180,7 @@ Proceed to Stage M4 (Vercel Deployment Plan)
 ## Valid Categories
 
 ```
+
 games
 social
 finance
@@ -185,7 +194,8 @@ education
 developer-tools
 entertainment
 art-creativity
-```
+
+````
 
 ## Tag Rules
 
@@ -217,7 +227,7 @@ curl http://localhost:3000/.well-known/farcaster.json | jq
 
 # Expected: Valid JSON with all frame fields populated
 # Expected: accountAssociation fields are empty strings
-```
+````
 
 ## Next Stage
 

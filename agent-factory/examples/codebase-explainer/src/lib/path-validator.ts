@@ -15,7 +15,10 @@ import { PathTraversalError, DirectoryNotFoundError } from './errors.js';
  * @throws PathTraversalError if path attempts to escape root
  * @throws DirectoryNotFoundError if root doesn't exist
  */
-export function validatePath(requestedPath: string, allowedRoot: string): string {
+export function validatePath(
+  requestedPath: string,
+  allowedRoot: string
+): string {
   // Resolve both paths to absolute
   const resolvedPath = path.resolve(requestedPath);
   const resolvedRoot = path.resolve(allowedRoot);
@@ -26,7 +29,9 @@ export function validatePath(requestedPath: string, allowedRoot: string): string
   }
 
   // Ensure the resolved path starts with the root
-  const isWithinRoot = resolvedPath === resolvedRoot || resolvedPath.startsWith(resolvedRoot + path.sep);
+  const isWithinRoot =
+    resolvedPath === resolvedRoot ||
+    resolvedPath.startsWith(resolvedRoot + path.sep);
 
   if (!isWithinRoot) {
     throw new PathTraversalError(requestedPath);
@@ -46,7 +51,9 @@ export function validatePath(requestedPath: string, allowedRoot: string): string
  * @returns true if path is allowed
  */
 export function isPathAllowed(requestedPath: string): boolean {
-  const allowedRoots = process.env.ALLOWED_ROOTS?.split(',').map(r => r.trim()).filter(Boolean);
+  const allowedRoots = process.env.ALLOWED_ROOTS?.split(',')
+    .map((r) => r.trim())
+    .filter(Boolean);
 
   // If no roots configured, allow any path (use with caution)
   if (!allowedRoots || allowedRoots.length === 0) {
@@ -55,9 +62,12 @@ export function isPathAllowed(requestedPath: string): boolean {
 
   const resolvedPath = path.resolve(requestedPath);
 
-  return allowedRoots.some(root => {
+  return allowedRoots.some((root) => {
     const resolvedRoot = path.resolve(root);
-    return resolvedPath === resolvedRoot || resolvedPath.startsWith(resolvedRoot + path.sep);
+    return (
+      resolvedPath === resolvedRoot ||
+      resolvedPath.startsWith(resolvedRoot + path.sep)
+    );
   });
 }
 

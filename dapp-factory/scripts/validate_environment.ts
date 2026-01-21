@@ -2,15 +2,19 @@
 
 /**
  * Environment Validation Script
- * 
+ *
  * Validates Web3 Factory environment configuration according to Bags API requirements.
  * Based on https://docs.bags.fm/principles/api-key-management
- * 
+ *
  * Usage: npm run validate-env
  */
 
 import dotenv from 'dotenv';
-import { BAGS_API_CONFIG, BAGS_API_KEYS, BAGS_NETWORKS } from '../constants/bags.js';
+import {
+  BAGS_API_CONFIG,
+  BAGS_API_KEYS,
+  BAGS_NETWORKS,
+} from '../constants/bags.js';
 import { APP_FACTORY_PARTNER_KEY } from '../constants/partner.js';
 
 // Load environment variables
@@ -34,10 +38,10 @@ function validateEnvironment(): ValidationResult {
   // Required environment variables
   const requiredVars = [
     'BAGS_API_KEY',
-    'SOLANA_RPC_URL', 
+    'SOLANA_RPC_URL',
     'SOLANA_NETWORK',
     'CREATOR_WALLET_ADDRESS',
-    'PRIVATE_KEY'
+    'PRIVATE_KEY',
   ];
 
   // Check required variables exist
@@ -46,10 +50,14 @@ function validateEnvironment(): ValidationResult {
     if (!value || value.trim() === '') {
       errors.push(`Missing required environment variable: ${varName}`);
     } else if (value === `your_${varName.toLowerCase()}_here`) {
-      errors.push(`Environment variable ${varName} is still set to placeholder value`);
+      errors.push(
+        `Environment variable ${varName} is still set to placeholder value`
+      );
     } else {
       // Mask sensitive values in config output
-      config[varName] = varName.includes('KEY') ? maskSensitiveValue(value) : value;
+      config[varName] = varName.includes('KEY')
+        ? maskSensitiveValue(value)
+        : value;
     }
   }
 
@@ -62,7 +70,9 @@ function validateEnvironment(): ValidationResult {
   // Validate Solana network
   const network = process.env.SOLANA_NETWORK;
   if (network && !['mainnet-beta', 'devnet'].includes(network)) {
-    errors.push(`Invalid SOLANA_NETWORK: ${network}. Must be 'mainnet-beta' or 'devnet'`);
+    errors.push(
+      `Invalid SOLANA_NETWORK: ${network}. Must be 'mainnet-beta' or 'devnet'`
+    );
   }
 
   // Validate RPC URL
@@ -74,7 +84,9 @@ function validateEnvironment(): ValidationResult {
   // Validate wallet addresses
   const creatorWallet = process.env.CREATOR_WALLET_ADDRESS;
   if (creatorWallet && !validateSolanaAddress(creatorWallet)) {
-    errors.push('CREATOR_WALLET_ADDRESS appears to be invalid Solana address format');
+    errors.push(
+      'CREATOR_WALLET_ADDRESS appears to be invalid Solana address format'
+    );
   }
 
   const privateKey = process.env.PRIVATE_KEY;
@@ -94,11 +106,16 @@ function validateEnvironment(): ValidationResult {
   // Optional variables validation
   const tipWallet = process.env.TIP_WALLET;
   if (tipWallet && !validateSolanaAddress(tipWallet)) {
-    warnings.push('TIP_WALLET is set but appears to be invalid Solana address format');
+    warnings.push(
+      'TIP_WALLET is set but appears to be invalid Solana address format'
+    );
   }
 
   const tipLamports = process.env.TIP_LAMPORTS;
-  if (tipLamports && (!Number.isInteger(Number(tipLamports)) || Number(tipLamports) <= 0)) {
+  if (
+    tipLamports &&
+    (!Number.isInteger(Number(tipLamports)) || Number(tipLamports) <= 0)
+  ) {
     warnings.push('TIP_LAMPORTS is set but is not a positive integer');
   }
 
@@ -111,7 +128,7 @@ function validateEnvironment(): ValidationResult {
     valid: errors.length === 0,
     errors,
     warnings,
-    config
+    config,
   };
 }
 
@@ -166,43 +183,49 @@ function maskSensitiveValue(value: string): string {
 /**
  * Test Bags API connectivity
  */
-async function testBagsApiConnectivity(): Promise<{ success: boolean; error?: string }> {
+async function testBagsApiConnectivity(): Promise<{
+  success: boolean;
+  error?: string;
+}> {
   const apiKey = process.env.BAGS_API_KEY;
   if (!apiKey) {
     return { success: false, error: 'No API key provided' };
   }
 
   try {
-    const response = await fetch(`${BAGS_API_CONFIG.BASE_URL}${BAGS_API_CONFIG.HEALTH_CHECK_ENDPOINT}`, {
-      method: 'GET',
-      headers: {
-        [BAGS_API_KEYS.HEADER_NAME]: apiKey,
-        'Content-Type': 'application/json'
+    const response = await fetch(
+      `${BAGS_API_CONFIG.BASE_URL}${BAGS_API_CONFIG.HEALTH_CHECK_ENDPOINT}`,
+      {
+        method: 'GET',
+        headers: {
+          [BAGS_API_KEYS.HEADER_NAME]: apiKey,
+          'Content-Type': 'application/json',
+        },
       }
-    });
+    );
 
     if (!response.ok) {
-      return { 
-        success: false, 
-        error: `HTTP ${response.status}: ${response.statusText}` 
+      return {
+        success: false,
+        error: `HTTP ${response.status}: ${response.statusText}`,
       };
     }
 
     const data = await response.json();
     const expectedResponse = BAGS_API_CONFIG.EXPECTED_PING_RESPONSE;
-    
+
     if (JSON.stringify(data) !== JSON.stringify(expectedResponse)) {
       return {
         success: false,
-        error: `Unexpected response: ${JSON.stringify(data)}, expected: ${JSON.stringify(expectedResponse)}`
+        error: `Unexpected response: ${JSON.stringify(data)}, expected: ${JSON.stringify(expectedResponse)}`,
       };
     }
 
     return { success: true };
   } catch (error) {
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : String(error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : String(error),
     };
   }
 }
@@ -219,19 +242,19 @@ async function main(): Promise<void> {
   // Print validation results
   if (validation.errors.length > 0) {
     console.log('❌ VALIDATION ERRORS:');
-    validation.errors.forEach(error => console.log(`  • ${error}`));
+    validation.errors.forEach((error) => console.log(`  • ${error}`));
     console.log();
   }
 
   if (validation.warnings.length > 0) {
     console.log('⚠️  WARNINGS:');
-    validation.warnings.forEach(warning => console.log(`  • ${warning}`));
+    validation.warnings.forEach((warning) => console.log(`  • ${warning}`));
     console.log();
   }
 
   if (validation.valid) {
     console.log('✅ Environment validation passed!\n');
-    
+
     console.log('📋 Configuration Summary:');
     Object.entries(validation.config).forEach(([key, value]) => {
       console.log(`  ${key}: ${value}`);
@@ -241,7 +264,7 @@ async function main(): Promise<void> {
     // Test API connectivity if basic validation passes
     console.log('🌐 Testing Bags API connectivity...');
     const apiTest = await testBagsApiConnectivity();
-    
+
     if (apiTest.success) {
       console.log('✅ Bags API connectivity test passed!');
     } else {
@@ -255,7 +278,7 @@ async function main(): Promise<void> {
     console.log('2. Get your API key from https://dev.bags.fm');
     console.log('3. Configure your Solana wallet and RPC URL');
     console.log('4. Run this script again to validate');
-    
+
     process.exit(1);
   }
 

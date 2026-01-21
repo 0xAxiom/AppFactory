@@ -6,25 +6,28 @@
 
 ## Registered Skills
 
-| Skill | Location | When Checked | Weight |
-|-------|----------|--------------|--------|
-| react-best-practices | `skills/react-best-practices/` | During Phase 3 | 20% |
-| web-design-guidelines | `skills/web-design-guidelines/` | Before Phase 4 | 25% |
-| vercel-deploy | `skills/vercel-deploy/` | On request | N/A |
+| Skill                 | Location                        | When Checked   | Weight |
+| --------------------- | ------------------------------- | -------------- | ------ |
+| react-best-practices  | `skills/react-best-practices/`  | During Phase 3 | 20%    |
+| web-design-guidelines | `skills/web-design-guidelines/` | Before Phase 4 | 25%    |
+| vercel-deploy         | `skills/vercel-deploy/`         | On request     | N/A    |
 
 ---
 
 ## Activation Triggers
 
 ### During Phase 3 (Build)
+
 - **Skill:** react-best-practices
 - **Focus:** Async patterns, bundle optimization, server components
 
 ### Before Phase 4 (Ralph Loop)
+
 - **Skill:** web-design-guidelines
 - **Focus:** Accessibility, animations, loading/empty/error states
 
 ### Phase 5 (Optional - On Request)
+
 - **Skill:** vercel-deploy
 - **Focus:** Deploy to Vercel after Ralph PASS
 
@@ -80,20 +83,24 @@ Severity weights:
 ## Violations by Severity
 
 ### CRITICAL (blocks build)
+
 - [ ] {{rule-id}}: {{description}}
   - File: {{file-path}}:{{line}}
   - Fix: {{suggested-fix}}
 
 ### HIGH (should fix now)
+
 - [ ] {{rule-id}}: {{description}}
   - File: {{file-path}}:{{line}}
   - Fix: {{suggested-fix}}
 
 ### MEDIUM (fix before Ralph)
+
 - [ ] {{rule-id}}: {{description}}
   - File: {{file-path}}:{{line}}
 
 ### LOW (can defer)
+
 - [x] {{rule-id}}: {{description}}
   - Deferred (non-blocking)
 
@@ -104,6 +111,7 @@ Severity weights:
 ---
 
 ## Next Steps
+
 [If BLOCKED: List critical fixes required]
 [If FIX FIRST: List high-priority fixes]
 [If PROCEED: Confirmation to continue]
@@ -111,12 +119,12 @@ Severity weights:
 
 ### Step 5: Take Action
 
-| Score | Status | Action |
-|-------|--------|--------|
-| ≥95% | PROCEED | Continue to Ralph QA |
-| 90-94% | FIX FIRST | Fix HIGH violations before Ralph |
-| <90% | BLOCKED | Fix all CRITICAL/HIGH violations |
-| Any CRITICAL | BLOCKED | Cannot proceed until resolved |
+| Score        | Status    | Action                           |
+| ------------ | --------- | -------------------------------- |
+| ≥95%         | PROCEED   | Continue to Ralph QA             |
+| 90-94%       | FIX FIRST | Fix HIGH violations before Ralph |
+| <90%         | BLOCKED   | Fix all CRITICAL/HIGH violations |
+| Any CRITICAL | BLOCKED   | Cannot proceed until resolved    |
 
 ---
 
@@ -124,25 +132,25 @@ Severity weights:
 
 ### React Best Practices
 
-| Violation | Quick Fix |
-|-----------|-----------|
-| Sequential awaits | Use `Promise.all([...])` |
-| Barrel imports | Import directly from component file |
-| Missing dynamic import | Use `dynamic()` for heavy deps |
+| Violation                | Quick Fix                           |
+| ------------------------ | ----------------------------------- |
+| Sequential awaits        | Use `Promise.all([...])`            |
+| Barrel imports           | Import directly from component file |
+| Missing dynamic import   | Use `dynamic()` for heavy deps      |
 | Client component overuse | Remove `'use client'` if not needed |
-| No caching | Add `unstable_cache()` wrapper |
+| No caching               | Add `unstable_cache()` wrapper      |
 
 ### Web Design Guidelines
 
-| Violation | Quick Fix |
-|-----------|-----------|
+| Violation          | Quick Fix                               |
+| ------------------ | --------------------------------------- |
 | Missing aria-label | Add `aria-label` to interactive element |
-| No focus-visible | Add focus-visible styles |
-| No page animation | Wrap with motion.div + fade/slide |
-| Spinner loading | Replace with Skeleton component |
-| Empty "No items" | Add icon, message, and CTA |
-| Raw error text | Add styled error card with retry |
-| Monospace body | Use Inter/system sans-serif |
+| No focus-visible   | Add focus-visible styles                |
+| No page animation  | Wrap with motion.div + fade/slide       |
+| Spinner loading    | Replace with Skeleton component         |
+| Empty "No items"   | Add icon, message, and CTA              |
+| Raw error text     | Add styled error card with retry        |
+| Monospace body     | Use Inter/system sans-serif             |
 
 ---
 
@@ -154,6 +162,7 @@ Skill enforcement feeds into Ralph QA:
 2. **During Ralph:** Skill compliance becomes scoring categories
 
 Ralph's verdict calculation includes:
+
 - React Skills Compliance: 20% weight
 - Web Design Skills Compliance: 25% weight
 
@@ -164,16 +173,19 @@ Total skill weight: **45%** of Ralph score
 ## Enforcement Levels
 
 ### Level 1: Advisory (during build)
+
 - Show violations in output
 - Don't block progress
 - Track for Ralph QA
 
 ### Level 2: Warning (before Ralph)
+
 - Show violations prominently
 - Require acknowledgment
 - Add to Ralph checklist
 
 ### Level 3: Blocking (Ralph QA)
+
 - CRITICAL violations fail build
 - Must fix before PASS verdict
 

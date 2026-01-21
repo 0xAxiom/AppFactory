@@ -6,12 +6,21 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { Tool, ToolDefinition, ListDirectoryArgs, ListDirectoryOutput, DirectoryEntry } from '../types.js';
+import {
+  Tool,
+  ToolDefinition,
+  ListDirectoryArgs,
+  ListDirectoryOutput,
+  DirectoryEntry,
+} from '../types.js';
 import { validatePath } from '../../lib/path-validator.js';
 import { FileUnreadableError } from '../../lib/errors.js';
 import { logger } from '../../lib/logger.js';
 
-export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryOutput> {
+export class ListDirectoryTool implements Tool<
+  ListDirectoryArgs,
+  ListDirectoryOutput
+> {
   readonly name = 'list_directory';
 
   private rootDirectory: string;
@@ -23,7 +32,8 @@ export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryO
   definition(): ToolDefinition {
     return {
       name: this.name,
-      description: 'List files and directories in a given path. Use this to discover project structure.',
+      description:
+        'List files and directories in a given path. Use this to discover project structure.',
       parameters: {
         type: 'object',
         properties: {
@@ -37,7 +47,8 @@ export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryO
           },
           includeHidden: {
             type: 'boolean',
-            description: 'Include hidden files/directories starting with . (default: false)',
+            description:
+              'Include hidden files/directories starting with . (default: false)',
           },
         },
         required: ['path'],
@@ -57,7 +68,11 @@ export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryO
     // Validate path is within allowed root
     const validatedPath = validatePath(targetPath, this.rootDirectory);
 
-    logger.debug('Listing directory', { path: validatedPath, maxDepth, includeHidden });
+    logger.debug('Listing directory', {
+      path: validatedPath,
+      maxDepth,
+      includeHidden,
+    });
 
     const entries: DirectoryEntry[] = [];
     let totalFiles = 0;
@@ -70,7 +85,10 @@ export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryO
       try {
         items = fs.readdirSync(currentPath);
       } catch (err) {
-        logger.warn('Failed to read directory', { path: currentPath, error: String(err) });
+        logger.warn('Failed to read directory', {
+          path: currentPath,
+          error: String(err),
+        });
         return;
       }
 
@@ -79,7 +97,17 @@ export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryO
         if (!includeHidden && item.startsWith('.')) continue;
 
         // Skip common non-essential directories
-        if (['node_modules', '.git', 'dist', 'build', '__pycache__', '.next'].includes(item)) continue;
+        if (
+          [
+            'node_modules',
+            '.git',
+            'dist',
+            'build',
+            '__pycache__',
+            '.next',
+          ].includes(item)
+        )
+          continue;
 
         const itemPath = path.join(currentPath, item);
         const relativePath = path.relative(this.rootDirectory, itemPath);
@@ -96,7 +124,10 @@ export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryO
             totalFiles++;
           }
         } catch (err) {
-          logger.warn('Failed to stat item', { path: itemPath, error: String(err) });
+          logger.warn('Failed to stat item', {
+            path: itemPath,
+            error: String(err),
+          });
         }
       }
     };
@@ -109,7 +140,11 @@ export class ListDirectoryTool implements Tool<ListDirectoryArgs, ListDirectoryO
       return a.path.localeCompare(b.path);
     });
 
-    logger.info('Directory listed', { totalFiles, totalDirectories, entriesReturned: entries.length });
+    logger.info('Directory listed', {
+      totalFiles,
+      totalDirectories,
+      entriesReturned: entries.length,
+    });
 
     return { entries, totalFiles, totalDirectories };
   }

@@ -23,7 +23,7 @@
     "partnerKey": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
     "environmentVariables": [
       "BAGS_API_KEY",
-      "SOLANA_RPC_URL", 
+      "SOLANA_RPC_URL",
       "CREATOR_WALLET_ADDRESS"
     ],
     "idempotencyStrategy": "input_hash_based",

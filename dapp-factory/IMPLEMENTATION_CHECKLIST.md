@@ -9,18 +9,21 @@ This repo contains LOCAL-ONLY tools. The Factory Launchpad is in a separate repo
 ## What's In This Repo
 
 ### Agent Constitution (Complete)
+
 - [x] `CLAUDE.md` - Agent constitution for prompt generation
 - [x] Agent reads templates, substitutes variables, writes output files
 - [x] Agent asks about token integration (optional)
 - [x] No CLI required for generation
 
 ### Templates (Complete)
+
 - [x] `generator/templates/build_prompt.hbs` - Build instructions (with token conditionals)
 - [x] `generator/templates/checklist.hbs` - Verification checklist (with token conditionals)
 - [x] `generator/templates/token_spec.hbs` - Token integration spec (optional)
 - [x] `generator/templates/frontend_spec.hbs` - UI guidelines
 
 ### Validator (Complete)
+
 - [x] `validator/index.ts` - Entrypoint for `npm run validate` (REQUIRED)
 - [x] `validator/zip.ts` - Entrypoint for `npm run zip` (REQUIRED)
 - [x] Enforces ZIP_CONTRACT.md v2.0
@@ -30,6 +33,7 @@ This repo contains LOCAL-ONLY tools. The Factory Launchpad is in a separate repo
 - [x] Points to deployment preparation
 
 ### ZIP Contract (Complete)
+
 - [x] `ZIP_CONTRACT.md` v2.0 - Source of truth for valid builds
 - [x] Required files list
 - [x] Core dependencies (next, react, react-dom)
@@ -38,6 +42,7 @@ This repo contains LOCAL-ONLY tools. The Factory Launchpad is in a separate repo
 - [x] Size limits
 
 ### Documentation (Complete)
+
 - [x] `README.md` - Clear agent-first scope
 - [x] `ARCHITECTURE.md` - System boundary diagram
 - [x] `IMPLEMENTATION_CHECKLIST.md` - This file
@@ -78,6 +83,7 @@ These belong on the Factory Launchpad (separate repository):
 ## Version History
 
 ### v4.0 (2026-01-13)
+
 - Made token integration optional
 - Agent asks user about token choice
 - Templates use Handlebars conditionals
@@ -86,6 +92,7 @@ These belong on the Factory Launchpad (separate repository):
 - Updated ZIP_CONTRACT to v2.0
 
 ### v3.1 (2026-01-12)
+
 - Initial agent-first architecture
 - Solana dependencies required
 
@@ -94,6 +101,7 @@ These belong on the Factory Launchpad (separate repository):
 ## Deprecated
 
 The following directories contain legacy code and will be removed in future cleanup:
+
 - `deprecated/platform-v1/`
 - `scripts/`
 - `pipeline/`

@@ -18,7 +18,7 @@ const COMMON_PORTS = {
   expoDevTools: 19002,
   webpack: 8080,
   vite: 5173,
-  nextjs: 3000
+  nextjs: 3000,
 };
 
 interface PortInfo {
@@ -35,7 +35,7 @@ export async function isPortInUse(port: number): Promise<boolean> {
   try {
     // Use lsof on macOS/Linux
     const { stdout } = await execAsync(`lsof -i :${port} -P -n | grep LISTEN`, {
-      timeout: 5000
+      timeout: 5000,
     });
     return stdout.trim().length > 0;
   } catch {
@@ -47,17 +47,22 @@ export async function isPortInUse(port: number): Promise<boolean> {
 /**
  * Get process info for a port
  */
-export async function getPortProcess(port: number): Promise<{ pid: number; name: string } | null> {
+export async function getPortProcess(
+  port: number
+): Promise<{ pid: number; name: string } | null> {
   try {
-    const { stdout } = await execAsync(`lsof -i :${port} -P -n | grep LISTEN | head -1`, {
-      timeout: 5000
-    });
+    const { stdout } = await execAsync(
+      `lsof -i :${port} -P -n | grep LISTEN | head -1`,
+      {
+        timeout: 5000,
+      }
+    );
 
     const parts = stdout.trim().split(/\s+/);
     if (parts.length >= 2) {
       return {
         name: parts[0],
-        pid: parseInt(parts[1], 10)
+        pid: parseInt(parts[1], 10),
       };
     }
   } catch {
@@ -82,7 +87,7 @@ export async function checkCommonPorts(): Promise<PortInfo[]> {
         port,
         name,
         pid: processInfo?.pid,
-        process: processInfo?.name
+        process: processInfo?.name,
       });
     }
   }
@@ -93,7 +98,10 @@ export async function checkCommonPorts(): Promise<PortInfo[]> {
 /**
  * Find an available port starting from a base port
  */
-export async function findAvailablePort(basePort: number, maxAttempts: number = 10): Promise<number> {
+export async function findAvailablePort(
+  basePort: number,
+  maxAttempts: number = 10
+): Promise<number> {
   for (let i = 0; i < maxAttempts; i++) {
     const port = basePort + i;
     const inUse = await isPortInUse(port);
@@ -122,13 +130,17 @@ export async function printPortStatus(): Promise<void> {
   logger.warn('The following ports are in use:');
 
   for (const info of inUse) {
-    const processStr = info.process ? ` (${info.process}, PID: ${info.pid})` : '';
+    const processStr = info.process
+      ? ` (${info.process}, PID: ${info.pid})`
+      : '';
     console.log(`  - Port ${info.port} (${info.name})${processStr}`);
   }
 
-  if (inUse.some(p => p.port === COMMON_PORTS.metro)) {
+  if (inUse.some((p) => p.port === COMMON_PORTS.metro)) {
     logger.warn('Metro bundler port (8081) is in use.');
-    logger.info('To run Metro on a different port, use: npx expo start --port 8082');
+    logger.info(
+      'To run Metro on a different port, use: npx expo start --port 8082'
+    );
   }
 }
 

@@ -11,11 +11,13 @@
 The Factory Launchpad provides one-click deployment for agents.
 
 #### Prerequisites
+
 - Agent validated (`npm run validate` passes)
 - Code pushed to GitHub
 - Project metadata prepared
 
 #### Steps
+
 1. Push agent to GitHub
 2. Wait for Factory Launchpad availability
 3. Import your repository
@@ -23,7 +25,9 @@ The Factory Launchpad provides one-click deployment for agents.
 5. Deploy
 
 #### Environment Variables
+
 Set these in the Launchpad dashboard:
+
 - All variables from `.env.example`
 - `PORT` (usually auto-configured)
 
@@ -34,6 +38,7 @@ Set these in the Launchpad dashboard:
 Run the agent on any Node.js hosting platform.
 
 #### Platforms
+
 - **Railway** - Simple Node.js hosting
 - **Render** - Free tier available
 - **Fly.io** - Edge deployment
@@ -122,7 +127,7 @@ services:
   agent:
     build: .
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
       - PORT=8080
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -167,25 +172,25 @@ Use AWS SAM or Serverless Framework to deploy.
 
 Set these in your deployment platform:
 
-| Variable | Description |
-|----------|-------------|
-| `PORT` | Server port (usually auto-configured) |
+| Variable   | Description                            |
+| ---------- | -------------------------------------- |
+| `PORT`     | Server port (usually auto-configured)  |
 | `NODE_ENV` | `production` for deployed environments |
 
 ### Agent-Specific Variables
 
 From your `.env.example`:
 
-| Variable | Description |
-|----------|-------------|
-| `OPENAI_API_KEY` | OpenAI API key (if using OpenAI) |
+| Variable            | Description                         |
+| ------------------- | ----------------------------------- |
+| `OPENAI_API_KEY`    | OpenAI API key (if using OpenAI)    |
 | `ANTHROPIC_API_KEY` | Anthropic API key (if using Claude) |
-| ... | Other agent-specific variables |
+| ...                 | Other agent-specific variables      |
 
 ### Token Integration Variables (if enabled)
 
-| Variable | Description |
-|----------|-------------|
+| Variable                 | Description                     |
+| ------------------------ | ------------------------------- |
 | `TOKEN_CONTRACT_ADDRESS` | Contract address (after launch) |
 
 ---
@@ -199,6 +204,7 @@ GET /health
 ```
 
 Expected response:
+
 ```json
 {
   "status": "ok",
@@ -209,6 +215,7 @@ Expected response:
 ```
 
 ### Health Check Settings
+
 - **Interval**: 30 seconds
 - **Timeout**: 10 seconds
 - **Healthy threshold**: 2 consecutive successes
@@ -221,11 +228,13 @@ Expected response:
 ### Horizontal Scaling
 
 Most platforms support horizontal scaling:
+
 - Railway: Adjust replica count
 - Render: Enable auto-scaling
 - Docker: Use orchestration (Kubernetes, Docker Swarm)
 
 ### Considerations
+
 - Agent is stateless by default
 - No shared state between instances
 - Each instance needs environment variables
@@ -243,11 +252,12 @@ The agent outputs JSON logs. Configure your platform to ingest these:
   "timestamp": "2026-01-14T12:00:00.000Z",
   "level": "info",
   "message": "Request received",
-  "context": {"method": "POST", "path": "/process"}
+  "context": { "method": "POST", "path": "/process" }
 }
 ```
 
 ### Log Platforms
+
 - **Railway**: Built-in log viewer
 - **Render**: Built-in logs
 - **DataDog**: Log aggregation
@@ -256,6 +266,7 @@ The agent outputs JSON logs. Configure your platform to ingest these:
 ### Alerting
 
 Set up alerts for:
+
 - High error rate (> 1% of requests)
 - High latency (> 5s average)
 - Health check failures
@@ -320,19 +331,19 @@ echo $OPENAI_API_KEY
 
 ### Hosting Costs
 
-| Platform | Free Tier | Paid |
-|----------|-----------|------|
-| Railway | $5/month credit | $0.000463/vCPU-minute |
-| Render | 750 hours/month | $7/month (starter) |
-| Fly.io | 3 shared VMs | $1.94/month (1GB) |
+| Platform | Free Tier       | Paid                  |
+| -------- | --------------- | --------------------- |
+| Railway  | $5/month credit | $0.000463/vCPU-minute |
+| Render   | 750 hours/month | $7/month (starter)    |
+| Fly.io   | 3 shared VMs    | $1.94/month (1GB)     |
 
 ### LLM API Costs
 
-| Provider | Model | Cost |
-|----------|-------|------|
-| OpenAI | GPT-4 | $30/1M input tokens |
-| OpenAI | GPT-3.5 | $0.50/1M input tokens |
-| Anthropic | Claude 3 | $15/1M input tokens |
+| Provider  | Model    | Cost                  |
+| --------- | -------- | --------------------- |
+| OpenAI    | GPT-4    | $30/1M input tokens   |
+| OpenAI    | GPT-3.5  | $0.50/1M input tokens |
+| Anthropic | Claude 3 | $15/1M input tokens   |
 
 Estimate monthly cost based on expected request volume.
 

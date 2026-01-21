@@ -10,16 +10,16 @@ See `SKILL.md` for the complete ruleset with code examples.
 
 ### Rule Categories Summary
 
-| Category | Rules | Priority | Key Focus |
-|----------|-------|----------|-----------|
-| Accessibility | AC1-AC8 | HIGH | Semantic HTML, ARIA, contrast, keyboard nav |
-| Focus States | FS1-FS3 | HIGH | Visible focus, focus-visible, custom styles |
-| Forms | FM1-FM6 | MEDIUM | Labels, autocomplete, validation errors |
-| Animation | AN1-AN5 | MEDIUM | Page entrance, hover feedback, transform/opacity |
-| Typography | TY1-TY4 | MEDIUM | Sans-serif body, proper quotes, tabular nums |
-| Loading States | LS1-LS3 | MEDIUM | Skeletons, button states, progressive loading |
-| Empty/Error States | ES1-ES2 | MEDIUM | Designed empty states, styled errors |
-| Dark Mode | DM1-DM3 | LOW | Color scheme, theme color, CSS variables |
+| Category           | Rules   | Priority | Key Focus                                        |
+| ------------------ | ------- | -------- | ------------------------------------------------ |
+| Accessibility      | AC1-AC8 | HIGH     | Semantic HTML, ARIA, contrast, keyboard nav      |
+| Focus States       | FS1-FS3 | HIGH     | Visible focus, focus-visible, custom styles      |
+| Forms              | FM1-FM6 | MEDIUM   | Labels, autocomplete, validation errors          |
+| Animation          | AN1-AN5 | MEDIUM   | Page entrance, hover feedback, transform/opacity |
+| Typography         | TY1-TY4 | MEDIUM   | Sans-serif body, proper quotes, tabular nums     |
+| Loading States     | LS1-LS3 | MEDIUM   | Skeletons, button states, progressive loading    |
+| Empty/Error States | ES1-ES2 | MEDIUM   | Designed empty states, styled errors             |
+| Dark Mode          | DM1-DM3 | LOW      | Color scheme, theme color, CSS variables         |
 
 ---
 

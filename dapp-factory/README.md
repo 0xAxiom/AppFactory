@@ -38,6 +38,7 @@ claude
 **You:** "I want to make a DeFi dashboard with AI-powered portfolio recommendations"
 
 **Claude:**
+
 1. Normalizes your intent into a publishable product spec
 2. Determines: Mode B (Agent-Backed) due to AI recommendations
 3. Asks: "Do you want Solana wallet integration?" → answer yes or no
@@ -46,6 +47,7 @@ claude
 6. Runs Ralph Polish Loop until quality passes
 
 **When done:**
+
 ```bash
 cd dapp-builds/defi-dashboard
 npm install
@@ -59,13 +61,13 @@ npm run dev
 
 Before building, Claude evaluates your requirements:
 
-| Criterion | If YES, agents may be needed |
-|-----------|------------------------------|
-| Autonomous reasoning? | AI recommendations, intent interpretation |
-| Long-running decision loops? | Portfolio rebalancing, monitoring |
-| Tool-using entities? | API calls based on AI decisions |
-| Memory/environment modeling? | Context-aware features |
-| On-chain ↔ off-chain coordination? | Agent-triggered transactions |
+| Criterion                          | If YES, agents may be needed              |
+| ---------------------------------- | ----------------------------------------- |
+| Autonomous reasoning?              | AI recommendations, intent interpretation |
+| Long-running decision loops?       | Portfolio rebalancing, monitoring         |
+| Tool-using entities?               | API calls based on AI decisions           |
+| Memory/environment modeling?       | Context-aware features                    |
+| On-chain ↔ off-chain coordination? | Agent-triggered transactions              |
 
 **3+ YES → Mode B (Agent-Backed)**
 **2 or fewer → Mode A (Standard)**
@@ -145,12 +147,12 @@ dapp-builds/your-dapp/
 
 Agent-backed dApps follow the [Rig framework](https://github.com/0xPlaygrounds/rig) patterns:
 
-| Concept | Implementation |
-|---------|----------------|
-| Agent Definition | `AgentDefinition` interface |
-| Tools | `Tool<Args, Output>` interface with Zod schemas |
-| Execution Loop | `AgentExecutionLoop` class |
-| Preamble | System prompt defining agent behavior |
+| Concept          | Implementation                                  |
+| ---------------- | ----------------------------------------------- |
+| Agent Definition | `AgentDefinition` interface                     |
+| Tools            | `Tool<Args, Output>` interface with Zod schemas |
+| Execution Loop   | `AgentExecutionLoop` class                      |
+| Preamble         | System prompt defining agent behavior           |
 
 **Reference**: See [references/rig](../references/rig/) for the canonical Rig implementation.
 
@@ -158,30 +160,30 @@ Agent-backed dApps follow the [Rig framework](https://github.com/0xPlaygrounds/r
 
 ## Technology Stack
 
-| Component | Technology |
-|-----------|------------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| UI | shadcn/ui |
-| Icons | lucide-react |
-| Animations | Framer Motion |
-| State | Zustand |
+| Component  | Technology              |
+| ---------- | ----------------------- |
+| Framework  | Next.js 14 (App Router) |
+| Language   | TypeScript              |
+| Styling    | Tailwind CSS            |
+| UI         | shadcn/ui               |
+| Icons      | lucide-react            |
+| Animations | Framer Motion           |
+| State      | Zustand                 |
 
 **Token-enabled dApps also include:**
 
-| Component | Technology |
-|-----------|------------|
-| Wallet | @solana/wallet-adapter-react |
-| Blockchain | @solana/web3.js v2.x |
+| Component  | Technology                   |
+| ---------- | ---------------------------- |
+| Wallet     | @solana/wallet-adapter-react |
+| Blockchain | @solana/web3.js v2.x         |
 
 **Agent-backed dApps also include:**
 
-| Component | Technology |
-|-----------|------------|
-| LLM Client | OpenAI / Anthropic SDK |
-| Schema Validation | Zod |
-| Architecture | Rig-aligned patterns |
+| Component         | Technology             |
+| ----------------- | ---------------------- |
+| LLM Client        | OpenAI / Anthropic SDK |
+| Schema Validation | Zod                    |
+| Architecture      | Rig-aligned patterns   |
 
 ---
 
@@ -190,11 +192,13 @@ Agent-backed dApps follow the [Rig framework](https://github.com/0xPlaygrounds/r
 Every dApp must pass Ralph's quality checklist:
 
 ### Build Quality
+
 - `npm install` completes without errors
 - `npm run build` completes without errors
 - `npm run dev` starts on localhost:3000
 
 ### UI/UX Quality
+
 - Sans-serif font for body text
 - Framer Motion animations on page load
 - Hover states on all interactive elements
@@ -204,6 +208,7 @@ Every dApp must pass Ralph's quality checklist:
 - Mobile responsive layout
 
 ### Agent Quality (Mode B)
+
 - Agent definition follows Rig patterns
 - All tools have typed args/output
 - Execution loop handles tool calls

@@ -44,8 +44,12 @@ test.describe('Form Tests', () => {
       }
 
       // Check for common form fields (customize as needed)
-      const nameField = form.locator('input[name*="name"], input[placeholder*="name" i]');
-      const emailField = form.locator('input[type="email"], input[name*="email"]');
+      const nameField = form.locator(
+        'input[name*="name"], input[placeholder*="name" i]'
+      );
+      const emailField = form.locator(
+        'input[type="email"], input[name*="email"]'
+      );
       const messageField = form.locator('textarea, input[name*="message"]');
 
       // At least email should exist for contact forms
@@ -63,7 +67,9 @@ test.describe('Form Tests', () => {
       }
 
       // Try to submit empty form
-      const submitButton = form.locator('button[type="submit"], input[type="submit"]');
+      const submitButton = form.locator(
+        'button[type="submit"], input[type="submit"]'
+      );
       if ((await submitButton.count()) > 0) {
         await submitButton.first().click();
 
@@ -73,7 +79,8 @@ test.describe('Form Tests', () => {
         // Check for validation message (browser native or custom)
         const validationVisible =
           (await page.locator('[aria-invalid="true"]').count()) > 0 ||
-          (await page.locator('.error, .invalid, [class*="error"]').count()) > 0 ||
+          (await page.locator('.error, .invalid, [class*="error"]').count()) >
+            0 ||
           (await page.locator('input:invalid').count()) > 0;
 
         // Form should show some validation feedback

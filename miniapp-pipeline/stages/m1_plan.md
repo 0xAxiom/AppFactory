@@ -45,14 +45,18 @@ File: `artifacts/stage01/scaffold_plan.md`
 # Scaffold Plan
 
 ## Project Metadata
+
 - Slug: [url-safe-name]
 - Generated: [timestamp]
 
 ## Template
+
 MiniKit Next.js Starter (v14+ App Router)
 
 ## Dependencies
+
 ### Core
+
 - next: ^14.0.0
 - react: ^18.0.0
 - react-dom: ^18.0.0
@@ -60,94 +64,107 @@ MiniKit Next.js Starter (v14+ App Router)
 - tailwindcss: ^3.0.0
 
 ### MiniKit
+
 - @coinbase/minikit: ^latest
 
 ### Additional (if needed)
+
 - [package]: [version] - [reason]
 
 ## Routes
 
 ### Required
-| Route | File | Purpose |
-|-------|------|---------|
-| `/` | `app/page.tsx` | Main app page |
+
+| Route                         | File                                      | Purpose           |
+| ----------------------------- | ----------------------------------------- | ----------------- |
+| `/`                           | `app/page.tsx`                            | Main app page     |
 | `/.well-known/farcaster.json` | `app/.well-known/farcaster.json/route.ts` | Manifest endpoint |
 
 ### Optional
-| Route | File | Purpose |
-|-------|------|---------|
+
+| Route          | File                       | Purpose              |
+| -------------- | -------------------------- | -------------------- |
 | `/api/webhook` | `app/api/webhook/route.ts` | Notification webhook |
-| [custom] | [path] | [purpose] |
+| [custom]       | [path]                     | [purpose]            |
 
 ## Components
 
 ### Layout
+
 - `app/layout.tsx` - Root layout with providers
 - `components/ClientWrapper.tsx` - Browser fallback handler
 
 ### Pages
+
 - `app/page.tsx` - Main app content
 
 ### Shared
+
 - `components/LoadingState.tsx` - Loading indicator
 - `components/ErrorBoundary.tsx` - Error handling
 
 ### Feature-Specific
+
 - `components/[Feature].tsx` - [description]
 
 ## Data Layer
 
 ### State Management
+
 [Describe approach: useState, useReducer, context, etc.]
 
 ### Persistence
+
 [Local storage, API, none]
 
 ### Onchain (if applicable)
+
 [Wallet connection, contract interactions]
 
 ## Assets Required
 
 ### Images
-| Asset | Dimensions | Format | Purpose |
-|-------|-----------|--------|---------|
-| icon.png | 1024x1024 | PNG (no transparency) | App icon |
-| splash.png | 200x200 | PNG | Loading screen |
-| hero.png | 1200x630 | PNG/JPG | Hero image |
-| og.png | 1200x630 | PNG/JPG | Social sharing |
-| screenshots/1.png | 1284x2778 | PNG | App screenshot |
+
+| Asset             | Dimensions | Format                | Purpose        |
+| ----------------- | ---------- | --------------------- | -------------- |
+| icon.png          | 1024x1024  | PNG (no transparency) | App icon       |
+| splash.png        | 200x200    | PNG                   | Loading screen |
+| hero.png          | 1200x630   | PNG/JPG               | Hero image     |
+| og.png            | 1200x630   | PNG/JPG               | Social sharing |
+| screenshots/1.png | 1284x2778  | PNG                   | App screenshot |
 
 ### Colors
+
 - Primary: [hex]
 - Background: [hex]
 - Splash background: [hex]
 
 ## File Structure Preview
-
 ```
+
 app/
 ├── app/
-│   ├── layout.tsx
-│   ├── page.tsx
-│   ├── globals.css
-│   ├── .well-known/
-│   │   └── farcaster.json/
-│   │       └── route.ts
-│   └── api/
-│       └── webhook/
-│           └── route.ts
+│ ├── layout.tsx
+│ ├── page.tsx
+│ ├── globals.css
+│ ├── .well-known/
+│ │ └── farcaster.json/
+│ │ └── route.ts
+│ └── api/
+│ └── webhook/
+│ └── route.ts
 ├── components/
-│   ├── ClientWrapper.tsx
-│   ├── LoadingState.tsx
-│   ├── ErrorBoundary.tsx
-│   └── [Feature].tsx
+│ ├── ClientWrapper.tsx
+│ ├── LoadingState.tsx
+│ ├── ErrorBoundary.tsx
+│ └── [Feature].tsx
 ├── public/
-│   ├── icon.png
-│   ├── splash.png
-│   ├── hero.png
-│   ├── og.png
-│   └── screenshots/
-│       └── 1.png
+│ ├── icon.png
+│ ├── splash.png
+│ ├── hero.png
+│ ├── og.png
+│ └── screenshots/
+│ └── 1.png
 ├── minikit.config.ts
 ├── package.json
 ├── tsconfig.json
@@ -156,6 +173,7 @@ app/
 ├── postcss.config.js
 ├── .env.example
 └── .gitignore
+
 ```
 
 ## Implementation Notes
@@ -174,19 +192,25 @@ app/
 ## Template Selection Guide
 
 ### Default Template
+
 Use for most apps:
+
 - MiniKit Next.js Starter
 - Includes all required setup
 - Tailwind CSS for styling
 
 ### With Onchain Features
+
 Add when `onchainRequirements` is not "none":
+
 - `@coinbase/onchainkit` for wallet UI
 - `wagmi` for wallet hooks
 - `viem` for blockchain interactions
 
 ### With External API
+
 Add when data layer needs API:
+
 - API routes in `app/api/`
 - Consider caching strategy
 - Handle loading/error states
@@ -194,47 +218,59 @@ Add when data layer needs API:
 ## Examples
 
 ### Simple Social App
+
 ```markdown
 ## Template
+
 MiniKit Next.js Starter
 
 ## Dependencies
+
 Core Next.js + MiniKit only
 
 ## Routes
+
 - `/` - Main gratitude input and feed
 - `/.well-known/farcaster.json` - Manifest
 
 ## Components
+
 - GratitudeInput.tsx - Text input for gratitude
 - GratitudeCard.tsx - Display single entry
 - GratitudeFeed.tsx - List of entries
 
 ## Data Layer
+
 Local state with localStorage for persistence
 ```
 
 ### Tip Jar with Payments
+
 ```markdown
 ## Template
+
 MiniKit Next.js Starter + OnchainKit
 
 ## Dependencies
+
 - @coinbase/onchainkit
 - wagmi
 - viem
 
 ## Routes
+
 - `/` - Tip jar interface
 - `/api/webhook` - Payment notifications
 - `/.well-known/farcaster.json` - Manifest
 
 ## Components
+
 - TipSelector.tsx - Amount selection
 - WalletConnect.tsx - Connect wallet
 - TransactionStatus.tsx - Tx feedback
 
 ## Data Layer
+
 Onchain for payments, local state for UI
 ```
 

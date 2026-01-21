@@ -36,6 +36,7 @@ File: `artifacts/stage09/PUBLISH.md`
 # Publishing Your Mini App
 
 ## App Details
+
 - **Name**: [App Name]
 - **URL**: https://[your-project].vercel.app
 - **Category**: [Category]
@@ -72,7 +73,9 @@ Tap the compose button to create a new post (cast).
 
 Include your mini app URL in the post:
 ```
+
 https://[your-project].vercel.app
+
 ```
 
 The app will automatically render as a rich embed when posted.
@@ -123,24 +126,29 @@ Without the URL, there's nothing to launch.
 
 ### Simple and Direct
 ```
+
 Share what you're grateful for with your friends.
 
 A simple daily gratitude practice, together.
 
 https://daily-gratitude.vercel.app
+
 ```
 
 ### Question Format
 ```
+
 What are you grateful for today?
 
 Try my new mini app and share with friends.
 
 https://daily-gratitude.vercel.app
+
 ```
 
 ### Feature Highlight
 ```
+
 New: Daily Gratitude mini app
 
 - Share one gratitude daily
@@ -148,6 +156,7 @@ New: Daily Gratitude mini app
 - Build a streak together
 
 https://daily-gratitude.vercel.app
+
 ```
 
 ---

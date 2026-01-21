@@ -23,7 +23,12 @@
       "source": "https://github.com/microsoft/playwright-mcp",
       "npmPackage": "@playwright/mcp",
       "transport": "stdio",
-      "allowedPipelines": ["dapp-factory", "website-pipeline", "app-factory", "miniapp-pipeline"],
+      "allowedPipelines": [
+        "dapp-factory",
+        "website-pipeline",
+        "app-factory",
+        "miniapp-pipeline"
+      ],
       "allowedPhases": ["verify", "ralph"],
       "permissionLevel": "read-only",
       "requiredEnvVars": [],
@@ -57,7 +62,11 @@
       "source": "https://vercel.com/docs/mcp/vercel-mcp",
       "endpoint": "https://mcp.vercel.com",
       "transport": "http",
-      "allowedPipelines": ["dapp-factory", "website-pipeline", "miniapp-pipeline"],
+      "allowedPipelines": [
+        "dapp-factory",
+        "website-pipeline",
+        "miniapp-pipeline"
+      ],
       "allowedPhases": ["deploy", "verify"],
       "permissionLevel": "read-only",
       "requiredEnvVars": [],
@@ -210,7 +219,11 @@
         "onDeployError": "rollback",
         "onStorageError": "log-and-continue"
       },
-      "artifacts": ["deployment-logs", "analytics-reports", "security-findings"],
+      "artifacts": [
+        "deployment-logs",
+        "analytics-reports",
+        "security-findings"
+      ],
       "securityNotes": "Use scoped API tokens with minimal permissions. Read-only recommended for initial integration.",
       "approvalRequired": true,
       "installCommand": "Uses hosted remote MCP servers at Cloudflare with OAuth"
@@ -222,7 +235,14 @@
       "source": "https://github.com/github/github-mcp-server",
       "npmPackage": "@modelcontextprotocol/server-github",
       "transport": "stdio",
-      "allowedPipelines": ["app-factory", "dapp-factory", "agent-factory", "plugin-factory", "miniapp-pipeline", "website-pipeline"],
+      "allowedPipelines": [
+        "app-factory",
+        "dapp-factory",
+        "agent-factory",
+        "plugin-factory",
+        "miniapp-pipeline",
+        "website-pipeline"
+      ],
       "allowedPhases": ["research", "build", "verify", "deploy"],
       "permissionLevel": "read-write",
       "requiredEnvVars": ["GITHUB_PERSONAL_ACCESS_TOKEN"],
@@ -267,7 +287,15 @@
 
     "dapp-factory": {
       "description": "Decentralized web apps (Next.js + optional agents)",
-      "allowedMcps": ["playwright", "vercel", "stripe", "supabase", "figma", "cloudflare", "github"],
+      "allowedMcps": [
+        "playwright",
+        "vercel",
+        "stripe",
+        "supabase",
+        "figma",
+        "cloudflare",
+        "github"
+      ],
       "phaseMapping": {
         "research": ["figma", "github"],
         "build": ["stripe", "supabase", "figma"],
@@ -303,7 +331,13 @@
 
     "miniapp-pipeline": {
       "description": "Base Mini Apps (MiniKit + Next.js)",
-      "allowedMcps": ["playwright", "vercel", "supabase", "cloudflare", "github"],
+      "allowedMcps": [
+        "playwright",
+        "vercel",
+        "supabase",
+        "cloudflare",
+        "github"
+      ],
       "phaseMapping": {
         "research": ["github"],
         "build": ["supabase"],
@@ -351,7 +385,11 @@
   "artifactOutputs": {
     "playwright": {
       "directory": "ralph/screenshots/",
-      "files": ["accessibility-snapshot-*.json", "screenshot-*.png", "test-report.html"]
+      "files": [
+        "accessibility-snapshot-*.json",
+        "screenshot-*.png",
+        "test-report.html"
+      ]
     },
     "vercel": {
       "directory": "deploy/",

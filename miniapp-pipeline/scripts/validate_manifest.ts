@@ -59,7 +59,9 @@ const fields = {
   tagline: extractField(/tagline:\s*["']([^"']*)["']/),
   description: extractField(/description:\s*["']([^"']*)["']/),
   primaryCategory: extractField(/primaryCategory:\s*["']([^"']*)["']/),
-  splashBackgroundColor: extractField(/splashBackgroundColor:\s*["']([^"']*)["']/),
+  splashBackgroundColor: extractField(
+    /splashBackgroundColor:\s*["']([^"']*)["']/
+  ),
 };
 
 // Extract tags (array)
@@ -67,8 +69,8 @@ const tagsMatch = configContent.match(/tags:\s*\[([^\]]*)\]/);
 const tagsStr = tagsMatch?.[1] || '';
 const tags = tagsStr
   .split(',')
-  .map(t => t.trim().replace(/["']/g, ''))
-  .filter(t => t.length > 0);
+  .map((t) => t.trim().replace(/["']/g, ''))
+  .filter((t) => t.length > 0);
 
 // Validation rules
 interface ValidationRule {
@@ -83,14 +85,41 @@ interface ValidationRule {
 }
 
 const rules: ValidationRule[] = [
-  { field: 'version', value: fields.version, required: true, validValues: ['1'] },
+  {
+    field: 'version',
+    value: fields.version,
+    required: true,
+    validValues: ['1'],
+  },
   { field: 'name', value: fields.name, required: true, maxLength: 32 },
   { field: 'subtitle', value: fields.subtitle, required: true, maxLength: 30 },
   { field: 'tagline', value: fields.tagline, required: false, maxLength: 30 },
-  { field: 'description', value: fields.description, required: true, maxLength: 170 },
-  { field: 'primaryCategory', value: fields.primaryCategory, required: true, validValues: validCategories },
-  { field: 'splashBackgroundColor', value: fields.splashBackgroundColor, required: true, pattern: /^#[0-9A-Fa-f]{6}$/ },
-  { field: 'tags', value: tags, required: true, isArray: true, maxItems: 5, pattern: /^[a-z0-9-]+$/ },
+  {
+    field: 'description',
+    value: fields.description,
+    required: true,
+    maxLength: 170,
+  },
+  {
+    field: 'primaryCategory',
+    value: fields.primaryCategory,
+    required: true,
+    validValues: validCategories,
+  },
+  {
+    field: 'splashBackgroundColor',
+    value: fields.splashBackgroundColor,
+    required: true,
+    pattern: /^#[0-9A-Fa-f]{6}$/,
+  },
+  {
+    field: 'tags',
+    value: tags,
+    required: true,
+    isArray: true,
+    maxItems: 5,
+    pattern: /^[a-z0-9-]+$/,
+  },
 ];
 
 // Run validations
@@ -154,9 +183,12 @@ for (const rule of rules) {
 
   // Print result
   if (issues.length > 0) {
-    hasErrors = issues.some(i => i.includes('required') || i.includes('exceeds') || i.includes('invalid'));
+    hasErrors = issues.some(
+      (i) =>
+        i.includes('required') || i.includes('exceeds') || i.includes('invalid')
+    );
     console.log(`✗ ${rule.field}`);
-    issues.forEach(issue => console.log(`  - ${issue}`));
+    issues.forEach((issue) => console.log(`  - ${issue}`));
   } else {
     const displayValue = rule.isArray
       ? `[${(value as string[]).join(', ')}]`
@@ -180,7 +212,7 @@ if (hasErrors) {
   console.error('  - description: 170 characters');
   console.error('');
   console.error('Valid categories:');
-  validCategories.forEach(c => console.error(`  - ${c}`));
+  validCategories.forEach((c) => console.error(`  - ${c}`));
   process.exit(1);
 } else if (hasWarnings) {
   console.log('⚠️  Manifest validation passed with warnings');

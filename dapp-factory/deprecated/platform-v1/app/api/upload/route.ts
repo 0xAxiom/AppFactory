@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-import crypto from "crypto";
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import crypto from 'crypto';
 
 // Required files for a valid build
 const REQUIRED_FILES = [
-  "package.json",
-  "src/app/page.tsx",
-  "src/app/layout.tsx",
+  'package.json',
+  'src/app/page.tsx',
+  'src/app/layout.tsx',
 ];
 
 // Rate limiting (in-memory for demo, use Redis in production)
@@ -46,13 +46,14 @@ const uploads = new Map<
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting
-    const ip = request.ip || request.headers.get("x-forwarded-for") || "unknown";
+    const ip =
+      request.ip || request.headers.get('x-forwarded-for') || 'unknown';
     if (!checkRateLimit(ip)) {
       return NextResponse.json(
         {
           success: false,
-          error: "rate_limited",
-          message: "Too many uploads. Please wait an hour and try again.",
+          error: 'rate_limited',
+          message: 'Too many uploads. Please wait an hour and try again.',
         },
         { status: 429 }
       );
@@ -60,26 +61,26 @@ export async function POST(request: NextRequest) {
 
     // Parse multipart form data
     const formData = await request.formData();
-    const file = formData.get("file") as File | null;
+    const file = formData.get('file') as File | null;
 
     if (!file) {
       return NextResponse.json(
         {
           success: false,
-          error: "missing_file",
-          message: "No file uploaded",
+          error: 'missing_file',
+          message: 'No file uploaded',
         },
         { status: 400 }
       );
     }
 
     // Validate file type
-    if (!file.name.endsWith(".zip")) {
+    if (!file.name.endsWith('.zip')) {
       return NextResponse.json(
         {
           success: false,
-          error: "invalid_type",
-          message: "File must be a .zip archive",
+          error: 'invalid_type',
+          message: 'File must be a .zip archive',
         },
         { status: 400 }
       );
@@ -90,8 +91,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "file_too_large",
-          message: "File must be under 50MB",
+          error: 'file_too_large',
+          message: 'File must be under 50MB',
         },
         { status: 400 }
       );
@@ -108,27 +109,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "invalid_zip",
-          message: "File is not a valid zip archive",
+          error: 'invalid_zip',
+          message: 'File is not a valid zip archive',
         },
         { status: 400 }
       );
     }
 
     // Generate upload ID
-    const uploadId = `up_${crypto.randomBytes(12).toString("hex")}`;
+    const uploadId = `up_${crypto.randomBytes(12).toString('hex')}`;
 
     // Simulate file list extraction
     // In production, actually extract and validate the zip
     const simulatedFiles = [
-      "package.json",
-      "tsconfig.json",
-      "next.config.js",
-      "tailwind.config.ts",
-      "src/app/layout.tsx",
-      "src/app/page.tsx",
-      "src/app/providers.tsx",
-      "src/app/globals.css",
+      'package.json',
+      'tsconfig.json',
+      'next.config.js',
+      'tailwind.config.ts',
+      'src/app/layout.tsx',
+      'src/app/page.tsx',
+      'src/app/providers.tsx',
+      'src/app/globals.css',
     ];
 
     // Check for required files
@@ -140,9 +141,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "missing_files",
+          error: 'missing_files',
           missing: missingFiles,
-          message: `Missing required files: ${missingFiles.join(", ")}`,
+          message: `Missing required files: ${missingFiles.join(', ')}`,
         },
         { status: 400 }
       );
@@ -165,17 +166,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       upload_id: uploadId,
-      status: "validated",
+      status: 'validated',
       files: simulatedFiles,
-      next_step: "Fill out the launch form",
+      next_step: 'Fill out the launch form',
     });
   } catch (error) {
-    console.error("Upload error:", error);
+    console.error('Upload error:', error);
     return NextResponse.json(
       {
         success: false,
-        error: "server_error",
-        message: "An unexpected error occurred",
+        error: 'server_error',
+        message: 'An unexpected error occurred',
       },
       { status: 500 }
     );
@@ -185,11 +186,11 @@ export async function POST(request: NextRequest) {
 // Get upload status
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const uploadId = searchParams.get("id");
+  const uploadId = searchParams.get('id');
 
   if (!uploadId) {
     return NextResponse.json(
-      { success: false, error: "missing_id" },
+      { success: false, error: 'missing_id' },
       { status: 400 }
     );
   }
@@ -198,7 +199,7 @@ export async function GET(request: NextRequest) {
 
   if (!upload) {
     return NextResponse.json(
-      { success: false, error: "not_found" },
+      { success: false, error: 'not_found' },
       { status: 404 }
     );
   }

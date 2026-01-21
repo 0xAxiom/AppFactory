@@ -5,16 +5,24 @@
  */
 
 import { AgentDefinition, Tool } from './types.js';
-import { ListDirectoryTool, ReadFileTool, SearchCodeTool, AnalyzeImportsTool } from './tools/index.js';
+import {
+  ListDirectoryTool,
+  ReadFileTool,
+  SearchCodeTool,
+  AnalyzeImportsTool,
+} from './tools/index.js';
 
 /**
  * Creates the Codebase Explainer agent with tools configured for the given root directory.
  * This follows Rig's pattern of constructing an Agent<M> with a specific model and tools.
  */
-export function createCodebaseExplainerAgent(rootDirectory: string): AgentDefinition {
+export function createCodebaseExplainerAgent(
+  rootDirectory: string
+): AgentDefinition {
   return {
     name: 'codebase-explainer',
-    description: 'An AI agent that explores and explains unfamiliar codebases through natural language interaction.',
+    description:
+      'An AI agent that explores and explains unfamiliar codebases through natural language interaction.',
 
     preamble: `You are a Codebase Explainer - an expert at understanding and explaining code.
 

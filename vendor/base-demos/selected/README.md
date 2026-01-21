@@ -4,11 +4,11 @@ This directory contains curated extractions from the upstream `base/demos` repos
 
 ## Contents
 
-| Directory | Source | Purpose |
-|-----------|--------|---------|
-| `quickstart/` | `mini-apps/templates/minikit/new-mini-app-quickstart/` | Official MiniKit starter |
-| `full-demo-reference/` | `mini-apps/templates/minikit/mini-app-full-demo-minikit/` | Reference patterns |
-| `notifications-module/` | `mini-apps/workshops/my-simple-mini-app/` | Notification patterns |
+| Directory               | Source                                                    | Purpose                  |
+| ----------------------- | --------------------------------------------------------- | ------------------------ |
+| `quickstart/`           | `mini-apps/templates/minikit/new-mini-app-quickstart/`    | Official MiniKit starter |
+| `full-demo-reference/`  | `mini-apps/templates/minikit/mini-app-full-demo-minikit/` | Reference patterns       |
+| `notifications-module/` | `mini-apps/workshops/my-simple-mini-app/`                 | Notification patterns    |
 
 ## Usage
 

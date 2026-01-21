@@ -9,10 +9,12 @@
 ## When to Activate
 
 This skill activates during:
+
 - **Milestone 2** (Core Screens) - After navigation and UI structure are built
 - **Phase 4** (Final Ralph QA) - As a scored compliance category
 
 Trigger phrases:
+
 - "Review mobile UI"
 - "Check accessibility"
 - "Audit UX quality"
@@ -29,16 +31,16 @@ Trigger phrases:
 
 ## Rule Categories
 
-| Category | Rules | Priority |
-|----------|-------|----------|
-| Accessibility | 8 | HIGH |
-| Touch & Gestures | 6 | HIGH |
-| Loading States | 5 | MEDIUM |
-| Empty States | 4 | MEDIUM |
-| Error States | 4 | MEDIUM |
-| Platform Conventions | 5 | MEDIUM |
-| Typography | 4 | LOW |
-| Navigation | 5 | LOW |
+| Category             | Rules | Priority |
+| -------------------- | ----- | -------- |
+| Accessibility        | 8     | HIGH     |
+| Touch & Gestures     | 6     | HIGH     |
+| Loading States       | 5     | MEDIUM   |
+| Empty States         | 4     | MEDIUM   |
+| Error States         | 4     | MEDIUM   |
+| Platform Conventions | 5     | MEDIUM   |
+| Typography           | 4     | LOW      |
+| Navigation           | 5     | LOW      |
 
 ---
 
@@ -59,11 +61,7 @@ Minimum touch targets: 44x44pt (iOS) / 48x48dp (Android).
 **Correct:**
 
 ```tsx
-<Pressable
-  style={{ padding: 12, minWidth: 44, minHeight: 44 }}
-  accessibilityRole="button"
-  accessibilityLabel="Close"
->
+<Pressable style={{ padding: 12, minWidth: 44, minHeight: 44 }} accessibilityRole="button" accessibilityLabel="Close">
   <Icon name="close" size={20} />
 </Pressable>
 ```
@@ -100,17 +98,13 @@ Text must have 4.5:1 contrast ratio (WCAG AA).
 **Incorrect:**
 
 ```tsx
-<Text style={{ color: '#999', backgroundColor: '#eee' }}>
-  Light gray on light gray
-</Text>
+<Text style={{ color: '#999', backgroundColor: '#eee' }}>Light gray on light gray</Text>
 ```
 
 **Correct:**
 
 ```tsx
-<Text style={{ color: '#595959', backgroundColor: '#fff' }}>
-  Accessible contrast
-</Text>
+<Text style={{ color: '#595959', backgroundColor: '#fff' }}>Accessible contrast</Text>
 ```
 
 ### A4: Dynamic Type Support
@@ -126,11 +120,7 @@ Support system font scaling for accessibility.
 **Correct:**
 
 ```tsx
-<Text
-  style={{ fontSize: 14 }}
-  maxFontSizeMultiplier={1.5}
-  allowFontScaling={true}
->
+<Text style={{ fontSize: 14 }} maxFontSizeMultiplier={1.5} allowFontScaling={true}>
   Scalable text
 </Text>
 ```
@@ -156,10 +146,7 @@ Ensure logical focus order for screen readers.
 <View>
   <Header />
   <Text>Main content</Text>
-  <Button
-    style={styles.floatingButton}
-    accessibilityLabel="Action button"
-  />
+  <Button style={styles.floatingButton} accessibilityLabel="Action button" />
 </View>
 ```
 
@@ -184,9 +171,7 @@ function AnimatedContent() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <Animated.View
-      entering={reducedMotion ? FadeIn.duration(0) : BounceIn.duration(500)}
-    >
+    <Animated.View entering={reducedMotion ? FadeIn.duration(0) : BounceIn.duration(500)}>
       <Content />
     </Animated.View>
   );
@@ -208,15 +193,9 @@ Show visible focus state for keyboard/switch control users.
 **Correct:**
 
 ```tsx
-<Pressable
-  onPress={handlePress}
-  style={({ focused }) => [
-    styles.button,
-    focused && styles.buttonFocused,
-  ]}
->
+<Pressable onPress={handlePress} style={({ focused }) => [styles.button, focused && styles.buttonFocused]}>
   <Text>Button</Text>
-</Pressable>
+</Pressable>;
 
 const styles = StyleSheet.create({
   button: { padding: 16 },
@@ -231,21 +210,21 @@ Announce errors to screen readers.
 **Incorrect:**
 
 ```tsx
-{error && <Text style={styles.error}>{error}</Text>}
+{
+  error && <Text style={styles.error}>{error}</Text>;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{error && (
-  <Text
-    style={styles.error}
-    accessibilityRole="alert"
-    accessibilityLiveRegion="assertive"
-  >
-    {error}
-  </Text>
-)}
+{
+  error && (
+    <Text style={styles.error} accessibilityRole="alert" accessibilityLiveRegion="assertive">
+      {error}
+    </Text>
+  );
+}
 ```
 
 ---
@@ -260,20 +239,16 @@ All touchable elements must show feedback.
 
 ```tsx
 <TouchableWithoutFeedback onPress={handlePress}>
-  <View><Text>Tap me</Text></View>
+  <View>
+    <Text>Tap me</Text>
+  </View>
 </TouchableWithoutFeedback>
 ```
 
 **Correct:**
 
 ```tsx
-<Pressable
-  onPress={handlePress}
-  style={({ pressed }) => [
-    styles.button,
-    pressed && styles.buttonPressed,
-  ]}
->
+<Pressable onPress={handlePress} style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}>
   <Text>Tap me</Text>
 </Pressable>
 ```
@@ -302,7 +277,7 @@ import * as Haptics from 'expo-haptics';
   }}
 >
   <Text>Delete</Text>
-</Pressable>
+</Pressable>;
 ```
 
 ### T3: Gesture Conflict Prevention
@@ -325,11 +300,7 @@ Avoid overlapping gesture handlers.
 
 ```tsx
 <GestureHandlerRootView>
-  <PanGestureHandler
-    onGestureEvent={handlePan}
-    activeOffsetX={[-10, 10]}
-    failOffsetY={[-5, 5]}
-  >
+  <PanGestureHandler onGestureEvent={handlePan} activeOffsetX={[-10, 10]} failOffsetY={[-5, 5]}>
     <Animated.View>
       <ScrollView>
         <Content />
@@ -355,10 +326,7 @@ Swipeable actions should be discoverable.
 **Correct:**
 
 ```tsx
-<Swipeable
-  renderRightActions={renderDelete}
-  overshootRight={false}
->
+<Swipeable renderRightActions={renderDelete} overshootRight={false}>
   <ListItem hint="Swipe left to delete" />
 </Swipeable>
 ```
@@ -380,11 +348,7 @@ Long press actions need alternative access.
 ```tsx
 <Pressable onLongPress={showContextMenu}>
   <ItemCard />
-  <Pressable
-    onPress={showContextMenu}
-    accessibilityLabel="More options"
-    style={styles.menuButton}
-  >
+  <Pressable onPress={showContextMenu} accessibilityLabel="More options" style={styles.menuButton}>
     <Icon name="more-horizontal" />
   </Pressable>
 </Pressable>
@@ -410,13 +374,7 @@ Implement standard pull-to-refresh for refreshable content.
 <FlatList
   data={items}
   renderItem={renderItem}
-  refreshControl={
-    <RefreshControl
-      refreshing={refreshing}
-      onRefresh={onRefresh}
-      tintColor="#007AFF"
-    />
-  }
+  refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#007AFF" />}
 />
 ```
 
@@ -431,25 +389,25 @@ Show skeleton placeholders, not spinners, for content loading.
 **Incorrect:**
 
 ```tsx
-{isLoading ? (
-  <ActivityIndicator size="large" />
-) : (
-  <ContentList data={data} />
-)}
+{
+  isLoading ? <ActivityIndicator size="large" /> : <ContentList data={data} />;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{isLoading ? (
-  <View>
-    <Skeleton width="100%" height={80} />
-    <Skeleton width="100%" height={80} />
-    <Skeleton width="100%" height={80} />
-  </View>
-) : (
-  <ContentList data={data} />
-)}
+{
+  isLoading ? (
+    <View>
+      <Skeleton width="100%" height={80} />
+      <Skeleton width="100%" height={80} />
+      <Skeleton width="100%" height={80} />
+    </View>
+  ) : (
+    <ContentList data={data} />
+  );
+}
 ```
 
 ### L2: Progressive Loading
@@ -494,11 +452,7 @@ Buttons should show loading state during async actions.
 **Correct:**
 
 ```tsx
-<Button
-  onPress={handleSubmit}
-  disabled={isSubmitting}
-  loading={isSubmitting}
->
+<Button onPress={handleSubmit} disabled={isSubmitting} loading={isSubmitting}>
   {isSubmitting ? 'Submitting...' : 'Submit'}
 </Button>
 ```
@@ -522,7 +476,7 @@ async function toggleLike() {
 async function toggleLike() {
   // Optimistic update
   setIsLiked(!isLiked);
-  setLikeCount(c => isLiked ? c - 1 : c + 1);
+  setLikeCount((c) => (isLiked ? c - 1 : c + 1));
 
   try {
     await api.toggleLike(postId);
@@ -541,10 +495,7 @@ Show loading indicator at list end during pagination.
 **Incorrect:**
 
 ```tsx
-<FlatList
-  data={items}
-  onEndReached={loadMore}
-/>
+<FlatList data={items} onEndReached={loadMore} />
 ```
 
 **Correct:**
@@ -554,11 +505,7 @@ Show loading indicator at list end during pagination.
   data={items}
   onEndReached={loadMore}
   onEndReachedThreshold={0.5}
-  ListFooterComponent={
-    isLoadingMore ? (
-      <ActivityIndicator style={{ padding: 16 }} />
-    ) : null
-  }
+  ListFooterComponent={isLoadingMore ? <ActivityIndicator style={{ padding: 16 }} /> : null}
 />
 ```
 
@@ -573,24 +520,26 @@ Empty states must have icon, message, and CTA.
 **Incorrect:**
 
 ```tsx
-{items.length === 0 && <Text>No items</Text>}
+{
+  items.length === 0 && <Text>No items</Text>;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{items.length === 0 && (
-  <View style={styles.emptyState}>
-    <View style={styles.iconContainer}>
-      <Icon name="inbox" size={48} color="#999" />
+{
+  items.length === 0 && (
+    <View style={styles.emptyState}>
+      <View style={styles.iconContainer}>
+        <Icon name="inbox" size={48} color="#999" />
+      </View>
+      <Text style={styles.emptyTitle}>No items yet</Text>
+      <Text style={styles.emptyMessage}>Start by adding your first item</Text>
+      <Button onPress={handleAdd}>Add Item</Button>
     </View>
-    <Text style={styles.emptyTitle}>No items yet</Text>
-    <Text style={styles.emptyMessage}>
-      Start by adding your first item
-    </Text>
-    <Button onPress={handleAdd}>Add Item</Button>
-  </View>
-)}
+  );
+}
 ```
 
 ### E2: Contextual Empty States
@@ -631,26 +580,26 @@ New users need guidance, not just empty states.
 **Incorrect:**
 
 ```tsx
-{isFirstRun && items.length === 0 && (
-  <Text>No items</Text>
-)}
+{
+  isFirstRun && items.length === 0 && <Text>No items</Text>;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{isFirstRun && items.length === 0 && (
-  <View style={styles.onboarding}>
-    <Text style={styles.welcomeTitle}>Welcome to AppName!</Text>
-    <Text style={styles.welcomeMessage}>
-      Let's get you started with your first item
-    </Text>
-    <Button onPress={startOnboarding}>Get Started</Button>
-    <Button variant="ghost" onPress={skipOnboarding}>
-      I'll explore on my own
-    </Button>
-  </View>
-)}
+{
+  isFirstRun && items.length === 0 && (
+    <View style={styles.onboarding}>
+      <Text style={styles.welcomeTitle}>Welcome to AppName!</Text>
+      <Text style={styles.welcomeMessage}>Let's get you started with your first item</Text>
+      <Button onPress={startOnboarding}>Get Started</Button>
+      <Button variant="ghost" onPress={skipOnboarding}>
+        I'll explore on my own
+      </Button>
+    </View>
+  );
+}
 ```
 
 ### E4: Error Recovery in Empty States
@@ -660,20 +609,24 @@ Failed loads should offer retry, not just empty state.
 **Incorrect:**
 
 ```tsx
-{error && <EmptyState message="Something went wrong" />}
+{
+  error && <EmptyState message="Something went wrong" />;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{error && (
-  <View style={styles.errorState}>
-    <Icon name="alert-circle" size={48} color="#dc3545" />
-    <Text style={styles.errorTitle}>Failed to load</Text>
-    <Text style={styles.errorMessage}>{error.message}</Text>
-    <Button onPress={retry}>Try Again</Button>
-  </View>
-)}
+{
+  error && (
+    <View style={styles.errorState}>
+      <Icon name="alert-circle" size={48} color="#dc3545" />
+      <Text style={styles.errorTitle}>Failed to load</Text>
+      <Text style={styles.errorMessage}>{error.message}</Text>
+      <Button onPress={retry}>Try Again</Button>
+    </View>
+  );
+}
 ```
 
 ---
@@ -687,24 +640,28 @@ Errors must be visually distinct and helpful.
 **Incorrect:**
 
 ```tsx
-{error && <Text style={{ color: 'red' }}>{error}</Text>}
+{
+  error && <Text style={{ color: 'red' }}>{error}</Text>;
+}
 ```
 
 **Correct:**
 
 ```tsx
-{error && (
-  <View style={styles.errorCard}>
-    <Icon name="alert-circle" color="#dc3545" />
-    <View style={styles.errorContent}>
-      <Text style={styles.errorTitle}>Something went wrong</Text>
-      <Text style={styles.errorMessage}>{error}</Text>
+{
+  error && (
+    <View style={styles.errorCard}>
+      <Icon name="alert-circle" color="#dc3545" />
+      <View style={styles.errorContent}>
+        <Text style={styles.errorTitle}>Something went wrong</Text>
+        <Text style={styles.errorMessage}>{error}</Text>
+      </View>
+      <Pressable onPress={dismiss}>
+        <Icon name="x" />
+      </Pressable>
     </View>
-    <Pressable onPress={dismiss}>
-      <Icon name="x" />
-    </Pressable>
-  </View>
-)}
+  );
+}
 ```
 
 ### ER2: Form Validation Errors
@@ -714,8 +671,10 @@ Show inline validation with clear messaging.
 **Incorrect:**
 
 ```tsx
-<TextInput value={email} onChangeText={setEmail} />
-{emailError && <Text>Invalid</Text>}
+<TextInput value={email} onChangeText={setEmail} />;
+{
+  emailError && <Text>Invalid</Text>;
+}
 ```
 
 **Correct:**
@@ -793,11 +752,7 @@ if (error) throw error;
 // Show partial content with error for failed section
 <View>
   <Header /> {/* Always shows */}
-  {profileError ? (
-    <ProfileErrorCard onRetry={retryProfile} />
-  ) : (
-    <ProfileSection data={profile} />
-  )}
+  {profileError ? <ProfileErrorCard onRetry={retryProfile} /> : <ProfileSection data={profile} />}
   <Navigation /> {/* Always shows */}
 </View>
 ```
@@ -842,7 +797,11 @@ Handle Android hardware back button appropriately.
 ```tsx
 // Ignores Android back button
 function ModalScreen() {
-  return <Modal><Content /></Modal>;
+  return (
+    <Modal>
+      <Content />
+    </Modal>
+  );
 }
 ```
 
@@ -853,17 +812,18 @@ import { BackHandler } from 'react-native';
 
 function ModalScreen({ onClose }) {
   useEffect(() => {
-    const handler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => {
-        onClose();
-        return true;
-      }
-    );
+    const handler = BackHandler.addEventListener('hardwareBackPress', () => {
+      onClose();
+      return true;
+    });
     return () => handler.remove();
   }, [onClose]);
 
-  return <Modal><Content /></Modal>;
+  return (
+    <Modal>
+      <Content />
+    </Modal>
+  );
 }
 ```
 
@@ -925,7 +885,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
   <ScrollView keyboardShouldPersistTaps="handled">
     <Form />
   </ScrollView>
-</KeyboardAvoidingView>
+</KeyboardAvoidingView>;
 ```
 
 ### P5: Safe Area Handling

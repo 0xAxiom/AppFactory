@@ -13,6 +13,7 @@
 - **Android Studio** (for Android Emulator)
 
 Verify prerequisites:
+
 ```bash
 node --version   # Should be v18+
 npm --version    # Should be v8+
@@ -28,11 +29,13 @@ npm install
 ```
 
 Expected output:
+
 ```
 added XXX packages in XXs
 ```
 
 If you see peer dependency warnings, they're usually safe to ignore. If install fails:
+
 ```bash
 npm install --legacy-peer-deps
 ```
@@ -46,6 +49,7 @@ npx expo start
 ```
 
 Expected output:
+
 ```
 Starting Metro Bundler
 › Metro waiting on exp://192.168.x.x:8081
@@ -63,7 +67,9 @@ Starting Metro Bundler
 ## Step 3: Open on Device/Simulator
 
 ### iOS Simulator (macOS only)
+
 Press `i` in the terminal, or:
+
 ```bash
 npx expo start --ios
 ```
@@ -71,7 +77,9 @@ npx expo start --ios
 Expected: Simulator launches, app loads.
 
 ### Android Emulator
+
 Press `a` in the terminal, or:
+
 ```bash
 npx expo start --android
 ```
@@ -79,6 +87,7 @@ npx expo start --android
 Expected: Emulator launches, app loads.
 
 ### Physical Device
+
 1. Install Expo Go from App Store or Play Store
 2. Scan the QR code shown in terminal
 3. App loads on your device
@@ -88,6 +97,7 @@ Expected: Emulator launches, app loads.
 ## Step 4: Verify App Loads
 
 After launching, you should see:
+
 1. **Splash screen** appears briefly
 2. **Onboarding screens** (first launch only)
 3. **Home screen** with main functionality
@@ -111,6 +121,7 @@ Open Xcode > Preferences > Locations > Command Line Tools (select a version)
 ### "ADB not found" (Android)
 
 Ensure ANDROID_HOME is set:
+
 ```bash
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
@@ -128,12 +139,12 @@ npx expo start --clear
 
 ## Development Commands
 
-| Command | Purpose |
-|---------|---------|
-| `npx expo start` | Start dev server |
-| `npx expo start --clear` | Start with cache cleared |
-| `npx expo start --ios` | Start and open iOS simulator |
-| `npx expo start --android` | Start and open Android emulator |
+| Command                      | Purpose                         |
+| ---------------------------- | ------------------------------- |
+| `npx expo start`             | Start dev server                |
+| `npx expo start --clear`     | Start with cache cleared        |
+| `npx expo start --ios`       | Start and open iOS simulator    |
+| `npx expo start --android`   | Start and open Android emulator |
 | `npx expo install <package>` | Install Expo-compatible package |
 
 ---

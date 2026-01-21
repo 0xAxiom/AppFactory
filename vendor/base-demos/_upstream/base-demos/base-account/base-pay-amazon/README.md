@@ -5,23 +5,28 @@ A Chrome extension that adds Base Pay checkout functionality to Amazon product p
 ## Components
 
 ### 1. Chrome Extension (`chrome-extension/`)
+
 Injects a Base Pay button on Amazon product pages.
 
 **Files:**
+
 - `manifest.json` - Extension configuration
 - `content.js` - Main content script for button injection
 - `styles.css` - Styling for the Base Pay button
 - Logo files: `BasePayBlueLogo.png`, `BasePayWhiteLogo.png`
 
 **Installation:**
+
 1. Open Chrome and go to `chrome://extensions/`
 2. Enable "Developer mode"
 3. Click "Load unpacked" and select the `chrome-extension/` folder
 
 ### 2. Next.js Checkout App (`checkout-app/`)
+
 Handles Base Pay integration and Crossmint order processing.
 
 **Setup:**
+
 ```bash
 cd checkout-app
 npm install
@@ -31,6 +36,7 @@ npm run dev
 ```
 
 **Required Environment Variables:**
+
 - `CROSSMINT_API_KEY` - Your Crossmint API key for order processing
 - `NEXT_PUBLIC_BASE_ENVIRONMENT` - Base network (testnet/mainnet)
 

@@ -14,17 +14,17 @@ export const UsernameModal = ({ isOpen, onSubmit }: UsernameModalProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!username.trim()) {
       setError("Please enter a username");
       return;
     }
-    
+
     if (username.length < 3) {
       setError("Username must be at least 3 characters");
       return;
     }
-    
+
     onSubmit(username);
   };
 
@@ -44,15 +44,23 @@ export const UsernameModal = ({ isOpen, onSubmit }: UsernameModalProps) => {
             exit={{ scale: 0.9, opacity: 0 }}
           >
             <div className="p-4 border-b border-gray-700">
-              <h2 className="text-xl font-bold text-white">Welcome to Three Card Monte</h2>
+              <h2 className="text-xl font-bold text-white">
+                Welcome to Three Card Monte
+              </h2>
             </div>
 
             <div className="p-6">
-              <p className="text-gray-300 mb-4">Please enter a username to play the game and track your score on the leaderboard.</p>
-              
+              <p className="text-gray-300 mb-4">
+                Please enter a username to play the game and track your score on
+                the leaderboard.
+              </p>
+
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-300 mb-1"
+                  >
                     Username
                   </label>
                   <input
@@ -71,7 +79,7 @@ export const UsernameModal = ({ isOpen, onSubmit }: UsernameModalProps) => {
                     <p className="mt-2 text-sm text-red-400">{error}</p>
                   )}
                 </div>
-                
+
                 <button
                   type="submit"
                   className="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white font-medium rounded-md shadow-md transition-colors"
@@ -85,4 +93,4 @@ export const UsernameModal = ({ isOpen, onSubmit }: UsernameModalProps) => {
       )}
     </AnimatePresence>
   );
-}; 
+};

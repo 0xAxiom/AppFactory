@@ -3,6 +3,7 @@
 A Next.js starter template for building on Base with Privy's authentication and wallet infrastructure. This can serve as a template for developers looking to integrate Base Account as an option in Privy.
 
 RESOURCES:
+
 - [BASE ACCOUNT x PRIVY TEMPLATE REPO](https://github.com/base/base-account-privy)
 - [BASE ACCOUNT x PRIVY DOCS & GUIDES](https://docs.base.org/base-account/framework-integrations/privy/setup)
 
@@ -41,6 +42,7 @@ This configuration ensures that Base Account appears first in the account authen
 The authentication component implements the "Sign in with Base" flow using Base Account's wallet signature authentication:
 
 ### Key Features:
+
 - **Passwordless Authentication** - No passwords required, uses wallet signatures
 - **SIWE Standard** - Follows the "Sign in with Ethereum" (EIP-4361) standard
 - **Nonce Generation** - Secure random nonce generation for each authentication
@@ -48,6 +50,7 @@ The authentication component implements the "Sign in with Base" flow using Base 
 - **Backend Verification** - Anti-replay and backend verification using Viem's `verifyMessage`
 
 ### Implementation:
+
 - Uses `wallet_connect` RPC method with `signInWithEthereum` capabilities
 - Generates secure nonces using `window.crypto.randomUUID()`
 - Provides complete authentication data (address, message, signature) for backend verification
@@ -60,6 +63,7 @@ The authentication component implements the "Sign in with Base" flow using Base 
 Sub Accounts allow you to create app-specific wallet accounts that provide a frictionless transaction experience:
 
 ### Key Features:
+
 - **Get Existing Sub Accounts** - Retrieve sub accounts for the current domain
 - **Create New Sub Accounts** - Generate new sub accounts tied to your app
 - **Domain-Specific** - Each sub account is bound to your application's domain
@@ -67,6 +71,7 @@ Sub Accounts allow you to create app-specific wallet accounts that provide a fri
 - **Spend Permissions Ready** - Can spend from parent account balance
 
 ### Implementation:
+
 - Uses `wallet_getSubAccounts` RPC method to fetch existing accounts
 - Uses `wallet_addSubAccount` RPC method to create new sub accounts
 - Automatically switches to Base Sepolia for testing
@@ -79,6 +84,7 @@ Sub Accounts allow you to create app-specific wallet accounts that provide a fri
 Spend Permissions enable trusted spenders to move assets from your Base Account without requiring additional signatures for each transaction:
 
 ### Key Features:
+
 - **Create Spend Permissions** - Grant spending daily/weekly/monthly allowances to trusted addresses
 - **Load Existing Permissions** - View and manage current spend permissions
 - **Use Permissions** - Execute transactions using granted permissions
@@ -86,6 +92,7 @@ Spend Permissions enable trusted spenders to move assets from your Base Account 
 - **Secure Allowance Management** - Set specific token amounts and time periods
 
 ### Implementation:
+
 - Uses `requestSpendPermission` to create new spending allowances
 - Uses `fetchPermissions` to retrieve existing permissions for an account
 - Uses `prepareSpendCallData` to prepare transactions using permissions
@@ -93,6 +100,7 @@ Spend Permissions enable trusted spenders to move assets from your Base Account 
 - Supports USDC token permissions with configurable allowances and periods
 
 ### Configuration:
+
 - **Default Token:** USDC on Base (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913)
 - **Default Spender:** Configurable trusted address
 - **Default Allowance:** 1 USDC per day (customizable)
@@ -103,25 +111,33 @@ Spend Permissions enable trusted spenders to move assets from your Base Account 
 ## 🔧 Additional Sections
 
 ### Wallet Actions
+
 Comprehensive wallet operation functionality including:
+
 - Transaction sending and management
 - Smart contract interactions
 - Balance checking and transfers
 
 ### Link Accounts
+
 Connect various account types to your Base Account:
+
 - Social accounts integration
 - Email account linking
 - Additional wallet connections
 
 ### Unlink Accounts
+
 Manage and disconnect linked accounts:
+
 - Remove connected social accounts
 - Unlink email addresses
 - Disconnect additional wallets
 
 ### Multi-Factor Authentication (MFA)
+
 Enhanced security features:
+
 - Enable/disable MFA
 - Manage authentication factors
 - Security settings configuration
@@ -197,16 +213,19 @@ src/
 ## 🔗 Resources
 
 ### Base Account Documentation
+
 - [Base Account Overview](https://docs.base.org/base-account)
 - [Authentication Guide](https://docs.base.org/base-account/guides/authenticate-users)
 - [Sub Accounts Guide](https://docs.base.org/base-account/improve-ux/sub-accounts)
 - [Base Account SDK](https://docs.base.org/base-account/reference/account-sdk)
 
 ### Privy Documentation
+
 - [Privy Documentation](https://docs.privy.io/)
 - [Privy React SDK](https://docs.privy.io/reference/react-auth)
 
 ### Development Resources
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Viem Documentation](https://viem.sh/)
 - [Base Chain Documentation](https://docs.base.org/)

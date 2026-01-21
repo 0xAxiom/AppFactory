@@ -1,6 +1,6 @@
-import { cookieStorage, createConfig, createStorage, http } from "wagmi";
-import { base, baseSepolia } from "wagmi/chains";
-import { baseAccount, injected, walletConnect } from "wagmi/connectors";
+import { cookieStorage, createConfig, createStorage, http } from 'wagmi';
+import { base, baseSepolia } from 'wagmi/chains';
+import { baseAccount, injected, walletConnect } from 'wagmi/connectors';
 
 export function getConfig() {
   return createConfig({
@@ -8,7 +8,7 @@ export function getConfig() {
     multiInjectedProviderDiscovery: false,
     connectors: [
       baseAccount({
-        appName: "My Wagmi App",
+        appName: 'My Wagmi App',
       }),
       //walletConnect({ projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID! }),
     ],
@@ -23,7 +23,7 @@ export function getConfig() {
   });
 }
 
-declare module "wagmi" {
+declare module 'wagmi' {
   interface Register {
     config: ReturnType<typeof getConfig>;
   }

@@ -18,7 +18,7 @@ class Database implements DatabaseInterface {
     try {
       this.db = await SQLite.openDatabaseAsync(DATABASE_NAME);
       await this.runMigrations();
-      
+
       if (__DEV__) {
         console.log('Database initialized successfully');
       }
@@ -43,15 +43,21 @@ class Database implements DatabaseInterface {
     }
 
     const currentVersion = await this.getCurrentSchemaVersion();
-    
+
     if (__DEV__) {
-      console.log(`Current schema version: ${currentVersion}, Target: ${CURRENT_SCHEMA_VERSION}`);
+      console.log(
+        `Current schema version: ${currentVersion}, Target: ${CURRENT_SCHEMA_VERSION}`
+      );
     }
 
-    for (let version = currentVersion + 1; version <= CURRENT_SCHEMA_VERSION; version++) {
+    for (
+      let version = currentVersion + 1;
+      version <= CURRENT_SCHEMA_VERSION;
+      version++
+    ) {
       await this.runMigration(version);
       await this.setSchemaVersion(version);
-      
+
       if (__DEV__) {
         console.log(`Migrated to schema version ${version}`);
       }
@@ -88,7 +94,7 @@ class Database implements DatabaseInterface {
   // Migration 001: Initial schema
   private async migration001(): Promise<void> {
     if (!this.db) return;
-    
+
     // Create schema based on app requirements
     // This will be populated by Stage 10 based on Stage 02 product spec
     await this.db.execAsync(`

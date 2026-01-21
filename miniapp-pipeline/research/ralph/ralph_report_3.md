@@ -20,6 +20,7 @@ None.
 ## Major Issues (Should Fix)
 
 ### 1. INTEGRATION_PLAN Checklist Not Fully Updated
+
 - **Location**: `INTEGRATION_PLAN_BASE_DEMOS.md`
 - **Impact**: Implementation checklist items not checked off
 - **Suggested fix**: Update checklist to reflect completed work
@@ -29,14 +30,17 @@ None.
 ## Minor Issues (Nice to Fix)
 
 ### 1. BASE_DEMOS_AUDIT Missing Timestamp
+
 - No "last updated" timestamp in audit document
 - Suggested: Add timestamp at bottom
 
 ### 2. Ralph Reports Should Reference Files
+
 - Reports don't always include exact file paths
 - Suggested: Use consistent `path:line` format
 
 ### 3. Proof Gate JSON Schema Version
+
 - JSON output doesn't include pipeline version
 - Suggested: Add version field for traceability
 

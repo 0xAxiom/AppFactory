@@ -16,14 +16,14 @@ Agent Factory generates **complete, production-ready AI agent scaffolds** from p
 
 ### What This Pipeline Does NOT Do
 
-| Action | Reason | Where It Belongs |
-|--------|--------|------------------|
-| Build mobile apps | Wrong output format | app-factory |
-| Build dApps/websites | Wrong output format | dapp-factory |
-| Generate Claude plugins | Wrong pipeline | plugin-factory |
-| Build Base Mini Apps | Wrong pipeline | miniapp-pipeline |
-| Deploy automatically | Requires user approval | Manual step |
-| Make network calls without auth | Offline by default | Root orchestrator |
+| Action                          | Reason                 | Where It Belongs  |
+| ------------------------------- | ---------------------- | ----------------- |
+| Build mobile apps               | Wrong output format    | app-factory       |
+| Build dApps/websites            | Wrong output format    | dapp-factory      |
+| Generate Claude plugins         | Wrong pipeline         | plugin-factory    |
+| Build Base Mini Apps            | Wrong pipeline         | miniapp-pipeline  |
+| Deploy automatically            | Requires user approval | Manual step       |
+| Make network calls without auth | Offline by default     | Root orchestrator |
 
 ### Output Directory
 
@@ -32,6 +32,7 @@ All generated agents are written to: `outputs/<agent-name>/`
 ### Boundary Enforcement
 
 Claude MUST NOT write files outside `agent-factory/` directory. Specifically forbidden:
+
 - `builds/` (belongs to app-factory)
 - `dapp-builds/` (belongs to dapp-factory)
 - `plugin-factory/builds/` (belongs to plugin-factory)
@@ -114,11 +115,11 @@ agent-factory/
 
 ### Directory Boundaries
 
-| Directory | Purpose | Who Writes | Distributable |
-|-----------|---------|------------|---------------|
-| `outputs/<agent-name>/` | Final agent scaffold | Claude | YES |
-| `runs/` | Execution logs and artifacts | Claude | NO |
-| `examples/` | Reference implementations | Maintainers | YES |
+| Directory               | Purpose                      | Who Writes  | Distributable |
+| ----------------------- | ---------------------------- | ----------- | ------------- |
+| `outputs/<agent-name>/` | Final agent scaffold         | Claude      | YES           |
+| `runs/`                 | Execution logs and artifacts | Claude      | NO            |
+| `examples/`             | Reference implementations    | Maintainers | YES           |
 
 ---
 
@@ -127,12 +128,14 @@ agent-factory/
 ### INFRA MODE (Default)
 
 When Claude enters `agent-factory/` without an active build:
+
 - Explains what Agent Factory does
 - Lists recent outputs in `outputs/`
 - Awaits user's agent description
 - Does NOT generate code until user provides intent
 
 **Infra Mode Indicators:**
+
 - No active `runs/<date>/<run-id>/` session
 - User asking questions or exploring
 - No BUILD phase initiated
@@ -140,11 +143,13 @@ When Claude enters `agent-factory/` without an active build:
 ### BUILD MODE
 
 When Claude is executing an agent build:
+
 - Has active `runs/<date>/<run-id>/` directory
 - User has provided agent intent
 - Claude is generating files
 
 **BUILD MODE Phases:**
+
 1. Intent Normalization (Phase 0)
 2. Dream Spec Author (Phase 1)
 3. Research & Positioning (Phase 2)
@@ -154,6 +159,7 @@ When Claude is executing an agent build:
 ### QA MODE (Ralph)
 
 When Claude enters Ralph Polish Loop:
+
 - Adopts adversarial QA persona
 - Evaluates against quality checklist
 - Iterates until PASS (≥97%) or max 3 iterations
@@ -167,6 +173,7 @@ When Claude enters Ralph Polish Loop:
 **Before asking questions or generating**, Claude MUST upgrade the user's raw input into a publishable product intent.
 
 **Rules:**
+
 1. Treat user's message as RAW INTENT, not specification
 2. Infer missing but required agent qualities
 3. Rewrite into clean, professional, publishable prompt
@@ -174,6 +181,7 @@ When Claude enters Ralph Polish Loop:
 5. Save to: `runs/<date>/<run-id>/inputs/normalized_prompt.md`
 
 **Example Transformation:**
+
 ```
 User says: "build an agent that summarizes youtube videos"
 
@@ -186,18 +194,19 @@ configurable summary length. Designed for developer integration via REST API."
 
 **What Intent Normalization Adds:**
 
-| Missing Element | Claude Infers |
-|-----------------|---------------|
-| No error handling | "Graceful error handling with retry logic" |
-| No output format | "Structured JSON output with metadata" |
-| No monitoring | "Health endpoint and request logging" |
-| No configuration | "Environment-based configuration" |
-| No rate limiting | "Request throttling for API protection" |
-| No validation | "Input validation with clear error messages" |
+| Missing Element   | Claude Infers                                |
+| ----------------- | -------------------------------------------- |
+| No error handling | "Graceful error handling with retry logic"   |
+| No output format  | "Structured JSON output with metadata"       |
+| No monitoring     | "Health endpoint and request logging"        |
+| No configuration  | "Environment-based configuration"            |
+| No rate limiting  | "Request throttling for API protection"      |
+| No validation     | "Input validation with clear error messages" |
 
 ### PHASE 1: DREAM SPEC AUTHOR
 
 **Required Spec Sections (10 total):**
+
 1. Agent Vision - One-paragraph description
 2. Core Capabilities - Bulleted list of must-have functionality
 3. Input/Output Contract - What it accepts, what it returns
@@ -214,6 +223,7 @@ configurable summary length. Designed for developer integration via REST API."
 ### PHASE 2: RESEARCH & POSITIONING
 
 **Required Research Artifacts:**
+
 ```
 outputs/<agent-name>/research/
 ├── market_research.md      # REQUIRED - Market opportunity, trends
@@ -222,6 +232,7 @@ outputs/<agent-name>/research/
 ```
 
 **Research Quality Bar:**
+
 - Substantive content - Not placeholder or generic text
 - Specific insights - Name actual competitors or alternatives
 - Actionable positioning - Clear differentiation strategy
@@ -229,6 +240,7 @@ outputs/<agent-name>/research/
 ### PHASE 3: GENERATE
 
 **Step 1: Ask 4 Questions**
+
 1. **Name**: "What should I call this agent?" (lowercase, hyphens only)
 2. **Description**: "In one sentence, what does this agent do?"
 3. **Environment Variables**: "What API keys does this agent need?"
@@ -239,6 +251,7 @@ outputs/<agent-name>/research/
 Create folder: `outputs/<agent-name>/`
 
 **Always Generate:**
+
 - `agent.json` - Agent manifest
 - `package.json` - Node.js config
 - `tsconfig.json` - TypeScript config
@@ -254,12 +267,14 @@ Create folder: `outputs/<agent-name>/`
 - `research/` - Research artifacts
 
 **If Token Integration = Yes:**
+
 - `TOKEN_INTEGRATION.md` - Token setup guide
 - `src/lib/token.ts` - Token utilities
 
 ### PHASE 4: RALPH POLISH LOOP (MANDATORY)
 
 **How Ralph Works:**
+
 1. Ralph Reviews - Checks all quality criteria
 2. Ralph Scores - Calculates pass rate (passed/total × 100)
 3. Threshold - Must reach ≥97% to PASS
@@ -268,13 +283,13 @@ Create folder: `outputs/<agent-name>/`
 
 **Ralph's Checklist:**
 
-| Category | Items |
-|----------|-------|
-| Build Quality | npm install, npm build, npm dev, no TS errors (4) |
-| Agent Quality | /health, /process, error handling, validation, logging, CORS, timeout, shutdown (8) |
-| Research Quality | market_research, competitor_analysis, positioning substantive (3) |
-| Documentation Quality | RUNBOOK, TESTING, .env.example, agent.json (4) |
-| Token Integration | config loads, dry-run works, docs clear (3 if enabled) |
+| Category              | Items                                                                               |
+| --------------------- | ----------------------------------------------------------------------------------- |
+| Build Quality         | npm install, npm build, npm dev, no TS errors (4)                                   |
+| Agent Quality         | /health, /process, error handling, validation, logging, CORS, timeout, shutdown (8) |
+| Research Quality      | market_research, competitor_analysis, positioning substantive (3)                   |
+| Documentation Quality | RUNBOOK, TESTING, .env.example, agent.json (4)                                      |
+| Token Integration     | config loads, dry-run works, docs clear (3 if enabled)                              |
 
 **Output:** `runs/<date>/<run-id>/polish/ralph_final_verdict.md`
 
@@ -284,19 +299,19 @@ Create folder: `outputs/<agent-name>/`
 
 ### When agent-factory Delegates
 
-| Trigger | Delegated To | Context Passed |
-|---------|--------------|----------------|
-| User says "review this" | Ralph QA persona | Build path, checklist |
-| Deploy request | User manual action | Deployment instructions |
-| Validation request | scripts/validate.js | Agent path |
+| Trigger                 | Delegated To        | Context Passed          |
+| ----------------------- | ------------------- | ----------------------- |
+| User says "review this" | Ralph QA persona    | Build path, checklist   |
+| Deploy request          | User manual action  | Deployment instructions |
+| Validation request      | scripts/validate.js | Agent path              |
 
 ### When agent-factory Receives Delegation
 
-| Source | Trigger | Action |
-|--------|---------|--------|
-| Root orchestrator | `/factory run agent <idea>` | Begin Phase 0 |
-| User direct | `cd agent-factory && claude` | Enter INFRA MODE |
-| dapp-factory Mode B | Agent integration needed | Provide architecture patterns |
+| Source              | Trigger                      | Action                        |
+| ------------------- | ---------------------------- | ----------------------------- |
+| Root orchestrator   | `/factory run agent <idea>`  | Begin Phase 0                 |
+| User direct         | `cd agent-factory && claude` | Enter INFRA MODE              |
+| dapp-factory Mode B | Agent integration needed     | Provide architecture patterns |
 
 ### Role Boundaries
 
@@ -334,18 +349,18 @@ Create folder: `outputs/<agent-name>/`
 
 ## 8. REFUSAL TABLE
 
-| Request Pattern | Action | Reason | Alternative |
-|-----------------|--------|--------|-------------|
-| "Skip the spec phase" | REFUSE | Dream spec is mandatory | "I need to write a spec first to ensure quality" |
-| "Skip research" | REFUSE | Research prevents duplicate work | "Research helps us build something unique" |
-| "Skip Ralph QA" | REFUSE | QA is mandatory for quality | "Ralph ensures the agent is production-ready" |
-| "Build a web app" | REFUSE | Wrong pipeline | "Use dapp-factory for web apps" |
-| "Build a mobile app" | REFUSE | Wrong pipeline | "Use app-factory for mobile apps" |
-| "Generate a Claude plugin" | REFUSE | Wrong pipeline | "Use plugin-factory for plugins" |
-| "Write to builds/" | REFUSE | Wrong directory | "I'll write to outputs/ instead" |
-| "Include my API key" | REFUSE | Security violation | "Add your key to .env (not .env.example)" |
-| "Skip the 4 questions" | REFUSE | Questions are mandatory | "I need these details to generate correctly" |
-| "Deploy automatically" | REFUSE | Requires user approval | "Here are deployment instructions" |
+| Request Pattern            | Action | Reason                           | Alternative                                      |
+| -------------------------- | ------ | -------------------------------- | ------------------------------------------------ |
+| "Skip the spec phase"      | REFUSE | Dream spec is mandatory          | "I need to write a spec first to ensure quality" |
+| "Skip research"            | REFUSE | Research prevents duplicate work | "Research helps us build something unique"       |
+| "Skip Ralph QA"            | REFUSE | QA is mandatory for quality      | "Ralph ensures the agent is production-ready"    |
+| "Build a web app"          | REFUSE | Wrong pipeline                   | "Use dapp-factory for web apps"                  |
+| "Build a mobile app"       | REFUSE | Wrong pipeline                   | "Use app-factory for mobile apps"                |
+| "Generate a Claude plugin" | REFUSE | Wrong pipeline                   | "Use plugin-factory for plugins"                 |
+| "Write to builds/"         | REFUSE | Wrong directory                  | "I'll write to outputs/ instead"                 |
+| "Include my API key"       | REFUSE | Security violation               | "Add your key to .env (not .env.example)"        |
+| "Skip the 4 questions"     | REFUSE | Questions are mandatory          | "I need these details to generate correctly"     |
+| "Deploy automatically"     | REFUSE | Requires user approval           | "Here are deployment instructions"               |
 
 ---
 
@@ -356,12 +371,14 @@ Create folder: `outputs/<agent-name>/`
 Before declaring a build complete, Claude MUST verify:
 
 **Build Quality:**
+
 - [ ] `npm install` completes without errors
 - [ ] `npm run build` compiles TypeScript
 - [ ] `npm run dev` starts server on configured port
 - [ ] No TypeScript errors
 
 **Agent Quality:**
+
 - [ ] `/health` endpoint returns 200 with status
 - [ ] `/process` endpoint accepts input and returns response
 - [ ] Error handling returns proper error messages
@@ -372,17 +389,20 @@ Before declaring a build complete, Claude MUST verify:
 - [ ] Graceful shutdown handling
 
 **Research Quality:**
+
 - [ ] market_research.md is substantive (not placeholder)
 - [ ] competitor_analysis.md names real alternatives
 - [ ] positioning.md has clear differentiation
 
 **Documentation Quality:**
+
 - [ ] RUNBOOK.md has correct commands
 - [ ] TESTING.md has working curl examples
 - [ ] .env.example lists all required variables
 - [ ] agent.json matches implementation
 
 **Token Integration (if enabled):**
+
 - [ ] Token config loads from environment
 - [ ] Dry-run mode works without contract address
 - [ ] TOKEN_INTEGRATION.md has clear setup steps
@@ -390,6 +410,7 @@ Before declaring a build complete, Claude MUST verify:
 ### Success Definition
 
 A successful execution produces:
+
 - Complete agent scaffold in `outputs/<agent-name>/`
 - Ralph PASS verdict in `runs/.../polish/ralph_final_verdict.md`
 - All research artifacts with substantive content
@@ -403,17 +424,18 @@ A successful execution produces:
 
 ### Error Categories
 
-| Error Type | Detection | Recovery |
-|------------|-----------|----------|
-| Phase skip | Phase 0 not in runs/ | Halt, restart from Phase 0 |
-| Wrong output path | File outside outputs/ | Delete, rewrite to correct path |
-| Build failure | npm build fails | Log error, fix issue, rebuild |
-| Ralph stuck | 3 FAILs without PASS | Hard failure, escalate to user |
-| Missing env var | Agent fails at runtime | Update .env.example, re-document |
+| Error Type        | Detection              | Recovery                         |
+| ----------------- | ---------------------- | -------------------------------- |
+| Phase skip        | Phase 0 not in runs/   | Halt, restart from Phase 0       |
+| Wrong output path | File outside outputs/  | Delete, rewrite to correct path  |
+| Build failure     | npm build fails        | Log error, fix issue, rebuild    |
+| Ralph stuck       | 3 FAILs without PASS   | Hard failure, escalate to user   |
+| Missing env var   | Agent fails at runtime | Update .env.example, re-document |
 
 ### Drift Detection
 
 Claude MUST halt and reassess if:
+
 1. About to write files outside `agent-factory/`
 2. About to skip a mandatory phase
 3. Ralph loop exceeds 3 iterations
@@ -437,43 +459,43 @@ Claude MUST halt and reassess if:
 
 ### Related Pipelines
 
-| Pipeline | When to Use | Directory |
-|----------|-------------|-----------|
-| app-factory | Mobile apps (Expo/React Native) | `../app-factory/` |
-| dapp-factory | dApps and websites (Next.js) | `../dapp-factory/` |
-| plugin-factory | Claude plugins/MCP servers | `../plugin-factory/` |
-| miniapp-pipeline | Base Mini Apps | `../miniapp-pipeline/` |
-| website-pipeline | Static websites | `../website-pipeline/` |
+| Pipeline         | When to Use                     | Directory              |
+| ---------------- | ------------------------------- | ---------------------- |
+| app-factory      | Mobile apps (Expo/React Native) | `../app-factory/`      |
+| dapp-factory     | dApps and websites (Next.js)    | `../dapp-factory/`     |
+| plugin-factory   | Claude plugins/MCP servers      | `../plugin-factory/`   |
+| miniapp-pipeline | Base Mini Apps                  | `../miniapp-pipeline/` |
+| website-pipeline | Static websites                 | `../website-pipeline/` |
 
 ### Shared Resources
 
-| Resource | Location | Purpose |
-|----------|----------|---------|
-| Root orchestrator | `../CLAUDE.md` | Routing, refusal, phase detection |
-| Factory plugin | `../plugins/factory/` | `/factory` command interface |
-| MCP catalog | `../plugin-factory/mcp.catalog.json` | MCP server configurations |
-| Rig reference | `../references/rig/` | Agent pattern reference |
+| Resource          | Location                             | Purpose                           |
+| ----------------- | ------------------------------------ | --------------------------------- |
+| Root orchestrator | `../CLAUDE.md`                       | Routing, refusal, phase detection |
+| Factory plugin    | `../plugins/factory/`                | `/factory` command interface      |
+| MCP catalog       | `../plugin-factory/mcp.catalog.json` | MCP server configurations         |
+| Rig reference     | `../references/rig/`                 | Agent pattern reference           |
 
 ### Rig Framework Integration
 
 Generated agents follow concepts from the Rig framework:
 
-| Concept | Rig (Rust) | Agent Factory (TypeScript) |
-|---------|------------|---------------------------|
-| Agent Definition | `Agent<M>` struct | `AgentDefinition` interface |
-| Tool System | `Tool` trait | `Tool<Args, Output>` interface |
-| Execution Loop | `PromptRequest` | `AgentExecutionLoop` class |
-| Tool Definitions | `ToolDefinition` | JSON Schema + Zod |
+| Concept          | Rig (Rust)        | Agent Factory (TypeScript)     |
+| ---------------- | ----------------- | ------------------------------ |
+| Agent Definition | `Agent<M>` struct | `AgentDefinition` interface    |
+| Tool System      | `Tool` trait      | `Tool<Args, Output>` interface |
+| Execution Loop   | `PromptRequest`   | `AgentExecutionLoop` class     |
+| Tool Definitions | `ToolDefinition`  | JSON Schema + Zod              |
 
 ### MCP Integration
 
 This pipeline supports MCP servers as defined in `plugin-factory/mcp.catalog.json`:
 
-| MCP Server | Phase | Permission | Purpose |
-|------------|-------|------------|---------|
-| Supabase | build, verify | read-only | Database backend for agents |
-| Cloudflare | deploy | read-only | Edge deployment via Workers |
-| GitHub | all | read-write | Already integrated via Claude Code |
+| MCP Server | Phase         | Permission | Purpose                            |
+| ---------- | ------------- | ---------- | ---------------------------------- |
+| Supabase   | build, verify | read-only  | Database backend for agents        |
+| Cloudflare | deploy        | read-only  | Edge deployment via Workers        |
+| GitHub     | all           | read-write | Already integrated via Claude Code |
 
 **Note:** MCP is the **specification**. MCP servers are **tools** that follow the spec.
 
@@ -514,12 +536,12 @@ VERIFIED:
 
 ### Core (REQUIRED)
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| Runtime | Node.js | 18+ |
-| Language | TypeScript | 5.0+ |
-| Interface | HTTP (REST) | - |
-| Port | 8080 (default) | Configurable |
+| Component | Technology     | Version      |
+| --------- | -------------- | ------------ |
+| Runtime   | Node.js        | 18+          |
+| Language  | TypeScript     | 5.0+         |
+| Interface | HTTP (REST)    | -            |
+| Port      | 8080 (default) | Configurable |
 
 ### V4 Constraints
 
@@ -536,27 +558,27 @@ VERIFIED:
 
 When the user doesn't specify:
 
-| Aspect | Default |
-|--------|---------|
-| Runtime | Node.js 18+ |
-| Language | TypeScript |
-| Interface | HTTP REST |
-| Port | 8080 |
-| Token Integration | No |
-| Logging | Structured JSON |
-| Error Handling | Typed errors with codes |
+| Aspect            | Default                 |
+| ----------------- | ----------------------- |
+| Runtime           | Node.js 18+             |
+| Language          | TypeScript              |
+| Interface         | HTTP REST               |
+| Port              | 8080                    |
+| Token Integration | No                      |
+| Logging           | Structured JSON         |
+| Error Handling    | Typed errors with codes |
 
 ---
 
 ## VERSION HISTORY
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 4.0.0 | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
-| 3.2 | 2026-01-18 | Added MCP governance note |
-| 3.1 | 2026-01-18 | Added MCP integration catalog reference |
-| 3.0 | 2026-01-17 | Rig framework integration, Agent/Tool/ExecutionLoop patterns |
-| 2.0 | 2026-01-14 | Intent Normalization, Dream Spec Author, Ralph Polish Loop |
+| Version | Date       | Changes                                                           |
+| ------- | ---------- | ----------------------------------------------------------------- |
+| 4.0.0   | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
+| 3.2     | 2026-01-18 | Added MCP governance note                                         |
+| 3.1     | 2026-01-18 | Added MCP integration catalog reference                           |
+| 3.0     | 2026-01-17 | Rig framework integration, Agent/Tool/ExecutionLoop patterns      |
+| 2.0     | 2026-01-14 | Intent Normalization, Dream Spec Author, Ralph Polish Loop        |
 
 ---
 

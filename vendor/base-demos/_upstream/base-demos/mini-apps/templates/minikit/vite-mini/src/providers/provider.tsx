@@ -15,6 +15,3 @@ export function Provider({ children }: { children: ReactNode }) {
     </MiniKitProvider>
   );
 }
-
-
-

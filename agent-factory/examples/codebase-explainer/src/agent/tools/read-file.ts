@@ -6,7 +6,12 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { Tool, ToolDefinition, ReadFileArgs, ReadFileOutput } from '../types.js';
+import {
+  Tool,
+  ToolDefinition,
+  ReadFileArgs,
+  ReadFileOutput,
+} from '../types.js';
 import { validatePath } from '../../lib/path-validator.js';
 import { FileUnreadableError } from '../../lib/errors.js';
 import { logger } from '../../lib/logger.js';
@@ -58,7 +63,8 @@ export class ReadFileTool implements Tool<ReadFileArgs, ReadFileOutput> {
   definition(): ToolDefinition {
     return {
       name: this.name,
-      description: 'Read the contents of a file. Optionally specify line range for large files.',
+      description:
+        'Read the contents of a file. Optionally specify line range for large files.',
       parameters: {
         type: 'object',
         properties: {
@@ -89,7 +95,11 @@ export class ReadFileTool implements Tool<ReadFileArgs, ReadFileOutput> {
     // Validate path is within allowed root
     const validatedPath = validatePath(targetPath, this.rootDirectory);
 
-    logger.debug('Reading file', { path: validatedPath, startLine: args.startLine, endLine: args.endLine });
+    logger.debug('Reading file', {
+      path: validatedPath,
+      startLine: args.startLine,
+      endLine: args.endLine,
+    });
 
     // Check file exists and is readable
     if (!fs.existsSync(validatedPath)) {
@@ -104,7 +114,10 @@ export class ReadFileTool implements Tool<ReadFileArgs, ReadFileOutput> {
     // Check file size
     const fileSizeKB = stat.size / 1024;
     if (fileSizeKB > MAX_FILE_SIZE_KB) {
-      throw new FileUnreadableError(args.path, `File too large (${fileSizeKB.toFixed(1)}KB > ${MAX_FILE_SIZE_KB}KB limit)`);
+      throw new FileUnreadableError(
+        args.path,
+        `File too large (${fileSizeKB.toFixed(1)}KB > ${MAX_FILE_SIZE_KB}KB limit)`
+      );
     }
 
     // Read file content
@@ -126,10 +139,15 @@ export class ReadFileTool implements Tool<ReadFileArgs, ReadFileOutput> {
     let truncated = false;
     if (args.startLine !== undefined || args.endLine !== undefined) {
       const start = Math.max(1, args.startLine ?? 1) - 1; // Convert to 0-indexed
-      const end = args.endLine !== undefined ? Math.min(args.endLine, totalLines) : totalLines;
+      const end =
+        args.endLine !== undefined
+          ? Math.min(args.endLine, totalLines)
+          : totalLines;
 
       const selectedLines = lines.slice(start, end);
-      content = selectedLines.map((line, idx) => `${start + idx + 1}: ${line}`).join('\n');
+      content = selectedLines
+        .map((line, idx) => `${start + idx + 1}: ${line}`)
+        .join('\n');
       truncated = start > 0 || end < totalLines;
     } else {
       // Add line numbers

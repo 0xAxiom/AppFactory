@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 
-
 type CollageSoloProps = {
   tokenAddress: string;
   title: string;
@@ -30,15 +29,17 @@ export function CollageSolo({
 }: CollageSoloProps) {
   return (
     <div className="w-full max-w-4xl">
-     
-
       <div className="border border-gray-700 bg-gray-900 p-0.5">
         <div className="border border-gray-800 bg-black p-6">
           {/* Image header */}
           <div className="mb-6 flex justify-between items-start">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white font-mono">{title}</h1>
-              <p className="text-xs text-gray-500 font-mono mt-1">Holders: {holders}</p>
+              <h1 className="text-2xl md:text-3xl font-bold text-white font-mono">
+                {title}
+              </h1>
+              <p className="text-xs text-gray-500 font-mono mt-1">
+                Holders: {holders}
+              </p>
             </div>
             <div className="bg-gray-900 border border-gray-700 px-3 py-1 text-xs text-lime-300 font-mono">
               ID: {id}
@@ -63,8 +64,12 @@ export function CollageSolo({
 
           {/* Description */}
           <div className="mb-8">
-            <h2 className="text-sm font-mono text-gray-400 mb-2">DESCRIPTION:</h2>
-            <p className="text-white font-mono text-sm leading-relaxed">{description}</p>
+            <h2 className="text-sm font-mono text-gray-400 mb-2">
+              DESCRIPTION:
+            </h2>
+            <p className="text-white font-mono text-sm leading-relaxed">
+              {description}
+            </p>
           </div>
 
           {/* Zora link button */}
@@ -77,8 +82,13 @@ export function CollageSolo({
               clipPath: "polygon(0 0, 100% 0, 95% 100%, 0 100%)",
             }}
           >
-            <span className="group-hover:text-lime-300 transition-colors duration-300">VIEW ON ZORA</span>
-            <ExternalLink size={14} className="group-hover:text-lime-300 transition-colors duration-300" />
+            <span className="group-hover:text-lime-300 transition-colors duration-300">
+              VIEW ON ZORA
+            </span>
+            <ExternalLink
+              size={14}
+              className="group-hover:text-lime-300 transition-colors duration-300"
+            />
           </Link>
 
           {/* Technical details */}
@@ -89,15 +99,21 @@ export function CollageSolo({
                 <p className="text-xs text-white font-mono">{format}</p>
               </div>
               <div>
-                <h3 className="text-xs text-gray-500 font-mono mb-1">TOTAL SUPPLY</h3>
+                <h3 className="text-xs text-gray-500 font-mono mb-1">
+                  TOTAL SUPPLY
+                </h3>
                 <p className="text-xs text-white font-mono">{size}</p>
               </div>
               <div>
-                <h3 className="text-xs text-gray-500 font-mono mb-1">CREATOR</h3>
+                <h3 className="text-xs text-gray-500 font-mono mb-1">
+                  CREATOR
+                </h3>
                 <p className="text-xs text-white font-mono">{created}</p>
               </div>
               <div>
-                <h3 className="text-xs text-gray-500 font-mono mb-1">24H VOLUME</h3>
+                <h3 className="text-xs text-gray-500 font-mono mb-1">
+                  24H VOLUME
+                </h3>
                 <p className="text-xs text-white font-mono">{collection}</p>
               </div>
             </div>

@@ -26,7 +26,6 @@ import { Icon } from "@/components/Icon";
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const [frameAdded, setFrameAdded] = useState(false);
-  
 
   const addFrame = useAddFrame();
   const openUrl = useOpenUrl();
@@ -50,7 +49,6 @@ export default function App() {
           size="sm"
           onClick={handleAddFrame}
           className="text-[var(--app-accent)] p-4"
-      
         >
           <Icon name="plus" size="sm" />
           Save Frame
@@ -96,8 +94,7 @@ export default function App() {
         </header>
 
         <main className="flex-1">
-        <ZoraWalletInput displayName={context?.user?.displayName || ''}/>
-        
+          <ZoraWalletInput displayName={context?.user?.displayName || ""} />
         </main>
 
         <footer className="mt-2 pt-4 flex justify-center">

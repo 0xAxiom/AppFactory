@@ -16,37 +16,37 @@ This update integrates Vercel's agent-skills into all React-capable pipelines (a
 
 ### Central Documentation
 
-| File | Purpose |
-|------|---------|
+| File                                       | Purpose                                               |
+| ------------------------------------------ | ----------------------------------------------------- |
 | `/docs/third_party/vercel_agent_skills.md` | Documents the Vercel agent-skills integration pattern |
-| `/docs/pipelines/SKILLS_SYSTEM.md` | Central skills invocation interface specification |
+| `/docs/pipelines/SKILLS_SYSTEM.md`         | Central skills invocation interface specification     |
 
 ### dapp-factory Integration
 
-| File | Purpose |
-|------|---------|
+| File                                  | Purpose                             |
+| ------------------------------------- | ----------------------------------- |
 | `/dapp-factory/docs/QUALITY_GATES.md` | Gate specifications for dApp builds |
-| `/dapp-factory/docs/SKILLS_USED.md` | Skills reference with code examples |
+| `/dapp-factory/docs/SKILLS_USED.md`   | Skills reference with code examples |
 
 ### app-factory Integration
 
-| File | Purpose |
-|------|---------|
+| File                                 | Purpose                             |
+| ------------------------------------ | ----------------------------------- |
 | `/app-factory/docs/QUALITY_GATES.md` | Mobile-specific gate specifications |
-| `/app-factory/docs/SKILLS_USED.md` | React Native skills reference |
+| `/app-factory/docs/SKILLS_USED.md`   | React Native skills reference       |
 
 ### website-pipeline (New Pipeline - 15 files)
 
-| File | Purpose |
-|------|---------|
-| `/website-pipeline/CLAUDE.md` | Pipeline constitution (8 phases) |
-| `/website-pipeline/README.md` | User documentation |
-| `/website-pipeline/ARCHITECTURE.md` | Technical architecture diagrams |
-| `/website-pipeline/skills/react-best-practices/SKILL.md` | Performance optimization rules |
-| `/website-pipeline/skills/web-design-guidelines/SKILL.md` | UI/UX/accessibility rules |
-| `/website-pipeline/skills/seo-guidelines/SKILL.md` | SEO rules (new, website-specific) |
-| `/website-pipeline/docs/QUALITY_GATES.md` | Three mandatory gates |
-| `/website-pipeline/docs/SKILLS_USED.md` | Skills invocation schedule |
+| File                                                      | Purpose                           |
+| --------------------------------------------------------- | --------------------------------- |
+| `/website-pipeline/CLAUDE.md`                             | Pipeline constitution (8 phases)  |
+| `/website-pipeline/README.md`                             | User documentation                |
+| `/website-pipeline/ARCHITECTURE.md`                       | Technical architecture diagrams   |
+| `/website-pipeline/skills/react-best-practices/SKILL.md`  | Performance optimization rules    |
+| `/website-pipeline/skills/web-design-guidelines/SKILL.md` | UI/UX/accessibility rules         |
+| `/website-pipeline/skills/seo-guidelines/SKILL.md`        | SEO rules (new, website-specific) |
+| `/website-pipeline/docs/QUALITY_GATES.md`                 | Three mandatory gates             |
+| `/website-pipeline/docs/SKILLS_USED.md`                   | Skills invocation schedule        |
 
 ### Demo Website (40+ files)
 
@@ -118,6 +118,7 @@ None.
 ### dapp-factory
 
 **Skills Used:**
+
 - `react-best-practices` - Performance optimization
 - `web-interface-guidelines` - Interface quality (already present)
 - `web-design-guidelines` - UI/UX polish (already present)
@@ -129,6 +130,7 @@ None.
 | Ralph Quality Gate | All 3 | ≥97% weighted |
 
 **Invocation Points:**
+
 1. After Mode A/B build completes
 2. During Ralph QA loop
 3. Before final delivery
@@ -136,6 +138,7 @@ None.
 ### app-factory
 
 **Skills Used:**
+
 - `react-best-practices` - React Native optimization
 - `web-design-guidelines` - Mobile UI/UX
 
@@ -147,6 +150,7 @@ None.
 | Ralph Quality Gate | Final QA | ≥97% |
 
 **Mobile-Specific Rules:**
+
 - FlatList for long lists (not ScrollView)
 - useEffect cleanup for subscriptions
 - Touch targets ≥ 44x44px
@@ -154,6 +158,7 @@ None.
 ### website-pipeline (New)
 
 **Skills Used:**
+
 - `react-best-practices` - MANDATORY gate
 - `web-design-guidelines` - MANDATORY gate
 - `seo-guidelines` - MANDATORY gate (new skill)
@@ -171,42 +176,45 @@ None.
 
 ### react-best-practices (CRITICAL)
 
-| Rule Category | Impact | Key Rules |
-|---------------|--------|-----------|
-| Async Patterns | CRITICAL | Promise.all for parallel ops, defer await |
-| Bundle Size | CRITICAL | No barrel imports, dynamic imports for heavy deps |
-| Server Components | HIGH | Default to server, minimize 'use client' |
-| Caching | HIGH | Cache server data fetches |
-| Images/Fonts | HIGH | next/image, next/font required |
+| Rule Category     | Impact   | Key Rules                                         |
+| ----------------- | -------- | ------------------------------------------------- |
+| Async Patterns    | CRITICAL | Promise.all for parallel ops, defer await         |
+| Bundle Size       | CRITICAL | No barrel imports, dynamic imports for heavy deps |
+| Server Components | HIGH     | Default to server, minimize 'use client'          |
+| Caching           | HIGH     | Cache server data fetches                         |
+| Images/Fonts      | HIGH     | next/image, next/font required                    |
 
 **Blocking Conditions:**
+
 - ANY CRITICAL violation → BLOCKED
 - Score < 95% → FAIL
 
 ### web-design-guidelines (HIGH Accessibility)
 
-| Rule Category | Impact | Key Rules |
-|---------------|--------|-----------|
-| Accessibility | HIGH | Semantic HTML, ARIA labels, contrast, keyboard nav |
-| Focus States | HIGH | Visible indicators, no focus traps |
-| Animation | MEDIUM | Page transitions, hover feedback, reduced motion |
-| Loading States | MEDIUM | Skeleton loaders, button states |
-| Empty/Error States | MEDIUM | Designed states with CTAs |
+| Rule Category      | Impact | Key Rules                                          |
+| ------------------ | ------ | -------------------------------------------------- |
+| Accessibility      | HIGH   | Semantic HTML, ARIA labels, contrast, keyboard nav |
+| Focus States       | HIGH   | Visible indicators, no focus traps                 |
+| Animation          | MEDIUM | Page transitions, hover feedback, reduced motion   |
+| Loading States     | MEDIUM | Skeleton loaders, button states                    |
+| Empty/Error States | MEDIUM | Designed states with CTAs                          |
 
 **Blocking Conditions:**
+
 - ANY HIGH accessibility violation → BLOCKED
 - Score < 90% → FAIL
 
 ### seo-guidelines (Website-Specific)
 
-| Rule Category | Impact | Key Rules |
-|---------------|--------|-----------|
-| Technical SEO | HIGH | robots.txt, sitemap, canonical URLs, structured data |
-| On-Page SEO | HIGH | Title tags, meta descriptions, heading hierarchy |
-| Performance SEO | HIGH | Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1) |
-| Social SEO | MEDIUM | OG tags, Twitter cards, OG image |
+| Rule Category   | Impact | Key Rules                                            |
+| --------------- | ------ | ---------------------------------------------------- |
+| Technical SEO   | HIGH   | robots.txt, sitemap, canonical URLs, structured data |
+| On-Page SEO     | HIGH   | Title tags, meta descriptions, heading hierarchy     |
+| Performance SEO | HIGH   | Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1) |
+| Social SEO      | MEDIUM | OG tags, Twitter cards, OG image                     |
 
 **Blocking Conditions:**
+
 - ANY Technical SEO failure → FAIL
 - ANY On-Page SEO failure → FAIL
 
@@ -253,16 +261,16 @@ None.
 
 ### Opinionated Stack
 
-| Component | Technology |
-|-----------|------------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Components | shadcn/ui |
-| Animation | Framer Motion |
-| Forms | React Hook Form + Zod |
-| Icons | Lucide React |
-| Deployment | Vercel |
+| Component  | Technology              |
+| ---------- | ----------------------- |
+| Framework  | Next.js 14 (App Router) |
+| Language   | TypeScript              |
+| Styling    | Tailwind CSS            |
+| Components | shadcn/ui               |
+| Animation  | Framer Motion           |
+| Forms      | React Hook Form + Zod   |
+| Icons      | Lucide React            |
+| Deployment | Vercel                  |
 
 ### Output Structure
 
@@ -352,14 +360,14 @@ vercel deploy --prod
 
 ## Total Files Added
 
-| Category | Count |
-|----------|-------|
-| Central docs | 2 |
-| dapp-factory docs | 2 |
-| app-factory docs | 2 |
-| website-pipeline core | 8 |
-| Demo website | 40+ |
-| **Total** | **55+** |
+| Category              | Count   |
+| --------------------- | ------- |
+| Central docs          | 2       |
+| dapp-factory docs     | 2       |
+| app-factory docs      | 2       |
+| website-pipeline core | 8       |
+| Demo website          | 40+     |
+| **Total**             | **55+** |
 
 ---
 

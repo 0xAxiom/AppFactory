@@ -4,45 +4,72 @@
     "build_execution": {
       "type": "object",
       "properties": {
-        "app_name": {"type": "string"},
-        "build_timestamp": {"type": "string"},
-        "framework_used": {"type": "string"},
-        "build_path": {"type": "string"}
+        "app_name": { "type": "string" },
+        "build_timestamp": { "type": "string" },
+        "framework_used": { "type": "string" },
+        "build_path": { "type": "string" }
       },
-      "required": ["app_name", "build_timestamp", "framework_used", "build_path"]
+      "required": [
+        "app_name",
+        "build_timestamp",
+        "framework_used",
+        "build_path"
+      ]
     },
     "token_creation": {
       "type": "object",
       "properties": {
-        "token_address": {"type": "string"},
-        "creation_transaction": {"type": "string"},
-        "creation_timestamp": {"type": "string"},
-        "creator_wallet": {"type": "string"},
-        "network": {"type": "string"}
+        "token_address": { "type": "string" },
+        "creation_transaction": { "type": "string" },
+        "creation_timestamp": { "type": "string" },
+        "creator_wallet": { "type": "string" },
+        "network": { "type": "string" }
       },
-      "required": ["token_address", "creation_transaction", "creation_timestamp", "creator_wallet", "network"]
+      "required": [
+        "token_address",
+        "creation_transaction",
+        "creation_timestamp",
+        "creator_wallet",
+        "network"
+      ]
     },
     "app_integration": {
       "type": "object",
       "properties": {
-        "token_integrated": {"type": "boolean"},
-        "wallet_connection_working": {"type": "boolean"},
-        "balance_display_working": {"type": "boolean"},
-        "token_actions_implemented": {"type": "boolean"},
-        "fee_routing_active": {"type": "boolean"}
+        "token_integrated": { "type": "boolean" },
+        "wallet_connection_working": { "type": "boolean" },
+        "balance_display_working": { "type": "boolean" },
+        "token_actions_implemented": { "type": "boolean" },
+        "fee_routing_active": { "type": "boolean" }
       },
-      "required": ["token_integrated", "wallet_connection_working", "balance_display_working", "token_actions_implemented", "fee_routing_active"]
+      "required": [
+        "token_integrated",
+        "wallet_connection_working",
+        "balance_display_working",
+        "token_actions_implemented",
+        "fee_routing_active"
+      ]
     },
     "production_readiness": {
       "type": "object",
       "properties": {
-        "environment_configured": {"type": "boolean"},
-        "error_handling_complete": {"type": "boolean"},
-        "responsive_design": {"type": "boolean"},
-        "deployment_ready": {"type": "boolean"}
+        "environment_configured": { "type": "boolean" },
+        "error_handling_complete": { "type": "boolean" },
+        "responsive_design": { "type": "boolean" },
+        "deployment_ready": { "type": "boolean" }
       },
-      "required": ["environment_configured", "error_handling_complete", "responsive_design", "deployment_ready"]
+      "required": [
+        "environment_configured",
+        "error_handling_complete",
+        "responsive_design",
+        "deployment_ready"
+      ]
     }
   },
-  "required": ["build_execution", "token_creation", "app_integration", "production_readiness"]
+  "required": [
+    "build_execution",
+    "token_creation",
+    "app_integration",
+    "production_readiness"
+  ]
 }

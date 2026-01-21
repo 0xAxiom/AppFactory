@@ -27,6 +27,7 @@ PHASE 4: Ralph Polish Loop     → QA until ≥97% quality
 ```
 
 **Current Output Structure:**
+
 - `agent.json` - Agent manifest
 - `package.json` / `tsconfig.json` - Project configuration
 - `src/index.ts` - HTTP server with `/health`, `/process` endpoints
@@ -35,6 +36,7 @@ PHASE 4: Ralph Polish Loop     → QA until ≥97% quality
 - Research artifacts and documentation
 
 **Technology Stack:**
+
 - Runtime: Node.js 18+
 - Language: TypeScript
 - Interface: HTTP REST
@@ -52,29 +54,29 @@ PHASE 4: Ralph Polish Loop     → QA until ≥97% quality
 
 #### Conceptual Gaps
 
-| Missing Concept | Impact |
-|-----------------|--------|
-| **Agent Definition** | No formal definition of what an "agent" is vs. a "service" |
-| **Reasoning Loops** | No concept of iterative reasoning or multi-turn execution |
-| **Tool Abstraction** | Tools are implied but not formally modeled |
-| **Memory/State** | No persistent state model beyond request/response |
-| **Environment Model** | No concept of what the agent perceives or can affect |
-| **Safety Boundaries** | `safety.disallowedActions` exists but is not systematically enforced |
-| **Multi-Agent Coordination** | No concept of agent composition or delegation |
+| Missing Concept              | Impact                                                               |
+| ---------------------------- | -------------------------------------------------------------------- |
+| **Agent Definition**         | No formal definition of what an "agent" is vs. a "service"           |
+| **Reasoning Loops**          | No concept of iterative reasoning or multi-turn execution            |
+| **Tool Abstraction**         | Tools are implied but not formally modeled                           |
+| **Memory/State**             | No persistent state model beyond request/response                    |
+| **Environment Model**        | No concept of what the agent perceives or can affect                 |
+| **Safety Boundaries**        | `safety.disallowedActions` exists but is not systematically enforced |
+| **Multi-Agent Coordination** | No concept of agent composition or delegation                        |
 
 #### Architectural Gaps
 
-| Missing Element | Current State | Impact |
-|-----------------|---------------|--------|
-| **Execution Loop** | Single request/response | Cannot handle multi-step tasks |
-| **Tool Calling** | Manual LLM integration | No structured tool invocation |
-| **Context Management** | Static context only | Cannot adapt to conversation |
-| **Streaming** | Not supported | Poor UX for long-running tasks |
-| **Observability** | Basic JSON logging | No tracing, no debugging tools |
+| Missing Element        | Current State           | Impact                         |
+| ---------------------- | ----------------------- | ------------------------------ |
+| **Execution Loop**     | Single request/response | Cannot handle multi-step tasks |
+| **Tool Calling**       | Manual LLM integration  | No structured tool invocation  |
+| **Context Management** | Static context only     | Cannot adapt to conversation   |
+| **Streaming**          | Not supported           | Poor UX for long-running tasks |
+| **Observability**      | Basic JSON logging      | No tracing, no debugging tools |
 
 #### Educational Gaps
 
-1. Users don't learn *what* an agent is - they just get code
+1. Users don't learn _what_ an agent is - they just get code
 2. No progression from simple to complex agent patterns
 3. No explanation of when agents are appropriate vs. overkill
 4. No connection to production-grade frameworks
@@ -158,24 +160,24 @@ pub trait VectorStoreIndex {
 
 ### 2.3 Rig Patterns
 
-| Pattern | Implementation |
-|---------|----------------|
-| **Simple Agent** | `client.agent("gpt-4").preamble("...").build()` |
-| **Agent with Tools** | `.tool(MyTool).tool(OtherTool).build()` |
-| **RAG Agent** | `.dynamic_context(5, vector_index).build()` |
-| **Agent as Tool** | Agents implement `Tool`, enabling nesting |
-| **Orchestration** | `pipeline::new().map(...).prompt(agent).extract(...)` |
-| **Autonomous Loops** | External loop calling agent in iterations |
+| Pattern              | Implementation                                        |
+| -------------------- | ----------------------------------------------------- |
+| **Simple Agent**     | `client.agent("gpt-4").preamble("...").build()`       |
+| **Agent with Tools** | `.tool(MyTool).tool(OtherTool).build()`               |
+| **RAG Agent**        | `.dynamic_context(5, vector_index).build()`           |
+| **Agent as Tool**    | Agents implement `Tool`, enabling nesting             |
+| **Orchestration**    | `pipeline::new().map(...).prompt(agent).extract(...)` |
+| **Autonomous Loops** | External loop calling agent in iterations             |
 
 ### 2.4 What Rig Does NOT Provide
 
-| Concept | Status | Notes |
-|---------|--------|-------|
-| **Memory Abstraction** | Not built-in | State is managed externally |
-| **Environment Model** | Not built-in | Agent doesn't model environment |
-| **Planning** | Not built-in | No explicit planning phase |
-| **Reflection** | Not built-in | No self-evaluation loop |
-| **Multi-Agent Protocol** | Emerging | MCP support via `rmcp` feature |
+| Concept                  | Status       | Notes                           |
+| ------------------------ | ------------ | ------------------------------- |
+| **Memory Abstraction**   | Not built-in | State is managed externally     |
+| **Environment Model**    | Not built-in | Agent doesn't model environment |
+| **Planning**             | Not built-in | No explicit planning phase      |
+| **Reflection**           | Not built-in | No self-evaluation loop         |
+| **Multi-Agent Protocol** | Emerging     | MCP support via `rmcp` feature  |
 
 ---
 
@@ -183,14 +185,14 @@ pub trait VectorStoreIndex {
 
 ### 3.1 Clean Mappings
 
-| Pipeline Concept | Rig Concept | Mapping Quality |
-|------------------|-------------|-----------------|
-| Agent scaffold | `Agent<M>` | **Excellent** - Direct mapping |
-| Tool definitions | `Tool` trait | **Excellent** - Typed, structured |
-| HTTP endpoints | External (not Rig) | **N/A** - Rig is not a server |
-| System prompt | `preamble` | **Excellent** - Direct mapping |
-| Context documents | `static_context` | **Excellent** - Direct mapping |
-| LLM integration | `providers::*` | **Excellent** - 20+ providers |
+| Pipeline Concept  | Rig Concept        | Mapping Quality                   |
+| ----------------- | ------------------ | --------------------------------- |
+| Agent scaffold    | `Agent<M>`         | **Excellent** - Direct mapping    |
+| Tool definitions  | `Tool` trait       | **Excellent** - Typed, structured |
+| HTTP endpoints    | External (not Rig) | **N/A** - Rig is not a server     |
+| System prompt     | `preamble`         | **Excellent** - Direct mapping    |
+| Context documents | `static_context`   | **Excellent** - Direct mapping    |
+| LLM integration   | `providers::*`     | **Excellent** - 20+ providers     |
 
 ### 3.2 Forced Improvements
 
@@ -203,6 +205,7 @@ Where Rig's architecture **requires** changes to the current pipeline:
 **Rig Requirement**: Every tool must implement the `Tool` trait with typed args/output/error.
 
 **Improvement**:
+
 ```rust
 // Generated tool must be a proper Tool impl
 impl Tool for YouTubeSummarizer {
@@ -221,6 +224,7 @@ impl Tool for YouTubeSummarizer {
 **Rig Requirement**: Multi-turn execution with tool calling loops.
 
 **Improvement**: Generated agents should support:
+
 - Prompt → Tool Call → Result → Continue pattern
 - Streaming responses
 - Cancellation via `CancelSignal`
@@ -232,6 +236,7 @@ impl Tool for YouTubeSummarizer {
 **Rig Requirement**: Dynamic context via vector stores.
 
 **Improvement**: Optionally integrate RAG:
+
 ```rust
 let agent = client.agent("gpt-4")
     .preamble("...")
@@ -246,6 +251,7 @@ let agent = client.agent("gpt-4")
 **Rig Requirement**: Agents implement `Tool`, enabling composition.
 
 **Improvement**: Generated agents can be used as tools in other agents:
+
 ```rust
 let orchestrator = client.agent("gpt-4")
     .tool(summarizer_agent)  // Agent as tool
@@ -255,13 +261,13 @@ let orchestrator = client.agent("gpt-4")
 
 ### 3.3 Gap Analysis
 
-| Gap | Severity | Resolution |
-|-----|----------|------------|
-| Rust vs TypeScript | **High** | Educational bridge, not port |
-| Memory abstraction | **Medium** | Add conceptual layer |
-| Environment model | **Medium** | Add conceptual layer |
-| HTTP server | **Low** | Keep as deployment wrapper |
-| Streaming | **Medium** | Add to generated code |
+| Gap                | Severity   | Resolution                   |
+| ------------------ | ---------- | ---------------------------- |
+| Rust vs TypeScript | **High**   | Educational bridge, not port |
+| Memory abstraction | **Medium** | Add conceptual layer         |
+| Environment model  | **Medium** | Add conceptual layer         |
+| HTTP server        | **Low**    | Keep as deployment wrapper   |
+| Streaming          | **Medium** | Add to generated code        |
 
 ---
 
@@ -270,32 +276,33 @@ let orchestrator = client.agent("gpt-4")
 ### 4.1 Decision: Rig as Conceptual Foundation, Not Runtime
 
 **Rationale**:
+
 1. The pipeline outputs TypeScript/Node.js - changing to Rust would break existing users
-2. Rig's *concepts* are more valuable than its *implementation*
+2. Rig's _concepts_ are more valuable than its _implementation_
 3. Users can graduate to Rust/Rig after learning the concepts
 
 **Decision**: Rig becomes a **conceptual backbone** and **reference architecture**, not the runtime.
 
 ### 4.2 What Changes
 
-| Component | Before | After |
-|-----------|--------|-------|
-| `agent.json` | Informal manifest | Rig-aligned agent definition |
-| Tool definitions | Implied | Explicit, typed (Zod schemas) |
-| Execution model | Request/response | Multi-turn with tool loop |
-| Context | Static | Static + optional RAG |
-| Documentation | How to run | What agents are + How to run |
-| Reference | None | Rig repo as canonical example |
+| Component        | Before            | After                         |
+| ---------------- | ----------------- | ----------------------------- |
+| `agent.json`     | Informal manifest | Rig-aligned agent definition  |
+| Tool definitions | Implied           | Explicit, typed (Zod schemas) |
+| Execution model  | Request/response  | Multi-turn with tool loop     |
+| Context          | Static            | Static + optional RAG         |
+| Documentation    | How to run        | What agents are + How to run  |
+| Reference        | None              | Rig repo as canonical example |
 
 ### 4.3 What Stays the Same
 
-| Component | Reason |
-|-----------|--------|
-| Node.js/TypeScript | User familiarity, ecosystem |
-| HTTP interface | Deployment compatibility |
-| Intent Normalization | Proven effective |
-| Ralph Polish Loop | Quality enforcement |
-| Research artifacts | Market positioning |
+| Component            | Reason                      |
+| -------------------- | --------------------------- |
+| Node.js/TypeScript   | User familiarity, ecosystem |
+| HTTP interface       | Deployment compatibility    |
+| Intent Normalization | Proven effective            |
+| Ralph Polish Loop    | Quality enforcement         |
+| Research artifacts   | Market positioning          |
 
 ### 4.4 New Additions
 
@@ -334,18 +341,18 @@ let orchestrator = client.agent("gpt-4")
 
 ## Part 6: Glossary (Rig-Aligned)
 
-| Term | Definition | Rig Equivalent |
-|------|------------|----------------|
-| **Agent** | An LLM combined with a system prompt, context, and tools | `Agent<M>` |
-| **Tool** | A function an agent can call with typed inputs/outputs | `Tool` trait |
-| **Preamble** | System prompt that defines agent behavior | `preamble` field |
-| **Context** | Background information available to the agent | `static_context` |
-| **Dynamic Context** | Information retrieved at prompt time (RAG) | `dynamic_context` |
-| **Completion** | A single LLM call and response | `Completion` trait |
-| **Prompt** | User input to an agent | `Prompt` trait |
-| **Chat** | Multi-turn conversation with history | `Chat` trait |
-| **Pipeline** | DAG of operations transforming input to output | `Op` trait |
-| **Extraction** | Structured data extraction from LLM output | `Extractor` |
+| Term                | Definition                                               | Rig Equivalent     |
+| ------------------- | -------------------------------------------------------- | ------------------ |
+| **Agent**           | An LLM combined with a system prompt, context, and tools | `Agent<M>`         |
+| **Tool**            | A function an agent can call with typed inputs/outputs   | `Tool` trait       |
+| **Preamble**        | System prompt that defines agent behavior                | `preamble` field   |
+| **Context**         | Background information available to the agent            | `static_context`   |
+| **Dynamic Context** | Information retrieved at prompt time (RAG)               | `dynamic_context`  |
+| **Completion**      | A single LLM call and response                           | `Completion` trait |
+| **Prompt**          | User input to an agent                                   | `Prompt` trait     |
+| **Chat**            | Multi-turn conversation with history                     | `Chat` trait       |
+| **Pipeline**        | DAG of operations transforming input to output           | `Op` trait         |
+| **Extraction**      | Structured data extraction from LLM output               | `Extractor`        |
 
 ---
 
@@ -354,6 +361,7 @@ let orchestrator = client.agent("gpt-4")
 The agent-factory pipeline produces functional scaffolds but lacks the conceptual depth to teach users what agents truly are. Rig provides a rigorous, production-grade model for agent architecture.
 
 By integrating Rig as a **conceptual foundation** rather than a **runtime dependency**, we can:
+
 1. Teach users real agent architecture
 2. Maintain TypeScript/Node.js output for accessibility
 3. Provide a clear graduation path to production Rust agents

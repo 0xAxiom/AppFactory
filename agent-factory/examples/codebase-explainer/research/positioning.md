@@ -18,34 +18,34 @@
 
 ### Customer Jobs
 
-| Job | Type | Priority |
-|-----|------|----------|
-| Understand how a feature works | Functional | High |
-| Find where something is implemented | Functional | High |
-| Trace data flow through the system | Functional | High |
-| Answer "why was it built this way?" | Emotional | Medium |
-| Feel confident reviewing unfamiliar code | Emotional | High |
-| Reduce interruptions to teammates | Social | Medium |
+| Job                                      | Type       | Priority |
+| ---------------------------------------- | ---------- | -------- |
+| Understand how a feature works           | Functional | High     |
+| Find where something is implemented      | Functional | High     |
+| Trace data flow through the system       | Functional | High     |
+| Answer "why was it built this way?"      | Emotional  | Medium   |
+| Feel confident reviewing unfamiliar code | Emotional  | High     |
+| Reduce interruptions to teammates        | Social     | Medium   |
 
 ### Pains
 
-| Pain | Severity |
-|------|----------|
-| Hours spent reading code to find relevant parts | High |
-| Outdated or missing documentation | High |
-| Fear of breaking things you don't understand | Medium |
-| Embarrassment asking "dumb" questions | Medium |
-| Context switching while tracing imports | High |
+| Pain                                            | Severity |
+| ----------------------------------------------- | -------- |
+| Hours spent reading code to find relevant parts | High     |
+| Outdated or missing documentation               | High     |
+| Fear of breaking things you don't understand    | Medium   |
+| Embarrassment asking "dumb" questions           | Medium   |
+| Context switching while tracing imports         | High     |
 
 ### Gains
 
-| Gain | Impact |
-|------|--------|
-| Instant understanding of any codebase | High |
-| Confidence in code review | High |
-| Faster onboarding | High |
-| Self-service code knowledge | Medium |
-| Audit trail of explorations | Low |
+| Gain                                  | Impact |
+| ------------------------------------- | ------ |
+| Instant understanding of any codebase | High   |
+| Confidence in code review             | High   |
+| Faster onboarding                     | High   |
+| Self-service code knowledge           | Medium |
+| Audit trail of explorations           | Low    |
 
 ---
 
@@ -152,11 +152,11 @@ Our Flow:
 
 ### Key Messages by Audience
 
-| Audience | Key Message |
-|----------|-------------|
-| Developers | "Ask questions in English, get explanations with code snippets" |
-| Engineering Managers | "Reduce onboarding time, decrease cross-team interruptions" |
-| DevEx Teams | "API-first codebase understanding for your developer portal" |
+| Audience             | Key Message                                                     |
+| -------------------- | --------------------------------------------------------------- |
+| Developers           | "Ask questions in English, get explanations with code snippets" |
+| Engineering Managers | "Reduce onboarding time, decrease cross-team interruptions"     |
+| DevEx Teams          | "API-first codebase understanding for your developer portal"    |
 
 ---
 
@@ -219,6 +219,7 @@ Our Flow:
 The Codebase Explainer Agent is positioned as the **autonomous exploration** tool in a market of passive assistants. Our differentiation is not just technical (Rig-aligned, typed tools, structured output) but experiential: **we explore so you don't have to**.
 
 This positioning:
+
 - Addresses a clear, validated pain point
 - Differentiates from established competitors
 - Enables expansion into adjacent use cases

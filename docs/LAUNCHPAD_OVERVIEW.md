@@ -16,11 +16,11 @@ At this stage, builders should focus on preparing their projects. When the launc
 
 ## Supported Project Types
 
-| Pipeline | Target | What Gets Deployed |
-|----------|--------|-------------------|
-| **web3-factory** | Factory Launchpad | Next.js web app |
-| **agent-factory** | Factory Launchpad | Node.js HTTP agent |
-| **the-factory** | App Store / Play Store | Mobile apps go to app stores |
+| Pipeline          | Target                 | What Gets Deployed           |
+| ----------------- | ---------------------- | ---------------------------- |
+| **web3-factory**  | Factory Launchpad      | Next.js web app              |
+| **agent-factory** | Factory Launchpad      | Node.js HTTP agent           |
+| **the-factory**   | App Store / Play Store | Mobile apps go to app stores |
 
 ---
 
@@ -30,31 +30,31 @@ At this stage, builders should focus on preparing their projects. When the launc
 
 Before the launchpad opens, ensure your project meets these requirements:
 
-| Requirement | Description |
-|-------------|-------------|
-| Clean repository | Well-structured, no unnecessary files |
-| Deterministic build | `npm run build` succeeds consistently |
-| Local testing | Project runs and passes smoke tests locally |
-| Documentation | README, RUNBOOK, and TESTING files present |
+| Requirement          | Description                                       |
+| -------------------- | ------------------------------------------------- |
+| Clean repository     | Well-structured, no unnecessary files             |
+| Deterministic build  | `npm run build` succeeds consistently             |
+| Local testing        | Project runs and passes smoke tests locally       |
+| Documentation        | README, RUNBOOK, and TESTING files present        |
 | No secrets committed | Use `.env.example`, never commit real credentials |
 
 ### For web3-factory Projects
 
-| File | Purpose |
-|------|---------|
-| `package.json` | Dependencies and scripts |
-| `next.config.js` | Next.js configuration |
-| `src/app/layout.tsx` | Root layout |
-| `src/app/page.tsx` | Homepage |
-| `src/app/providers.tsx` | App providers |
+| File                    | Purpose                  |
+| ----------------------- | ------------------------ |
+| `package.json`          | Dependencies and scripts |
+| `next.config.js`        | Next.js configuration    |
+| `src/app/layout.tsx`    | Root layout              |
+| `src/app/page.tsx`      | Homepage                 |
+| `src/app/providers.tsx` | App providers            |
 
 ### For agent-factory Projects
 
-| File | Purpose |
-|------|---------|
-| `agent.json` | Agent manifest |
+| File           | Purpose                  |
+| -------------- | ------------------------ |
+| `agent.json`   | Agent manifest           |
 | `package.json` | Dependencies and scripts |
-| `src/index.ts` | Entry point |
+| `src/index.ts` | Entry point              |
 
 ---
 
@@ -128,12 +128,12 @@ Token integration is **completely optional** for web3-factory and agent-factory 
 
 ### What Token Integration Enables
 
-| Feature | Description |
-|---------|-------------|
-| **Rewards** | Distribute tokens to users for actions |
-| **Payments** | Accept token payments for premium features |
-| **Governance** | Let token holders vote on features |
-| **Access Control** | Gate features based on token holdings |
+| Feature            | Description                                |
+| ------------------ | ------------------------------------------ |
+| **Rewards**        | Distribute tokens to users for actions     |
+| **Payments**       | Accept token payments for premium features |
+| **Governance**     | Let token holders vote on features         |
+| **Access Control** | Gate features based on token holdings      |
 
 ### When NOT to Use Token Integration
 
@@ -164,10 +164,10 @@ When you launch with token integration, you will receive a contract address to c
 
 ### Where to Configure the Address
 
-| Pipeline | Config Location | Variable Name |
-|----------|-----------------|---------------|
-| **web3-factory** | `.env.local` or `src/config/constants.ts` | `NEXT_PUBLIC_TOKEN_MINT` |
-| **agent-factory** | `.env` or `src/config/token.ts` | `TOKEN_CONTRACT_ADDRESS` |
+| Pipeline          | Config Location                           | Variable Name            |
+| ----------------- | ----------------------------------------- | ------------------------ |
+| **web3-factory**  | `.env.local` or `src/config/constants.ts` | `NEXT_PUBLIC_TOKEN_MINT` |
+| **agent-factory** | `.env` or `src/config/token.ts`           | `TOKEN_CONTRACT_ADDRESS` |
 
 This configuration happens after launch, not during preparation.
 
@@ -175,11 +175,11 @@ This configuration happens after launch, not during preparation.
 
 ## Files That Should NOT Be Committed
 
-| File/Pattern | Reason |
-|--------------|--------|
-| `.env` / `.env.local` | Contains secrets |
-| `node_modules/` | Reinstalled on deploy |
-| `.next/` / `dist/` | Build artifacts |
+| File/Pattern          | Reason                |
+| --------------------- | --------------------- |
+| `.env` / `.env.local` | Contains secrets      |
+| `node_modules/`       | Reinstalled on deploy |
+| `.next/` / `dist/`    | Build artifacts       |
 
 ---
 

@@ -19,14 +19,14 @@ The output is a ready-to-install plugin, not prompts or scaffolds.
 
 ### What This Pipeline Does NOT Do
 
-| Action | Reason | Where It Belongs |
-|--------|--------|------------------|
-| Build mobile apps | Wrong output format | app-factory |
-| Build dApps/websites | Wrong output format | dapp-factory |
-| Generate AI agent scaffolds | Wrong pipeline | agent-factory |
-| Build Base Mini Apps | Wrong pipeline | miniapp-pipeline |
-| Deploy automatically | Requires user approval | Manual step |
-| Make network calls without auth | Offline by default | Root orchestrator |
+| Action                          | Reason                 | Where It Belongs  |
+| ------------------------------- | ---------------------- | ----------------- |
+| Build mobile apps               | Wrong output format    | app-factory       |
+| Build dApps/websites            | Wrong output format    | dapp-factory      |
+| Generate AI agent scaffolds     | Wrong pipeline         | agent-factory     |
+| Build Base Mini Apps            | Wrong pipeline         | miniapp-pipeline  |
+| Deploy automatically            | Requires user approval | Manual step       |
+| Make network calls without auth | Offline by default     | Root orchestrator |
 
 ### Output Directory
 
@@ -35,6 +35,7 @@ All generated plugins are written to: `builds/<plugin-slug>/`
 ### Boundary Enforcement
 
 Claude MUST NOT write files outside `plugin-factory/` directory. Specifically forbidden:
+
 - `app-factory/builds/` (belongs to app-factory)
 - `dapp-builds/` (belongs to dapp-factory)
 - `outputs/` (belongs to agent-factory)
@@ -116,11 +117,11 @@ plugin-factory/
 
 ### Directory Boundaries
 
-| Directory | Purpose | Who Writes | Distributable |
-|-----------|---------|------------|---------------|
-| `builds/<plugin-slug>/` | Final plugin package | Claude | YES |
-| `runs/` | Execution logs and artifacts | Claude | NO |
-| `examples/` | Reference implementations | Maintainers | YES |
+| Directory               | Purpose                      | Who Writes  | Distributable |
+| ----------------------- | ---------------------------- | ----------- | ------------- |
+| `builds/<plugin-slug>/` | Final plugin package         | Claude      | YES           |
+| `runs/`                 | Execution logs and artifacts | Claude      | NO            |
+| `examples/`             | Reference implementations    | Maintainers | YES           |
 
 ---
 
@@ -129,12 +130,14 @@ plugin-factory/
 ### INFRA MODE (Default)
 
 When Claude enters `plugin-factory/` without an active build:
+
 - Explains what Plugin Factory does
 - Lists recent builds in `builds/`
 - Awaits user's plugin description
 - Does NOT generate code until user provides intent
 
 **Infra Mode Indicators:**
+
 - No active `runs/<date>/<run-id>/` session
 - User asking questions or exploring
 - No BUILD phase initiated
@@ -142,11 +145,13 @@ When Claude enters `plugin-factory/` without an active build:
 ### BUILD MODE
 
 When Claude is executing a plugin build:
+
 - Has active `runs/<date>/<run-id>/` directory
 - User has provided plugin intent
 - Claude is generating files
 
 **BUILD MODE Phases:**
+
 1. Intent Normalization (Phase 0)
 2. Plan (Phase 1)
 3. Build (Phase 2)
@@ -156,6 +161,7 @@ When Claude is executing a plugin build:
 ### QA MODE (Ralph)
 
 When Claude enters Ralph Polish Loop:
+
 - Adopts adversarial QA persona
 - Evaluates against quality checklist
 - Iterates until PASS (≥97%) or max 3 iterations
@@ -169,6 +175,7 @@ When Claude enters Ralph Polish Loop:
 **Before planning or implementation**, Claude MUST upgrade the user's raw input into a publishable plugin intent.
 
 **Rules:**
+
 1. Treat user's message as RAW INTENT, not specification
 2. Infer missing but required plugin qualities
 3. Determine plugin type (Claude Code plugin vs MCP server, or both)
@@ -177,6 +184,7 @@ When Claude enters Ralph Polish Loop:
 6. Save to: `runs/<date>/<run-id>/inputs/normalized_prompt.md`
 
 **Example Transformation:**
+
 ```
 User says: "I want a plugin that formats code on save"
 
@@ -190,17 +198,18 @@ formatters aren't installed."
 
 **What Intent Normalization Adds:**
 
-| Missing Element | Claude Infers |
-|-----------------|---------------|
-| No plugin type | Decide based on functionality |
-| No error handling | "Graceful error handling with user feedback" |
-| No configuration | "Configurable via environment or settings file" |
-| No fallback | "Fallback behavior when dependencies missing" |
+| Missing Element   | Claude Infers                                        |
+| ----------------- | ---------------------------------------------------- |
+| No plugin type    | Decide based on functionality                        |
+| No error handling | "Graceful error handling with user feedback"         |
+| No configuration  | "Configurable via environment or settings file"      |
+| No fallback       | "Fallback behavior when dependencies missing"        |
 | No security model | "Least-privilege permissions, no unnecessary access" |
 
 ### PHASE 1: PLAN (MANDATORY)
 
 **Required Plan Sections (8 total):**
+
 1. Plugin Overview - Name, type, one-paragraph description
 2. Plugin Type Decision - Claude Code plugin, MCP server, or both (with rationale)
 3. Project Structure - Complete file tree
@@ -212,15 +221,15 @@ formatters aren't installed."
 
 **Plugin Type Decision Guide:**
 
-| User Need | Plugin Type | Rationale |
-|-----------|-------------|-----------|
-| React to Claude Code events | Claude Code Plugin | Hooks respond to tool use |
-| Add slash commands | Claude Code Plugin | Commands are native |
-| Extend Claude's capabilities | Claude Code Plugin | Agents/skills pattern |
-| Access external data sources | MCP Server | Resources pattern |
-| Call external APIs | MCP Server | Tools pattern |
-| Integrate with other apps | MCP Server | Cross-app compatibility |
-| Both events AND external data | Both | Hybrid plugin |
+| User Need                     | Plugin Type        | Rationale                 |
+| ----------------------------- | ------------------ | ------------------------- |
+| React to Claude Code events   | Claude Code Plugin | Hooks respond to tool use |
+| Add slash commands            | Claude Code Plugin | Commands are native       |
+| Extend Claude's capabilities  | Claude Code Plugin | Agents/skills pattern     |
+| Access external data sources  | MCP Server         | Resources pattern         |
+| Call external APIs            | MCP Server         | Tools pattern             |
+| Integrate with other apps     | MCP Server         | Cross-app compatibility   |
+| Both events AND external data | Both               | Hybrid plugin             |
 
 **Output:** `runs/<date>/<run-id>/planning/plan.md`
 
@@ -229,6 +238,7 @@ formatters aren't installed."
 Write complete plugin to `builds/<plugin-slug>/`.
 
 **Claude Code Plugin Structure:**
+
 ```
 builds/<plugin-slug>/
 ├── .claude-plugin/
@@ -253,6 +263,7 @@ builds/<plugin-slug>/
 **CRITICAL**: Commands, agents, skills, hooks directories are at plugin ROOT, NOT inside `.claude-plugin/`. Only `plugin.json` goes inside `.claude-plugin/`.
 
 **MCP Server Structure:**
+
 ```
 builds/<plugin-slug>/
 ├── manifest.json              # REQUIRED - MCPB manifest
@@ -275,14 +286,15 @@ builds/<plugin-slug>/
 
 **Required Documentation:**
 
-| File | Purpose | Contents |
-|------|---------|----------|
-| `README.md` | User-facing overview | What it does, quick start, features |
-| `INSTALL.md` | Step-by-step installation | Prerequisites, install commands, verification |
-| `SECURITY.md` | Security documentation | Permissions, secrets, data handling |
-| `EXAMPLES.md` | Usage examples | Command examples, API calls, screenshots |
+| File          | Purpose                   | Contents                                      |
+| ------------- | ------------------------- | --------------------------------------------- |
+| `README.md`   | User-facing overview      | What it does, quick start, features           |
+| `INSTALL.md`  | Step-by-step installation | Prerequisites, install commands, verification |
+| `SECURITY.md` | Security documentation    | Permissions, secrets, data handling           |
+| `EXAMPLES.md` | Usage examples            | Command examples, API calls, screenshots      |
 
 **Distribution Artifacts:**
+
 - `publish/install-instructions.md` - How to install locally
 - `publish/marketplace-listing.md` - If submitting to marketplace (Claude Code)
 - `publish/validation-notes.md` - Structure verification results
@@ -290,6 +302,7 @@ builds/<plugin-slug>/
 ### PHASE 4: RALPH POLISH LOOP (MANDATORY)
 
 **How Ralph Works:**
+
 1. Ralph Reviews - Checks all quality criteria
 2. Ralph Scores - Calculates pass rate (passed/total × 100)
 3. Threshold - Must reach ≥97% to PASS
@@ -304,17 +317,17 @@ builds/<plugin-slug>/
 
 ### When plugin-factory Delegates
 
-| Trigger | Delegated To | Context Passed |
-|---------|--------------|----------------|
-| User says "review this" | Ralph QA persona | Build path, checklist |
-| Deploy request | User manual action | Installation instructions |
+| Trigger                 | Delegated To       | Context Passed            |
+| ----------------------- | ------------------ | ------------------------- |
+| User says "review this" | Ralph QA persona   | Build path, checklist     |
+| Deploy request          | User manual action | Installation instructions |
 
 ### When plugin-factory Receives Delegation
 
-| Source | Trigger | Action |
-|--------|---------|--------|
-| Root orchestrator | `/factory run plugin <idea>` | Begin Phase 0 |
-| User direct | `cd plugin-factory && claude` | Enter INFRA MODE |
+| Source            | Trigger                       | Action           |
+| ----------------- | ----------------------------- | ---------------- |
+| Root orchestrator | `/factory run plugin <idea>`  | Begin Phase 0    |
+| User direct       | `cd plugin-factory && claude` | Enter INFRA MODE |
 
 ### Role Boundaries
 
@@ -352,18 +365,18 @@ builds/<plugin-slug>/
 
 ## 8. REFUSAL TABLE
 
-| Request Pattern | Action | Reason | Alternative |
-|-----------------|--------|--------|-------------|
-| "Skip the plan phase" | REFUSE | Plan is mandatory | "I need to plan first to ensure quality" |
-| "Skip security docs" | REFUSE | SECURITY.md is mandatory | "Security documentation is required" |
-| "Skip Ralph QA" | REFUSE | QA is mandatory for quality | "Ralph ensures the plugin is safe and functional" |
-| "Build a mobile app" | REFUSE | Wrong pipeline | "Use app-factory for mobile apps" |
-| "Build a dApp" | REFUSE | Wrong pipeline | "Use dapp-factory for dApps" |
-| "Build an AI agent" | REFUSE | Wrong pipeline | "Use agent-factory for agent scaffolds" |
-| "Write to app-factory/builds/" | REFUSE | Wrong directory | "I'll write to builds/ in plugin-factory" |
-| "Include my API key" | REFUSE | Security violation | "Add your key to .env (not committed)" |
-| "Put commands in .claude-plugin/" | REFUSE | Incorrect structure | "Commands go at plugin root, not in .claude-plugin" |
-| "Deploy automatically" | REFUSE | Requires user approval | "Here are installation instructions" |
+| Request Pattern                   | Action | Reason                      | Alternative                                         |
+| --------------------------------- | ------ | --------------------------- | --------------------------------------------------- |
+| "Skip the plan phase"             | REFUSE | Plan is mandatory           | "I need to plan first to ensure quality"            |
+| "Skip security docs"              | REFUSE | SECURITY.md is mandatory    | "Security documentation is required"                |
+| "Skip Ralph QA"                   | REFUSE | QA is mandatory for quality | "Ralph ensures the plugin is safe and functional"   |
+| "Build a mobile app"              | REFUSE | Wrong pipeline              | "Use app-factory for mobile apps"                   |
+| "Build a dApp"                    | REFUSE | Wrong pipeline              | "Use dapp-factory for dApps"                        |
+| "Build an AI agent"               | REFUSE | Wrong pipeline              | "Use agent-factory for agent scaffolds"             |
+| "Write to app-factory/builds/"    | REFUSE | Wrong directory             | "I'll write to builds/ in plugin-factory"           |
+| "Include my API key"              | REFUSE | Security violation          | "Add your key to .env (not committed)"              |
+| "Put commands in .claude-plugin/" | REFUSE | Incorrect structure         | "Commands go at plugin root, not in .claude-plugin" |
+| "Deploy automatically"            | REFUSE | Requires user approval      | "Here are installation instructions"                |
 
 ---
 
@@ -375,26 +388,27 @@ Before declaring a build complete, Claude MUST verify:
 
 **Claude Code Plugin:**
 
-| Category | Items |
-|----------|-------|
-| Structure Quality | plugin.json exists, valid JSON, required fields (5) |
-| Command Quality | Valid YAML frontmatter, lowercase names, descriptions (4) |
-| Hook Quality | Valid JSON, correct event names, valid regex, scripts exist (4) |
-| Security Quality | No secrets, SECURITY.md present, minimal permissions (4) |
-| Documentation Quality | README, INSTALL, EXAMPLES all complete (4) |
+| Category              | Items                                                           |
+| --------------------- | --------------------------------------------------------------- |
+| Structure Quality     | plugin.json exists, valid JSON, required fields (5)             |
+| Command Quality       | Valid YAML frontmatter, lowercase names, descriptions (4)       |
+| Hook Quality          | Valid JSON, correct event names, valid regex, scripts exist (4) |
+| Security Quality      | No secrets, SECURITY.md present, minimal permissions (4)        |
+| Documentation Quality | README, INSTALL, EXAMPLES all complete (4)                      |
 
 **MCP Server:**
 
-| Category | Items |
-|----------|-------|
-| Build Quality | npm install, npm build, server starts, no TS errors (4) |
-| Server Quality | manifest.json valid, tools/resources defined, Zod schemas, error handling (6) |
-| Security Quality | No secrets, SECURITY.md present, input validation (4) |
-| Documentation Quality | README, INSTALL, EXAMPLES, MCPB instructions (4) |
+| Category              | Items                                                                         |
+| --------------------- | ----------------------------------------------------------------------------- |
+| Build Quality         | npm install, npm build, server starts, no TS errors (4)                       |
+| Server Quality        | manifest.json valid, tools/resources defined, Zod schemas, error handling (6) |
+| Security Quality      | No secrets, SECURITY.md present, input validation (4)                         |
+| Documentation Quality | README, INSTALL, EXAMPLES, MCPB instructions (4)                              |
 
 ### Success Definition
 
 A plugin build is only "done" if:
+
 1. Installs cleanly - Following INSTALL.md works
 2. Works as described - At least one command/tool functions
 3. Security documented - SECURITY.md present and complete
@@ -406,17 +420,18 @@ A plugin build is only "done" if:
 
 ### Error Categories
 
-| Error Type | Detection | Recovery |
-|------------|-----------|----------|
-| Phase skip | Phase 0 not in runs/ | Halt, restart from Phase 0 |
-| Wrong structure | Commands in .claude-plugin/ | Move to root, update paths |
-| Build failure | npm build fails | Log error, fix issue, rebuild |
-| Ralph stuck | 3 FAILs without PASS | Hard failure, escalate to user |
-| Hook not triggering | Event name wrong case | Fix event name (PostToolUse, not postToolUse) |
+| Error Type          | Detection                   | Recovery                                      |
+| ------------------- | --------------------------- | --------------------------------------------- |
+| Phase skip          | Phase 0 not in runs/        | Halt, restart from Phase 0                    |
+| Wrong structure     | Commands in .claude-plugin/ | Move to root, update paths                    |
+| Build failure       | npm build fails             | Log error, fix issue, rebuild                 |
+| Ralph stuck         | 3 FAILs without PASS        | Hard failure, escalate to user                |
+| Hook not triggering | Event name wrong case       | Fix event name (PostToolUse, not postToolUse) |
 
 ### Drift Detection
 
 Claude MUST halt and reassess if:
+
 1. About to write files outside `plugin-factory/`
 2. About to skip a mandatory phase
 3. Ralph loop exceeds 3 iterations
@@ -440,21 +455,21 @@ Claude MUST halt and reassess if:
 
 ### Related Pipelines
 
-| Pipeline | When to Use | Directory |
-|----------|-------------|-----------|
-| app-factory | Mobile apps (Expo/React Native) | `../app-factory/` |
-| dapp-factory | dApps and websites (Next.js) | `../dapp-factory/` |
-| agent-factory | AI agent scaffolds | `../agent-factory/` |
-| miniapp-pipeline | Base Mini Apps | `../miniapp-pipeline/` |
-| website-pipeline | Static websites | `../website-pipeline/` |
+| Pipeline         | When to Use                     | Directory              |
+| ---------------- | ------------------------------- | ---------------------- |
+| app-factory      | Mobile apps (Expo/React Native) | `../app-factory/`      |
+| dapp-factory     | dApps and websites (Next.js)    | `../dapp-factory/`     |
+| agent-factory    | AI agent scaffolds              | `../agent-factory/`    |
+| miniapp-pipeline | Base Mini Apps                  | `../miniapp-pipeline/` |
+| website-pipeline | Static websites                 | `../website-pipeline/` |
 
 ### Shared Resources
 
-| Resource | Location | Purpose |
-|----------|----------|---------|
-| Root orchestrator | `../CLAUDE.md` | Routing, refusal, phase detection |
-| Factory plugin | `../plugins/factory/` | `/factory` command interface |
-| MCP catalog | `./mcp.catalog.json` | MCP server configurations (THIS PIPELINE OWNS) |
+| Resource          | Location              | Purpose                                        |
+| ----------------- | --------------------- | ---------------------------------------------- |
+| Root orchestrator | `../CLAUDE.md`        | Routing, refusal, phase detection              |
+| Factory plugin    | `../plugins/factory/` | `/factory` command interface                   |
+| MCP catalog       | `./mcp.catalog.json`  | MCP server configurations (THIS PIPELINE OWNS) |
 
 ---
 
@@ -493,15 +508,16 @@ VERIFIED:
 
 ### MCP Is a Specification, Not a Tool
 
-| Concept | What It Is | What It Is NOT |
-|---------|------------|----------------|
+| Concept                          | What It Is                                                        | What It Is NOT                                        |
+| -------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------- |
 | **MCP (Model Context Protocol)** | Open specification defining how AI systems communicate with tools | NOT a server, NOT a tool, NOT something you "install" |
-| **MCP Server** | An implementation that follows the MCP specification | NOT MCP itself - it's a tool that obeys MCP |
-| **MCP Tools** | Specific capabilities exposed by an MCP server | NOT part of MCP spec - they're what servers provide |
+| **MCP Server**                   | An implementation that follows the MCP specification              | NOT MCP itself - it's a tool that obeys MCP           |
+| **MCP Tools**                    | Specific capabilities exposed by an MCP server                    | NOT part of MCP spec - they're what servers provide   |
 
 ### The MCP Specification
 
 MCP defines the **contract** that all compliant servers must follow:
+
 - **Transport protocols**: STDIO (local), HTTP (remote)
 - **Message format**: JSON-RPC 2.0
 - **Capability negotiation**: How servers declare what they can do
@@ -521,13 +537,13 @@ The catalog defines MCP server configurations (not MCP itself).
 
 ### Governance Rules
 
-| Rule | Enforcement |
-|------|-------------|
+| Rule                                                   | Enforcement      |
+| ------------------------------------------------------ | ---------------- |
 | All MCP servers must be declared in `mcp.catalog.json` | Build validation |
-| No MCP server access outside allowed phases | Phase gating |
-| Mutating operations require explicit approval | Approval gating |
-| All MCP operations produce artifacts | Artifact logging |
-| Failures are handled, never silent | Failure policies |
+| No MCP server access outside allowed phases            | Phase gating     |
+| Mutating operations require explicit approval          | Approval gating  |
+| All MCP operations produce artifacts                   | Artifact logging |
+| Failures are handled, never silent                     | Failure policies |
 
 ---
 
@@ -535,23 +551,23 @@ The catalog defines MCP server configurations (not MCP itself).
 
 ### Claude Code Plugins
 
-| Component | Technology |
-|-----------|------------|
-| Manifest | JSON (plugin.json) |
-| Commands | Markdown with YAML frontmatter |
-| Agents | Markdown |
-| Skills | Directory with SKILL.md |
-| Hooks | JSON configuration + shell/node scripts |
+| Component | Technology                              |
+| --------- | --------------------------------------- |
+| Manifest  | JSON (plugin.json)                      |
+| Commands  | Markdown with YAML frontmatter          |
+| Agents    | Markdown                                |
+| Skills    | Directory with SKILL.md                 |
+| Hooks     | JSON configuration + shell/node scripts |
 
 ### MCP Servers
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| Runtime | Node.js | 18+ |
-| Language | TypeScript | 5.0+ |
-| SDK | @modelcontextprotocol/sdk | 1.x (stable) |
-| Schema Validation | Zod | 3.x |
-| Transport | STDIO (local) or Streamable HTTP (remote) |
+| Component         | Technology                                | Version      |
+| ----------------- | ----------------------------------------- | ------------ |
+| Runtime           | Node.js                                   | 18+          |
+| Language          | TypeScript                                | 5.0+         |
+| SDK               | @modelcontextprotocol/sdk                 | 1.x (stable) |
+| Schema Validation | Zod                                       | 3.x          |
+| Transport         | STDIO (local) or Streamable HTTP (remote) |
 
 ---
 
@@ -559,24 +575,24 @@ The catalog defines MCP server configurations (not MCP itself).
 
 When the user doesn't specify:
 
-| Aspect | Default |
-|--------|---------|
+| Aspect      | Default                                          |
+| ----------- | ------------------------------------------------ |
 | Plugin type | Claude Code plugin (unless external data needed) |
-| Language | TypeScript for MCP servers |
-| Transport | STDIO for MCP (local use) |
-| Permissions | Minimal (least privilege) |
-| License | MIT |
+| Language    | TypeScript for MCP servers                       |
+| Transport   | STDIO for MCP (local use)                        |
+| Permissions | Minimal (least privilege)                        |
+| License     | MIT                                              |
 
 ---
 
 ## VERSION HISTORY
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 2.0.0 | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
-| 1.2 | 2026-01-18 | Added MCP Governance section |
-| 1.1 | 2026-01-18 | Added MCP catalog as canonical source |
-| 1.0 | 2026-01-14 | Initial release |
+| Version | Date       | Changes                                                           |
+| ------- | ---------- | ----------------------------------------------------------------- |
+| 2.0.0   | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
+| 1.2     | 2026-01-18 | Added MCP Governance section                                      |
+| 1.1     | 2026-01-18 | Added MCP catalog as canonical source                             |
+| 1.0     | 2026-01-14 | Initial release                                                   |
 
 ---
 

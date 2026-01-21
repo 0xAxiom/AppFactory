@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { Connector, useConnect } from "wagmi";
-import { SignInWithBaseButton } from "@base-org/account-ui/react";
-import { useState } from "react";
+import { Connector, useConnect } from 'wagmi';
+import { SignInWithBaseButton } from '@base-org/account-ui/react';
+import { useState } from 'react';
 
 interface SignInWithBaseProps {
   connector: Connector;
 }
 
 export function SignInWithBase({ connector }: SignInWithBaseProps) {
-  const [verificationResult, setVerificationResult] = useState<string>("");
+  const [verificationResult, setVerificationResult] = useState<string>('');
   const { connect } = useConnect();
 
   async function handleBaseAccountConnect() {
     try {
       const provider = await connector.getProvider();
       if (!provider) {
-        console.error("No provider");
+        console.error('No provider');
         return;
       }
 
@@ -24,19 +24,19 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
       const clientNonce =
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15);
-      console.log("clientNonce", clientNonce);
-      
+      console.log('clientNonce', clientNonce);
+
       // Connect with SIWE to get signature, message, and address
       // This wallet_connect request will trigger the connection AND update wagmi's state
       const accounts = await (provider as any).request({
-        method: "wallet_connect",
+        method: 'wallet_connect',
         params: [
           {
-            version: "1",
+            version: '1',
             capabilities: {
               signInWithEthereum: {
                 nonce: clientNonce,
-                chainId: "0x2105", // Base Mainnet - 8453
+                chainId: '0x2105', // Base Mainnet - 8453
               },
             },
           },
@@ -51,11 +51,11 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
         accounts.accounts[0].capabilities.signInWithEthereum.signature;
       const message =
         accounts.accounts[0].capabilities.signInWithEthereum.message;
-      
+
       // Verify the signature on the backend
-      const verifyResponse = await fetch("/api/auth/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const verifyResponse = await fetch('/api/auth/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           address: walletAddress,
           message,
@@ -71,16 +71,16 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
         setVerificationResult(`Verification failed: ${result.error}`);
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error('Error:', err);
       setVerificationResult(
-        `Error: ${err instanceof Error ? err.message : "Unknown error"}`
+        `Error: ${err instanceof Error ? err.message : 'Unknown error'}`
       );
     }
   }
 
   return (
     <div>
-      <div style={{ width: "300px" }}>
+      <div style={{ width: '300px' }}>
         <SignInWithBaseButton
           onClick={handleBaseAccountConnect}
           variant="solid"
@@ -89,9 +89,8 @@ export function SignInWithBase({ connector }: SignInWithBaseProps) {
         />
       </div>
       {verificationResult && (
-        <div style={{ marginTop: "10px" }}>{verificationResult}</div>
+        <div style={{ marginTop: '10px' }}>{verificationResult}</div>
       )}
     </div>
   );
 }
-

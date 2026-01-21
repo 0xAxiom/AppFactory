@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useQuickAuth,useMiniKit } from "@coinbase/onchainkit/minikit";
+import { useQuickAuth, useMiniKit } from "@coinbase/onchainkit/minikit";
 import { useRouter } from "next/navigation";
 import { minikitConfig } from "../minikit.config";
 import styles from "./page.module.css";
@@ -15,7 +15,6 @@ interface AuthResponse {
   message?: string; // Error messages come as 'message' not 'error'
 }
 
-
 export default function Home() {
   const { isFrameReady, setFrameReady, context } = useMiniKit();
   const [email, setEmail] = useState("");
@@ -28,8 +27,6 @@ export default function Home() {
       setFrameReady();
     }
   }, [setFrameReady, isFrameReady]);
- 
-  
 
   // If you need to verify the user's identity, you can use the useQuickAuth hook.
   // This hook will verify the user's signature and return the user's FID. You can update
@@ -40,10 +37,11 @@ export default function Home() {
   //   userFid: string;
   // }>("/api/auth");
 
-  const { data: authData, isLoading: isAuthLoading, error: authError } = useQuickAuth<AuthResponse>(
-    "/api/auth",
-    { method: "GET" }
-  );
+  const {
+    data: authData,
+    isLoading: isAuthLoading,
+    error: authError,
+  } = useQuickAuth<AuthResponse>("/api/auth", { method: "GET" });
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -78,7 +76,7 @@ export default function Home() {
     // TODO: Save email to database/API with user FID
     console.log("Valid email submitted:", email);
     console.log("User authenticated:", authData.user);
-    
+
     // Navigate to success page
     router.push("/success");
   };
@@ -88,13 +86,17 @@ export default function Home() {
       <button className={styles.closeButton} type="button">
         ✕
       </button>
-      
+
       <div className={styles.content}>
         <div className={styles.waitlistForm}>
-          <h1 className={styles.title}>Join {minikitConfig.miniapp.name.toUpperCase()}</h1>
-          
+          <h1 className={styles.title}>
+            Join {minikitConfig.miniapp.name.toUpperCase()}
+          </h1>
+
           <p className={styles.subtitle}>
-             Hey {context?.user?.displayName || "there"}, Get early access and be the first to experience the future of<br />
+            Hey {context?.user?.displayName || "there"}, Get early access and be
+            the first to experience the future of
+            <br />
             crypto marketing strategy.
           </p>
 
@@ -106,9 +108,9 @@ export default function Home() {
               onChange={(e) => setEmail(e.target.value)}
               className={styles.emailInput}
             />
-            
+
             {error && <p className={styles.error}>{error}</p>}
-            
+
             <button type="submit" className={styles.joinButton}>
               JOIN WAITLIST
             </button>

@@ -8,7 +8,13 @@ import { Command } from 'commander';
 import ora from 'ora';
 import { executeRun } from '../core/pipeline.js';
 import { logger } from '../core/logging.js';
-import { printBanner, printHeader, printCompletionBanner, printFailureBanner, printSuccess } from '../ui/banner.js';
+import {
+  printBanner,
+  printHeader,
+  printCompletionBanner,
+  printFailureBanner,
+  printSuccess,
+} from '../ui/banner.js';
 import { formatTable, formatNextSteps } from '../ui/format.js';
 import { confirm, promptIntake } from '../ui/prompts.js';
 
@@ -54,19 +60,23 @@ export function createRunCommand(): Command {
       }
 
       // Execute
-      const spinner = ora('Executing Stage 01: Market Research & Idea Generation...').start();
+      const spinner = ora(
+        'Executing Stage 01: Market Research & Idea Generation...'
+      ).start();
 
       try {
         const result = await executeRun({
           model: options.model,
-          intake: intakeContent
+          intake: intakeContent,
         });
 
         spinner.stop();
 
         if (!result.success) {
           if (options.json) {
-            console.log(JSON.stringify({ success: false, error: result.error }, null, 2));
+            console.log(
+              JSON.stringify({ success: false, error: result.error }, null, 2)
+            );
           } else {
             printFailureBanner('run', result.error || 'Unknown error');
           }
@@ -75,13 +85,19 @@ export function createRunCommand(): Command {
 
         // Output results
         if (options.json) {
-          console.log(JSON.stringify({
-            success: true,
-            runId: result.runId,
-            runPath: result.runPath,
-            ideas: result.ideas,
-            duration: Date.now() - startTime
-          }, null, 2));
+          console.log(
+            JSON.stringify(
+              {
+                success: true,
+                runId: result.runId,
+                runPath: result.runPath,
+                ideas: result.ideas,
+                duration: Date.now() - startTime,
+              },
+              null,
+              2
+            )
+          );
         } else {
           const duration = Date.now() - startTime;
 
@@ -90,11 +106,11 @@ export function createRunCommand(): Command {
 
           // Display ideas table
           const headers = ['Rank', 'Name', 'ID', 'Score'];
-          const rows = result.ideas.map(idea => [
+          const rows = result.ideas.map((idea) => [
             String(idea.rank),
             idea.name,
             idea.id,
-            String(idea.validation_score)
+            String(idea.validation_score),
           ]);
 
           console.log(formatTable(headers, rows));
@@ -103,11 +119,13 @@ export function createRunCommand(): Command {
           printCompletionBanner('run', duration);
 
           // Next steps
-          console.log(formatNextSteps([
-            `Build an idea: appfactory build <idea_id>`,
-            `List ideas: appfactory list`,
-            `Run path: ${result.runPath}`
-          ]));
+          console.log(
+            formatNextSteps([
+              `Build an idea: appfactory build <idea_id>`,
+              `List ideas: appfactory list`,
+              `Run path: ${result.runPath}`,
+            ])
+          );
         }
 
         process.exit(0);

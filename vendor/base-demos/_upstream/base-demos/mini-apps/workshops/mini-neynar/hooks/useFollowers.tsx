@@ -1,5 +1,5 @@
-import useSWR from 'swr';
-import { getFollows } from '@/lib/neynar';
+import useSWR from "swr";
+import { getFollows } from "@/lib/neynar";
 
 interface Friend {
   username: string;
@@ -12,12 +12,15 @@ interface UseFollowersOptions {
   limit?: number;
 }
 
-export function useFollowers(fid: number | undefined, options: UseFollowersOptions = {}) {
+export function useFollowers(
+  fid: number | undefined,
+  options: UseFollowersOptions = {},
+) {
   const { limit = 10 } = options;
 
   console.log("[DEBUG] Fetching followers for FID:", fid);
   const { data, error, isLoading, mutate } = useSWR(
-    fid ? ['followers', fid, limit] : null,
+    fid ? ["followers", fid, limit] : null,
     async () => {
       const response = await getFollows(fid!, limit);
       console.log("[DEBUG] Followers response:", response);
@@ -25,8 +28,8 @@ export function useFollowers(fid: number | undefined, options: UseFollowersOptio
     },
     {
       revalidateOnFocus: false,
-      revalidateOnReconnect: false
-    }
+      revalidateOnReconnect: false,
+    },
   );
   console.log("[DEBUG] Followers data:", data);
 
@@ -34,6 +37,6 @@ export function useFollowers(fid: number | undefined, options: UseFollowersOptio
     followers: data || [],
     isLoading,
     isError: error,
-    mutate
+    mutate,
   };
 }

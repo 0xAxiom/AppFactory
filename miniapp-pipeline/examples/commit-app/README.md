@@ -37,7 +37,9 @@ New Year's resolutions fail. Side projects stall. Gym memberships go unused. Why
 This app was generated using the **miniapp-pipeline** in App Factory. Here's the process:
 
 ### Stage M0: Intent Normalization
+
 Transformed the idea "accountability app with staking" into a structured concept with:
+
 - Target users identified
 - Core loop defined
 - Revenue model documented
@@ -45,7 +47,9 @@ Transformed the idea "accountability app with staking" into a structured concept
 See: `artifacts/inputs/normalized_prompt.md`
 
 ### Stage M1: Scaffold Planning
+
 Designed the technical architecture:
+
 - Route structure
 - Component hierarchy
 - Data model
@@ -54,7 +58,9 @@ Designed the technical architecture:
 See: `artifacts/stage01/scaffold_plan.md`
 
 ### Stage M2: Project Scaffold
+
 Generated the complete Next.js application:
+
 - MiniKit integration
 - Wagmi wallet connection
 - React Query for state
@@ -63,7 +69,9 @@ Generated the complete Next.js application:
 See: `artifacts/stage02/scaffold_complete.md`
 
 ### Stage M3: Manifest Configuration
+
 Configured the Farcaster manifest with:
+
 - App metadata (name, description, tags)
 - Asset URLs
 - Webhook endpoint
@@ -71,7 +79,9 @@ Configured the Farcaster manifest with:
 See: `artifacts/stage03/manifest_config.md`
 
 ### Stage M4: Deployment Plan
+
 Created Vercel deployment guide with:
+
 - Environment variable setup
 - Deployment Protection disabling (critical!)
 - Verification steps
@@ -79,7 +89,9 @@ Created Vercel deployment guide with:
 See: `artifacts/stage04/DEPLOYMENT.md`
 
 ### Stage M5: Account Association (Manual)
+
 Instructions for proving domain ownership:
+
 - Sign with Farcaster wallet
 - Update minikit.config.ts
 - Redeploy
@@ -87,7 +99,9 @@ Instructions for proving domain ownership:
 See: `artifacts/stage05/ACCOUNT_ASSOCIATION_TODO.md`
 
 ### Stage M7: Production Hardening
+
 Applied hardening:
+
 - Error handling
 - Browser fallback
 - Mobile optimization
@@ -96,7 +110,9 @@ Applied hardening:
 See: `artifacts/stage07/hardening_report.md`
 
 ### Stage M8: Proof Gate
+
 Validation checklist:
+
 - Build passes
 - Manifest valid
 - SDK ready hook present
@@ -183,7 +199,7 @@ npm run dev
 
 ```typescript
 // Uses OnchainKit's validation
-import { withValidManifest } from "@coinbase/onchainkit/minikit";
+import { withValidManifest } from '@coinbase/onchainkit/minikit';
 export async function GET() {
   return Response.json(withValidManifest(minikitConfig));
 }
@@ -237,4 +253,4 @@ MIT
 
 ---
 
-*Built with [miniapp-pipeline](../README.md) - Part of App Factory*
+_Built with [miniapp-pipeline](../README.md) - Part of App Factory_

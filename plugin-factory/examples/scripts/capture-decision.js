@@ -21,7 +21,7 @@ function getGitCommit() {
   try {
     const commit = execSync('git rev-parse HEAD', {
       encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe']
+      stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();
     return commit.substring(0, 7); // Short hash
   } catch (e) {
@@ -36,7 +36,7 @@ function getGitRemote() {
   try {
     const remote = execSync('git remote get-url origin', {
       encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe']
+      stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();
 
     // Convert SSH to HTTPS
@@ -58,28 +58,78 @@ function getGitRemote() {
  */
 function extractTags(reasoning) {
   const keywords = [
-    'react', 'vue', 'angular', 'svelte',
-    'redux', 'zustand', 'jotai', 'recoil', 'context',
-    'typescript', 'javascript', 'python', 'rust', 'go',
-    'api', 'rest', 'graphql', 'trpc',
-    'database', 'postgres', 'mysql', 'mongodb', 'sqlite', 'prisma',
-    'auth', 'authentication', 'authorization', 'oauth', 'jwt',
-    'testing', 'jest', 'vitest', 'cypress', 'playwright',
-    'styling', 'css', 'tailwind', 'styled-components', 'sass',
-    'build', 'webpack', 'vite', 'esbuild', 'rollup',
-    'deploy', 'docker', 'kubernetes', 'vercel', 'netlify',
-    'performance', 'optimization', 'caching', 'lazy-loading',
-    'security', 'encryption', 'validation',
-    'architecture', 'refactor', 'migration',
-    'state-management', 'routing', 'middleware',
+    'react',
+    'vue',
+    'angular',
+    'svelte',
+    'redux',
+    'zustand',
+    'jotai',
+    'recoil',
+    'context',
+    'typescript',
+    'javascript',
+    'python',
+    'rust',
+    'go',
+    'api',
+    'rest',
+    'graphql',
+    'trpc',
+    'database',
+    'postgres',
+    'mysql',
+    'mongodb',
+    'sqlite',
+    'prisma',
+    'auth',
+    'authentication',
+    'authorization',
+    'oauth',
+    'jwt',
+    'testing',
+    'jest',
+    'vitest',
+    'cypress',
+    'playwright',
+    'styling',
+    'css',
+    'tailwind',
+    'styled-components',
+    'sass',
+    'build',
+    'webpack',
+    'vite',
+    'esbuild',
+    'rollup',
+    'deploy',
+    'docker',
+    'kubernetes',
+    'vercel',
+    'netlify',
+    'performance',
+    'optimization',
+    'caching',
+    'lazy-loading',
+    'security',
+    'encryption',
+    'validation',
+    'architecture',
+    'refactor',
+    'migration',
+    'state-management',
+    'routing',
+    'middleware',
   ];
 
   const lowerReasoning = reasoning.toLowerCase();
   const foundTags = [];
 
   for (const keyword of keywords) {
-    if (lowerReasoning.includes(keyword.replace('-', ' ')) ||
-        lowerReasoning.includes(keyword)) {
+    if (
+      lowerReasoning.includes(keyword.replace('-', ' ')) ||
+      lowerReasoning.includes(keyword)
+    ) {
       foundTags.push(keyword);
     }
   }
@@ -97,7 +147,7 @@ function parseArgs(args) {
     files: [],
     reasoning: '',
     commit: null,
-    tags: []
+    tags: [],
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -106,7 +156,7 @@ function parseArgs(args) {
         result.project = args[++i];
         break;
       case '--files':
-        result.files = args[++i].split(',').map(f => f.trim());
+        result.files = args[++i].split(',').map((f) => f.trim());
         break;
       case '--reasoning':
         result.reasoning = args[++i];
@@ -115,7 +165,7 @@ function parseArgs(args) {
         result.commit = args[++i];
         break;
       case '--tags':
-        result.tags = args[++i].split(',').map(t => t.trim());
+        result.tags = args[++i].split(',').map((t) => t.trim());
         break;
     }
   }
@@ -155,14 +205,14 @@ async function main() {
     commit: args.commit,
     tags: args.tags,
     commitUrl: remote && args.commit ? `${remote}/commit/${args.commit}` : null,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
 
   // Output as JSON for MCP server consumption
   console.log(JSON.stringify(decision, null, 2));
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Capture error:', err.message);
   process.exit(1);
 });

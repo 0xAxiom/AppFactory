@@ -42,9 +42,11 @@ Display command reference and behavioral contract.
 Analyze an idea and produce a detailed execution plan without running anything.
 
 **Input:**
+
 - `<idea>`: Natural language description of what to build
 
 **Process:**
+
 1. Parse the idea for intent
 2. Identify the appropriate pipeline(s)
 3. List skills that would activate (from prompt-factory)
@@ -55,6 +57,7 @@ Analyze an idea and produce a detailed execution plan without running anything.
 **Output:** Structured plan artifact. No execution occurs.
 
 **Example:**
+
 ```
 /factory plan a meditation timer app for iOS and Android
 ```
@@ -64,10 +67,12 @@ Analyze an idea and produce a detailed execution plan without running anything.
 Execute a full pipeline with mandatory approval gate.
 
 **Input:**
+
 - `<pipeline>`: One of `miniapp`, `dapp`, `agent`, `app`, `plugin`
 - `<idea>`: Natural language description
 
 **Process:**
+
 1. Validate pipeline exists in config
 2. Generate execution plan (same as `/factory plan`)
 3. **BLOCK: Display plan and wait for explicit user approval**
@@ -76,6 +81,7 @@ Execute a full pipeline with mandatory approval gate.
 6. Display summary with artifact locations
 
 **Approval Gate:**
+
 ```
 ─────────────────────────────────────────────
 EXECUTION PLAN REQUIRES APPROVAL
@@ -91,6 +97,7 @@ Type 'approve' to proceed, 'reject' to cancel:
 ```
 
 **Example:**
+
 ```
 /factory run miniapp a meditation timer with breathing exercises
 ```
@@ -100,10 +107,12 @@ Type 'approve' to proceed, 'reject' to cancel:
 Run adversarial QA review on generated artifacts.
 
 **Input:**
+
 - `<path>`: Directory or file to review
 - `--loops N`: Number of review iterations (default: 3, max: 5)
 
 **Process:**
+
 1. Validate path exists
 2. Delegate to prompt-factory's `qa-adversarial` skill
 3. Execute N review loops, each challenging previous findings
@@ -112,6 +121,7 @@ Run adversarial QA review on generated artifacts.
 **Output:** `ralph_verdict.md` in the reviewed path
 
 **Example:**
+
 ```
 /factory ralph ./builds/meditation-timer --loops 3
 ```
@@ -121,6 +131,7 @@ Run adversarial QA review on generated artifacts.
 View the execution audit log for factory commands.
 
 **Process:**
+
 1. Query prompt-factory audit log
 2. Filter for factory-related activations
 3. Display recent entries with:
@@ -133,6 +144,7 @@ View the execution audit log for factory commands.
 **Output:** Formatted audit log table
 
 **Example output:**
+
 ```
 FACTORY AUDIT LOG
 ─────────────────────────────────────────────
@@ -146,13 +158,13 @@ FACTORY AUDIT LOG
 
 Available pipelines are defined in `config.default.yaml`:
 
-| Pipeline | Root                    | Description              |
-|----------|-------------------------|--------------------------|
-| miniapp  | ../../miniapp-pipeline  | Base Mini App pipeline   |
-| dapp     | ../../dapp-factory      | Onchain dApp pipeline    |
-| agent    | ../../agent-factory     | Agent scaffold pipeline  |
-| app      | ../../app-factory       | Mobile app pipeline      |
-| plugin   | ../../plugin-factory    | Claude plugin pipeline   |
+| Pipeline | Root                   | Description             |
+| -------- | ---------------------- | ----------------------- |
+| miniapp  | ../../miniapp-pipeline | Base Mini App pipeline  |
+| dapp     | ../../dapp-factory     | Onchain dApp pipeline   |
+| agent    | ../../agent-factory    | Agent scaffold pipeline |
+| app      | ../../app-factory      | Mobile app pipeline     |
+| plugin   | ../../plugin-factory   | Claude plugin pipeline  |
 
 ## Delegation Model
 
@@ -183,12 +195,12 @@ Factory is a **thin wrapper**. All governance logic lives in prompt-factory:
 
 ## Error Handling
 
-| Code          | Meaning                          | Recovery                      |
-|---------------|----------------------------------|-------------------------------|
-| FAC-001       | Unknown pipeline                 | Check `config.default.yaml`   |
-| FAC-002       | Plan rejected by user            | Modify request and retry      |
-| FAC-003       | Pipeline root not found          | Verify pipeline paths         |
-| FAC-004       | Ralph loop limit exceeded        | Use --loops 1-5               |
-| FAC-005       | Audit log unavailable            | Check prompt-factory status   |
+| Code    | Meaning                   | Recovery                    |
+| ------- | ------------------------- | --------------------------- |
+| FAC-001 | Unknown pipeline          | Check `config.default.yaml` |
+| FAC-002 | Plan rejected by user     | Modify request and retry    |
+| FAC-003 | Pipeline root not found   | Verify pipeline paths       |
+| FAC-004 | Ralph loop limit exceeded | Use --loops 1-5             |
+| FAC-005 | Audit log unavailable     | Check prompt-factory status |
 
-Errors from prompt-factory (PF-*) are propagated with context.
+Errors from prompt-factory (PF-\*) are propagated with context.

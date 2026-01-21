@@ -10,6 +10,7 @@
 A **skill** is a reusable set of instructions that defines quality standards for a specific domain. Skills are consumed by Claude during code generation and review to ensure consistent, high-quality output.
 
 Skills contain:
+
 - **Rules**: Specific patterns to follow or avoid
 - **Examples**: Good/bad code snippets
 - **Severity Levels**: CRITICAL, HIGH, MEDIUM, LOW
@@ -28,6 +29,7 @@ Each skill has a unique identifier:
 ```
 
 Examples:
+
 - `dapp-factory:react-best-practices`
 - `app-factory:mobile-interface-guidelines`
 - `website-pipeline:seo-guidelines`
@@ -50,19 +52,19 @@ Skills are invoked at specific points in each pipeline:
 
 ### Invocation Points
 
-| Point | Description | Purpose |
-|-------|-------------|---------|
-| **Review Step** | During code writing | Guide decisions in real-time |
-| **Quality Gate** | After a build phase | Validate before proceeding |
+| Point              | Description         | Purpose                        |
+| ------------------ | ------------------- | ------------------------------ |
+| **Review Step**    | During code writing | Guide decisions in real-time   |
+| **Quality Gate**   | After a build phase | Validate before proceeding     |
 | **Pre-ship Audit** | Before final output | Comprehensive compliance check |
 
 ### Pipeline-Specific Invocation
 
-| Pipeline | Review Step | Quality Gate | Pre-ship Audit |
-|----------|-------------|--------------|----------------|
-| app-factory | During Milestone 2-3 | After each Milestone | Ralph Final |
-| dapp-factory | During Phase 3 | After Phase 3 | Ralph Final |
-| website-pipeline | During Phase 4-5 | After Phase 5 | Phase 6 Audit |
+| Pipeline         | Review Step          | Quality Gate         | Pre-ship Audit |
+| ---------------- | -------------------- | -------------------- | -------------- |
+| app-factory      | During Milestone 2-3 | After each Milestone | Ralph Final    |
+| dapp-factory     | During Phase 3       | After Phase 3        | Ralph Final    |
+| website-pipeline | During Phase 4-5     | After Phase 5        | Phase 6 Audit  |
 
 ---
 
@@ -80,16 +82,18 @@ When documenting skill usage in pipeline docs, use this standard block:
 **Gate Criteria:** <Pass/fail conditions>
 
 #### Example Invocation
-
 ```
+
 SKILL CHECK: react-best-practices
-├── Scan: src/components/**/*.tsx
+├── Scan: src/components/\*_/_.tsx
 ├── Rules: CRITICAL (4), HIGH (8), MEDIUM (12)
 ├── Found: 2 violations
-│   ├── [CRITICAL] bundle-imports in src/components/index.ts:12
-│   └── [HIGH] server-prefer-server-components in src/app/page.tsx:1
+│ ├── [CRITICAL] bundle-imports in src/components/index.ts:12
+│ └── [HIGH] server-prefer-server-components in src/app/page.tsx:1
 └── Result: BLOCKED (1 CRITICAL violation)
+
 ```
+
 ```
 
 ---
@@ -103,7 +107,8 @@ When a skill is invoked, it must produce:
 Location: `<pipeline>/runs/<timestamp>/reports/agent_skills/<skill-name>.md`
 
 Format:
-```markdown
+
+````markdown
 # <Skill Name> Compliance Report
 
 **Generated:** <timestamp>
@@ -113,11 +118,11 @@ Format:
 ## Summary
 
 | Severity | Passed | Failed | Total |
-|----------|--------|--------|-------|
-| CRITICAL | X | Y | Z |
-| HIGH | X | Y | Z |
-| MEDIUM | X | Y | Z |
-| LOW | X | Y | Z |
+| -------- | ------ | ------ | ----- |
+| CRITICAL | X      | Y      | Z     |
+| HIGH     | X      | Y      | Z     |
+| MEDIUM   | X      | Y      | Z     |
+| LOW      | X      | Y      | Z     |
 
 **Overall Score:** XX%
 **Verdict:** PASS | CONDITIONAL | FAIL | BLOCKED
@@ -131,11 +136,14 @@ Format:
 **Issue:** <description>
 
 **Bad:**
+
 ```tsx
 <code snippet>
 ```
+````
 
 **Fix:**
+
 ```tsx
 <corrected code>
 ```
@@ -143,7 +151,8 @@ Format:
 ---
 
 (Repeat for each violation)
-```
+
+````
 
 ### 2. Required Fixes List (if violations exist)
 
@@ -169,7 +178,7 @@ Format:
 ### Optional (LOW)
 
 1. [ ] <file>:<line> - <fix description>
-```
+````
 
 ---
 
@@ -177,11 +186,11 @@ Format:
 
 ### Blocking Conditions
 
-| Condition | Result |
-|-----------|--------|
-| Any CRITICAL violation | **BLOCKED** - Cannot proceed |
-| >3 HIGH violations | **FAIL** - Must fix before continuing |
-| Overall score <90% | **CONDITIONAL** - Fix before Ralph |
+| Condition              | Result                                |
+| ---------------------- | ------------------------------------- |
+| Any CRITICAL violation | **BLOCKED** - Cannot proceed          |
+| >3 HIGH violations     | **FAIL** - Must fix before continuing |
+| Overall score <90%     | **CONDITIONAL** - Fix before Ralph    |
 
 ### Scoring Formula
 
@@ -196,13 +205,13 @@ Where:
 
 ### Thresholds
 
-| Score | Verdict | Action |
-|-------|---------|--------|
-| 100% | PASS | Proceed normally |
-| 95-99% | PASS | Proceed, note minor issues |
-| 90-94% | CONDITIONAL | Fix before Ralph |
-| <90% | FAIL | Must fix before proceeding |
-| Any CRITICAL | BLOCKED | Cannot proceed |
+| Score        | Verdict     | Action                     |
+| ------------ | ----------- | -------------------------- |
+| 100%         | PASS        | Proceed normally           |
+| 95-99%       | PASS        | Proceed, note minor issues |
+| 90-94%       | CONDITIONAL | Fix before Ralph           |
+| <90%         | FAIL        | Must fix before proceeding |
+| Any CRITICAL | BLOCKED     | Cannot proceed             |
 
 ---
 
@@ -210,29 +219,29 @@ Where:
 
 ### app-factory
 
-| Skill | Purpose | Invocation Point |
-|-------|---------|------------------|
-| `react-native-best-practices` | RN performance | After Milestone 3 |
-| `mobile-ui-guidelines` | Mobile UI/UX | After Milestone 2 |
+| Skill                         | Purpose           | Invocation Point            |
+| ----------------------------- | ----------------- | --------------------------- |
+| `react-native-best-practices` | RN performance    | After Milestone 3           |
+| `mobile-ui-guidelines`        | Mobile UI/UX      | After Milestone 2           |
 | `mobile-interface-guidelines` | Touch, a11y, perf | After Milestone 2, 3, Final |
-| `expo-standards` | Expo-specific | Throughout build |
+| `expo-standards`              | Expo-specific     | Throughout build            |
 
 ### dapp-factory
 
-| Skill | Purpose | Invocation Point |
-|-------|---------|------------------|
-| `react-best-practices` | React/Next.js perf | Phase 3 (Build) |
-| `web-design-guidelines` | UI/UX/a11y | Phase 4 (Ralph) |
-| `web-interface-guidelines` | Web-specific | Phase 3, 4 |
-| `vercel-deploy` | Deployment | Phase 4 (optional) |
+| Skill                      | Purpose            | Invocation Point   |
+| -------------------------- | ------------------ | ------------------ |
+| `react-best-practices`     | React/Next.js perf | Phase 3 (Build)    |
+| `web-design-guidelines`    | UI/UX/a11y         | Phase 4 (Ralph)    |
+| `web-interface-guidelines` | Web-specific       | Phase 3, 4         |
+| `vercel-deploy`            | Deployment         | Phase 4 (optional) |
 
 ### website-pipeline
 
-| Skill | Purpose | Invocation Point |
-|-------|---------|------------------|
-| `react-best-practices` | React/Next.js perf | Phase 5 (Build) |
-| `web-design-guidelines` | UI/UX/a11y | Phase 6 (Audit) |
-| `seo-guidelines` | SEO compliance | Phase 6 (Audit) |
+| Skill                   | Purpose            | Invocation Point |
+| ----------------------- | ------------------ | ---------------- |
+| `react-best-practices`  | React/Next.js perf | Phase 5 (Build)  |
+| `web-design-guidelines` | UI/UX/a11y         | Phase 6 (Audit)  |
+| `seo-guidelines`        | SEO compliance     | Phase 6 (Audit)  |
 
 ---
 
@@ -248,7 +257,7 @@ Where:
 
 ### Step 2: Define SKILL.md
 
-```markdown
+````markdown
 # <Skill Name>
 
 **Purpose:** <One-line description>
@@ -259,10 +268,12 @@ Where:
 ## When to Activate
 
 This skill activates during:
+
 - **Phase X** (<description>)
 - **Phase Y** (<description>)
 
 Trigger phrases:
+
 - "<phrase 1>"
 - "<phrase 2>"
 
@@ -278,10 +289,10 @@ Trigger phrases:
 
 ## Rule Categories
 
-| Priority | Category | Impact | Description |
-|----------|----------|--------|-------------|
-| CRITICAL | <name> | <impact> | <description> |
-| HIGH | <name> | <impact> | <description> |
+| Priority | Category | Impact   | Description   |
+| -------- | -------- | -------- | ------------- |
+| CRITICAL | <name>   | <impact> | <description> |
+| HIGH     | <name>   | <impact> | <description> |
 
 ---
 
@@ -297,6 +308,7 @@ Trigger phrases:
 // GOOD
 <good code>
 ```
+````
 
 ---
 
@@ -325,7 +337,8 @@ Ralph includes this skill as a scoring category:
 - [ ] <check 2>
 - [ ] Overall skill score ≥95%
 ```
-```
+
+````
 
 ### Step 3: Define AGENTS.md
 
@@ -394,7 +407,7 @@ Ralph uses skills as scoring categories in its polish loop:
 
 **Overall Score:** 94%
 **Verdict:** CONDITIONAL (fix skeleton loaders)
-```
+````
 
 ---
 

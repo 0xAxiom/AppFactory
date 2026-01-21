@@ -35,18 +35,18 @@ The zip MUST have `package.json` at the root level (no wrapper folder).
 
 These files MUST be present or validation fails:
 
-| File | Purpose |
-|------|---------|
-| `package.json` | Project configuration and dependencies |
-| `tsconfig.json` | TypeScript configuration |
-| `next.config.js` | Next.js configuration |
-| `tailwind.config.ts` | Tailwind CSS configuration |
-| `postcss.config.js` | PostCSS configuration |
-| `.env.example` | Environment variable template |
-| `src/app/layout.tsx` | Root layout component |
-| `src/app/page.tsx` | Home page component |
+| File                    | Purpose                                    |
+| ----------------------- | ------------------------------------------ |
+| `package.json`          | Project configuration and dependencies     |
+| `tsconfig.json`         | TypeScript configuration                   |
+| `next.config.js`        | Next.js configuration                      |
+| `tailwind.config.ts`    | Tailwind CSS configuration                 |
+| `postcss.config.js`     | PostCSS configuration                      |
+| `.env.example`          | Environment variable template              |
+| `src/app/layout.tsx`    | Root layout component                      |
+| `src/app/page.tsx`      | Home page component                        |
 | `src/app/providers.tsx` | App providers (context, wallet if enabled) |
-| `src/app/globals.css` | Global styles |
+| `src/app/globals.css`   | Global styles                              |
 
 ---
 
@@ -109,20 +109,20 @@ If `package.json` includes `@solana/wallet-adapter-react`, then `src/app/provide
 
 These files MUST NOT be included:
 
-| Pattern | Reason |
-|---------|--------|
-| `node_modules/` | Installed on deploy |
-| `.git/` | Version control |
-| `.next/` | Build output |
-| `out/` | Export output |
-| `dist/` | Build output |
-| `.env` | Contains secrets |
-| `.env.local` | Contains secrets |
-| `.env.production` | Contains secrets |
-| `.env.*.local` | Contains secrets |
-| `*.zip` | Nested archives |
-| `.DS_Store` | macOS metadata |
-| `Thumbs.db` | Windows metadata |
+| Pattern           | Reason              |
+| ----------------- | ------------------- |
+| `node_modules/`   | Installed on deploy |
+| `.git/`           | Version control     |
+| `.next/`          | Build output        |
+| `out/`            | Export output       |
+| `dist/`           | Build output        |
+| `.env`            | Contains secrets    |
+| `.env.local`      | Contains secrets    |
+| `.env.production` | Contains secrets    |
+| `.env.*.local`    | Contains secrets    |
+| `*.zip`           | Nested archives     |
+| `.DS_Store`       | macOS metadata      |
+| `Thumbs.db`       | Windows metadata    |
 
 ---
 
@@ -130,11 +130,11 @@ These files MUST NOT be included:
 
 Source files MUST NOT contain:
 
-| Pattern | Reason |
-|---------|--------|
+| Pattern                      | Reason        |
+| ---------------------------- | ------------- |
 | `private_key` / `privateKey` | Security risk |
-| `secret_key` / `secretKey` | Security risk |
-| `mnemonic` | Security risk |
+| `secret_key` / `secretKey`   | Security risk |
+| `mnemonic`                   | Security risk |
 | `seed_phrase` / `seedPhrase` | Security risk |
 
 Case-insensitive matching applies.
@@ -143,11 +143,11 @@ Case-insensitive matching applies.
 
 ## Size Limits
 
-| Constraint | Limit |
-|------------|-------|
-| Total zip size | 50 MB max |
-| Individual file | 10 MB max |
-| Total files | 10,000 max |
+| Constraint      | Limit      |
+| --------------- | ---------- |
+| Total zip size  | 50 MB max  |
+| Individual file | 10 MB max  |
+| Total files     | 10,000 max |
 
 ---
 
@@ -181,7 +181,7 @@ src/config/constants.ts
 With a token mint address placeholder:
 
 ```typescript
-export const TOKEN_MINT = "YOUR_TOKEN_MINT_ADDRESS";
+export const TOKEN_MINT = 'YOUR_TOKEN_MINT_ADDRESS';
 // or
 export const TOKEN_MINT = process.env.NEXT_PUBLIC_TOKEN_MINT;
 ```
@@ -276,12 +276,14 @@ token-app.zip
 ## Contract Changelog
 
 ### v2.0 (2026-01-13)
+
 - Made Solana/wallet dependencies optional
 - Added token_enabled flag to manifest
 - Wallet provider validation only runs if Solana deps present
 - Updated examples for both token and non-token apps
 
 ### v1.0 (2026-01-12)
+
 - Initial contract specification
 - Defined required files, dependencies, and forbidden patterns
 - Specified manifest format

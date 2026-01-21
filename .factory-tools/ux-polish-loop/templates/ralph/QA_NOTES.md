@@ -47,22 +47,22 @@ This document captures manual QA observations, known issues that don't block com
 
 ## Known Issues (Non-Blocking)
 
-| ID | Severity | Description | Workaround |
-|----|----------|-------------|------------|
-| 1 | LOW | Example issue | Example workaround |
+| ID  | Severity | Description   | Workaround         |
+| --- | -------- | ------------- | ------------------ |
+| 1   | LOW      | Example issue | Example workaround |
 
 ---
 
 ## Browser Testing Results
 
-| Browser | Version | Status | Notes |
-|---------|---------|--------|-------|
-| Chrome | Latest | | |
-| Firefox | Latest | | |
-| Safari | Latest | | |
-| Edge | Latest | | |
-| Mobile Safari | iOS 14+ | | |
-| Chrome Mobile | Android | | |
+| Browser       | Version | Status | Notes |
+| ------------- | ------- | ------ | ----- |
+| Chrome        | Latest  |        |       |
+| Firefox       | Latest  |        |       |
+| Safari        | Latest  |        |       |
+| Edge          | Latest  |        |       |
+| Mobile Safari | iOS 14+ |        |       |
+| Chrome Mobile | Android |        |       |
 
 ---
 
@@ -92,12 +92,12 @@ This document captures manual QA observations, known issues that don't block com
 
 ## Performance Observations
 
-| Metric | Measured | Target | Status |
-|--------|----------|--------|--------|
-| LCP | | < 2.5s | |
-| FID | | < 100ms | |
-| CLS | | < 0.1 | |
-| Bundle Size | | < 200KB | |
+| Metric      | Measured | Target  | Status |
+| ----------- | -------- | ------- | ------ |
+| LCP         |          | < 2.5s  |        |
+| FID         |          | < 100ms |        |
+| CLS         |          | < 0.1   |        |
+| Bundle Size |          | < 200KB |        |
 
 ---
 

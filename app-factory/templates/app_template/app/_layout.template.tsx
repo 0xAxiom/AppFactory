@@ -50,8 +50,8 @@ export default function RootLayout() {
           <Stack.Screen
             name="paywall"
             options={{
-              title: "Upgrade to Premium",
-              presentation: "modal",
+              title: 'Upgrade to Premium',
+              presentation: 'modal',
             }}
           />
         </Stack>

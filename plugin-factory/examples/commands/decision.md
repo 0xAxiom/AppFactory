@@ -17,6 +17,7 @@ When the user runs `/decision`, help them capture an architectural decision:
 ## What to Capture
 
 For each decision, gather:
+
 - **What changed**: Which files or systems were affected
 - **Why**: The reasoning behind the choice
 - **Alternatives considered**: What else was evaluated (if mentioned)
@@ -41,6 +42,7 @@ If the MCP server is not available, inform the user and suggest they install it.
 ## Response Format
 
 After recording, confirm with:
+
 - Decision ID
 - Summary of what was captured
 - Reminder that they can query with `/decision-search`

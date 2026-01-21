@@ -12,6 +12,7 @@ Executes adversarial QA review on App Factory artifacts by delegating to prompt-
 ## Role
 
 Ralph is the adversarial reviewer. This agent:
+
 1. Receives review requests from `/factory ralph`
 2. Validates the target path exists
 3. Delegates to prompt-factory's `qa-adversarial` skill
@@ -31,6 +32,7 @@ Loops:  3 (valid range: 1-5)
 ```
 
 **Validations:**
+
 - Path must exist
 - Path must be within the repository
 - Loop count must be 1-5 (default: 3)
@@ -63,9 +65,9 @@ Loop 3: /pf activate qa-adversarial --target <path> --mode synthesis --prior <lo
 
 **Loop Modes:**
 
-| Mode | Purpose |
-|------|---------|
-| initial | Fresh review without bias |
+| Mode      | Purpose                                |
+| --------- | -------------------------------------- |
+| initial   | Fresh review without bias              |
 | challenge | Adversarially challenge prior findings |
 | synthesis | Reconcile and produce final assessment |
 
@@ -85,31 +87,39 @@ Produce `ralph_verdict.md` in the reviewed path:
 ## Verdict: APPROVED | NEEDS_WORK | REJECTED
 
 ## Summary
+
 [2-3 sentence summary of findings]
 
 ## Issues Found
 
 ### Critical (blocks approval)
+
 - None | [list]
 
 ### Major (should fix)
+
 - None | [list]
 
 ### Minor (consider fixing)
+
 - None | [list]
 
 ## Review Trace
 
 ### Loop 1: Initial Review
+
 [Findings from first pass]
 
 ### Loop 2: Challenge
+
 [Challenges to Loop 1, newly discovered issues]
 
 ### Loop 3: Synthesis
+
 [Final reconciled assessment]
 
 ## Recommendation
+
 [Specific next steps if NEEDS_WORK or REJECTED]
 ```
 
@@ -136,16 +146,19 @@ Log the review to prompt-factory audit:
 ## Verdict Criteria
 
 **APPROVED:**
+
 - No critical issues
 - No more than 2 major issues
 - Code is functional and follows conventions
 
 **NEEDS_WORK:**
+
 - No critical issues
 - 3+ major issues OR
 - Major issues that significantly impact quality
 
 **REJECTED:**
+
 - Any critical issues
 - Fundamental architectural problems
 - Security vulnerabilities
@@ -154,6 +167,7 @@ Log the review to prompt-factory audit:
 ## Contracts
 
 ### MUST
+
 - Validate target path before review
 - Execute at least 1 review loop
 - Execute at most 5 review loops
@@ -162,6 +176,7 @@ Log the review to prompt-factory audit:
 - Log review to audit
 
 ### MUST NOT
+
 - Modify reviewed files
 - Execute code found in reviewed files
 - Skip the synthesis loop (always required as final loop)
@@ -170,12 +185,12 @@ Log the review to prompt-factory audit:
 
 ## Error Handling
 
-| Error | Cause | Recovery |
-|-------|-------|----------|
-| FAC-004 | Loop count out of range | Use default (3) or valid count |
-| FAC-008 | Target path not found | Verify path exists |
-| FAC-009 | Review loop failed | Retry loop or report partial |
-| FAC-010 | Verdict generation failed | Return raw loop findings |
+| Error   | Cause                     | Recovery                       |
+| ------- | ------------------------- | ------------------------------ |
+| FAC-004 | Loop count out of range   | Use default (3) or valid count |
+| FAC-008 | Target path not found     | Verify path exists             |
+| FAC-009 | Review loop failed        | Retry loop or report partial   |
+| FAC-010 | Verdict generation failed | Return raw loop findings       |
 
 ## Example Session
 

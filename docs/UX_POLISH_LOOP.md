@@ -32,6 +32,7 @@ Each pass follows this sequence:
 5. **Continue or complete** - write completion promise or proceed to next pass
 
 The loop continues until either:
+
 - **Completion promise** is earned (success)
 - **20 passes** are reached (max iterations)
 
@@ -54,13 +55,13 @@ This is not a formality. The promise requires:
 
 ## Which Pipelines Use This?
 
-| Pipeline | Playwright | Notes |
-|----------|------------|-------|
-| **website-pipeline** | REQUIRED | Next.js websites |
-| **dapp-factory** | REQUIRED | Next.js dApps |
-| **app-factory** | OPTIONAL | Mobile-first; Playwright for web exports only |
-| **agent-factory** | NO | HTTP API, no UI |
-| **plugin-factory** | NO | CLI/API based |
+| Pipeline             | Playwright | Notes                                         |
+| -------------------- | ---------- | --------------------------------------------- |
+| **website-pipeline** | REQUIRED   | Next.js websites                              |
+| **dapp-factory**     | REQUIRED   | Next.js dApps                                 |
+| **app-factory**      | OPTIONAL   | Mobile-first; Playwright for web exports only |
+| **agent-factory**    | NO         | HTTP API, no UI                               |
+| **plugin-factory**   | NO         | CLI/API based                                 |
 
 ---
 
@@ -178,6 +179,7 @@ data-testid="{section}-{component}-{element}"
 ```
 
 Examples:
+
 ```
 data-testid="header-nav-link-about"
 data-testid="contact-form-email-input"
@@ -225,6 +227,7 @@ Verify all pipelines are properly integrated:
 ```
 
 This checks:
+
 - Shared module templates exist
 - UI pipelines document the loop
 - Non-UI pipelines don't require Playwright

@@ -1,6 +1,7 @@
 # W5: Build & Ship
 
 ## AGENT-NATIVE EXECUTION
+
 You are Claude executing W5 for Web3 Factory. Generate complete production-ready web app and create Solana token via Bags SDK.
 
 ## CRITICAL: TOKEN CREATION STAGE
@@ -8,18 +9,21 @@ You are Claude executing W5 for Web3 Factory. Generate complete production-ready
 W5 is the ONLY stage that creates tokens. All previous stages are configuration only.
 
 **TOKEN CREATION RESPONSIBILITIES**:
+
 1. Execute token creation via Bags SDK
 2. Capture and persist token address
 3. Wire token into app functionality
 4. Generate complete production-ready web app
 
 ## INPUTS
+
 - Read: `web3-factory/runs/.../w1/web3_idea.json`
 - Read: `web3-factory/runs/.../w2/token_model.json`
 - Read: `web3-factory/runs/.../w3/web3_architecture.json`
 - Read: `web3-factory/runs/.../w4/bags_config.json`
 
 ## OUTPUTS
+
 - Write: `web3-factory/runs/.../w5/build_manifest.json`
 - Write: `web3-factory/runs/.../w5/w5_execution.md`
 - Create: `web3-factory/builds/<app_name>/` (complete web app)
@@ -113,6 +117,7 @@ web3-factory/builds/<app_name>/
 ```
 
 ## JSON SCHEMA
+
 ```json
 {
   "type": "object",
@@ -120,42 +125,48 @@ web3-factory/builds/<app_name>/
     "build_execution": {
       "type": "object",
       "properties": {
-        "app_name": {"type": "string"},
-        "build_timestamp": {"type": "string"},
-        "framework_used": {"type": "string"},
-        "build_path": {"type": "string"}
+        "app_name": { "type": "string" },
+        "build_timestamp": { "type": "string" },
+        "framework_used": { "type": "string" },
+        "build_path": { "type": "string" }
       },
       "required": ["app_name", "build_timestamp", "framework_used", "build_path"]
     },
     "token_creation": {
       "type": "object",
       "properties": {
-        "token_address": {"type": "string"},
-        "creation_transaction": {"type": "string"},
-        "creation_timestamp": {"type": "string"},
-        "creator_wallet": {"type": "string"},
-        "network": {"type": "string"}
+        "token_address": { "type": "string" },
+        "creation_transaction": { "type": "string" },
+        "creation_timestamp": { "type": "string" },
+        "creator_wallet": { "type": "string" },
+        "network": { "type": "string" }
       },
       "required": ["token_address", "creation_transaction", "creation_timestamp", "creator_wallet", "network"]
     },
     "app_integration": {
       "type": "object",
       "properties": {
-        "token_integrated": {"type": "boolean"},
-        "wallet_connection_working": {"type": "boolean"},
-        "balance_display_working": {"type": "boolean"},
-        "token_actions_implemented": {"type": "boolean"},
-        "fee_routing_active": {"type": "boolean"}
+        "token_integrated": { "type": "boolean" },
+        "wallet_connection_working": { "type": "boolean" },
+        "balance_display_working": { "type": "boolean" },
+        "token_actions_implemented": { "type": "boolean" },
+        "fee_routing_active": { "type": "boolean" }
       },
-      "required": ["token_integrated", "wallet_connection_working", "balance_display_working", "token_actions_implemented", "fee_routing_active"]
+      "required": [
+        "token_integrated",
+        "wallet_connection_working",
+        "balance_display_working",
+        "token_actions_implemented",
+        "fee_routing_active"
+      ]
     },
     "production_readiness": {
       "type": "object",
       "properties": {
-        "environment_configured": {"type": "boolean"},
-        "error_handling_complete": {"type": "boolean"},
-        "responsive_design": {"type": "boolean"},
-        "deployment_ready": {"type": "boolean"}
+        "environment_configured": { "type": "boolean" },
+        "error_handling_complete": { "type": "boolean" },
+        "responsive_design": { "type": "boolean" },
+        "deployment_ready": { "type": "boolean" }
       },
       "required": ["environment_configured", "error_handling_complete", "responsive_design", "deployment_ready"]
     }
@@ -169,6 +180,7 @@ web3-factory/builds/<app_name>/
 **Reference**: Follow patterns from `docs/preferred_web_stack_2025.md`
 
 ### Phase 1: Token Creation
+
 1. **Initialize Bags SDK**:
    - Configure SDK with W4 parameters using exact environment variables
    - Set up idempotency system with deterministic build IDs
@@ -190,6 +202,7 @@ web3-factory/builds/<app_name>/
    - Create audit trail with all creation parameters
 
 ### Phase 2: Modern Web App Generation (2025 Standards)
+
 4. **Initialize Framework (2025 Best Practices)**:
    - **Next.js 14+ Setup** (default): App Router, React Server Components, TypeScript
    - **Vite + React 18+ Setup** (simple apps): Fast dev server, modern build pipeline
@@ -214,6 +227,7 @@ web3-factory/builds/<app_name>/
    - **Progressive Enhancement**: App works without wallet for read-only features
 
 ### Phase 3: Advanced Integration & Performance
+
 7. **Implement Solana Integration**:
    - **Connection Management**: Connection pooling with RPC fallbacks
    - **Token Operations**: Balance queries with SWR/TanStack Query caching
@@ -237,6 +251,7 @@ web3-factory/builds/<app_name>/
    - **Web Vitals Monitoring**: Track LCP < 2.5s, FID < 100ms, CLS < 0.1
 
 ### Phase 4: Production Hardening (2025 Standards)
+
 10. **Security & Error Handling**:
     - **Content Security Policy**: Prevent XSS attacks with strict headers
     - **Error Boundaries**: Graceful degradation with fallback UI
@@ -262,6 +277,7 @@ web3-factory/builds/<app_name>/
 ## TOKEN INTEGRATION PATTERNS
 
 ### ACCESS Token Integration
+
 ```javascript
 // Example: Unlock premium features
 const hasAccess = tokenBalance >= FEATURE_COST;
@@ -275,6 +291,7 @@ const unlockFeature = () => {
 ```
 
 ### USAGE Token Integration
+
 ```javascript
 // Example: Pay per action
 const performAction = async () => {
@@ -288,6 +305,7 @@ const performAction = async () => {
 ```
 
 ### FEE CAPTURE Token Integration
+
 ```javascript
 // Example: Distribute fees to token holders
 const distributeFees = async (totalFees) => {
@@ -302,6 +320,7 @@ const distributeFees = async (totalFees) => {
 ### Dependencies (2025 Production Standards)
 
 **Core Framework (Choose ONE)**:
+
 ```json
 {
   "dependencies": {
@@ -314,6 +333,7 @@ const distributeFees = async (totalFees) => {
 ```
 
 **OR for Vite + React**:
+
 ```json
 {
   "dependencies": {
@@ -326,6 +346,7 @@ const distributeFees = async (totalFees) => {
 ```
 
 **Solana & Web3 (Required)**:
+
 ```json
 {
   "dependencies": {
@@ -340,6 +361,7 @@ const distributeFees = async (totalFees) => {
 ```
 
 **UI & Styling (2025 Standards)**:
+
 ```json
 {
   "dependencies": {
@@ -355,6 +377,7 @@ const distributeFees = async (totalFees) => {
 ```
 
 **State & Data Fetching (Modern)**:
+
 ```json
 {
   "dependencies": {
@@ -366,6 +389,7 @@ const distributeFees = async (totalFees) => {
 ```
 
 **Development & Quality (Required)**:
+
 ```json
 {
   "devDependencies": {
@@ -386,6 +410,7 @@ const distributeFees = async (totalFees) => {
 ### Error Handling (2025 Production Standards)
 
 **Critical Error Scenarios (Must Handle)**:
+
 - **Wallet Connection**: Connection refused, wallet locked, wrong network
 - **Network Issues**: RPC unavailable, timeout, rate limiting, connection drops
 - **Transaction Failures**: Insufficient SOL, simulation failed, slippage exceeded
@@ -393,20 +418,21 @@ const distributeFees = async (totalFees) => {
 - **Application Errors**: Component crashes, data corruption, state inconsistency
 
 **Error Recovery Patterns**:
+
 ```typescript
 // Example: Comprehensive error boundary
 class AppErrorBoundary extends Component {
   state = { hasError: false, error: null };
-  
+
   static getDerivedStateFromError(error) {
     return { hasError: true, error };
   }
-  
+
   componentDidCatch(error, errorInfo) {
     // Log to monitoring service (client-side only)
     console.error('App Error:', { error, errorInfo });
   }
-  
+
   render() {
     if (this.state.hasError) {
       return <ErrorFallback error={this.state.error} />;
@@ -417,6 +443,7 @@ class AppErrorBoundary extends Component {
 ```
 
 **User Experience Error Handling**:
+
 - **Toast Notifications**: Non-blocking error messages with action buttons
 - **Inline Validation**: Real-time form validation with helpful messages
 - **Retry Mechanisms**: Exponential backoff with manual retry options
@@ -426,6 +453,7 @@ class AppErrorBoundary extends Component {
 ### Performance Requirements (2025 Core Web Vitals)
 
 **Mandatory Performance Targets**:
+
 - **Largest Contentful Paint (LCP)**: < 2.5 seconds
 - **First Input Delay (FID)**: < 100 milliseconds
 - **Cumulative Layout Shift (CLS)**: < 0.1
@@ -433,6 +461,7 @@ class AppErrorBoundary extends Component {
 - **Time to Interactive (TTI)**: < 5 seconds
 
 **Web3-Specific Performance**:
+
 - **Wallet connection**: < 5 seconds on fast connection, < 10 seconds on slow
 - **Token balance fetch**: < 3 seconds with caching, < 1 second on subsequent loads
 - **Transaction confirmation**: < 30 seconds (network dependent, with progress indicators)
@@ -440,12 +469,14 @@ class AppErrorBoundary extends Component {
 - **Bundle size**: Initial JavaScript < 200KB gzipped
 
 **Mobile Performance Targets**:
+
 - **Mobile LCP**: < 3.5 seconds on 3G connection
 - **Touch response**: < 50ms interaction delay
 - **Viewport stability**: No layout shifts during wallet connection
 - **Offline capability**: Graceful handling of network loss
 
 **Performance Monitoring**:
+
 ```typescript
 // Example: Core Web Vitals tracking
 import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
@@ -467,6 +498,7 @@ getTTFB(sendToAnalytics);
 W5 is successful when:
 
 ### Token Creation & Integration
+
 - [ ] Token successfully created via Bags SDK with proper error handling
 - [ ] Token address captured and persisted in deterministic receipt format
 - [ ] Token meaningfully integrated into app behavior (not decorative)
@@ -474,6 +506,7 @@ W5 is successful when:
 - [ ] Idempotency system prevents duplicate token creation on re-runs
 
 ### Web App Quality & Performance
+
 - [ ] Complete production-ready web app generated with modern architecture
 - [ ] Core Web Vitals targets met: LCP < 2.5s, FID < 100ms, CLS < 0.1
 - [ ] Mobile-responsive design with touch-optimized interactions
@@ -481,6 +514,7 @@ W5 is successful when:
 - [ ] TypeScript implementation with zero type errors
 
 ### Wallet & Solana Integration
+
 - [ ] Multi-wallet support (Phantom, Solflare, Backpack) with Mobile Wallet Adapter
 - [ ] Graceful error handling for all Web3-specific failure modes
 - [ ] Real-time token balance updates with proper caching
@@ -488,6 +522,7 @@ W5 is successful when:
 - [ ] Network switching support (mainnet/devnet) with proper environment handling
 
 ### Production Readiness
+
 - [ ] Comprehensive error boundaries with user-friendly fallback UI
 - [ ] Security headers implemented (CSP, HSTS, X-Frame-Options)
 - [ ] Environment configuration with .env.example template
@@ -495,6 +530,7 @@ W5 is successful when:
 - [ ] Build optimization: bundle size < 200KB gzipped
 
 ### Documentation & Deployment
+
 - [ ] README with complete setup, development, and deployment instructions
 - [ ] Platform-specific deployment guides (Vercel, Netlify, AWS, IPFS)
 - [ ] Token integration documentation with troubleshooting section
@@ -506,6 +542,7 @@ W5 is successful when:
 STOP execution immediately if:
 
 ### Token Creation Failures
+
 - **Bags SDK integration fails**: API errors, authentication issues, network problems
 - **Token parameters invalid**: Schema validation failures, missing required fields
 - **Fee routing misconfiguration**: Partner key mismatch, percentage calculation errors
@@ -513,6 +550,7 @@ STOP execution immediately if:
 - **Transaction verification fails**: Cannot confirm token creation on Solana network
 
 ### Web App Generation Failures
+
 - **Framework initialization fails**: Next.js/Vite setup errors, dependency conflicts
 - **Build system failures**: TypeScript compilation errors, bundling failures
 - **Critical component errors**: Wallet integration, token operations, core UI broken
@@ -520,6 +558,7 @@ STOP execution immediately if:
 - **Accessibility failures**: WCAG 2.1 AA compliance violations
 
 ### Integration & Quality Failures
+
 - **Token integration incomplete**: Token not functionally wired to app behavior
 - **Security vulnerabilities**: Missing security headers, exposed secrets
 - **Mobile compatibility issues**: Responsive design failures, touch interaction problems
@@ -527,7 +566,9 @@ STOP execution immediately if:
 - **Documentation incomplete**: Missing setup instructions or deployment guides
 
 ### Recovery Actions
+
 When failure occurs:
+
 1. **Write detailed failure analysis** to `builds/<app_name>/build_failure.md`
 2. **Include specific error messages** with stack traces and context
 3. **Provide remediation steps** with exact commands to resolve issues
@@ -535,24 +576,30 @@ When failure occurs:
 5. **Create recovery checklist** for manual resolution
 
 ### Failure Report Format
+
 ```markdown
 # Build Failure Report
 
 ## Failure Type
+
 [Token Creation / Web App Generation / Integration / Quality]
 
 ## Error Details
+
 [Exact error messages and stack traces]
 
 ## Environment Context
+
 [Node version, dependencies, network settings]
 
 ## Remediation Steps
+
 1. [Specific command or fix]
 2. [Verification step]
 3. [Retry command]
 
 ## Prevention
+
 [How to avoid this issue in future builds]
 ```
 

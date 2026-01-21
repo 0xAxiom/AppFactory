@@ -69,7 +69,6 @@ export async function GET(request: NextRequest) {
         expiresAt: payload.exp,
       },
     });
-
   } catch (e) {
     if (e instanceof Errors.InvalidTokenError) {
       return NextResponse.json({ message: "Invalid token" }, { status: 401 });

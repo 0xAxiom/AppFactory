@@ -26,6 +26,7 @@ claude
 **You:** "Build an agent that summarizes YouTube videos"
 
 **Claude:**
+
 1. Normalizes your intent into a product specification
 2. Writes comprehensive agent spec with all requirements
 3. Researches competitors and positioning
@@ -34,6 +35,7 @@ claude
 6. Runs Ralph Polish Loop until quality passes
 
 **When done:**
+
 ```bash
 cd outputs/youtube-summarizer
 npm install
@@ -56,6 +58,7 @@ npm run dev
 ```
 
 Test it:
+
 ```bash
 curl http://localhost:8080/health
 curl -X POST http://localhost:8080/explain \
@@ -70,6 +73,7 @@ See `examples/codebase-explainer/RUNBOOK.md` for full documentation.
 ## What Happens When You Describe an Agent
 
 ### Before (What you say)
+
 > "Build an agent that summarizes YouTube videos"
 
 ### After (What Claude builds)
@@ -79,6 +83,7 @@ Claude transforms this into a complete product:
 > "A YouTube video summarization agent that accepts video URLs, extracts transcripts, and generates concise summaries using LLM inference. Features structured output with key points, timestamps, and takeaways. Includes health monitoring, graceful error handling, structured logging, and configurable summary length. Designed for developer integration via REST API."
 
 Then Claude:
+
 1. Writes a 10-section technical spec
 2. Researches competitors and positioning
 3. Generates complete Node.js/TypeScript agent
@@ -125,6 +130,7 @@ outputs/youtube-summarizer/
 ### With Token Integration
 
 Adds:
+
 - `TOKEN_INTEGRATION.md` - Token setup guide
 - `src/lib/token.ts` - Token utilities
 - Token balance checking endpoint
@@ -133,13 +139,13 @@ Adds:
 
 ## Technology Stack
 
-| Component | Technology |
-|-----------|------------|
-| Runtime | Node.js 18+ |
-| Language | TypeScript |
-| Interface | HTTP (REST) |
-| Port | 8080 (default) |
-| Logging | Structured JSON |
+| Component      | Technology          |
+| -------------- | ------------------- |
+| Runtime        | Node.js 18+         |
+| Language       | TypeScript          |
+| Interface      | HTTP (REST)         |
+| Port           | 8080 (default)      |
+| Logging        | Structured JSON     |
 | Error Handling | Typed error classes |
 
 ---
@@ -148,11 +154,11 @@ Adds:
 
 Every agent includes:
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/` | Agent info and available endpoints |
-| GET | `/health` | Health check with uptime |
-| POST | `/process` | Process input and return response |
+| Method | Path       | Description                        |
+| ------ | ---------- | ---------------------------------- |
+| GET    | `/`        | Agent info and available endpoints |
+| GET    | `/health`  | Health check with uptime           |
+| POST   | `/process` | Process input and return response  |
 
 ### Example Usage
 
@@ -173,11 +179,13 @@ curl -X POST http://localhost:8080/process \
 Token integration is **completely optional**.
 
 ### When to Skip
+
 - Building a free utility agent
 - MVP without monetization
 - Internal tools
 
 ### When to Enable
+
 - Agent charges per request
 - Agent rewards users with tokens
 - Agent gates features based on holdings
@@ -189,17 +197,20 @@ Token integration is **completely optional**.
 Every agent must pass Ralph's quality checklist:
 
 ### Build Quality
+
 - `npm install` completes without errors
 - `npm run build` compiles TypeScript
 - `npm run dev` starts server
 
 ### Agent Quality
+
 - `/health` returns 200 with status
 - `/process` accepts input and returns response
 - Structured logging on all requests
 - Graceful error handling
 
 ### Research Quality
+
 - Substantive market research (not placeholder)
 - Real competitors named and analyzed
 - Clear differentiation strategy
@@ -234,12 +245,14 @@ npm run validate
 Agents deploy to the Factory Launchpad or can be self-hosted.
 
 ### Factory Launchpad
+
 1. Push to GitHub
 2. Import to Launchpad
 3. Configure environment variables
 4. Deploy
 
 ### Self-Hosted
+
 - Railway, Render, Fly.io
 - Docker container
 - Any Node.js hosting
@@ -283,11 +296,13 @@ npm install --legacy-peer-deps
 ### "Server won't start"
 
 Check if port 8080 is in use:
+
 ```bash
 lsof -i :8080
 ```
 
 Use a different port:
+
 ```bash
 PORT=3000 npm run dev
 ```
@@ -308,6 +323,7 @@ Agent is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unre
 ## PASS/FAIL Criteria
 
 ### PASS
+
 - `npm install` completes
 - `npm run build` compiles
 - `npm run dev` starts server
@@ -316,6 +332,7 @@ Agent is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unre
 - Ralph gives PASS verdict
 
 ### FAIL
+
 - Build errors
 - Missing required files
 - Validation errors

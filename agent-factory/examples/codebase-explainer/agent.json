@@ -20,13 +20,23 @@
       "routes": [
         { "method": "GET", "path": "/", "description": "Agent info" },
         { "method": "GET", "path": "/health", "description": "Health check" },
-        { "method": "POST", "path": "/explain", "description": "Explain codebase" }
+        {
+          "method": "POST",
+          "path": "/explain",
+          "description": "Explain codebase"
+        }
       ]
     }
   },
   "environment": {
     "required": ["OPENAI_API_KEY"],
-    "optional": ["PORT", "MAX_TOOL_ITERATIONS", "MAX_FILE_SIZE_KB", "LOG_LEVEL", "ALLOWED_ROOTS"]
+    "optional": [
+      "PORT",
+      "MAX_TOOL_ITERATIONS",
+      "MAX_FILE_SIZE_KB",
+      "LOG_LEVEL",
+      "ALLOWED_ROOTS"
+    ]
   },
   "permissions": {
     "network": true,

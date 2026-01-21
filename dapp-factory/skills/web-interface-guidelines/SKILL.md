@@ -15,6 +15,7 @@ Comprehensive UI/UX quality rules for building accessible, performant, and delig
 ## Activation
 
 This skill activates automatically during:
+
 - **Phase 3 (Build):** Advisory checks during code generation
 - **Phase 4 (Ralph QA):** Mandatory scoring category (part of Web Design Skills, 25% weight)
 
@@ -22,16 +23,16 @@ This skill activates automatically during:
 
 ## Categories
 
-| Category | Rules | Priority | Focus |
-|----------|-------|----------|-------|
-| **Interactions** | 8 | HIGH | Keyboard nav, focus, touch targets |
-| **Animation** | 6 | MEDIUM | Motion preferences, compositor properties |
-| **Layout** | 5 | MEDIUM | Responsive, safe areas, alignment |
-| **Content** | 6 | MEDIUM | Semantic HTML, typography, states |
-| **Forms** | 7 | HIGH | Labels, validation, accessibility |
-| **Performance** | 8 | HIGH | Virtualization, preloading, re-renders |
-| **Design** | 5 | MEDIUM | Contrast, shadows, dark mode |
-| **Accessibility** | 6 | HIGH | ARIA, screen readers, contrast |
+| Category          | Rules | Priority | Focus                                     |
+| ----------------- | ----- | -------- | ----------------------------------------- |
+| **Interactions**  | 8     | HIGH     | Keyboard nav, focus, touch targets        |
+| **Animation**     | 6     | MEDIUM   | Motion preferences, compositor properties |
+| **Layout**        | 5     | MEDIUM   | Responsive, safe areas, alignment         |
+| **Content**       | 6     | MEDIUM   | Semantic HTML, typography, states         |
+| **Forms**         | 7     | HIGH     | Labels, validation, accessibility         |
+| **Performance**   | 8     | HIGH     | Virtualization, preloading, re-renders    |
+| **Design**        | 5     | MEDIUM   | Contrast, shadows, dark mode              |
+| **Accessibility** | 6     | HIGH     | ARIA, screen readers, contrast            |
 
 ---
 

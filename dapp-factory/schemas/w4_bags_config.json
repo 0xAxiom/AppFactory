@@ -4,59 +4,92 @@
     "token_parameters": {
       "type": "object",
       "properties": {
-        "name": {"type": "string"},
-        "symbol": {"type": "string"},
-        "description": {"type": "string"},
-        "total_supply": {"type": "string"},
-        "decimals": {"type": "number"},
-        "metadata_uri": {"type": "string"}
+        "name": { "type": "string" },
+        "symbol": { "type": "string" },
+        "description": { "type": "string" },
+        "total_supply": { "type": "string" },
+        "decimals": { "type": "number" },
+        "metadata_uri": { "type": "string" }
       },
       "required": ["name", "symbol", "description", "total_supply", "decimals"]
     },
     "bags_configuration": {
       "type": "object",
       "properties": {
-        "sdk_version": {"type": "string"},
-        "api_endpoint": {"type": "string"},
-        "network": {"type": "string"},
-        "environment_variables": {"type": "array", "items": {"type": "string"}},
-        "idempotency_key_strategy": {"type": "string"}
+        "sdk_version": { "type": "string" },
+        "api_endpoint": { "type": "string" },
+        "network": { "type": "string" },
+        "environment_variables": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "idempotency_key_strategy": { "type": "string" }
       },
-      "required": ["sdk_version", "api_endpoint", "network", "environment_variables", "idempotency_key_strategy"]
+      "required": [
+        "sdk_version",
+        "api_endpoint",
+        "network",
+        "environment_variables",
+        "idempotency_key_strategy"
+      ]
     },
     "fee_routing_config": {
       "type": "object",
       "properties": {
-        "app_creator_wallet": {"type": "string"},
-        "app_factory_wallet": {"type": "string"},
-        "fee_percentage_creator": {"type": "number", "enum": [75]},
-        "fee_percentage_factory": {"type": "number", "enum": [25]},
-        "routing_method": {"type": "string"},
-        "enforcement_mechanism": {"type": "string"}
+        "app_creator_wallet": { "type": "string" },
+        "app_factory_wallet": { "type": "string" },
+        "fee_percentage_creator": { "type": "number", "enum": [75] },
+        "fee_percentage_factory": { "type": "number", "enum": [25] },
+        "routing_method": { "type": "string" },
+        "enforcement_mechanism": { "type": "string" }
       },
-      "required": ["app_creator_wallet", "app_factory_wallet", "fee_percentage_creator", "fee_percentage_factory", "routing_method", "enforcement_mechanism"]
+      "required": [
+        "app_creator_wallet",
+        "app_factory_wallet",
+        "fee_percentage_creator",
+        "fee_percentage_factory",
+        "routing_method",
+        "enforcement_mechanism"
+      ]
     },
     "deployment_config": {
       "type": "object",
       "properties": {
-        "deterministic_salt": {"type": "string"},
-        "build_hash": {"type": "string"},
-        "creation_timestamp": {"type": "string"},
-        "retry_configuration": {"type": "object"}
+        "deterministic_salt": { "type": "string" },
+        "build_hash": { "type": "string" },
+        "creation_timestamp": { "type": "string" },
+        "retry_configuration": { "type": "object" }
       },
-      "required": ["deterministic_salt", "build_hash", "creation_timestamp", "retry_configuration"]
+      "required": [
+        "deterministic_salt",
+        "build_hash",
+        "creation_timestamp",
+        "retry_configuration"
+      ]
     },
     "integration_points": {
       "type": "object",
       "properties": {
-        "token_creation_function": {"type": "string"},
-        "balance_query_method": {"type": "string"},
-        "transfer_method": {"type": "string"},
-        "metadata_update_method": {"type": "string"},
-        "fee_collection_method": {"type": "string"}
+        "token_creation_function": { "type": "string" },
+        "balance_query_method": { "type": "string" },
+        "transfer_method": { "type": "string" },
+        "metadata_update_method": { "type": "string" },
+        "fee_collection_method": { "type": "string" }
       },
-      "required": ["token_creation_function", "balance_query_method", "transfer_method", "metadata_update_method", "fee_collection_method"]
+      "required": [
+        "token_creation_function",
+        "balance_query_method",
+        "transfer_method",
+        "metadata_update_method",
+        "fee_collection_method"
+      ]
     }
   },
-  "required": ["token_parameters", "bags_configuration", "fee_routing_config", "deployment_config", "integration_points"]
+  "required": [
+    "token_parameters",
+    "bags_configuration",
+    "fee_routing_config",
+    "deployment_config",
+    "integration_points"
+  ]
 }

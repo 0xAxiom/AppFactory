@@ -5,14 +5,14 @@
 
 ## Quick Diagnostic
 
-| Symptom | Likely Cause | Solution Section |
-|---------|--------------|------------------|
-| App not in search | Missing manifest fields | App Discovery |
-| Embed not rendering | Missing meta tag | Embed Rendering |
-| Wallet won't connect | Wrong connection method | Wallet Connection |
-| App closes unexpectedly | Gesture conflicts | Gesture Conflicts |
-| Changes not visible | Manifest caching | Caching Issues |
-| Flagged as unsafe | Security detection | Safety Flagging |
+| Symptom                 | Likely Cause            | Solution Section  |
+| ----------------------- | ----------------------- | ----------------- |
+| App not in search       | Missing manifest fields | App Discovery     |
+| Embed not rendering     | Missing meta tag        | Embed Rendering   |
+| Wallet won't connect    | Wrong connection method | Wallet Connection |
+| App closes unexpectedly | Gesture conflicts       | Gesture Conflicts |
+| Changes not visible     | Manifest caching        | Caching Issues    |
+| Flagged as unsafe       | Security detection      | Safety Flagging   |
 
 ## App Discovery & Indexing Issues
 
@@ -39,6 +39,7 @@
 ### Image Display Issues
 
 **Checklist**:
+
 - [ ] Test image URLs in incognito mode (ensure public access)
 - [ ] Verify supported formats: PNG, JPG, WebP
 - [ ] Confirm HTTPS URLs only (HTTP will fail)
@@ -129,7 +130,7 @@ For mobile debugging, use Eruda (only in development):
 
 ```typescript
 if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
-  import('eruda').then(eruda => eruda.default.init());
+  import('eruda').then((eruda) => eruda.default.init());
 }
 ```
 
@@ -157,6 +158,7 @@ if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
 **Cause**: Farcaster clients cache manifests for up to 24 hours
 
 **Solutions**:
+
 1. Wait for cache expiration
 2. Re-share your app URL to trigger refresh
 3. Use `noindex: true` during development
@@ -186,6 +188,7 @@ if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
 URL: https://base.dev/preview
 
 Features:
+
 - Manifest validation
 - Metadata verification
 - Account association check

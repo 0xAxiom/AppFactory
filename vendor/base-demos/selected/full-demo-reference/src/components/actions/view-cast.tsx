@@ -1,13 +1,15 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import { Button } from "~/components/ui/Button";
-import { useViewCast } from "@coinbase/onchainkit/minikit";
+import { useState, useCallback } from 'react';
+import { Button } from '~/components/ui/Button';
+import { useViewCast } from '@coinbase/onchainkit/minikit';
 
 export function ViewCastAction() {
-  const [castHash, setCastHash] = useState<string>("0xfb2e255124ddb549a53fb4b1afdf4fa9f3542f78");
+  const [castHash, setCastHash] = useState<string>(
+    '0xfb2e255124ddb549a53fb4b1afdf4fa9f3542f78'
+  );
   const [close, setClose] = useState<boolean>(false);
-  
+
   // Use MiniKit's useViewCast hook (React Query powered)
   const { viewCast, isPending, error, data } = useViewCast();
 
@@ -18,7 +20,9 @@ export function ViewCastAction() {
   return (
     <div className="mb-4">
       <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
-        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">useViewCast()</pre>
+        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">
+          useViewCast()
+        </pre>
       </div>
       <div className="space-y-3 mb-4">
         <div>
@@ -34,7 +38,7 @@ export function ViewCastAction() {
             disabled={isPending}
           />
         </div>
-        
+
         <div className="flex items-center">
           <input
             type="checkbox"
@@ -44,31 +48,36 @@ export function ViewCastAction() {
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             disabled={isPending}
           />
-          <label htmlFor="close-app-viewcast" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+          <label
+            htmlFor="close-app-viewcast"
+            className="ml-2 text-sm text-gray-700 dark:text-gray-300"
+          >
             Close app after viewing cast
           </label>
         </div>
       </div>
-      
+
       {error && (
         <div className="p-2 bg-red-50 dark:bg-red-900/20 rounded-lg my-2 text-xs text-red-600 dark:text-red-400">
           Error: {error.message}
         </div>
       )}
-      
+
       {!!data && (
         <div className="p-2 bg-muted border border-border rounded-lg my-2">
-          <div className="font-mono text-xs text-primary">Cast opened successfully!</div>
+          <div className="font-mono text-xs text-primary">
+            Cast opened successfully!
+          </div>
         </div>
       )}
-      
-      <Button 
+
+      <Button
         onClick={handleViewCast}
         disabled={isPending || !castHash.trim()}
         isLoading={isPending}
       >
-        {isPending ? "Opening Cast..." : "View Cast"}
+        {isPending ? 'Opening Cast...' : 'View Cast'}
       </Button>
     </div>
   );
-} 
+}

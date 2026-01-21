@@ -70,11 +70,7 @@ async function loadPageData(userId: string) {
 
 ```typescript
 async function loadPageData(userId: string) {
-  const [user, posts, notifications] = await Promise.all([
-    getUser(userId),
-    getPosts(userId),
-    getNotifications(userId),
-  ]);
+  const [user, posts, notifications] = await Promise.all([getUser(userId), getPosts(userId), getNotifications(userId)]);
   return { user, posts, notifications };
 }
 ```
@@ -99,7 +95,7 @@ async function processOrder(orderId: string) {
 ```typescript
 async function processOrder(orderId: string) {
   const orderPromise = getOrder(orderId);
-  const inventoryPromise = orderPromise.then(o => checkInventory(o.items));
+  const inventoryPromise = orderPromise.then((o) => checkInventory(o.items));
 
   const order = await orderPromise;
   validateOrder(order);
@@ -433,8 +429,8 @@ function useProducts() {
 
   useEffect(() => {
     fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setProducts(data);
         setLoading(false);
       });
@@ -450,14 +446,10 @@ function useProducts() {
 import useSWR from 'swr';
 
 function useProducts() {
-  const { data, error, isLoading, mutate } = useSWR(
-    '/api/products',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000,
-    }
-  );
+  const { data, error, isLoading, mutate } = useSWR('/api/products', fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60000,
+  });
 
   return {
     products: data ?? [],
@@ -488,9 +480,7 @@ async function handleLike(postId: string) {
   // Optimistic update
   mutate(
     '/api/posts',
-    posts => posts.map(p =>
-      p.id === postId ? { ...p, likes: p.likes + 1 } : p
-    ),
+    (posts) => posts.map((p) => (p.id === postId ? { ...p, likes: p.likes + 1 } : p)),
     false // Don't revalidate yet
   );
 
@@ -725,7 +715,7 @@ Batch DOM reads and writes.
 **Incorrect:**
 
 ```typescript
-elements.forEach(el => {
+elements.forEach((el) => {
   const height = el.offsetHeight; // Read
   el.style.height = `${height * 2}px`; // Write
   const width = el.offsetWidth; // Read (forces layout)
@@ -737,7 +727,7 @@ elements.forEach(el => {
 
 ```typescript
 // Batch reads
-const measurements = elements.map(el => ({
+const measurements = elements.map((el) => ({
   height: el.offsetHeight,
   width: el.offsetWidth,
 }));
@@ -941,16 +931,16 @@ function DataProcessor({ data }) {
 
 ## Summary
 
-| Category | Impact | Key Rules |
-|----------|--------|-----------|
-| Eliminating Waterfalls | CRITICAL | Defer await, Promise.all, start early |
-| Bundle Size | CRITICAL | Dynamic imports, no barrels, tree-shake |
-| Server Performance | HIGH | Server components, caching, streaming |
-| Client Data | MEDIUM-HIGH | SWR/React Query, optimistic updates |
-| Re-render Prevention | MEDIUM | memo, useCallback, stable refs |
-| Rendering | MEDIUM | Virtualization, containment |
-| JS Performance | LOW-MEDIUM | Maps/Sets, debouncing |
-| Advanced | LOW | Transitions, Web Workers |
+| Category               | Impact      | Key Rules                               |
+| ---------------------- | ----------- | --------------------------------------- |
+| Eliminating Waterfalls | CRITICAL    | Defer await, Promise.all, start early   |
+| Bundle Size            | CRITICAL    | Dynamic imports, no barrels, tree-shake |
+| Server Performance     | HIGH        | Server components, caching, streaming   |
+| Client Data            | MEDIUM-HIGH | SWR/React Query, optimistic updates     |
+| Re-render Prevention   | MEDIUM      | memo, useCallback, stable refs          |
+| Rendering              | MEDIUM      | Virtualization, containment             |
+| JS Performance         | LOW-MEDIUM  | Maps/Sets, debouncing                   |
+| Advanced               | LOW         | Transitions, Web Workers                |
 
 ---
 

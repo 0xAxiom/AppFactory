@@ -113,22 +113,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
 ### constants.ts
 
 ```typescript
-import { PublicKey } from "@solana/web3.js";
+import { PublicKey } from '@solana/web3.js';
 
 // Token will be set after launch on factoryapp.dev
-export const TOKEN_MINT = new PublicKey(
-  process.env.NEXT_PUBLIC_TOKEN_MINT || "11111111111111111111111111111111"
-);
+export const TOKEN_MINT = new PublicKey(process.env.NEXT_PUBLIC_TOKEN_MINT || '11111111111111111111111111111111');
 export const TOKEN_DECIMALS = 9;
 ```
 
 ### useTokenBalance.ts
 
 ```typescript
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { useState, useEffect } from "react";
-import { TOKEN_MINT, TOKEN_DECIMALS } from "@/config/constants";
-import { getAssociatedTokenAddress, getAccount } from "@solana/spl-token";
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useState, useEffect } from 'react';
+import { TOKEN_MINT, TOKEN_DECIMALS } from '@/config/constants';
+import { getAssociatedTokenAddress, getAccount } from '@solana/spl-token';
 
 export function useTokenBalance() {
   const { connection } = useConnection();

@@ -12,12 +12,12 @@ App Factory contains 5 independent pipelines, each generating different types of
 
 ## Pipeline Inventory
 
-| Pipeline | Purpose | Output Directory | Primary Docs |
-|----------|---------|------------------|--------------|
-| **app-factory** | Mobile apps (iOS/Android) | `builds/` | [README](../app-factory/README.md), [CLAUDE.md](../app-factory/CLAUDE.md) |
-| **dapp-factory** | Decentralized web apps | `dapp-builds/` | [README](../dapp-factory/README.md), [CLAUDE.md](../dapp-factory/CLAUDE.md) |
-| **agent-factory** | AI agents (HTTP API) | `outputs/` | [README](../agent-factory/README.md), [CLAUDE.md](../agent-factory/CLAUDE.md) |
-| **plugin-factory** | Claude plugins/MCP servers | `builds/` | [README](../plugin-factory/README.md), [CLAUDE.md](../plugin-factory/CLAUDE.md) |
+| Pipeline             | Purpose                      | Output Directory  | Primary Docs                                                                        |
+| -------------------- | ---------------------------- | ----------------- | ----------------------------------------------------------------------------------- |
+| **app-factory**      | Mobile apps (iOS/Android)    | `builds/`         | [README](../app-factory/README.md), [CLAUDE.md](../app-factory/CLAUDE.md)           |
+| **dapp-factory**     | Decentralized web apps       | `dapp-builds/`    | [README](../dapp-factory/README.md), [CLAUDE.md](../dapp-factory/CLAUDE.md)         |
+| **agent-factory**    | AI agents (HTTP API)         | `outputs/`        | [README](../agent-factory/README.md), [CLAUDE.md](../agent-factory/CLAUDE.md)       |
+| **plugin-factory**   | Claude plugins/MCP servers   | `builds/`         | [README](../plugin-factory/README.md), [CLAUDE.md](../plugin-factory/CLAUDE.md)     |
 | **website-pipeline** | Marketing/portfolio websites | `website-builds/` | [README](../website-pipeline/README.md), [CLAUDE.md](../website-pipeline/CLAUDE.md) |
 
 ---
@@ -29,6 +29,7 @@ App Factory contains 5 independent pipelines, each generating different types of
 **What It Is:** Mobile app generator using Expo React Native
 
 **What It Produces:**
+
 - Complete iOS/Android app codebase
 - RevenueCat monetization integration
 - App Store Optimization (ASO) materials
@@ -36,6 +37,7 @@ App Factory contains 5 independent pipelines, each generating different types of
 - Research documentation
 
 **Output Structure:**
+
 ```
 app-factory/builds/<app-slug>/
 ├── app/                    # Expo Router screens
@@ -56,12 +58,14 @@ app-factory/builds/<app-slug>/
 **What It Is:** Decentralized application generator (Next.js + optional AI agents)
 
 **What It Produces:**
+
 - Complete Next.js web application
 - Optional Rig-aligned AI agent system
 - Research documentation
 - Deployment configuration
 
 **Output Structure:**
+
 ```
 dapp-factory/dapp-builds/<app-slug>/
 ├── src/
@@ -86,12 +90,14 @@ dapp-factory/dapp-builds/<app-slug>/
 **What It Is:** AI agent scaffold generator (Node.js HTTP API)
 
 **What It Produces:**
+
 - Rig-aligned agent scaffolds
 - HTTP REST API with health/process endpoints
 - Tool implementations
 - Execution loop
 
 **Output Structure:**
+
 ```
 agent-factory/outputs/<agent-name>/
 ├── src/
@@ -112,12 +118,14 @@ agent-factory/outputs/<agent-name>/
 **What It Is:** Claude Code plugin and MCP server generator
 
 **What It Produces:**
+
 - Claude Code plugins (commands, hooks, agents)
 - MCP servers (STDIO or HTTP)
 - Security documentation
 - Installation guides
 
 **Output Structure:**
+
 ```
 plugin-factory/builds/<plugin-slug>/
 ├── commands/               # Plugin commands (if applicable)
@@ -137,6 +145,7 @@ plugin-factory/builds/<plugin-slug>/
 **What It Is:** Marketing/portfolio website generator (Next.js)
 
 **What It Produces:**
+
 - Complete Next.js website
 - Skills audit reports
 - SEO review
@@ -144,6 +153,7 @@ plugin-factory/builds/<plugin-slug>/
 - Ralph polish loop files
 
 **Output Structure:**
+
 ```
 website-pipeline/website-builds/<slug>/
 ├── src/
@@ -164,25 +174,25 @@ website-pipeline/website-builds/<slug>/
 
 ## Quick Reference: How to Run
 
-| Pipeline | Command | Output |
-|----------|---------|--------|
-| app-factory | `cd app-factory && claude` | `builds/<slug>/` |
-| dapp-factory | `cd dapp-factory && claude` | `dapp-builds/<slug>/` |
-| agent-factory | `cd agent-factory && claude` | `outputs/<slug>/` |
-| plugin-factory | `cd plugin-factory && claude` | `builds/<slug>/` |
+| Pipeline         | Command                         | Output                   |
+| ---------------- | ------------------------------- | ------------------------ |
+| app-factory      | `cd app-factory && claude`      | `builds/<slug>/`         |
+| dapp-factory     | `cd dapp-factory && claude`     | `dapp-builds/<slug>/`    |
+| agent-factory    | `cd agent-factory && claude`    | `outputs/<slug>/`        |
+| plugin-factory   | `cd plugin-factory && claude`   | `builds/<slug>/`         |
 | website-pipeline | `cd website-pipeline && claude` | `website-builds/<slug>/` |
 
 ---
 
 ## Quality Gates by Pipeline
 
-| Pipeline | Skills Audits | Ralph QA | Playwright E2E |
-|----------|---------------|----------|----------------|
-| app-factory | Yes (3 skills) | Yes (≥97%) | Optional (web) |
-| dapp-factory | Yes (3 skills) | Yes (≥97%) | Required |
-| agent-factory | No | Yes (≥97%) | No |
-| plugin-factory | No | Yes (≥97%) | No |
-| website-pipeline | Yes (3 skills) | Yes (≥97%) | Required |
+| Pipeline         | Skills Audits  | Ralph QA   | Playwright E2E |
+| ---------------- | -------------- | ---------- | -------------- |
+| app-factory      | Yes (3 skills) | Yes (≥97%) | Optional (web) |
+| dapp-factory     | Yes (3 skills) | Yes (≥97%) | Required       |
+| agent-factory    | No             | Yes (≥97%) | No             |
+| plugin-factory   | No             | Yes (≥97%) | No             |
+| website-pipeline | Yes (3 skills) | Yes (≥97%) | Required       |
 
 ---
 

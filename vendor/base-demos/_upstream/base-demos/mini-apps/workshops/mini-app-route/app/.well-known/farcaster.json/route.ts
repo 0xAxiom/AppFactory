@@ -1,5 +1,5 @@
 function withValidProperties(
-  properties: Record<string, undefined | string | string[]>,
+  properties: Record<string, undefined | string | string[]>
 ) {
   return Object.fromEntries(
     Object.entries(properties).filter(([key, value]) => {
@@ -7,7 +7,7 @@ function withValidProperties(
         return value.length > 0;
       }
       return !!value;
-    }),
+    })
   );
 }
 
@@ -21,7 +21,7 @@ export async function GET() {
       signature: process.env.FARCASTER_SIGNATURE,
     },
     frame: withValidProperties({
-      version: "1",
+      version: '1',
       name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
       subtitle: process.env.NEXT_PUBLIC_APP_SUBTITLE,
       description: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
@@ -39,8 +39,8 @@ export async function GET() {
       ogDescription: process.env.NEXT_PUBLIC_APP_OG_DESCRIPTION,
       ogImageUrl: process.env.NEXT_PUBLIC_APP_OG_IMAGE,
     }),
-    "baseBuilder": {
-      "allowedAddresses": ["0xBe36F262aDe7d5A2B635D27f3c80f33278DcfaAd"]
+    baseBuilder: {
+      allowedAddresses: ['0xBe36F262aDe7d5A2B635D27f3c80f33278DcfaAd'],
     },
   });
 }

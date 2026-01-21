@@ -9,10 +9,12 @@
 ## When to Activate
 
 This skill activates during:
+
 - **Phase 3** (Build) - During active development
 - **Phase 4** (Ralph Polish Loop) - As a scored compliance category
 
 Trigger phrases:
+
 - "Check React performance"
 - "Review code for best practices"
 - "Optimize component performance"
@@ -30,16 +32,16 @@ Trigger phrases:
 
 ## Rule Categories (by Priority)
 
-| Priority | Category | Impact | Description |
-|----------|----------|--------|-------------|
-| 1 | Eliminating Waterfalls | CRITICAL | Async patterns that prevent sequential blocking |
-| 2 | Bundle Size Optimization | CRITICAL | Import patterns and code splitting |
-| 3 | Server-Side Performance | HIGH | Server components and caching |
-| 4 | Client-Side Data Fetching | MEDIUM-HIGH | SWR, React Query patterns |
-| 5 | Re-render Optimization | MEDIUM | Memoization and state patterns |
-| 6 | Rendering Performance | MEDIUM | DOM and layout optimization |
-| 7 | JavaScript Performance | LOW-MEDIUM | Micro-optimizations |
-| 8 | Advanced Patterns | LOW | Edge case optimizations |
+| Priority | Category                  | Impact      | Description                                     |
+| -------- | ------------------------- | ----------- | ----------------------------------------------- |
+| 1        | Eliminating Waterfalls    | CRITICAL    | Async patterns that prevent sequential blocking |
+| 2        | Bundle Size Optimization  | CRITICAL    | Import patterns and code splitting              |
+| 3        | Server-Side Performance   | HIGH        | Server components and caching                   |
+| 4        | Client-Side Data Fetching | MEDIUM-HIGH | SWR, React Query patterns                       |
+| 5        | Re-render Optimization    | MEDIUM      | Memoization and state patterns                  |
+| 6        | Rendering Performance     | MEDIUM      | DOM and layout optimization                     |
+| 7        | JavaScript Performance    | LOW-MEDIUM  | Micro-optimizations                             |
+| 8        | Advanced Patterns         | LOW         | Edge case optimizations                         |
 
 ---
 

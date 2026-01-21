@@ -26,16 +26,19 @@ None.
 ## Minor Issues (Nice to Fix)
 
 ### 1. Webhook Handler Security Note
+
 - `vendor/base-demos/selected/notifications-module/webhook-handler.ts` includes Key Registry verification
 - Template users may not understand the security importance
 - Suggested: Add comment explaining why verification is critical
 
 ### 2. No Rate Limiting in Notify Endpoint
+
 - notify-endpoint.ts has no rate limiting
 - Production apps should add this
 - Suggested: Document as production consideration
 
 ### 3. Redis Optional Handling
+
 - notification.ts gracefully handles missing Redis
 - Good pattern, but should document that notifications silently fail without Redis
 - Suggested: Add console.warn when Redis unavailable

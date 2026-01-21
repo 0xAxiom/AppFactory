@@ -38,27 +38,37 @@ export default function ShoutoutCard({
   };
 
   return (
-    <div className={`w-full rounded-lg border shadow-sm mb-4 ${
-      type === "primary" 
-        ? "border-violet-200 bg-violet-50" 
-        : hasShoutedOut 
-          ? "border-green-200 bg-green-50"
-          : "border-neutral-200 bg-neutral-50"
-    }`}>
+    <div
+      className={`w-full rounded-lg border shadow-sm mb-4 ${
+        type === "primary"
+          ? "border-violet-200 bg-violet-50"
+          : hasShoutedOut
+            ? "border-green-200 bg-green-50"
+            : "border-neutral-200 bg-neutral-50"
+      }`}
+    >
       <div className="p-6 flex flex-col items-center">
         <h2 className="text-xl font-bold mb-2">
           {type === "primary" ? (
-            <>Shoutout to <span className="text-violet-600">@{username}</span>!</>
+            <>
+              Shoutout to <span className="text-violet-600">@{username}</span>!
+            </>
           ) : hasShoutedOut ? (
-            <>You shouted out <span className="text-green-600">@{username}</span>!</>
+            <>
+              You shouted out{" "}
+              <span className="text-green-600">@{username}</span>!
+            </>
           ) : (
-            <>Say hi to your friend <span className="text-violet-600">@{username}</span>!</>
+            <>
+              Say hi to your friend{" "}
+              <span className="text-violet-600">@{username}</span>!
+            </>
           )}
         </h2>
         <p className="text-center text-gray-600 mb-4">
           {hasShoutedOut ? "Great job spreading positivity!" : message}
         </p>
-        
+
         {type === "friend" && !hasShoutedOut && onSendShoutout && (
           <button
             onClick={handleSendShoutout}
@@ -79,4 +89,4 @@ export default function ShoutoutCard({
       </div>
     </div>
   );
-} 
+}

@@ -7,6 +7,7 @@ Guide the user through the manual process of signing their manifest to establish
 ## Why This Is Manual
 
 Account association requires:
+
 1. A deployed app (Stage M4)
 2. The user's wallet signature
 3. Access to their Farcaster account
@@ -31,6 +32,7 @@ This cannot be automated - the user must sign with their own wallet.
 ## Resume Condition
 
 Check `minikit.config.ts`:
+
 ```typescript
 accountAssociation: {
   header: "",   // Must be non-empty
@@ -51,6 +53,7 @@ File: `artifacts/stage05/ACCOUNT_ASSOCIATION_TODO.md`
 ## What is Account Association?
 
 Account association cryptographically proves:
+
 1. **You own this domain** - The app at this URL is yours
 2. **You control this Farcaster account** - Your identity is verified
 3. **The app is authorized** - Base can trust your manifest
@@ -62,6 +65,7 @@ Without it, your mini app won't be recognized by Base.
 ## Prerequisites
 
 Before starting, ensure:
+
 - [ ] App is deployed to Vercel (Stage M4)
 - [ ] Vercel Deployment Protection is disabled
 - [ ] You can access `https://[your-domain]/.well-known/farcaster.json`
@@ -83,8 +87,10 @@ Navigate to the **Build** section, then **Account Association** tool.
 
 In the "App URL" field, enter your Vercel URL:
 ```
+
 https://[your-project].vercel.app
-```
+
+````
 
 **Important:**
 - Include `https://`
@@ -129,9 +135,10 @@ export const minikitConfig = {
     // ... rest of config unchanged
   }
 } as const;
-```
+````
 
 **Example with real values:**
+
 ```typescript
 accountAssociation: {
   header: "eyJmaWQiOjEyMzQ1Njc4OTAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgxMjM0In0",
@@ -159,6 +166,7 @@ Go to: **https://base.dev/preview**
 3. You should see **three green checkmarks**
 
 If you see errors:
+
 - Verify all three values are copied correctly
 - Make sure you redeployed after updating
 - Check that the domain matches exactly
@@ -168,21 +176,25 @@ If you see errors:
 ## Troubleshooting
 
 ### "Manifest not found"
+
 - Deployment Protection may still be enabled
 - Check URL is exactly correct
 - Verify manifest returns JSON, not HTML
 
 ### "Invalid signature"
+
 - Values may be incorrectly copied
 - Try regenerating the association
 - Ensure you signed with the right wallet
 
 ### "Domain mismatch"
+
 - The domain in your manifest must match deployment
 - Check `NEXT_PUBLIC_URL` environment variable
 - Redeploy if you made changes
 
 ### Preview tool shows red X
+
 - Check the specific error message
 - Usually indicates incorrect/missing values
 - Review each step above
@@ -207,7 +219,8 @@ The pipeline will verify the association fields are populated and proceed to Sta
 - You're not granting any special permissions
 - The signature is specific to this domain
 - If you change domains, you need to re-sign
-```
+
+````
 
 ## Validation Script
 
@@ -229,7 +242,7 @@ if (!header || !payload || !signature) {
 
 console.log('Account association complete ✓');
 process.exit(0);
-```
+````
 
 ## Pipeline Gate
 

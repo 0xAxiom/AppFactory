@@ -55,14 +55,20 @@ export function printHeader(text: string): void {
  */
 export function printStageHeader(stageId: string, stageName: string): void {
   console.log();
-  console.log(chalk.cyan(`┌─ Stage ${stageId}: ${stageName} ${'─'.repeat(40)}`));
+  console.log(
+    chalk.cyan(`┌─ Stage ${stageId}: ${stageName} ${'─'.repeat(40)}`)
+  );
 }
 
 /**
  * Print stage completion
  */
 export function printStageComplete(stageId: string, duration: number): void {
-  console.log(chalk.green(`└─ Stage ${stageId} complete (${(duration / 1000).toFixed(1)}s)`));
+  console.log(
+    chalk.green(
+      `└─ Stage ${stageId} complete (${(duration / 1000).toFixed(1)}s)`
+    )
+  );
 }
 
 /**
@@ -114,7 +120,9 @@ export function printInfo(message: string): void {
 export function printCompletionBanner(command: string, duration: number): void {
   console.log();
   console.log(chalk.green('═'.repeat(60)));
-  console.log(chalk.green(`  ✓ ${command.toUpperCase()} COMPLETED SUCCESSFULLY`));
+  console.log(
+    chalk.green(`  ✓ ${command.toUpperCase()} COMPLETED SUCCESSFULLY`)
+  );
   console.log(chalk.green(`    Duration: ${(duration / 1000).toFixed(1)}s`));
   console.log(chalk.green('═'.repeat(60)));
   console.log();

@@ -22,12 +22,12 @@
 
 ## This Repo Contains
 
-| Component | Purpose |
-|-----------|---------|
-| `CLAUDE.md` | Agent constitution - defines full-build contract |
-| `validator/index.ts` | Validates builds (fails on prompt packs) |
-| `web3-builds/` | Output directory for built applications |
-| `generated/` | Internal/intermediate artifacts (not primary output) |
+| Component            | Purpose                                              |
+| -------------------- | ---------------------------------------------------- |
+| `CLAUDE.md`          | Agent constitution - defines full-build contract     |
+| `validator/index.ts` | Validates builds (fails on prompt packs)             |
+| `web3-builds/`       | Output directory for built applications              |
+| `generated/`         | Internal/intermediate artifacts (not primary output) |
 
 ---
 
@@ -86,6 +86,7 @@
 All builds MUST produce a runnable Next.js application with:
 
 ### Required Files
+
 ```
 web3-builds/<app-slug>/
 ├── package.json          # REQUIRED - with dev AND build scripts
@@ -103,6 +104,7 @@ web3-builds/<app-slug>/
 ```
 
 ### Required npm Scripts
+
 ```json
 {
   "scripts": {
@@ -115,6 +117,7 @@ web3-builds/<app-slug>/
 ### Forbidden Outputs
 
 Validation FAILS if:
+
 - Output is a prompt pack (only .md files, no package.json)
 - Missing src/app/ directory
 - Missing dev or build scripts
@@ -149,6 +152,7 @@ npx tsx ../../validator/index.ts
 ```
 
 Checks performed:
+
 1. **Full Build Verification** - Fails if output is prompt pack
 2. **Required Scripts** - Requires dev AND build scripts
 3. **Required Files** - All config and source files present
@@ -160,13 +164,13 @@ Checks performed:
 
 ## Technology Stack
 
-| Component | Technology |
-|-----------|------------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| State | Zustand |
-| Blockchain | Solana (optional) |
+| Component  | Technology              |
+| ---------- | ----------------------- |
+| Framework  | Next.js 14 (App Router) |
+| Language   | TypeScript              |
+| Styling    | Tailwind CSS            |
+| State      | Zustand                 |
+| Blockchain | Solana (optional)       |
 
 ---
 

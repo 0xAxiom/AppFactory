@@ -6,7 +6,10 @@
  */
 
 import { z } from 'zod';
-import { listProjects as listProjectsFromDb, countProjectDecisions } from '../db/queries.js';
+import {
+  listProjects as listProjectsFromDb,
+  countProjectDecisions,
+} from '../db/queries.js';
 
 export const listProjectsSchema = {};
 
@@ -26,17 +29,19 @@ export async function listProjects(_input: ListProjectsInput) {
     };
   }
 
-  const projectsWithCounts = projects.map(p => ({
+  const projectsWithCounts = projects.map((p) => ({
     ...p,
     decisionCount: countProjectDecisions(p.path),
   }));
 
-  const formatted = projectsWithCounts.map(p => {
-    return `**${p.name}**
+  const formatted = projectsWithCounts
+    .map((p) => {
+      return `**${p.name}**
   Path: \`${p.path}\`
   Decisions: ${p.decisionCount}
   First recorded: ${new Date(p.created_at).toLocaleDateString()}`;
-  }).join('\n\n');
+    })
+    .join('\n\n');
 
   return {
     content: [

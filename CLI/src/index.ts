@@ -106,7 +106,7 @@ process.on('unhandledRejection', (reason) => {
 });
 
 // Parse arguments - use async parsing for interactive mode
-program.parseAsync().catch(err => {
+program.parseAsync().catch((err) => {
   logger.error(`Fatal error: ${err.message}`);
   process.exit(1);
 });

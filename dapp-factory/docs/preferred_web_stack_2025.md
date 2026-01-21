@@ -7,6 +7,7 @@
 ## 🎯 Stack Overview
 
 The Web3 Factory Preferred Stack prioritizes:
+
 - **Developer Experience**: Fast development cycles with excellent tooling
 - **Performance**: Core Web Vitals compliance and optimal loading
 - **Accessibility**: WCAG 2.1 AA compliance by default
@@ -21,6 +22,7 @@ The Web3 Factory Preferred Stack prioritizes:
 **Choose for**: 95% of Web3 Factory apps
 
 **Why Next.js dominates in 2025**:
+
 - ✅ **React Server Components**: Reduced client-side JavaScript bundle
 - ✅ **Hybrid Rendering**: SSR/SSG/ISR support for optimal performance
 - ✅ **Built-in Optimization**: Automatic code splitting, image optimization
@@ -29,13 +31,14 @@ The Web3 Factory Preferred Stack prioritizes:
 - ✅ **TypeScript First**: Full TypeScript support with zero configuration
 
 **Next.js Configuration**:
+
 ```typescript
 // next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['@solana/web3.js']
+    serverComponentsExternalPackages: ['@solana/web3.js'],
   },
   webpack: (config) => {
     config.resolve.fallback = {
@@ -45,7 +48,7 @@ const nextConfig = {
     };
     return config;
   },
-}
+};
 
 export default nextConfig;
 ```
@@ -55,12 +58,14 @@ export default nextConfig;
 **Choose for**: Simple apps with minimal backend needs, rapid prototyping
 
 **Vite Advantages**:
+
 - ⚡ **Lightning Fast**: Sub-second dev server startup
 - 📦 **Smaller Bundles**: Tree-shaking and rollup optimization
 - 🔧 **Flexible**: Easy customization and plugin ecosystem
 - 📱 **Client-First**: Perfect for SPAs with external APIs
 
 **When to use Vite over Next.js**:
+
 - Pure frontend app with no SEO requirements
 - Simple token interactions without complex backend logic
 - Rapid prototyping or proof-of-concept builds
@@ -69,11 +74,12 @@ export default nextConfig;
 
 ### Recommended: Headless Components + Tailwind CSS
 
-**Primary Stack**: 
+**Primary Stack**:
+
 ```typescript
 // Core dependencies
 "@radix-ui/react-dialog": "^1.0.5",
-"@radix-ui/react-popover": "^1.0.7", 
+"@radix-ui/react-popover": "^1.0.7",
 "@radix-ui/react-select": "^2.0.0",
 "@radix-ui/react-toast": "^1.1.5",
 "class-variance-authority": "^0.7.0",
@@ -84,6 +90,7 @@ export default nextConfig;
 ```
 
 **Why this combination**:
+
 - 🎯 **Radix UI**: Unstyled, accessible primitives (dialogs, popovers, forms)
 - 🎨 **Tailwind CSS**: Utility-first styling with design system consistency
 - 🔧 **Class Variance Authority**: Type-safe component variants
@@ -91,6 +98,7 @@ export default nextConfig;
 - 📱 **Responsive by Default**: Mobile-first responsive design
 
 **Component Example**:
+
 ```typescript
 // components/ui/Button.tsx
 import { cva, type VariantProps } from "class-variance-authority";
@@ -143,6 +151,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 ### Alternative: shadcn/ui
 
 **For teams wanting pre-built components**:
+
 ```bash
 npx shadcn-ui@latest init
 npx shadcn-ui@latest add button dialog form
@@ -153,15 +162,17 @@ npx shadcn-ui@latest add button dialog form
 ### Wallet Adapter Setup (2025 Best Practices)
 
 **Core Dependencies**:
+
 ```typescript
 "@solana/wallet-adapter-base": "^0.9.23",
-"@solana/wallet-adapter-react": "^0.15.35", 
+"@solana/wallet-adapter-react": "^0.15.35",
 "@solana/wallet-adapter-react-ui": "^0.9.35",
 "@solana/wallet-adapter-wallets": "^0.19.32",
 "@solana/web3.js": "^1.87.6"
 ```
 
 **Provider Configuration**:
+
 ```typescript
 // components/WalletProvider.tsx
 'use client';
@@ -212,12 +223,9 @@ export function useTokenOperations(tokenMint: string) {
 
   const getTokenBalance = async () => {
     if (!publicKey) return 0;
-    
+
     try {
-      const tokenAccount = await getAssociatedTokenAddress(
-        new PublicKey(tokenMint),
-        publicKey
-      );
+      const tokenAccount = await getAssociatedTokenAddress(new PublicKey(tokenMint), publicKey);
       const account = await getAccount(connection, tokenAccount);
       return Number(account.amount) / Math.pow(10, 9); // Adjust for decimals
     } catch (error) {
@@ -227,7 +235,7 @@ export function useTokenOperations(tokenMint: string) {
 
   const transferTokens = async (recipient: string, amount: number) => {
     if (!publicKey) throw new Error('Wallet not connected');
-    
+
     // Implementation details for token transfer
     // This is a simplified example
   };
@@ -263,7 +271,7 @@ export const AppStateContext = React.createContext<AppContextType | null>(null);
 
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, initialState);
-  
+
   return (
     <AppStateContext.Provider value={{ state, dispatch }}>
       {children}
@@ -330,9 +338,9 @@ export class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       const Fallback = this.props.fallback || DefaultErrorFallback;
       return (
-        <Fallback 
-          error={this.state.error!} 
-          reset={() => this.setState({ hasError: false, error: null })} 
+        <Fallback
+          error={this.state.error!}
+          reset={() => this.setState({ hasError: false, error: null })}
         />
       );
     }
@@ -373,6 +381,7 @@ export function TokenBalanceLoader() {
 ### WCAG 2.1 AA Compliance Checklist
 
 **Required for all components**:
+
 - ✅ **Semantic HTML**: Use proper HTML5 elements
 - ✅ **Keyboard Navigation**: All interactive elements keyboard accessible
 - ✅ **Color Contrast**: 4.5:1 ratio for normal text, 3:1 for large text
@@ -381,6 +390,7 @@ export function TokenBalanceLoader() {
 - ✅ **Alternative Text**: All images have descriptive alt text
 
 **Testing Requirements**:
+
 ```typescript
 // __tests__/accessibility.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -401,12 +411,14 @@ test('WalletConnection should be accessible', async () => {
 ### Core Web Vitals Targets
 
 **Required Performance Metrics**:
+
 - 🎯 **Largest Contentful Paint (LCP)**: < 2.5 seconds
-- 🎯 **First Input Delay (FID)**: < 100 milliseconds  
+- 🎯 **First Input Delay (FID)**: < 100 milliseconds
 - 🎯 **Cumulative Layout Shift (CLS)**: < 0.1
 - 🎯 **First Contentful Paint (FCP)**: < 1.8 seconds
 
 **Next.js Performance Config**:
+
 ```typescript
 // next.config.js
 const nextConfig = {
@@ -426,12 +438,14 @@ const nextConfig = {
 ### Bundle Size Optimization
 
 **Bundle Analysis**:
+
 ```bash
 npm install --save-dev @next/bundle-analyzer
 ANALYZE=true npm run build
 ```
 
 **Code Splitting Strategy**:
+
 ```typescript
 // Dynamic imports for large components
 const WalletModal = dynamic(() => import('@/components/WalletModal'), {
@@ -466,7 +480,8 @@ CREATOR_WALLET_PRIVATE_KEY=
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
-    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.mainnet-beta.solana.com;",
+    value:
+      "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.mainnet-beta.solana.com;",
   },
 ];
 
@@ -491,10 +506,10 @@ const nextConfig = {
 module.exports = {
   theme: {
     screens: {
-      'sm': '640px',   // Mobile landscape
-      'md': '768px',   // Tablet
-      'lg': '1024px',  // Desktop
-      'xl': '1280px',  // Large desktop
+      sm: '640px', // Mobile landscape
+      md: '768px', // Tablet
+      lg: '1024px', // Desktop
+      xl: '1280px', // Large desktop
       '2xl': '1536px', // Very large desktop
     },
   },
@@ -543,6 +558,7 @@ module.exports = createJestConfig(customJestConfig);
 ```
 
 **Test Categories**:
+
 1. **Component Tests**: React Testing Library + Jest
 2. **Accessibility Tests**: jest-axe for WCAG compliance
 3. **Integration Tests**: API routes and Solana interactions
@@ -585,6 +601,7 @@ module.exports = createJestConfig(customJestConfig);
 ### README Template
 
 Every generated app includes:
+
 - 🚀 **Quick Start**: `npm install` && `npm run dev`
 - 🔧 **Environment Setup**: Required environment variables
 - 🪙 **Token Integration**: How the token works in the app
@@ -593,7 +610,7 @@ Every generated app includes:
 
 ### Code Documentation
 
-```typescript
+````typescript
 /**
  * Custom hook for managing token operations
  * @param tokenMint - The Solana token mint address
@@ -607,7 +624,7 @@ Every generated app includes:
 export function useTokenOperations(tokenMint: string) {
   // Implementation
 }
-```
+````
 
 ## 🔄 Version Management
 
@@ -618,6 +635,7 @@ export function useTokenOperations(tokenMint: string) {
 **Security**: Weekly security updates for critical vulnerabilities
 
 **Lock File Strategy**:
+
 - ✅ Commit `package-lock.json` for reproducible builds
 - ✅ Use `npm ci` in production builds
 - ✅ Regular `npm audit` checks
@@ -627,8 +645,9 @@ export function useTokenOperations(tokenMint: string) {
 ## 🎯 Implementation Notes
 
 **This is guidance, not enforcement**. Generated apps use this preferred stack but creators can:
+
 - ✅ Modify any part of the generated code
-- ✅ Add additional libraries or frameworks  
+- ✅ Add additional libraries or frameworks
 - ✅ Change styling systems or state management
 - ✅ Customize deployment configuration
 

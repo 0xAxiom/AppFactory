@@ -1,12 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import { BasePayButton } from '@base-org/account-ui/react';
 import { pay, getPaymentStatus } from '@base-org/account';
-import { 
-  Button, 
-  Input
-} from '@worldcoin/mini-apps-ui-kit-react';
+import { Button, Input } from '@worldcoin/mini-apps-ui-kit-react';
 
 interface PayResult {
   id?: string;
@@ -24,10 +21,10 @@ interface PaymentState {
   timestamp?: Date;
 }
 
-function PaymentStatusCard({ 
-  paymentState, 
-  onReset 
-}: { 
+function PaymentStatusCard({
+  paymentState,
+  onReset,
+}: {
   paymentState: PaymentState;
   onReset: () => void;
 }) {
@@ -51,52 +48,57 @@ function PaymentStatusCard({
 
   const getStatusTitle = () => {
     switch (paymentState.status) {
-      case 'processing': return 'Processing Payment';
-      case 'pending': return 'Payment Pending';
-      case 'completed': return 'Payment Successful';
-      case 'failed': return 'Payment Failed';
-      default: return 'Payment Status';
+      case 'processing':
+        return 'Processing Payment';
+      case 'pending':
+        return 'Payment Pending';
+      case 'completed':
+        return 'Payment Successful';
+      case 'failed':
+        return 'Payment Failed';
+      default:
+        return 'Payment Status';
     }
   };
 
   return (
-    <div className={`p-4 rounded-lg border space-y-3 ${
-      variant === 'success' ? 'bg-green-50 border-green-200' :
-      variant === 'warning' ? 'bg-yellow-50 border-yellow-200' :
-      variant === 'destructive' ? 'bg-red-50 border-red-200' :
-      'bg-blue-50 border-blue-200'
-    }`}>
+    <div
+      className={`p-4 rounded-lg border space-y-3 ${
+        variant === 'success'
+          ? 'bg-green-50 border-green-200'
+          : variant === 'warning'
+            ? 'bg-yellow-50 border-yellow-200'
+            : variant === 'destructive'
+              ? 'bg-red-50 border-red-200'
+              : 'bg-blue-50 border-blue-200'
+      }`}
+    >
       <div className="flex items-center gap-3">
-        <div className="text-2xl">
-          {icon}
-        </div>
+        <div className="text-2xl">{icon}</div>
         <div className="flex-1">
-          <div className="font-semibold text-base mb-1">
-            {getStatusTitle()}
-          </div>
-          <div className="text-sm leading-relaxed">
-            {paymentState.message}
-          </div>
+          <div className="font-semibold text-base mb-1">{getStatusTitle()}</div>
+          <div className="text-sm leading-relaxed">{paymentState.message}</div>
         </div>
       </div>
 
-      {paymentState.transactionId && paymentState.transactionId !== 'unknown' && (
-        <>
-          <div className="border-t border-current border-opacity-20 pt-2"></div>
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-medium">Transaction ID:</span>
-            <a 
-              href={`${baseScanUrl}${paymentState.transactionId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono underline hover:no-underline truncate max-w-[200px]"
-              title={paymentState.transactionId}
-            >
-              {`${paymentState.transactionId.slice(0, 6)}...${paymentState.transactionId.slice(-6)}`}
-            </a>
-          </div>
-        </>
-      )}
+      {paymentState.transactionId &&
+        paymentState.transactionId !== 'unknown' && (
+          <>
+            <div className="border-t border-current border-opacity-20 pt-2"></div>
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-medium">Transaction ID:</span>
+              <a
+                href={`${baseScanUrl}${paymentState.transactionId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono underline hover:no-underline truncate max-w-[200px]"
+                title={paymentState.transactionId}
+              >
+                {`${paymentState.transactionId.slice(0, 6)}...${paymentState.transactionId.slice(-6)}`}
+              </a>
+            </div>
+          </>
+        )}
 
       {paymentState.timestamp && (
         <div className="flex items-center justify-between text-xs pt-1">
@@ -104,9 +106,7 @@ function PaymentStatusCard({
             {paymentState.timestamp.toLocaleTimeString()}
           </span>
           {paymentState.status === 'pending' && (
-            <span className="opacity-75 animate-pulse">
-              Checking status...
-            </span>
+            <span className="opacity-75 animate-pulse">Checking status...</span>
           )}
         </div>
       )}
@@ -117,7 +117,8 @@ function PaymentStatusCard({
         </div>
       )}
 
-      {(paymentState.status === 'completed' || paymentState.status === 'failed') && (
+      {(paymentState.status === 'completed' ||
+        paymentState.status === 'failed') && (
         <Button
           onClick={onReset}
           variant="secondary"
@@ -133,60 +134,65 @@ function PaymentStatusCard({
 
 export function BasePay() {
   const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentState, setPaymentState] = useState<PaymentState>({ status: 'idle', message: '' });
-  const [amount, setAmount] = useState("5.00");
-  
-  const recipient = "0x8342A48694A74044116F330db5050a267b28dD85";
+  const [paymentState, setPaymentState] = useState<PaymentState>({
+    status: 'idle',
+    message: '',
+  });
+  const [amount, setAmount] = useState('5.00');
+
+  const recipient = '0x8342A48694A74044116F330db5050a267b28dD85';
 
   const handlePay = async () => {
     try {
       setIsProcessing(true);
-      setPaymentState({ 
-        status: 'processing', 
+      setPaymentState({
+        status: 'processing',
         message: 'Initiating USDC payment on Base...',
-        timestamp: new Date()
+        timestamp: new Date(),
       });
 
       const result = await pay({
         amount: amount,
         to: recipient,
-        testnet: false
+        testnet: false,
       });
 
       const payResult = result as PayResult;
       console.log('pay result', payResult);
-      const transactionId = payResult?.id || payResult?.transactionId || 'unknown';
-      
+      const transactionId =
+        payResult?.id || payResult?.transactionId || 'unknown';
+
       setPaymentState({
         status: 'pending',
-        message: 'Payment submitted to Base network. Waiting for confirmation...',
+        message:
+          'Payment submitted to Base network. Waiting for confirmation...',
         transactionId,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
 
       const checkStatus = async () => {
         try {
-          const statusResult = await getPaymentStatus({ 
+          const statusResult = await getPaymentStatus({
             id: transactionId,
-            testnet: false
+            testnet: false,
           });
-          
+
           const statusResponse = statusResult as PaymentStatusResult;
           const status = statusResponse?.status || 'unknown';
-          
+
           if (status === 'completed') {
             setPaymentState({
               status: 'completed',
               message: 'Payment successful! USDC has been transferred on Base.',
               transactionId,
-              timestamp: new Date()
+              timestamp: new Date(),
             });
           } else if (status === 'pending') {
             setPaymentState({
               status: 'pending',
               message: 'Payment is being processed on the Base network...',
               transactionId,
-              timestamp: new Date()
+              timestamp: new Date(),
             });
             setTimeout(checkStatus, 2000);
           } else if (status === 'failed') {
@@ -194,28 +200,28 @@ export function BasePay() {
               status: 'failed',
               message: 'Payment failed. The transaction was not completed.',
               transactionId,
-              timestamp: new Date()
+              timestamp: new Date(),
             });
           }
         } catch (statusError) {
-          console.error("Status check error:", statusError);
+          console.error('Status check error:', statusError);
           setPaymentState({
             status: 'failed',
-            message: 'Unable to verify payment status. Please check the transaction manually.',
+            message:
+              'Unable to verify payment status. Please check the transaction manually.',
             transactionId,
-            timestamp: new Date()
+            timestamp: new Date(),
           });
         }
       };
 
       setTimeout(checkStatus, 1000);
-
     } catch (error) {
-      console.error("Payment error:", error);
+      console.error('Payment error:', error);
       setPaymentState({
         status: 'failed',
         message: `Payment failed: ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
     } finally {
       setIsProcessing(false);
@@ -229,14 +235,16 @@ export function BasePay() {
           <div className="text-2xl">💳</div>
           <div className="flex-1">
             <div className="font-semibold text-lg">Base Pay</div>
-            <div className="text-sm text-muted-foreground">One-tap USDC payments on Base</div>
+            <div className="text-sm text-muted-foreground">
+              One-tap USDC payments on Base
+            </div>
           </div>
         </div>
         <div className="text-xs text-blue-600 bg-white/50 rounded px-2 py-1">
           Fast • Low fees • Fully-backed digital dollars
         </div>
       </div>
-      
+
       <div className="space-y-4">
         <div className="p-4 bg-white border border-border rounded-lg">
           <div className="space-y-3">
@@ -244,7 +252,9 @@ export function BasePay() {
               Payment Amount (USD)
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">$</span>
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+                $
+              </span>
               <Input
                 id="amount"
                 type="number"
@@ -265,7 +275,9 @@ export function BasePay() {
         <div className="p-4 bg-white border border-border rounded-lg">
           <div className="space-y-2">
             <div className="text-sm font-medium">Payment Recipient</div>
-            <div className="font-mono text-xs text-muted-foreground break-all">{recipient}</div>
+            <div className="font-mono text-xs text-muted-foreground break-all">
+              {recipient}
+            </div>
             <div className="text-xs bg-gray-100 rounded px-2 py-1 w-fit">
               dylsteck.base.eth
             </div>
@@ -273,18 +285,17 @@ export function BasePay() {
         </div>
 
         <div className={isProcessing ? 'opacity-50 pointer-events-none' : ''}>
-          <BasePayButton
-            colorScheme="light"
-            onClick={handlePay}
-          />
+          <BasePayButton colorScheme="light" onClick={handlePay} />
           <div className="text-xs text-muted-foreground mt-2 text-center">
-            {isProcessing ? 'Processing payment...' : 'Click to pay with Base Account'}
+            {isProcessing
+              ? 'Processing payment...'
+              : 'Click to pay with Base Account'}
           </div>
         </div>
 
         {paymentState.status !== 'idle' && (
-          <PaymentStatusCard 
-            paymentState={paymentState} 
+          <PaymentStatusCard
+            paymentState={paymentState}
             onReset={() => setPaymentState({ status: 'idle', message: '' })}
           />
         )}

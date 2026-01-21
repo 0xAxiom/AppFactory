@@ -42,12 +42,14 @@ npm run test:e2e
 ### 2. Evaluate Results
 
 **If any check fails:**
+
 - Identify the highest-impact failure
 - Fix ONLY that one issue
 - Document in PROGRESS.md
 - Proceed to next pass
 
 **If all checks pass:**
+
 - Review acceptance criteria in ACCEPTANCE.md
 - Identify one high-leverage polish improvement
 - Implement ONLY that one improvement
@@ -71,26 +73,31 @@ If YES to #1, #2 and NO to #3: Write the completion promise.
 When all tests pass, prioritize improvements by impact:
 
 ### Priority 1: User-Facing Bugs
+
 - Broken interactions
 - Visual glitches
 - Missing states (loading, error, empty)
 
 ### Priority 2: Accessibility
+
 - Missing alt text
 - Poor focus states
 - Keyboard navigation issues
 
 ### Priority 3: Performance
+
 - Slow page loads
 - Large bundle size
 - Unnecessary re-renders
 
 ### Priority 4: Visual Polish
+
 - Alignment issues
 - Inconsistent spacing
 - Animation timing
 
 ### Priority 5: Code Quality
+
 - Component refactoring
 - Type improvements
 - Test coverage
@@ -108,19 +115,23 @@ After EVERY pass, update `ralph/PROGRESS.md`:
 **Status:** {{PASS|FAIL}}
 
 ### Checks Run
+
 - lint: {{PASS|FAIL}}
 - typecheck: {{PASS|FAIL}}
 - test: {{PASS|FAIL}}
 - test:e2e: {{PASS|FAIL}}
 
 ### Issue Addressed
+
 {{DESCRIPTION_OF_FIX_OR_IMPROVEMENT}}
 
 ### Files Changed
+
 - {{FILE_1}}
 - {{FILE_2}}
 
 ### Next Iteration Focus
+
 {{WHAT_SHOULD_BE_ADDRESSED_NEXT}}
 ```
 
@@ -131,11 +142,13 @@ After EVERY pass, update `ralph/PROGRESS.md`:
 ### Stop with Completion Promise (Success)
 
 When ALL of these are true:
+
 - All checks pass
 - All acceptance criteria verified
 - No CRITICAL or HIGH issues
 
 Write to PROGRESS.md:
+
 ```
 COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 ```
@@ -143,6 +156,7 @@ COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 ### Stop at Pass 20 (Max Iterations)
 
 If pass 20 completes without completion promise:
+
 - Document remaining issues in QA_NOTES.md
 - Flag for manual review
 - Do NOT write completion promise
@@ -150,6 +164,7 @@ If pass 20 completes without completion promise:
 ### Stop on Blocker (Manual Intervention)
 
 If an issue cannot be resolved:
+
 - Document in QA_NOTES.md
 - Stop the loop
 - Request human assistance

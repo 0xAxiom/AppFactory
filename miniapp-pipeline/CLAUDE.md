@@ -13,6 +13,7 @@
 MiniApp Pipeline generates **production-ready Base Mini Apps** - applications that run inside the Base app using MiniKit and Next.js. It handles the complete lifecycle from concept to publication, including manifest configuration, account association guidance, and quality validation.
 
 Base Mini Apps are Farcaster-compatible applications discovered and launched within the Base app ecosystem. They require:
+
 - A Next.js application with MiniKit integration
 - A properly configured manifest at `/.well-known/farcaster.json`
 - Account association credentials proving domain ownership
@@ -20,14 +21,14 @@ Base Mini Apps are Farcaster-compatible applications discovered and launched wit
 
 ### What This Pipeline Does NOT Do
 
-| Action | Reason | Where It Belongs |
-|--------|--------|------------------|
-| Build mobile apps | Wrong output format | app-factory |
-| Build dApps/websites | Wrong output format | dapp-factory |
-| Generate AI agent scaffolds | Wrong pipeline | agent-factory |
-| Generate Claude plugins | Wrong pipeline | plugin-factory |
-| Deploy automatically | Requires user approval | Manual Vercel deploy |
-| Generate account association | User-specific credentials | Manual step |
+| Action                       | Reason                    | Where It Belongs     |
+| ---------------------------- | ------------------------- | -------------------- |
+| Build mobile apps            | Wrong output format       | app-factory          |
+| Build dApps/websites         | Wrong output format       | dapp-factory         |
+| Generate AI agent scaffolds  | Wrong pipeline            | agent-factory        |
+| Generate Claude plugins      | Wrong pipeline            | plugin-factory       |
+| Deploy automatically         | Requires user approval    | Manual Vercel deploy |
+| Generate account association | User-specific credentials | Manual step          |
 
 ### Output Directory
 
@@ -36,6 +37,7 @@ All generated mini apps are written to: `builds/miniapps/<slug>/`
 ### Boundary Enforcement
 
 Claude MUST NOT write files outside `miniapp-pipeline/` directory. Specifically forbidden:
+
 - `app-factory/builds/` (belongs to app-factory)
 - `dapp-builds/` (belongs to dapp-factory)
 - `outputs/` (belongs to agent-factory)
@@ -130,11 +132,11 @@ miniapp-pipeline/
 
 ### Directory Boundaries
 
-| Directory | Purpose | Who Writes | Distributable |
-|-----------|---------|------------|---------------|
-| `builds/miniapps/<slug>/app/` | Final Next.js application | Claude | YES |
-| `builds/miniapps/<slug>/artifacts/` | Pipeline outputs | Claude | NO |
-| `vendor/` | Cached reference documentation | Maintainers | NO |
+| Directory                           | Purpose                        | Who Writes  | Distributable |
+| ----------------------------------- | ------------------------------ | ----------- | ------------- |
+| `builds/miniapps/<slug>/app/`       | Final Next.js application      | Claude      | YES           |
+| `builds/miniapps/<slug>/artifacts/` | Pipeline outputs               | Claude      | NO            |
+| `vendor/`                           | Cached reference documentation | Maintainers | NO            |
 
 ---
 
@@ -143,12 +145,14 @@ miniapp-pipeline/
 ### INFRA MODE (Default)
 
 When Claude enters `miniapp-pipeline/` without an active build:
+
 - Explains what MiniApp Pipeline does
 - Lists recent builds in `builds/miniapps/`
 - Awaits user's mini app description
 - Does NOT generate code until user provides intent
 
 **Infra Mode Indicators:**
+
 - No active build session
 - User asking questions or exploring
 - No stage initiated
@@ -156,11 +160,13 @@ When Claude enters `miniapp-pipeline/` without an active build:
 ### BUILD MODE
 
 When Claude is executing a mini app build:
+
 - Has active `builds/miniapps/<slug>/` directory
 - User has provided mini app intent
 - Claude is generating files
 
 **BUILD MODE Stages:**
+
 - M0: Intent Normalization
 - M1: Template Selection & Scaffold Plan
 - M2: Scaffold Project
@@ -176,6 +182,7 @@ When Claude is executing a mini app build:
 ### QA MODE (Ralph)
 
 When Claude enters Stage M10:
+
 - Adopts adversarial QA persona
 - Evaluates against quality checklist
 - Iterates until APPROVED (max 3 iterations)
@@ -194,32 +201,41 @@ Transform raw user input into a structured mini app concept.
 # Mini App Concept
 
 ## Name
+
 [Suggested app name]
 
 ## Tagline
+
 [One-line description, max 30 chars]
 
 ## Description
+
 [Detailed description, max 170 chars]
 
 ## Target Users
+
 [Who will use this app]
 
 ## Core Loop
+
 [Primary user interaction flow]
 
 ## Category
+
 [One of: games, social, finance, utility, productivity, health-fitness,
 news-media, music, shopping, education, developer-tools, entertainment,
 art-creativity]
 
 ## Tags
+
 [Up to 5 lowercase tags]
 
 ## Sharing Context
+
 [How users will discover/share this in Base]
 
 ## Onchain Requirements
+
 [None / Wallet connection / Transactions / Smart contracts]
 ```
 
@@ -236,6 +252,7 @@ Generate the Next.js application structure.
 **Output Directory:** `builds/miniapps/<slug>/app/`
 
 **Generated Structure:**
+
 ```
 builds/miniapps/<slug>/
 ├── app/
@@ -270,6 +287,7 @@ builds/miniapps/<slug>/
 Configure manifest and generate placeholder assets.
 
 **Output:**
+
 - Updated `minikit.config.ts`
 - Placeholder images in `public/`
 - `stage03/manifest_config.md`
@@ -300,6 +318,7 @@ This stage requires USER ACTION. Claude provides instructions but CANNOT generat
 Rigorous adversarial QA review.
 
 **Ralph Review Checklist:**
+
 - Manifest correctness (all fields, character limits, image dimensions)
 - Account association (header/payload/signature non-empty)
 - Preview tool (all three tabs show success)
@@ -308,6 +327,7 @@ Rigorous adversarial QA review.
 - Security (no exposed secrets, no hardcoded API keys)
 
 **Final Verdict Criteria:**
+
 - Zero critical issues
 - Zero major issues
 - Proof gate passes
@@ -319,18 +339,18 @@ Rigorous adversarial QA review.
 
 ### When miniapp-pipeline Delegates
 
-| Trigger | Delegated To | Context Passed |
-|---------|--------------|----------------|
-| User says "review this" | Ralph QA persona | Build path, checklist |
-| Deploy request | User manual action | Vercel instructions |
-| Account association | User manual action | Base.dev instructions |
+| Trigger                 | Delegated To       | Context Passed        |
+| ----------------------- | ------------------ | --------------------- |
+| User says "review this" | Ralph QA persona   | Build path, checklist |
+| Deploy request          | User manual action | Vercel instructions   |
+| Account association     | User manual action | Base.dev instructions |
 
 ### When miniapp-pipeline Receives Delegation
 
-| Source | Trigger | Action |
-|--------|---------|--------|
-| Root orchestrator | `/factory run miniapp <idea>` | Begin Stage M0 |
-| User direct | `cd miniapp-pipeline && claude` | Enter INFRA MODE |
+| Source            | Trigger                         | Action           |
+| ----------------- | ------------------------------- | ---------------- |
+| Root orchestrator | `/factory run miniapp <idea>`   | Begin Stage M0   |
+| User direct       | `cd miniapp-pipeline && claude` | Enter INFRA MODE |
 
 ### Role Boundaries
 
@@ -365,18 +385,18 @@ Rigorous adversarial QA review.
 
 ## 8. REFUSAL TABLE
 
-| Request Pattern | Action | Reason | Alternative |
-|-----------------|--------|--------|-------------|
-| "Generate my account association" | REFUSE | User-specific credentials | "Follow Stage M5 instructions at base.dev" |
-| "Skip account association" | REFUSE | Required for Base app | "Account association is mandatory" |
-| "Deploy to Vercel for me" | REFUSE | Requires user approval | "Follow the deployment instructions" |
-| "Skip the proof gate" | REFUSE | Quality verification required | "Proof gate ensures the app works" |
-| "Skip Ralph QA" | REFUSE | QA is mandatory | "Ralph ensures production quality" |
-| "Build a mobile app" | REFUSE | Wrong pipeline | "Use app-factory for mobile apps" |
-| "Build a dApp" | REFUSE | Wrong pipeline | "Use dapp-factory for dApps" |
-| "Write to dapp-builds/" | REFUSE | Wrong directory | "I'll write to builds/miniapps/ instead" |
-| "Add complex smart contracts" | REFUSE | Unless explicitly requested | "Mini apps default to no onchain requirements" |
-| "Hardcode my API key" | REFUSE | Security violation | "Use environment variables" |
+| Request Pattern                   | Action | Reason                        | Alternative                                    |
+| --------------------------------- | ------ | ----------------------------- | ---------------------------------------------- |
+| "Generate my account association" | REFUSE | User-specific credentials     | "Follow Stage M5 instructions at base.dev"     |
+| "Skip account association"        | REFUSE | Required for Base app         | "Account association is mandatory"             |
+| "Deploy to Vercel for me"         | REFUSE | Requires user approval        | "Follow the deployment instructions"           |
+| "Skip the proof gate"             | REFUSE | Quality verification required | "Proof gate ensures the app works"             |
+| "Skip Ralph QA"                   | REFUSE | QA is mandatory               | "Ralph ensures production quality"             |
+| "Build a mobile app"              | REFUSE | Wrong pipeline                | "Use app-factory for mobile apps"              |
+| "Build a dApp"                    | REFUSE | Wrong pipeline                | "Use dapp-factory for dApps"                   |
+| "Write to dapp-builds/"           | REFUSE | Wrong directory               | "I'll write to builds/miniapps/ instead"       |
+| "Add complex smart contracts"     | REFUSE | Unless explicitly requested   | "Mini apps default to no onchain requirements" |
+| "Hardcode my API key"             | REFUSE | Security violation            | "Use environment variables"                    |
 
 ---
 
@@ -387,6 +407,7 @@ Rigorous adversarial QA review.
 Before declaring a build complete, Claude MUST verify:
 
 **Manifest Correctness:**
+
 - [ ] All required fields present and valid
 - [ ] Character limits respected (tagline: 30, description: 170)
 - [ ] Image dimensions correct (icon: 1024x1024, splash: 200x200, hero: 1200x630)
@@ -394,10 +415,12 @@ Before declaring a build complete, Claude MUST verify:
 - [ ] Tags properly formatted
 
 **Account Association:**
+
 - [ ] header/payload/signature all non-empty
 - [ ] Domain matches deployment
 
 **Build Quality:**
+
 - [ ] `npm install` completes without errors
 - [ ] `npm run build` succeeds
 - [ ] `npm run lint` passes (if configured)
@@ -405,6 +428,7 @@ Before declaring a build complete, Claude MUST verify:
 - [ ] Manifest validation passes
 
 **Code Quality:**
+
 - [ ] No TypeScript errors
 - [ ] No console errors in browser
 - [ ] Error boundaries in place
@@ -412,6 +436,7 @@ Before declaring a build complete, Claude MUST verify:
 - [ ] Browser fallback works
 
 **UX Quality:**
+
 - [ ] App loads quickly
 - [ ] Core loop is intuitive
 - [ ] Touch targets adequate for mobile
@@ -420,6 +445,7 @@ Before declaring a build complete, Claude MUST verify:
 ### Success Definition
 
 A mini app build is only "done" if:
+
 1. All stages M0-M10 completed
 2. Account association present
 3. Proof gate passes
@@ -432,17 +458,18 @@ A mini app build is only "done" if:
 
 ### Error Categories
 
-| Error Type | Detection | Recovery |
-|------------|-----------|----------|
-| Stage skip | Stage not in artifacts/ | Halt, restart from missed stage |
-| Account association missing | Empty fields in config | Pause, show Stage M5 instructions |
-| Build failure | npm build fails | Log error, fix issue, re-run proof gate |
-| Ralph rejection | 3 iterations without APPROVED | Document blockers, escalate to user |
-| Manifest invalid | Validation fails | Fix fields, re-validate |
+| Error Type                  | Detection                     | Recovery                                |
+| --------------------------- | ----------------------------- | --------------------------------------- |
+| Stage skip                  | Stage not in artifacts/       | Halt, restart from missed stage         |
+| Account association missing | Empty fields in config        | Pause, show Stage M5 instructions       |
+| Build failure               | npm build fails               | Log error, fix issue, re-run proof gate |
+| Ralph rejection             | 3 iterations without APPROVED | Document blockers, escalate to user     |
+| Manifest invalid            | Validation fails              | Fix fields, re-validate                 |
 
 ### Drift Detection
 
 Claude MUST halt and reassess if:
+
 1. About to write files outside `miniapp-pipeline/`
 2. About to skip a mandatory stage
 3. About to generate account association values
@@ -466,33 +493,33 @@ Claude MUST halt and reassess if:
 
 ### Related Pipelines
 
-| Pipeline | When to Use | Directory |
-|----------|-------------|-----------|
-| app-factory | Mobile apps (Expo/React Native) | `../app-factory/` |
-| dapp-factory | dApps and websites (Next.js) | `../dapp-factory/` |
-| agent-factory | AI agent scaffolds | `../agent-factory/` |
-| plugin-factory | Claude plugins/MCP servers | `../plugin-factory/` |
-| website-pipeline | Static websites | `../website-pipeline/` |
+| Pipeline         | When to Use                     | Directory              |
+| ---------------- | ------------------------------- | ---------------------- |
+| app-factory      | Mobile apps (Expo/React Native) | `../app-factory/`      |
+| dapp-factory     | dApps and websites (Next.js)    | `../dapp-factory/`     |
+| agent-factory    | AI agent scaffolds              | `../agent-factory/`    |
+| plugin-factory   | Claude plugins/MCP servers      | `../plugin-factory/`   |
+| website-pipeline | Static websites                 | `../website-pipeline/` |
 
 ### Shared Resources
 
-| Resource | Location | Purpose |
-|----------|----------|---------|
-| Root orchestrator | `../CLAUDE.md` | Routing, refusal, phase detection |
-| Factory plugin | `../plugins/factory/` | `/factory` command interface |
-| MCP catalog | `../plugin-factory/mcp.catalog.json` | MCP server configurations |
-| Base docs | `./vendor/base-miniapps/` | Cached reference documentation |
+| Resource          | Location                             | Purpose                           |
+| ----------------- | ------------------------------------ | --------------------------------- |
+| Root orchestrator | `../CLAUDE.md`                       | Routing, refusal, phase detection |
+| Factory plugin    | `../plugins/factory/`                | `/factory` command interface      |
+| MCP catalog       | `../plugin-factory/mcp.catalog.json` | MCP server configurations         |
+| Base docs         | `./vendor/base-miniapps/`            | Cached reference documentation    |
 
 ### MCP Integration
 
 This pipeline supports MCP servers as defined in `plugin-factory/mcp.catalog.json`:
 
-| MCP Server | Stage | Permission | Purpose |
-|------------|-------|------------|---------|
-| Playwright | M6, M10 | read-only | E2E testing, UI verification |
-| Vercel | M4 | read-only | Deployment management |
-| Supabase | M2, M6 | read-only | Database backend if needed |
-| GitHub | all | read-write | Already integrated via Claude Code |
+| MCP Server | Stage   | Permission | Purpose                            |
+| ---------- | ------- | ---------- | ---------------------------------- |
+| Playwright | M6, M10 | read-only  | E2E testing, UI verification       |
+| Vercel     | M4      | read-only  | Deployment management              |
+| Supabase   | M2, M6  | read-only  | Database backend if needed         |
+| GitHub     | all     | read-write | Already integrated via Claude Code |
 
 **Note:** MCP is the **specification**. MCP servers are **tools** that follow the spec.
 
@@ -535,6 +562,7 @@ VERIFIED:
 ## REFERENCE DOCUMENTATION
 
 Cached documentation available at:
+
 - `vendor/base-miniapps/create-new-miniapp.md`
 - `vendor/base-miniapps/manifest.md`
 - `vendor/base-miniapps/sign-manifest.md`
@@ -549,34 +577,34 @@ Use these as canonical references for manifest fields, signing process, and trou
 
 ### Core (REQUIRED)
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| Framework | Next.js (App Router) | 14.0+ |
-| Language | TypeScript | 5.0+ |
-| Styling | Tailwind CSS | 3.4+ |
-| MiniKit | @coinbase/onchainkit | Latest |
-| Deployment | Vercel | - |
+| Component  | Technology           | Version |
+| ---------- | -------------------- | ------- |
+| Framework  | Next.js (App Router) | 14.0+   |
+| Language   | TypeScript           | 5.0+    |
+| Styling    | Tailwind CSS         | 3.4+    |
+| MiniKit    | @coinbase/onchainkit | Latest  |
+| Deployment | Vercel               | -       |
 
 ### Asset Requirements
 
-| Asset | Dimensions | Format |
-|-------|------------|--------|
-| Icon | 1024x1024 | PNG |
-| Splash | 200x200 | PNG |
-| Hero | 1200x630 | PNG |
-| Screenshots | 1284x2778 | PNG (up to 3) |
-| OG Image | 1200x630 | PNG |
+| Asset       | Dimensions | Format        |
+| ----------- | ---------- | ------------- |
+| Icon        | 1024x1024  | PNG           |
+| Splash      | 200x200    | PNG           |
+| Hero        | 1200x630   | PNG           |
+| Screenshots | 1284x2778  | PNG (up to 3) |
+| OG Image    | 1200x630   | PNG           |
 
 ---
 
 ## VERSION HISTORY
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 2.0.0 | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
-| 1.2 | 2026-01-18 | Added MCP governance note |
-| 1.1 | 2026-01-18 | Added MCP integration catalog reference |
-| 1.0 | 2026-01-17 | Initial release with M0-M10 stage system |
+| Version | Date       | Changes                                                           |
+| ------- | ---------- | ----------------------------------------------------------------- |
+| 2.0.0   | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
+| 1.2     | 2026-01-18 | Added MCP governance note                                         |
+| 1.1     | 2026-01-18 | Added MCP integration catalog reference                           |
+| 1.0     | 2026-01-17 | Initial release with M0-M10 stage system                          |
 
 ---
 

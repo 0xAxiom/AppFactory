@@ -14,6 +14,7 @@ Verify the build meets all technical requirements before declaring completion. T
 **This is a hard gate.** ALL checks must pass.
 
 If any check fails:
+
 1. Identify the failing check
 2. Return to appropriate stage to fix
 3. Re-run proof gate
@@ -22,6 +23,7 @@ If any check fails:
 ## Checks
 
 ### 1. npm install
+
 Verifies dependencies install cleanly.
 
 ```bash
@@ -30,6 +32,7 @@ npm install
 ```
 
 ### 2. npm run build
+
 Verifies production build succeeds.
 
 ```bash
@@ -38,6 +41,7 @@ npm run build
 ```
 
 ### 3. npm run lint (if configured)
+
 Verifies no linting errors.
 
 ```bash
@@ -46,6 +50,7 @@ npm run lint
 ```
 
 ### 4. npm run typecheck (if configured)
+
 Verifies TypeScript compiles.
 
 ```bash
@@ -55,6 +60,7 @@ npm run typecheck
 ```
 
 ### 5. Manifest Valid
+
 Verifies manifest route returns valid JSON.
 
 ```bash
@@ -69,6 +75,7 @@ curl -s http://localhost:3000/.well-known/farcaster.json | jq .
 ```
 
 ### 6. Account Association Present
+
 Verifies all three association fields are non-empty.
 
 ```typescript
@@ -79,6 +86,7 @@ assert(signature.length > 0, 'signature is empty');
 ```
 
 ### 7. Assets Exist
+
 Verifies all referenced assets exist in public/.
 
 ```bash
@@ -179,10 +187,7 @@ File: `artifacts/stage08/build_validation_summary.json`
   },
   "overall": "FAIL",
   "failedChecks": ["npm_build", "account_association"],
-  "notes": [
-    "Fix TypeScript error before proceeding",
-    "Complete account association in Stage M5"
-  ]
+  "notes": ["Fix TypeScript error before proceeding", "Complete account association in Stage M5"]
 }
 ```
 
@@ -192,19 +197,20 @@ See `scripts/miniapp_proof_gate.sh` for the full implementation.
 
 ## Failure Recovery
 
-| Failed Check | Recovery |
-|--------------|----------|
-| npm_install | Check package.json, network, node version |
-| npm_build | Fix TypeScript/build errors in code |
-| npm_lint | Fix linting errors (or configure eslint) |
-| npm_typecheck | Fix type errors |
-| manifest_valid | Fix manifest route or config |
-| account_association | Return to Stage M5 |
-| assets_exist | Generate missing assets |
+| Failed Check        | Recovery                                  |
+| ------------------- | ----------------------------------------- |
+| npm_install         | Check package.json, network, node version |
+| npm_build           | Fix TypeScript/build errors in code       |
+| npm_lint            | Fix linting errors (or configure eslint)  |
+| npm_typecheck       | Fix type errors                           |
+| manifest_valid      | Fix manifest route or config              |
+| account_association | Return to Stage M5                        |
+| assets_exist        | Generate missing assets                   |
 
 ## Validation
 
 The proof gate is complete when:
+
 - [ ] `overall` is "PASS"
 - [ ] `failedChecks` is empty array
 - [ ] `build_validation_summary.json` is written

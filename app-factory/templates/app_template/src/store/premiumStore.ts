@@ -33,7 +33,7 @@ export const usePremiumStore = create<PremiumState>((set, get) => ({
       set({ isLoading: true, error: null });
       const customerInfo = await getCustomerInfo();
       const premium = checkIsPremium(customerInfo);
-      
+
       set({
         customerInfo,
         isPremium: premium,
@@ -42,7 +42,10 @@ export const usePremiumStore = create<PremiumState>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to check premium status',
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to check premium status',
       });
     }
   },
@@ -50,7 +53,7 @@ export const usePremiumStore = create<PremiumState>((set, get) => ({
   purchase: async (packageIdentifier: string) => {
     try {
       set({ isLoading: true, error: null });
-      
+
       const offerings = await getOfferings();
       if (!offerings?.current) {
         throw new Error('No offerings available');
@@ -86,7 +89,7 @@ export const usePremiumStore = create<PremiumState>((set, get) => ({
   restore: async () => {
     try {
       set({ isLoading: true, error: null });
-      
+
       const customerInfo = await restorePurchases();
       const premium = checkIsPremium(customerInfo);
 

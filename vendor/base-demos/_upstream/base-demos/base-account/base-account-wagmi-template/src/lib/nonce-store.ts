@@ -28,15 +28,20 @@ function isKVAvailable(): boolean {
  * Generate a random nonce
  */
 export function generateNonce(): string {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15);
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 }
 
 /**
  * Store a nonce for an address
  * Uses Vercel KV if available, otherwise falls back to in-memory storage
  */
-export async function storeNonce(address: string, nonce: string): Promise<void> {
+export async function storeNonce(
+  address: string,
+  nonce: string
+): Promise<void> {
   if (isKVAvailable()) {
     // Store in Redis with 5 minute expiration
     await kv.set(`nonce:${address.toLowerCase()}`, nonce, { ex: 300 });
@@ -83,4 +88,3 @@ export async function deleteNonce(address: string): Promise<void> {
     inMemoryStore.delete(address.toLowerCase());
   }
 }
-

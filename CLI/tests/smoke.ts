@@ -33,7 +33,7 @@ function runTest(name: string, fn: () => void): void {
     results.push({
       name,
       passed: true,
-      duration: Date.now() - start
+      duration: Date.now() - start,
     });
     console.log(`  ✓ ${name}`);
   } catch (err) {
@@ -42,7 +42,7 @@ function runTest(name: string, fn: () => void): void {
       name,
       passed: false,
       error,
-      duration: Date.now() - start
+      duration: Date.now() - start,
     });
     console.log(`  ✗ ${name}`);
     console.log(`    Error: ${error}`);
@@ -54,10 +54,10 @@ function runCommand(args: string): string {
     cwd: CLI_ROOT,
     env: {
       ...process.env,
-      ANTHROPIC_API_KEY: 'sk-ant-stub-key-for-testing'
+      ANTHROPIC_API_KEY: 'sk-ant-stub-key-for-testing',
     },
     encoding: 'utf-8',
-    timeout: 30000
+    timeout: 30000,
   });
 }
 
@@ -98,7 +98,10 @@ async function runSmokeTests(): Promise<void> {
     try {
       const output = runCommand('doctor --json');
       const result = JSON.parse(output);
-      assert(typeof result.total === 'number', 'Doctor should return check count');
+      assert(
+        typeof result.total === 'number',
+        'Doctor should return check count'
+      );
       assert(Array.isArray(result.checks), 'Doctor should return checks array');
     } catch {
       // Doctor may fail due to missing env, but shouldn't crash
@@ -122,7 +125,10 @@ async function runSmokeTests(): Promise<void> {
     } catch (err) {
       // Stub mode may still need valid inputs, but shouldn't crash with unhandled errors
       const error = err instanceof Error ? err.message : String(err);
-      assert(!error.includes('Cannot read'), 'Should not have undefined access errors');
+      assert(
+        !error.includes('Cannot read'),
+        'Should not have undefined access errors'
+      );
     }
   });
 
@@ -170,7 +176,7 @@ async function runSmokeTests(): Promise<void> {
       'core/pipeline.js',
       'core/stages.js',
       'core/locks.js',
-      'core/ports.js'
+      'core/ports.js',
     ];
 
     for (const file of coreFiles) {
@@ -181,11 +187,7 @@ async function runSmokeTests(): Promise<void> {
 
   // Test 10: UI modules can be imported
   runTest('ui modules can be imported', () => {
-    const uiFiles = [
-      'ui/banner.js',
-      'ui/prompts.js',
-      'ui/format.js'
-    ];
+    const uiFiles = ['ui/banner.js', 'ui/prompts.js', 'ui/format.js'];
 
     for (const file of uiFiles) {
       const filePath = path.join(CLI_ROOT, 'dist', file);
@@ -201,7 +203,7 @@ async function runSmokeTests(): Promise<void> {
       'commands/dream.js',
       'commands/doctor.js',
       'commands/list.js',
-      'commands/resume.js'
+      'commands/resume.js',
     ];
 
     for (const file of commandFiles) {
@@ -212,14 +214,14 @@ async function runSmokeTests(): Promise<void> {
 
   // Print summary
   console.log('\n' + '='.repeat(50));
-  const passed = results.filter(r => r.passed).length;
-  const failed = results.filter(r => !r.passed).length;
+  const passed = results.filter((r) => r.passed).length;
+  const failed = results.filter((r) => !r.passed).length;
 
   console.log(`\nResults: ${passed} passed, ${failed} failed\n`);
 
   if (failed > 0) {
     console.log('Failed tests:');
-    for (const result of results.filter(r => !r.passed)) {
+    for (const result of results.filter((r) => !r.passed)) {
       console.log(`  - ${result.name}: ${result.error}`);
     }
     console.log();
@@ -231,7 +233,7 @@ async function runSmokeTests(): Promise<void> {
 }
 
 // Run tests
-runSmokeTests().catch(err => {
+runSmokeTests().catch((err) => {
   console.error('Test runner error:', err);
   process.exit(1);
 });

@@ -8,14 +8,14 @@
 
 ### Issues Found
 
-| # | Location | Issue | Severity |
-|---|----------|-------|----------|
-| 1 | plugin.json:4 | "Generates mobile apps, dApps, agents, and plugins" sounds autonomous | HIGH |
-| 2 | README:7 | "governed interface" is jargon | MEDIUM |
-| 3 | README:23 | "Adversarial QA (Ralph)" — "Ralph" is unexplained internal jargon | MEDIUM |
-| 4 | README:84 | Architecture section exposes prompt-factory dependency | HIGH |
-| 5 | README | No "What Factory Is NOT" section for non-goals | MEDIUM |
-| 6 | README:91 | "All governance logic lives in prompt-factory" — confusing for standalone plugin | HIGH |
+| #   | Location      | Issue                                                                            | Severity |
+| --- | ------------- | -------------------------------------------------------------------------------- | -------- |
+| 1   | plugin.json:4 | "Generates mobile apps, dApps, agents, and plugins" sounds autonomous            | HIGH     |
+| 2   | README:7      | "governed interface" is jargon                                                   | MEDIUM   |
+| 3   | README:23     | "Adversarial QA (Ralph)" — "Ralph" is unexplained internal jargon                | MEDIUM   |
+| 4   | README:84     | Architecture section exposes prompt-factory dependency                           | HIGH     |
+| 5   | README        | No "What Factory Is NOT" section for non-goals                                   | MEDIUM   |
+| 6   | README:91     | "All governance logic lives in prompt-factory" — confusing for standalone plugin | HIGH     |
 
 ### Detailed Analysis
 
@@ -24,6 +24,7 @@ The phrase "Generates mobile apps..." implies Factory does this automatically. A
 
 **Issue 4 & 6: prompt-factory Dependency Exposure**
 The README prominently mentions "prompt-factory" as if it's a separate, known entity. A marketplace reviewer will ask:
+
 - "Is prompt-factory also in the marketplace?"
 - "Do users need to install it separately?"
 - "What happens if prompt-factory isn't available?"
@@ -48,9 +49,11 @@ This creates confusion about scope and dependencies.
 ## Applied Fixes
 
 ### Fix 1: plugin.json — Clarify description (already applied)
+
 Changed to emphasize planning and approval rather than autonomous generation.
 
 ### Fix 2: README — Rewrite for clarity
+
 See edits below.
 
 ---
@@ -58,6 +61,7 @@ See edits below.
 ## Resolution Note
 
 After fixes, the plugin's purpose should be immediately clear:
+
 - It helps you plan and execute pipelines
 - It always asks for approval
 - It writes files only where you specify

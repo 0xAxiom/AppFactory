@@ -39,6 +39,7 @@ npm start
 ```
 
 This launches an interactive menu where you can:
+
 - Use **arrow keys** to navigate options
 - Press **Enter** to select
 - Press **Ctrl+C** to exit at any time
@@ -65,15 +66,15 @@ When you run `npm start`, you'll see the main menu:
 
 ### Menu Options Explained
 
-| Option | What It Does |
-|--------|--------------|
-| **Run App Factory** | Executes Stage 01 to generate 10 ranked mobile app ideas based on current market research. You can use default research or provide custom requirements. |
-| **Build an Idea** | Select an idea from a previous run and build it through Stages 02-10, producing a complete Expo React Native app. |
-| **Dream Mode** | Enter your own app idea description and watch it transform into a complete, store-ready app. Runs the entire pipeline end-to-end. |
-| **List Runs & Builds** | View your recent pipeline runs, completed builds, and generated ideas. Useful for finding idea IDs. |
-| **Resume Run** | If a pipeline run was interrupted, resume from where it left off. |
-| **System Check** | Verify that your environment is correctly configured (API key, Node.js, dependencies). |
-| **Help** | Display detailed documentation and keyboard shortcuts. |
+| Option                 | What It Does                                                                                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Run App Factory**    | Executes Stage 01 to generate 10 ranked mobile app ideas based on current market research. You can use default research or provide custom requirements. |
+| **Build an Idea**      | Select an idea from a previous run and build it through Stages 02-10, producing a complete Expo React Native app.                                       |
+| **Dream Mode**         | Enter your own app idea description and watch it transform into a complete, store-ready app. Runs the entire pipeline end-to-end.                       |
+| **List Runs & Builds** | View your recent pipeline runs, completed builds, and generated ideas. Useful for finding idea IDs.                                                     |
+| **Resume Run**         | If a pipeline run was interrupted, resume from where it left off.                                                                                       |
+| **System Check**       | Verify that your environment is correctly configured (API key, Node.js, dependencies).                                                                  |
+| **Help**               | Display detailed documentation and keyboard shortcuts.                                                                                                  |
 
 ## Command Line Usage
 
@@ -104,6 +105,7 @@ npm start -- run --json
 Here's a typical workflow:
 
 1. **Start the CLI**
+
    ```bash
    npm start
    ```
@@ -143,12 +145,12 @@ APPFACTORY_MAX_TOKENS=16000
 APPFACTORY_TEMPERATURE=0.3
 ```
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | Yes | - | Your Anthropic API key (starts with `sk-ant-`) |
-| `ANTHROPIC_MODEL` | No | `claude-sonnet-4-20250514` | Claude model to use |
-| `APPFACTORY_MAX_TOKENS` | No | `16000` | Maximum tokens per response |
-| `APPFACTORY_TEMPERATURE` | No | `0.3` | Generation temperature (0.0-1.0) |
+| Variable                 | Required | Default                    | Description                                    |
+| ------------------------ | -------- | -------------------------- | ---------------------------------------------- |
+| `ANTHROPIC_API_KEY`      | Yes      | -                          | Your Anthropic API key (starts with `sk-ant-`) |
+| `ANTHROPIC_MODEL`        | No       | `claude-sonnet-4-20250514` | Claude model to use                            |
+| `APPFACTORY_MAX_TOKENS`  | No       | `16000`                    | Maximum tokens per response                    |
+| `APPFACTORY_TEMPERATURE` | No       | `0.3`                      | Generation temperature (0.0-1.0)               |
 
 ## Output Structure
 
@@ -198,6 +200,7 @@ app-factory/builds/<idea_dir>/
 ### "Repository structure invalid"
 
 The CLI requires the full repository with `app-factory/` directory:
+
 - `app-factory/templates/agents/` - Stage templates
 - `app-factory/schemas/` - JSON schemas
 - `app-factory/scripts/` - Enforcement scripts
@@ -205,12 +208,14 @@ The CLI requires the full repository with `app-factory/` directory:
 ### Rate Limiting
 
 If you see rate limit errors:
+
 1. Wait a few minutes and retry
 2. Consider using a higher-tier API plan
 
 ### Build Failures
 
 Stage 10 has mandatory enforcement gates. If a build fails:
+
 1. Check the specific error message
 2. Manual fixes may be needed in the generated code
 3. Re-run the build after fixing issues
@@ -306,34 +311,34 @@ flowchart TD
 
 ### Pipeline Stages Summary
 
-| Stage | Name | Purpose |
-|-------|------|---------|
-| 01 | Market Research | Generate 10 ranked app ideas |
-| 02 | Product Spec | Define product requirements |
-| 02.5 | Product Reality | Core loop and domain model |
-| 02.7 | Dependency Resolution | Plan dependencies |
-| 03 | UX Design | Design user experience |
-| 04 | Monetization | Pricing and subscriptions |
-| 05 | Architecture | Technical architecture |
-| 06 | Builder Handoff | Implementation details |
-| 07 | Polish | Quality standards |
-| 08 | Brand | Brand identity |
-| 08.5 | Visual Assets | Icons and splash screens |
-| 09 | Release Planning | ASO and launch strategy |
-| 09.1 | App Naming | Final app name |
-| 09.2 | Policy Pages | Privacy policy and terms |
-| 09.5 | Runtime Sanity | Verification harness |
-| 09.7 | Build Contract | Authoritative build spec |
-| 10.1 | Design Authenticity | Design verification |
-| 10 | App Builder | Generate Expo React Native app |
+| Stage | Name                  | Purpose                        |
+| ----- | --------------------- | ------------------------------ |
+| 01    | Market Research       | Generate 10 ranked app ideas   |
+| 02    | Product Spec          | Define product requirements    |
+| 02.5  | Product Reality       | Core loop and domain model     |
+| 02.7  | Dependency Resolution | Plan dependencies              |
+| 03    | UX Design             | Design user experience         |
+| 04    | Monetization          | Pricing and subscriptions      |
+| 05    | Architecture          | Technical architecture         |
+| 06    | Builder Handoff       | Implementation details         |
+| 07    | Polish                | Quality standards              |
+| 08    | Brand                 | Brand identity                 |
+| 08.5  | Visual Assets         | Icons and splash screens       |
+| 09    | Release Planning      | ASO and launch strategy        |
+| 09.1  | App Naming            | Final app name                 |
+| 09.2  | Policy Pages          | Privacy policy and terms       |
+| 09.5  | Runtime Sanity        | Verification harness           |
+| 09.7  | Build Contract        | Authoritative build spec       |
+| 10.1  | Design Authenticity   | Design verification            |
+| 10    | App Builder           | Generate Expo React Native app |
 
 ## Keyboard Shortcuts
 
-| Key | Action |
-|-----|--------|
+| Key       | Action                |
+| --------- | --------------------- |
 | `↑` / `↓` | Navigate menu options |
-| `Enter` | Select option |
-| `Ctrl+C` | Exit / Cancel |
+| `Enter`   | Select option         |
+| `Ctrl+C`  | Exit / Cancel         |
 
 ## Development
 

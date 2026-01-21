@@ -20,10 +20,10 @@ Both built simultaneously. Both evaluated on 8 criteria.
 
 ## Results
 
-| Version | Score | Files |
-|---------|-------|-------|
+| Version                   | Score      | Files    |
+| ------------------------- | ---------- | -------- |
 | **Pipeline (this build)** | **91/100** | 30 files |
-| Direct | 71/100 | 14 files |
+| Direct                    | 71/100     | 14 files |
 
 ```
 +28.2% improvement using the pipeline
@@ -33,55 +33,63 @@ Both built simultaneously. Both evaluated on 8 criteria.
 
 ## What the Pipeline Produced vs Direct
 
-| Feature | Pipeline (This Build) | Direct Build |
-|---------|----------------------|--------------|
-| Storage | SQLite + FTS5 full-text search | JSONL flat file |
-| Architecture | Modular (1 file per tool) | Monolithic (280 lines) |
-| AI Agent | `decision-helper` for formatting | None |
-| Export Formats | JSON, Markdown, ADR | JSON, Markdown only |
-| MCP Prompts | `why_prompt`, `decision_summary` | None |
-| Security Docs | Full threat model | Basic overview |
-| Detection | Confidence scoring (HIGH/MEDIUM) | Simple pattern match |
+| Feature        | Pipeline (This Build)            | Direct Build           |
+| -------------- | -------------------------------- | ---------------------- |
+| Storage        | SQLite + FTS5 full-text search   | JSONL flat file        |
+| Architecture   | Modular (1 file per tool)        | Monolithic (280 lines) |
+| AI Agent       | `decision-helper` for formatting | None                   |
+| Export Formats | JSON, Markdown, ADR              | JSON, Markdown only    |
+| MCP Prompts    | `why_prompt`, `decision_summary` | None                   |
+| Security Docs  | Full threat model                | Basic overview         |
+| Detection      | Confidence scoring (HIGH/MEDIUM) | Simple pattern match   |
 
 ---
 
 ## Scoring Breakdown
 
-| Criteria | Pipeline | Direct | Delta |
-|----------|----------|--------|-------|
-| Architecture | 95 | 70 | +25 |
-| Scalability | 92 | 55 | +37 |
-| Feature Completeness | 94 | 72 | +22 |
-| Code Quality | 90 | 78 | +12 |
-| Documentation | 93 | 75 | +18 |
-| Security Model | 91 | 70 | +21 |
-| Developer UX | 88 | 82 | +6 |
-| Maintainability | 91 | 68 | +23 |
+| Criteria             | Pipeline | Direct | Delta |
+| -------------------- | -------- | ------ | ----- |
+| Architecture         | 95       | 70     | +25   |
+| Scalability          | 92       | 55     | +37   |
+| Feature Completeness | 94       | 72     | +22   |
+| Code Quality         | 90       | 78     | +12   |
+| Documentation        | 93       | 75     | +18   |
+| Security Model       | 91       | 70     | +21   |
+| Developer UX         | 88       | 82     | +6    |
+| Maintainability      | 91       | 68     | +23   |
 
 ---
 
 ## Why the Pipeline Won
 
 ### 1. Planning Phase
+
 The `auto_plan_mode.md` template forced upfront decisions:
+
 - Storage strategy → SQLite/FTS5 instead of flat files
 - Scalability → Modular architecture
 - Export formats → ADR support added
 
 ### 2. Templates
+
 MCP server templates ensured:
+
 - Resources AND prompts, not just tools
 - Proper SDK patterns
 - Correct plugin structure
 
 ### 3. Ralph Polish Loop
+
 Adversarial QA caught:
+
 - Missing threat model → Added to SECURITY.md
 - No cross-project queries → Added `list_projects` tool
 - Manual formatting burden → Added `decision-helper` agent
 
 ### 4. Explicit Docs Phase
+
 Documentation wasn't an afterthought:
+
 - INSTALL.md with copy-paste commands
 - SECURITY.md with permission tables
 - EXAMPLES.md with real workflows
@@ -137,6 +145,7 @@ examples/
 The pipeline doesn't make Claude smarter. It makes Claude **systematic**.
 
 Same AI capabilities. 28% better output. Because:
+
 - Forced planning prevents bad defaults
 - Templates encode best practices
 - Ralph catches what the builder missed

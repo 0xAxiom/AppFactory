@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useCallback } from "react";
-import { sdk } from "@farcaster/miniapp-sdk";
-import { Button } from "~/components/ui/Button";
+import { useCallback } from 'react';
+import { sdk } from '@farcaster/miniapp-sdk';
+import { Button } from '~/components/ui/Button';
 
 export function HapticsAction() {
   const triggerImpactLight = useCallback(async (): Promise<void> => {
@@ -44,9 +44,11 @@ export function HapticsAction() {
   return (
     <div className="space-y-4">
       <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">sdk.haptics</pre>
+        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">
+          sdk.haptics
+        </pre>
       </div>
-      
+
       <div>
         <h3 className="font-semibold mb-3">Impact Feedback</h3>
         <div className="grid grid-cols-2 gap-2">
@@ -69,7 +71,9 @@ export function HapticsAction() {
 
       <div>
         <h3 className="font-semibold mb-3">Selection Feedback</h3>
-        <Button onClick={triggerSelectionChanged} className="w-full">Selection Changed</Button>
+        <Button onClick={triggerSelectionChanged} className="w-full">
+          Selection Changed
+        </Button>
       </div>
     </div>
   );

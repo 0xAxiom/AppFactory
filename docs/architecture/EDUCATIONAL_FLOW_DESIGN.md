@@ -32,6 +32,7 @@ This document designs a progressive learning system that takes users from zero k
 #### 0.1 The Problem with Static Programs
 
 A traditional program:
+
 - Receives input
 - Executes predetermined logic
 - Returns output
@@ -41,6 +42,7 @@ Input → Fixed Logic → Output
 ```
 
 This works for known problems but fails when:
+
 - The problem requires judgment
 - The solution path isn't predetermined
 - Context matters and changes
@@ -48,6 +50,7 @@ This works for known problems but fails when:
 #### 0.2 What Makes Something an "Agent"
 
 An **agent** is a system that:
+
 1. **Perceives** its environment (receives inputs)
 2. **Reasons** about what to do (uses intelligence)
 3. **Acts** on the environment (produces outputs that change things)
@@ -64,6 +67,7 @@ Perception → LLM Reasoning → Action → Feedback Loop
 ```
 
 **Why LLMs?**
+
 - Natural language understanding
 - Broad world knowledge
 - Reasoning capabilities
@@ -90,12 +94,14 @@ pub struct Agent<M> {
 #### 0.5 When to Use Agents vs. When Not To
 
 **Use an Agent When:**
+
 - The task requires judgment
 - The solution path isn't predetermined
 - Natural language is the interface
 - Multiple tools might be needed
 
 **Don't Use an Agent When:**
+
 - The logic is deterministic
 - Performance is critical (sub-100ms)
 - The problem is well-defined with known solutions
@@ -176,7 +182,7 @@ async function runAgent(agent: Agent, prompt: string): Promise<string> {
       model: agent.model,
       messages,
       systemPrompt: agent.preamble,
-      tools: agent.tools.map(t => t.definition()),
+      tools: agent.tools.map((t) => t.definition()),
     };
 
     // 2. Send to LLM
@@ -185,11 +191,11 @@ async function runAgent(agent: Agent, prompt: string): Promise<string> {
     // 3. Handle tool calls
     if (response.toolCalls?.length > 0) {
       for (const call of response.toolCalls) {
-        const tool = agent.tools.find(t => t.name === call.name);
+        const tool = agent.tools.find((t) => t.name === call.name);
         const result = await tool.call(call.arguments);
         messages.push({ role: 'tool', content: result });
       }
-      continue;  // Loop back to reason
+      continue; // Loop back to reason
     }
 
     // 4. Return final response
@@ -201,6 +207,7 @@ async function runAgent(agent: Agent, prompt: string): Promise<string> {
 #### 1.4 Key Insight: The Loop is the Agent
 
 An agent isn't the LLM—it's the **loop** that uses the LLM. The loop:
+
 - Manages conversation history
 - Coordinates tool execution
 - Decides when to stop
@@ -214,6 +221,7 @@ An agent isn't the LLM—it's the **loop** that uses the LLM. The loop:
 #### 2.1 Why Tools?
 
 LLMs can only:
+
 - Read text input
 - Write text output
 
@@ -224,6 +232,7 @@ To do anything else (call APIs, read files, execute code), they need **tools**.
 #### 2.2 The Tool Contract
 
 Every tool has:
+
 1. **Name**: Unique identifier
 2. **Description**: What it does (for LLM understanding)
 3. **Parameters**: What input it accepts (JSON Schema)
@@ -245,6 +254,7 @@ pub trait Tool: Sized + Send + Sync {
 ```
 
 **Key Features**:
+
 - **Typed args/output**: No runtime type errors
 - **Typed errors**: Explicit failure modes
 - **Async**: Tools can do I/O
@@ -270,6 +280,7 @@ interface ToolDefinition {
 #### 2.5 Example: Calculator Tool
 
 **Rig (Rust)**:
+
 ```rust
 impl Tool for Adder {
     const NAME: &'static str = "add";
@@ -299,6 +310,7 @@ impl Tool for Adder {
 ```
 
 **TypeScript (Pipeline Generated)**:
+
 ```typescript
 const AddTool: Tool<{ x: number; y: number }, number> = {
   name: 'add',
@@ -362,12 +374,12 @@ Call 2: "What's my name?"  → "I don't know your name."
 
 #### 3.2 Types of Memory
 
-| Type | Scope | Example | Implementation |
-|------|-------|---------|----------------|
-| **Conversation** | Single session | Chat history | Array of messages |
-| **Short-term** | Recent interactions | Last N messages | Sliding window |
-| **Long-term** | Persistent facts | User preferences | Database/Vector store |
-| **Working** | Current task | Intermediate results | Local state |
+| Type             | Scope               | Example              | Implementation        |
+| ---------------- | ------------------- | -------------------- | --------------------- |
+| **Conversation** | Single session      | Chat history         | Array of messages     |
+| **Short-term**   | Recent interactions | Last N messages      | Sliding window        |
+| **Long-term**    | Persistent facts    | User preferences     | Database/Vector store |
+| **Working**      | Current task        | Intermediate results | Local state           |
 
 #### 3.3 Rig's Approach: External State
 
@@ -426,6 +438,7 @@ class LongTermMemory {
 #### 3.5 Key Insight: Memory is Application Logic
 
 Rig's philosophy: Memory is **not** the framework's job. The application decides:
+
 - What to remember
 - How long to keep it
 - When to retrieve it
@@ -441,6 +454,7 @@ This is more flexible than baked-in memory systems.
 #### 4.1 What is an Environment?
 
 The **environment** is everything the agent can:
+
 - **Perceive**: Read, query, observe
 - **Affect**: Write, execute, modify
 
@@ -470,12 +484,14 @@ The **environment** is everything the agent can:
 #### 4.3 Read-Only vs. Read-Write Tools
 
 **Read-Only Tools**:
+
 - Fetch data from APIs
 - Query databases
 - Read files
 - Safe to call repeatedly
 
 **Read-Write Tools**:
+
 - Send emails
 - Write to databases
 - Execute commands
@@ -489,9 +505,9 @@ Agents should have explicit boundaries:
 
 ```typescript
 interface EnvironmentConstraints {
-  allowedDomains: string[];      // Which APIs can be called
-  maxFileSize: number;           // File operation limits
-  maxExecutionTime: number;      // Timeout
+  allowedDomains: string[]; // Which APIs can be called
+  maxFileSize: number; // File operation limits
+  maxExecutionTime: number; // Timeout
   disallowedOperations: string[]; // Blocked actions
 }
 ```
@@ -505,10 +521,7 @@ Rig doesn't enforce environment constraints—that's the application's job. Howe
 {
   "safety": {
     "maxIterations": 10,
-    "disallowedActions": [
-      "Never execute arbitrary code",
-      "Never access files outside workspace"
-    ]
+    "disallowedActions": ["Never execute arbitrary code", "Never access files outside workspace"]
   }
 }
 ```
@@ -522,6 +535,7 @@ Rig doesn't enforce environment constraints—that's the application's job. Howe
 #### 5.1 Why Multiple Agents?
 
 Single agents hit limits:
+
 - Context window constraints
 - Specialized knowledge needs
 - Task complexity
@@ -530,12 +544,12 @@ Single agents hit limits:
 
 #### 5.2 Coordination Patterns
 
-| Pattern | Description | Use Case |
-|---------|-------------|----------|
-| **Sequential** | A → B → C | Pipelines |
-| **Parallel** | A, B, C simultaneously | Independent subtasks |
-| **Hierarchical** | Manager delegates to workers | Complex projects |
-| **Peer-to-Peer** | Agents communicate directly | Debates, reviews |
+| Pattern          | Description                  | Use Case             |
+| ---------------- | ---------------------------- | -------------------- |
+| **Sequential**   | A → B → C                    | Pipelines            |
+| **Parallel**     | A, B, C simultaneously       | Independent subtasks |
+| **Hierarchical** | Manager delegates to workers | Complex projects     |
+| **Peer-to-Peer** | Agents communicate directly  | Debates, reviews     |
 
 #### 5.3 Rig's Approach: Agents as Tools
 
@@ -585,6 +599,7 @@ async function orchestrate(task: string): Promise<string> {
 #### 5.5 Key Insight: Agents are Composable
 
 The power of Rig's model: **every agent is a tool**. This enables:
+
 - Recursive delegation
 - Specialization
 - Scaling complexity
@@ -598,6 +613,7 @@ The power of Rig's model: **every agent is a tool**. This enables:
 #### 6.1 What is a dApp?
 
 A **decentralized application (dApp)** combines:
+
 - Smart contracts (on-chain logic)
 - Off-chain compute (backend/agents)
 - User interface (frontend)
@@ -625,13 +641,13 @@ A **decentralized application (dApp)** combines:
 
 #### 6.3 Agent Responsibilities in dApps
 
-| Responsibility | Example | Why Agent? |
-|----------------|---------|------------|
-| **Transaction Building** | Construct swap txs | Complex logic |
-| **Strategy Execution** | DCA, rebalancing | Ongoing decisions |
-| **Data Interpretation** | Explain tx history | Natural language |
-| **Risk Assessment** | Warn about scams | Judgment required |
-| **Cross-Chain Coordination** | Bridge operations | Multi-step |
+| Responsibility               | Example            | Why Agent?        |
+| ---------------------------- | ------------------ | ----------------- |
+| **Transaction Building**     | Construct swap txs | Complex logic     |
+| **Strategy Execution**       | DCA, rebalancing   | Ongoing decisions |
+| **Data Interpretation**      | Explain tx history | Natural language  |
+| **Risk Assessment**          | Warn about scams   | Judgment required |
+| **Cross-Chain Coordination** | Bridge operations  | Multi-step        |
 
 #### 6.4 Rig-Onchain-Kit
 
@@ -652,12 +668,14 @@ let defi_agent = client.agent("gpt-4")
 #### 6.5 When NOT to Use Agents in dApps
 
 **Do NOT use agents for:**
+
 - Custodial operations (holding user funds)
 - High-frequency trading (latency matters)
 - Simple CRUD operations (deterministic)
 - Fully on-chain logic (contracts handle it)
 
 **DO use agents for:**
+
 - User intent interpretation
 - Complex strategy execution
 - Cross-system coordination
@@ -725,15 +743,15 @@ WORLD-CLASS AGENT BUILDER
 
 ## Appendix: Rig Reference Locations
 
-| Concept | Rig Source File |
-|---------|-----------------|
-| Agent struct | `rig/rig-core/src/agent/completion.rs` |
-| Agent builder | `rig/rig-core/src/agent/builder.rs` |
-| Tool trait | `rig/rig-core/src/tool/mod.rs` |
-| Pipeline | `rig/rig-core/src/pipeline/mod.rs` |
-| Vector stores | `rig/rig-core/src/vector_store/` |
-| Providers | `rig/rig-core/src/providers/` |
-| Examples | `rig/rig-core/examples/` |
+| Concept       | Rig Source File                        |
+| ------------- | -------------------------------------- |
+| Agent struct  | `rig/rig-core/src/agent/completion.rs` |
+| Agent builder | `rig/rig-core/src/agent/builder.rs`    |
+| Tool trait    | `rig/rig-core/src/tool/mod.rs`         |
+| Pipeline      | `rig/rig-core/src/pipeline/mod.rs`     |
+| Vector stores | `rig/rig-core/src/vector_store/`       |
+| Providers     | `rig/rig-core/src/providers/`          |
+| Examples      | `rig/rig-core/examples/`               |
 
 ---
 

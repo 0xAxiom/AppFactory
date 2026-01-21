@@ -26,7 +26,7 @@ Functional correctness alone is insufficient.
 If any mandatory requirement below is violated, the build is considered FAILED, regardless of how well the app works.
 
 1. SUBSCRIPTION & STORE COMPLIANCE (MANDATORY)
-1.1 RevenueCat (REQUIRED)
+   1.1 RevenueCat (REQUIRED)
 
 All subscription handling must use RevenueCat.
 
@@ -126,7 +126,7 @@ No fake urgency
 No hidden dismiss paths
 
 2. REVIEW PROMPTS (MANDATORY)
-2.1 Implementation
+   2.1 Implementation
 
 Only official APIs are allowed:
 
@@ -159,7 +159,7 @@ Must be dismissible without penalty
 Must respect system frequency limits
 
 3. REVENUECAT STRUCTURE & OPERATIONS (MANDATORY)
-3.1 Structural Rules
+   3.1 Structural Rules
 
 Products → Entitlements → Offerings separation REQUIRED
 
@@ -204,7 +204,7 @@ billing failures
 Webhooks may be used if a backend exists (optional).
 
 4. PAYWALL UX — HONESTY & DISCLOSURE (MANDATORY)
-4.1 Pricing Presentation
+   4.1 Pricing Presentation
 
 Show all plans (e.g., monthly / annual)
 
@@ -243,7 +243,7 @@ Close button visible and tappable
 No forced loops back into paywall
 
 5. ACCESSIBILITY & DESIGN SYSTEM (MANDATORY)
-5.1 Accessibility (WCAG 2.1 AA)
+   5.1 Accessibility (WCAG 2.1 AA)
 
 Contrast ≥ 4.5:1 (normal text)
 
@@ -280,7 +280,7 @@ Clear, simple language
 Internationalization-ready layouts (including RTL)
 
 6. ANALYTICS & PRIVACY (MANDATORY)
-6.1 Analytics
+   6.1 Analytics
 
 Firebase Analytics by default
 
@@ -317,7 +317,7 @@ No fingerprinting
 No hidden tracking
 
 7. PERFORMANCE, OFFLINE & SECURITY (MANDATORY)
-7.1 Performance Targets
+   7.1 Performance Targets
 
 < 3 seconds to first interactive screen
 
@@ -344,7 +344,7 @@ No hardcoded secrets
 Input validation everywhere
 
 8. TESTING & RELEASE READINESS (MANDATORY)
-8.1 Testing
+   8.1 Testing
 
 Unit tests for business logic
 
@@ -378,7 +378,7 @@ Analytics & crash reporting live
 Rollback plan defined
 
 9. CONDITIONAL RULES
-9.1 Accounts (If Implemented)
+   9.1 Accounts (If Implemented)
 
 Guest-first default
 
@@ -419,18 +419,22 @@ Every agent output must include:
 ## Standards Compliance Mapping
 
 ### Subscription & Store Compliance
+
 - Requirement:
 - How this output complies:
 
 ### Accessibility & Design
+
 - Requirement:
 - Implementation approach:
 
 ### Privacy & Analytics
+
 - Requirement:
 - Compliance strategy:
 
 ### Testing & Release Readiness
+
 - Requirement:
 - Verification method:
 

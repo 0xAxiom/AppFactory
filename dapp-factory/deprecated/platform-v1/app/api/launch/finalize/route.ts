@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-import crypto from "crypto";
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import crypto from 'crypto';
 
 // Request schema
 const FinalizeRequestSchema = z.object({
-  launch_id: z.string().startsWith("ln_"),
+  launch_id: z.string().startsWith('ln_'),
   signed_transaction: z.string().min(1),
 });
 
@@ -20,7 +20,7 @@ const showcaseApps = new Map<
     creator_wallet: string;
     draft_url: string;
     production_url: string | null;
-    status: "draft" | "deployed";
+    status: 'draft' | 'deployed';
     twitter: string | null;
     website: string | null;
     created_at: string;
@@ -41,7 +41,7 @@ const launches = new Map<
       twitter?: string;
       website?: string;
     };
-    status: "prepared" | "finalized" | "failed";
+    status: 'prepared' | 'finalized' | 'failed';
     created_at: string;
     transaction_data?: string;
     token_address?: string;
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "validation_error",
+          error: 'validation_error',
           details: parseResult.error.issues,
         },
         { status: 400 }
@@ -73,22 +73,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "launch_not_found",
-          message: "Launch not found. Did you call /api/launch/prepare first?",
+          error: 'launch_not_found',
+          message: 'Launch not found. Did you call /api/launch/prepare first?',
         },
         { status: 404 }
       );
     }
 
     // Check if already finalized (idempotency)
-    if (launch.status === "finalized" && launch.token_address) {
+    if (launch.status === 'finalized' && launch.token_address) {
       const existingApp = Array.from(showcaseApps.values()).find(
         (app) => app.token_address === launch.token_address
       );
 
       return NextResponse.json({
         success: true,
-        message: "Launch already finalized",
+        message: 'Launch already finalized',
         token: {
           address: launch.token_address,
           name: launch.metadata.name,
@@ -111,18 +111,20 @@ export async function POST(request: NextRequest) {
     // 5. Update database records
 
     // Simulate token creation
-    const tokenAddress = `${crypto.randomBytes(32).toString("hex").slice(0, 44)}`;
-    const transactionId = `${crypto.randomBytes(32).toString("hex").slice(0, 88)}`;
+    const tokenAddress = `${crypto.randomBytes(32).toString('hex').slice(0, 44)}`;
+    const transactionId = `${crypto.randomBytes(32).toString('hex').slice(0, 88)}`;
 
     // Update launch status
-    launch.status = "finalized";
+    launch.status = 'finalized';
     launch.token_address = tokenAddress;
     launches.set(launch_id, launch);
 
     // Simulate Vercel deployment
-    const appSlug = launch.metadata.name.toLowerCase().replace(/[^a-z0-9]/g, "-");
+    const appSlug = launch.metadata.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '-');
     const draftUrl = `https://${appSlug}.vercel.app`;
-    const deploymentId = `dpl_${crypto.randomBytes(12).toString("hex")}`;
+    const deploymentId = `dpl_${crypto.randomBytes(12).toString('hex')}`;
 
     // Create showcase entry
     const showcaseId = `app_${appSlug}`;
@@ -135,7 +137,7 @@ export async function POST(request: NextRequest) {
       creator_wallet: launch.wallet_address,
       draft_url: draftUrl,
       production_url: null,
-      status: "draft",
+      status: 'draft',
       twitter: launch.metadata.twitter || null,
       website: launch.metadata.website || null,
       created_at: new Date().toISOString(),
@@ -151,7 +153,7 @@ export async function POST(request: NextRequest) {
       },
       deployment: {
         url: draftUrl,
-        status: "draft",
+        status: 'draft',
         deployment_id: deploymentId,
       },
       showcase: {
@@ -160,12 +162,12 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Finalize launch error:", error);
+    console.error('Finalize launch error:', error);
     return NextResponse.json(
       {
         success: false,
-        error: "server_error",
-        message: "An unexpected error occurred",
+        error: 'server_error',
+        message: 'An unexpected error occurred',
       },
       { status: 500 }
     );

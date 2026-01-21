@@ -6,12 +6,22 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { Tool, ToolDefinition, AnalyzeImportsArgs, AnalyzeImportsOutput, ImportInfo, ExportInfo } from '../types.js';
+import {
+  Tool,
+  ToolDefinition,
+  AnalyzeImportsArgs,
+  AnalyzeImportsOutput,
+  ImportInfo,
+  ExportInfo,
+} from '../types.js';
 import { validatePath } from '../../lib/path-validator.js';
 import { FileUnreadableError } from '../../lib/errors.js';
 import { logger } from '../../lib/logger.js';
 
-export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImportsOutput> {
+export class AnalyzeImportsTool implements Tool<
+  AnalyzeImportsArgs,
+  AnalyzeImportsOutput
+> {
   readonly name = 'analyze_imports';
 
   private rootDirectory: string;
@@ -23,18 +33,21 @@ export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImpor
   definition(): ToolDefinition {
     return {
       name: this.name,
-      description: 'Analyze import and export statements in a source file to trace dependencies.',
+      description:
+        'Analyze import and export statements in a source file to trace dependencies.',
       parameters: {
         type: 'object',
         properties: {
           file: {
             type: 'string',
-            description: 'Path to the file to analyze (relative to codebase root)',
+            description:
+              'Path to the file to analyze (relative to codebase root)',
           },
           direction: {
             type: 'string',
             enum: ['imports', 'exports', 'both'],
-            description: 'What to analyze: imports, exports, or both (default: both)',
+            description:
+              'What to analyze: imports, exports, or both (default: both)',
           },
         },
         required: ['file'],
@@ -106,24 +119,38 @@ export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImpor
       // Parse imports
       if (direction === 'imports' || direction === 'both') {
         // import { a, b } from 'module'
-        const namedImportMatch = trimmed.match(/^import\s+\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/);
+        const namedImportMatch = trimmed.match(
+          /^import\s+\{([^}]+)\}\s+from\s+['"]([^'"]+)['"]/
+        );
         if (namedImportMatch) {
-          const items = namedImportMatch[1].split(',').map(s => s.trim().split(/\s+as\s+/)[0]);
+          const items = namedImportMatch[1]
+            .split(',')
+            .map((s) => s.trim().split(/\s+as\s+/)[0]);
           imports.push({ from: namedImportMatch[2], items });
           continue;
         }
 
         // import * as name from 'module'
-        const namespaceImportMatch = trimmed.match(/^import\s+\*\s+as\s+(\w+)\s+from\s+['"]([^'"]+)['"]/);
+        const namespaceImportMatch = trimmed.match(
+          /^import\s+\*\s+as\s+(\w+)\s+from\s+['"]([^'"]+)['"]/
+        );
         if (namespaceImportMatch) {
-          imports.push({ from: namespaceImportMatch[2], items: [`* as ${namespaceImportMatch[1]}`] });
+          imports.push({
+            from: namespaceImportMatch[2],
+            items: [`* as ${namespaceImportMatch[1]}`],
+          });
           continue;
         }
 
         // import name from 'module'
-        const defaultImportMatch = trimmed.match(/^import\s+(\w+)\s+from\s+['"]([^'"]+)['"]/);
+        const defaultImportMatch = trimmed.match(
+          /^import\s+(\w+)\s+from\s+['"]([^'"]+)['"]/
+        );
         if (defaultImportMatch) {
-          imports.push({ from: defaultImportMatch[2], items: [defaultImportMatch[1]] });
+          imports.push({
+            from: defaultImportMatch[2],
+            items: [defaultImportMatch[1]],
+          });
           continue;
         }
 
@@ -135,7 +162,9 @@ export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImpor
         }
 
         // require('module')
-        const requireMatch = trimmed.match(/require\s*\(\s*['"]([^'"]+)['"]\s*\)/);
+        const requireMatch = trimmed.match(
+          /require\s*\(\s*['"]([^'"]+)['"]\s*\)/
+        );
         if (requireMatch) {
           imports.push({ from: requireMatch[1], items: ['(CommonJS)'] });
         }
@@ -145,7 +174,9 @@ export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImpor
       if (direction === 'exports' || direction === 'both') {
         // export default
         if (trimmed.startsWith('export default')) {
-          const funcMatch = trimmed.match(/export\s+default\s+(function|class)\s+(\w+)?/);
+          const funcMatch = trimmed.match(
+            /export\s+default\s+(function|class)\s+(\w+)?/
+          );
           if (funcMatch) {
             exports.push({ name: funcMatch[2] || 'default', type: 'default' });
           } else {
@@ -162,7 +193,9 @@ export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImpor
         }
 
         // export function
-        const funcMatch = trimmed.match(/^export\s+(async\s+)?function\s+(\w+)/);
+        const funcMatch = trimmed.match(
+          /^export\s+(async\s+)?function\s+(\w+)/
+        );
         if (funcMatch) {
           exports.push({ name: funcMatch[2], type: 'function' });
           continue;
@@ -178,14 +211,19 @@ export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImpor
         // export interface/type
         const typeMatch = trimmed.match(/^export\s+(interface|type)\s+(\w+)/);
         if (typeMatch) {
-          exports.push({ name: typeMatch[2], type: typeMatch[1] as 'type' | 'interface' });
+          exports.push({
+            name: typeMatch[2],
+            type: typeMatch[1] as 'type' | 'interface',
+          });
           continue;
         }
 
         // export { a, b }
         const namedExportMatch = trimmed.match(/^export\s+\{([^}]+)\}/);
         if (namedExportMatch) {
-          const items = namedExportMatch[1].split(',').map(s => s.trim().split(/\s+as\s+/)[0]);
+          const items = namedExportMatch[1]
+            .split(',')
+            .map((s) => s.trim().split(/\s+as\s+/)[0]);
           for (const item of items) {
             exports.push({ name: item, type: 'const' });
           }
@@ -209,7 +247,9 @@ export class AnalyzeImportsTool implements Tool<AnalyzeImportsArgs, AnalyzeImpor
         // from module import a, b
         const fromImportMatch = trimmed.match(/^from\s+(\S+)\s+import\s+(.+)/);
         if (fromImportMatch) {
-          const items = fromImportMatch[2].split(',').map(s => s.trim().split(/\s+as\s+/)[0]);
+          const items = fromImportMatch[2]
+            .split(',')
+            .map((s) => s.trim().split(/\s+as\s+/)[0]);
           imports.push({ from: fromImportMatch[1], items });
           continue;
         }

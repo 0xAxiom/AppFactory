@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { MiniKitProvider as MKProvider } from "@coinbase/onchainkit/minikit";
-import { ReactNode } from "react";
-import { base } from "viem/chains";
- 
+import { MiniKitProvider as MKProvider } from '@coinbase/onchainkit/minikit';
+import { ReactNode } from 'react';
+import { base } from 'viem/chains';
+
 export function MiniKitProvider(props: { children: ReactNode }) {
   return (
     <MKProvider
@@ -11,7 +11,7 @@ export function MiniKitProvider(props: { children: ReactNode }) {
       chain={base}
       config={{
         appearance: {
-          mode: "auto",
+          mode: 'auto',
           name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAMEß,
           logo: process.env.NEXT_PUBLIC_ICON_URL,
         },

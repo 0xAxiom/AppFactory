@@ -10,24 +10,24 @@ Decision Memory is designed with privacy and minimal permissions in mind. All da
 
 ### What IS Captured
 
-| Data | Purpose | Example |
-|------|---------|---------|
-| File paths | Track which files decisions relate to | `src/store/index.ts` |
-| Reasoning text | Your explanation of the decision | "Using Zustand for simpler API" |
-| Tags | Categorization for searchability | `#state-management` |
-| Timestamps | When decisions were recorded | `2026-01-14T10:30:00Z` |
-| Git commit hashes | Link decisions to code changes | `abc1234` |
-| Project paths | Organize decisions by project | `/Users/you/project` |
+| Data              | Purpose                               | Example                         |
+| ----------------- | ------------------------------------- | ------------------------------- |
+| File paths        | Track which files decisions relate to | `src/store/index.ts`            |
+| Reasoning text    | Your explanation of the decision      | "Using Zustand for simpler API" |
+| Tags              | Categorization for searchability      | `#state-management`             |
+| Timestamps        | When decisions were recorded          | `2026-01-14T10:30:00Z`          |
+| Git commit hashes | Link decisions to code changes        | `abc1234`                       |
+| Project paths     | Organize decisions by project         | `/Users/you/project`            |
 
 ### What is NOT Captured
 
-| Data | Reason |
-|------|--------|
-| File contents | Not needed; paths are sufficient |
-| Source code | Privacy; you describe changes in your words |
-| Environment variables | Security; could contain secrets |
-| Credentials | Never accessed or stored |
-| Network data | No network access required |
+| Data                  | Reason                                      |
+| --------------------- | ------------------------------------------- |
+| File contents         | Not needed; paths are sufficient            |
+| Source code           | Privacy; you describe changes in your words |
+| Environment variables | Security; could contain secrets             |
+| Credentials           | Never accessed or stored                    |
+| Network data          | No network access required                  |
 
 ## Permissions
 
@@ -35,13 +35,14 @@ Decision Memory is designed with privacy and minimal permissions in mind. All da
 
 The plugin requires:
 
-| Permission | Scope | Justification |
-|------------|-------|---------------|
-| Hook execution | PostToolUse events | Detect architectural changes |
-| File read | hooks.json, scripts | Load configuration |
-| Process spawn | Node.js for scripts | Run detection logic |
+| Permission     | Scope               | Justification                |
+| -------------- | ------------------- | ---------------------------- |
+| Hook execution | PostToolUse events  | Detect architectural changes |
+| File read      | hooks.json, scripts | Load configuration           |
+| Process spawn  | Node.js for scripts | Run detection logic          |
 
 The plugin does NOT require:
+
 - Network access
 - Write access outside plugin directory
 - Access to credentials or secrets
@@ -50,13 +51,14 @@ The plugin does NOT require:
 
 The server requires:
 
-| Permission | Scope | Justification |
-|------------|-------|---------------|
-| Filesystem read | `~/.decision-memory/` | Read decision database |
-| Filesystem write | `~/.decision-memory/` | Store decisions |
-| Process spawn | `git` command | Get commit hashes (optional) |
+| Permission       | Scope                 | Justification                |
+| ---------------- | --------------------- | ---------------------------- |
+| Filesystem read  | `~/.decision-memory/` | Read decision database       |
+| Filesystem write | `~/.decision-memory/` | Store decisions              |
+| Process spawn    | `git` command         | Get commit hashes (optional) |
 
 The server does NOT require:
+
 - Network access
 - Access to source code
 - Access to credentials or secrets
@@ -70,6 +72,7 @@ The server does NOT require:
 ```
 
 This is a SQLite database with:
+
 - Standard file permissions (readable/writable by owner)
 - WAL mode for safe concurrent access
 - No encryption (data is not sensitive)
@@ -107,17 +110,20 @@ If git is not available or the directory is not a repository, the plugin continu
 ### PostToolUse Hook
 
 The hook receives:
+
 - Tool name (Write, Edit, etc.)
 - File path from tool result
 - Success/failure status
 
 The hook does NOT receive:
+
 - File contents
 - Tool input parameters (e.g., what was written)
 
 ### Script Execution
 
 Hook scripts run as Node.js processes with:
+
 - No network access
 - Read access to stdin (tool result)
 - Write access to stdout (detection result)
@@ -135,24 +141,25 @@ Hook scripts run as Node.js processes with:
 
 ### In Scope
 
-| Threat | Mitigation |
-|--------|------------|
-| Accidental secret capture | Only user-written reasoning stored |
-| Data exfiltration | No network access |
-| Unauthorized access | Standard file permissions |
-| Database corruption | WAL mode, standard SQLite reliability |
+| Threat                    | Mitigation                            |
+| ------------------------- | ------------------------------------- |
+| Accidental secret capture | Only user-written reasoning stored    |
+| Data exfiltration         | No network access                     |
+| Unauthorized access       | Standard file permissions             |
+| Database corruption       | WAL mode, standard SQLite reliability |
 
 ### Out of Scope
 
-| Threat | Reason |
-|--------|--------|
+| Threat               | Reason                        |
+| -------------------- | ----------------------------- |
 | Malicious MCP client | Trusts MCP protocol integrity |
-| Compromised Node.js | System-level security concern |
-| Physical access | Standard OS security |
+| Compromised Node.js  | System-level security concern |
+| Physical access      | Standard OS security          |
 
 ## Audit Log
 
 Decisions include timestamps for audit purposes:
+
 - `created_at`: When decision was recorded
 - `updated_at`: When decision was modified
 - `commit_hash`: Git commit for code traceability
@@ -160,6 +167,7 @@ Decisions include timestamps for audit purposes:
 ## Reporting Security Issues
 
 If you discover a security vulnerability, please report it by:
+
 1. Opening a private issue on GitHub
 2. Emailing the maintainers directly
 
@@ -168,6 +176,7 @@ Do not disclose security issues publicly until they've been addressed.
 ## Compliance Notes
 
 Decision Memory:
+
 - Stores no PII beyond file paths
 - Requires no special data handling
 - Can be fully deleted by removing `~/.decision-memory/`

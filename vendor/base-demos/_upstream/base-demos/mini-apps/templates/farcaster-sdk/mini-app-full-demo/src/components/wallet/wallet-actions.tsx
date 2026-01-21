@@ -1,15 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+'use client';
 
-import { Button } from "~/components/ui/button";
-import { useState, ChangeEvent, useEffect } from "react";
-import { useAccount, useConnect, useDisconnect, useSignMessage, useSwitchChain, useSendTransaction, useConfig } from "wagmi";
-import { parseEther, createWalletClient, custom, type Address } from "viem";
-import { verifyMessage } from "@wagmi/core";
-import { base, optimism } from "viem/chains";
-import { generateSiweNonce } from "viem/siwe";
-import { SiweMessage } from "siwe";
-import { truncateAddress } from "~/lib/truncateAddress";
+import { Button } from '~/components/ui/button';
+import { useState, ChangeEvent, useEffect } from 'react';
+import {
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useSignMessage,
+  useSwitchChain,
+  useSendTransaction,
+  useConfig,
+} from 'wagmi';
+import { parseEther, createWalletClient, custom, type Address } from 'viem';
+import { verifyMessage } from '@wagmi/core';
+import { base, optimism } from 'viem/chains';
+import { generateSiweNonce } from 'viem/siwe';
+import { SiweMessage } from 'siwe';
+import { truncateAddress } from '~/lib/truncateAddress';
 
 export function WalletConnect() {
   const { address, isConnected } = useAccount();
@@ -21,13 +29,11 @@ export function WalletConnect() {
       <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-white">
         <div>
           <div className="font-medium text-sm">Connected</div>
-          <div className="text-xs text-muted-foreground font-mono">{truncateAddress(address)}</div>
+          <div className="text-xs text-muted-foreground font-mono">
+            {truncateAddress(address)}
+          </div>
         </div>
-        <Button
-          onClick={() => disconnect()}
-          variant="outline"
-          size="sm"
-        >
+        <Button onClick={() => disconnect()} variant="outline" size="sm">
           Disconnect
         </Button>
       </div>
@@ -51,7 +57,7 @@ export function WalletConnect() {
 }
 
 export function SignMessage() {
-  const [message, setMessage] = useState("Hello from my mini app!");
+  const [message, setMessage] = useState('Hello from my mini app!');
   const { signMessage, data: signature, isPending } = useSignMessage();
 
   const handleSign = () => {
@@ -61,22 +67,22 @@ export function SignMessage() {
   return (
     <div className="space-y-3">
       <div>
-        <label className="block text-sm font-medium mb-2">Message to Sign</label>
+        <label className="block text-sm font-medium mb-2">
+          Message to Sign
+        </label>
         <textarea
           value={message}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            setMessage(e.target.value)
+          }
           className="w-full p-2 border border-border rounded text-sm"
           rows={3}
           placeholder="Enter message to sign"
         />
       </div>
-      
-      <Button
-        onClick={handleSign}
-        disabled={isPending}
-        className="w-full"
-      >
-        {isPending ? "Signing..." : "Sign Message"}
+
+      <Button onClick={handleSign} disabled={isPending} className="w-full">
+        {isPending ? 'Signing...' : 'Sign Message'}
       </Button>
 
       {signature && (
@@ -96,7 +102,10 @@ export function SignSiweMessage() {
   const { address, chain } = useAccount();
   const { signMessage, data: signature, isPending } = useSignMessage();
   const [lastMessage, setLastMessage] = useState<SiweMessage | null>(null);
-  const [verifyResult, setVerifyResult] = useState<{ success: boolean; error?: string } | null>(null);
+  const [verifyResult, setVerifyResult] = useState<{
+    success: boolean;
+    error?: string;
+  } | null>(null);
 
   useEffect(() => {
     const verifySignature = async () => {
@@ -109,15 +118,18 @@ export function SignSiweMessage() {
           signature,
           chainId: chain.id,
         });
-        
+
         setVerifyResult({ success: isValid });
         if (!isValid) {
-          setVerifyResult({ success: false, error: 'Signature verification failed' });
+          setVerifyResult({
+            success: false,
+            error: 'Signature verification failed',
+          });
         }
       } catch (error) {
-        setVerifyResult({ 
-          success: false, 
-          error: error instanceof Error ? error.message : 'Unknown error' 
+        setVerifyResult({
+          success: false,
+          error: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     };
@@ -132,9 +144,9 @@ export function SignSiweMessage() {
     const message = new SiweMessage({
       domain: window.location.host,
       address,
-      statement: "Sign in with Ethereum to this mini app.",
+      statement: 'Sign in with Ethereum to this mini app.',
       uri: window.location.origin,
-      version: "1",
+      version: '1',
       chainId: chain.id,
       nonce: generateSiweNonce(),
     });
@@ -148,11 +160,11 @@ export function SignSiweMessage() {
 
     setVerifyResult(null);
     const message = new SiweMessage({
-      domain: "https://frames-v2-demo-lilac.vercel.app",
+      domain: 'https://frames-v2-demo-lilac.vercel.app',
       address,
-      statement: "Sign in with Ethereum to this mini app.",
+      statement: 'Sign in with Ethereum to this mini app.',
       uri: window.location.origin,
-      version: "1",
+      version: '1',
       chainId: chain.id,
       nonce: generateSiweNonce(),
     });
@@ -168,7 +180,7 @@ export function SignSiweMessage() {
         disabled={isPending || !address || !chain}
         className="w-full"
       >
-        {isPending ? "Signing..." : "Sign SIWE Message"}
+        {isPending ? 'Signing...' : 'Sign SIWE Message'}
       </Button>
 
       <Button
@@ -177,26 +189,38 @@ export function SignSiweMessage() {
         variant="outline"
         className="w-full"
       >
-        {isPending ? "Signing..." : "Sign SIWE (Invalid Domain Demo)"}
+        {isPending ? 'Signing...' : 'Sign SIWE (Invalid Domain Demo)'}
       </Button>
 
       {signature && (
         <div className="mt-3 space-y-2">
           <div className="p-3 text-xs overflow-x-scroll bg-muted border border-border rounded-lg font-mono">
-            <div className="font-semibold text-muted-foreground mb-1">SIWE Signature</div>
-            <div className="whitespace-pre text-primary break-all">{signature}</div>
+            <div className="font-semibold text-muted-foreground mb-1">
+              SIWE Signature
+            </div>
+            <div className="whitespace-pre text-primary break-all">
+              {signature}
+            </div>
           </div>
 
           {verifyResult && (
             <div className="p-3 text-xs bg-muted border border-border rounded-lg font-mono">
-              <div className="font-semibold text-muted-foreground mb-1">Verification Result</div>
+              <div className="font-semibold text-muted-foreground mb-1">
+                Verification Result
+              </div>
               {verifyResult.success ? (
-                <div className="text-green-600 font-medium">✓ Valid signature</div>
+                <div className="text-green-600 font-medium">
+                  ✓ Valid signature
+                </div>
               ) : (
                 <div>
-                  <div className="text-destructive font-medium">✗ Invalid signature</div>
+                  <div className="text-destructive font-medium">
+                    ✗ Invalid signature
+                  </div>
                   {verifyResult.error && (
-                    <div className="text-destructive mt-1 text-xs">{verifyResult.error}</div>
+                    <div className="text-destructive mt-1 text-xs">
+                      {verifyResult.error}
+                    </div>
                   )}
                 </div>
               )}
@@ -209,8 +233,8 @@ export function SignSiweMessage() {
 }
 
 export function SendEth() {
-  const [recipient, setRecipient] = useState("");
-  const [amount, setAmount] = useState("0.001");
+  const [recipient, setRecipient] = useState('');
+  const [amount, setAmount] = useState('0.001');
   const { sendTransaction, data: hash, isPending } = useSendTransaction();
 
   const handleSend = () => {
@@ -225,11 +249,15 @@ export function SendEth() {
   return (
     <div className="space-y-3">
       <div>
-        <label className="block text-sm font-medium mb-2">Recipient Address</label>
+        <label className="block text-sm font-medium mb-2">
+          Recipient Address
+        </label>
         <input
           type="text"
           value={recipient}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setRecipient(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setRecipient(e.target.value)
+          }
           className="w-full p-2 border border-border rounded text-sm"
           placeholder="0x..."
         />
@@ -240,7 +268,9 @@ export function SendEth() {
         <input
           type="number"
           value={amount}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setAmount(e.target.value)
+          }
           className="w-full p-2 border border-border rounded text-sm"
           step="0.001"
           min="0"
@@ -253,7 +283,7 @@ export function SendEth() {
         disabled={isPending || !recipient || !amount}
         className="w-full"
       >
-        {isPending ? "Sending..." : "Send ETH"}
+        {isPending ? 'Sending...' : 'Send ETH'}
       </Button>
 
       {hash && (
@@ -269,9 +299,9 @@ export function SendEth() {
 }
 
 export function SendTransaction() {
-  const [to, setTo] = useState("");
-  const [data, setData] = useState("");
-  const [value, setValue] = useState("0");
+  const [to, setTo] = useState('');
+  const [data, setData] = useState('');
+  const [value, setValue] = useState('0');
   const { sendTransaction, data: hash, isPending } = useSendTransaction();
 
   const handleSend = () => {
@@ -298,11 +328,15 @@ export function SendTransaction() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Data (optional)</label>
+        <label className="block text-sm font-medium mb-2">
+          Data (optional)
+        </label>
         <input
           type="text"
           value={data}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setData(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setData(e.target.value)
+          }
           className="w-full p-2 border border-border rounded text-sm"
           placeholder="0x..."
         />
@@ -313,7 +347,9 @@ export function SendTransaction() {
         <input
           type="number"
           value={value}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setValue(e.target.value)
+          }
           className="w-full p-2 border border-border rounded text-sm"
           step="0.001"
           min="0"
@@ -326,7 +362,7 @@ export function SendTransaction() {
         disabled={isPending || !to}
         className="w-full"
       >
-        {isPending ? "Sending..." : "Send Transaction"}
+        {isPending ? 'Sending...' : 'Send Transaction'}
       </Button>
 
       {hash && (
@@ -343,7 +379,7 @@ export function SendTransaction() {
 
 export function SignTypedData() {
   const { address } = useAccount();
-  const [signature, setSignature] = useState("");
+  const [signature, setSignature] = useState('');
   const [isPending, setIsPending] = useState(false);
 
   const handleSignTypedData = async () => {
@@ -358,46 +394,47 @@ export function SignTypedData() {
       });
 
       const domain = {
-        name: "Mini App",
-        version: "1",
+        name: 'Mini App',
+        version: '1',
         chainId: 8453,
-        verifyingContract: "0x0000000000000000000000000000000000000000" as Address,
+        verifyingContract:
+          '0x0000000000000000000000000000000000000000' as Address,
       };
 
       const types = {
         Person: [
-          { name: "name", type: "string" },
-          { name: "wallet", type: "address" },
+          { name: 'name', type: 'string' },
+          { name: 'wallet', type: 'address' },
         ],
         Mail: [
-          { name: "from", type: "Person" },
-          { name: "to", type: "Person" },
-          { name: "contents", type: "string" },
+          { name: 'from', type: 'Person' },
+          { name: 'to', type: 'Person' },
+          { name: 'contents', type: 'string' },
         ],
       };
 
       const message = {
         from: {
-          name: "Alice",
-          wallet: "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB" as Address,
+          name: 'Alice',
+          wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB' as Address,
         },
         to: {
-          name: "Bob",
+          name: 'Bob',
           wallet: address,
         },
-        contents: "Hello from the mini app!",
+        contents: 'Hello from the mini app!',
       };
 
       const sig = await client.signTypedData({
         domain,
         types,
-        primaryType: "Mail",
+        primaryType: 'Mail',
         message,
       });
 
       setSignature(sig);
     } catch (error) {
-      console.error("Error signing typed data:", error);
+      console.error('Error signing typed data:', error);
     } finally {
       setIsPending(false);
     }
@@ -410,7 +447,7 @@ export function SignTypedData() {
         disabled={isPending || !address}
         className="w-full"
       >
-        {isPending ? "Signing..." : "Sign Typed Data"}
+        {isPending ? 'Signing...' : 'Sign Typed Data'}
       </Button>
 
       {signature && (
@@ -430,8 +467,8 @@ export function SwitchChain() {
   const { switchChain, isPending } = useSwitchChain();
 
   const chains = [
-    { id: base.id, name: "Base" },
-    { id: optimism.id, name: "Optimism" },
+    { id: base.id, name: 'Base' },
+    { id: optimism.id, name: 'Optimism' },
   ];
 
   return (
@@ -450,10 +487,10 @@ export function SwitchChain() {
               key={chain.id}
               onClick={() => switchChain({ chainId: chain.id })}
               disabled={isPending || isActive}
-              variant={isActive ? "default" : "outline"}
+              variant={isActive ? 'default' : 'outline'}
               className="flex-1"
             >
-              {isPending ? "Switching..." : chain.name}
+              {isPending ? 'Switching...' : chain.name}
             </Button>
           );
         })}

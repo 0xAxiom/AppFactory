@@ -11,18 +11,34 @@ import { addDecision as addDecisionToDb } from '../db/queries.js';
 
 export const addDecisionSchema = {
   project: z.string().describe('Project path (absolute path to project root)'),
-  files: z.array(z.string()).describe('Array of file paths affected by this decision'),
-  reasoning: z.string().describe('The reasoning behind the decision - the "why"'),
-  commit: z.string().optional().describe('Git commit hash associated with this decision'),
-  commit_url: z.string().optional().describe('URL to view the commit on GitHub/GitLab'),
-  tags: z.array(z.string()).optional().describe('Tags for categorization (e.g., ["state-management", "zustand"])'),
+  files: z
+    .array(z.string())
+    .describe('Array of file paths affected by this decision'),
+  reasoning: z
+    .string()
+    .describe('The reasoning behind the decision - the "why"'),
+  commit: z
+    .string()
+    .optional()
+    .describe('Git commit hash associated with this decision'),
+  commit_url: z
+    .string()
+    .optional()
+    .describe('URL to view the commit on GitHub/GitLab'),
+  tags: z
+    .array(z.string())
+    .optional()
+    .describe(
+      'Tags for categorization (e.g., ["state-management", "zustand"])'
+    ),
   context: z.string().optional().describe('Additional context or notes'),
 };
 
 export type AddDecisionInput = z.infer<z.ZodObject<typeof addDecisionSchema>>;
 
 export async function addDecision(input: AddDecisionInput) {
-  const { project, files, reasoning, commit, commit_url, tags, context } = input;
+  const { project, files, reasoning, commit, commit_url, tags, context } =
+    input;
 
   // Validate reasoning is meaningful
   if (!reasoning || reasoning.trim().length < 10) {
@@ -57,7 +73,7 @@ export async function addDecision(input: AddDecisionInput) {
 **Decision #${decision.id}**
 - Project: ${decision.project_name}
 - Files: ${decision.files.join(', ')}
-- Tags: ${decision.tags.length > 0 ? decision.tags.map(t => `#${t}`).join(' ') : '(none)'}
+- Tags: ${decision.tags.length > 0 ? decision.tags.map((t) => `#${t}`).join(' ') : '(none)'}
 ${decision.commit_hash ? `- Commit: ${decision.commit_hash}` : ''}
 
 Query this decision anytime with: "What decisions were made about ${decision.files[0] || 'this file'}?"`,

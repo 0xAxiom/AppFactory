@@ -142,7 +142,9 @@ export function addDecision(params: {
  * Get a decision by ID
  */
 export function getDecision(id: number): DecisionWithProject | null {
-  const row = stmts.getDecision.get(id) as (DecisionWithProject & { files: string; tags: string }) | undefined;
+  const row = stmts.getDecision.get(id) as
+    | (DecisionWithProject & { files: string; tags: string })
+    | undefined;
   if (!row) return null;
 
   return {
@@ -155,8 +157,16 @@ export function getDecision(id: number): DecisionWithProject | null {
 /**
  * Link a commit to a decision
  */
-export function linkCommit(decisionId: number, commitHash: string, commitUrl?: string | null): boolean {
-  const result = stmts.linkCommit.run(commitHash, commitUrl || null, decisionId);
+export function linkCommit(
+  decisionId: number,
+  commitHash: string,
+  commitUrl?: string | null
+): boolean {
+  const result = stmts.linkCommit.run(
+    commitHash,
+    commitUrl || null,
+    decisionId
+  );
   return result.changes > 0;
 }
 
@@ -164,9 +174,12 @@ export function linkCommit(decisionId: number, commitHash: string, commitUrl?: s
  * Get recent decisions
  */
 export function getRecentDecisions(limit = 20): DecisionWithProject[] {
-  const rows = stmts.getRecentDecisions.all(limit) as (DecisionWithProject & { files: string; tags: string })[];
+  const rows = stmts.getRecentDecisions.all(limit) as (DecisionWithProject & {
+    files: string;
+    tags: string;
+  })[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     ...row,
     files: JSON.parse(row.files),
     tags: JSON.parse(row.tags),
@@ -176,10 +189,16 @@ export function getRecentDecisions(limit = 20): DecisionWithProject[] {
 /**
  * Get decisions for a project
  */
-export function getProjectDecisions(projectPath: string, limit = 100): DecisionWithProject[] {
-  const rows = stmts.getProjectDecisions.all(projectPath, limit) as (DecisionWithProject & { files: string; tags: string })[];
+export function getProjectDecisions(
+  projectPath: string,
+  limit = 100
+): DecisionWithProject[] {
+  const rows = stmts.getProjectDecisions.all(
+    projectPath,
+    limit
+  ) as (DecisionWithProject & { files: string; tags: string })[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     ...row,
     files: JSON.parse(row.files),
     tags: JSON.parse(row.tags),
@@ -190,9 +209,11 @@ export function getProjectDecisions(projectPath: string, limit = 100): DecisionW
  * Get decisions related to a file
  */
 export function getFileDecisions(filePath: string): DecisionWithProject[] {
-  const rows = stmts.getFileDecisions.all(`%${filePath}%`) as (DecisionWithProject & { files: string; tags: string })[];
+  const rows = stmts.getFileDecisions.all(
+    `%${filePath}%`
+  ) as (DecisionWithProject & { files: string; tags: string })[];
 
-  return rows.map(row => ({
+  return rows.map((row) => ({
     ...row,
     files: JSON.parse(row.files),
     tags: JSON.parse(row.tags),
@@ -202,18 +223,21 @@ export function getFileDecisions(filePath: string): DecisionWithProject[] {
 /**
  * Search decisions using full-text search
  */
-export function searchDecisions(query: string, options?: {
-  project?: string;
-  limit?: number;
-}): DecisionWithProject[] {
+export function searchDecisions(
+  query: string,
+  options?: {
+    project?: string;
+    limit?: number;
+  }
+): DecisionWithProject[] {
   const limit = options?.limit || 20;
 
   // Escape special FTS5 characters and prepare query
   const ftsQuery = query
     .replace(/[*:^]/g, ' ')
     .split(/\s+/)
-    .filter(term => term.length > 0)
-    .map(term => `"${term}"`)
+    .filter((term) => term.length > 0)
+    .map((term) => `"${term}"`)
     .join(' OR ');
 
   if (!ftsQuery) return [];
@@ -222,7 +246,9 @@ export function searchDecisions(query: string, options?: {
     ? stmts.searchProjectDecisions.all(ftsQuery, options.project, limit)
     : stmts.searchDecisions.all(ftsQuery, limit);
 
-  return (rows as (DecisionWithProject & { files: string; tags: string })[]).map(row => ({
+  return (
+    rows as (DecisionWithProject & { files: string; tags: string })[]
+  ).map((row) => ({
     ...row,
     files: JSON.parse(row.files),
     tags: JSON.parse(row.tags),
@@ -240,7 +266,9 @@ export function listProjects(): Project[] {
  * Count decisions for a project
  */
 export function countProjectDecisions(projectPath: string): number {
-  const result = stmts.countProjectDecisions.get(projectPath) as { count: number };
+  const result = stmts.countProjectDecisions.get(projectPath) as {
+    count: number;
+  };
   return result.count;
 }
 
@@ -262,21 +290,27 @@ export function exportDecisions(options?: {
       return JSON.stringify(decisions, null, 2);
 
     case 'markdown':
-      return decisions.map(d => `
+      return decisions
+        .map(
+          (d) => `
 ## Decision #${d.id}
 **Date:** ${d.created_at}
 **Project:** ${d.project_name}
 **Files:** ${d.files.join(', ')}
 ${d.commit_hash ? `**Commit:** ${d.commit_hash}` : ''}
-${d.tags.length > 0 ? `**Tags:** ${d.tags.map(t => `#${t}`).join(' ')}` : ''}
+${d.tags.length > 0 ? `**Tags:** ${d.tags.map((t) => `#${t}`).join(' ')}` : ''}
 
 ${d.reasoning}
 
 ---
-`).join('\n');
+`
+        )
+        .join('\n');
 
     case 'adr':
-      return decisions.map((d, i) => `
+      return decisions
+        .map(
+          (d, i) => `
 # ADR ${String(i + 1).padStart(4, '0')}: Decision #${d.id}
 
 ## Status
@@ -290,10 +324,12 @@ Files affected: ${d.files.join(', ')}
 ${d.reasoning}
 
 ## Consequences
-Tags: ${d.tags.map(t => `#${t}`).join(' ')}
+Tags: ${d.tags.map((t) => `#${t}`).join(' ')}
 ${d.commit_hash ? `\nCommit: ${d.commit_hash}` : ''}
 ${d.commit_url ? `\nView: ${d.commit_url}` : ''}
-`).join('\n---\n');
+`
+        )
+        .join('\n---\n');
 
     default:
       return JSON.stringify(decisions, null, 2);

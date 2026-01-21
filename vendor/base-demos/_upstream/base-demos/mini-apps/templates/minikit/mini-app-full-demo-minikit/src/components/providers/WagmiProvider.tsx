@@ -1,9 +1,9 @@
-import { createConfig, http, WagmiProvider } from "wagmi";
-import { base, optimism } from "wagmi/chains";
-import { baseAccount } from "wagmi/connectors";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { farcasterMiniApp } from "@farcaster/miniapp-wagmi-connector";
-import { METADATA } from "../../lib/utils";
+import { createConfig, http, WagmiProvider } from 'wagmi';
+import { base, optimism } from 'wagmi/chains';
+import { baseAccount } from 'wagmi/connectors';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { farcasterMiniApp } from '@farcaster/miniapp-wagmi-connector';
+import { METADATA } from '../../lib/utils';
 
 export const config = createConfig({
   chains: [base, optimism],
@@ -12,11 +12,11 @@ export const config = createConfig({
     [optimism.id]: http(),
   },
   connectors: [
-    farcasterMiniApp(), 
+    farcasterMiniApp(),
     baseAccount({
       appName: METADATA.name,
       appLogoUrl: METADATA.iconImageUrl,
-    })
+    }),
   ],
 });
 

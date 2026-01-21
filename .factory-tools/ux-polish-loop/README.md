@@ -69,6 +69,7 @@ cd <generated-project>
 ```
 
 The script will:
+
 1. Check prerequisites (npm, playwright)
 2. Run up to 20 passes
 3. Stop early on completion promise
@@ -101,28 +102,28 @@ Pipelines that generate React UIs should:
 
 ## Files in This Module
 
-| File | Purpose |
-|------|---------|
-| `templates/ralph/PRD.md` | Template for product requirements |
-| `templates/ralph/ACCEPTANCE.md` | Template for acceptance criteria |
-| `templates/ralph/LOOP.md` | Instructions for running the loop |
-| `templates/ralph/PROGRESS.md` | Template for progress tracking |
-| `templates/ralph/QA_NOTES.md` | Template for manual QA notes |
-| `templates/playwright.config.ts` | Playwright config template |
-| `templates/tests/e2e/smoke.spec.ts` | Minimal smoke test template |
-| `scripts/ralph_loop_runner.sh` | The main runner script |
+| File                                | Purpose                           |
+| ----------------------------------- | --------------------------------- |
+| `templates/ralph/PRD.md`            | Template for product requirements |
+| `templates/ralph/ACCEPTANCE.md`     | Template for acceptance criteria  |
+| `templates/ralph/LOOP.md`           | Instructions for running the loop |
+| `templates/ralph/PROGRESS.md`       | Template for progress tracking    |
+| `templates/ralph/QA_NOTES.md`       | Template for manual QA notes      |
+| `templates/playwright.config.ts`    | Playwright config template        |
+| `templates/tests/e2e/smoke.spec.ts` | Minimal smoke test template       |
+| `scripts/ralph_loop_runner.sh`      | The main runner script            |
 
 ---
 
 ## Which Pipelines Use This?
 
-| Pipeline | Uses UX Polish Loop? | Reason |
-|----------|---------------------|--------|
-| website-pipeline | YES | Generates Next.js websites |
-| dapp-factory | YES | Generates Next.js dApps |
-| app-factory | OPTIONAL | Mobile-first, but web exports can be tested |
-| agent-factory | NO | HTTP API, no UI |
-| plugin-factory | NO | CLI/API based |
+| Pipeline         | Uses UX Polish Loop? | Reason                                      |
+| ---------------- | -------------------- | ------------------------------------------- |
+| website-pipeline | YES                  | Generates Next.js websites                  |
+| dapp-factory     | YES                  | Generates Next.js dApps                     |
+| app-factory      | OPTIONAL             | Mobile-first, but web exports can be tested |
+| agent-factory    | NO                   | HTTP API, no UI                             |
+| plugin-factory   | NO                   | CLI/API based                               |
 
 ---
 

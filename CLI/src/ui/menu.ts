@@ -6,7 +6,13 @@
 
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { printBanner, printHeader, printDivider, printSuccess, printError } from './banner.js';
+import {
+  printBanner,
+  printHeader,
+  printDivider,
+  printSuccess,
+  printError,
+} from './banner.js';
 
 export interface MenuChoice {
   name: string;
@@ -18,43 +24,43 @@ const MAIN_MENU_CHOICES: MenuChoice[] = [
   {
     name: '1. Run App Factory',
     value: 'run',
-    description: 'Generate 10 ranked app ideas based on market research'
+    description: 'Generate 10 ranked app ideas based on market research',
   },
   {
     name: '2. Build an Idea',
     value: 'build',
-    description: 'Build a selected idea into a complete Expo app'
+    description: 'Build a selected idea into a complete Expo app',
   },
   {
     name: '3. Dream Mode',
     value: 'dream',
-    description: 'Transform your own app idea into a complete app (end-to-end)'
+    description: 'Transform your own app idea into a complete app (end-to-end)',
   },
   {
     name: '4. List Runs & Builds',
     value: 'list',
-    description: 'View recent runs, builds, and generated ideas'
+    description: 'View recent runs, builds, and generated ideas',
   },
   {
     name: '5. Resume Run',
     value: 'resume',
-    description: 'Resume an interrupted pipeline run'
+    description: 'Resume an interrupted pipeline run',
   },
   {
     name: '6. System Check',
     value: 'doctor',
-    description: 'Verify your environment and dependencies'
+    description: 'Verify your environment and dependencies',
   },
   {
     name: '7. Help',
     value: 'help',
-    description: 'Show detailed help and documentation'
+    description: 'Show detailed help and documentation',
   },
   {
     name: '8. Exit',
     value: 'exit',
-    description: 'Exit the App Factory CLI'
-  }
+    description: 'Exit the App Factory CLI',
+  },
 ];
 
 /**
@@ -78,12 +84,12 @@ export async function showMainMenu(): Promise<string> {
       type: 'list',
       name: 'choice',
       message: 'What would you like to do?',
-      choices: MAIN_MENU_CHOICES.map(c => ({
+      choices: MAIN_MENU_CHOICES.map((c) => ({
         name: `${c.name.padEnd(25)} ${chalk.gray(c.description)}`,
-        value: c.value
+        value: c.value,
       })),
-      pageSize: 10
-    }
+      pageSize: 10,
+    },
   ]);
 
   return choice;
@@ -100,23 +106,33 @@ export function showHelp(): void {
   console.log(chalk.bold('COMMANDS\n'));
 
   console.log(chalk.cyan('  Run App Factory'));
-  console.log('    Executes Stage 01 of the pipeline to generate 10 ranked mobile app');
+  console.log(
+    '    Executes Stage 01 of the pipeline to generate 10 ranked mobile app'
+  );
   console.log('    ideas based on current market research and trends.\n');
 
   console.log(chalk.cyan('  Build an Idea'));
   console.log('    Takes a generated idea and builds it through Stages 02-10,');
-  console.log('    producing a complete, store-ready Expo React Native application.\n');
+  console.log(
+    '    producing a complete, store-ready Expo React Native application.\n'
+  );
 
   console.log(chalk.cyan('  Dream Mode'));
-  console.log('    Enter your own app idea and watch it transform into a complete app.');
+  console.log(
+    '    Enter your own app idea and watch it transform into a complete app.'
+  );
   console.log('    This runs the entire pipeline end-to-end in one go.\n');
 
   console.log(chalk.cyan('  List Runs & Builds'));
-  console.log('    View your recent pipeline runs, completed builds, and generated ideas.');
+  console.log(
+    '    View your recent pipeline runs, completed builds, and generated ideas.'
+  );
   console.log('    Useful for finding idea IDs to build.\n');
 
   console.log(chalk.cyan('  Resume Run'));
-  console.log('    If a pipeline run was interrupted, resume from where it left off.\n');
+  console.log(
+    '    If a pipeline run was interrupted, resume from where it left off.\n'
+  );
 
   console.log(chalk.cyan('  System Check'));
   console.log('    Verify that your environment is set up correctly:\n');
@@ -127,7 +143,9 @@ export function showHelp(): void {
   printDivider();
 
   console.log(chalk.bold('\nOUTPUT LOCATIONS\n'));
-  console.log(`  Runs:   ${chalk.gray('app-factory/runs/YYYY-MM-DD/<run_id>/')}`);
+  console.log(
+    `  Runs:   ${chalk.gray('app-factory/runs/YYYY-MM-DD/<run_id>/')}`
+  );
   console.log(`  Builds: ${chalk.gray('app-factory/builds/<idea_dir>/')}`);
 
   console.log(chalk.bold('\n\nKEYBOARD SHORTCUTS\n'));
@@ -147,7 +165,7 @@ export async function pressEnterToContinue(): Promise<void> {
       type: 'input',
       name: 'continue',
       message: chalk.gray('Press Enter to return to main menu...'),
-    }
+    },
   ]);
 }
 
@@ -160,8 +178,8 @@ export async function confirmAction(message: string): Promise<boolean> {
       type: 'confirm',
       name: 'confirmed',
       message,
-      default: true
-    }
+      default: true,
+    },
   ]);
   return confirmed;
 }
@@ -169,7 +187,10 @@ export async function confirmAction(message: string): Promise<boolean> {
 /**
  * Get text input from user
  */
-export async function getTextInput(message: string, placeholder?: string): Promise<string> {
+export async function getTextInput(
+  message: string,
+  placeholder?: string
+): Promise<string> {
   const { value } = await inquirer.prompt([
     {
       type: 'input',
@@ -181,8 +202,8 @@ export async function getTextInput(message: string, placeholder?: string): Promi
           return 'Please enter a value';
         }
         return true;
-      }
-    }
+      },
+    },
   ]);
   return value.trim();
 }
@@ -200,8 +221,8 @@ export async function selectFromList<T extends string>(
       name: 'selected',
       message,
       choices,
-      pageSize: 15
-    }
+      pageSize: 15,
+    },
   ]);
   return selected;
 }

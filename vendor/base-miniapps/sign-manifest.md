@@ -27,11 +27,11 @@ The signed manifest includes three components:
 }
 ```
 
-| Field | Description |
-|-------|-------------|
-| header | Generated metadata for the signature |
-| payload | Encoded manifest/domain data being signed |
-| signature | Cryptographic proof of ownership |
+| Field     | Description                               |
+| --------- | ----------------------------------------- |
+| header    | Generated metadata for the signature      |
+| payload   | Encoded manifest/domain data being signed |
+| signature | Cryptographic proof of ownership          |
 
 ## Signing Methods
 
@@ -67,15 +67,15 @@ The signed manifest includes three components:
 ```typescript
 export const minikitConfig = {
   accountAssociation: {
-    header: "eyJmaWQiOjEyMzQ1Njc4OTAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgxMjM0NTY3ODkwYWJjZGVmIn0",
-    payload: "eyJkb21haW4iOiJ5b3VyYXBwLmNvbSJ9",
-    signature: "MHgxMjM0NTY3ODkwYWJjZGVmMTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWYxMjM0NTY3ODkwYWJjZGVm"
+    header: 'eyJmaWQiOjEyMzQ1Njc4OTAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgxMjM0NTY3ODkwYWJjZGVmIn0',
+    payload: 'eyJkb21haW4iOiJ5b3VyYXBwLmNvbSJ9',
+    signature: 'MHgxMjM0NTY3ODkwYWJjZGVmMTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWYxMjM0NTY3ODkwYWJjZGVm',
   },
   miniapp: {
-    version: "1",
-    name: "Your App",
+    version: '1',
+    name: 'Your App',
     // ... rest of config
-  }
+  },
 } as const;
 ```
 
@@ -102,24 +102,27 @@ export const minikitConfig = {
 
 ## Key Requirements
 
-| Requirement | Description |
-|-------------|-------------|
-| Domain Match | Domain in manifest must match deployment URL |
-| HTTPS Required | App must be served over HTTPS |
-| Public Access | Manifest must be publicly accessible (disable Vercel protection) |
-| Wallet Signature | Must sign with wallet connected to your Farcaster account |
+| Requirement      | Description                                                      |
+| ---------------- | ---------------------------------------------------------------- |
+| Domain Match     | Domain in manifest must match deployment URL                     |
+| HTTPS Required   | App must be served over HTTPS                                    |
+| Public Access    | Manifest must be publicly accessible (disable Vercel protection) |
+| Wallet Signature | Must sign with wallet connected to your Farcaster account        |
 
 ## Common Issues
 
 ### "Manifest not found"
+
 - Ensure `/.well-known/farcaster.json` returns valid JSON
 - Check that Vercel Deployment Protection is disabled
 
 ### "Invalid signature"
+
 - Regenerate the account association
 - Ensure you're signing with the correct wallet
 
 ### "Domain mismatch"
+
 - `canonicalDomain` must match your actual domain
 - Don't include `https://` or trailing slashes
 

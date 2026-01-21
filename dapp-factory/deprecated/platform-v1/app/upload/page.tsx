@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { useRouter } from "next/navigation";
-import { Upload, Check, AlertCircle, Loader2 } from "lucide-react";
+import { useState, useCallback } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useRouter } from 'next/navigation';
+import { Upload, Check, AlertCircle, Loader2 } from 'lucide-react';
 
-type UploadStatus = "idle" | "uploading" | "validating" | "validated" | "error";
+type UploadStatus = 'idle' | 'uploading' | 'validating' | 'validated' | 'error';
 
 interface UploadResponse {
   success: boolean;
@@ -19,17 +19,17 @@ export default function UploadPage() {
   const router = useRouter();
 
   const [file, setFile] = useState<File | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<UploadStatus>("idle");
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus>('idle');
   const [uploadId, setUploadId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    ticker: "",
-    twitter: "",
-    website: "",
+    name: '',
+    description: '',
+    ticker: '',
+    twitter: '',
+    website: '',
   });
 
   const [screenshots, setScreenshots] = useState<File[]>([]);
@@ -38,36 +38,39 @@ export default function UploadPage() {
   const handleFileDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile?.name.endsWith(".zip")) {
+    if (droppedFile?.name.endsWith('.zip')) {
       setFile(droppedFile);
       setError(null);
     } else {
-      setError("Please upload a .zip file");
+      setError('Please upload a .zip file');
     }
   }, []);
 
-  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile?.name.endsWith(".zip")) {
-      setFile(selectedFile);
-      setError(null);
-    } else {
-      setError("Please upload a .zip file");
-    }
-  }, []);
+  const handleFileSelect = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = e.target.files?.[0];
+      if (selectedFile?.name.endsWith('.zip')) {
+        setFile(selectedFile);
+        setError(null);
+      } else {
+        setError('Please upload a .zip file');
+      }
+    },
+    []
+  );
 
   const handleUpload = async () => {
     if (!file) return;
 
-    setUploadStatus("uploading");
+    setUploadStatus('uploading');
     setError(null);
 
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append('file', file);
 
-      const response = await fetch("/api/upload", {
-        method: "POST",
+      const response = await fetch('/api/upload', {
+        method: 'POST',
         body: formData,
       });
 
@@ -75,17 +78,17 @@ export default function UploadPage() {
 
       if (data.success && data.upload_id) {
         setUploadId(data.upload_id);
-        setUploadStatus("validated");
+        setUploadStatus('validated');
       } else {
-        setError(data.error || "Upload failed");
+        setError(data.error || 'Upload failed');
         if (data.missing) {
-          setError(`Missing files: ${data.missing.join(", ")}`);
+          setError(`Missing files: ${data.missing.join(', ')}`);
         }
-        setUploadStatus("error");
+        setUploadStatus('error');
       }
     } catch (err) {
-      setError("Network error. Please try again.");
-      setUploadStatus("error");
+      setError('Network error. Please try again.');
+      setUploadStatus('error');
     }
   };
 
@@ -102,7 +105,7 @@ export default function UploadPage() {
   };
 
   const isFormValid =
-    uploadStatus === "validated" &&
+    uploadStatus === 'validated' &&
     formData.name.length > 0 &&
     formData.description.length > 0 &&
     formData.ticker.length >= 3 &&
@@ -130,18 +133,20 @@ export default function UploadPage() {
           onDrop={handleFileDrop}
           className={`
             border-2 border-dashed rounded-xl p-8 text-center transition
-            ${file ? "border-green-500 bg-green-500/10" : "border-zinc-700 hover:border-zinc-500"}
-            ${error ? "border-red-500 bg-red-500/10" : ""}
+            ${file ? 'border-green-500 bg-green-500/10' : 'border-zinc-700 hover:border-zinc-500'}
+            ${error ? 'border-red-500 bg-red-500/10' : ''}
           `}
         >
-          {uploadStatus === "uploading" || uploadStatus === "validating" ? (
+          {uploadStatus === 'uploading' || uploadStatus === 'validating' ? (
             <div className="flex flex-col items-center">
               <Loader2 className="w-10 h-10 text-blue-500 animate-spin mb-4" />
               <p>
-                {uploadStatus === "uploading" ? "Uploading..." : "Validating..."}
+                {uploadStatus === 'uploading'
+                  ? 'Uploading...'
+                  : 'Validating...'}
               </p>
             </div>
-          ) : uploadStatus === "validated" ? (
+          ) : uploadStatus === 'validated' ? (
             <div className="flex flex-col items-center">
               <Check className="w-10 h-10 text-green-500 mb-4" />
               <p className="font-medium">Build validated!</p>
@@ -154,7 +159,7 @@ export default function UploadPage() {
                 <p className="font-medium">{file.name}</p>
               ) : (
                 <p className="text-zinc-400">
-                  Drag and drop your .zip file here, or{" "}
+                  Drag and drop your .zip file here, or{' '}
                   <label className="text-blue-500 cursor-pointer hover:underline">
                     browse
                     <input
@@ -177,7 +182,7 @@ export default function UploadPage() {
           </div>
         )}
 
-        {file && uploadStatus === "idle" && (
+        {file && uploadStatus === 'idle' && (
           <button
             onClick={handleUpload}
             className="mt-4 w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-medium transition"
@@ -188,7 +193,11 @@ export default function UploadPage() {
       </div>
 
       {/* Step 2: Form */}
-      <div className={uploadStatus !== "validated" ? "opacity-50 pointer-events-none" : ""}>
+      <div
+        className={
+          uploadStatus !== 'validated' ? 'opacity-50 pointer-events-none' : ''
+        }
+      >
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
           <span className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-sm">
             2
@@ -203,17 +212,23 @@ export default function UploadPage() {
               type="text"
               placeholder="My Awesome App"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Description *</label>
+            <label className="block text-sm font-medium mb-2">
+              Description *
+            </label>
             <textarea
               placeholder="What does your app do?"
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               rows={3}
               className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -221,14 +236,18 @@ export default function UploadPage() {
 
           <div>
             <label className="block text-sm font-medium mb-2">
-              Token Ticker * <span className="text-zinc-500">(3-6 letters)</span>
+              Token Ticker *{' '}
+              <span className="text-zinc-500">(3-6 letters)</span>
             </label>
             <input
               type="text"
               placeholder="TOKEN"
               value={formData.ticker}
               onChange={(e) =>
-                setFormData({ ...formData, ticker: e.target.value.toUpperCase().slice(0, 6) })
+                setFormData({
+                  ...formData,
+                  ticker: e.target.value.toUpperCase().slice(0, 6),
+                })
               }
               className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -241,7 +260,9 @@ export default function UploadPage() {
                 type="text"
                 placeholder="@handle"
                 value={formData.twitter}
-                onChange={(e) => setFormData({ ...formData, twitter: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, twitter: e.target.value })
+                }
                 className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -251,14 +272,18 @@ export default function UploadPage() {
                 type="text"
                 placeholder="https://..."
                 value={formData.website}
-                onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, website: e.target.value })
+                }
                 className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Token Image</label>
+            <label className="block text-sm font-medium mb-2">
+              Token Image
+            </label>
             <input
               type="file"
               accept="image/*"
@@ -270,7 +295,9 @@ export default function UploadPage() {
       </div>
 
       {/* Step 3: Connect & Launch */}
-      <div className={`mt-8 ${uploadStatus !== "validated" ? "opacity-50 pointer-events-none" : ""}`}>
+      <div
+        className={`mt-8 ${uploadStatus !== 'validated' ? 'opacity-50 pointer-events-none' : ''}`}
+      >
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
           <span className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-sm">
             3
@@ -280,15 +307,20 @@ export default function UploadPage() {
 
         {!connected ? (
           <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 text-center">
-            <p className="text-zinc-400 mb-4">Connect your wallet to continue</p>
-            <p className="text-sm text-zinc-500">Click the wallet button in the header</p>
+            <p className="text-zinc-400 mb-4">
+              Connect your wallet to continue
+            </p>
+            <p className="text-sm text-zinc-500">
+              Click the wallet button in the header
+            </p>
           </div>
         ) : (
           <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
               <span className="text-zinc-400">Connected Wallet</span>
               <span className="font-mono text-sm">
-                {publicKey?.toString().slice(0, 4)}...{publicKey?.toString().slice(-4)}
+                {publicKey?.toString().slice(0, 4)}...
+                {publicKey?.toString().slice(-4)}
               </span>
             </div>
             <div className="flex items-center justify-between mb-6 text-sm">
@@ -300,9 +332,10 @@ export default function UploadPage() {
               disabled={!isFormValid}
               className={`
                 w-full py-3 rounded-lg font-medium transition
-                ${isFormValid
-                  ? "bg-green-600 hover:bg-green-700"
-                  : "bg-zinc-700 cursor-not-allowed"
+                ${
+                  isFormValid
+                    ? 'bg-green-600 hover:bg-green-700'
+                    : 'bg-zinc-700 cursor-not-allowed'
                 }
               `}
             >

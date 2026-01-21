@@ -9,10 +9,12 @@
 ## When to Activate
 
 This skill activates when:
+
 - User explicitly requests deployment
 - Build has passed Ralph QA (PASS verdict)
 
 Trigger phrases:
+
 - "Deploy my app"
 - "Deploy to Vercel"
 - "Push this live"
@@ -31,6 +33,7 @@ Trigger phrases:
 ## Prerequisites
 
 Before deploying:
+
 - [ ] Ralph final verdict is PASS
 - [ ] `npm run build` completes without errors
 - [ ] No `.env` file with secrets (use `.env.example`)
@@ -86,15 +89,15 @@ this deployment to your own Vercel account.
 
 The deploy script auto-detects framework from `package.json`:
 
-| Detected Dependency | Framework |
-|---------------------|-----------|
-| `next` | Next.js |
-| `nuxt` | Nuxt |
-| `@sveltejs/kit` | SvelteKit |
-| `astro` | Astro |
-| `remix` | Remix |
-| `vite` | Vite |
-| (none) | Static HTML |
+| Detected Dependency | Framework   |
+| ------------------- | ----------- |
+| `next`              | Next.js     |
+| `nuxt`              | Nuxt        |
+| `@sveltejs/kit`     | SvelteKit   |
+| `astro`             | Astro       |
+| `remix`             | Remix       |
+| `vite`              | Vite        |
+| (none)              | Static HTML |
 
 ---
 

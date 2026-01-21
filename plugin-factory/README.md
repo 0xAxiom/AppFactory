@@ -23,6 +23,7 @@ Describe a plugin idea. Get a complete, publishable Claude extension.
 Project-local extensions that add commands, hooks, agents, and skills to Claude Code.
 
 **Use when:**
+
 - Adding slash commands (`/format`, `/todo`, etc.)
 - Reacting to Claude Code events (file saves, tool usage)
 - Creating custom agents or skills
@@ -33,6 +34,7 @@ Project-local extensions that add commands, hooks, agents, and skills to Claude 
 Model Context Protocol servers that give Claude access to external data and tools.
 
 **Use when:**
+
 - Connecting Claude to databases, APIs, or services
 - Providing Claude with real-time data
 - Building tools that work across applications
@@ -50,6 +52,7 @@ claude
 **You:** "Build a plugin that formats code on save"
 
 **Claude:**
+
 1. Normalizes your intent into a product specification
 2. Creates a comprehensive plan with plugin type decision
 3. Builds complete plugin with all files
@@ -59,6 +62,7 @@ claude
 **When done:**
 
 For Claude Code plugins:
+
 ```bash
 # Copy to your project
 cp -r builds/code-formatter/ /path/to/your/project/
@@ -66,6 +70,7 @@ cp -r builds/code-formatter/ /path/to/your/project/
 ```
 
 For MCP servers:
+
 ```bash
 cd builds/my-mcp-server
 npm install
@@ -134,6 +139,7 @@ PHASE 4: Ralph Polish Loop     → QA until ≥97% quality (max 3 iterations)
 Every plugin must pass Ralph's quality checklist:
 
 ### Claude Code Plugin
+
 - Valid plugin.json in .claude-plugin/
 - Commands at plugin ROOT (not inside .claude-plugin/)
 - Hooks reference existing scripts
@@ -141,6 +147,7 @@ Every plugin must pass Ralph's quality checklist:
 - Complete documentation
 
 ### MCP Server
+
 - `npm install` completes
 - `npm run build` compiles
 - Server starts without errors
@@ -153,22 +160,22 @@ Every plugin must pass Ralph's quality checklist:
 
 ### Claude Code Plugins
 
-| Component | Format |
-|-----------|--------|
-| Manifest | JSON (plugin.json) |
-| Commands | Markdown with YAML frontmatter |
-| Hooks | JSON configuration |
-| Scripts | Shell or Node.js |
+| Component | Format                         |
+| --------- | ------------------------------ |
+| Manifest  | JSON (plugin.json)             |
+| Commands  | Markdown with YAML frontmatter |
+| Hooks     | JSON configuration             |
+| Scripts   | Shell or Node.js               |
 
 ### MCP Servers
 
-| Component | Technology |
-|-----------|------------|
-| Runtime | Node.js 18+ |
-| Language | TypeScript |
-| SDK | @modelcontextprotocol/sdk |
-| Schema Validation | Zod |
-| Transport | STDIO (local) |
+| Component         | Technology                |
+| ----------------- | ------------------------- |
+| Runtime           | Node.js 18+               |
+| Language          | TypeScript                |
+| SDK               | @modelcontextprotocol/sdk |
+| Schema Validation | Zod                       |
+| Transport         | STDIO (local)             |
 
 ---
 
@@ -179,6 +186,7 @@ Every plugin must pass Ralph's quality checklist:
 **You say:** "A plugin that adds a /commit command for smart git commits"
 
 **You get:**
+
 - `.claude-plugin/plugin.json` with manifest
 - `commands/commit.md` with commit logic
 - Documentation explaining how it works
@@ -189,6 +197,7 @@ Every plugin must pass Ralph's quality checklist:
 **You say:** "A plugin that auto-formats code after every save"
 
 **You get:**
+
 - `hooks/hooks.json` with PostToolUse hook
 - `scripts/format.sh` that detects file type and runs formatters
 - Configuration instructions
@@ -199,6 +208,7 @@ Every plugin must pass Ralph's quality checklist:
 **You say:** "An MCP server that queries my PostgreSQL database"
 
 **You get:**
+
 - Complete TypeScript server with `query_database` tool
 - Zod schema for input validation
 - Environment variable configuration
@@ -236,6 +246,7 @@ plugin-factory/
 ## PASS/FAIL Criteria
 
 ### PASS
+
 - All required files exist
 - Valid JSON in manifest files
 - Components in correct locations
@@ -244,6 +255,7 @@ plugin-factory/
 - Ralph gives PASS verdict
 
 ### FAIL
+
 - Missing required files
 - Invalid JSON syntax
 - Components in wrong location (e.g., commands inside .claude-plugin/)

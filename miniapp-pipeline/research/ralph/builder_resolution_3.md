@@ -18,14 +18,17 @@
 ## Minor Issues Resolution
 
 ### 1. Audit Timestamp
+
 **Action**: BASE_DEMOS_AUDIT.md already has "Audited: 2026-01-18" at top.
 **Status**: NO CHANGE NEEDED
 
 ### 2. Ralph Reports File Paths
+
 **Action**: Acknowledged for future reports. Historical reports unchanged.
 **Status**: NOTED
 
 ### 3. Proof Gate Version
+
 **Action**: Minor enhancement deferred. JSON output is functional.
 **Status**: DEFERRED (low priority)
 

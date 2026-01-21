@@ -1,27 +1,31 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import { Button } from "~/components/ui/Button";
-import { useComposeCast } from "@coinbase/onchainkit/minikit";
+import { useState, useCallback } from 'react';
+import { Button } from '~/components/ui/Button';
+import { useComposeCast } from '@coinbase/onchainkit/minikit';
 
 export function ComposeCastAction() {
   // Use MiniKit's useComposeCast hook (React Query powered)
   const { composeCast, isPending, error, data } = useComposeCast();
-  
+
   // Form state
-  const [text, setText] = useState<string>("I just learned how to compose a cast");
-  const [embed1, setEmbed1] = useState<string>("https://miniapps.farcaster.xyz/docs/sdk/actions/compose-cast");
-  const [embed2, setEmbed2] = useState<string>("");
-  const [channelKey, setChannelKey] = useState<string>("");
+  const [text, setText] = useState<string>(
+    'I just learned how to compose a cast'
+  );
+  const [embed1, setEmbed1] = useState<string>(
+    'https://miniapps.farcaster.xyz/docs/sdk/actions/compose-cast'
+  );
+  const [embed2, setEmbed2] = useState<string>('');
+  const [channelKey, setChannelKey] = useState<string>('');
   const [close, setClose] = useState<boolean>(false);
-  const [parentHash, setParentHash] = useState<string>("");
+  const [parentHash, setParentHash] = useState<string>('');
 
   const handleComposeCast = useCallback((): void => {
     // Build embeds array - SDK expects [] | [string] | [string, string]
     let embeds: [] | [string] | [string, string] | undefined;
     const embed1Trimmed = embed1.trim();
     const embed2Trimmed = embed2.trim();
-    
+
     if (embed1Trimmed && embed2Trimmed) {
       embeds = [embed1Trimmed, embed2Trimmed];
     } else if (embed1Trimmed) {
@@ -31,15 +35,17 @@ export function ComposeCastAction() {
     } else {
       embeds = undefined;
     }
-    
+
     // Build parameters object
     const params = {
       ...(text.trim() && { text: text.trim() }),
       ...(embeds && { embeds }),
       ...(channelKey.trim() && { channelKey: channelKey.trim() }),
-      ...(parentHash.trim() && { parent: { type: 'cast' as const, hash: parentHash.trim() } })
+      ...(parentHash.trim() && {
+        parent: { type: 'cast' as const, hash: parentHash.trim() },
+      }),
     };
-    
+
     // Note: MiniKit's current type system doesn't support close: true properly in this hook
     // The close functionality would need to be handled at the app level
     composeCast(params);
@@ -48,9 +54,11 @@ export function ComposeCastAction() {
   return (
     <div className="mb-4">
       <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
-        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">useComposeCast()</pre>
+        <pre className="font-mono text-xs text-emerald-500 dark:text-emerald-400">
+          useComposeCast()
+        </pre>
       </div>
-      
+
       {/* Form Fields */}
       <div className="space-y-3 mb-4">
         <div>
@@ -66,7 +74,7 @@ export function ComposeCastAction() {
             disabled={isPending}
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Embed 1 (URL)
@@ -80,7 +88,7 @@ export function ComposeCastAction() {
             disabled={isPending}
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Embed 2 (URL) - Optional
@@ -94,7 +102,7 @@ export function ComposeCastAction() {
             disabled={isPending}
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Channel Key - Optional
@@ -108,7 +116,7 @@ export function ComposeCastAction() {
             disabled={isPending}
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Parent Cast Hash - Optional
@@ -122,7 +130,7 @@ export function ComposeCastAction() {
             disabled={isPending}
           />
         </div>
-        
+
         <div className="flex items-center">
           <input
             type="checkbox"
@@ -132,29 +140,34 @@ export function ComposeCastAction() {
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             disabled={isPending}
           />
-          <label htmlFor="close-app" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+          <label
+            htmlFor="close-app"
+            className="ml-2 text-sm text-gray-700 dark:text-gray-300"
+          >
             Close app after composing
           </label>
         </div>
       </div>
-      
-      <Button 
+
+      <Button
         onClick={handleComposeCast}
         disabled={isPending}
         isLoading={isPending}
       >
-        {isPending ? "Processing..." : "Compose Cast"}
+        {isPending ? 'Processing...' : 'Compose Cast'}
       </Button>
-      
+
       {error && (
         <div className="p-2 bg-red-50 dark:bg-red-900/20 rounded-lg my-2 text-xs text-red-600 dark:text-red-400">
           Error: {error.message}
         </div>
       )}
-      
+
       {data && (
         <div className="p-2 bg-muted border border-border rounded-lg my-2">
-          <div className="font-mono text-xs text-primary">Cast composed successfully!</div>
+          <div className="font-mono text-xs text-primary">
+            Cast composed successfully!
+          </div>
           <div className="mt-1 text-xs text-gray-600 dark:text-gray-400">
             {JSON.stringify(data, null, 2)}
           </div>
@@ -162,4 +175,4 @@ export function ComposeCastAction() {
       )}
     </div>
   );
-} 
+}

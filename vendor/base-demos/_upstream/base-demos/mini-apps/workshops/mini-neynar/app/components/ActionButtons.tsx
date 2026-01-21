@@ -1,10 +1,16 @@
-import { useAddFrame, useOpenUrl, useNotification } from "@coinbase/onchainkit/minikit";
+import {
+  useAddFrame,
+  useOpenUrl,
+  useNotification,
+} from "@coinbase/onchainkit/minikit";
 import { useState, useCallback } from "react";
 interface ActionButtonsProps {
   appUrl?: string;
 }
 
-export default function ActionButtons({ appUrl = process.env.NEXT_PUBLIC_URL || "https://base.org/builders/minikit" }: ActionButtonsProps) {
+export default function ActionButtons({
+  appUrl = process.env.NEXT_PUBLIC_URL || "https://base.org/builders/minikit",
+}: ActionButtonsProps) {
   const [isSaved, setIsSaved] = useState(false);
 
   // MiniKit hooks for Frame integration
@@ -60,7 +66,12 @@ export default function ActionButtons({ appUrl = process.env.NEXT_PUBLIC_URL || 
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 13l4 4L19 7"
+            ></path>
           </svg>
           Saved!
         </button>
@@ -75,4 +86,4 @@ export default function ActionButtons({ appUrl = process.env.NEXT_PUBLIC_URL || 
       </button>
     </div>
   );
-} 
+}

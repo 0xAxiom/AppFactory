@@ -6,25 +6,28 @@
 
 ## Registered Skills
 
-| Skill | Location | When Checked |
-|-------|----------|--------------|
+| Skill                       | Location                              | When Checked      |
+| --------------------------- | ------------------------------------- | ----------------- |
 | react-native-best-practices | `skills/react-native-best-practices/` | After Milestone 3 |
-| mobile-ui-guidelines | `skills/mobile-ui-guidelines/` | After Milestone 2 |
-| expo-standards | `skills/expo-standards/` | Throughout build |
+| mobile-ui-guidelines        | `skills/mobile-ui-guidelines/`        | After Milestone 2 |
+| expo-standards              | `skills/expo-standards/`              | Throughout build  |
 
 ---
 
 ## Activation Triggers
 
 ### After Milestone 2 (Core Screens)
+
 - **Skill:** mobile-ui-guidelines
 - **Focus:** Accessibility, touch targets, loading/empty/error states
 
 ### After Milestone 3 (Feature Implementation)
+
 - **Skill:** react-native-best-practices
 - **Focus:** Async patterns, list performance, re-render prevention
 
 ### Before Milestone 5 (Polish)
+
 - **Skills:** Both react-native-best-practices AND mobile-ui-guidelines
 - **Focus:** Full compliance check before final polish
 
@@ -79,20 +82,24 @@ Severity weights:
 ## Violations by Severity
 
 ### CRITICAL (blocks build)
+
 - [ ] {{rule-id}}: {{description}}
   - File: {{file-path}}:{{line}}
   - Fix: {{suggested-fix}}
 
 ### HIGH (should fix now)
+
 - [ ] {{rule-id}}: {{description}}
   - File: {{file-path}}:{{line}}
   - Fix: {{suggested-fix}}
 
 ### MEDIUM (fix before Ralph)
+
 - [ ] {{rule-id}}: {{description}}
   - File: {{file-path}}:{{line}}
 
 ### LOW (can defer)
+
 - [x] {{rule-id}}: {{description}}
   - Deferred (non-blocking)
 
@@ -103,6 +110,7 @@ Severity weights:
 ---
 
 ## Next Steps
+
 [If BLOCKED: List critical fixes required]
 [If FIX FIRST: List high-priority fixes]
 [If PROCEED: Confirmation to continue]
@@ -110,12 +118,12 @@ Severity weights:
 
 ### Step 5: Take Action
 
-| Score | Status | Action |
-|-------|--------|--------|
-| ≥95% | PROCEED | Continue to next milestone |
-| 90-94% | FIX FIRST | Fix HIGH violations before proceeding |
-| <90% | BLOCKED | Fix all CRITICAL/HIGH violations |
-| Any CRITICAL | BLOCKED | Cannot proceed until resolved |
+| Score        | Status    | Action                                |
+| ------------ | --------- | ------------------------------------- |
+| ≥95%         | PROCEED   | Continue to next milestone            |
+| 90-94%       | FIX FIRST | Fix HIGH violations before proceeding |
+| <90%         | BLOCKED   | Fix all CRITICAL/HIGH violations      |
+| Any CRITICAL | BLOCKED   | Cannot proceed until resolved         |
 
 ---
 
@@ -123,23 +131,23 @@ Severity weights:
 
 ### React Native Best Practices
 
-| Violation | Quick Fix |
-|-----------|-----------|
-| Sequential awaits | Use `Promise.all([...])` |
-| Barrel imports | Import directly from component file |
-| ScrollView + map | Replace with FlatList |
-| Missing cleanup | Add return function to useEffect |
-| Inline styles | Use StyleSheet.create |
+| Violation         | Quick Fix                           |
+| ----------------- | ----------------------------------- |
+| Sequential awaits | Use `Promise.all([...])`            |
+| Barrel imports    | Import directly from component file |
+| ScrollView + map  | Replace with FlatList               |
+| Missing cleanup   | Add return function to useEffect    |
+| Inline styles     | Use StyleSheet.create               |
 
 ### Mobile UI Guidelines
 
-| Violation | Quick Fix |
-|-----------|-----------|
-| Small touch target | Add minWidth/minHeight: 44 |
-| Missing a11y label | Add accessibilityLabel prop |
-| Spinner loading | Replace with Skeleton component |
-| Empty "No items" | Add icon, message, and CTA |
-| Raw error text | Add styled error card with retry |
+| Violation          | Quick Fix                        |
+| ------------------ | -------------------------------- |
+| Small touch target | Add minWidth/minHeight: 44       |
+| Missing a11y label | Add accessibilityLabel prop      |
+| Spinner loading    | Replace with Skeleton component  |
+| Empty "No items"   | Add icon, message, and CTA       |
+| Raw error text     | Add styled error card with retry |
 
 ---
 
@@ -151,6 +159,7 @@ Skill enforcement feeds into Ralph QA:
 2. **During Ralph:** Skill compliance becomes scoring category (mandatory)
 
 Ralph's verdict calculation includes:
+
 - React Native Skills Compliance: 5% weight
 - Mobile UI Skills Compliance: 5% weight
 
@@ -159,16 +168,19 @@ Ralph's verdict calculation includes:
 ## Enforcement Levels
 
 ### Level 1: Advisory (during build)
+
 - Show violations in output
 - Don't block progress
 - Track for Ralph QA
 
 ### Level 2: Warning (before milestones)
+
 - Show violations prominently
 - Require acknowledgment
 - Add to Ralph checklist
 
 ### Level 3: Blocking (Ralph QA)
+
 - CRITICAL violations fail build
 - Must fix before PASS
 

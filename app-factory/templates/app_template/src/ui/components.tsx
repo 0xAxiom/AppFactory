@@ -54,7 +54,11 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {loading ? (
         <ActivityIndicator
-          color={variant === 'primary' ? theme.colors.textInverse : theme.colors.primary}
+          color={
+            variant === 'primary'
+              ? theme.colors.textInverse
+              : theme.colors.primary
+          }
           size="small"
         />
       ) : (

@@ -20,7 +20,7 @@ class Logger {
   private debugMode: boolean = false;
   private redactPatterns: RegExp[] = [
     /sk-ant-[a-zA-Z0-9-]+/g,
-    /ANTHROPIC_API_KEY=[^\s]+/g
+    /ANTHROPIC_API_KEY=[^\s]+/g,
   ];
 
   setJsonMode(enabled: boolean): void {
@@ -43,16 +43,22 @@ class Logger {
     return new Date().toISOString();
   }
 
-  private log(level: LogLevel, message: string, data?: Record<string, unknown>): void {
+  private log(
+    level: LogLevel,
+    message: string,
+    data?: Record<string, unknown>
+  ): void {
     const redactedMessage = this.redact(message);
-    const redactedData = data ? JSON.parse(this.redact(JSON.stringify(data))) : undefined;
+    const redactedData = data
+      ? JSON.parse(this.redact(JSON.stringify(data)))
+      : undefined;
 
     if (this.jsonMode) {
       const entry: LogEntry = {
         level,
         message: redactedMessage,
         timestamp: this.formatTimestamp(),
-        ...(redactedData && { data: redactedData })
+        ...(redactedData && { data: redactedData }),
       };
       console.log(JSON.stringify(entry));
       return;

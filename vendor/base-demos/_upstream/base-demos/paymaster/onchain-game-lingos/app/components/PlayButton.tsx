@@ -84,25 +84,25 @@ export function PlayButton({ onSuccess, finalScore }: PlayButtonProps) {
   };
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {error && (
-        <div className='mb-4'>
-          <p className='text-red-500'>{error}</p>
+        <div className="mb-4">
+          <p className="text-red-500">{error}</p>
         </div>
       )}
       {success && (
-        <div className='mb-4'>
-          <p className='text-green-500'>Game started successfully! 🎮</p>
+        <div className="mb-4">
+          <p className="text-green-500">Game started successfully! 🎮</p>
         </div>
       )}
       <button
         onClick={handlePlay}
         disabled={isLoading || !account.isConnected}
-        className='w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed'
+        className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
         {isLoading ? (
-          <div className='flex items-center justify-center'>
-            <div className='animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2'></div>
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
             Starting Game...
           </div>
         ) : !account.isConnected ? (

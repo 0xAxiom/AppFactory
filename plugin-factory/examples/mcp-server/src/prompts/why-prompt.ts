@@ -30,12 +30,18 @@ export async function generateWhyPrompt(args: WhyPromptArgs) {
   if (decisions.length > 0) {
     context = `## Relevant Decisions Found
 
-${decisions.map(d => `### Decision #${d.id} (${new Date(d.created_at).toLocaleDateString()})
+${decisions
+  .map(
+    (
+      d
+    ) => `### Decision #${d.id} (${new Date(d.created_at).toLocaleDateString()})
 **Files:** ${d.files.join(', ')}
 **Reasoning:** ${d.reasoning}
-${d.tags.length > 0 ? `**Tags:** ${d.tags.map(t => `#${t}`).join(' ')}` : ''}
+${d.tags.length > 0 ? `**Tags:** ${d.tags.map((t) => `#${t}`).join(' ')}` : ''}
 ${d.commit_hash ? `**Commit:** ${d.commit_hash}` : ''}
-`).join('\n')}
+`
+  )
+  .join('\n')}
 
 ---
 
@@ -107,7 +113,10 @@ export async function generateDecisionSummary(args: DecisionSummaryArgs) {
     .sort((a, b) => b[1].length - a[1].length)
     .map(([tag, tagDecisions]) => {
       return `### ${tag} (${tagDecisions.length} decisions)
-${tagDecisions.slice(0, 3).map(d => `- ${d.reasoning.substring(0, 100)}...`).join('\n')}
+${tagDecisions
+  .slice(0, 3)
+  .map((d) => `- ${d.reasoning.substring(0, 100)}...`)
+  .join('\n')}
 ${tagDecisions.length > 3 ? `- ... and ${tagDecisions.length - 3} more` : ''}`;
     })
     .join('\n\n');

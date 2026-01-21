@@ -20,6 +20,7 @@ An accountability app with financial stakes. Users set goals, stake crypto, and 
 **Business Model**: 5% protocol fee on forfeited stakes
 
 **Why It's Interesting**:
+
 - Fills a gap in the Base ecosystem (no accountability apps exist)
 - Inherently sticky (money at stake)
 - Viral potential (share commitments and achievements)
@@ -92,19 +93,19 @@ claude
 
 Each example shows outputs from all 10 pipeline stages:
 
-| Stage | Output |
-|-------|--------|
-| M0 | `artifacts/inputs/normalized_prompt.md` |
-| M1 | `artifacts/stage01/scaffold_plan.md` |
-| M2 | `artifacts/stage02/scaffold_complete.md` |
-| M3 | `artifacts/stage03/manifest_config.md` |
-| M4 | `artifacts/stage04/DEPLOYMENT.md` |
-| M5 | `artifacts/stage05/ACCOUNT_ASSOCIATION_TODO.md` |
-| M6 | Validation via base.dev/preview |
-| M7 | `artifacts/stage07/hardening_report.md` |
-| M8 | `artifacts/stage08/build_validation_summary.json` |
-| M9 | `artifacts/stage09/PUBLISH.md` |
-| M10 | Ralph QA reports (optional) |
+| Stage | Output                                            |
+| ----- | ------------------------------------------------- |
+| M0    | `artifacts/inputs/normalized_prompt.md`           |
+| M1    | `artifacts/stage01/scaffold_plan.md`              |
+| M2    | `artifacts/stage02/scaffold_complete.md`          |
+| M3    | `artifacts/stage03/manifest_config.md`            |
+| M4    | `artifacts/stage04/DEPLOYMENT.md`                 |
+| M5    | `artifacts/stage05/ACCOUNT_ASSOCIATION_TODO.md`   |
+| M6    | Validation via base.dev/preview                   |
+| M7    | `artifacts/stage07/hardening_report.md`           |
+| M8    | `artifacts/stage08/build_validation_summary.json` |
+| M9    | `artifacts/stage09/PUBLISH.md`                    |
+| M10   | Ralph QA reports (optional)                       |
 
 ---
 
@@ -118,6 +119,7 @@ To add a new example:
 4. Submit a PR
 
 Good examples should:
+
 - Fill a real gap in the ecosystem
 - Have a clear business model
 - Demonstrate interesting patterns

@@ -4,26 +4,26 @@ export const theme = {
     // Primary colors from Stage 08
     primary: '{{PRIMARY_COLOR}}',
     secondary: '{{SECONDARY_COLOR}}',
-    
+
     // Semantic colors
     success: '#059669',
     warning: '#D97706',
     error: '#DC2626',
     info: '#0284C7',
-    
+
     // Neutral palette
     background: '#FFFFFF',
     surface: '#F8FAFC',
     surfaceSecondary: '#F1F5F9',
     border: '#E2E8F0',
-    
+
     // Text colors
     textPrimary: '#1E293B',
     textSecondary: '#64748B',
     textTertiary: '#94A3B8',
     textInverse: '#FFFFFF',
   },
-  
+
   spacing: {
     xs: 4,
     sm: 8,
@@ -32,7 +32,7 @@ export const theme = {
     xl: 32,
     xxl: 48,
   },
-  
+
   typography: {
     // Based on platform defaults with Stage 08 customizations
     fontFamily: {
@@ -41,7 +41,7 @@ export const theme = {
       semiBold: 'System',
       bold: 'System',
     },
-    
+
     fontSize: {
       xs: 12,
       sm: 14,
@@ -51,14 +51,14 @@ export const theme = {
       xxl: 24,
       xxxl: 32,
     },
-    
+
     lineHeight: {
       tight: 1.25,
       normal: 1.5,
       relaxed: 1.75,
     },
   },
-  
+
   borderRadius: {
     none: 0,
     sm: 4,
@@ -67,7 +67,7 @@ export const theme = {
     xl: 16,
     full: 9999,
   },
-  
+
   shadows: {
     sm: {
       shadowColor: '#000',
@@ -91,7 +91,7 @@ export const theme = {
       elevation: 5,
     },
   },
-  
+
   // Touch targets for accessibility
   touchTarget: {
     minHeight: 44,

@@ -1,21 +1,21 @@
-import OpenAI from 'openai'
+import OpenAI from 'openai';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-})
+});
 
 export interface ChatMessage {
-  role: 'user' | 'assistant' | 'system'
-  content: string
+  role: 'user' | 'assistant' | 'system';
+  content: string;
 }
 
 export interface ToolCall {
-  id: string
-  type: 'function'
+  id: string;
+  type: 'function';
   function: {
-    name: string
-    arguments: string
-  }
+    name: string;
+    arguments: string;
+  };
 }
 
 export const SYSTEM_PROMPT = `You are a helpful AI assistant that can buy Zora creator coins for users. 
@@ -27,13 +27,14 @@ When a user asks you to buy a Zora coin, you should:
 
 You have access to the user's spend permission which allows you to spend up to their daily limit in USDC to buy creator coins.
 
-Be friendly, helpful, and always confirm purchase details before executing transactions.`
+Be friendly, helpful, and always confirm purchase details before executing transactions.`;
 
 export const ZORA_BUY_FUNCTION = {
   type: 'function' as const,
   function: {
     name: 'buy_zora_coin',
-    description: 'Buy a Zora creator coin for a specific user handle and amount',
+    description:
+      'Buy a Zora creator coin for a specific user handle and amount',
     parameters: {
       type: 'object',
       properties: {
@@ -49,7 +50,7 @@ export const ZORA_BUY_FUNCTION = {
       required: ['zoraHandle', 'amountUSD'],
     },
   },
-}
+};
 
 export async function generateChatResponse(
   messages: ChatMessage[],
@@ -58,19 +59,16 @@ export async function generateChatResponse(
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-5-nano',
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...messages,
-      ],
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
       tools,
       tool_choice: 'auto',
       max_completion_tokens: 1000,
-    })
+    });
 
-    return response
+    return response;
   } catch (error) {
-    console.error('OpenAI API error:', error)
-    throw new Error('Failed to generate chat response')
+    console.error('OpenAI API error:', error);
+    throw new Error('Failed to generate chat response');
   }
 }
 
@@ -81,19 +79,16 @@ export async function streamChatResponse(
   try {
     const stream = await openai.chat.completions.create({
       model: 'gpt-5-nano',
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...messages,
-      ],
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
       tools,
       tool_choice: 'auto',
       max_completion_tokens: 1000,
       stream: true,
-    })
+    });
 
-    return stream
+    return stream;
   } catch (error) {
-    console.error('OpenAI streaming error:', error)
-    throw new Error('Failed to stream chat response')
+    console.error('OpenAI streaming error:', error);
+    throw new Error('Failed to stream chat response');
   }
 }

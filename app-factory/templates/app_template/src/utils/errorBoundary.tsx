@@ -44,7 +44,10 @@ export class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       const FallbackComponent = this.props.fallback || DefaultErrorFallback;
       return (
-        <FallbackComponent error={this.state.error} resetError={this.resetError} />
+        <FallbackComponent
+          error={this.state.error}
+          resetError={this.resetError}
+        />
       );
     }
 
@@ -68,7 +71,7 @@ const DefaultErrorFallback: React.FC<DefaultErrorFallbackProps> = ({
         <Text style={styles.message}>
           We're sorry, but something unexpected happened. Please try again.
         </Text>
-        
+
         {__DEV__ && error && (
           <View style={styles.errorDetails}>
             <Text style={styles.errorTitle}>Error Details (Dev Only):</Text>
@@ -78,7 +81,7 @@ const DefaultErrorFallback: React.FC<DefaultErrorFallbackProps> = ({
             )}
           </View>
         )}
-        
+
         <Button
           title="Try Again"
           onPress={resetError}

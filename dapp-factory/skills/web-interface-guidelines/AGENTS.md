@@ -11,6 +11,7 @@
 When generating web applications, Claude MUST follow these rules. During Ralph QA, compliance with these rules contributes to the Web Design Skills category (25% of total score).
 
 **Priority Levels:**
+
 - **CRITICAL** - Must pass or build fails
 - **HIGH** - Should pass; failures reduce score significantly
 - **MEDIUM** - Should pass; failures reduce score moderately
@@ -135,13 +136,13 @@ Destructive actions require confirmation or undo capability.
     <AlertDialogCancel>Cancel</AlertDialogCancel>
     <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
   </AlertDialogContent>
-</AlertDialog>
+</AlertDialog>;
 
 // GOOD: Undo capability
 const handleDelete = () => {
   const item = deleteItem(id);
   toast('Deleted', {
-    action: { label: 'Undo', onClick: () => restoreItem(item) }
+    action: { label: 'Undo', onClick: () => restoreItem(item) },
   });
 };
 ```
@@ -220,12 +221,12 @@ Explicitly specify which properties to transition.
 
 ```tsx
 // GOOD: Specific transitions
-className="transition-opacity duration-200"
-className="transition-transform duration-150"
-className="transition-colors duration-100"
+className = 'transition-opacity duration-200';
+className = 'transition-transform duration-150';
+className = 'transition-colors duration-100';
 
 // BAD: Transition everything
-className="transition-all duration-200"
+className = 'transition-all duration-200';
 ```
 
 ### ANI-4: Page Entrance Animations (MEDIUM)
@@ -445,7 +446,7 @@ function EmptyState() {
 }
 
 // BAD: Plain text
-<p>No messages</p>
+<p>No messages</p>;
 ```
 
 ### CON-5: Error States (HIGH)
@@ -625,14 +626,18 @@ Provide summary of all errors for accessibility.
 
 ```tsx
 // GOOD: Error summary with aria-live
-{errors.length > 0 && (
-  <div role="alert" aria-live="polite" className="bg-red-50 p-4 rounded mb-4">
-    <h4 className="font-medium text-red-800">Please fix the following:</h4>
-    <ul className="list-disc list-inside text-red-700 text-sm mt-2">
-      {errors.map((error, i) => <li key={i}>{error}</li>)}
-    </ul>
-  </div>
-)}
+{
+  errors.length > 0 && (
+    <div role="alert" aria-live="polite" className="bg-red-50 p-4 rounded mb-4">
+      <h4 className="font-medium text-red-800">Please fix the following:</h4>
+      <ul className="list-disc list-inside text-red-700 text-sm mt-2">
+        {errors.map((error, i) => (
+          <li key={i}>{error}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 ```
 
 ---
@@ -676,7 +681,9 @@ function VirtualList({ items }) {
 }
 
 // BAD: Rendering all items
-{items.map(item => <Item key={item.id} {...item} />)}
+{
+  items.map((item) => <Item key={item.id} {...item} />);
+}
 ```
 
 ### PER-2: Image Preloading (HIGH)
@@ -730,7 +737,7 @@ function CardSkeleton() {
 // BAD: Spinner
 <div className="flex justify-center">
   <Spinner />
-</div>
+</div>;
 ```
 
 ### PER-5: Code Splitting (MEDIUM)
@@ -758,7 +765,7 @@ const debouncedSearch = useDebouncedCallback((value) => {
   fetchResults(value);
 }, 300);
 
-<input onChange={(e) => debouncedSearch(e.target.value)} />
+<input onChange={(e) => debouncedSearch(e.target.value)} />;
 ```
 
 ### PER-7: Batch DOM Updates (MEDIUM)
@@ -808,12 +815,12 @@ Use layered shadows for depth, not single heavy shadows.
 
 ```tsx
 // GOOD: Layered shadow
-className="shadow-sm shadow-gray-200/50"
+className = 'shadow-sm shadow-gray-200/50';
 // or custom:
-boxShadow: '0 1px 2px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.05)'
+boxShadow: '0 1px 2px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.05)';
 
 // BAD: Heavy single shadow
-className="shadow-2xl"
+className = 'shadow-2xl';
 ```
 
 ### DES-3: Interactive State Contrast (HIGH)
@@ -944,11 +951,9 @@ import { FocusTrap } from '@headlessui/react';
 
 <Dialog open={isOpen}>
   <FocusTrap>
-    <DialogContent>
-      {/* Focus stays within */}
-    </DialogContent>
+    <DialogContent>{/* Focus stays within */}</DialogContent>
   </FocusTrap>
-</Dialog>
+</Dialog>;
 ```
 
 ### ACC-6: Screen Reader Testing (HIGH)
@@ -956,6 +961,7 @@ import { FocusTrap } from '@headlessui/react';
 Test with screen readers (VoiceOver, NVDA).
 
 **Checklist:**
+
 - [ ] All interactive elements announced correctly
 - [ ] Form errors read aloud
 - [ ] Dynamic content updates announced
@@ -968,16 +974,16 @@ Test with screen readers (VoiceOver, NVDA).
 
 During Ralph QA, these rules are checked and scored:
 
-| Category | Weight | Items |
-|----------|--------|-------|
-| Interactions | 20% | 8 rules |
-| Animation | 10% | 6 rules |
-| Layout | 10% | 5 rules |
-| Content | 15% | 6 rules |
-| Forms | 15% | 7 rules |
-| Performance | 15% | 8 rules |
-| Design | 10% | 5 rules |
-| Accessibility | 15% | 6 rules |
+| Category      | Weight | Items   |
+| ------------- | ------ | ------- |
+| Interactions  | 20%    | 8 rules |
+| Animation     | 10%    | 6 rules |
+| Layout        | 10%    | 5 rules |
+| Content       | 15%    | 6 rules |
+| Forms         | 15%    | 7 rules |
+| Performance   | 15%    | 8 rules |
+| Design        | 10%    | 5 rules |
+| Accessibility | 15%    | 6 rules |
 
 **Pass Threshold:** 95% of HIGH/CRITICAL rules, 80% of MEDIUM rules
 

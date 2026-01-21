@@ -10,14 +10,17 @@ import chalk from 'chalk';
 /**
  * Prompt for confirmation
  */
-export async function confirm(message: string, defaultValue: boolean = false): Promise<boolean> {
+export async function confirm(
+  message: string,
+  defaultValue: boolean = false
+): Promise<boolean> {
   const { confirmed } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'confirmed',
       message,
-      default: defaultValue
-    }
+      default: defaultValue,
+    },
   ]);
 
   return confirmed;
@@ -26,14 +29,17 @@ export async function confirm(message: string, defaultValue: boolean = false): P
 /**
  * Prompt for text input
  */
-export async function input(message: string, defaultValue?: string): Promise<string> {
+export async function input(
+  message: string,
+  defaultValue?: string
+): Promise<string> {
   const { value } = await inquirer.prompt([
     {
       type: 'input',
       name: 'value',
       message,
-      default: defaultValue
-    }
+      default: defaultValue,
+    },
   ]);
 
   return value;
@@ -51,11 +57,13 @@ export async function select<T extends string>(
       type: 'list',
       name: 'selected',
       message,
-      choices: choices.map(c => ({
-        name: c.description ? `${c.name} - ${chalk.gray(c.description)}` : c.name,
-        value: c.value
-      }))
-    }
+      choices: choices.map((c) => ({
+        name: c.description
+          ? `${c.name} - ${chalk.gray(c.description)}`
+          : c.name,
+        value: c.value,
+      })),
+    },
   ]);
 
   return selected;
@@ -73,8 +81,8 @@ export async function multiSelect<T extends string>(
       type: 'checkbox',
       name: 'selected',
       message,
-      choices
-    }
+      choices,
+    },
   ]);
 
   return selected;
@@ -86,9 +94,9 @@ export async function multiSelect<T extends string>(
 export async function selectIdea(
   ideas: Array<{ id: string; name: string; rank: number; score: number }>
 ): Promise<string> {
-  const choices = ideas.map(idea => ({
+  const choices = ideas.map((idea) => ({
     name: `${idea.rank}. ${idea.name} (Score: ${idea.score})`,
-    value: idea.id
+    value: idea.id,
   }));
 
   const { selected } = await inquirer.prompt([
@@ -96,8 +104,8 @@ export async function selectIdea(
       type: 'list',
       name: 'selected',
       message: 'Select an idea to build:',
-      choices
-    }
+      choices,
+    },
   ]);
 
   return selected;
@@ -117,8 +125,8 @@ export async function promptDreamIdea(): Promise<string> {
           return 'Please provide a more detailed description (at least 10 characters)';
         }
         return true;
-      }
-    }
+      },
+    },
   ]);
 
   return idea.trim();
@@ -145,8 +153,8 @@ Describe your target users...
 ## Constraints
 - Must support offline mode
 - Must use subscription monetization
-`
-    }
+`,
+    },
   ]);
 
   return intake.trim();
@@ -167,8 +175,8 @@ export async function promptApiKey(): Promise<string> {
           return 'Invalid API key format. Anthropic keys start with sk-ant-';
         }
         return true;
-      }
-    }
+      },
+    },
   ]);
 
   return apiKey;
@@ -180,9 +188,9 @@ export async function promptApiKey(): Promise<string> {
 export async function selectRun(
   runs: Array<{ id: string; date: string; status: string; ideaCount: number }>
 ): Promise<string> {
-  const choices = runs.map(run => ({
+  const choices = runs.map((run) => ({
     name: `${run.id} (${run.date}) - ${run.status}, ${run.ideaCount} ideas`,
-    value: run.id
+    value: run.id,
   }));
 
   const { selected } = await inquirer.prompt([
@@ -190,8 +198,8 @@ export async function selectRun(
       type: 'list',
       name: 'selected',
       message: 'Select a run:',
-      choices
-    }
+      choices,
+    },
   ]);
 
   return selected;
@@ -200,7 +208,9 @@ export async function selectRun(
 /**
  * Display a spinner while waiting
  */
-export function showSpinner(message: string): { stop: (success?: boolean) => void } {
+export function showSpinner(message: string): {
+  stop: (success?: boolean) => void;
+} {
   const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
   let i = 0;
 
@@ -214,6 +224,6 @@ export function showSpinner(message: string): { stop: (success?: boolean) => voi
       clearInterval(interval);
       const symbol = success === false ? chalk.red('✗') : chalk.green('✓');
       process.stdout.write(`\r${symbol} ${message}\n`);
-    }
+    },
   };
 }

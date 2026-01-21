@@ -4,13 +4,7 @@
   "title": "Build Validation Summary",
   "description": "Schema for Stage M8 output - proof gate results",
   "type": "object",
-  "required": [
-    "timestamp",
-    "slug",
-    "checks",
-    "overall",
-    "failedChecks"
-  ],
+  "required": ["timestamp", "slug", "checks", "overall", "failedChecks"],
   "properties": {
     "timestamp": {
       "type": "string",
