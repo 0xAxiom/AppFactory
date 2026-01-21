@@ -555,12 +555,75 @@ The Root Orchestrator never modifies pipeline execution logic.
 
 ---
 
+## LOCAL_RUN_PROOF_GATE
+
+**CRITICAL: Non-Bypassable Verification Gate**
+
+Before ANY pipeline outputs "To Run Locally" instructions or declares BUILD COMPLETE, it MUST pass the Local Run Proof verification.
+
+### Gate Requirements
+
+1. **Run the verification harness**:
+
+   ```bash
+   node scripts/local-run-proof/verify.mjs \
+     --cwd <build-output-directory> \
+     --install "<install-command>" \
+     --build "<build-command>" \
+     --dev "<dev-server-command>" \
+     --url "http://localhost:<port>/"
+   ```
+
+2. **Check for RUN_CERTIFICATE.json**:
+   - Only output "To Run Locally" instructions if `status: "PASS"` exists
+   - If `RUN_FAILURE.json` exists, the build has NOT passed
+
+3. **On PASS**:
+   - The harness auto-opens the app in the user's default browser
+   - Output the run instructions from the certificate
+
+4. **On FAIL**:
+   - Do NOT output run instructions
+   - Show the failure reason from `RUN_FAILURE.json`
+   - Attempt to fix the issue and re-run verification
+
+### Forbidden Bypass Patterns
+
+The following patterns are **FORBIDDEN** and will cause verification failure:
+
+| Pattern                  | Why Forbidden                     |
+| ------------------------ | --------------------------------- |
+| `--legacy-peer-deps`     | Hides dependency conflicts        |
+| `--force`                | Ignores errors                    |
+| `--ignore-engines`       | Ignores Node version requirements |
+| `--ignore-scripts`       | Skips postinstall (security risk) |
+| `--shamefully-hoist`     | pnpm: hides resolution issues     |
+| `--skip-integrity-check` | yarn: bypasses lockfile integrity |
+
+### Non-Bypassability Contract
+
+The orchestrator MUST NOT:
+
+- Output run instructions without `RUN_CERTIFICATE.json` with `status: "PASS"`
+- Use bypass flags to make install "succeed"
+- Skip verification for any reason
+- Claim a build is "ready to run" without verification
+
+### Enforcement Location
+
+- Root orchestrator: Enforces this gate before delegating "build complete" status
+- Pipeline CLAUDE.md files: Each pipeline's finalization phase MUST include this gate
+- Factory plugin: Validates RUN_CERTIFICATE.json before declaring success
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                |
 | ------- | ---------- | -------------------------------------- |
+| 1.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint  |
 | 1.0.0   | 2026-01-19 | Initial Root Orchestrator constitution |
 
 ---
 
-**Root Orchestrator v1.0.0**: Route, refuse, delegate. Never execute.
+**Root Orchestrator v1.1.0**: Route, refuse, delegate, verify. Never execute without proof.

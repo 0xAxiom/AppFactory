@@ -589,10 +589,54 @@ When the user doesn't specify:
 
 ---
 
+## LOCAL_RUN_PROOF_GATE
+
+**CRITICAL: Non-Bypassable Verification Gate**
+
+Before outputting "To Run Locally" instructions or declaring BUILD COMPLETE, Claude MUST pass the Local Run Proof verification.
+
+### Gate Execution
+
+```bash
+node ../scripts/local-run-proof/verify.mjs \
+  --cwd outputs/<agent-slug> \
+  --install "npm install" \
+  --build "npm run build" \
+  --dev "npm run dev" \
+  --url "http://localhost:8080/health"
+```
+
+### Gate Requirements
+
+1. **RUN_CERTIFICATE.json** must exist with `status: "PASS"`
+2. If **RUN_FAILURE.json** exists, the build has NOT passed
+3. On PASS: Output run instructions, health endpoint verified
+4. On FAIL: Do NOT output run instructions, fix issues, re-verify
+
+### Forbidden Bypass Patterns
+
+| Pattern              | Why Forbidden                     |
+| -------------------- | --------------------------------- |
+| `--legacy-peer-deps` | Hides dependency conflicts        |
+| `--force`            | Ignores errors                    |
+| `--ignore-engines`   | Ignores Node version requirements |
+
+### Non-Bypassability Contract
+
+Claude MUST NOT:
+
+- Output run instructions without passing verification
+- Use bypass flags to make install "succeed"
+- Skip verification for any reason
+- Claim the agent is "ready to run" without RUN_CERTIFICATE.json
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                                           |
 | ------- | ---------- | ----------------------------------------------------------------- |
+| 4.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                             |
 | 4.0.0   | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
 | 3.2     | 2026-01-18 | Added MCP governance note                                         |
 | 3.1     | 2026-01-18 | Added MCP integration catalog reference                           |
@@ -601,4 +645,4 @@ When the user doesn't specify:
 
 ---
 
-**agent-factory v4.0.0**: Describe your agent idea. Get a complete, Rig-aligned, production-ready scaffold.
+**agent-factory v4.1.0**: Describe your agent idea. Get a complete, Rig-aligned, production-ready scaffold.

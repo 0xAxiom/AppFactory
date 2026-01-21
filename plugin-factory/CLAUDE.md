@@ -600,10 +600,56 @@ When the user doesn't specify:
 
 ---
 
+## LOCAL_RUN_PROOF_GATE
+
+**CRITICAL: Non-Bypassable Verification Gate**
+
+Before outputting "To Run Locally" instructions or declaring BUILD COMPLETE, Claude MUST pass the Local Run Proof verification.
+
+### Gate Execution (MCP Servers Only)
+
+For MCP server plugins with a dev server:
+
+```bash
+node ../scripts/local-run-proof/verify.mjs \
+  --cwd builds/<plugin-slug> \
+  --install "npm install" \
+  --build "npm run build"
+```
+
+**Note**: Claude Code plugins (commands/skills/hooks) do not require dev server verification. Only MCP servers with HTTP interfaces need the full boot check.
+
+### Gate Requirements
+
+1. **RUN_CERTIFICATE.json** must exist with `status: "PASS"`
+2. If **RUN_FAILURE.json** exists, the build has NOT passed
+3. On PASS: Output usage instructions
+4. On FAIL: Do NOT output instructions, fix issues, re-verify
+
+### Forbidden Bypass Patterns
+
+| Pattern              | Why Forbidden                     |
+| -------------------- | --------------------------------- |
+| `--legacy-peer-deps` | Hides dependency conflicts        |
+| `--force`            | Ignores errors                    |
+| `--ignore-engines`   | Ignores Node version requirements |
+
+### Non-Bypassability Contract
+
+Claude MUST NOT:
+
+- Output run instructions without passing verification
+- Use bypass flags to make install "succeed"
+- Skip verification for any reason
+- Claim the plugin is "ready to use" without RUN_CERTIFICATE.json
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                                           |
 | ------- | ---------- | ----------------------------------------------------------------- |
+| 2.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                             |
 | 2.0.0   | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
 | 1.2     | 2026-01-18 | Added MCP Governance section                                      |
 | 1.1     | 2026-01-18 | Added MCP catalog as canonical source                             |
@@ -611,4 +657,4 @@ When the user doesn't specify:
 
 ---
 
-**plugin-factory v2.0.0**: Describe your plugin idea. Get a complete, publishable Claude extension.
+**plugin-factory v2.1.0**: Describe your plugin idea. Get a complete, publishable Claude extension.

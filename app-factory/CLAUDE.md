@@ -857,10 +857,53 @@ When user doesn't specify:
 
 ---
 
+## LOCAL_RUN_PROOF_GATE
+
+**CRITICAL: Non-Bypassable Verification Gate**
+
+Before outputting "To Run Locally" instructions or declaring BUILD COMPLETE, Claude MUST pass the Local Run Proof verification.
+
+### Gate Execution
+
+```bash
+node ../scripts/local-run-proof/verify.mjs \
+  --cwd builds/<app-slug> \
+  --install "npm install"
+```
+
+**Note**: For Expo apps, only install verification is required (no build/dev server check). The user runs `npx expo start` manually.
+
+### Gate Requirements
+
+1. **RUN_CERTIFICATE.json** must exist with `status: "PASS"`
+2. If **RUN_FAILURE.json** exists, the build has NOT passed
+3. On PASS: Output run instructions
+4. On FAIL: Do NOT output run instructions, fix issues, re-verify
+
+### Forbidden Bypass Patterns
+
+| Pattern              | Why Forbidden                     |
+| -------------------- | --------------------------------- |
+| `--legacy-peer-deps` | Hides dependency conflicts        |
+| `--force`            | Ignores errors                    |
+| `--ignore-engines`   | Ignores Node version requirements |
+
+### Non-Bypassability Contract
+
+Claude MUST NOT:
+
+- Output run instructions without passing verification
+- Use bypass flags to make install "succeed"
+- Skip verification for any reason
+- Claim the app is "ready to run" without RUN_CERTIFICATE.json
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                                                                                                                |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 8.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                                                                                                  |
 | 8.0.0   | 2026-01-20 | Canonical structure upgrade: 12-section format, explicit refusal table, completion promise, mode definitions, error recovery protocols |
 | 7.4     | 2026-01-18 | Added MCP governance note                                                                                                              |
 | 7.3     | 2026-01-18 | Added MCP integration catalog                                                                                                          |

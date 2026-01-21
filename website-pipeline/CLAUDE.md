@@ -807,10 +807,54 @@ When the user doesn't specify:
 
 ---
 
+## LOCAL_RUN_PROOF_GATE
+
+**CRITICAL: Non-Bypassable Verification Gate**
+
+Before outputting "To Run Locally" instructions or declaring BUILD COMPLETE, Claude MUST pass the Local Run Proof verification.
+
+### Gate Execution
+
+```bash
+node ../scripts/local-run-proof/verify.mjs \
+  --cwd builds/<website-slug> \
+  --install "npm install" \
+  --build "npm run build" \
+  --dev "npm run dev" \
+  --url "http://localhost:3000/"
+```
+
+### Gate Requirements
+
+1. **RUN_CERTIFICATE.json** must exist with `status: "PASS"`
+2. If **RUN_FAILURE.json** exists, the build has NOT passed
+3. On PASS: Output run instructions, browser auto-opens
+4. On FAIL: Do NOT output run instructions, fix issues, re-verify
+
+### Forbidden Bypass Patterns
+
+| Pattern              | Why Forbidden                     |
+| -------------------- | --------------------------------- |
+| `--legacy-peer-deps` | Hides dependency conflicts        |
+| `--force`            | Ignores errors                    |
+| `--ignore-engines`   | Ignores Node version requirements |
+
+### Non-Bypassability Contract
+
+Claude MUST NOT:
+
+- Output run instructions without passing verification
+- Use bypass flags to make install "succeed"
+- Skip verification for any reason
+- Claim the website is "ready to run" without RUN_CERTIFICATE.json
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                                                                                                                |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                                                                                                  |
 | 2.0.0   | 2026-01-20 | Canonical structure upgrade: 12-section format, explicit refusal table, completion promise, mode definitions, error recovery protocols |
 | 1.3     | 2026-01-18 | Added MCP governance note                                                                                                              |
 | 1.2     | 2026-01-18 | Added MCP integration catalog reference                                                                                                |

@@ -641,10 +641,54 @@ dapp-builds/<app-slug>/
 
 ---
 
+## LOCAL_RUN_PROOF_GATE
+
+**CRITICAL: Non-Bypassable Verification Gate**
+
+Before outputting "To Run Locally" instructions or declaring BUILD COMPLETE, Claude MUST pass the Local Run Proof verification.
+
+### Gate Execution
+
+```bash
+node ../scripts/local-run-proof/verify.mjs \
+  --cwd dapp-builds/<app-slug> \
+  --install "npm install" \
+  --build "npm run build" \
+  --dev "npm run dev" \
+  --url "http://localhost:3000/"
+```
+
+### Gate Requirements
+
+1. **RUN_CERTIFICATE.json** must exist with `status: "PASS"`
+2. If **RUN_FAILURE.json** exists, the build has NOT passed
+3. On PASS: Output run instructions, browser auto-opens
+4. On FAIL: Do NOT output run instructions, fix issues, re-verify
+
+### Forbidden Bypass Patterns
+
+| Pattern              | Why Forbidden                     |
+| -------------------- | --------------------------------- |
+| `--legacy-peer-deps` | Hides dependency conflicts        |
+| `--force`            | Ignores errors                    |
+| `--ignore-engines`   | Ignores Node version requirements |
+
+### Non-Bypassability Contract
+
+Claude MUST NOT:
+
+- Output run instructions without passing verification
+- Use bypass flags to make install "succeed"
+- Skip verification for any reason
+- Claim the dApp is "ready to run" without RUN_CERTIFICATE.json
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                                           |
 | ------- | ---------- | ----------------------------------------------------------------- |
+| 9.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                             |
 | 9.0.0   | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
 | 8.3     | 2026-01-18 | Added MCP governance note                                         |
 | 8.2     | 2026-01-18 | Added MCP integration catalog reference                           |
@@ -653,4 +697,4 @@ dapp-builds/<app-slug>/
 
 ---
 
-**dapp-factory v9.0.0**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.
+**dapp-factory v9.1.0**: Describe your dApp idea. Get a complete, polished, runnable decentralized application—with or without AI agents.

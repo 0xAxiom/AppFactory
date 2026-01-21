@@ -609,10 +609,54 @@ Use these as canonical references for manifest fields, signing process, and trou
 
 ---
 
+## LOCAL_RUN_PROOF_GATE
+
+**CRITICAL: Non-Bypassable Verification Gate**
+
+Before outputting "To Run Locally" instructions or declaring BUILD COMPLETE, Claude MUST pass the Local Run Proof verification.
+
+### Gate Execution
+
+```bash
+node ../scripts/local-run-proof/verify.mjs \
+  --cwd builds/miniapps/<slug>/app \
+  --install "npm install" \
+  --build "npm run build" \
+  --dev "npm run dev" \
+  --url "http://localhost:3000/"
+```
+
+### Gate Requirements
+
+1. **RUN_CERTIFICATE.json** must exist with `status: "PASS"`
+2. If **RUN_FAILURE.json** exists, the build has NOT passed
+3. On PASS: Output run instructions, browser auto-opens
+4. On FAIL: Do NOT output run instructions, fix issues, re-verify
+
+### Forbidden Bypass Patterns
+
+| Pattern              | Why Forbidden                     |
+| -------------------- | --------------------------------- |
+| `--legacy-peer-deps` | Hides dependency conflicts        |
+| `--force`            | Ignores errors                    |
+| `--ignore-engines`   | Ignores Node version requirements |
+
+### Non-Bypassability Contract
+
+Claude MUST NOT:
+
+- Output run instructions without passing verification
+- Use bypass flags to make install "succeed"
+- Skip verification for any reason
+- Claim the mini app is "ready to run" without RUN_CERTIFICATE.json
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                                           |
 | ------- | ---------- | ----------------------------------------------------------------- |
+| 2.1.0   | 2026-01-20 | Added LOCAL_RUN_PROOF_GATE constraint                             |
 | 2.0.0   | 2026-01-20 | Canonical 12-section structure, refusal table, completion promise |
 | 1.2     | 2026-01-18 | Added MCP governance note                                         |
 | 1.1     | 2026-01-18 | Added MCP integration catalog reference                           |
@@ -620,4 +664,4 @@ Use these as canonical references for manifest fields, signing process, and trou
 
 ---
 
-**miniapp-pipeline v2.0.0**: Describe your mini app idea. Get a production-ready Base Mini App.
+**miniapp-pipeline v2.1.0**: Describe your mini app idea. Get a production-ready Base Mini App.

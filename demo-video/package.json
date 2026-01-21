@@ -1,0 +1,29 @@
+{
+  "name": "appfactory-demo-video",
+  "version": "1.0.0",
+  "description": "Remotion-based demo video pipeline for AppFactory builds",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render",
+    "render:demo": "remotion render src/index.ts AppFactoryDemo out/demo.mp4",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.250",
+    "@remotion/cli": "4.0.250",
+    "@remotion/renderer": "4.0.250",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.250"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

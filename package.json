@@ -36,7 +36,10 @@
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "release:patch": "standard-version --release-as patch"
+    "release:patch": "standard-version --release-as patch",
+    "test:local-run-proof": "node --test scripts/local-run-proof/__tests__/verify.test.mjs",
+    "demo:render": "node scripts/render-demo-video.mjs",
+    "demo:studio": "cd demo-video && npm run studio"
   },
   "keywords": [
     "app-factory",

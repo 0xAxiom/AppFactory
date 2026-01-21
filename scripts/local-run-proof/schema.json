@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/appfactory/local-run-proof/schema.json",
+  "title": "Local Run Proof Artifacts",
+  "description": "JSON Schema for RUN_CERTIFICATE.json and RUN_FAILURE.json artifacts",
+  "definitions": {
+    "timestamp": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when verification started"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when verification ended"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total duration in milliseconds"
+        }
+      },
+      "required": ["start", "end", "duration_ms"]
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "os": {
+          "type": "string",
+          "description": "Operating system (darwin, linux, win32)"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Platform name"
+        },
+        "arch": {
+          "type": "string",
+          "description": "CPU architecture (x64, arm64)"
+        },
+        "os_release": {
+          "type": "string",
+          "description": "OS release version"
+        },
+        "node_version": {
+          "type": "string",
+          "description": "Node.js version"
+        },
+        "package_manager": {
+          "type": "string",
+          "enum": ["npm", "yarn", "pnpm", "bun", "unknown"],
+          "description": "Detected package manager"
+        }
+      },
+      "required": ["os", "platform", "arch", "node_version"]
+    },
+    "command_result": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "The command that was executed"
+        },
+        "exit_code": {
+          "type": ["integer", "null"],
+          "description": "Exit code (null for running servers)"
+        },
+        "duration_ms": {
+          "type": ["integer", "null"],
+          "description": "Duration in milliseconds"
+        }
+      },
+      "required": ["command"]
+    },
+    "healthcheck": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL that was checked"
+        },
+        "port": {
+          "type": "integer",
+          "description": "Port number"
+        },
+        "status_code": {
+          "type": "integer",
+          "description": "HTTP status code received"
+        },
+        "response_time_ms": {
+          "type": "integer",
+          "description": "Response time in milliseconds"
+        }
+      },
+      "required": ["url", "port", "status_code"]
+    },
+    "hashes": {
+      "type": "object",
+      "properties": {
+        "package_json_sha256": {
+          "type": ["string", "null"],
+          "description": "SHA256 hash of package.json"
+        },
+        "lockfile_sha256": {
+          "type": ["string", "null"],
+          "description": "SHA256 hash of lockfile (if present)"
+        },
+        "git_commit": {
+          "type": ["string", "null"],
+          "description": "Git commit hash (if in a git repo)"
+        }
+      }
+    },
+    "logs": {
+      "type": "object",
+      "properties": {
+        "install": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Last N lines of install output (redacted)"
+        },
+        "build": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Last N lines of build output (redacted)"
+        },
+        "dev": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Last N lines of dev server output (redacted)"
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "title": "RUN_CERTIFICATE",
+      "description": "Certificate generated on successful verification",
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "PASS",
+          "description": "Verification passed"
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema/harness version"
+        },
+        "timestamps": { "$ref": "#/definitions/timestamp" },
+        "environment": { "$ref": "#/definitions/environment" },
+        "commands": {
+          "type": "object",
+          "properties": {
+            "install": { "$ref": "#/definitions/command_result" },
+            "build": { "$ref": "#/definitions/command_result" },
+            "dev": { "$ref": "#/definitions/command_result" }
+          },
+          "required": ["install"]
+        },
+        "healthcheck": { "$ref": "#/definitions/healthcheck" },
+        "hashes": { "$ref": "#/definitions/hashes" },
+        "logs": { "$ref": "#/definitions/logs" }
+      },
+      "required": ["status", "version", "timestamps", "environment", "commands"]
+    },
+    {
+      "title": "RUN_FAILURE",
+      "description": "Failure report generated on failed verification",
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "FAIL",
+          "description": "Verification failed"
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema/harness version"
+        },
+        "step_failed": {
+          "type": "string",
+          "enum": [
+            "precheck",
+            "clean",
+            "install",
+            "build",
+            "boot",
+            "healthcheck",
+            "shutdown",
+            "unexpected"
+          ],
+          "description": "The step at which verification failed"
+        },
+        "error_summary": {
+          "type": "string",
+          "description": "Human-readable error summary"
+        },
+        "exit_code": {
+          "type": ["integer", "null"],
+          "description": "Exit code of failed command"
+        },
+        "remediation_hint": {
+          "type": "string",
+          "description": "Actionable suggestion to fix the issue"
+        },
+        "timestamps": { "$ref": "#/definitions/timestamp" },
+        "environment": { "$ref": "#/definitions/environment" },
+        "commands": {
+          "type": "object",
+          "properties": {
+            "install": { "$ref": "#/definitions/command_result" },
+            "build": { "$ref": "#/definitions/command_result" },
+            "dev": { "$ref": "#/definitions/command_result" }
+          }
+        },
+        "logs": { "$ref": "#/definitions/logs" }
+      },
+      "required": [
+        "status",
+        "version",
+        "step_failed",
+        "error_summary",
+        "remediation_hint",
+        "timestamps",
+        "environment"
+      ]
+    }
+  ]
+}
