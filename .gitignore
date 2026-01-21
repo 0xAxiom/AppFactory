@@ -135,3 +135,4 @@ demo-video/public/internal-audio/
 
 # Playwright MCP artifacts (regenerated on each run)
 .playwright-mcp/
+.worktrees/
