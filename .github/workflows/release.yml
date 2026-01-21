@@ -60,7 +60,7 @@ jobs:
           VERSION: ${{ steps.version.outputs.VERSION }}
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           body_path: ${{ steps.release_notes.outputs.NOTES_FILE }}
           draft: false
