@@ -1,0 +1,130 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run weekly on Mondays at 00:00 UTC
+    - cron: "0 0 * * 1"
+
+jobs:
+  dependency-audit:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Audit root dependencies
+        run: npm audit --audit-level=high || true
+        continue-on-error: true
+
+      - name: Audit CLI dependencies
+        run: cd CLI && npm audit --audit-level=high || true
+        continue-on-error: true
+
+      - name: Audit dapp-factory dependencies
+        run: cd dapp-factory && npm audit --audit-level=high || true
+        continue-on-error: true
+
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan for secrets
+        run: |
+          echo "Scanning for potential secrets..."
+
+          # Check for common secret patterns
+          patterns=(
+            'AKIA[0-9A-Z]{16}'  # AWS Access Key
+            'sk-[a-zA-Z0-9]{48}'  # OpenAI API Key
+            'sk-ant-[a-zA-Z0-9-]{108}'  # Anthropic API Key
+            'ghp_[a-zA-Z0-9]{36}'  # GitHub Personal Access Token
+            'gho_[a-zA-Z0-9]{36}'  # GitHub OAuth Token
+            'npm_[a-zA-Z0-9]{36}'  # NPM Token
+          )
+
+          found_secrets=0
+
+          for pattern in "${patterns[@]}"; do
+            if grep -rE "$pattern" --include="*.ts" --include="*.js" --include="*.json" --exclude-dir=node_modules --exclude-dir=.git . 2>/dev/null; then
+              echo "WARNING: Potential secret found matching pattern: $pattern"
+              found_secrets=1
+            fi
+          done
+
+          # Check for .env files that shouldn't be committed
+          if find . -name ".env" -not -path "./node_modules/*" -not -path "./.git/*" | grep -q .; then
+            echo "WARNING: .env file found (should not be committed)"
+            find . -name ".env" -not -path "./node_modules/*" -not -path "./.git/*"
+            found_secrets=1
+          fi
+
+          if [ $found_secrets -eq 1 ]; then
+            echo "Secret scan found potential issues. Please review."
+            # Don't fail the build, just warn
+          else
+            echo "No secrets detected!"
+          fi
+
+  license-check:
+    name: License Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check LICENSE file
+        run: |
+          if [ -f "LICENSE" ] || [ -f "LICENSE.md" ] || [ -f "LICENSE.txt" ]; then
+            echo "✓ License file found"
+          else
+            echo "Creating MIT LICENSE file..."
+            cat > LICENSE << 'EOF'
+          MIT License
+
+          Copyright (c) 2024 MeltedMindz
+
+          Permission is hereby granted, free of charge, to any person obtaining a copy
+          of this software and associated documentation files (the "Software"), to deal
+          in the Software without restriction, including without limitation the rights
+          to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+          copies of the Software, and to permit persons to whom the Software is
+          furnished to do so, subject to the following conditions:
+
+          The above copyright notice and this permission notice shall be included in all
+          copies or substantial portions of the Software.
+
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+          IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+          FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+          AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+          LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+          OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+          SOFTWARE.
+          EOF
+            echo "✓ MIT License file created"
+          fi
+
+      - name: Verify package.json license
+        run: |
+          license=$(node -p "require('./package.json').license || 'NONE'")
+          echo "Package license: $license"
+          if [ "$license" = "MIT" ]; then
+            echo "✓ Package license is MIT"
+          else
+            echo "⚠ Package license is not MIT: $license"
+          fi

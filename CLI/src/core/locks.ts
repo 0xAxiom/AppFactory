@@ -48,7 +48,9 @@ export function acquireLock(runId: string, command: string): boolean {
 
       // Check if the locking process is still running
       if (isProcessRunning(lockInfo.pid)) {
-        logger.error(`Another pipeline is running: ${lockInfo.runId} (PID: ${lockInfo.pid})`);
+        logger.error(
+          `Another pipeline is running: ${lockInfo.runId} (PID: ${lockInfo.pid})`
+        );
         logger.error(`Started at: ${lockInfo.startTime}`);
         logger.error(`Command: ${lockInfo.command}`);
         return false;
@@ -57,7 +59,7 @@ export function acquireLock(runId: string, command: string): boolean {
       // Stale lock - process is dead, remove it
       logger.warn(`Removing stale lock from dead process ${lockInfo.pid}`);
       fs.unlinkSync(lockPath);
-    } catch (err) {
+    } catch {
       // Corrupted lock file, remove it
       logger.warn('Removing corrupted lock file');
       try {
@@ -73,7 +75,7 @@ export function acquireLock(runId: string, command: string): boolean {
     pid: process.pid,
     runId,
     startTime: new Date().toISOString(),
-    command
+    command,
   };
 
   try {

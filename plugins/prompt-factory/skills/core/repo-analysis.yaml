@@ -1,0 +1,112 @@
+# Core Skill: repo-analysis
+# Version: 1.0.0
+# State: core
+
+skill:
+  name: repo-analysis
+  version: "1.0.0"
+  description: "Analyzes codebase structure, patterns, and architecture without modification"
+
+  category: repo-analysis
+
+  triggers:
+    explicit:
+      - phrase: "analyze repository"
+        confidence: high
+      - phrase: "understand codebase"
+        confidence: high
+      - phrase: "analyze code structure"
+        confidence: high
+      - phrase: "map architecture"
+        confidence: medium
+    implicit:
+      - signal: "User asks about code organization"
+        requires_confirmation: true
+
+  contracts:
+    preconditions:
+      - condition: "Repository path is accessible"
+        failure_action: "Ask user for repository path"
+
+    must:
+      - "Identify project type and language(s)"
+      - "Map directory structure"
+      - "Detect common patterns (MVC, microservices, etc.)"
+      - "List key entry points and configuration files"
+      - "Respect .gitignore and similar exclusion files"
+
+    must_not:
+      - "Modify any files in the repository"
+      - "Execute any code or scripts"
+      - "Read files outside specified repository"
+      - "Expose secrets found in configuration"
+      - "Make changes to git state"
+
+    postconditions:
+      - condition: "Analysis report generated"
+        verification: "Report contains structure, patterns, entry points"
+
+  inputs:
+    required:
+      - name: path
+        type: "string"
+        description: "Path to repository root"
+    optional:
+      - name: depth
+        type: "integer"
+        default: 3
+        description: "How deep to analyze directory structure"
+      - name: focus
+        type: "string"
+        default: "all"
+        description: "Focus area: all, architecture, dependencies, patterns"
+
+  outputs:
+    contracted:
+      - name: structure
+        type: "object"
+        description: "Directory tree and file organization"
+      - name: languages
+        type: "array"
+        description: "Detected programming languages"
+      - name: patterns
+        type: "array"
+        description: "Detected architectural patterns"
+    conditional:
+      - name: dependencies
+        condition: "Package files found"
+        type: "object"
+      - name: entry_points
+        condition: "Entry points detected"
+        type: "array"
+
+  failure_modes:
+    - trigger: "Path not accessible"
+      behavior: "Report permission error"
+      recovery: "User provides accessible path"
+    - trigger: "Very large repository"
+      behavior: "Analyze subset, ask to continue"
+      recovery: "User confirms continuation"
+
+  security:
+    trust_level: system
+    allowed_resources:
+      - type: filesystem
+        scope: "read-only, within repository path"
+    hardcoded_blocks:
+      - pattern: "^/"
+        reason: "Must be relative to repo path"
+    max_depth: 2
+    external_triggerable: false
+
+  dependencies:
+    skills: []
+    resources:
+      - type: filesystem
+        scope: "read"
+
+  audit:
+    created: "2024-01-18T00:00:00Z"
+    modified: "2024-01-18T00:00:00Z"
+    author: "prompt-factory-core"
+    rationale: "Read-only codebase understanding without risk of modification"

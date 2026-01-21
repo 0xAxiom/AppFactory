@@ -1,0 +1,76 @@
+# Dependabot configuration for automated dependency updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # CLI package dependencies
+  - package-ecosystem: "npm"
+    directory: "/CLI"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps(cli)"
+    labels:
+      - "dependencies"
+      - "cli"
+    groups:
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/*"
+          - "typescript"
+      anthropic:
+        patterns:
+          - "@anthropic-ai/*"
+
+  # dapp-factory package dependencies
+  - package-ecosystem: "npm"
+    directory: "/dapp-factory"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps(dapp-factory)"
+    labels:
+      - "dependencies"
+      - "dapp-factory"
+    groups:
+      typescript:
+        patterns:
+          - "typescript"
+          - "tsx"
+          - "@types/*"
+
+  # plugin-factory example dependencies
+  - package-ecosystem: "npm"
+    directory: "/plugin-factory/examples/mcp-server"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "deps(plugin-factory)"
+    labels:
+      - "dependencies"
+      - "plugin-factory"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "ci"
+      - "dependencies"

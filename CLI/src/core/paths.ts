@@ -23,20 +23,22 @@ function findRepoRoot(): string {
       return current;
     }
     const parent = path.dirname(current);
-    if (parent === current) break;
+    if (parent === current) {
+      break;
+    }
     current = parent;
   }
 
-  throw new Error('Could not find repository root (app-factory directory not found)');
+  throw new Error(
+    'Could not find repository root (app-factory directory not found)'
+  );
 }
 
 // Lazy initialization of repo root
 let _repoRoot: string | null = null;
 
 export function getRepoRoot(): string {
-  if (!_repoRoot) {
-    _repoRoot = findRepoRoot();
-  }
+  _repoRoot ??= findRepoRoot();
   return _repoRoot;
 }
 
@@ -70,7 +72,11 @@ export function getLeaderboardsDir(): string {
 }
 
 export function getStandardsPath(): string {
-  return path.join(getFactoryRoot(), 'standards', 'mobile_app_best_practices_2026.md');
+  return path.join(
+    getFactoryRoot(),
+    'standards',
+    'mobile_app_best_practices_2026.md'
+  );
 }
 
 export function getVendorDir(): string {
@@ -92,7 +98,7 @@ export function getSchemaPath(stageName: string): string {
     `${stageName}.json`,
     `${stageName}_schema.json`,
     `stage${stageName}.json`,
-    `stage${stageName}_schema.json`
+    `stage${stageName}_schema.json`,
   ];
 
   for (const variant of variants) {
@@ -111,9 +117,11 @@ export function getRunPath(runId: string): string | null {
   const runsDir = getRunsDir();
 
   // Check all date directories
-  if (!fs.existsSync(runsDir)) return null;
+  if (!fs.existsSync(runsDir)) {
+    return null;
+  }
 
-  const dateDirs = fs.readdirSync(runsDir).filter(d => {
+  const dateDirs = fs.readdirSync(runsDir).filter((d) => {
     const fullPath = path.join(runsDir, d);
     return fs.statSync(fullPath).isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(d);
   });
@@ -146,7 +154,10 @@ export function getBuildPath(ideaDir: string, buildId: string): string {
 }
 
 // Validation
-export function validateFactoryStructure(): { valid: boolean; errors: string[] } {
+export function validateFactoryStructure(): {
+  valid: boolean;
+  errors: string[];
+} {
   const errors: string[] = [];
 
   const requiredPaths = [
@@ -154,7 +165,10 @@ export function validateFactoryStructure(): { valid: boolean; errors: string[] }
     { path: getTemplatesDir(), name: 'templates/agents' },
     { path: getSchemasDir(), name: 'schemas' },
     { path: getScriptsDir(), name: 'scripts' },
-    { path: getStandardsPath(), name: 'standards/mobile_app_best_practices_2026.md' }
+    {
+      path: getStandardsPath(),
+      name: 'standards/mobile_app_best_practices_2026.md',
+    },
   ];
 
   for (const { path: p, name } of requiredPaths) {
@@ -165,25 +179,27 @@ export function validateFactoryStructure(): { valid: boolean; errors: string[] }
 
   return {
     valid: errors.length === 0,
-    errors
+    errors,
   };
 }
 
 // List recent runs
 export function listRecentRuns(limit: number = 10): string[] {
   const runsDir = getRunsDir();
-  if (!fs.existsSync(runsDir)) return [];
+  if (!fs.existsSync(runsDir)) {
+    return [];
+  }
 
   const runs: { path: string; mtime: Date }[] = [];
 
-  const dateDirs = fs.readdirSync(runsDir).filter(d => {
+  const dateDirs = fs.readdirSync(runsDir).filter((d) => {
     const fullPath = path.join(runsDir, d);
     return fs.statSync(fullPath).isDirectory();
   });
 
   for (const dateDir of dateDirs) {
     const datePath = path.join(runsDir, dateDir);
-    const runDirs = fs.readdirSync(datePath).filter(d => {
+    const runDirs = fs.readdirSync(datePath).filter((d) => {
       const fullPath = path.join(datePath, d);
       return fs.statSync(fullPath).isDirectory();
     });
@@ -198,17 +214,19 @@ export function listRecentRuns(limit: number = 10): string[] {
   // Sort by modification time descending
   runs.sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
 
-  return runs.slice(0, limit).map(r => r.path);
+  return runs.slice(0, limit).map((r) => r.path);
 }
 
 // List builds
 export function listBuilds(): string[] {
   const buildsDir = getBuildsDir();
-  if (!fs.existsSync(buildsDir)) return [];
+  if (!fs.existsSync(buildsDir)) {
+    return [];
+  }
 
   const builds: string[] = [];
 
-  const ideaDirs = fs.readdirSync(buildsDir).filter(d => {
+  const ideaDirs = fs.readdirSync(buildsDir).filter((d) => {
     const fullPath = path.join(buildsDir, d);
     return fs.statSync(fullPath).isDirectory() && !d.startsWith('.');
   });

@@ -236,7 +236,7 @@ export default function TimeSelectionScreen() {
                   if (!theme.isPremium) {
                     setSelectedTheme(theme.id);
                   } else {
-                    // TODO: Show premium upgrade modal
+                    // Premium themes require subscription - redirect to paywall
                     router.push('/paywall');
                   }
                 }}

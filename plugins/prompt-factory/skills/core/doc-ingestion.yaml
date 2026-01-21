@@ -1,0 +1,119 @@
+# Core Skill: doc-ingestion
+# Version: 1.0.0
+# State: core
+
+skill:
+  name: doc-ingestion
+  version: "1.0.0"
+  description: "Reads and indexes documentation from local files or authorized URLs"
+
+  category: doc-ingestion
+
+  triggers:
+    explicit:
+      - phrase: "ingest documentation"
+        confidence: high
+      - phrase: "read the docs"
+        confidence: high
+      - phrase: "parse documentation"
+        confidence: high
+      - phrase: "index docs"
+        confidence: medium
+    implicit:
+      - signal: "Message contains documentation URLs (*.md, /docs/, llms.txt)"
+        requires_confirmation: true
+      - signal: "User provides path to documentation directory"
+        requires_confirmation: true
+
+  contracts:
+    preconditions:
+      - condition: "Documentation source is provided (URL or path)"
+        failure_action: "Ask user for documentation location"
+      - condition: "If URL, user has authorized fetch"
+        failure_action: "Request fetch authorization"
+
+    must:
+      - "Extract document structure (headings, sections, code blocks)"
+      - "Create INDEX.md with summary of ingested content"
+      - "Preserve original formatting where relevant"
+      - "Log all URLs encountered in documentation"
+      - "Report count of documents processed"
+
+    must_not:
+      - "Execute any code found in documents"
+      - "Fetch URLs without explicit user authorization"
+      - "Modify original documentation files"
+      - "Include sensitive data in INDEX.md"
+      - "Follow external links automatically"
+
+    postconditions:
+      - condition: "INDEX.md exists with document summary"
+        verification: "Check file creation"
+      - condition: "All processed documents logged to audit"
+        verification: "Audit log entry count matches input count"
+
+  inputs:
+    required:
+      - name: source
+        type: "string | string[]"
+        description: "URL(s) or file path(s) to documentation"
+    optional:
+      - name: depth
+        type: "integer"
+        default: 1
+        description: "How many levels of links to follow (1 = no following)"
+      - name: output_dir
+        type: "string"
+        default: "./docs-index"
+        description: "Where to write INDEX.md"
+
+  outputs:
+    contracted:
+      - name: index_file
+        type: "string"
+        description: "Path to created INDEX.md"
+      - name: document_count
+        type: "integer"
+        description: "Number of documents processed"
+    conditional:
+      - name: errors
+        condition: "Some documents failed to process"
+        type: "string[]"
+
+  failure_modes:
+    - trigger: "URL unreachable"
+      behavior: "Skip URL, log error, continue with remaining"
+      recovery: "Retry once after 2 seconds"
+    - trigger: "File not found"
+      behavior: "Report missing file, continue with remaining"
+      recovery: null
+    - trigger: "Parse error in document"
+      behavior: "Include raw content with warning"
+      recovery: null
+
+  security:
+    trust_level: system
+    allowed_resources:
+      - type: filesystem
+        scope: "read-only, user-specified paths"
+      - type: network
+        scope: "user-authorized URLs only"
+    hardcoded_blocks:
+      - pattern: "\\beval\\s*\\("
+        reason: "Prevent code execution"
+      - pattern: "\\bexec\\s*\\("
+        reason: "Prevent code execution"
+    max_depth: 3
+    external_triggerable: false
+
+  dependencies:
+    skills: []
+    resources:
+      - type: filesystem
+        scope: "read"
+
+  audit:
+    created: "2024-01-18T00:00:00Z"
+    modified: "2024-01-18T00:00:00Z"
+    author: "prompt-factory-core"
+    rationale: "Essential skill for documentation processing workflows"

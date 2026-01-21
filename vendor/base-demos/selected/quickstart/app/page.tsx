@@ -75,7 +75,8 @@ export default function Home() {
       return;
     }
 
-    // TODO: Save email to database/API with user FID
+    // TEMPLATE: Implement your email storage logic here
+    // Example: await fetch('/api/waitlist', { method: 'POST', body: JSON.stringify({ email, fid: authData.user?.fid }) })
     console.log("Valid email submitted:", email);
     console.log("User authenticated:", authData.user);
     

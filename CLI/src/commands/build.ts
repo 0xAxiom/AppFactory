@@ -8,7 +8,13 @@ import { Command } from 'commander';
 import ora from 'ora';
 import { executeBuild, findIdea } from '../core/pipeline.js';
 import { logger } from '../core/logging.js';
-import { printBanner, printHeader, printCompletionBanner, printFailureBanner, printInfo } from '../ui/banner.js';
+import {
+  printBanner,
+  printHeader,
+  printCompletionBanner,
+  printFailureBanner,
+  printInfo,
+} from '../ui/banner.js';
 import { formatKeyValue, formatNextSteps } from '../ui/format.js';
 import { confirm, selectIdea } from '../ui/prompts.js';
 import { loadIdeaIndex } from '../core/pipeline.js';
@@ -37,12 +43,19 @@ export function createBuildCommand(): Command {
         const runs = listRecentRuns(5);
 
         if (runs.length === 0) {
-          logger.error('No runs found. Run "appfactory run" first to generate ideas.');
+          logger.error(
+            'No runs found. Run "appfactory run" first to generate ideas.'
+          );
           process.exit(1);
         }
 
         // Find all ideas across recent runs
-        const allIdeas: Array<{ id: string; name: string; rank: number; score: number }> = [];
+        const allIdeas: Array<{
+          id: string;
+          name: string;
+          rank: number;
+          score: number;
+        }> = [];
 
         for (const runPath of runs) {
           const index = loadIdeaIndex(runPath);
@@ -51,7 +64,7 @@ export function createBuildCommand(): Command {
               id: idea.id,
               name: idea.name,
               rank: idea.rank,
-              score: idea.validation_score
+              score: idea.validation_score,
             });
           }
         }
@@ -65,7 +78,7 @@ export function createBuildCommand(): Command {
       }
 
       // Find the idea
-      const found = findIdea(ideaQuery);
+      const found = await findIdea(ideaQuery);
 
       if (!found) {
         logger.error(`Idea not found: ${ideaQuery}`);
@@ -75,11 +88,13 @@ export function createBuildCommand(): Command {
 
       if (!options.json) {
         printInfo(`Building: ${found.idea.name} (${found.idea.id})`);
-        console.log(formatKeyValue([
-          { key: 'Run', value: found.runPath },
-          { key: 'Idea Directory', value: found.ideaDir },
-          { key: 'Score', value: String(found.idea.validation_score) }
-        ]));
+        console.log(
+          formatKeyValue([
+            { key: 'Run', value: found.runPath },
+            { key: 'Idea Directory', value: found.ideaDir },
+            { key: 'Score', value: String(found.idea.validation_score) },
+          ])
+        );
         console.log();
       }
 
@@ -97,14 +112,16 @@ export function createBuildCommand(): Command {
 
       try {
         const result = await executeBuild(ideaQuery, {
-          model: options.model
+          model: options.model,
         });
 
         spinner.stop();
 
         if (!result.success) {
           if (options.json) {
-            console.log(JSON.stringify({ success: false, error: result.error }, null, 2));
+            console.log(
+              JSON.stringify({ success: false, error: result.error }, null, 2)
+            );
           } else {
             printFailureBanner('build', result.error || 'Unknown error');
           }
@@ -113,28 +130,38 @@ export function createBuildCommand(): Command {
 
         // Output results
         if (options.json) {
-          console.log(JSON.stringify({
-            success: true,
-            buildPath: result.buildPath,
-            duration: Date.now() - startTime
-          }, null, 2));
+          console.log(
+            JSON.stringify(
+              {
+                success: true,
+                buildPath: result.buildPath,
+                duration: Date.now() - startTime,
+              },
+              null,
+              2
+            )
+          );
         } else {
           const duration = Date.now() - startTime;
 
           printCompletionBanner('build', duration);
 
-          console.log(formatKeyValue([
-            { key: 'App Name', value: found.idea.name },
-            { key: 'Build Path', value: result.buildPath || 'N/A' }
-          ]));
+          console.log(
+            formatKeyValue([
+              { key: 'App Name', value: found.idea.name },
+              { key: 'Build Path', value: result.buildPath || 'N/A' },
+            ])
+          );
           console.log();
 
-          console.log(formatNextSteps([
-            `Navigate to build: cd "${result.buildPath}/app"`,
-            `Install dependencies: npm install`,
-            `Start development: npx expo start`,
-            `Build for production: eas build --platform ios`
-          ]));
+          console.log(
+            formatNextSteps([
+              `Navigate to build: cd "${result.buildPath}/app"`,
+              `Install dependencies: npm install`,
+              `Start development: npx expo start`,
+              `Build for production: eas build --platform ios`,
+            ])
+          );
         }
 
         process.exit(0);

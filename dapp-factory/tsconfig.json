@@ -32,17 +32,18 @@
     "useDefineForClassFields": true,
     "types": ["node"]
   },
-  "include": [
-    "src/**/*",
-    "scripts/**/*",
-    "constants/**/*",
-    "templates/**/*"
-  ],
+  "include": ["generator/**/*", "validator/**/*"],
   "exclude": [
     "node_modules",
     "dist",
     "builds",
-    "runs"
+    "runs",
+    "dapp-builds",
+    "scripts",
+    "utils",
+    "constants",
+    "templates",
+    "deprecated"
   ],
   "ts-node": {
     "esm": true,

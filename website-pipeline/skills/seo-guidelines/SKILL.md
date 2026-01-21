@@ -9,9 +9,11 @@
 ## When to Activate
 
 This skill activates during:
+
 - **Phase 7** (SEO Review) - Comprehensive SEO audit
 
 Trigger phrases:
+
 - "Check SEO"
 - "Review metadata"
 - "Audit search optimization"
@@ -29,12 +31,12 @@ Trigger phrases:
 
 ## Rule Categories
 
-| Category | Rules | Priority |
-|----------|-------|----------|
-| Technical SEO | 8 | HIGH |
-| On-Page SEO | 10 | HIGH |
-| Performance SEO | 6 | HIGH |
-| Social SEO | 5 | MEDIUM |
+| Category        | Rules | Priority |
+| --------------- | ----- | -------- |
+| Technical SEO   | 8     | HIGH     |
+| On-Page SEO     | 10    | HIGH     |
+| Performance SEO | 6     | HIGH     |
+| Social SEO      | 5     | MEDIUM   |
 
 ---
 
@@ -65,12 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://example.com';
 
   // Static pages
-  const staticPages = [
-    '',
-    '/about',
-    '/work',
-    '/contact',
-  ].map((route) => ({
+  const staticPages = ['', '/about', '/work', '/contact'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
@@ -116,18 +113,10 @@ export function OrganizationJsonLd() {
       telephone: '+1-555-555-5555',
       contactType: 'customer service',
     },
-    sameAs: [
-      'https://twitter.com/company',
-      'https://linkedin.com/company/company',
-    ],
+    sameAs: ['https://twitter.com/company', 'https://linkedin.com/company/company'],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />;
 }
 
 // For articles/blog posts
@@ -145,12 +134,7 @@ export function ArticleJsonLd({ title, description, image, datePublished, author
     },
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />;
 }
 ```
 
@@ -196,7 +180,8 @@ export const metadata: Metadata = {
 
 // GOOD - Compelling, 150-160 chars
 export const metadata: Metadata = {
-  description: 'Full stack developer specializing in React, Next.js, and TypeScript. View my portfolio of web applications and get in touch for your next project.',
+  description:
+    'Full stack developer specializing in React, Next.js, and TypeScript. View my portfolio of web applications and get in touch for your next project.',
 };
 ```
 
@@ -257,12 +242,12 @@ import Link from 'next/link';
 
 ### Core Web Vitals Targets
 
-| Metric | Target | Impact |
-|--------|--------|--------|
-| LCP | < 2.5s | Ranking factor |
-| FID | < 100ms | Ranking factor |
-| CLS | < 0.1 | Ranking factor |
-| TTFB | < 800ms | Affects LCP |
+| Metric | Target  | Impact         |
+| ------ | ------- | -------------- |
+| LCP    | < 2.5s  | Ranking factor |
+| FID    | < 100ms | Ranking factor |
+| CLS    | < 0.1   | Ranking factor |
+| TTFB   | < 800ms | Affects LCP    |
 
 ### Image Optimization
 
@@ -392,6 +377,7 @@ export const metadata: Metadata = {
 
 ```markdown
 ## Technical SEO
+
 - [ ] robots.txt exists and is valid
 - [ ] sitemap.xml is generated
 - [ ] Canonical URLs are set
@@ -402,6 +388,7 @@ export const metadata: Metadata = {
 - [ ] Valid HTML (no parsing errors)
 
 ## On-Page SEO
+
 - [ ] Unique title tags (< 60 chars)
 - [ ] Meta descriptions (150-160 chars)
 - [ ] H1 on every page (only one)
@@ -414,6 +401,7 @@ export const metadata: Metadata = {
 - [ ] Content is crawlable
 
 ## Performance SEO
+
 - [ ] LCP < 2.5s
 - [ ] FID < 100ms
 - [ ] CLS < 0.1
@@ -422,6 +410,7 @@ export const metadata: Metadata = {
 - [ ] No render-blocking resources
 
 ## Social SEO
+
 - [ ] Open Graph tags present
 - [ ] Twitter Card tags present
 - [ ] OG image exists (1200x630)
@@ -441,12 +430,12 @@ export const metadata: Metadata = {
 
 ## Summary
 
-| Category | Passed | Failed | Score |
-|----------|--------|--------|-------|
-| Technical SEO | 7 | 1 | 88% |
-| On-Page SEO | 9 | 1 | 90% |
-| Performance SEO | 6 | 0 | 100% |
-| Social SEO | 5 | 0 | 100% |
+| Category        | Passed | Failed | Score |
+| --------------- | ------ | ------ | ----- |
+| Technical SEO   | 7      | 1      | 88%   |
+| On-Page SEO     | 9      | 1      | 90%   |
+| Performance SEO | 6      | 0      | 100%  |
+| Social SEO      | 5      | 0      | 100%  |
 
 **Overall Score:** 95%
 **Verdict:** PASS

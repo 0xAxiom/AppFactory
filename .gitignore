@@ -23,11 +23,43 @@ test_claude_logs/
 .env
 .env.*
 !.env.example
+!.env.example.template
 *.key
 *.pem
+*.p12
+*.pfx
+*.crt
+*.cert
 *.secret
+*.secrets
 *token*
 *credentials*
+*apikey*
+secrets.json
+secrets.yaml
+secrets.yml
+.secrets/
+
+# Private keys and certificates
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+*.ppk
+
+# AWS credentials
+.aws/credentials
+aws-credentials*
+
+# Google Cloud credentials
+*-credentials.json
+*-service-account.json
+gcloud-*.json
+
+# Terraform state (may contain secrets)
+*.tfstate
+*.tfstate.*
+.terraform/
 
 # Mobile app build artifacts
 node_modules/
@@ -83,3 +115,6 @@ preview/*.log
 
 # Rig framework reference (cloned, not tracked)
 references/rig/
+
+# Demo output artifacts
+demo/out/

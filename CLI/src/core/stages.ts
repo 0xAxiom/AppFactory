@@ -48,64 +48,201 @@ export interface StageInputs {
 
 // All pipeline stages in order
 export const PIPELINE_STAGES: StageDefinition[] = [
-  { id: '01', name: 'Market Research', templateFile: '01_dream.md', schemaFile: 'stage01.json', requiresWebResearch: true, order: 1 },
-  { id: '01_dream', name: 'Dream Validation', templateFile: '01_dream.md', schemaFile: 'stage01_dream.json', requiresWebResearch: true, order: 1 },
-  { id: '02', name: 'Product Spec', templateFile: '02_product_spec.md', schemaFile: 'stage02.json', requiresWebResearch: true, order: 2 },
-  { id: '02.5', name: 'Product Reality', templateFile: '02.5_product_reality.md', schemaFile: 'stage02.5_schema.json', requiresWebResearch: false, order: 3 },
-  { id: '02.7', name: 'Dependency Resolution', templateFile: '02.7_dependency_resolution.md', schemaFile: 'stage02.7_schema.json', requiresWebResearch: false, order: 4 },
-  { id: '03', name: 'UX Design', templateFile: '03_ux.md', schemaFile: 'stage03.json', requiresWebResearch: true, order: 5 },
-  { id: '04', name: 'Monetization', templateFile: '04_monetization.md', schemaFile: 'stage04.json', requiresWebResearch: true, order: 6 },
-  { id: '05', name: 'Architecture', templateFile: '05_architecture.md', schemaFile: 'stage05.json', requiresWebResearch: false, order: 7 },
-  { id: '06', name: 'Builder Handoff', templateFile: '06_builder_handoff.md', schemaFile: 'stage06.json', requiresWebResearch: true, order: 8 },
-  { id: '07', name: 'Polish', templateFile: '07_polish.md', schemaFile: 'stage07.json', requiresWebResearch: true, order: 9 },
-  { id: '08', name: 'Brand', templateFile: '08_brand.md', schemaFile: 'stage08.json', requiresWebResearch: false, order: 10 },
-  { id: '08.5', name: 'Visual Identity Assets', templateFile: '08.5_visual_identity_assets.md', schemaFile: undefined, requiresWebResearch: false, order: 11 },
-  { id: '09', name: 'Release Planning', templateFile: '09_release_planning.md', schemaFile: 'stage09.json', requiresWebResearch: true, order: 12 },
-  { id: '09.1', name: 'App Naming', templateFile: '09.1_app_naming.md', schemaFile: undefined, requiresWebResearch: false, order: 13 },
-  { id: '09.2', name: 'Policy Pages', templateFile: '09.2_policy_pages.md', schemaFile: undefined, requiresWebResearch: false, order: 14 },
-  { id: '09.5', name: 'Runtime Sanity', templateFile: '09.5_runtime_sanity_harness.md', schemaFile: 'stage09.5_schema.json', requiresWebResearch: false, order: 15 },
-  { id: '09.7', name: 'Build Contract', templateFile: '09.7_build_contract_synthesis.md', schemaFile: undefined, requiresWebResearch: false, order: 16 },
-  { id: '10.1', name: 'Design Authenticity', templateFile: '10.1_design_authenticity_check.md', schemaFile: 'stage10.1_schema.json', requiresWebResearch: false, order: 17 },
-  { id: '10', name: 'App Builder', templateFile: '10_app_builder.md', schemaFile: 'stage10.json', requiresWebResearch: false, order: 18 }
+  {
+    id: '01',
+    name: 'Market Research',
+    templateFile: '01_dream.md',
+    schemaFile: 'stage01.json',
+    requiresWebResearch: true,
+    order: 1,
+  },
+  {
+    id: '01_dream',
+    name: 'Dream Validation',
+    templateFile: '01_dream.md',
+    schemaFile: 'stage01_dream.json',
+    requiresWebResearch: true,
+    order: 1,
+  },
+  {
+    id: '02',
+    name: 'Product Spec',
+    templateFile: '02_product_spec.md',
+    schemaFile: 'stage02.json',
+    requiresWebResearch: true,
+    order: 2,
+  },
+  {
+    id: '02.5',
+    name: 'Product Reality',
+    templateFile: '02.5_product_reality.md',
+    schemaFile: 'stage02.5_schema.json',
+    requiresWebResearch: false,
+    order: 3,
+  },
+  {
+    id: '02.7',
+    name: 'Dependency Resolution',
+    templateFile: '02.7_dependency_resolution.md',
+    schemaFile: 'stage02.7_schema.json',
+    requiresWebResearch: false,
+    order: 4,
+  },
+  {
+    id: '03',
+    name: 'UX Design',
+    templateFile: '03_ux.md',
+    schemaFile: 'stage03.json',
+    requiresWebResearch: true,
+    order: 5,
+  },
+  {
+    id: '04',
+    name: 'Monetization',
+    templateFile: '04_monetization.md',
+    schemaFile: 'stage04.json',
+    requiresWebResearch: true,
+    order: 6,
+  },
+  {
+    id: '05',
+    name: 'Architecture',
+    templateFile: '05_architecture.md',
+    schemaFile: 'stage05.json',
+    requiresWebResearch: false,
+    order: 7,
+  },
+  {
+    id: '06',
+    name: 'Builder Handoff',
+    templateFile: '06_builder_handoff.md',
+    schemaFile: 'stage06.json',
+    requiresWebResearch: true,
+    order: 8,
+  },
+  {
+    id: '07',
+    name: 'Polish',
+    templateFile: '07_polish.md',
+    schemaFile: 'stage07.json',
+    requiresWebResearch: true,
+    order: 9,
+  },
+  {
+    id: '08',
+    name: 'Brand',
+    templateFile: '08_brand.md',
+    schemaFile: 'stage08.json',
+    requiresWebResearch: false,
+    order: 10,
+  },
+  {
+    id: '08.5',
+    name: 'Visual Identity Assets',
+    templateFile: '08.5_visual_identity_assets.md',
+    schemaFile: undefined,
+    requiresWebResearch: false,
+    order: 11,
+  },
+  {
+    id: '09',
+    name: 'Release Planning',
+    templateFile: '09_release_planning.md',
+    schemaFile: 'stage09.json',
+    requiresWebResearch: true,
+    order: 12,
+  },
+  {
+    id: '09.1',
+    name: 'App Naming',
+    templateFile: '09.1_app_naming.md',
+    schemaFile: undefined,
+    requiresWebResearch: false,
+    order: 13,
+  },
+  {
+    id: '09.2',
+    name: 'Policy Pages',
+    templateFile: '09.2_policy_pages.md',
+    schemaFile: undefined,
+    requiresWebResearch: false,
+    order: 14,
+  },
+  {
+    id: '09.5',
+    name: 'Runtime Sanity',
+    templateFile: '09.5_runtime_sanity_harness.md',
+    schemaFile: 'stage09.5_schema.json',
+    requiresWebResearch: false,
+    order: 15,
+  },
+  {
+    id: '09.7',
+    name: 'Build Contract',
+    templateFile: '09.7_build_contract_synthesis.md',
+    schemaFile: undefined,
+    requiresWebResearch: false,
+    order: 16,
+  },
+  {
+    id: '10.1',
+    name: 'Design Authenticity',
+    templateFile: '10.1_design_authenticity_check.md',
+    schemaFile: 'stage10.1_schema.json',
+    requiresWebResearch: false,
+    order: 17,
+  },
+  {
+    id: '10',
+    name: 'App Builder',
+    templateFile: '10_app_builder.md',
+    schemaFile: 'stage10.json',
+    requiresWebResearch: false,
+    order: 18,
+  },
 ];
 
 // Get stage by ID
 export function getStage(stageId: string): StageDefinition | undefined {
-  return PIPELINE_STAGES.find(s => s.id === stageId);
+  return PIPELINE_STAGES.find((s) => s.id === stageId);
 }
 
 // Get stages for run command (Stage 01 only)
 export function getRunStages(): StageDefinition[] {
-  return PIPELINE_STAGES.filter(s => s.id === '01');
+  return PIPELINE_STAGES.filter((s) => s.id === '01');
 }
 
 // Get stages for build command (02 through 10)
 export function getBuildStages(): StageDefinition[] {
-  return PIPELINE_STAGES.filter(s =>
-    s.id !== '01' && s.id !== '01_dream'
+  return PIPELINE_STAGES.filter(
+    (s) => s.id !== '01' && s.id !== '01_dream'
   ).sort((a, b) => a.order - b.order);
 }
 
 // Get stages for dream command
 export function getDreamStages(): StageDefinition[] {
   return [
-    PIPELINE_STAGES.find(s => s.id === '01_dream')!,
-    ...getBuildStages()
+    PIPELINE_STAGES.find((s) => s.id === '01_dream')!,
+    ...getBuildStages(),
   ];
 }
 
 // Schema validation
 const ajv = new Ajv.default({ allErrors: true, strict: false });
 
-export function validateAgainstSchema(data: unknown, schemaPath: string): { valid: boolean; errors: string[] } {
+export function validateAgainstSchema(
+  data: unknown,
+  schemaPath: string
+): { valid: boolean; errors: string[] } {
   try {
     const schema = readJson<object>(schemaPath);
     const validate = ajv.compile(schema);
     const valid = validate(data);
 
     if (!valid && validate.errors) {
-      const errors = validate.errors.map((e: { instancePath?: string; message?: string }) =>
-        `${e.instancePath || 'root'}: ${e.message}`
+      const errors = validate.errors.map(
+        (e: { instancePath?: string; message?: string }) =>
+          `${e.instancePath || 'root'}: ${e.message}`
       );
       return { valid: false, errors };
     }
@@ -134,7 +271,7 @@ export function loadTemplate(stageId: string): string {
   const variations = [
     getTemplatePath(stage.templateFile),
     getTemplatePath(`${stageId}_${stage.templateFile}`),
-    path.join(path.dirname(templatePath), stage.templateFile)
+    path.join(path.dirname(templatePath), stage.templateFile),
   ];
 
   for (const variant of variations) {
@@ -147,12 +284,11 @@ export function loadTemplate(stageId: string): string {
 }
 
 // Build stage prompt
-export function buildStagePrompt(
-  stageId: string,
-  inputs: StageInputs
-): string {
+export function buildStagePrompt(stageId: string, inputs: StageInputs): string {
   const template = loadTemplate(stageId);
-  const standards = fileExists(getStandardsPath()) ? readFile(getStandardsPath()) : '';
+  const standards = fileExists(getStandardsPath())
+    ? readFile(getStandardsPath())
+    : '';
 
   // Build context section
   let context = `\n\n## EXECUTION CONTEXT\n\n`;
@@ -210,7 +346,7 @@ export async function executeStage(
       schemaValidated: false,
       executionLogPath: null,
       error: `Unknown stage: ${stageId}`,
-      duration: Date.now() - startTime
+      duration: Date.now() - startTime,
     };
   }
 
@@ -231,11 +367,13 @@ export async function executeStage(
     try {
       outputData = JSON.parse(jsonStr);
     } catch {
-      throw new Error(`Invalid JSON in response: ${jsonStr.substring(0, 200)}...`);
+      throw new Error(
+        `Invalid JSON in response: ${jsonStr.substring(0, 200)}...`
+      );
     }
 
     // Validate against schema if available
-    let schemaValidated = true;
+    const schemaValidated = true;
     if (stage.schemaFile) {
       const schemaPath = getSchemaPath(stageId);
       if (fileExists(schemaPath)) {
@@ -244,7 +382,9 @@ export async function executeStage(
 
         if (!validation.valid) {
           logger.validationFailed(stage.schemaFile, validation.errors);
-          throw new Error(`Schema validation failed: ${validation.errors.join(', ')}`);
+          throw new Error(
+            `Schema validation failed: ${validation.errors.join(', ')}`
+          );
         }
 
         logger.validationSuccess(stage.schemaFile);
@@ -259,8 +399,16 @@ export async function executeStage(
       stageDir = path.join(inputs.runPath, `stage${stageId.replace('.', '_')}`);
     }
 
-    const outputPath = path.join(stageDir, 'stages', `stage${stageId.replace('.', '_')}.json`);
-    const logPath = path.join(stageDir, 'outputs', `stage${stageId.replace('.', '_')}_execution.md`);
+    const outputPath = path.join(
+      stageDir,
+      'stages',
+      `stage${stageId.replace('.', '_')}.json`
+    );
+    const logPath = path.join(
+      stageDir,
+      'outputs',
+      `stage${stageId.replace('.', '_')}_execution.md`
+    );
 
     // Write outputs
     writeJson(outputPath, outputData);
@@ -295,7 +443,7 @@ ${JSON.stringify(outputData, null, 2)}
       outputPath,
       schemaValidated,
       executionLogPath: logPath,
-      duration
+      duration,
     };
   } catch (err) {
     const error = err instanceof Error ? err.message : String(err);
@@ -308,7 +456,7 @@ ${JSON.stringify(outputData, null, 2)}
       schemaValidated: false,
       executionLogPath: null,
       error,
-      duration: Date.now() - startTime
+      duration: Date.now() - startTime,
     };
   }
 }
@@ -323,10 +471,10 @@ export async function executeScript(
   logger.scriptStart(scriptName);
 
   try {
-    const command = `bash "${scriptPath}" ${args.map(a => `"${a}"`).join(' ')}`;
+    const command = `bash "${scriptPath}" ${args.map((a) => `"${a}"`).join(' ')}`;
     const { stdout, stderr } = await execAsync(command, {
       cwd,
-      timeout: 120000 // 2 minute timeout
+      timeout: 120000, // 2 minute timeout
     });
 
     const output = stdout + (stderr ? '\n' + stderr : '');
@@ -334,7 +482,11 @@ export async function executeScript(
 
     return { success: true, output, exitCode: 0 };
   } catch (err) {
-    const execError = err as { code?: number; stdout?: string; stderr?: string };
+    const execError = err as {
+      code?: number;
+      stdout?: string;
+      stderr?: string;
+    };
     const exitCode = execError.code || 1;
     const output = (execError.stdout || '') + '\n' + (execError.stderr || '');
 

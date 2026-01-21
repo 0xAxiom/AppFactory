@@ -61,7 +61,7 @@ export function createListCommand(): Command {
               command: manifest.command_invoked,
               status: manifest.run_status,
               ideaCount: Object.keys(manifest.per_idea).length,
-              path: runPath
+              path: runPath,
             });
           } else {
             runs.push({
@@ -70,7 +70,7 @@ export function createListCommand(): Command {
               command: 'unknown',
               status: 'unknown',
               ideaCount: 0,
-              path: runPath
+              path: runPath,
             });
           }
         }
@@ -81,12 +81,12 @@ export function createListCommand(): Command {
           printInfo('No runs found. Use "appfactory run" to generate ideas.');
         } else {
           const headers = ['Run ID', 'Date', 'Command', 'Status', 'Ideas'];
-          const rows = runs.map(r => [
+          const rows = runs.map((r) => [
             r.id.substring(0, 30),
             r.date,
             r.command,
             r.status,
-            String(r.ideaCount)
+            String(r.ideaCount),
           ]);
           console.log(formatTable(headers, rows));
         }
@@ -111,20 +111,22 @@ export function createListCommand(): Command {
           builds.push({
             name: path.basename(buildPath),
             path: buildPath,
-            date: modTime?.toISOString().split('T')[0] || 'unknown'
+            date: modTime?.toISOString().split('T')[0] || 'unknown',
           });
         }
 
         if (options.json) {
           output.builds = builds;
         } else if (builds.length === 0) {
-          printInfo('No builds found. Use "appfactory build <idea>" to build an app.');
+          printInfo(
+            'No builds found. Use "appfactory build <idea>" to build an app.'
+          );
         } else {
           const headers = ['App', 'Date', 'Path'];
-          const rows = builds.map(b => [
+          const rows = builds.map((b) => [
             b.name.substring(0, 40),
             b.date,
-            b.path.substring(0, 50)
+            b.path.substring(0, 50),
           ]);
           console.log(formatTable(headers, rows));
         }
@@ -157,7 +159,9 @@ export function createListCommand(): Command {
           }
 
           for (const idea of index) {
-            if (!idea || typeof idea !== 'object') continue;
+            if (!idea || typeof idea !== 'object') {
+              continue;
+            }
             const ideaStatus = manifest?.per_idea[idea.id];
             allIdeas.push({
               id: idea.id || 'unknown',
@@ -165,7 +169,7 @@ export function createListCommand(): Command {
               rank: idea.rank || 0,
               score: idea.validation_score || 0,
               runId: manifest?.run_id || path.basename(runPath),
-              status: ideaStatus?.status || 'unknown'
+              status: ideaStatus?.status || 'unknown',
             });
           }
         }
@@ -180,12 +184,12 @@ export function createListCommand(): Command {
           printInfo('No ideas found. Use "appfactory run" to generate ideas.');
         } else {
           const headers = ['Rank', 'Name', 'ID', 'Score', 'Status'];
-          const rows = limitedIdeas.map(i => [
+          const rows = limitedIdeas.map((i) => [
             String(i.rank),
             i.name.substring(0, 25),
             i.id,
             String(i.score),
-            i.status
+            i.status,
           ]);
           console.log(formatTable(headers, rows));
         }

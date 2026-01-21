@@ -1,0 +1,112 @@
+# Core Skill: pipeline-execution
+# Version: 1.0.0
+# State: core
+
+skill:
+  name: pipeline-execution
+  version: "1.0.0"
+  description: "Executes multi-stage workflows with proof gates and manual step surfacing"
+
+  category: pipeline-execution
+
+  triggers:
+    explicit:
+      - phrase: "run pipeline"
+        confidence: high
+      - phrase: "execute stages"
+        confidence: high
+      - phrase: "workflow execution"
+        confidence: high
+      - phrase: "staged execution"
+        confidence: medium
+    implicit:
+      - signal: "User describes multi-step process"
+        requires_confirmation: true
+
+  contracts:
+    preconditions:
+      - condition: "Pipeline definition provided"
+        failure_action: "Ask user for pipeline stages"
+
+    must:
+      - "Execute stages in defined order"
+      - "Verify proof gate conditions before proceeding"
+      - "Surface ALL manual steps clearly to user"
+      - "Pause and wait for manual step completion"
+      - "Log every stage transition with timestamp"
+
+    must_not:
+      - "Skip proof gates"
+      - "Hide manual steps from user"
+      - "Continue past failed gate without user override"
+      - "Execute stages out of order"
+      - "Auto-approve manual steps"
+
+    postconditions:
+      - condition: "All stages executed or clearly blocked"
+        verification: "Stage log shows completion or block reason"
+      - condition: "Manual steps were explicitly acknowledged"
+        verification: "Audit log shows user acknowledgment"
+
+  inputs:
+    required:
+      - name: stages
+        type: "array"
+        description: "List of pipeline stages"
+    optional:
+      - name: continue_on_warning
+        type: "boolean"
+        default: false
+        description: "Continue if stage produces warnings"
+      - name: dry_run
+        type: "boolean"
+        default: false
+        description: "Show what would execute without running"
+
+  outputs:
+    contracted:
+      - name: stage_results
+        type: "array"
+        description: "Result of each stage"
+      - name: pipeline_status
+        type: "string"
+        description: "completed, blocked, failed, manual-pending"
+    conditional:
+      - name: blocked_at
+        condition: "Pipeline blocked"
+        type: "object"
+      - name: manual_steps_pending
+        condition: "Manual steps waiting"
+        type: "array"
+
+  failure_modes:
+    - trigger: "Stage fails"
+      behavior: "Stop pipeline, report failure, log state"
+      recovery: "User fixes issue, resumes from failed stage"
+    - trigger: "Proof gate fails"
+      behavior: "Stop, show what's missing, wait for fix"
+      recovery: "Condition met, pipeline resumes"
+    - trigger: "Manual step timeout"
+      behavior: "Pipeline paused, not failed"
+      recovery: "User completes manual step"
+
+  security:
+    trust_level: system
+    allowed_resources:
+      - type: filesystem
+        scope: "as defined by stages"
+      - type: network
+        scope: "as defined by stages"
+    hardcoded_blocks: []
+    max_depth: 1 # Pipelines shouldn't nest
+    external_triggerable: false
+
+  dependencies:
+    skills: [] # Stages may use other skills
+    resources: []
+
+  audit:
+    created: "2024-01-18T00:00:00Z"
+    modified: "2024-01-18T00:00:00Z"
+    author: "prompt-factory-core"
+    rationale: "Multi-stage workflows with explicit gates and manual step visibility"

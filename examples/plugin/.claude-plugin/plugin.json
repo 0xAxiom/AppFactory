@@ -1,0 +1,10 @@
+{
+  "name": "example-plugin",
+  "version": "1.0.0",
+  "description": "A minimal example plugin demonstrating App Factory patterns",
+  "author": "App Factory",
+  "commands": ["commands/greet.md"],
+  "agents": [],
+  "skills": [],
+  "hooks": []
+}

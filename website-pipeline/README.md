@@ -1,108 +1,327 @@
-# Website Pipeline
+# website-pipeline
 
-Build production-ready websites from plain-language descriptions.
+**Static Website Pipeline** | Part of [App Factory](../README.md)
+
+Build production-ready, SEO-optimized websites from plain-language descriptions. Includes mandatory skills audits and Playwright E2E testing.
+
+---
 
 ## Who Is This For?
 
 - Developers building marketing/portfolio websites
 - Designers who want production-quality code
-- Businesses needing landing pages
-- Anyone who wants SEO-optimized, accessible websites
+- Businesses needing landing pages quickly
+- Anyone who wants accessible, SEO-optimized websites
 
-**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)), a dApp (use [dapp-factory](../dapp-factory/)), or an AI agent (use [agent-factory](../agent-factory/))
+**Not for you if:** You need a mobile app (use [app-factory](../app-factory/)), a dApp with AI features (use [dapp-factory](../dapp-factory/)), or an AI agent (use [agent-factory](../agent-factory/))
 
-## Quick Start
+---
+
+## How to Start
 
 ```bash
 cd website-pipeline
 claude
 ```
 
-Then describe your website:
-- "Build a portfolio website for a photographer"
-- "Create a SaaS landing page with pricing"
-- "Make a restaurant website with menu"
-
-## What You Get
-
-- Complete Next.js 14 website
-- Optimized for Core Web Vitals
-- WCAG 2.1 AA accessible
-- SEO-ready with metadata
-- Vercel deployment ready
-- Comprehensive documentation
-
-## Pipeline Phases
-
-1. **Intent Normalization** - Upgrade vague idea to spec
-2. **Dream Spec Author** - 12-section specification
-3. **Research** - Market and competitor analysis
-4. **Information Architecture** - Sitemap and content model
-5. **Design System** - Colors, typography, spacing
-6. **Build** - Complete Next.js implementation
-7. **Skills Audit** - MANDATORY performance + accessibility checks
-8. **SEO Review** - Metadata and structured data
-9. **Ralph Polish** - Final QA until ≥97%
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Framework | Next.js 14 (App Router) |
-| Styling | Tailwind CSS |
-| Components | shadcn/ui |
-| Animation | Framer Motion |
-| Forms | React Hook Form + Zod |
-| SEO | next-seo |
-| Deployment | Vercel |
-
-## Mandatory Audits
-
-Every website passes two skill audits:
-
-1. **react-best-practices** - Performance optimization (≥95%)
-2. **web-design-guidelines** - Accessibility + UX (≥90%)
-
-No exceptions. These run before final QA.
-
-## Output Structure
+Then type your website idea:
 
 ```
-website-builds/<slug>/
+Build a portfolio website for a photographer
+```
+
+Claude will:
+
+1. **Normalize your intent** - Upgrade your idea to a professional specification
+2. **Research the market** - Competitor analysis, positioning
+3. **Plan architecture** - Sitemap, content model, navigation
+4. **Build everything** - Complete Next.js implementation
+5. **Run skills audits** - Mandatory performance + accessibility checks
+6. **Run Ralph QA** - 20-pass polish loop until completion promise
+
+**Output:** A production-ready website in `website-builds/<site-slug>/`
+
+---
+
+## What "Done" Means
+
+Your build is complete when:
+
+1. **Code runs**: `npm install && npm run dev` works
+2. **Skills audit passes**: react-best-practices (95%), web-design-guidelines (90%)
+3. **Ralph completes**: COMPLETION_PROMISE written
+4. **All artifacts exist**: research/, planning/, audits/
+
+Claude won't stop until all of this is done.
+
+---
+
+## What Gets Generated
+
+```
+website-builds/<site-slug>/
+├── package.json              # Dependencies
+├── next.config.js            # Next.js configuration
+├── tailwind.config.ts        # Tailwind CSS
+├── playwright.config.ts      # E2E test config
+├── vercel.json               # Vercel deployment
+│
 ├── src/
-│   ├── app/           # Next.js App Router pages
-│   ├── components/    # React components
-│   └── lib/           # Utilities
-├── public/            # Static assets
-├── research/          # Market research
-├── planning/          # IA, design system
-├── audits/            # Skills audit reports
+│   ├── app/                  # Next.js App Router
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── globals.css
+│   │   └── not-found.tsx
+│   ├── components/
+│   │   ├── ui/               # shadcn/ui components
+│   │   ├── layout/           # Header, footer, etc.
+│   │   └── sections/         # Page sections
+│   ├── lib/
+│   │   └── utils.ts
+│   └── styles/
+│       └── design-tokens.ts
+│
+├── public/
+│   ├── favicon.ico
+│   ├── og-image.png
+│   └── robots.txt
+│
+├── research/                 # Market Intelligence
+│   ├── market_research.md
+│   ├── competitor_analysis.md
+│   └── positioning.md
+│
+├── planning/                 # Information Architecture
+│   ├── sitemap.md
+│   ├── content_model.md
+│   ├── navigation.md
+│   └── design_system.md
+│
+├── audits/                   # Quality Reports
+│   ├── react-best-practices.md
+│   ├── web-design-guidelines.md
+│   ├── seo_review.md
+│   └── audit_summary.md
+│
+├── ralph/                    # QA Artifacts
+│   ├── PRD.md
+│   ├── ACCEPTANCE.md
+│   ├── LOOP.md
+│   ├── PROGRESS.md
+│   └── QA_NOTES.md
+│
+├── tests/e2e/                # Playwright Tests
+│   ├── smoke.spec.ts
+│   └── contact.spec.ts
+│
 ├── README.md
 └── DEPLOYMENT.md
 ```
 
+---
+
+## Running Your Website
+
+After Claude finishes:
+
+```bash
+cd website-builds/<site-slug>
+npm install
+npm run dev
+# Open http://localhost:3000
+```
+
+### Production Build
+
+```bash
+npm run build
+npm run start
+```
+
+### Run E2E Tests
+
+```bash
+npm run test:e2e
+```
+
+### Deploy to Vercel
+
+```bash
+vercel deploy
+```
+
+---
+
+## Pipeline Phases
+
+| Phase | Description              | Output                                             |
+| ----- | ------------------------ | -------------------------------------------------- |
+| 0     | Intent Normalization     | `runs/<date>/<run-id>/inputs/normalized_prompt.md` |
+| 1     | Dream Spec (12 sections) | `runs/<date>/<run-id>/inputs/dream_spec.md`        |
+| 2     | Research                 | `website-builds/<slug>/research/`                  |
+| 3     | Information Architecture | `website-builds/<slug>/planning/`                  |
+| 4     | Design System            | `website-builds/<slug>/planning/design_system.md`  |
+| 5     | Build                    | `website-builds/<slug>/src/`                       |
+| 6     | Skills Audit (MANDATORY) | `website-builds/<slug>/audits/`                    |
+| 7     | SEO Review               | `website-builds/<slug>/audits/seo_review.md`       |
+| 8     | Ralph Polish Loop        | `website-builds/<slug>/ralph/`                     |
+
+---
+
+## Technology Stack
+
+| Component  | Technology              |
+| ---------- | ----------------------- |
+| Framework  | Next.js 14 (App Router) |
+| Language   | TypeScript              |
+| Styling    | Tailwind CSS            |
+| Components | shadcn/ui               |
+| Animation  | Framer Motion           |
+| Icons      | Lucide React            |
+| Forms      | React Hook Form + Zod   |
+| SEO        | next-seo                |
+| Testing    | Playwright              |
+| Deployment | Vercel                  |
+
+---
+
+## Mandatory Skills Audits
+
+Every website must pass two audits before Ralph QA:
+
+| Skill                 | Threshold | What It Checks                                     |
+| --------------------- | --------- | -------------------------------------------------- |
+| react-best-practices  | 95%       | Server Components, no barrel imports, proper hooks |
+| web-design-guidelines | 90%       | Accessibility, responsive design, Core Web Vitals  |
+
+No exceptions. Builds cannot complete without passing these audits.
+
+---
+
 ## Performance Targets
 
-| Metric | Target |
-|--------|--------|
-| LCP | < 2.5s |
-| FID | < 100ms |
-| CLS | < 0.1 |
-| TTFB | < 800ms |
-| Bundle | < 200KB |
+All websites are built to meet Core Web Vitals:
 
-## Documentation
+| Metric | Target  | Description              |
+| ------ | ------- | ------------------------ |
+| LCP    | < 2.5s  | Largest Contentful Paint |
+| FID    | < 100ms | First Input Delay        |
+| CLS    | < 0.1   | Cumulative Layout Shift  |
+| TTFB   | < 800ms | Time to First Byte       |
+| Bundle | < 200KB | Main bundle size         |
 
-- [CLAUDE.md](./CLAUDE.md) - Full pipeline constitution
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - Technical architecture
-- [docs/QUALITY_GATES.md](./docs/QUALITY_GATES.md) - Gate specifications
-- [docs/SKILLS_USED.md](./docs/SKILLS_USED.md) - Skills reference
+---
 
-## Example
+## Quality Assurance
 
-See `example/` for a complete website generated by this pipeline, including audit reports and resolution documentation.
+### Skills Audit
 
-## Version
+Run after build phase:
 
-**1.1** (2026-01-18) - Added UX Polish Loop with Playwright E2E testing
-**1.0** (2026-01-18) - Initial release
+- Checks code patterns
+- Validates accessibility
+- Verifies performance optimization
+
+### Ralph Polish Loop
+
+20-pass quality loop:
+
+1. Run lint, typecheck, E2E tests
+2. Fix highest-impact issue
+3. If passing, make polish improvement
+4. Document in PROGRESS.md
+5. Repeat until COMPLETION_PROMISE
+
+---
+
+## Defaults
+
+When you don't specify:
+
+| Aspect     | Default                        |
+| ---------- | ------------------------------ |
+| Framework  | Next.js 14 (App Router)        |
+| Hosting    | Vercel                         |
+| Dark mode  | Enabled                        |
+| Animations | Framer Motion page transitions |
+| Forms      | React Hook Form + Zod          |
+| SEO        | next-seo configured            |
+
+---
+
+## Troubleshooting
+
+### npm install fails
+
+```bash
+npm install --legacy-peer-deps
+```
+
+### Build fails
+
+```bash
+rm -rf .next
+npm run build
+```
+
+### Port in use
+
+```bash
+PORT=3001 npm run dev
+```
+
+### E2E tests fail
+
+```bash
+# Install browsers
+npx playwright install
+
+# Run with debug
+npx playwright test --debug
+```
+
+---
+
+## Directory Structure
+
+```
+website-pipeline/
+├── CLAUDE.md             # Constitution (Claude's instructions)
+├── README.md             # This file
+├── ARCHITECTURE.md       # Technical architecture
+├── skills/               # Code quality rules
+│   ├── react-best-practices/
+│   │   ├── SKILL.md
+│   │   └── AGENTS.md
+│   └── web-design-guidelines/
+│       └── SKILL.md
+├── templates/
+│   └── system/
+│       ├── dream_spec_author.md
+│       └── ralph_polish_loop.md
+├── docs/
+│   ├── QUALITY_GATES.md
+│   └── SKILLS_USED.md
+├── example/              # Reference implementation
+├── website-builds/       # Generated websites (output)
+├── runs/                 # Execution artifacts
+└── scripts/              # Internal tools
+```
+
+---
+
+## Links
+
+- **Root README:** [../README.md](../README.md)
+- **Constitution:** [CLAUDE.md](./CLAUDE.md) - Full pipeline specification
+- **Architecture:** [ARCHITECTURE.md](./ARCHITECTURE.md) - Technical details
+- **Documentation:** [../docs/](../docs/) - Global documentation
+- **Mobile apps:** [app-factory](../app-factory/)
+- **dApps:** [dapp-factory](../dapp-factory/)
+- **AI agents:** [agent-factory](../agent-factory/)
+- **Claude plugins:** [plugin-factory](../plugin-factory/)
+- **Mini apps:** [miniapp-pipeline](../miniapp-pipeline/)
+
+---
+
+**website-pipeline v2.0** - `cd website-pipeline && claude` - describe your site - get a production-ready website.

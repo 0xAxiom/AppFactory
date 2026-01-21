@@ -81,7 +81,9 @@ export default function FoldersScreen() {
   const openFolder = (folder: MemeFolder) => {
     const folderMemes = memes.filter(meme => meme.folderId === folder.id);
     console.log('Opening folder:', folder.name, 'with', folderMemes.length, 'memes');
-    // TODO: Navigate to folder detail screen
+    // Navigation to folder detail can be implemented when FolderDetailScreen is available
+    // Example: navigation.navigate('FolderDetail', { folderId: folder.id });
+    Alert.alert('Coming Soon', `Folder "${folder.name}" contains ${folderMemes.length} memes. Detailed view coming in next update!`);
   };
 
   const renderFolder = ({ item: folder }: { item: MemeFolder }) => {

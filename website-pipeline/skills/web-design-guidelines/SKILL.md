@@ -9,10 +9,12 @@
 ## When to Activate
 
 This skill activates during:
+
 - **Phase 5** (Build) - Reference during component development
 - **Phase 6** (Skills Audit) - As MANDATORY compliance check
 
 Trigger phrases:
+
 - "Review my UI"
 - "Check accessibility"
 - "Audit design"
@@ -30,18 +32,18 @@ Trigger phrases:
 
 ## Rule Categories
 
-| Category | Rules | Priority |
-|----------|-------|----------|
-| Accessibility | 12 | HIGH |
-| Focus States | 6 | HIGH |
-| Forms | 10 | MEDIUM |
-| Animation | 8 | MEDIUM |
-| Typography | 6 | MEDIUM |
-| Images | 5 | MEDIUM |
-| Loading States | 6 | MEDIUM |
-| Empty/Error States | 6 | MEDIUM |
-| Dark Mode | 4 | LOW |
-| Localization | 4 | LOW |
+| Category           | Rules | Priority |
+| ------------------ | ----- | -------- |
+| Accessibility      | 12    | HIGH     |
+| Focus States       | 6     | HIGH     |
+| Forms              | 10    | MEDIUM   |
+| Animation          | 8     | MEDIUM   |
+| Typography         | 6     | MEDIUM   |
+| Images             | 5     | MEDIUM   |
+| Loading States     | 6     | MEDIUM   |
+| Empty/Error States | 6     | MEDIUM   |
+| Dark Mode          | 4     | LOW      |
+| Localization       | 4     | LOW      |
 
 ---
 
@@ -151,10 +153,7 @@ function Modal({ isOpen, onClose, children }) {
 
 ```tsx
 // BAD - No motion preference check
-<motion.div
-  animate={{ x: 100, rotate: 360 }}
-  transition={{ duration: 1 }}
-/>
+<motion.div animate={{ x: 100, rotate: 360 }} transition={{ duration: 1 }} />;
 
 // GOOD - Respects user preference
 import { useReducedMotion } from 'framer-motion';
@@ -166,10 +165,10 @@ function AnimatedCard() {
     <motion.div
       animate={{
         x: 100,
-        rotate: prefersReducedMotion ? 0 : 360
+        rotate: prefersReducedMotion ? 0 : 360,
       }}
       transition={{
-        duration: prefersReducedMotion ? 0 : 1
+        duration: prefersReducedMotion ? 0 : 1,
       }}
     />
   );
@@ -228,13 +227,13 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
+    transition: { staggerChildren: 0.1 },
+  },
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+  show: { opacity: 1, y: 0 },
 };
 
 <motion.ul variants={container} initial="hidden" animate="show">
@@ -243,7 +242,7 @@ const item = {
       {i.name}
     </motion.li>
   ))}
-</motion.ul>
+</motion.ul>;
 ```
 
 ---
@@ -254,18 +253,22 @@ const item = {
 
 ```tsx
 // BAD - Generic spinner
-{isLoading ? <Spinner /> : <Content data={data} />}
+{
+  isLoading ? <Spinner /> : <Content data={data} />;
+}
 
 // GOOD - Skeleton that matches content shape
-{isLoading ? (
-  <div className="space-y-4">
-    <Skeleton className="h-8 w-3/4" />
-    <Skeleton className="h-4 w-full" />
-    <Skeleton className="h-4 w-2/3" />
-  </div>
-) : (
-  <Content data={data} />
-)}
+{
+  isLoading ? (
+    <div className="space-y-4">
+      <Skeleton className="h-8 w-3/4" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-2/3" />
+    </div>
+  ) : (
+    <Content data={data} />
+  );
+}
 ```
 
 ### LS2: Button Loading States
@@ -277,7 +280,7 @@ import { Loader2 } from 'lucide-react';
 <Button disabled={isSubmitting}>
   {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
   {isSubmitting ? 'Saving…' : 'Save'}
-</Button>
+</Button>;
 ```
 
 ---
@@ -288,48 +291,50 @@ import { Loader2 } from 'lucide-react';
 
 ```tsx
 // BAD
-{items.length === 0 && <p>No items</p>}
+{
+  items.length === 0 && <p>No items</p>;
+}
 
 // GOOD - Designed with icon, message, CTA
-{items.length === 0 && (
-  <div className="flex flex-col items-center py-16">
-    <div className="rounded-full bg-muted p-4 mb-4">
-      <InboxIcon className="h-8 w-8 text-muted-foreground" />
+{
+  items.length === 0 && (
+    <div className="flex flex-col items-center py-16">
+      <div className="rounded-full bg-muted p-4 mb-4">
+        <InboxIcon className="h-8 w-8 text-muted-foreground" />
+      </div>
+      <h3 className="text-lg font-semibold mb-2">No items yet</h3>
+      <p className="text-muted-foreground text-center max-w-sm mb-6">Get started by creating your first item.</p>
+      <Button>Create Item</Button>
     </div>
-    <h3 className="text-lg font-semibold mb-2">No items yet</h3>
-    <p className="text-muted-foreground text-center max-w-sm mb-6">
-      Get started by creating your first item.
-    </p>
-    <Button>Create Item</Button>
-  </div>
-)}
+  );
+}
 ```
 
 ### ES2: Styled Error States
 
 ```tsx
 // BAD
-{error && <p className="text-red-500">{error.message}</p>}
+{
+  error && <p className="text-red-500">{error.message}</p>;
+}
 
 // GOOD - Styled with icon and retry
-{error && (
-  <Card className="border-destructive/50 bg-destructive/5 p-6">
-    <div className="flex items-start gap-4">
-      <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
-      <div>
-        <h4 className="font-semibold text-destructive">
-          Something went wrong
-        </h4>
-        <p className="text-sm text-muted-foreground mt-1">
-          {error.message}
-        </p>
-        <Button variant="outline" size="sm" className="mt-4" onClick={retry}>
-          Try Again
-        </Button>
+{
+  error && (
+    <Card className="border-destructive/50 bg-destructive/5 p-6">
+      <div className="flex items-start gap-4">
+        <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
+        <div>
+          <h4 className="font-semibold text-destructive">Something went wrong</h4>
+          <p className="text-sm text-muted-foreground mt-1">{error.message}</p>
+          <Button variant="outline" size="sm" className="mt-4" onClick={retry}>
+            Try Again
+          </Button>
+        </div>
       </div>
-    </div>
-  </Card>
-)}
+    </Card>
+  );
+}
 ```
 
 ---
@@ -346,10 +351,15 @@ body {
 
 /* GOOD */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
-code, pre {
+code,
+pre {
   font-family: 'JetBrains Mono', monospace;
 }
 ```
@@ -382,13 +392,13 @@ Thresholds:
 
 ## Summary
 
-| Category | Passed | Failed | Score |
-|----------|--------|--------|-------|
-| Accessibility | 11 | 1 | 92% |
-| Focus States | 6 | 0 | 100% |
-| Animation | 7 | 1 | 88% |
-| Loading States | 5 | 1 | 83% |
-| Empty/Error | 6 | 0 | 100% |
+| Category       | Passed | Failed | Score |
+| -------------- | ------ | ------ | ----- |
+| Accessibility  | 11     | 1      | 92%   |
+| Focus States   | 6      | 0      | 100%  |
+| Animation      | 7      | 1      | 88%   |
+| Loading States | 5      | 1      | 83%   |
+| Empty/Error    | 6      | 0      | 100%  |
 
 **Overall Score:** 92%
 **Verdict:** PASS

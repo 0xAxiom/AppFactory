@@ -33,7 +33,13 @@ export class ErrorBoundary extends Component<Props, State> {
     console.error('Error caught by boundary:', error);
     console.error('Error info:', errorInfo);
 
-    // TODO: Send to error reporting service
+    // Error reporting: Log to console in development, could be extended to
+    // external services (Sentry, LogRocket, etc.) in production builds.
+    // To add external reporting, install your preferred service SDK and
+    // call it here. Example with Sentry:
+    // if (process.env.NODE_ENV === 'production') {
+    //   Sentry.captureException(error, { extra: { componentStack: errorInfo.componentStack } });
+    // }
   }
 
   handleRetry = () => {

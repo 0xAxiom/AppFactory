@@ -1,0 +1,175 @@
+{
+  "$schema": "../schemas/pipeline.config.schema.json",
+  "pipeline": {
+    "id": "PIPELINE_ID",
+    "name": "PIPELINE_NAME",
+    "version": "1.0.0",
+    "outputDir": "builds",
+    "runsDir": "runs",
+    "phases": [
+      {
+        "id": "phase-0",
+        "name": "Intent Normalization",
+        "description": "Transform raw user input into publishable product specification",
+        "mandatory": true,
+        "outputs": ["inputs/normalized_prompt.md"]
+      },
+      {
+        "id": "phase-1",
+        "name": "Dream Spec Author",
+        "description": "Write comprehensive product specification",
+        "mandatory": true,
+        "outputs": ["inputs/dream_spec.md"],
+        "dependencies": ["phase-0"]
+      },
+      {
+        "id": "phase-2",
+        "name": "Research & Positioning",
+        "description": "Conduct market research and competitive analysis",
+        "mandatory": true,
+        "outputs": [
+          "research/market_research.md",
+          "research/competitor_analysis.md",
+          "research/positioning.md"
+        ],
+        "dependencies": ["phase-1"]
+      },
+      {
+        "id": "phase-3",
+        "name": "Build",
+        "description": "Generate complete application",
+        "mandatory": true,
+        "outputs": ["BUILD_OUTPUT"],
+        "dependencies": ["phase-2"]
+      },
+      {
+        "id": "phase-4",
+        "name": "Ralph QA",
+        "description": "Adversarial quality assurance",
+        "mandatory": true,
+        "outputs": ["ralph/PROGRESS.md"],
+        "dependencies": ["phase-3"]
+      }
+    ],
+    "techStack": {
+      "framework": "FRAMEWORK",
+      "frameworkVersion": "VERSION",
+      "language": "TypeScript",
+      "requiredDependencies": []
+    },
+    "qualityGates": [
+      {
+        "id": "ralph",
+        "name": "Ralph QA",
+        "threshold": 97,
+        "blocking": true,
+        "maxRetries": 20
+      }
+    ]
+  },
+  "ralph": {
+    "passingThreshold": 97,
+    "maxIterations": 20,
+    "checks": [
+      {
+        "id": "npm-install",
+        "name": "npm install",
+        "category": "build",
+        "description": "npm install completes without errors",
+        "mandatory": true,
+        "points": 10
+      },
+      {
+        "id": "npm-build",
+        "name": "npm run build",
+        "category": "build",
+        "description": "npm run build completes without errors",
+        "mandatory": true,
+        "points": 10
+      },
+      {
+        "id": "typecheck",
+        "name": "TypeScript typecheck",
+        "category": "code-quality",
+        "description": "TypeScript compiles without errors",
+        "mandatory": true,
+        "points": 10
+      },
+      {
+        "id": "market-research",
+        "name": "Market Research",
+        "category": "documentation",
+        "description": "market_research.md is substantive",
+        "mandatory": true,
+        "points": 5
+      },
+      {
+        "id": "competitor-analysis",
+        "name": "Competitor Analysis",
+        "category": "documentation",
+        "description": "competitor_analysis.md is substantive",
+        "mandatory": true,
+        "points": 5
+      },
+      {
+        "id": "positioning",
+        "name": "Positioning",
+        "category": "documentation",
+        "description": "positioning.md is substantive",
+        "mandatory": true,
+        "points": 5
+      },
+      {
+        "id": "no-secrets",
+        "name": "No hardcoded secrets",
+        "category": "security",
+        "description": "No API keys or secrets in source",
+        "mandatory": true,
+        "points": 15
+      }
+    ],
+    "runE2ETests": false
+  },
+  "validation": {
+    "requiredFiles": ["package.json", "tsconfig.json", "README.md"],
+    "forbiddenFiles": [
+      "node_modules",
+      ".git",
+      ".next",
+      "dist",
+      ".env",
+      ".env.local"
+    ],
+    "forbiddenPatterns": [
+      {
+        "pattern": "privateKey",
+        "description": "private key reference",
+        "severity": "critical"
+      },
+      {
+        "pattern": "secretKey",
+        "description": "secret key reference",
+        "severity": "critical"
+      },
+      {
+        "pattern": "sk-ant-",
+        "description": "Anthropic API key",
+        "severity": "critical"
+      },
+      {
+        "pattern": "sk-[a-zA-Z0-9]{48}",
+        "description": "OpenAI API key",
+        "severity": "critical"
+      }
+    ],
+    "sizeLimits": {
+      "totalSize": 52428800,
+      "singleFile": 10485760,
+      "maxFiles": 10000
+    },
+    "requiredDependencies": [],
+    "forbiddenDependencies": [],
+    "requiredScripts": ["dev", "build"],
+    "allowedDotfiles": [".env.example", ".nvmrc", ".npmrc"]
+  }
+}

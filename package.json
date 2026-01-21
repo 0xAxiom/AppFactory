@@ -1,0 +1,81 @@
+{
+  "name": "appfactory",
+  "version": "11.0.0",
+  "description": "Multi-pipeline application factory - Build mobile apps, dApps, AI agents, Claude plugins, and Base Mini Apps from plain-language descriptions",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:cli": "eslint CLI/",
+    "lint:dapp": "eslint dapp-factory/",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,yml,yaml}' --ignore-path .gitignore",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json,md,yml,yaml}' --ignore-path .gitignore",
+    "type-check": "npm run type-check:cli && npm run type-check:dapp",
+    "type-check:cli": "cd CLI && npx tsc --noEmit",
+    "type-check:dapp": "cd dapp-factory && npx tsc --noEmit",
+    "test": "echo 'Running tests...' && npm run lint && npm run format:check && npm run type-check",
+    "test:cli": "cd CLI && npm test",
+    "validate": "npm run test",
+    "prepare": "husky || true",
+    "precommit": "lint-staged",
+    "ci": "npm run lint && npm run format:check && npm run type-check",
+    "deps:check": "node scripts/check-dependencies.js",
+    "deps:audit": "npm audit && cd CLI && npm audit && cd ../dapp-factory && npm audit",
+    "deps:outdated": "npm outdated && cd CLI && npm outdated && cd ../dapp-factory && npm outdated",
+    "maintain": "npm run lint && npm run type-check && npm run deps:check",
+    "maintain:full": "npm run maintain && npm run deps:audit",
+    "clean": "rm -rf node_modules && cd CLI && rm -rf node_modules dist && cd ../dapp-factory && rm -rf node_modules dist",
+    "build:cli": "cd CLI && npm run build",
+    "build:dapp": "cd dapp-factory && npm run build",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "release:patch": "standard-version --release-as patch"
+  },
+  "keywords": [
+    "app-factory",
+    "claude",
+    "ai",
+    "code-generation",
+    "mobile-apps",
+    "dapps",
+    "agents",
+    "plugins",
+    "miniapps"
+  ],
+  "author": "MeltedMindz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MeltedMindz/AppFactory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MeltedMindz/AppFactory/issues"
+  },
+  "homepage": "https://github.com/MeltedMindz/AppFactory#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.0",
+    "standard-version": "^9.5.0",
+    "typescript": "^5.3.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}

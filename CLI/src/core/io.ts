@@ -15,9 +15,10 @@ export function readFile(filePath: string): string {
 }
 
 /**
- * Read a JSON file
+ * Read a JSON file and cast to type T
+ * Note: This performs no runtime validation - the caller is responsible for ensuring type safety
  */
-export function readJson<T>(filePath: string): T {
+export function readJson<T = unknown>(filePath: string): T {
   const content = readFile(filePath);
   return JSON.parse(content) as T;
 }
@@ -68,12 +69,14 @@ export function ensureDir(dirPath: string): void {
  * List files in a directory matching a pattern
  */
 export function listFiles(dirPath: string, pattern?: RegExp): string[] {
-  if (!fs.existsSync(dirPath)) return [];
+  if (!fs.existsSync(dirPath)) {
+    return [];
+  }
 
   const files = fs.readdirSync(dirPath);
 
   if (pattern) {
-    return files.filter(f => pattern.test(f));
+    return files.filter((f) => pattern.test(f));
   }
 
   return files;
@@ -94,7 +97,9 @@ export function copyFile(src: string, dest: string): void {
 export function readDirRecursive(dirPath: string): string[] {
   const results: string[] = [];
 
-  if (!fs.existsSync(dirPath)) return results;
+  if (!fs.existsSync(dirPath)) {
+    return results;
+  }
 
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
 

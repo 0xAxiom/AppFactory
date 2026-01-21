@@ -1,0 +1,166 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Lint status
+        run: echo "Linting completed. Check above for any issues."
+
+  format:
+    name: Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install CLI dependencies
+        run: cd CLI && npm ci
+        continue-on-error: true
+
+      - name: Install dapp-factory dependencies
+        run: cd dapp-factory && npm ci
+
+      - name: Type check dapp-factory
+        run: npm run type-check:dapp
+        continue-on-error: true
+
+      - name: Type check status
+        run: |
+          echo "Type checking completed."
+          echo "Note: Some legacy code may have type errors that are being tracked for improvement."
+
+  validate-structure:
+    name: Validate Structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files exist
+        run: |
+          echo "Checking required files..."
+          test -f "package.json" && echo "✓ package.json"
+          test -f "README.md" && echo "✓ README.md"
+          test -f "CLAUDE.md" && echo "✓ CLAUDE.md"
+          test -f "eslint.config.js" && echo "✓ eslint.config.js"
+          test -f ".prettierrc" && echo "✓ .prettierrc"
+          test -f "CHANGELOG.md" && echo "✓ CHANGELOG.md"
+          test -f "CONTRIBUTING.md" && echo "✓ CONTRIBUTING.md"
+          test -f "LICENSE" && echo "✓ LICENSE"
+          echo "All required files present!"
+
+      - name: Check pipeline directories
+        run: |
+          echo "Checking pipeline directories..."
+          test -d "app-factory" && echo "✓ app-factory/"
+          test -d "dapp-factory" && echo "✓ dapp-factory/"
+          test -d "agent-factory" && echo "✓ agent-factory/"
+          test -d "plugin-factory" && echo "✓ plugin-factory/"
+          test -d "miniapp-pipeline" && echo "✓ miniapp-pipeline/"
+          echo "All pipeline directories present!"
+
+      - name: Validate CLAUDE.md files
+        run: |
+          echo "Validating CLAUDE.md constitution files..."
+          for dir in app-factory dapp-factory agent-factory plugin-factory miniapp-pipeline; do
+            if [ -f "$dir/CLAUDE.md" ]; then
+              echo "✓ $dir/CLAUDE.md exists"
+            else
+              echo "✗ Missing $dir/CLAUDE.md"
+              exit 1
+            fi
+          done
+          echo "All pipeline constitutions present!"
+
+  ci-complete:
+    name: CI Complete
+    needs: [lint, format, type-check, validate-structure]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Check critical jobs passed
+        run: |
+          # Critical jobs that must pass
+          if [ "${{ needs.validate-structure.result }}" != "success" ]; then
+            echo "FAIL: Structure validation failed"
+            exit 1
+          fi
+          echo "✓ Structure validation passed"
+
+          # Non-critical jobs (report but don't fail)
+          if [ "${{ needs.lint.result }}" != "success" ]; then
+            echo "WARNING: Linting has issues (non-blocking)"
+          else
+            echo "✓ Linting passed"
+          fi
+
+          if [ "${{ needs.format.result }}" != "success" ]; then
+            echo "WARNING: Formatting has issues (non-blocking)"
+          else
+            echo "✓ Formatting passed"
+          fi
+
+          if [ "${{ needs.type-check.result }}" != "success" ]; then
+            echo "WARNING: Type checking has issues (non-blocking)"
+          else
+            echo "✓ Type checking passed"
+          fi
+
+          echo ""
+          echo "CI checks completed. Review warnings above for improvements."

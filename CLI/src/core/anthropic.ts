@@ -24,7 +24,7 @@ const RETRY_DELAY_MS = 2000;
 
 // Stub mode for testing
 let stubMode = false;
-let stubResponses: Map<string, string> = new Map();
+const stubResponses: Map<string, string> = new Map();
 
 export function setStubMode(enabled: boolean): void {
   stubMode = enabled;
@@ -51,8 +51,13 @@ export function loadConfig(): AnthropicConfig {
   return {
     apiKey: apiKey || 'stub-key',
     model: process.env.ANTHROPIC_MODEL || DEFAULT_MODEL,
-    maxTokens: parseInt(process.env.APPFACTORY_MAX_TOKENS || String(DEFAULT_MAX_TOKENS), 10),
-    temperature: parseFloat(process.env.APPFACTORY_TEMPERATURE || String(DEFAULT_TEMPERATURE))
+    maxTokens: parseInt(
+      process.env.APPFACTORY_MAX_TOKENS || String(DEFAULT_MAX_TOKENS),
+      10
+    ),
+    temperature: parseFloat(
+      process.env.APPFACTORY_TEMPERATURE || String(DEFAULT_TEMPERATURE)
+    ),
   };
 }
 
@@ -61,7 +66,7 @@ export function loadConfig(): AnthropicConfig {
  */
 export function createClient(config: AnthropicConfig): Anthropic {
   return new Anthropic({
-    apiKey: config.apiKey
+    apiKey: config.apiKey,
   });
 }
 
@@ -69,7 +74,7 @@ export function createClient(config: AnthropicConfig): Anthropic {
  * Sleep for a given number of milliseconds
  */
 function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -112,7 +117,7 @@ export async function callClaude(
     // Return a generic stub response
     return JSON.stringify({
       stub: true,
-      message: 'This is a stub response for testing'
+      message: 'This is a stub response for testing',
     });
   }
 
@@ -129,13 +134,11 @@ export async function callClaude(
         max_tokens: fullConfig.maxTokens,
         temperature: fullConfig.temperature,
         ...(systemPrompt && { system: systemPrompt }),
-        messages: [
-          { role: 'user', content: prompt }
-        ]
+        messages: [{ role: 'user', content: prompt }],
       });
 
       // Extract text content
-      const textContent = response.content.find(c => c.type === 'text');
+      const textContent = response.content.find((c) => c.type === 'text');
       if (!textContent || textContent.type !== 'text') {
         throw new Error('No text content in response');
       }
@@ -150,14 +153,18 @@ export async function callClaude(
 
       // Check for rate limiting
       if (errorMessage.includes('rate') || errorMessage.includes('429')) {
-        logger.warn(`Rate limited, waiting ${RETRY_DELAY_MS * attempt}ms before retry ${attempt}/${MAX_RETRIES}`);
+        logger.warn(
+          `Rate limited, waiting ${RETRY_DELAY_MS * attempt}ms before retry ${attempt}/${MAX_RETRIES}`
+        );
         await sleep(RETRY_DELAY_MS * attempt);
         continue;
       }
 
       // Check for overloaded
       if (errorMessage.includes('overloaded') || errorMessage.includes('503')) {
-        logger.warn(`API overloaded, waiting ${RETRY_DELAY_MS * attempt}ms before retry ${attempt}/${MAX_RETRIES}`);
+        logger.warn(
+          `API overloaded, waiting ${RETRY_DELAY_MS * attempt}ms before retry ${attempt}/${MAX_RETRIES}`
+        );
         await sleep(RETRY_DELAY_MS * attempt);
         continue;
       }
@@ -203,8 +210,10 @@ export async function streamClaude(
   const fullConfig = { ...loadConfig(), ...config };
 
   if (stubMode) {
-    const response = stubResponses.get(prompt) || '{"stub": true}';
-    if (onChunk) onChunk(response);
+    const response = stubResponses.get(prompt) ?? '{"stub": true}';
+    if (onChunk) {
+      onChunk(response);
+    }
     return response;
   }
 
@@ -217,9 +226,7 @@ export async function streamClaude(
     max_tokens: fullConfig.maxTokens,
     temperature: fullConfig.temperature,
     ...(systemPrompt && { system: systemPrompt }),
-    messages: [
-      { role: 'user', content: prompt }
-    ]
+    messages: [{ role: 'user', content: prompt }],
   });
 
   for await (const event of stream) {

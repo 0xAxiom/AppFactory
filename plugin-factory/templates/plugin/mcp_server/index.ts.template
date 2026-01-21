@@ -41,7 +41,8 @@ server.tool(
       // Tool implementation
       console.error(`[${CONFIG.name}] {{tool-name}} called with:`, { param1, param2 });
 
-      // TODO: Add your implementation here
+      // IMPLEMENT: Add your tool logic here
+      // This is a template - replace with actual implementation
       const result = `Processed: ${param1}`;
 
       return {
@@ -80,7 +81,8 @@ server.resource(
   '{{Resource description}}',
   async () => {
     try {
-      // TODO: Add your resource implementation here
+      // IMPLEMENT: Add your resource logic here
+      // This is a template - replace with actual data fetching
       const data = { example: 'data' };
 
       return {

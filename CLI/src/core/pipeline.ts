@@ -7,14 +7,20 @@
 import path from 'path';
 import crypto from 'crypto';
 import { readJson, writeJson, fileExists, ensureDir } from './io.js';
-import { createRunPath, getIdeaPath, getBuildPath, getScriptsDir, getLeaderboardsDir } from './paths.js';
+import {
+  createRunPath,
+  getIdeaPath,
+  getBuildPath,
+  getScriptsDir,
+  getLeaderboardsDir,
+} from './paths.js';
 import {
   executeStage,
   executeScript,
   getRunStages,
   getBuildStages,
   getDreamStages,
-  StageInputs
+  StageInputs,
 } from './stages.js';
 import { logger } from './logging.js';
 import { acquireLock, releaseLock } from './locks.js';
@@ -68,7 +74,8 @@ export interface PipelineConfig {
 
 // Generate a unique run ID
 export function generateRunId(command: string): string {
-  const timestamp = new Date().toISOString()
+  const timestamp = new Date()
+    .toISOString()
     .replace(/[-:]/g, '')
     .replace(/T/, '_')
     .replace(/\..+/, '');
@@ -81,7 +88,11 @@ export function generateRunId(command: string): string {
 // Generate hash of inputs for determinism tracking
 function hashInputs(inputs: Record<string, unknown>): string {
   const content = JSON.stringify(inputs, Object.keys(inputs).sort());
-  return crypto.createHash('sha256').update(content).digest('hex').substring(0, 16);
+  return crypto
+    .createHash('sha256')
+    .update(content)
+    .digest('hex')
+    .substring(0, 16);
 }
 
 // Create initial run manifest
@@ -98,8 +109,45 @@ export function createRunManifest(
     command_invoked: command,
     expected_idea_count: command === 'dream' ? 1 : 10,
     expected_stages_run_factory: ['01'],
-    expected_stages_build_idea: ['02', '02.5', '02.7', '03', '04', '05', '06', '07', '08', '08.5', '09', '09.1', '09.2', '09.5', '09.7', '10.1', '10'],
-    expected_stages_dream: ['01_dream', '02', '02.5', '02.7', '03', '04', '05', '06', '07', '08', '08.5', '09', '09.1', '09.2', '09.5', '09.7', '10.1', '10'],
+    expected_stages_build_idea: [
+      '02',
+      '02.5',
+      '02.7',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '08.5',
+      '09',
+      '09.1',
+      '09.2',
+      '09.5',
+      '09.7',
+      '10.1',
+      '10',
+    ],
+    expected_stages_dream: [
+      '01_dream',
+      '02',
+      '02.5',
+      '02.7',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '08.5',
+      '09',
+      '09.1',
+      '09.2',
+      '09.5',
+      '09.7',
+      '10.1',
+      '10',
+    ],
     idea_index_path: 'meta/idea_index.json',
     builds_root: 'builds/',
     per_idea: {},
@@ -107,7 +155,7 @@ export function createRunManifest(
     failure: null,
     stages_completed: [],
     inputs_hash: inputsHash,
-    model
+    model,
   };
 }
 
@@ -148,11 +196,11 @@ export function saveIdeaIndex(runPath: string, index: IdeaIndexEntry[]): void {
 }
 
 // Find idea by ID or name
-export function findIdea(
+export async function findIdea(
   ideaQuery: string
-): { runPath: string; ideaDir: string; idea: IdeaIndexEntry } | null {
+): Promise<{ runPath: string; ideaDir: string; idea: IdeaIndexEntry } | null> {
   // Try to find by ID, slug, or name in recent runs
-  const { listRecentRuns } = require('./paths.js');
+  const { listRecentRuns } = await import('./paths.js');
   const runs = listRecentRuns(50);
 
   for (const runPath of runs) {
@@ -194,7 +242,7 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
       runPath,
       runId,
       ideas: [],
-      error: 'Failed to acquire lock'
+      error: 'Failed to acquire lock',
     };
   }
 
@@ -210,7 +258,8 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
     ensureDir(path.join(runPath, 'meta'));
 
     // Create intake
-    const intakeContent = config.intake ||
+    const intakeContent =
+      config.intake ||
       'Generate 10 innovative mobile app ideas based on current market trends and user needs. Focus on subscription-based monetization and offline-first functionality.';
 
     const intakePath = path.join(runPath, 'inputs', '00_intake.md');
@@ -218,7 +267,12 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
 
     // Create manifest
     const inputsHash = hashInputs({ intake: intakeContent });
-    const manifest = createRunManifest(runId, 'run', config.model || 'claude-sonnet-4-20250514', inputsHash);
+    const manifest = createRunManifest(
+      runId,
+      'run',
+      config.model || 'claude-sonnet-4-20250514',
+      inputsHash
+    );
     manifest.run_status = 'in_progress';
     saveRunManifest(runPath, manifest);
 
@@ -228,14 +282,17 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
       runId,
       runPath,
       priorStages: {},
-      intakeContent
+      intakeContent,
     };
 
     const result = await executeStage(stages[0].id, inputs);
 
     if (!result.success) {
       manifest.run_status = 'failed';
-      manifest.failure = { stage: stages[0].id, error: result.error || 'Unknown error' };
+      manifest.failure = {
+        stage: stages[0].id,
+        error: result.error || 'Unknown error',
+      };
       saveRunManifest(runPath, manifest);
 
       return {
@@ -243,32 +300,39 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
         runPath,
         runId,
         ideas: [],
-        error: result.error
+        error: result.error,
       };
     }
 
     manifest.stages_completed.push(stages[0].id);
 
     // Parse Stage 01 output to create idea index
-    const stage01Output = readJson<{ app_ideas: Array<{
-      id: string;
-      name: string;
-      validation_score: number;
-    }> }>(result.outputPath!);
+    const stage01Output = readJson<{
+      app_ideas: Array<{
+        id: string;
+        name: string;
+        validation_score: number;
+      }>;
+    }>(result.outputPath!);
 
-    const ideas: IdeaIndexEntry[] = stage01Output.app_ideas.map((idea, index) => {
-      const slug = idea.name.toLowerCase().replace(/[^a-z0-9]+/g, '_').substring(0, 20);
-      const directory = `${String(index + 1).padStart(2, '0')}_${slug}__${idea.id}`;
+    const ideas: IdeaIndexEntry[] = stage01Output.app_ideas.map(
+      (idea, index) => {
+        const slug = idea.name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '_')
+          .substring(0, 20);
+        const directory = `${String(index + 1).padStart(2, '0')}_${slug}__${idea.id}`;
 
-      return {
-        id: idea.id,
-        name: idea.name,
-        slug,
-        directory,
-        rank: index + 1,
-        validation_score: idea.validation_score
-      };
-    });
+        return {
+          id: idea.id,
+          name: idea.name,
+          slug,
+          directory,
+          rank: index + 1,
+          validation_score: idea.validation_score,
+        };
+      }
+    );
 
     // Create idea directories
     for (const idea of ideas) {
@@ -281,19 +345,19 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
         name: idea.name,
         slug: idea.slug,
         rank: idea.rank,
-        validation_score: idea.validation_score
+        validation_score: idea.validation_score,
       });
 
       writeJson(path.join(ideaPath, 'meta', 'boundary.json'), {
         idea_dir: idea.directory,
         run_id: runId,
-        created: new Date().toISOString()
+        created: new Date().toISOString(),
       });
 
       writeJson(path.join(ideaPath, 'meta', 'stage_status.json'), {
         status: 'unbuilt',
         stages_completed: [],
-        current_stage: null
+        current_stage: null,
       });
 
       manifest.per_idea[idea.id] = {
@@ -301,7 +365,7 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
         status: 'unbuilt',
         stages_completed: [],
         missing_artifacts: [],
-        build_id: null
+        build_id: null,
       };
     }
 
@@ -322,7 +386,7 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
       success: true,
       runPath,
       runId,
-      ideas
+      ideas,
     };
   } catch (err) {
     const error = err instanceof Error ? err.message : String(err);
@@ -333,7 +397,7 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
       runPath,
       runId,
       ideas: [],
-      error
+      error,
     };
   } finally {
     releaseLock();
@@ -352,13 +416,13 @@ export async function executeBuild(
   logger.pipelineStart(`build ${ideaQuery}`);
 
   // Find the idea
-  const found = findIdea(ideaQuery);
+  const found = await findIdea(ideaQuery);
 
   if (!found) {
     return {
       success: false,
       buildPath: null,
-      error: `Idea not found: ${ideaQuery}`
+      error: `Idea not found: ${ideaQuery}`,
     };
   }
 
@@ -371,7 +435,7 @@ export async function executeBuild(
     return {
       success: false,
       buildPath: null,
-      error: 'Run manifest not found'
+      error: 'Run manifest not found',
     };
   }
 
@@ -380,7 +444,7 @@ export async function executeBuild(
     return {
       success: false,
       buildPath: null,
-      error: 'Failed to acquire lock'
+      error: 'Failed to acquire lock',
     };
   }
 
@@ -403,8 +467,9 @@ export async function executeBuild(
 
     // Load intake
     const intakePath = path.join(runPath, 'inputs', '00_intake.json');
-    const intakeContent = fileExists(intakePath) ?
-      readJson<{ intake: string }>(intakePath).intake : '';
+    const intakeContent = fileExists(intakePath)
+      ? readJson<{ intake: string }>(intakePath).intake
+      : '';
 
     // Load Stage 01 output
     const stage01Path = path.join(runPath, 'stage01', 'stages', 'stage01.json');
@@ -416,7 +481,11 @@ export async function executeBuild(
 
     // Execute each stage
     for (const stage of stages) {
-      const stageOutputPath = path.join(ideaPath, 'stages', `stage${stage.id.replace('.', '_')}.json`);
+      const stageOutputPath = path.join(
+        ideaPath,
+        'stages',
+        `stage${stage.id.replace('.', '_')}.json`
+      );
 
       // Skip if already completed
       if (fileExists(stageOutputPath)) {
@@ -431,7 +500,7 @@ export async function executeBuild(
         ideaDir,
         ideaPath,
         priorStages,
-        intakeContent
+        intakeContent,
       };
 
       const result = await executeStage(stage.id, inputs);
@@ -445,7 +514,7 @@ export async function executeBuild(
         return {
           success: false,
           buildPath: null,
-          error: `Stage ${stage.id} failed: ${result.error}`
+          error: `Stage ${stage.id} failed: ${result.error}`,
         };
       }
 
@@ -466,7 +535,7 @@ export async function executeBuild(
     const contractScripts = [
       'verify_build_contract_present.sh',
       'verify_build_contract_sections.sh',
-      'verify_build_prompt_is_comprehensive.sh'
+      'verify_build_prompt_is_comprehensive.sh',
     ];
 
     for (const script of contractScripts) {
@@ -477,7 +546,7 @@ export async function executeBuild(
           return {
             success: false,
             buildPath: null,
-            error: `Enforcement script failed: ${script}`
+            error: `Enforcement script failed: ${script}`,
           };
         }
       }
@@ -491,12 +560,16 @@ export async function executeBuild(
     // Dependency validation
     const depValidateScript = path.join(scriptsDir, 'validate_dependencies.sh');
     if (fileExists(depValidateScript)) {
-      const result = await executeScript(depValidateScript, [path.join(buildPath, 'app', 'package.json')], buildPath);
+      const result = await executeScript(
+        depValidateScript,
+        [path.join(buildPath, 'app', 'package.json')],
+        buildPath
+      );
       if (!result.success) {
         return {
           success: false,
           buildPath,
-          error: 'Dependency validation failed'
+          error: 'Dependency validation failed',
         };
       }
     }
@@ -513,7 +586,7 @@ export async function executeBuild(
 
     return {
       success: true,
-      buildPath
+      buildPath,
     };
   } catch (err) {
     const error = err instanceof Error ? err.message : String(err);
@@ -522,7 +595,7 @@ export async function executeBuild(
     return {
       success: false,
       buildPath: null,
-      error
+      error,
     };
   } finally {
     releaseLock();
@@ -539,12 +612,14 @@ export async function executeDream(
   buildPath: string | null;
   error?: string;
 }> {
-  const hash = crypto.createHash('sha256')
+  const hash = crypto
+    .createHash('sha256')
     .update(ideaPrompt)
     .digest('hex')
     .substring(0, 8);
 
-  const timestamp = new Date().toISOString()
+  const timestamp = new Date()
+    .toISOString()
     .replace(/[-:]/g, '')
     .replace(/T/, '-')
     .replace(/\..+/, '')
@@ -561,7 +636,7 @@ export async function executeDream(
       success: false,
       runPath,
       buildPath: null,
-      error: 'Failed to acquire lock'
+      error: 'Failed to acquire lock',
     };
   }
 
@@ -582,7 +657,12 @@ export async function executeDream(
 
     // Create manifest
     const inputsHash = hashInputs({ dream: ideaPrompt });
-    const manifest = createRunManifest(runId, 'dream', config.model || 'claude-sonnet-4-20250514', inputsHash);
+    const manifest = createRunManifest(
+      runId,
+      'dream',
+      config.model || 'claude-sonnet-4-20250514',
+      inputsHash
+    );
     manifest.run_status = 'in_progress';
     saveRunManifest(runPath, manifest);
 
@@ -599,27 +679,35 @@ export async function executeDream(
           runId,
           runPath,
           priorStages: {},
-          intakeContent: ideaPrompt
+          intakeContent: ideaPrompt,
         };
 
         const result = await executeStage('01_dream', inputs);
 
         if (!result.success) {
           manifest.run_status = 'failed';
-          manifest.failure = { stage: '01_dream', error: result.error || 'Unknown error' };
+          manifest.failure = {
+            stage: '01_dream',
+            error: result.error || 'Unknown error',
+          };
           saveRunManifest(runPath, manifest);
 
           return {
             success: false,
             runPath,
             buildPath: null,
-            error: result.error
+            error: result.error,
           };
         }
 
         // Parse output to create idea directory
-        const dreamOutput = readJson<{ idea: { id: string; name: string } }>(result.outputPath!);
-        const slug = dreamOutput.idea.name.toLowerCase().replace(/[^a-z0-9]+/g, '_').substring(0, 20);
+        const dreamOutput = readJson<{ idea: { id: string; name: string } }>(
+          result.outputPath!
+        );
+        const slug = dreamOutput.idea.name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '_')
+          .substring(0, 20);
         ideaDir = `01_${slug}__${dreamOutput.idea.id}`;
         ideaPath = path.join(runPath, 'ideas', ideaDir);
 
@@ -632,7 +720,6 @@ export async function executeDream(
 
         priorStages['01_dream'] = dreamOutput;
         manifest.stages_completed.push('01_dream');
-
       } else {
         // Execute build stages
         const inputs: StageInputs = {
@@ -641,21 +728,24 @@ export async function executeDream(
           ideaDir,
           ideaPath,
           priorStages,
-          intakeContent: ideaPrompt
+          intakeContent: ideaPrompt,
         };
 
         const result = await executeStage(stage.id, inputs);
 
         if (!result.success) {
           manifest.run_status = 'failed';
-          manifest.failure = { stage: stage.id, error: result.error || 'Unknown error' };
+          manifest.failure = {
+            stage: stage.id,
+            error: result.error || 'Unknown error',
+          };
           saveRunManifest(runPath, manifest);
 
           return {
             success: false,
             runPath,
             buildPath: null,
-            error: result.error
+            error: result.error,
           };
         }
 
@@ -679,7 +769,7 @@ export async function executeDream(
     return {
       success: true,
       runPath,
-      buildPath
+      buildPath,
     };
   } catch (err) {
     const error = err instanceof Error ? err.message : String(err);
@@ -689,7 +779,7 @@ export async function executeDream(
       success: false,
       runPath,
       buildPath: null,
-      error
+      error,
     };
   } finally {
     releaseLock();
@@ -726,7 +816,7 @@ async function updateLeaderboard(
       idea_id: idea.id,
       idea_name: idea.name,
       idea_slug: idea.slug,
-      source_path: path.join(runPath, 'stage01', 'stages', 'stage01.json')
+      source_path: path.join(runPath, 'stage01', 'stages', 'stage01.json'),
     });
   }
 

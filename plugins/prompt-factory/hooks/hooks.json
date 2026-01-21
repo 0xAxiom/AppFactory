@@ -1,0 +1,10 @@
+{
+  "hooks": [
+    {
+      "name": "prompt-factory-init",
+      "event": "session_start",
+      "description": "Initialize Prompt-Factory on session start",
+      "response": "[PF] Prompt-Factory v1.0.0 ready\n\nCore skills loaded: 8\nAudit logging: enabled\nOffline mode: active\n\nCommands: /pf list, /pf help, /addinfo"
+    }
+  ]
+}

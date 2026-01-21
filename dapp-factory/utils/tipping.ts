@@ -1,1 +1,272 @@
-/**\n * Tipping Integration for Bags API\n * \n * Optional tipping functionality per Bags principles:\n * https://docs.bags.fm/principles/tipping\n */\n\nimport { BAGS_TIPPING } from '../constants/bags.js';\n\nexport interface TippingConfig {\n  enabled: boolean;\n  wallet?: string; // Base58 encoded Solana public key\n  lamports?: number; // Tip amount in lamports\n  provider?: 'jito' | 'bloxroute' | 'astral' | 'custom';\n}\n\nexport interface TippingProvider {\n  name: string;\n  wallet: string;\n  description: string;\n  recommendedTip: number; // in lamports\n}\n\n/**\n * Well-known tipping providers from Bags documentation\n */\nexport const TIPPING_PROVIDERS: Record<string, TippingProvider> = {\n  jito: {\n    name: 'Jito',\n    wallet: '', // TODO: Get actual Jito wallet from Bags docs\n    description: 'Jito block engine for faster transaction processing',\n    recommendedTip: 100000 // 0.0001 SOL\n  },\n  bloxroute: {\n    name: 'bloXroute',\n    wallet: '', // TODO: Get actual bloXroute wallet from Bags docs  \n    description: 'bloXroute BDN for enhanced transaction delivery',\n    recommendedTip: 50000 // 0.00005 SOL\n  },\n  astral: {\n    name: 'Astral',\n    wallet: '', // TODO: Get actual Astral wallet from Bags docs\n    description: 'Astral validator for transaction prioritization',\n    recommendedTip: 75000 // 0.000075 SOL\n  }\n};\n\n/**\n * Validate tipping configuration\n */\nexport function validateTippingConfig(config: TippingConfig): void {\n  if (!config.enabled) {\n    return; // No validation needed if disabled\n  }\n\n  if (!config.wallet) {\n    throw new Error('Tipping is enabled but no wallet address provided');\n  }\n\n  // Validate wallet address format (Base58)\n  if (!isValidBase58Address(config.wallet)) {\n    throw new Error(`Invalid tipping wallet address: ${config.wallet}`);\n  }\n\n  if (config.lamports === undefined || config.lamports <= 0) {\n    throw new Error('Tipping is enabled but no valid lamports amount provided');\n  }\n\n  // Reasonable bounds check\n  const maxTip = 1000000000; // 1 SOL\n  const minTip = 1000; // 0.000001 SOL\n  \n  if (config.lamports > maxTip) {\n    throw new Error(`Tip amount too large: ${config.lamports} lamports (max: ${maxTip})`);\n  }\n  \n  if (config.lamports < minTip) {\n    throw new Error(`Tip amount too small: ${config.lamports} lamports (min: ${minTip})`);\n  }\n}\n\n/**\n * Basic Base58 address validation\n */\nfunction isValidBase58Address(address: string): boolean {\n  // Solana addresses are 32-44 characters, Base58 encoded\n  return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);\n}\n\n/**\n * Create tipping parameters for Bags API calls\n */\nexport function createTippingParams(config: TippingConfig): {\n  tipWallet?: string;\n  tipLamports?: number;\n} {\n  if (!config.enabled || !config.wallet || !config.lamports) {\n    return {}; // No tipping parameters\n  }\n\n  validateTippingConfig(config);\n\n  return {\n    [BAGS_TIPPING.PARAMETERS.TIP_WALLET]: config.wallet,\n    [BAGS_TIPPING.PARAMETERS.TIP_LAMPORTS]: config.lamports\n  };\n}\n\n/**\n * Get tipping configuration from environment variables\n */\nexport function getTippingConfigFromEnv(): TippingConfig {\n  const tipWallet = process.env.TIP_WALLET;\n  const tipLamportsStr = process.env.TIP_LAMPORTS;\n  \n  if (!tipWallet || !tipLamportsStr) {\n    return { enabled: false };\n  }\n\n  const tipLamports = parseInt(tipLamportsStr, 10);\n  if (isNaN(tipLamports)) {\n    console.warn(`⚠️ Invalid TIP_LAMPORTS value: ${tipLamportsStr}. Disabling tipping.`);\n    return { enabled: false };\n  }\n\n  return {\n    enabled: true,\n    wallet: tipWallet,\n    lamports: tipLamports,\n    provider: 'custom'\n  };\n}\n\n/**\n * Get recommended tipping config for a provider\n */\nexport function getProviderTippingConfig(provider: keyof typeof TIPPING_PROVIDERS): TippingConfig {\n  const providerInfo = TIPPING_PROVIDERS[provider];\n  \n  if (!providerInfo || !providerInfo.wallet) {\n    throw new Error(`Unknown or incomplete tipping provider: ${provider}`);\n  }\n\n  return {\n    enabled: true,\n    wallet: providerInfo.wallet,\n    lamports: providerInfo.recommendedTip,\n    provider\n  };\n}\n\n/**\n * Format tipping amount for display\n */\nexport function formatTipAmount(lamports: number): string {\n  const sol = lamports / 1000000000;\n  \n  if (sol >= 0.001) {\n    return `${sol.toFixed(4)} SOL`;\n  }\n  \n  return `${lamports.toLocaleString()} lamports`;\n}\n\n/**\n * Calculate reasonable tip amount based on transaction complexity\n */\nexport function calculateRecommendedTip(params: {\n  hasFileUploads?: boolean;\n  feeClaimersCount?: number;\n  priority?: 'low' | 'normal' | 'high';\n}): number {\n  const {\n    hasFileUploads = false,\n    feeClaimersCount = 1,\n    priority = 'normal'\n  } = params;\n\n  let baseTip = 50000; // 0.00005 SOL\n\n  // Adjust for complexity\n  if (hasFileUploads) {\n    baseTip += 25000;\n  }\n\n  if (feeClaimersCount > 5) {\n    baseTip += (feeClaimersCount - 5) * 10000;\n  }\n\n  // Adjust for priority\n  const priorityMultipliers = {\n    low: 0.5,\n    normal: 1.0,\n    high: 2.0\n  };\n\n  const finalTip = Math.round(baseTip * priorityMultipliers[priority]);\n  \n  // Ensure within reasonable bounds\n  return Math.max(10000, Math.min(finalTip, 500000));\n}\n\n/**\n * Check if endpoint supports tipping\n */\nexport function isEndpointTippingSupported(endpoint: string): boolean {\n  return BAGS_TIPPING.SUPPORTED_ENDPOINTS.some(supported => \n    endpoint.includes(supported)\n  );\n}\n\n/**\n * Add tipping to token launch parameters\n */\nexport function addTippingToLaunchParams(\n  launchParams: Record<string, any>,\n  tippingConfig: TippingConfig\n): Record<string, any> {\n  if (!tippingConfig.enabled) {\n    return launchParams;\n  }\n\n  const tippingParams = createTippingParams(tippingConfig);\n  \n  console.log(`💰 Adding tip: ${formatTipAmount(tippingConfig.lamports!)} to ${tippingConfig.provider || 'custom'} provider`);\n  \n  return {\n    ...launchParams,\n    ...tippingParams\n  };\n}\n\n/**\n * Log tipping information for transparency\n */\nexport function logTippingInfo(config: TippingConfig): void {\n  if (!config.enabled) {\n    console.log('💡 Tipping disabled - transactions will use standard priority');\n    return;\n  }\n\n  const provider = config.provider || 'custom';\n  const amount = formatTipAmount(config.lamports!);\n  \n  console.log(`💰 Tipping Configuration:`);\n  console.log(`   Provider: ${provider}`);\n  console.log(`   Amount: ${amount}`);\n  console.log(`   Wallet: ${config.wallet}`);\n  \n  if (provider !== 'custom' && TIPPING_PROVIDERS[provider]) {\n    console.log(`   Description: ${TIPPING_PROVIDERS[provider]!.description}`);\n  }\n}
+/**
+ * Tipping Integration for Bags API
+ *
+ * Optional tipping functionality per Bags principles:
+ * https://docs.bags.fm/principles/tipping
+ */
+
+import { BAGS_TIPPING } from '../constants/bags.js';
+
+export interface TippingConfig {
+  enabled: boolean;
+  wallet?: string; // Base58 encoded Solana public key
+  lamports?: number; // Tip amount in lamports
+  provider?: 'jito' | 'bloxroute' | 'astral' | 'custom';
+}
+
+export interface TippingProvider {
+  name: string;
+  wallet: string;
+  description: string;
+  recommendedTip: number; // in lamports
+}
+
+/**
+ * Well-known tipping providers
+ *
+ * Note: Provider wallet addresses should be configured via environment
+ * variables or fetched from the Bags API at runtime. The addresses below
+ * are placeholders - configure TIP_PROVIDER_JITO_WALLET, TIP_PROVIDER_BLOXROUTE_WALLET,
+ * and TIP_PROVIDER_ASTRAL_WALLET in your environment.
+ *
+ * See: https://docs.bags.fm/principles/tipping for current provider addresses
+ */
+export const TIPPING_PROVIDERS: Record<string, TippingProvider> = {
+  jito: {
+    name: 'Jito',
+    wallet: process.env.TIP_PROVIDER_JITO_WALLET || '',
+    description: 'Jito block engine for faster transaction processing',
+    recommendedTip: 100000, // 0.0001 SOL
+  },
+  bloxroute: {
+    name: 'bloXroute',
+    wallet: process.env.TIP_PROVIDER_BLOXROUTE_WALLET || '',
+    description: 'bloXroute BDN for enhanced transaction delivery',
+    recommendedTip: 50000, // 0.00005 SOL
+  },
+  astral: {
+    name: 'Astral',
+    wallet: process.env.TIP_PROVIDER_ASTRAL_WALLET || '',
+    description: 'Astral validator for transaction prioritization',
+    recommendedTip: 75000, // 0.000075 SOL
+  },
+};
+
+/**
+ * Validate tipping configuration
+ */
+export function validateTippingConfig(config: TippingConfig): void {
+  if (!config.enabled) {
+    return; // No validation needed if disabled
+  }
+
+  if (!config.wallet) {
+    throw new Error('Tipping is enabled but no wallet address provided');
+  }
+
+  // Validate wallet address format (Base58)
+  if (!isValidBase58Address(config.wallet)) {
+    throw new Error(`Invalid tipping wallet address: ${config.wallet}`);
+  }
+
+  if (config.lamports === undefined || config.lamports <= 0) {
+    throw new Error('Tipping is enabled but no valid lamports amount provided');
+  }
+
+  // Reasonable bounds check
+  const maxTip = 1000000000; // 1 SOL
+  const minTip = 1000; // 0.000001 SOL
+
+  if (config.lamports > maxTip) {
+    throw new Error(
+      `Tip amount too large: ${config.lamports} lamports (max: ${maxTip})`
+    );
+  }
+
+  if (config.lamports < minTip) {
+    throw new Error(
+      `Tip amount too small: ${config.lamports} lamports (min: ${minTip})`
+    );
+  }
+}
+
+/**
+ * Basic Base58 address validation
+ */
+function isValidBase58Address(address: string): boolean {
+  // Solana addresses are 32-44 characters, Base58 encoded
+  return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
+}
+
+/**
+ * Create tipping parameters for Bags API calls
+ */
+export function createTippingParams(config: TippingConfig): {
+  tipWallet?: string;
+  tipLamports?: number;
+} {
+  if (!config.enabled || !config.wallet || !config.lamports) {
+    return {}; // No tipping parameters
+  }
+
+  validateTippingConfig(config);
+
+  return {
+    [BAGS_TIPPING.PARAMETERS.TIP_WALLET]: config.wallet,
+    [BAGS_TIPPING.PARAMETERS.TIP_LAMPORTS]: config.lamports,
+  };
+}
+
+/**
+ * Get tipping configuration from environment variables
+ */
+export function getTippingConfigFromEnv(): TippingConfig {
+  const tipWallet = process.env.TIP_WALLET;
+  const tipLamportsStr = process.env.TIP_LAMPORTS;
+
+  if (!tipWallet || !tipLamportsStr) {
+    return { enabled: false };
+  }
+
+  const tipLamports = parseInt(tipLamportsStr, 10);
+  if (isNaN(tipLamports)) {
+    console.warn(
+      `⚠️ Invalid TIP_LAMPORTS value: ${tipLamportsStr}. Disabling tipping.`
+    );
+    return { enabled: false };
+  }
+
+  return {
+    enabled: true,
+    wallet: tipWallet,
+    lamports: tipLamports,
+    provider: 'custom',
+  };
+}
+
+/**
+ * Get recommended tipping config for a provider
+ */
+export function getProviderTippingConfig(
+  provider: keyof typeof TIPPING_PROVIDERS
+): TippingConfig {
+  const providerInfo = TIPPING_PROVIDERS[provider];
+
+  if (!providerInfo || !providerInfo.wallet) {
+    throw new Error(`Unknown or incomplete tipping provider: ${provider}`);
+  }
+
+  return {
+    enabled: true,
+    wallet: providerInfo.wallet,
+    lamports: providerInfo.recommendedTip,
+    provider,
+  };
+}
+
+/**
+ * Format tipping amount for display
+ */
+export function formatTipAmount(lamports: number): string {
+  const sol = lamports / 1000000000;
+
+  if (sol >= 0.001) {
+    return `${sol.toFixed(4)} SOL`;
+  }
+
+  return `${lamports.toLocaleString()} lamports`;
+}
+
+/**
+ * Calculate reasonable tip amount based on transaction complexity
+ */
+export function calculateRecommendedTip(params: {
+  hasFileUploads?: boolean;
+  feeClaimersCount?: number;
+  priority?: 'low' | 'normal' | 'high';
+}): number {
+  const {
+    hasFileUploads = false,
+    feeClaimersCount = 1,
+    priority = 'normal',
+  } = params;
+
+  let baseTip = 50000; // 0.00005 SOL
+
+  // Adjust for complexity
+  if (hasFileUploads) {
+    baseTip += 25000;
+  }
+
+  if (feeClaimersCount > 5) {
+    baseTip += (feeClaimersCount - 5) * 10000;
+  }
+
+  // Adjust for priority
+  const priorityMultipliers = {
+    low: 0.5,
+    normal: 1.0,
+    high: 2.0,
+  };
+
+  const finalTip = Math.round(baseTip * priorityMultipliers[priority]);
+
+  // Ensure within reasonable bounds
+  return Math.max(10000, Math.min(finalTip, 500000));
+}
+
+/**
+ * Check if endpoint supports tipping
+ */
+export function isEndpointTippingSupported(endpoint: string): boolean {
+  return BAGS_TIPPING.SUPPORTED_ENDPOINTS.some((supported) =>
+    endpoint.includes(supported)
+  );
+}
+
+/**
+ * Add tipping to token launch parameters
+ */
+export function addTippingToLaunchParams(
+  launchParams: Record<string, any>,
+  tippingConfig: TippingConfig
+): Record<string, any> {
+  if (!tippingConfig.enabled) {
+    return launchParams;
+  }
+
+  const tippingParams = createTippingParams(tippingConfig);
+
+  console.log(
+    `💰 Adding tip: ${formatTipAmount(tippingConfig.lamports!)} to ${tippingConfig.provider || 'custom'} provider`
+  );
+
+  return {
+    ...launchParams,
+    ...tippingParams,
+  };
+}
+
+/**
+ * Log tipping information for transparency
+ */
+export function logTippingInfo(config: TippingConfig): void {
+  if (!config.enabled) {
+    console.log(
+      '💡 Tipping disabled - transactions will use standard priority'
+    );
+    return;
+  }
+
+  const provider = config.provider || 'custom';
+  const amount = formatTipAmount(config.lamports!);
+
+  console.log(`💰 Tipping Configuration:`);
+  console.log(`   Provider: ${provider}`);
+  console.log(`   Amount: ${amount}`);
+  console.log(`   Wallet: ${config.wallet}`);
+
+  if (provider !== 'custom' && TIPPING_PROVIDERS[provider]) {
+    console.log(`   Description: ${TIPPING_PROVIDERS[provider]!.description}`);
+  }
+}

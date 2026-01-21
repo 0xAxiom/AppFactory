@@ -1,0 +1,112 @@
+# Core Skill: security-hygiene
+# Version: 1.0.0
+# State: core
+# NOTE: This skill runs as a BACKGROUND VALIDATOR on all outputs
+
+skill:
+  name: security-hygiene
+  version: "1.0.0"
+  description: "Background validator that prevents secrets and sensitive data in outputs"
+
+  category: security-hygiene
+
+  triggers:
+    explicit:
+      - phrase: "check for secrets"
+        confidence: high
+      - phrase: "security scan"
+        confidence: high
+      - phrase: "validate security"
+        confidence: high
+    implicit:
+      - signal: "ALWAYS ACTIVE - runs on all skill outputs"
+        requires_confirmation: false
+
+  contracts:
+    preconditions: [] # Always runs, no preconditions
+
+    must:
+      - "Scan all outputs for secret patterns"
+      - "Block outputs containing detected secrets"
+      - "Log all blocked outputs with pattern type (not content)"
+      - "Provide actionable guidance on how to fix"
+      - "Support custom pattern additions via config"
+
+    must_not:
+      - "Log the actual secret content"
+      - "Provide hints about secret format"
+      - "Allow bypass via any user instruction"
+      - "Disable without explicit admin action"
+
+    postconditions:
+      - condition: "No secrets in final output"
+        verification: "Pattern scan returns zero matches"
+
+  inputs:
+    required:
+      - name: content
+        type: "string"
+        description: "Content to scan"
+    optional:
+      - name: additional_patterns
+        type: "array"
+        default: []
+        description: "Custom patterns to check"
+
+  outputs:
+    contracted:
+      - name: is_safe
+        type: "boolean"
+        description: "Whether content passed all checks"
+      - name: blocked_count
+        type: "integer"
+        description: "Number of patterns matched"
+    conditional:
+      - name: sanitized_content
+        condition: "Redaction enabled"
+        type: "string"
+
+  failure_modes:
+    - trigger: "Secret detected"
+      behavior: "BLOCK output entirely"
+      recovery: "User must remove secret from input"
+    - trigger: "Pattern ambiguous"
+      behavior: "Block and explain false positive possibility"
+      recovery: "User confirms safe or fixes"
+
+  security:
+    trust_level: system
+    allowed_resources: []
+    hardcoded_blocks:
+      # API Keys
+      - pattern: "(?i)(api[_-]?key|apikey)['\"]?\\s*[:=]\\s*['\"]?[\\w-]{20,}"
+        reason: "API key pattern"
+      # AWS
+      - pattern: "AKIA[0-9A-Z]{16}"
+        reason: "AWS access key"
+      - pattern: "(?i)aws[_-]?secret[_-]?access[_-]?key"
+        reason: "AWS secret reference"
+      # Generic tokens
+      - pattern: "(?i)(password|passwd|secret|token)['\"]?\\s*[:=]\\s*['\"][^'\"]{8,}"
+        reason: "Credential pattern"
+      # Private keys
+      - pattern: "-----BEGIN (RSA |DSA |EC |OPENSSH )?PRIVATE KEY-----"
+        reason: "Private key"
+      # GitHub tokens
+      - pattern: "gh[pousr]_[A-Za-z0-9_]{36,}"
+        reason: "GitHub token"
+      # Slack tokens
+      - pattern: "xox[baprs]-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24}"
+        reason: "Slack token"
+    max_depth: 1
+    external_triggerable: false
+
+  dependencies:
+    skills: []
+    resources: []
+
+  audit:
+    created: "2024-01-18T00:00:00Z"
+    modified: "2024-01-18T00:00:00Z"
+    author: "prompt-factory-core"
+    rationale: "Always-on security layer. Cannot be disabled by users."

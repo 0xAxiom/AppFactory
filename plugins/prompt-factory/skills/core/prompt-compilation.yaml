@@ -1,0 +1,108 @@
+# Core Skill: prompt-compilation
+# Version: 1.0.0
+# State: core
+
+skill:
+  name: prompt-compilation
+  version: "1.0.0"
+  description: "Converts ideas and requirements into structured, constrained prompts"
+
+  category: prompt-compilation
+
+  triggers:
+    explicit:
+      - phrase: "compile prompt"
+        confidence: high
+      - phrase: "create structured prompt"
+        confidence: high
+      - phrase: "build prompt system"
+        confidence: high
+      - phrase: "convert to prompt"
+        confidence: medium
+    implicit:
+      - signal: "User describes desired AI behavior"
+        requires_confirmation: true
+
+  contracts:
+    preconditions:
+      - condition: "Requirements or idea description provided"
+        failure_action: "Ask user what prompt they want to create"
+
+    must:
+      - "Extract explicit constraints from requirements"
+      - "Surface implicit assumptions for user confirmation"
+      - "Separate data placeholders from instructions"
+      - "Generate deterministic prompt structure"
+      - "Include MUST and MUST NOT sections"
+
+    must_not:
+      - "Assume constraints not stated by user"
+      - "Embed secrets or credentials in prompts"
+      - "Create prompts that bypass safety guidelines"
+      - "Hardcode user-specific data in templates"
+
+    postconditions:
+      - condition: "Compiled prompt has clear structure"
+        verification: "Contains: context, constraints, instructions, outputs"
+      - condition: "All placeholders are documented"
+        verification: "Each {{placeholder}} has description"
+
+  inputs:
+    required:
+      - name: requirements
+        type: "string"
+        description: "Description of desired prompt behavior"
+    optional:
+      - name: format
+        type: "string"
+        default: "structured"
+        description: "Output format: structured, template, system-prompt"
+      - name: strictness
+        type: "string"
+        default: "balanced"
+        description: "How strict: permissive, balanced, strict"
+
+  outputs:
+    contracted:
+      - name: compiled_prompt
+        type: "string"
+        description: "The compiled prompt"
+      - name: placeholders
+        type: "array"
+        description: "List of placeholders with descriptions"
+      - name: constraints_extracted
+        type: "array"
+        description: "Explicit constraints found"
+    conditional:
+      - name: assumptions
+        condition: "Implicit assumptions detected"
+        type: "array"
+
+  failure_modes:
+    - trigger: "Requirements too vague"
+      behavior: "Ask clarifying questions"
+      recovery: "User provides more detail"
+    - trigger: "Conflicting constraints"
+      behavior: "Surface conflict, ask user to resolve"
+      recovery: "User clarifies priority"
+
+  security:
+    trust_level: system
+    allowed_resources: []
+    hardcoded_blocks:
+      - pattern: "ignore.*previous.*instructions"
+        reason: "Injection pattern"
+      - pattern: "disregard.*above"
+        reason: "Injection pattern"
+    max_depth: 2
+    external_triggerable: false
+
+  dependencies:
+    skills: []
+    resources: []
+
+  audit:
+    created: "2024-01-18T00:00:00Z"
+    modified: "2024-01-18T00:00:00Z"
+    author: "prompt-factory-core"
+    rationale: "Converts ideas into deterministic, auditable prompts"

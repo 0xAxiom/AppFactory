@@ -4,7 +4,7 @@ import * as crypto from 'crypto';
 
 /**
  * Web3 Factory Prompt-Driven Execution Framework
- * 
+ *
  * This enforces that each stage uses its corresponding prompt file
  * and validates prompt integrity before execution.
  */
@@ -67,8 +67,8 @@ export class PromptEnforcer {
 
     // Validate that all expected stages are covered
     const expectedStages = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7'];
-    const coveredStages = this.promptIndex.prompts.map(p => p.stage);
-    
+    const coveredStages = this.promptIndex.prompts.map((p) => p.stage);
+
     for (const stage of expectedStages) {
       if (!coveredStages.includes(stage)) {
         throw new Error(`Missing prompt for stage ${stage}`);
@@ -79,12 +79,16 @@ export class PromptEnforcer {
   /**
    * Validate prompt file integrity using SHA256 hash
    */
-  validatePromptIntegrity(stage: string): { valid: boolean; promptPath: string; content: string } {
+  validatePromptIntegrity(stage: string): {
+    valid: boolean;
+    promptPath: string;
+    content: string;
+  } {
     if (!this.promptIndex) {
       throw new Error('Prompt index not loaded');
     }
 
-    const promptInfo = this.promptIndex.prompts.find(p => p.stage === stage);
+    const promptInfo = this.promptIndex.prompts.find((p) => p.stage === stage);
     if (!promptInfo) {
       throw new Error(`No prompt found for stage ${stage}`);
     }
@@ -95,16 +99,19 @@ export class PromptEnforcer {
     }
 
     const content = fs.readFileSync(promptPath, 'utf-8');
-    const actualHash = crypto.createHash('sha256').update(content).digest('hex');
-    
+    const actualHash = crypto
+      .createHash('sha256')
+      .update(content)
+      .digest('hex');
+
     const valid = actualHash === promptInfo.sha256;
-    
+
     if (!valid) {
       throw new Error(
         `Prompt integrity check failed for ${stage}\n` +
-        `Expected: ${promptInfo.sha256}\n` +
-        `Actual: ${actualHash}\n` +
-        `File: ${promptPath}`
+          `Expected: ${promptInfo.sha256}\n` +
+          `Actual: ${actualHash}\n` +
+          `File: ${promptPath}`
       );
     }
 
@@ -114,14 +121,20 @@ export class PromptEnforcer {
   /**
    * Get the prompt contract for a specific stage
    */
-  getStagePrompt(stage: string): { path: string; content: string; hash: string } {
+  getStagePrompt(stage: string): {
+    path: string;
+    content: string;
+    hash: string;
+  } {
     const validation = this.validatePromptIntegrity(stage);
-    const promptInfo = this.promptIndex!.prompts.find(p => p.stage === stage)!;
-    
+    const promptInfo = this.promptIndex!.prompts.find(
+      (p) => p.stage === stage
+    )!;
+
     return {
       path: validation.promptPath,
       content: validation.content,
-      hash: promptInfo.sha256
+      hash: promptInfo.sha256,
     };
   }
 
@@ -147,7 +160,7 @@ export class PromptEnforcer {
       outputs_written: outputs,
       status,
       failure_reasons: failureReasons,
-      validation_results: validationResults
+      validation_results: validationResults,
     };
   }
 
@@ -162,7 +175,7 @@ export class PromptEnforcer {
 
     const reportPath = path.join(stageDir, 'stage_report.md');
     const reportContent = this.formatStageReport(report);
-    
+
     fs.writeFileSync(reportPath, reportContent);
   }
 
@@ -183,15 +196,15 @@ ${report.failure_reasons ? `- **Failures**: ${report.failure_reasons.join(', ')}
 
 ## Files Processed
 ### Inputs Consumed
-${report.inputs_consumed.map(input => `- ${input}`).join('\n')}
+${report.inputs_consumed.map((input) => `- ${input}`).join('\n')}
 
 ### Outputs Written  
-${report.outputs_written.map(output => `- ${output}`).join('\n')}
+${report.outputs_written.map((output) => `- ${output}`).join('\n')}
 
 ## Validation Results
-${Object.entries(report.validation_results).map(([check, passed]) => 
-  `- ${check}: ${passed ? '✅ PASS' : '❌ FAIL'}`
-).join('\n')}
+${Object.entries(report.validation_results)
+  .map(([check, passed]) => `- ${check}: ${passed ? '✅ PASS' : '❌ FAIL'}`)
+  .join('\n')}
 
 ## Prompt Contract Compliance
 - Prompt file loaded and validated: ✅
@@ -226,12 +239,24 @@ ${Object.entries(report.validation_results).map(([check, passed]) =>
       const feeRoutingPath = path.join(runDir, 'token/fee_routing.json');
       if (fs.existsSync(feeRoutingPath)) {
         try {
-          const feeRouting = JSON.parse(fs.readFileSync(feeRoutingPath, 'utf-8'));
-          if (feeRouting.partner_key !== 'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7') {
-            validationErrors.push('Partner key must be exactly FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7');
+          const feeRouting = JSON.parse(
+            fs.readFileSync(feeRoutingPath, 'utf-8')
+          );
+          if (
+            feeRouting.partner_key !==
+            'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7'
+          ) {
+            validationErrors.push(
+              'Partner key must be exactly FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7'
+            );
           }
-          if (feeRouting.creator_share !== 0.75 || feeRouting.partner_share !== 0.25) {
-            validationErrors.push('Fee routing must be exactly 75% creator / 25% partner');
+          if (
+            feeRouting.creator_share !== 0.75 ||
+            feeRouting.partner_share !== 0.25
+          ) {
+            validationErrors.push(
+              'Fee routing must be exactly 75% creator / 25% partner'
+            );
           }
         } catch (e) {
           validationErrors.push('Invalid fee routing JSON format');
@@ -244,9 +269,17 @@ ${Object.entries(report.validation_results).map(([check, passed]) =>
       const bagsConfigPath = path.join(runDir, 'bags/bags_config.json');
       if (fs.existsSync(bagsConfigPath)) {
         try {
-          const bagsConfig = JSON.parse(fs.readFileSync(bagsConfigPath, 'utf-8'));
-          if (!bagsConfig.fee_routing || bagsConfig.fee_routing.partner_key !== 'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7') {
-            validationErrors.push('Bags config must include hardcoded partner key');
+          const bagsConfig = JSON.parse(
+            fs.readFileSync(bagsConfigPath, 'utf-8')
+          );
+          if (
+            !bagsConfig.fee_routing ||
+            bagsConfig.fee_routing.partner_key !==
+              'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7'
+          ) {
+            validationErrors.push(
+              'Bags config must include hardcoded partner key'
+            );
           }
         } catch (e) {
           validationErrors.push('Invalid Bags config JSON format');
@@ -257,7 +290,7 @@ ${Object.entries(report.validation_results).map(([check, passed]) =>
     return {
       passed: missingOutputs.length === 0 && validationErrors.length === 0,
       missingOutputs,
-      validationErrors
+      validationErrors,
     };
   }
 }
@@ -276,7 +309,7 @@ export async function executeStageWithPrompt(
 
   // Get and validate stage prompt
   const prompt = enforcer.getStagePrompt(stage);
-  
+
   console.log(`Executing ${stage} with prompt: ${prompt.path}`);
   console.log(`Prompt hash: ${prompt.hash}`);
 
@@ -290,12 +323,42 @@ export async function executeStageWithPrompt(
     // Execute the stage function with the prompt content
     await executeFunction(prompt.content);
 
-    // TODO: Collect actual inputs/outputs from stage execution
-    // This would need to be integrated with the actual stage execution logic
+    // Collect stage inputs and outputs from the run directory
+    // Inputs are files that existed before stage execution
+    // Outputs are files created/modified during stage execution
+    const stageDir = path.join(runDir, stage.toLowerCase());
+    if (fs.existsSync(stageDir)) {
+      const stageFiles = fs.readdirSync(stageDir);
+      outputs.push(...stageFiles.map((f) => path.join(stage.toLowerCase(), f)));
+    }
 
+    // Record the prompt file as an input
+    inputs.push(prompt.path);
   } catch (error) {
     status = 'failed';
-    failureReasons.push(error instanceof Error ? error.message : 'Unknown error');
+    failureReasons.push(
+      error instanceof Error ? error.message : 'Unknown error'
+    );
+  }
+
+  // Validate stage execution and collect results
+  const expectedOutputs = getExpectedOutputsForStage(stage);
+  const validationResult = enforcer.validateStageExecution(
+    stage,
+    runDir,
+    expectedOutputs
+  );
+  const validationResults: Record<string, boolean> = {
+    outputs_generated: validationResult.missingOutputs.length === 0,
+    validation_passed: validationResult.validationErrors.length === 0,
+    prompt_loaded: true,
+    stage_completed: status === 'success',
+  };
+
+  if (!validationResult.passed) {
+    validationResult.validationErrors.forEach((err) =>
+      failureReasons.push(err)
+    );
   }
 
   // Create and write stage report
@@ -306,7 +369,7 @@ export async function executeStageWithPrompt(
     inputs,
     outputs,
     status,
-    {}, // TODO: Actual validation results
+    validationResults,
     failureReasons
   );
 
@@ -315,4 +378,52 @@ export async function executeStageWithPrompt(
   if (status === 'failed') {
     throw new Error(`Stage ${stage} failed: ${failureReasons.join(', ')}`);
   }
+}
+
+/**
+ * Get expected output files for each stage
+ */
+function getExpectedOutputsForStage(stage: string): string[] {
+  const expectedOutputs: Record<string, string[]> = {
+    W1: [
+      'product/value_proposition.md',
+      'product/onchain_vs_offchain.md',
+      'product/core_user_loop.md',
+      'product/failure_cases.md',
+      'w1/web3_idea.json',
+    ],
+    W2: [
+      'token/token_role.json',
+      'token/token_economics.md',
+      'token/fee_routing.json',
+      'w2/token_model.json',
+    ],
+    W3: [
+      'uiux/uiux_prompt.md',
+      'uiux/design_tokens.json',
+      'uiux/component_inventory.md',
+      'uiux/interaction_semantics.md',
+      'w3/uiux_design.json',
+    ],
+    W4: [
+      'architecture/web_stack.json',
+      'architecture/wallet_strategy.md',
+      'architecture/data_flow_diagram.md',
+      'w4/web3_architecture.json',
+    ],
+    W5: [
+      'bags/bags_config.json',
+      'bags/token_creation_plan.md',
+      'w5/bags_config.json',
+    ],
+    W6: [
+      'runtime/boot.log',
+      'runtime/wallet.log',
+      'runtime/token_flow.log',
+      'runtime/user_flow.log',
+      'w6/runtime_validation.json',
+    ],
+    W7: ['w7/build_manifest.json'],
+  };
+  return expectedOutputs[stage] || [];
 }

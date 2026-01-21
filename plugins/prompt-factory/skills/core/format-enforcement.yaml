@@ -1,0 +1,105 @@
+# Core Skill: format-enforcement
+# Version: 1.0.0
+# State: core
+
+skill:
+  name: format-enforcement
+  version: "1.0.0"
+  description: "Validates output structure against schemas and format requirements"
+
+  category: format-enforcement
+
+  triggers:
+    explicit:
+      - phrase: "validate format"
+        confidence: high
+      - phrase: "check schema"
+        confidence: high
+      - phrase: "enforce structure"
+        confidence: high
+      - phrase: "format check"
+        confidence: medium
+    implicit:
+      - signal: "Output schema specified in request"
+        requires_confirmation: false
+
+  contracts:
+    preconditions:
+      - condition: "Content and format specification provided"
+        failure_action: "Ask for content and expected format"
+
+    must:
+      - "Validate content against specified format/schema"
+      - "Report all validation errors with line/position"
+      - "Suggest fixes for common format errors"
+      - "Support JSON, YAML, Markdown structure validation"
+      - "Preserve valid content while flagging issues"
+
+    must_not:
+      - "Silently fix errors without reporting"
+      - "Change content meaning during validation"
+      - "Accept invalid content as valid"
+      - "Skip validation steps"
+
+    postconditions:
+      - condition: "Validation report generated"
+        verification: "Report contains pass/fail and error list"
+
+  inputs:
+    required:
+      - name: content
+        type: "string"
+        description: "Content to validate"
+      - name: format
+        type: "string"
+        description: "Expected format: json, yaml, markdown, custom-schema"
+    optional:
+      - name: schema
+        type: "object"
+        default: null
+        description: "Custom JSON Schema for validation"
+      - name: strict
+        type: "boolean"
+        default: true
+        description: "Whether to fail on warnings"
+
+  outputs:
+    contracted:
+      - name: valid
+        type: "boolean"
+        description: "Whether content is valid"
+      - name: errors
+        type: "array"
+        description: "List of validation errors"
+      - name: warnings
+        type: "array"
+        description: "List of warnings (non-fatal)"
+    conditional:
+      - name: fixed_content
+        condition: "Auto-fix enabled and possible"
+        type: "string"
+
+  failure_modes:
+    - trigger: "Unknown format type"
+      behavior: "Report unsupported format"
+      recovery: "User specifies supported format"
+    - trigger: "Invalid schema"
+      behavior: "Report schema errors first"
+      recovery: "User fixes schema"
+
+  security:
+    trust_level: system
+    allowed_resources: []
+    hardcoded_blocks: []
+    max_depth: 1
+    external_triggerable: false
+
+  dependencies:
+    skills: []
+    resources: []
+
+  audit:
+    created: "2024-01-18T00:00:00Z"
+    modified: "2024-01-18T00:00:00Z"
+    author: "prompt-factory-core"
+    rationale: "Ensures output structural integrity"

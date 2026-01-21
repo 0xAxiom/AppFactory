@@ -1,0 +1,44 @@
+# Prompt-Factory Default Configuration
+# Copy to ~/.prompt-factory/config.yaml to customize
+
+# Display settings
+view: standard # simple, standard, advanced, expert
+
+# Confirmation settings
+confirm: implicit-only # all, implicit-only, none
+
+# Audit settings
+audit:
+  enabled: true
+  retention_days: 30
+  verbose: false # If true, logs full inputs/outputs
+  redact_secrets: true # Always redact even in verbose mode
+
+# Activation settings
+activation:
+  max_depth: 3 # Maximum nested skill calls
+  require_confirmation_implicit: true
+  timeout_seconds: 300 # 5 minutes
+
+# Security settings
+security:
+  # These cannot be disabled
+  secret_detection: true
+  spotlighting: true
+  instruction_hierarchy: true
+
+# Offline settings
+offline:
+  enabled: true # Default: no network calls
+  cache_fetched: false # Don't persist fetched content
+
+# Registry settings
+registry:
+  # Resolution order (cannot be changed)
+  # 1. ./prompt-factory/skills/
+  # 2. ./prompt-factory/overrides/
+  # 3. ~/.prompt-factory/skills/
+  # 4. core (built-in)
+
+  # Community registry (disabled in v1)
+  community_enabled: false

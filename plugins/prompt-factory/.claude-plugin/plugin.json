@@ -1,0 +1,21 @@
+{
+  "name": "prompt-factory",
+  "version": "1.0.0",
+  "description": "Instruction orchestration engine. Store skills (behavioral contracts), apply them correctly, audit every activation. Offline-first, deterministic, auditable.",
+  "author": {
+    "name": "Prompt-Factory"
+  },
+  "keywords": [
+    "claude",
+    "plugin",
+    "prompts",
+    "skills",
+    "contracts",
+    "audit",
+    "orchestration"
+  ],
+  "license": "MIT",
+  "engines": {
+    "claude-code": ">=1.0.0"
+  }
+}

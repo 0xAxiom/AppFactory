@@ -1,1 +1,354 @@
-/**\n * File Upload Utilities for Bags API\n * \n * Implements file upload handling per Bags principles:\n * https://docs.bags.fm/principles/file-uploads\n */\n\nimport fs from 'fs';\nimport path from 'path';\nimport { createHash } from 'crypto';\nimport { BAGS_FILE_UPLOAD, BAGS_API_CONFIG } from '../constants/bags.js';\nimport { bagsApiFetch, withRetry } from './retry.js';\n\nexport interface FileUploadResult {\n  url: string;\n  ipfsHash?: string;\n  filename: string;\n  size: number;\n  contentType: string;\n  checksum: string;\n}\n\nexport interface FileUploadOptions {\n  validateFile?: boolean;\n  generateChecksum?: boolean;\n  retryOptions?: {\n    maxAttempts?: number;\n    initialDelay?: number;\n  };\n}\n\n/**\n * Upload image file to Bags API\n */\nexport async function uploadImageFile(\n  file: File | Buffer,\n  apiKey: string,\n  filename: string,\n  options: FileUploadOptions = {}\n): Promise<FileUploadResult> {\n  const {\n    validateFile = true,\n    generateChecksum = true,\n    retryOptions = {}\n  } = options;\n\n  let fileBuffer: Buffer;\n  let fileSize: number;\n  let contentType: string;\n\n  // Handle File object vs Buffer\n  if (file instanceof File) {\n    fileBuffer = Buffer.from(await file.arrayBuffer());\n    fileSize = file.size;\n    contentType = file.type;\n  } else {\n    fileBuffer = file;\n    fileSize = file.length;\n    contentType = getContentTypeFromFilename(filename);\n  }\n\n  // Validate file if requested\n  if (validateFile) {\n    validateImageFileBuffer(fileBuffer, fileSize, contentType, filename);\n  }\n\n  // Generate checksum if requested\n  const checksum = generateChecksum ? \n    createHash('sha256').update(fileBuffer).digest('hex') :\n    '';\n\n  console.log(`📤 Uploading file: ${filename} (${fileSize} bytes, ${contentType})`);\n\n  // Create form data for upload\n  const formData = new FormData();\n  const blob = new Blob([fileBuffer], { type: contentType });\n  formData.append(BAGS_FILE_UPLOAD.FIELD_NAME, blob, filename);\n\n  // Upload with retry logic\n  const uploadResponse = await withRetry(async () => {\n    const response = await bagsApiFetch(\n      `${BAGS_API_CONFIG.BASE_URL}/upload`, // TODO: Get actual upload endpoint from docs\n      {\n        method: 'POST',\n        headers: {\n          'x-api-key': apiKey,\n          // Note: Don't set Content-Type for FormData - browser will set it with boundary\n        },\n        body: formData\n      }\n    );\n\n    return response.json();\n  }, retryOptions);\n\n  console.log(`✅ File uploaded successfully: ${uploadResponse.url}`);\n\n  return {\n    url: uploadResponse.url,\n    ipfsHash: uploadResponse.ipfsHash,\n    filename,\n    size: fileSize,\n    contentType,\n    checksum\n  };\n}\n\n/**\n * Validate image file according to Bags constraints\n */\nfunction validateImageFileBuffer(\n  buffer: Buffer,\n  size: number,\n  contentType: string,\n  filename: string\n): void {\n  // Check file size\n  if (size > BAGS_FILE_UPLOAD.MAX_SIZE_BYTES) {\n    throw new Error(\n      `File too large: ${(size / (1024 * 1024)).toFixed(2)}MB. ` +\n      `Maximum allowed: ${BAGS_FILE_UPLOAD.MAX_SIZE_MB}MB`\n    );\n  }\n\n  // Check content type\n  if (!BAGS_FILE_UPLOAD.SUPPORTED_TYPES.includes(contentType)) {\n    throw new Error(\n      `Unsupported file type: ${contentType}. ` +\n      `Supported types: ${BAGS_FILE_UPLOAD.SUPPORTED_TYPES.join(', ')}`\n    );\n  }\n\n  // Check file signature (magic bytes) for common image types\n  if (buffer.length >= 4) {\n    const signature = buffer.subarray(0, 4);\n    \n    if (!isValidImageSignature(signature, contentType)) {\n      throw new Error(\n        `File signature does not match content type ${contentType}. ` +\n        `File may be corrupted or mislabeled.`\n      );\n    }\n  }\n\n  // Additional validation for filename\n  if (!filename || filename.trim() === '') {\n    throw new Error('Filename cannot be empty');\n  }\n\n  const ext = path.extname(filename).toLowerCase();\n  const expectedExtensions: Record<string, string[]> = {\n    'image/png': ['.png'],\n    'image/jpeg': ['.jpg', '.jpeg'],\n    'image/gif': ['.gif'],\n    'image/webp': ['.webp']\n  };\n\n  const validExts = expectedExtensions[contentType] || [];\n  if (validExts.length > 0 && !validExts.includes(ext)) {\n    console.warn(\n      `⚠️ Filename extension ${ext} does not match content type ${contentType}. ` +\n      `Expected: ${validExts.join(', ')}`\n    );\n  }\n}\n\n/**\n * Check if buffer has valid image file signature\n */\nfunction isValidImageSignature(signature: Buffer, contentType: string): boolean {\n  const signatures: Record<string, Buffer[]> = {\n    'image/png': [Buffer.from([0x89, 0x50, 0x4E, 0x47])],\n    'image/jpeg': [\n      Buffer.from([0xFF, 0xD8, 0xFF, 0xE0]),\n      Buffer.from([0xFF, 0xD8, 0xFF, 0xE1]),\n      Buffer.from([0xFF, 0xD8, 0xFF, 0xE2]),\n      Buffer.from([0xFF, 0xD8, 0xFF, 0xE3])\n    ],\n    'image/gif': [\n      Buffer.from([0x47, 0x49, 0x46, 0x38]), // GIF8\n    ],\n    'image/webp': [Buffer.from([0x52, 0x49, 0x46, 0x46])] // RIFF (WebP)\n  };\n\n  const validSignatures = signatures[contentType] || [];\n  return validSignatures.some(validSig => \n    signature.subarray(0, validSig.length).equals(validSig)\n  );\n}\n\n/**\n * Get content type from filename extension\n */\nfunction getContentTypeFromFilename(filename: string): string {\n  const ext = path.extname(filename).toLowerCase();\n  \n  const typeMap: Record<string, string> = {\n    '.png': 'image/png',\n    '.jpg': 'image/jpeg',\n    '.jpeg': 'image/jpeg',\n    '.gif': 'image/gif',\n    '.webp': 'image/webp'\n  };\n\n  return typeMap[ext] || 'application/octet-stream';\n}\n\n/**\n * Read file from disk and prepare for upload\n */\nexport async function prepareFileForUpload(\n  filePath: string\n): Promise<{ buffer: Buffer; filename: string; contentType: string }> {\n  if (!fs.existsSync(filePath)) {\n    throw new Error(`File not found: ${filePath}`);\n  }\n\n  const buffer = fs.readFileSync(filePath);\n  const filename = path.basename(filePath);\n  const contentType = getContentTypeFromFilename(filename);\n\n  return { buffer, filename, contentType };\n}\n\n/**\n * Optimize image file for upload (optional preprocessing)\n */\nexport async function optimizeImageForUpload(\n  buffer: Buffer,\n  options: {\n    maxWidth?: number;\n    maxHeight?: number;\n    quality?: number;\n    format?: 'jpeg' | 'png' | 'webp';\n  } = {}\n): Promise<Buffer> {\n  // TODO: Implement image optimization\n  // This would typically use a library like sharp:\n  //\n  // import sharp from 'sharp';\n  // \n  // const { maxWidth = 1024, maxHeight = 1024, quality = 80 } = options;\n  // \n  // return sharp(buffer)\n  //   .resize(maxWidth, maxHeight, { fit: 'inside', withoutEnlargement: true })\n  //   .jpeg({ quality })\n  //   .toBuffer();\n  \n  console.log('⚠️ Image optimization not implemented - returning original buffer');\n  return buffer;\n}\n\n/**\n * Create deterministic asset preparation for token metadata\n */\nexport async function prepareTokenAssets(\n  assets: {\n    image?: string; // File path\n    metadata?: Record<string, any>;\n  },\n  apiKey: string,\n  buildId: string\n): Promise<{\n  imageUrl?: string;\n  metadataHash: string;\n  uploadReceipts: FileUploadResult[];\n}> {\n  const uploadReceipts: FileUploadResult[] = [];\n  let imageUrl: string | undefined;\n  \n  // Upload image if provided\n  if (assets.image) {\n    console.log('🖼️ Preparing token image...');\n    \n    const { buffer, filename, contentType } = await prepareFileForUpload(assets.image);\n    \n    // Optimize image if needed\n    const optimizedBuffer = await optimizeImageForUpload(buffer, {\n      maxWidth: 512,\n      maxHeight: 512,\n      quality: 85\n    });\n    \n    // Create deterministic filename\n    const imageHash = createHash('sha256').update(optimizedBuffer).digest('hex').substring(0, 16);\n    const ext = path.extname(filename);\n    const deterministicFilename = `token-${buildId}-${imageHash}${ext}`;\n    \n    // Upload file\n    const uploadResult = await uploadImageFile(\n      optimizedBuffer,\n      apiKey,\n      deterministicFilename\n    );\n    \n    imageUrl = uploadResult.url;\n    uploadReceipts.push(uploadResult);\n  }\n  \n  // Create metadata hash for idempotency\n  const metadataString = JSON.stringify({\n    image: imageUrl,\n    ...assets.metadata\n  }, Object.keys(assets.metadata || {}).sort());\n  \n  const metadataHash = createHash('sha256').update(metadataString).digest('hex');\n  \n  return {\n    imageUrl,\n    metadataHash,\n    uploadReceipts\n  };\n}
+/**
+ * File Upload Utilities for Bags API
+ *
+ * Implements file upload handling per Bags principles:
+ * https://docs.bags.fm/principles/file-uploads
+ */
+
+import fs from 'fs';
+import path from 'path';
+import { createHash } from 'crypto';
+import { BAGS_FILE_UPLOAD, BAGS_API_CONFIG } from '../constants/bags.js';
+import { bagsApiFetch, withRetry } from './retry.js';
+
+export interface FileUploadResult {
+  url: string;
+  ipfsHash?: string;
+  filename: string;
+  size: number;
+  contentType: string;
+  checksum: string;
+}
+
+export interface FileUploadOptions {
+  validateFile?: boolean;
+  generateChecksum?: boolean;
+  retryOptions?: {
+    maxAttempts?: number;
+    initialDelay?: number;
+  };
+}
+
+/**
+ * Upload image file to Bags API
+ */
+export async function uploadImageFile(
+  file: File | Buffer,
+  apiKey: string,
+  filename: string,
+  options: FileUploadOptions = {}
+): Promise<FileUploadResult> {
+  const {
+    validateFile = true,
+    generateChecksum = true,
+    retryOptions = {},
+  } = options;
+
+  let fileBuffer: Buffer;
+  let fileSize: number;
+  let contentType: string;
+
+  // Handle File object vs Buffer
+  if (file instanceof File) {
+    fileBuffer = Buffer.from(await file.arrayBuffer());
+    fileSize = file.size;
+    contentType = file.type;
+  } else {
+    fileBuffer = file;
+    fileSize = file.length;
+    contentType = getContentTypeFromFilename(filename);
+  }
+
+  // Validate file if requested
+  if (validateFile) {
+    validateImageFileBuffer(fileBuffer, fileSize, contentType, filename);
+  }
+
+  // Generate checksum if requested
+  const checksum = generateChecksum
+    ? createHash('sha256').update(fileBuffer).digest('hex')
+    : '';
+
+  console.log(
+    `📤 Uploading file: ${filename} (${fileSize} bytes, ${contentType})`
+  );
+
+  // Create form data for upload
+  const formData = new FormData();
+  const blob = new Blob([fileBuffer], { type: contentType });
+  formData.append(BAGS_FILE_UPLOAD.FIELD_NAME, blob, filename);
+
+  // Upload with retry logic
+  // Upload endpoint can be configured via BAGS_UPLOAD_ENDPOINT environment variable
+  // See: https://docs.bags.fm/principles/file-uploads for endpoint documentation
+  const uploadEndpoint =
+    process.env.BAGS_UPLOAD_ENDPOINT || `${BAGS_API_CONFIG.BASE_URL}/upload`;
+
+  const uploadResponse = await withRetry(async () => {
+    const response = await bagsApiFetch(uploadEndpoint, {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        // Note: Don't set Content-Type for FormData - browser will set it with boundary
+      },
+      body: formData,
+    });
+
+    return response.json();
+  }, retryOptions);
+
+  console.log(`✅ File uploaded successfully: ${uploadResponse.url}`);
+
+  return {
+    url: uploadResponse.url,
+    ipfsHash: uploadResponse.ipfsHash,
+    filename,
+    size: fileSize,
+    contentType,
+    checksum,
+  };
+}
+
+/**
+ * Validate image file according to Bags constraints
+ */
+function validateImageFileBuffer(
+  buffer: Buffer,
+  size: number,
+  contentType: string,
+  filename: string
+): void {
+  // Check file size
+  if (size > BAGS_FILE_UPLOAD.MAX_SIZE_BYTES) {
+    throw new Error(
+      `File too large: ${(size / (1024 * 1024)).toFixed(2)}MB. ` +
+        `Maximum allowed: ${BAGS_FILE_UPLOAD.MAX_SIZE_MB}MB`
+    );
+  }
+
+  // Check content type
+  if (!BAGS_FILE_UPLOAD.SUPPORTED_TYPES.includes(contentType)) {
+    throw new Error(
+      `Unsupported file type: ${contentType}. ` +
+        `Supported types: ${BAGS_FILE_UPLOAD.SUPPORTED_TYPES.join(', ')}`
+    );
+  }
+
+  // Check file signature (magic bytes) for common image types
+  if (buffer.length >= 4) {
+    const signature = buffer.subarray(0, 4);
+
+    if (!isValidImageSignature(signature, contentType)) {
+      throw new Error(
+        `File signature does not match content type ${contentType}. ` +
+          `File may be corrupted or mislabeled.`
+      );
+    }
+  }
+
+  // Additional validation for filename
+  if (!filename || filename.trim() === '') {
+    throw new Error('Filename cannot be empty');
+  }
+
+  const ext = path.extname(filename).toLowerCase();
+  const expectedExtensions: Record<string, string[]> = {
+    'image/png': ['.png'],
+    'image/jpeg': ['.jpg', '.jpeg'],
+    'image/gif': ['.gif'],
+    'image/webp': ['.webp'],
+  };
+
+  const validExts = expectedExtensions[contentType] || [];
+  if (validExts.length > 0 && !validExts.includes(ext)) {
+    console.warn(
+      `⚠️ Filename extension ${ext} does not match content type ${contentType}. ` +
+        `Expected: ${validExts.join(', ')}`
+    );
+  }
+}
+
+/**
+ * Check if buffer has valid image file signature
+ */
+function isValidImageSignature(
+  signature: Buffer,
+  contentType: string
+): boolean {
+  const signatures: Record<string, Buffer[]> = {
+    'image/png': [Buffer.from([0x89, 0x50, 0x4e, 0x47])],
+    'image/jpeg': [
+      Buffer.from([0xff, 0xd8, 0xff, 0xe0]),
+      Buffer.from([0xff, 0xd8, 0xff, 0xe1]),
+      Buffer.from([0xff, 0xd8, 0xff, 0xe2]),
+      Buffer.from([0xff, 0xd8, 0xff, 0xe3]),
+    ],
+    'image/gif': [
+      Buffer.from([0x47, 0x49, 0x46, 0x38]), // GIF8
+    ],
+    'image/webp': [Buffer.from([0x52, 0x49, 0x46, 0x46])], // RIFF (WebP)
+  };
+
+  const validSignatures = signatures[contentType] || [];
+  return validSignatures.some((validSig) =>
+    signature.subarray(0, validSig.length).equals(validSig)
+  );
+}
+
+/**
+ * Get content type from filename extension
+ */
+function getContentTypeFromFilename(filename: string): string {
+  const ext = path.extname(filename).toLowerCase();
+
+  const typeMap: Record<string, string> = {
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.gif': 'image/gif',
+    '.webp': 'image/webp',
+  };
+
+  return typeMap[ext] || 'application/octet-stream';
+}
+
+/**
+ * Read file from disk and prepare for upload
+ */
+export async function prepareFileForUpload(
+  filePath: string
+): Promise<{ buffer: Buffer; filename: string; contentType: string }> {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+
+  const buffer = fs.readFileSync(filePath);
+  const filename = path.basename(filePath);
+  const contentType = getContentTypeFromFilename(filename);
+
+  return { buffer, filename, contentType };
+}
+
+/**
+ * Optimize image file for upload (optional preprocessing)
+ *
+ * Note: Full image optimization requires the 'sharp' library.
+ * Install with: npm install sharp
+ *
+ * When sharp is not available, this function returns the original buffer.
+ * For production use, install sharp for proper image optimization:
+ * - Resize to max dimensions
+ * - Convert format if needed
+ * - Optimize quality/compression
+ */
+export async function optimizeImageForUpload(
+  buffer: Buffer,
+  options: {
+    maxWidth?: number;
+    maxHeight?: number;
+    quality?: number;
+    format?: 'jpeg' | 'png' | 'webp';
+  } = {}
+): Promise<Buffer> {
+  const { maxWidth = 1024, maxHeight = 1024, quality = 80, format } = options;
+
+  // Attempt to use sharp if available
+  try {
+    const sharp = require('sharp');
+
+    let pipeline = sharp(buffer).resize(maxWidth, maxHeight, {
+      fit: 'inside',
+      withoutEnlargement: true,
+    });
+
+    // Apply format conversion if specified
+    if (format === 'jpeg') {
+      pipeline = pipeline.jpeg({ quality });
+    } else if (format === 'png') {
+      pipeline = pipeline.png({ quality });
+    } else if (format === 'webp') {
+      pipeline = pipeline.webp({ quality });
+    }
+
+    return await pipeline.toBuffer();
+  } catch (err) {
+    // sharp not available - return original buffer
+    // This is acceptable for development; production should install sharp
+    console.log(
+      'Image optimization skipped (sharp not installed) - using original image'
+    );
+    return buffer;
+  }
+}
+
+/**
+ * Create deterministic asset preparation for token metadata
+ */
+export async function prepareTokenAssets(
+  assets: {
+    image?: string; // File path
+    metadata?: Record<string, any>;
+  },
+  apiKey: string,
+  buildId: string
+): Promise<{
+  imageUrl?: string;
+  metadataHash: string;
+  uploadReceipts: FileUploadResult[];
+}> {
+  const uploadReceipts: FileUploadResult[] = [];
+  let imageUrl: string | undefined;
+
+  // Upload image if provided
+  if (assets.image) {
+    console.log('🖼️ Preparing token image...');
+
+    const { buffer, filename, contentType } = await prepareFileForUpload(
+      assets.image
+    );
+
+    // Optimize image if needed
+    const optimizedBuffer = await optimizeImageForUpload(buffer, {
+      maxWidth: 512,
+      maxHeight: 512,
+      quality: 85,
+    });
+
+    // Create deterministic filename
+    const imageHash = createHash('sha256')
+      .update(optimizedBuffer)
+      .digest('hex')
+      .substring(0, 16);
+    const ext = path.extname(filename);
+    const deterministicFilename = `token-${buildId}-${imageHash}${ext}`;
+
+    // Upload file
+    const uploadResult = await uploadImageFile(
+      optimizedBuffer,
+      apiKey,
+      deterministicFilename
+    );
+
+    imageUrl = uploadResult.url;
+    uploadReceipts.push(uploadResult);
+  }
+
+  // Create metadata hash for idempotency
+  const metadataString = JSON.stringify(
+    {
+      image: imageUrl,
+      ...assets.metadata,
+    },
+    Object.keys(assets.metadata || {}).sort()
+  );
+
+  const metadataHash = createHash('sha256')
+    .update(metadataString)
+    .digest('hex');
+
+  return {
+    imageUrl,
+    metadataHash,
+    uploadReceipts,
+  };
+}

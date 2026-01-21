@@ -1,0 +1,110 @@
+# Core Skill: qa-adversarial
+# Version: 1.0.0
+# State: core
+
+skill:
+  name: qa-adversarial
+  version: "1.0.0"
+  description: "Challenges assumptions, tests outputs, and verifies claims with evidence"
+
+  category: qa-adversarial
+
+  triggers:
+    explicit:
+      - phrase: "challenge this"
+        confidence: high
+      - phrase: "verify assumptions"
+        confidence: high
+      - phrase: "test this claim"
+        confidence: high
+      - phrase: "ralph review"
+        confidence: high
+      - phrase: "adversarial check"
+        confidence: medium
+    implicit:
+      - signal: "Content makes strong claims without evidence"
+        requires_confirmation: true
+
+  contracts:
+    preconditions:
+      - condition: "Content to review is provided"
+        failure_action: "Ask user what to review"
+
+    must:
+      - "Identify all explicit claims in content"
+      - "Surface hidden assumptions"
+      - "Challenge each claim with counter-evidence if available"
+      - "Rate confidence level for each claim"
+      - "Provide specific, actionable improvement suggestions"
+
+    must_not:
+      - "Accept claims without examination"
+      - "Rubber-stamp content as 'looks good'"
+      - "Ignore edge cases or failure modes"
+      - "Be dismissive of potential issues"
+      - "Provide false confidence"
+
+    postconditions:
+      - condition: "All claims examined"
+        verification: "Claim count matches examination count"
+      - condition: "Evidence provided for challenges"
+        verification: "Each challenge has supporting rationale"
+
+  inputs:
+    required:
+      - name: content
+        type: "string"
+        description: "Content to review adversarially"
+    optional:
+      - name: focus
+        type: "string"
+        default: "all"
+        description: "Focus: all, logic, security, completeness, accuracy"
+      - name: strictness
+        type: "string"
+        default: "thorough"
+        description: "How strict: light, thorough, exhaustive"
+
+  outputs:
+    contracted:
+      - name: claims_found
+        type: "array"
+        description: "List of claims identified"
+      - name: challenges
+        type: "array"
+        description: "Challenges with evidence"
+      - name: assumptions_surfaced
+        type: "array"
+        description: "Hidden assumptions found"
+      - name: confidence_ratings
+        type: "object"
+        description: "Confidence level per claim"
+    conditional:
+      - name: improvement_suggestions
+        condition: "Issues found"
+        type: "array"
+
+  failure_modes:
+    - trigger: "Content too vague to analyze"
+      behavior: "Ask for more specific content"
+      recovery: "User provides details"
+    - trigger: "No claims found"
+      behavior: "Report no actionable claims, suggest rephrasing"
+      recovery: null
+
+  security:
+    trust_level: system
+    allowed_resources: []
+    hardcoded_blocks: []
+    max_depth: 2
+    external_triggerable: false
+
+  dependencies:
+    skills: []
+    resources: []
+
+  audit:
+    created: "2024-01-18T00:00:00Z"
+    modified: "2024-01-18T00:00:00Z"
+    author: "prompt-factory-core"
+    rationale: "Implements Ralph adversarial review methodology"

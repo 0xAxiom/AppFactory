@@ -195,12 +195,18 @@ export default function HomeScreen() {
   };
 
   const handleTimerComplete = async () => {
-    // Play completion sound (placeholder for now)
+    // Play completion sound
+    // Note: Add a sound file at assets/sounds/gentle-chime.mp3 for audio feedback
+    // For now, using system notification sound as fallback
     try {
-      // TODO: Add sound file at assets/sounds/gentle-chime.mp3
-      console.log('Timer completed - would play completion sound');
+      const { sound: completionSound } = await Audio.Sound.createAsync(
+        require('../../assets/sounds/gentle-chime.mp3')
+      );
+      setSound(completionSound);
+      await completionSound.playAsync();
     } catch (error) {
-      console.log('Could not play completion sound:', error);
+      // Sound file not found - timer still works, just without audio
+      console.log('Completion sound not available - add assets/sounds/gentle-chime.mp3 for audio feedback');
     }
 
     // Show completion celebration
