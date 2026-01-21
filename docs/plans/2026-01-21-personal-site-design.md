@@ -2,7 +2,7 @@
 
 **Date:** 2026-01-21
 **Status:** Approved
-**Pipeline:** dapp-factory (Next.js)
+**Pipeline:** website-pipeline (Next.js)
 
 ---
 
@@ -154,7 +154,7 @@ A single scrollable timeline mixing all content types. Each item is a card with 
 
 ### Framework
 
-- **Next.js 14+** (App Router) via `dapp-factory/` pipeline
+- **Next.js 14+** (App Router) via `website-pipeline/`
 - React Server Components for fast initial load
 - Client components for interactivity
 
