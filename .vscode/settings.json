@@ -1,0 +1,116 @@
+{
+  "// WORKSPACE SETTINGS - DETERMINISTIC BEHAVIORS": "",
+  "// These settings promote consistent, predictable developer experience": "",
+  "// Theme and UI preferences are NOT overridden (user preference)": "",
+
+  "// Editor Behavior - Keep Minimal": "",
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {},
+  "editor.inlineSuggest.enabled": false,
+
+  "// Files": "",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.cache": true,
+    "**/.tmp": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true
+  },
+
+  "// Search": "",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/.git": true,
+    "**/package-lock.json": true
+  },
+
+  "// ESLint": "",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".ts", ".tsx"]
+  },
+
+  "// Prettier": "",
+  "prettier.requireConfig": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "// TypeScript": "",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  "// Git": "",
+  "git.enableSmartCommit": false,
+  "git.confirmSync": true,
+  "git.autofetch": false,
+
+  "// Terminal": "",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "bash",
+
+  "// TODO Tree (highlight TODOs, FIXMEs, etc.)": "",
+  "todo-tree.general.tags": [
+    "TODO",
+    "FIXME",
+    "BUG",
+    "HACK",
+    "NOTE",
+    "REVIEW"
+  ],
+  "todo-tree.highlights.defaultHighlight": {
+    "icon": "alert",
+    "type": "text",
+    "foreground": "#FFFFFF",
+    "background": "#FF0000",
+    "opacity": 50
+  },
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "background": "#FFCC00"
+    },
+    "FIXME": {
+      "background": "#FF0000"
+    },
+    "BUG": {
+      "background": "#FF0000"
+    },
+    "NOTE": {
+      "background": "#0000FF"
+    }
+  }
+}

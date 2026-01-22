@@ -1,1 +1,1 @@
-../../plugins/factory/commands/factory.md
+/Users/melted/Documents/GitHub/AppFactory/plugins/factory/commands/factory.md

@@ -1,0 +1,229 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Claude: Audit Workspace",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "-e",
+        "const fs = require('fs'); const { execSync } = require('child_process'); const audit = { timestamp: new Date().toISOString(), repository: { name: 'AppFactory', path: process.cwd(), branch: execSync('git rev-parse --abbrev-ref HEAD').toString().trim(), remote: execSync('git remote get-url origin 2>/dev/null || echo \"none\"').toString().trim() }, audit: { governance: { control_md_present: fs.existsSync('.claude/control.md'), guardrails_md_present: fs.existsSync('.claude/guardrails.md'), commands_md_present: fs.existsSync('.claude/commands.md'), git_contract_md_present: fs.existsSync('.claude/git-contract.md'), current_mode: 'SETUP' }, workspace: { tasks_configured: fs.existsSync('.vscode/tasks.json'), settings_configured: fs.existsSync('.vscode/settings.json'), extensions_recommended: fs.existsSync('.vscode/extensions.json') }, code_quality: { lint_status: 'PENDING', type_check_status: 'PENDING', test_status: 'SKIP', format_status: 'PENDING' }, hygiene: { uncommitted_changes: execSync('git status --porcelain').toString().trim().length > 0, untracked_files: execSync('git ls-files --others --exclude-standard').toString().trim().split('\\n').filter(Boolean).length, node_modules_present: fs.existsSync('node_modules'), lock_file_present: fs.existsSync('package-lock.json') } }, issues: [] }; try { execSync('npm run lint', { stdio: 'pipe' }); audit.audit.code_quality.lint_status = 'PASS'; } catch { audit.audit.code_quality.lint_status = 'FAIL'; audit.issues.push({ severity: 'ERROR', category: 'code_quality', message: 'Lint check failed', suggestion: 'Run: npm run lint:fix (requires FIX MODE)' }); } try { execSync('npm run format:check', { stdio: 'pipe' }); audit.audit.code_quality.format_status = 'PASS'; } catch { audit.audit.code_quality.format_status = 'FAIL'; audit.issues.push({ severity: 'ERROR', category: 'code_quality', message: 'Format check failed', suggestion: 'Run: npm run format (requires FIX MODE)' }); } try { execSync('npm run type-check', { stdio: 'pipe' }); audit.audit.code_quality.type_check_status = 'PASS'; } catch { audit.audit.code_quality.type_check_status = 'FAIL'; audit.issues.push({ severity: 'ERROR', category: 'code_quality', message: 'Type check failed', suggestion: 'Fix TypeScript errors (requires FIX MODE)' }); } if (audit.audit.hygiene.uncommitted_changes) { audit.issues.push({ severity: 'INFO', category: 'git', message: 'Uncommitted changes present', suggestion: 'Review with: git status' }); } fs.writeFileSync('AUDIT.json', JSON.stringify(audit, null, 2)); console.log('✓ Audit complete'); console.log('  Governance:', Object.values(audit.audit.governance).every(Boolean) ? 'OK' : 'INCOMPLETE'); console.log('  Workspace:', Object.values(audit.audit.workspace).every(Boolean) ? 'OK' : 'INCOMPLETE'); console.log('  Code Quality:', audit.audit.code_quality.lint_status === 'PASS' && audit.audit.code_quality.type_check_status === 'PASS' && audit.audit.code_quality.format_status === 'PASS' ? 'PASS' : 'FAIL'); console.log('  Issues:', audit.issues.length); console.log(''); console.log('Results written to AUDIT.json');"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Claude: Verify",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "ci"],
+      "problemMatcher": ["$eslint-stylish", "$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Claude: Build CLI",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build:cli"],
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "dependsOn": ["Claude: Verify"]
+    },
+    {
+      "label": "Claude: Build dApp Factory",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build:dapp"],
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "dependsOn": ["Claude: Verify"]
+    },
+    {
+      "label": "Claude: Clean",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo 'Cleaning artifacts...'; rm -f SUCCESS.json FAILURE.json AUDIT.json; npm run clean; echo '✓ Clean complete'"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "none"
+    },
+    {
+      "label": "Claude: Emergency Rollback",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo '=== EMERGENCY ROLLBACK ==='; echo 'Current changes will be stashed (not lost)'; echo ''; git status; echo ''; read -p 'Continue? (yes/no): ' confirm; if [ \"$confirm\" = \"yes\" ]; then timestamp=$(date +%Y-%m-%d_%H-%M-%S); git stash push -m \"Emergency rollback $timestamp\"; echo '✓ Changes stashed'; echo '✓ Working tree clean'; echo ''; echo 'To recover: git stash pop'; else echo 'Rollback cancelled'; fi"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "none"
+    },
+    {
+      "label": "Claude: Full Pipeline",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo 'Running full verification and build pipeline...'; npm run ci && echo '✓ Verification passed' && npm run build:cli && echo '✓ CLI build passed' && npm run build:dapp && echo '✓ dApp build passed' && echo '' && echo '✓✓✓ FULL PIPELINE COMPLETE ✓✓✓'"
+      ],
+      "problemMatcher": ["$eslint-stylish", "$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Claude: Lint",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "lint"],
+      "problemMatcher": ["$eslint-stylish"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "test"
+    },
+    {
+      "label": "Claude: Type Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "type-check"],
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "test"
+    },
+    {
+      "label": "Claude: Format Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "format:check"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "test"
+    },
+    {
+      "label": "Claude: Test",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "test"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Claude: Dependency Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "deps:check"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "none"
+    }
+  ]
+}

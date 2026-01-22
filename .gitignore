@@ -83,15 +83,26 @@ android/
 !.claude/commands/
 !.claude/skills/
 !.claude/hooks.toml
+!.claude/artifacts-spec.md
+!.claude/commands.md
+!.claude/control.md
+!.claude/git-contract.md
+!.claude/guardrails.md
+!.claude/hygiene-report.md
+!.claude/memory.json
 .claude-cache/
 claude.log
 *.prompt.log
+
+# Claude agent artifacts (generated, not committed)
+SUCCESS.json
+FAILURE.json
+AUDIT.json
 
 # OS & editor noise - platform-specific files
 .DS_Store
 Thumbs.db
 .idea/
-.vscode/
 *.swp
 *~
 

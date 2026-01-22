@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "last_updated": "2026-01-22T10:30:00Z",
+  "repository": {
+    "name": "AppFactory",
+    "path": "/Users/melted/Documents/GitHub/AppFactory",
+    "type": "monorepo",
+    "description": "Multi-pipeline application factory - Build mobile apps, dApps, AI agents, Claude plugins, and Base Mini Apps from plain-language descriptions"
+  },
+  "environment": {
+    "node_version": ">=18.0.0",
+    "package_manager": "npm",
+    "lock_file": "package-lock.json"
+  },
+  "workspace_structure": {
+    "type": "monorepo",
+    "sub_packages": [
+      "CLI",
+      "core",
+      "dapp-factory",
+      "agent-factory",
+      "examples"
+    ]
+  },
+  "scripts": {
+    "lint": "npm run lint",
+    "lint_fix": "npm run lint:fix",
+    "format": "npm run format",
+    "format_check": "npm run format:check",
+    "type_check": "npm run type-check",
+    "test": "npm run test",
+    "test_all": "npm run test:all",
+    "verify": "npm run ci",
+    "build_cli": "npm run build:cli",
+    "build_dapp": "npm run build:dapp",
+    "clean": "npm run clean",
+    "maintain": "npm run maintain"
+  },
+  "verification": {
+    "primary_command": "npm run ci",
+    "commands": [
+      "npm run lint",
+      "npm run format:check",
+      "npm run type-check"
+    ],
+    "build_commands": [
+      "npm run build:cli",
+      "npm run build:dapp"
+    ]
+  },
+  "governance": {
+    "control_file": ".claude/control.md",
+    "guardrails_file": ".claude/guardrails.md",
+    "commands_file": ".claude/commands.md",
+    "git_contract_file": ".claude/git-contract.md",
+    "artifacts_spec_file": ".claude/artifacts-spec.md",
+    "current_mode": "SETUP",
+    "mode_file": ".claude/mode-transitions.log"
+  },
+  "tools": {
+    "linter": "eslint",
+    "formatter": "prettier",
+    "type_checker": "typescript",
+    "test_runner": "vitest",
+    "commit_linter": "commitlint",
+    "git_hooks": "husky"
+  },
+  "hygiene_checks": {
+    "lint": {
+      "enabled": true,
+      "command": "npm run lint"
+    },
+    "format": {
+      "enabled": true,
+      "command": "npm run format:check"
+    },
+    "type_check": {
+      "enabled": true,
+      "command": "npm run type-check"
+    },
+    "tests": {
+      "enabled": true,
+      "command": "npm run test"
+    },
+    "dependencies": {
+      "enabled": true,
+      "command": "npm run deps:check"
+    }
+  },
+  "invariants": {
+    "node_modules_ignored": true,
+    "lock_file_committed": true,
+    "no_uncommitted_lock_changes": true,
+    "no_global_eslint_disable": true,
+    "conventional_commits": true
+  }
+}
