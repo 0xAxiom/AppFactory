@@ -224,6 +224,28 @@
         "clear": false
       },
       "group": "none"
+    },
+    {
+      "label": "Claude: Boundary Check",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "-e",
+        "const fs = require('fs'); const { execSync } = require('child_process'); try { const topLevel = execSync('git rev-parse --show-toplevel').toString().trim(); const workspaceFolder = process.cwd(); const expected = '/Users/melted/Documents/GitHub/AppFactory'; const status = topLevel === expected ? 'pass' : 'fail'; const result = { status, topLevel, workspaceFolder, expected, timestamp: new Date().toISOString() }; fs.writeFileSync('BOUNDARY.json', JSON.stringify(result, null, 2)); if (status === 'pass') { console.log('✓ Boundary check PASS'); console.log('  Repository root:', topLevel); console.log('  Working directory:', workspaceFolder); } else { console.error('✗ Boundary check FAIL'); console.error('  Expected:', expected); console.error('  Actual:', topLevel); process.exit(1); } } catch (err) { console.error('✗ Boundary check ERROR:', err.message); process.exit(1); }"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      }
     }
   ]
 }

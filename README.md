@@ -387,6 +387,60 @@ See [`plugins/factory/`](./plugins/factory/) for documentation.
 
 ---
 
+## Claude Workflow and Repo Boundaries
+
+AppFactory is an **integrated pipeline repository** with strict governance to prevent accidental cross-repo contamination.
+
+### Key Principles
+
+- **This repository** contains multiple internal components (CLI, core, factories, pipelines) that work together as a single system
+- **External repositories** like `factoryapp` (factoryapp.dev website/product repo) must remain completely separate
+- **Boundary enforcement** prevents accidental file copying, directory merging, or git submodule additions across repos
+
+### Verification Tasks
+
+Run these tasks from VS Code Command Palette (Cmd+Shift+P → "Tasks: Run Task"):
+
+- **Claude: Audit Workspace** - Check governance files, code quality, and hygiene
+- **Claude: Verify** - Run full CI pipeline (lint, format, type-check)
+- **Claude: Boundary Check** - Verify working directory matches repository root
+
+All tasks output machine-readable JSON artifacts (`AUDIT.json`, `BOUNDARY.json`) for automation.
+
+### Switching to FIX MODE
+
+By default, Claude operates in **SETUP MODE** (can only modify `.claude/`, `.vscode/`, `.gitignore`, `README.md`).
+
+To allow source code modifications:
+
+1. Say: **"ENTER FIX MODE"**
+2. Claude shows you a plan
+3. Approve the plan
+4. Claude executes with full audit logging
+
+See [`.claude/control.md`](./.claude/control.md) for complete governance documentation.
+
+### Topology Declaration
+
+This repository is structured as:
+
+```
+AppFactory (integrated-pipeline)
+├── CLI              (standalone CLI tool)
+├── core             (shared utilities)
+├── agent-factory    (AI agent builder)
+├── app-factory      (mobile app builder)
+├── dapp-factory     (dApp/website builder)
+├── miniapp-pipeline (Base Mini App builder)
+├── plugin-factory   (Claude plugin builder)
+├── website-pipeline (static website builder)
+└── examples         (reference implementations)
+```
+
+External repos like `factoryapp` are **separate products** and must not be merged into this structure.
+
+---
+
 ## Optional: Add Tokens
 
 Want to add cryptocurrency features? Just say "yes" when asked about token integration.

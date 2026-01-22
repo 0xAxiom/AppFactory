@@ -308,6 +308,81 @@ Approve original command or use safer alternative?
 
 ---
 
+## REPO BOUNDARY CHECK COMMANDS
+
+### Boundary Verification
+
+| Command Pattern | Purpose | Constraints |
+|-----------------|---------|-------------|
+| `pwd` | Check current directory | Always allowed |
+| `git rev-parse --show-toplevel` | Get repository root | Always allowed |
+| Boundary check task | Verify working directory matches repo root | Always allowed |
+
+**Approval Required**: No (verification only)
+**Mode Restriction**: None (allowed in all modes)
+**Logging**: Boundary violations logged to audit log
+
+### Command: Repo Boundary Check
+
+**Purpose**: Verify that the current working directory is within the AppFactory repository boundaries.
+
+**Execution**:
+```bash
+# Get git repository root
+git_root=$(git rev-parse --show-toplevel)
+
+# Get expected root
+expected_root="/Users/melted/Documents/GitHub/AppFactory"
+
+# Compare
+if [ "$git_root" = "$expected_root" ]; then
+  echo "✓ Boundary check PASS"
+  echo "  Working in: $git_root"
+else
+  echo "✗ Boundary check FAIL"
+  echo "  Expected: $expected_root"
+  echo "  Actual: $git_root"
+  exit 1
+fi
+```
+
+**VS Code Task**: Available as "Claude: Boundary Check" (see `.vscode/tasks.json`)
+
+**Output Artifact**: `BOUNDARY.json`
+```json
+{
+  "status": "pass",
+  "topLevel": "/Users/melted/Documents/GitHub/AppFactory",
+  "workspaceFolder": "/Users/melted/Documents/GitHub/AppFactory",
+  "timestamp": "2026-01-22T12:00:00Z"
+}
+```
+
+### Command: List External Repos (Informational)
+
+**Purpose**: Display the list of known external repositories that must remain separate from AppFactory.
+
+**Execution**:
+```bash
+# Read from memory.json
+cat .claude/memory.json | jq '.external_repos'
+```
+
+**Example Output**:
+```json
+[
+  {
+    "name": "factoryapp",
+    "expected_path": "~/Documents/GitHub/factoryapp",
+    "notes": "factoryapp.dev website/product repo; must remain separate"
+  }
+]
+```
+
+**Use Case**: When user requests cross-repo operations, display this list and enforce boundary rules.
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                  |

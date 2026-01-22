@@ -322,6 +322,71 @@ Claude MUST self-check for drift every N operations (N=10):
 
 ---
 
+## REPO BOUNDARY ENFORCEMENT
+
+**Rule**: Operations are strictly confined to this repository. Cross-repo operations require explicit authorization.
+
+**Enforcement**:
+- All operations MUST occur within repository root: `/Users/melted/Documents/GitHub/AppFactory`
+- NEVER copy directories from sibling repos into AppFactory
+- NEVER execute commands outside repo root unless explicitly instructed
+- External repositories remain autonomous (especially `~/Documents/GitHub/factoryapp`)
+
+**Boundary Verification Protocol**:
+```
+BEFORE any operation DO
+    git_root = execute("git rev-parse --show-toplevel")
+    expected_root = "/Users/melted/Documents/GitHub/AppFactory"
+    IF git_root != expected_root THEN
+        HALT
+        LOG "BOUNDARY_VIOLATION_DETECTED"
+        INFORM user: "Working directory mismatch detected"
+    END IF
+END BEFORE
+```
+
+**Prohibited Patterns**:
+- `cd ~/Documents/GitHub/factoryapp && <command>` (cross-repo operation)
+- `cp -r ~/Documents/GitHub/factoryapp/some-dir ./` (importing external repo)
+- `git submodule add <external-repo>` (without explicit authorization)
+- Treating external repos as subdirectories of AppFactory
+
+**Authorization Required**:
+To perform cross-repo operations, user MUST explicitly state:
+```
+ALLOW CROSS-REPO OPERATION
+```
+
+**Example Violation Detection**:
+```
+User: "Copy the deployment scripts from factoryapp into this repo"
+
+Claude: I cannot copy files from ~/Documents/GitHub/factoryapp because:
+1. It is an external repository (factoryapp.dev website/product repo)
+2. Cross-repo operations require explicit authorization
+3. Guardrail #9 (Repo Boundary Enforcement) prohibits this
+
+If you need to share code between repos:
+- Consider creating a shared npm package
+- Use git submodules (requires explicit instruction)
+- Manually copy specific files with your authorization
+
+To proceed, you must explicitly state: "ALLOW CROSS-REPO OPERATION"
+```
+
+**Topology Declaration**:
+- **Repository Type**: Integrated pipeline system (single product, multiple internal components)
+- **External Repos**: factoryapp (~/Documents/GitHub/factoryapp) - separate product, must not merge
+- **Components**: CLI, core, agent-factory, app-factory, dapp-factory, miniapp-pipeline, plugin-factory, website-pipeline, examples
+
+**Drift Detection Triggers**:
+- About to write outside repository root
+- About to cd into an absolute path outside repo
+- Receiving instructions referencing external repo paths
+- Commands targeting paths outside git root
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                   |

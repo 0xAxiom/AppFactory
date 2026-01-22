@@ -94,5 +94,29 @@
     "no_uncommitted_lock_changes": true,
     "no_global_eslint_disable": true,
     "conventional_commits": true
-  }
+  },
+  "topology": "integrated-pipeline",
+  "components": [
+    "CLI",
+    "core",
+    "agent-factory",
+    "app-factory",
+    "dapp-factory",
+    "miniapp-pipeline",
+    "plugin-factory",
+    "website-pipeline",
+    "examples"
+  ],
+  "external_repos": [
+    {
+      "name": "factoryapp",
+      "expected_path": "~/Documents/GitHub/factoryapp",
+      "notes": "factoryapp.dev website/product repo; must remain separate"
+    }
+  ],
+  "repo_boundary_rules": [
+    "Do not move/copy other repos into this repo.",
+    "Do not add git submodules without explicit instruction.",
+    "Never treat ~/Documents/GitHub/factoryapp as a subdirectory or workspace folder of AppFactory."
+  ]
 }

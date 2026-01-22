@@ -98,6 +98,7 @@ claude.log
 SUCCESS.json
 FAILURE.json
 AUDIT.json
+BOUNDARY.json
 
 # OS & editor noise - platform-specific files
 .DS_Store
