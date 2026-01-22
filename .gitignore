@@ -144,6 +144,10 @@ demo/out/
 demo-video/.internal/
 demo-video/public/internal-audio/
 
+# Promo video - local Remotion project with rendered outputs (LARGE_MEDIA)
+# Contains node_modules, out/*.mp4, ffmpeg binaries - use Git LFS if versioning needed
+promo-video/
+
 # Playwright MCP artifacts (regenerated on each run)
 .playwright-mcp/
 .worktrees/
