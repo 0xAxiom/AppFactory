@@ -170,6 +170,21 @@ system_check() {
         echo -e "${YELLOW}OPTIONAL${NC} (not installed)"
     fi
 
+    # Check MCP Configuration
+    echo -n "MCP Config: "
+    if [ -f ".mcp.json" ] && [ -f ".claude/settings.json" ]; then
+        MCP_COUNT=$(grep -o '"[^"]*":' .mcp.json | wc -l | tr -d ' ')
+        echo -e "${GREEN}CONFIGURED${NC} (5 servers)"
+        echo ""
+        echo -e "  ${CYAN}Tip:${NC} Run 'claude' and type '/mcp' to verify connectivity"
+        echo "  See docs/mcp.md for setup instructions"
+    else
+        echo -e "${YELLOW}NOT CONFIGURED${NC}"
+        echo ""
+        echo -e "  ${YELLOW}MCP servers enhance code quality but are optional.${NC}"
+        echo "  To configure: see docs/mcp.md"
+    fi
+
     echo ""
     echo "============================================================"
 

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/mcp-config.schema.json",
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      },
+      "description": "Repository management - issues, PRs, CI/CD workflows"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "description": "Browser automation via accessibility tree - essential for UX Polish Loop"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/melted/Documents/GitHub/AppFactory"
+      ],
+      "description": "Secure local file operations within AppFactory project directory only"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "description": "Real-time documentation lookup - reduces hallucination on API usage"
+    },
+    "semgrep": {
+      "command": "npx",
+      "args": ["-y", "@semgrep/mcp-server"],
+      "description": "Security scanning - vulnerabilities, supply chain, secrets detection"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "mcp": {
+    "enableAllProjectMcpServers": false,
+    "enabledMcpjsonServers": [
+      "github",
+      "playwright",
+      "filesystem",
+      "context7",
+      "semgrep"
+    ],
+    "disabledMcpjsonServers": []
+  }
+}

@@ -90,6 +90,7 @@ android/
 !.claude/guardrails.md
 !.claude/hygiene-report.md
 !.claude/memory.json
+!.claude/settings.json
 .claude-cache/
 claude.log
 *.prompt.log
