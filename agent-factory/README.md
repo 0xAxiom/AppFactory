@@ -289,9 +289,28 @@ agent-factory/
 
 ### "npm install fails"
 
-```bash
-npm install --legacy-peer-deps
-```
+**IMPORTANT:** Do NOT use `--legacy-peer-deps`, `--force`, or `--ignore-engines` flags. These are forbidden by the Local Run Proof Gate and will cause verification failure. Always fix the actual dependency versions instead.
+
+1. **Clear npm cache:**
+
+   ```bash
+   npm cache clean --force
+   npm install
+   ```
+
+2. **Check Node version:**
+
+   ```bash
+   node --version
+   # Need 18+
+   ```
+
+3. **Use fresh install:**
+
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
 
 ### "Server won't start"
 
