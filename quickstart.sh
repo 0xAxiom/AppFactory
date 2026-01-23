@@ -167,7 +167,61 @@ system_check() {
         GIT_VERSION=$(git --version | sed 's/git version //')
         echo -e "${GREEN}PASS${NC} (v$GIT_VERSION)"
     else
+        echo -e "${RED}FAIL${NC} (not installed)"
+        echo ""
+        echo -e "${YELLOW}Git is required for version control, hooks, and repository operations.${NC}"
+        echo "  macOS:   brew install git"
+        echo "  Ubuntu:  sudo apt-get install git"
+        echo "  Windows: Download from https://git-scm.com/"
+        ALL_PASS=false
+    fi
+
+    # Check python3 (required for app-factory validation)
+    echo -n "python3: "
+    if command -v python3 &> /dev/null; then
+        PYTHON_VERSION=$(python3 --version 2>&1 | sed 's/Python //')
+        echo -e "${GREEN}PASS${NC} (v$PYTHON_VERSION)"
+    else
         echo -e "${YELLOW}OPTIONAL${NC} (not installed)"
+        echo ""
+        echo -e "${YELLOW}python3 is required for app-factory build validation.${NC}"
+        echo "  macOS:   brew install python3"
+        echo "  Ubuntu:  sudo apt-get install python3"
+        echo "  Windows: Download from https://www.python.org/"
+    fi
+
+    # Check lsof (required for app-factory port cleanup, macOS/Linux only)
+    echo -n "lsof: "
+    if command -v lsof &> /dev/null; then
+        echo -e "${GREEN}PASS${NC}"
+    else
+        echo -e "${YELLOW}OPTIONAL${NC} (not installed)"
+        echo ""
+        echo -e "${YELLOW}lsof is required for app-factory Metro port cleanup (macOS/Linux).${NC}"
+        echo "  Usually pre-installed on macOS/Linux"
+        echo "  Windows users: Use WSL2 or Git Bash"
+    fi
+
+    # Check curl (required for deployment features)
+    echo -n "curl: "
+    if command -v curl &> /dev/null; then
+        echo -e "${GREEN}PASS${NC}"
+    else
+        echo -e "${YELLOW}OPTIONAL${NC} (not installed)"
+        echo ""
+        echo -e "${YELLOW}curl is required for deployment features.${NC}"
+        echo "  Usually pre-installed on macOS/Linux"
+    fi
+
+    # Check tar (required for deployment features)
+    echo -n "tar: "
+    if command -v tar &> /dev/null; then
+        echo -e "${GREEN}PASS${NC}"
+    else
+        echo -e "${YELLOW}OPTIONAL${NC} (not installed)"
+        echo ""
+        echo -e "${YELLOW}tar is required for deployment features.${NC}"
+        echo "  Usually pre-installed on macOS/Linux"
     fi
 
     # Check MCP Configuration
