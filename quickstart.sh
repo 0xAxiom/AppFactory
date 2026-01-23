@@ -312,6 +312,28 @@ start_pipeline() {
     echo -e "${YELLOW}Starting Claude...${NC}"
     echo ""
 
+    # Check if ANTHROPIC_API_KEY is set
+    if [ -z "$ANTHROPIC_API_KEY" ]; then
+        echo -e "${RED}ERROR: ANTHROPIC_API_KEY environment variable is not set.${NC}"
+        echo ""
+        echo "AppFactory requires an Anthropic API key to function."
+        echo ""
+        echo "Setup steps:"
+        echo "  1. Copy the example environment file:"
+        echo "     cp .env.example .env"
+        echo ""
+        echo "  2. Get your API key from: https://console.anthropic.com/"
+        echo ""
+        echo "  3. Add your key to .env:"
+        echo "     ANTHROPIC_API_KEY=your_key_here"
+        echo ""
+        echo "  4. Load the environment:"
+        echo "     source .env"
+        echo "     (or restart your terminal)"
+        echo ""
+        exit 1
+    fi
+
     # Check if Claude CLI is available
     if command -v claude &> /dev/null; then
         cd "$SCRIPT_DIR/$PIPELINE_DIR"
