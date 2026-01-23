@@ -77,9 +77,26 @@ CLAUDE.md
 
 ---
 
-## Your First Build
+## Quick Start Options
 
-### Option A: Using Claude Code (Recommended)
+You have three ways to start building:
+
+### Option A: Using the Quick Start Script (Easiest)
+
+```bash
+./quickstart.sh
+```
+
+This interactive script:
+
+- Verifies your system requirements (Node.js, npm, Claude CLI, Git, MCP)
+- Presents a menu of all 6 pipelines
+- Automatically navigates to your chosen pipeline
+- Launches Claude Code for you
+
+**Best for:** First-time users, quick exploration
+
+### Option B: Direct Pipeline Access
 
 ```bash
 # Navigate to your chosen pipeline
@@ -92,14 +109,25 @@ claude
 > I want to make an app where users can track their daily habits with streaks
 ```
 
+**Best for:** Users who know which pipeline they need
+
+---
+
+## Your First Build
+
+Once you've chosen your approach above, here's what happens:
+
+### The Build Process
+
 Claude will:
 
 1. **Normalize** your idea into a professional specification
 2. **Plan** the implementation
 3. **Build** the complete application
 4. **QA** using Ralph Mode until quality reaches 97%+
+5. **Verify** using Local Run Proof Gate
 
-### Option B: Using the Factory Plugin
+### Option C: Using the Factory Plugin
 
 From the repository root:
 
