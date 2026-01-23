@@ -48,10 +48,11 @@ rm -rf .next && npm run build
 
 **Solutions:**
 
-1. **Try legacy peer deps:**
+1. **Fix the dependency conflict** (recommended):
 
    ```bash
-   npm install --legacy-peer-deps
+   npm ls --all  # Identify the conflict
+   # Update package.json versions to resolve
    ```
 
 2. **Clear npm cache:**
@@ -69,10 +70,13 @@ rm -rf .next && npm run build
    ```
 
 4. **Use fresh install:**
+
    ```bash
    rm -rf node_modules package-lock.json
    npm install
    ```
+
+**IMPORTANT:** Do NOT use `--legacy-peer-deps`, `--force`, or `--ignore-engines` flags. These are forbidden by the Local Run Proof Gate and will cause verification failure. Always fix the actual dependency versions instead.
 
 ---
 
