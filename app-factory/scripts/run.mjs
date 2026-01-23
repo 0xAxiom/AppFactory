@@ -13,7 +13,7 @@
 
 import { createInterface } from 'readline';
 import { execSync } from 'child_process';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -82,6 +82,48 @@ function showProgress() {
 
 function setPhase(index, status) {
   phases[index].status = status;
+}
+
+// Validate RUN_CERTIFICATE.json exists with PASS status
+function checkRunCertificate(projectPath) {
+  const certPath = join(projectPath, '.appfactory', 'RUN_CERTIFICATE.json');
+  const failPath = join(projectPath, '.appfactory', 'RUN_FAILURE.json');
+
+  // Check for failure first
+  if (existsSync(failPath)) {
+    try {
+      const failure = JSON.parse(readFileSync(failPath, 'utf-8'));
+      console.error(`\n${RED}${BOLD}BUILD VERIFICATION FAILED${RESET}\n`);
+      console.error(`${RED}Error: ${failure.error}${RESET}\n`);
+      console.error(`See details: ${failPath}\n`);
+      return false;
+    } catch (err) {
+      console.error(`\n${RED}RUN_FAILURE.json exists but could not be read${RESET}\n`);
+      return false;
+    }
+  }
+
+  // Check for certificate
+  if (!existsSync(certPath)) {
+    console.error(`\n${RED}${BOLD}NO RUN CERTIFICATE FOUND${RESET}\n`);
+    console.error(`${RED}Verification did not produce a valid RUN_CERTIFICATE.json${RESET}\n`);
+    console.error(`Expected: ${certPath}\n`);
+    return false;
+  }
+
+  // Validate certificate has PASS status
+  try {
+    const cert = JSON.parse(readFileSync(certPath, 'utf-8'));
+    if (cert.status !== 'PASS') {
+      console.error(`\n${RED}${BOLD}VERIFICATION FAILED${RESET}\n`);
+      console.error(`${RED}Certificate status: ${cert.status}${RESET}\n`);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error(`\n${RED}RUN_CERTIFICATE.json exists but could not be parsed${RESET}\n`);
+    return false;
+  }
 }
 
 // Readline helper
@@ -453,7 +495,16 @@ async function main() {
     process.exit(1);
   }
 
-  // Phase 5: Launch card (only shown if verification passes)
+  // Phase 5: Check for RUN_CERTIFICATE.json with PASS status
+  const certified = checkRunCertificate(projectPath);
+  if (!certified) {
+    console.error(`\n${RED}Pipeline failed: No valid RUN_CERTIFICATE.json${RESET}`);
+    console.log(`\nThis build has NOT passed the Local Run Proof Gate.`);
+    console.log(`Fix the issues above and re-run verification.\n`);
+    process.exit(1);
+  }
+
+  // Phase 6: Launch card (only shown if certificate exists with PASS)
   showLaunchCard(projectPath, config.port);
 }
 
