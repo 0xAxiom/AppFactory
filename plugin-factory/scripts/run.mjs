@@ -126,6 +126,41 @@ function checkRunCertificate(projectPath) {
   }
 }
 
+// Write verification certificate (standardized certificate writing)
+function writeCertificate(projectPath, type, command, additionalData = {}) {
+  const certPath = join(projectPath, '.appfactory', 'RUN_CERTIFICATE.json');
+  mkdirSync(join(projectPath, '.appfactory'), { recursive: true });
+
+  const certificate = {
+    status: 'PASS',
+    timestamp: new Date().toISOString(),
+    project: projectPath,
+    verificationType: type,
+    command: command,
+    ...additionalData
+  };
+
+  writeFileSync(certPath, JSON.stringify(certificate, null, 2));
+  return certPath;
+}
+
+// Write verification failure (standardized failure writing)
+function writeFailure(projectPath, error, command) {
+  const failPath = join(projectPath, '.appfactory', 'RUN_FAILURE.json');
+  mkdirSync(join(projectPath, '.appfactory'), { recursive: true });
+
+  const failure = {
+    status: 'FAIL',
+    timestamp: new Date().toISOString(),
+    project: projectPath,
+    error: error,
+    command: command
+  };
+
+  writeFileSync(failPath, JSON.stringify(failure, null, 2));
+  return failPath;
+}
+
 // Readline helper
 function ask(question, options = null) {
   return new Promise((resolve) => {
@@ -639,16 +674,8 @@ async function verifyProject(projectPath, port) {
   try {
     execSync('npm test', { cwd: projectPath, stdio: 'inherit' });
 
-    // Write certificate manually since we're not using local-run-proof
-    const certPath = join(projectPath, '.appfactory', 'RUN_CERTIFICATE.json');
-    mkdirSync(join(projectPath, '.appfactory'), { recursive: true });
-    writeFileSync(certPath, JSON.stringify({
-      status: 'PASS',
-      timestamp: new Date().toISOString(),
-      project: projectPath,
-      type: 'smoke-test',
-      command: 'npm test'
-    }, null, 2));
+    // Write certificate using standardized function
+    const certPath = writeCertificate(projectPath, 'smoke-test', 'npm test');
 
     console.log(`\n${GREEN}Smoke test passed${RESET}`);
     console.log(`RUN_CERTIFICATE: ${certPath}\n`);
@@ -656,15 +683,8 @@ async function verifyProject(projectPath, port) {
     setPhase(3, 'complete');
     return true;
   } catch (err) {
-    // Write failure
-    const failPath = join(projectPath, '.appfactory', 'RUN_FAILURE.json');
-    mkdirSync(join(projectPath, '.appfactory'), { recursive: true });
-    writeFileSync(failPath, JSON.stringify({
-      status: 'FAIL',
-      timestamp: new Date().toISOString(),
-      project: projectPath,
-      error: err.message
-    }, null, 2));
+    // Write failure using standardized function
+    const failPath = writeFailure(projectPath, err.message, 'npm test');
 
     console.error(`\n${RED}Smoke test failed${RESET}`);
     setPhase(3, 'failed');
