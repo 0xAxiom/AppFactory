@@ -26,13 +26,14 @@ App Factory turns your ideas into real, working products. No coding experience r
 
 ## What Can I Build?
 
-| I want to make...    | Use this                                 | What you get                                    |
-| -------------------- | ---------------------------------------- | ----------------------------------------------- |
-| A **mobile app**     | [app-factory/](./app-factory/)           | iPhone & Android app ready for the App Store    |
-| A **dApp / website** | [dapp-factory/](./dapp-factory/)         | Modern web app, optionally with AI agents       |
-| An **AI agent**      | [agent-factory/](./agent-factory/)       | Smart bot with tools (Rig-aligned architecture) |
-| A **Claude plugin**  | [plugin-factory/](./plugin-factory/)     | Extension for Claude Code or Claude Desktop     |
-| A **Base Mini App**  | [miniapp-pipeline/](./miniapp-pipeline/) | Mini app for the Base app (MiniKit + Next.js)   |
+| I want to make...        | Use this                                 | What you get                                    |
+| ------------------------ | ---------------------------------------- | ----------------------------------------------- |
+| A **mobile app**         | [app-factory/](./app-factory/)           | iPhone & Android app ready for the App Store    |
+| A **website**            | [website-pipeline/](./website-pipeline/) | Portfolio, blog, or marketing website           |
+| A **dApp**               | [dapp-factory/](./dapp-factory/)         | Web3 app with blockchain integration            |
+| An **AI agent**          | [agent-factory/](./agent-factory/)       | Smart bot with tools (Rig-aligned architecture) |
+| A **Claude plugin**      | [plugin-factory/](./plugin-factory/)     | Extension for Claude Code or Claude Desktop     |
+| A **Base Mini App**      | [miniapp-pipeline/](./miniapp-pipeline/) | Mini app for the Base app (MiniKit + Next.js)   |
 
 ---
 
@@ -47,12 +48,22 @@ claude
 # When done: cd builds/<your-app> && npm install && npx expo start
 ```
 
-### For dApps / Websites
+### For Websites
+
+```bash
+cd website-pipeline
+claude
+# Type your website idea (portfolio, blog, marketing site)
+# When done: cd website-builds/<your-site> && npm install && npm run dev
+# Open http://localhost:3000
+```
+
+### For dApps
 
 ```bash
 cd dapp-factory
 claude
-# Type your dApp idea
+# Type your dApp idea (blockchain, Web3, wallet integration)
 # When done: cd dapp-builds/<your-dapp> && npm install && npm run dev
 # Open http://localhost:3000
 ```
