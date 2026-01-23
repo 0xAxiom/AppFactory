@@ -582,7 +582,7 @@ async function verifyProject(projectPath, port) {
     }
 
     try {
-      execSync(`node "${proofScript}" --cwd "${projectPath}" --port ${port} --skip-build --skip-install`, {
+      execSync(`node "${proofScript}" --cwd "${projectPath}" --port ${port} --skip-build --skip-install --open`, {
         stdio: 'inherit'
       });
       setPhase(3, 'complete');
