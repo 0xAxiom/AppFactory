@@ -246,6 +246,129 @@
         "kind": "test",
         "isDefault": false
       }
+    },
+    {
+      "label": "Factory: Preview (Auto)",
+      "detail": "Launch dev server and discover URL - writes PREVIEW.json",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/preview/launch-dev.mjs", "${workspaceFolder}"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "isBackground": true,
+      "group": "none",
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Factory: Preview (Detect Only)",
+      "detail": "Detect package manager and dev command without launching",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/preview/detect.mjs", "${workspaceFolder}"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "none"
+    },
+    {
+      "label": "Factory: Preview (Mobile Web iPhone)",
+      "detail": "Open in Playwright with iPhone 14 Pro emulation (cross-platform)",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/preview/mobile-emulate.mjs", "iphone"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "Factory: Preview (Mobile Web Android)",
+      "detail": "Open in Playwright with Pixel 7 emulation (cross-platform)",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/preview/mobile-emulate.mjs", "android"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "Factory: Preview (Mobile Web iPad)",
+      "detail": "Open in Playwright with iPad Pro emulation (cross-platform)",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/preview/mobile-emulate.mjs", "ipad"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "Factory: Preview (Open Browser)",
+      "detail": "Open discovered URL in default browser (cross-platform)",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/preview/open-url.mjs"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "none"
+    },
+    {
+      "label": "Factory: iOS Simulator (Mac Only)",
+      "detail": "Launch iOS Simulator - requires macOS with Xcode",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/preview/ios-simulator.mjs", "${workspaceFolder}"],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "group": "none"
     }
   ]
 }

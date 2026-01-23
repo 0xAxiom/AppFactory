@@ -86,6 +86,15 @@
       "args": ["-y", "magic-ui-mcp"],
       "description": "Magic UI component library - request components by description",
       "pipelines": ["dapp-factory", "website-pipeline"]
+    },
+    "blender": {
+      "command": "uvx",
+      "args": ["blender-mcp"],
+      "description": "OPTIONAL: Blender MCP for local 3D iteration - requires Blender 3.0+ with add-on installed",
+      "pipelines": [],
+      "optional": true,
+      "disabled": true,
+      "setup": "See references/blender/README.md for installation instructions"
     }
   }
 }
