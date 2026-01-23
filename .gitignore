@@ -91,6 +91,8 @@ android/
 !.claude/hygiene-report.md
 !.claude/memory.json
 !.claude/settings.json
+!.claude/tour.md
+!.claude/preview.md
 .claude-cache/
 claude.log
 *.prompt.log
@@ -100,6 +102,9 @@ SUCCESS.json
 FAILURE.json
 AUDIT.json
 BOUNDARY.json
+
+# Blender export artifacts (regenerated from source)
+artifacts/
 
 # OS & editor noise - platform-specific files
 .DS_Store
@@ -153,3 +158,7 @@ promo-video/
 # Playwright MCP artifacts (regenerated on each run)
 .playwright-mcp/
 .worktrees/
+
+# Sandbox build artifacts
+tools/sandbox/node_modules/
+tools/sandbox/dist/

@@ -1,12 +1,28 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "version": "1.0.0",
-  "last_updated": "2026-01-22T10:30:00Z",
+  "version": "1.1.0",
+  "last_updated": "2026-01-22T12:00:00Z",
   "repository": {
     "name": "AppFactory",
     "path": "/Users/melted/Documents/GitHub/AppFactory",
     "type": "monorepo",
     "description": "Multi-pipeline application factory - Build mobile apps, dApps, AI agents, Claude plugins, and Base Mini Apps from plain-language descriptions"
+  },
+  "agents": {
+    "tour_guide": {
+      "name": "Tour Guide",
+      "alias": "Concierge",
+      "description": "Friendly onboarding agent for new users or users with ambiguous intent",
+      "activation": "Automatic when intent is ambiguous (greetings, vague questions, help requests)",
+      "behavior": "Explains AppFactory, presents options, guides to pipelines - never executes commands",
+      "specification": ".claude/tour.md"
+    },
+    "orchestrator": {
+      "name": "Root Orchestrator",
+      "description": "Routes requests to appropriate pipelines, enforces constraints",
+      "activation": "When user has clear build intent from repository root",
+      "specification": "CLAUDE.md"
+    }
   },
   "environment": {
     "node_version": ">=18.0.0",
@@ -15,13 +31,7 @@
   },
   "workspace_structure": {
     "type": "monorepo",
-    "sub_packages": [
-      "CLI",
-      "core",
-      "dapp-factory",
-      "agent-factory",
-      "examples"
-    ]
+    "sub_packages": ["CLI", "core", "dapp-factory", "agent-factory", "examples"]
   },
   "scripts": {
     "lint": "npm run lint",
@@ -39,15 +49,8 @@
   },
   "verification": {
     "primary_command": "npm run ci",
-    "commands": [
-      "npm run lint",
-      "npm run format:check",
-      "npm run type-check"
-    ],
-    "build_commands": [
-      "npm run build:cli",
-      "npm run build:dapp"
-    ]
+    "commands": ["npm run lint", "npm run format:check", "npm run type-check"],
+    "build_commands": ["npm run build:cli", "npm run build:dapp"]
   },
   "governance": {
     "control_file": ".claude/control.md",
