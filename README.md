@@ -486,15 +486,46 @@ Found a security issue? See [SECURITY.md](./SECURITY.md) for responsible disclos
 
 ## Documentation
 
+**Start here**: [docs/index.md](./docs/index.md) - Complete documentation index
+
+### Quick Links
+
 | Document                                        | Description                   |
 | ----------------------------------------------- | ----------------------------- |
-| [ARCHITECTURE.md](./docs/ARCHITECTURE.md)       | System design and data flow   |
+| [docs/index.md](./docs/index.md)                | Documentation entry point     |
 | [GETTING_STARTED.md](./docs/GETTING_STARTED.md) | Step-by-step onboarding guide |
+| [ARCHITECTURE.md](./docs/ARCHITECTURE.md)       | System design and data flow   |
 | [API.md](./docs/API.md)                         | Complete command reference    |
-| [EXAMPLES.md](./docs/EXAMPLES.md)               | Real-world usage examples     |
-| [FAQ.md](./docs/FAQ.md)                         | Frequently asked questions    |
-| [TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) | Comprehensive problem solving |
-| [CONTRIBUTING.md](./docs/CONTRIBUTING.md)       | How to contribute             |
+
+### Concepts
+
+| Document                                                          | Description                     |
+| ----------------------------------------------------------------- | ------------------------------- |
+| [Philosophy](./docs/concepts/philosophy.md)                       | Why AppFactory exists           |
+| [Pipeline Architecture](./docs/concepts/pipeline-architecture.md) | How pipelines transform ideas   |
+| [Orchestrator Model](./docs/concepts/orchestrator.md)             | Root vs pipeline directories    |
+| [Governance](./docs/concepts/governance.md)                       | Safety controls and constraints |
+
+### Guides
+
+| Document                                           | Description                    |
+| -------------------------------------------------- | ------------------------------ |
+| [Build a Website](./docs/guides/build-website.md)  | Create a static website        |
+| [Build a dApp](./docs/guides/build-dapp.md)        | Create a web application       |
+| [Build a Mini App](./docs/guides/build-miniapp.md) | Create a Base Mini App         |
+| [Preview Output](./docs/guides/preview-output.md)  | Use the VS Code preview system |
+| [Sync Machines](./docs/guides/sync-machines.md)    | Keep machines synchronized     |
+
+### Reference
+
+| Document                                          | Description                   |
+| ------------------------------------------------- | ----------------------------- |
+| [VS Code Tasks](./docs/reference/vscode-tasks.md) | All VS Code tasks             |
+| [Artifacts](./docs/reference/artifacts.md)        | JSON artifact reference       |
+| [EXAMPLES.md](./docs/EXAMPLES.md)                 | Real-world usage examples     |
+| [FAQ.md](./docs/FAQ.md)                           | Frequently asked questions    |
+| [TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)   | Comprehensive problem solving |
+| [CONTRIBUTING.md](./docs/CONTRIBUTING.md)         | How to contribute             |
 
 ---
 
@@ -521,6 +552,93 @@ PORT=3001 npm run dev
 Check the `runs/` folder in your project - there's a detailed log of what happened and any issues found.
 
 See [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) for comprehensive problem solving.
+
+---
+
+## VS Code Preview System
+
+App Factory includes a cross-platform preview system for VS Code. Run any project with instant URL discovery and mobile emulation.
+
+### Quick Start
+
+1. Open Command Palette: `Cmd+Shift+P` (macOS) or `Ctrl+Shift+P` (Windows/Linux)
+2. Run: `Tasks: Run Task` → `Factory: Preview (Auto)`
+3. URL is written to `.vscode/.preview/PREVIEW.json`
+
+### Available Preview Tasks
+
+| Task                                    | Description                     |
+| --------------------------------------- | ------------------------------- |
+| `Factory: Preview (Auto)`               | Launch dev server, discover URL |
+| `Factory: Preview (Mobile Web iPhone)`  | Playwright iPhone emulation     |
+| `Factory: Preview (Mobile Web Android)` | Playwright Android emulation    |
+| `Factory: Preview (Open Browser)`       | Open in default browser         |
+| `Factory: iOS Simulator (Mac Only)`     | Launch iOS Simulator            |
+
+See [.claude/preview.md](./.claude/preview.md) for full documentation.
+
+---
+
+## Meet the Tour Guide - Official Mascot
+
+The **Tour Guide** is App Factory's official mascot - a well-traveled robot eyeball assistant with personality and emotions.
+
+<p align="center">
+  <img src="./brand/tg.png" alt="Tour Guide Mascot" width="200" />
+</p>
+
+### Features
+
+- **5 Emotion States**: idle (cyan), happy (green), curious (orange), sad (blue), excited (magenta)
+- **Eye Tracking**: Optional webcam-based face tracking
+- **Random Look Behavior**: Natural eye movement when idle
+- **Weathered Appearance**: Looks like it's been places and seen things
+
+### Preview the Tour Guide
+
+```bash
+cd tools/sandbox
+npm install
+npm run dev
+# Visit http://localhost:5173
+```
+
+### Use in Your Projects
+
+```tsx
+import { TourGuide, triggerEmotion } from '@appfactory/tour-guide';
+
+// Render the 3D mascot
+<TourGuide backgroundColor="#1a1a1a" showEmotionButtons={true} />;
+
+// Trigger emotions programmatically
+triggerEmotion('happy', 3.0);
+```
+
+### File Locations
+
+| Asset     | Path                          |
+| --------- | ----------------------------- |
+| 3D Model  | `brand/mascot/tour-guide.glb` |
+| Component | `shared/tour-guide/`          |
+| Sandbox   | `tools/sandbox/`              |
+
+See [docs/guides/tour-guide-mascot.md](./docs/guides/tour-guide-mascot.md) for full documentation.
+
+---
+
+## Optional: Blender MCP
+
+For local 3D asset development, Blender MCP integration is available.
+
+**This is OPTIONAL** - no pipeline requires Blender.
+
+```bash
+# Enable Blender MCP (requires Blender 3.0+ installed)
+claude mcp add blender uvx blender-mcp
+```
+
+See [references/blender/README.md](./references/blender/README.md) for setup instructions.
 
 ---
 
