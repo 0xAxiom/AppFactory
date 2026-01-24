@@ -486,6 +486,26 @@ async function main() {
 
   console.log(`\n${BOLD}${CYAN}Agent Factory${RESET}\n`);
 
+  // Phase 0: Capability Detection
+  console.log(`${CYAN}Detecting available capabilities...${RESET}\n`);
+
+  try {
+    const { getDetailedCapabilities, printCapabilityReport } = await import('./lib/skill-detection.mjs');
+
+    const capabilities = await getDetailedCapabilities({
+      checkBaseline: true,
+      checkQuality: true,
+      checkAdvanced: false
+    });
+
+    printCapabilityReport(capabilities, {
+      detailed: true,
+      showAll: false
+    });
+  } catch (err) {
+    console.log(`${DIM}Capability detection unavailable - continuing with baseline tier${RESET}\n`);
+  }
+
   // Phase 1: Inputs
   await gatherInputs(config.skipPrompts);
 
@@ -524,6 +544,53 @@ async function main() {
 
   // Phase 6: Launch card (only shown if certificate exists with PASS)
   showLaunchCard(projectPath, config.port);
+
+  // Phase 7: Optional Ralph QA (if available and not skipping prompts)
+  if (!config.skipPrompts) {
+    try {
+      const { detectSkill } = await import('./lib/skill-detection.mjs');
+      const hasRalph = await detectSkill('ralph');
+
+      if (hasRalph) {
+        const ralphScript = join(REPO_ROOT, 'ralph', 'run-ralph.sh');
+        if (existsSync(ralphScript)) {
+          console.log(`\n${CYAN}${BOLD}Optional: Ralph QA Adversarial Review${RESET}`);
+          console.log(`${DIM}Ralph provides automated adversarial testing to catch edge cases${RESET}\n`);
+
+          const answer = await askQuestion('Run Ralph QA now? (y/n): ');
+
+          if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
+            console.log(`${CYAN}Starting Ralph QA iteration 1...${RESET}\n`);
+            execSync(`bash "${ralphScript}" agent-factory 1`, { stdio: 'inherit' });
+            console.log(`\n${GREEN}✓ Ralph QA iteration 1 complete${RESET}`);
+            console.log(`${DIM}Continue manually: ./ralph/run-ralph.sh agent-factory 2${RESET}\n`);
+          } else {
+            console.log(`${YELLOW}⚠️  Skipping Ralph QA - manual review recommended for production${RESET}\n`);
+          }
+        }
+      } else {
+        console.log(`${DIM}Ralph QA not configured (optional)${RESET}`);
+        console.log(`${DIM}Manual: ./ralph/run-ralph.sh agent-factory 1${RESET}\n`);
+      }
+    } catch (err) {
+      // Silently skip Ralph if detection fails
+    }
+  }
+}
+
+// Helper for asking yes/no questions
+async function askQuestion(prompt) {
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  return new Promise(resolve => {
+    rl.question(prompt, answer => {
+      rl.close();
+      resolve(answer);
+    });
+  });
 }
 
 main().catch(err => {
