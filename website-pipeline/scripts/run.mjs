@@ -28,7 +28,7 @@ const REPO_ROOT = resolve(PIPELINE_ROOT, '..');
 const BUILDS_DIR = join(PIPELINE_ROOT, 'website-builds');
 
 // Shared libraries
-const LIB_DIR = join(REPO_ROOT, 'scripts', 'lib');
+const LIB_DIR = join(__dirname, 'lib');
 
 // ANSI colors
 const GREEN = '\x1b[32m';
