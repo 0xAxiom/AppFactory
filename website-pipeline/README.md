@@ -253,9 +253,15 @@ When you don't specify:
 
 ### npm install fails
 
-```bash
-npm install --legacy-peer-deps
-```
+**IMPORTANT:** Do NOT use `--legacy-peer-deps`, `--force`, or `--ignore-engines` flags. These are forbidden by the Local Run Proof Gate and will cause verification failure.
+
+1. **Check Node version matches .nvmrc**
+2. **Fresh install:**
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
+3. **Review the specific error message for missing peer dependencies**
 
 ### Build fails
 
@@ -324,4 +330,4 @@ website-pipeline/
 
 ---
 
-**website-pipeline v2.0** - `cd website-pipeline && claude` - describe your site - get a production-ready website.
+**website-pipeline v2.2.0** - `cd website-pipeline && claude` - describe your site - get a production-ready website.

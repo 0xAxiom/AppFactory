@@ -226,9 +226,27 @@ When you don't specify:
 
 ### npm install fails
 
-```bash
-npm install --legacy-peer-deps
-```
+**IMPORTANT:** Do NOT use `--legacy-peer-deps`, `--force`, or `--ignore-engines` flags. These are forbidden by the Local Run Proof Gate and will cause verification failure.
+
+1. **Clear npm cache:**
+
+   ```bash
+   npm cache clean --force
+   npm install
+   ```
+
+2. **Check Node version:**
+
+   ```bash
+   node --version
+   # Need 18+
+   ```
+
+3. **Fresh install:**
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
 
 ### Expo won't start
 

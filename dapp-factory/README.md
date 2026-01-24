@@ -59,18 +59,29 @@ npm run dev
 
 ## Agent Decision Gate
 
-Before building, Claude evaluates your requirements:
+Before building, Claude evaluates your requirements to determine if AI agents are needed:
 
-| Criterion                          | If YES, agents may be needed              |
-| ---------------------------------- | ----------------------------------------- |
-| Autonomous reasoning?              | AI recommendations, intent interpretation |
-| Long-running decision loops?       | Portfolio rebalancing, monitoring         |
-| Tool-using entities?               | API calls based on AI decisions           |
-| Memory/environment modeling?       | Context-aware features                    |
-| On-chain ↔ off-chain coordination? | Agent-triggered transactions              |
+| Criterion                          | Mode A Example (NO)                   | Mode B Example (YES)                                           |
+| ---------------------------------- | ------------------------------------- | -------------------------------------------------------------- |
+| Autonomous reasoning?              | User clicks "Swap" button manually    | AI recommends which tokens to swap based on portfolio analysis |
+| Long-running decision loops?       | Dashboard shows static portfolio view | AI continuously monitors and suggests rebalancing              |
+| Tool-using entities?               | User triggers all API calls           | AI decides when to fetch price data or execute trades          |
+| Memory/environment modeling?       | Each session starts fresh             | AI remembers user preferences and adapts recommendations       |
+| On-chain ↔ off-chain coordination? | User signs all transactions           | AI prepares and queues transactions for user approval          |
 
-**3+ YES → Mode B (Agent-Backed)**
-**2 or fewer → Mode A (Standard)**
+**3+ YES → Mode B (Agent-Backed)** - Includes Rig-aligned agent architecture
+**2 or fewer → Mode A (Standard)** - Traditional frontend without AI agents
+
+### Quick Decision Examples
+
+| User Request                                            | Mode | Why                                                  |
+| ------------------------------------------------------- | ---- | ---------------------------------------------------- |
+| "A DeFi dashboard to view my portfolio"                 | A    | Static display, user-triggered actions               |
+| "A DeFi dashboard with AI portfolio recommendations"    | B    | Autonomous reasoning, continuous analysis            |
+| "An NFT gallery with wallet connection"                 | A    | Display only, no AI decision-making                  |
+| "An NFT trading bot that finds arbitrage opportunities" | B    | Autonomous reasoning, tool-using, long-running loops |
+| "A token launchpad with Bags integration"               | A    | User-driven actions, no AI agents                    |
+| "A trading assistant that learns my preferences"        | B    | Memory modeling, autonomous recommendations          |
 
 ---
 
@@ -284,9 +295,27 @@ dapp-factory/
 
 ### "npm install fails"
 
-```bash
-npm install --legacy-peer-deps
-```
+**IMPORTANT:** Do NOT use `--legacy-peer-deps`, `--force`, or `--ignore-engines` flags. These are forbidden by the Local Run Proof Gate and will cause verification failure.
+
+1. **Clear npm cache:**
+
+   ```bash
+   npm cache clean --force
+   npm install
+   ```
+
+2. **Check Node version:**
+
+   ```bash
+   node --version
+   # Need 18+
+   ```
+
+3. **Fresh install:**
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
 
 ### "Build fails with TypeScript errors"
 
@@ -324,4 +353,4 @@ Build is a hard failure. Check `runs/.../polish/ralph_final_verdict.md` for unre
 
 ---
 
-**dapp-factory v8.1** - Describe your dApp idea. Get a complete, polished, runnable decentralized application.
+**dapp-factory v9.1.0** - Describe your dApp idea. Get a complete, polished, runnable decentralized application.

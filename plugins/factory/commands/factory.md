@@ -13,6 +13,7 @@ The official Claude interface for App Factory pipelines.
 
 ```
 /factory help                      Show this help
+/factory tour                      Interactive onboarding walkthrough
 /factory plan <idea>               Plan a pipeline without executing
 /factory run <pipeline> <idea>     Execute a pipeline with approval gate
 /factory ralph <path> [--loops N]  Run adversarial QA review
@@ -37,6 +38,65 @@ The official Claude interface for App Factory pipelines.
 Display command reference and behavioral contract.
 
 **Output:** This help text.
+
+### /factory tour
+
+Interactive onboarding walkthrough for new users. Explains what App Factory is and guides users through their first build.
+
+**Process:**
+
+1. Display welcome message with App Factory overview
+2. Show available pipelines with descriptions and example use cases
+3. Explain the build process (Intent → Plan → Build → QA → Launch)
+4. Demonstrate example commands for each pipeline
+5. Offer to start a guided first build
+
+**Output:**
+
+```
+════════════════════════════════════════════════════════════════
+                    WELCOME TO APP FACTORY
+════════════════════════════════════════════════════════════════
+
+App Factory transforms ideas into production-ready applications.
+Describe what you want → get complete, runnable code.
+
+┌─────────────────────────────────────────────────────────────┐
+│  AVAILABLE PIPELINES                                        │
+├─────────────────────────────────────────────────────────────┤
+│  app     │ Mobile apps (iOS + Android via Expo)            │
+│  website │ Static websites (portfolios, blogs, landing)    │
+│  dapp    │ Web3 dApps (DeFi, NFT, with optional AI agents) │
+│  agent   │ AI agents (HTTP services with tool calling)     │
+│  plugin  │ Claude plugins (commands, hooks, MCP servers)   │
+│  miniapp │ Base Mini Apps (MiniKit for Base ecosystem)     │
+└─────────────────────────────────────────────────────────────┘
+
+HOW IT WORKS
+────────────────
+1. You describe an idea (even vague ones work!)
+2. Claude normalizes it into a professional spec
+3. Claude builds everything: code, docs, research, marketing
+4. Ralph QA ensures quality (≥97% required)
+5. You get a runnable project ready to launch
+
+EXAMPLE COMMANDS
+────────────────
+/factory run app a meditation timer with breathing exercises
+/factory run website a portfolio for a photographer
+/factory run dapp a DeFi dashboard with wallet connection
+/factory run agent a code reviewer that explains issues
+/factory run miniapp a gratitude journal
+
+Ready to build something? Just describe your idea!
+════════════════════════════════════════════════════════════════
+```
+
+**Example:**
+
+```
+/factory tour
+```
 
 ### /factory plan \<idea\>
 

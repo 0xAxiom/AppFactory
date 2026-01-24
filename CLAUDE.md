@@ -48,6 +48,16 @@
 | Claude Plugins | `plugin-factory/` | `plugin-factory/builds/` |
 | Base Mini Apps | `miniapp-pipeline/` | `miniapp-pipeline/builds/miniapps/` |
 
+**Pipeline Aliases** (for `/factory run` commands):
+| Directory | `/factory` Alias | Example Command |
+|-----------|------------------|-----------------|
+| `app-factory/` | `app` | `/factory run app a meditation app` |
+| `website-pipeline/` | `website` | `/factory run website a portfolio site` |
+| `dapp-factory/` | `dapp` | `/factory run dapp a DeFi dashboard` |
+| `agent-factory/` | `agent` | `/factory run agent a code reviewer` |
+| `plugin-factory/` | `plugin` | `/factory run plugin a git helper` |
+| `miniapp-pipeline/` | `miniapp` | `/factory run miniapp a gratitude journal` |
+
 ---
 
 ## PURPOSE & SCOPE
