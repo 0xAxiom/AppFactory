@@ -436,6 +436,45 @@ async function verifyProject(projectPath, port) {
   }
 }
 
+// Phase 4.5: Optional Skills Audits
+async function runSkillsAudits(projectPath) {
+  console.log(`\n${CYAN}Checking for optional quality enhancements...${RESET}\n`);
+
+  try {
+    // Import skill detection library
+    const { detectSkill, getDegradationMessage } = await import('./lib/skill-detection.mjs');
+
+    // Check for React/Web3 skills
+    const hasReactSkills = await detectSkill('vercel-agent-skills');
+
+    if (hasReactSkills) {
+      console.log(`${GREEN}✓ Skills audits available - running quality checks...${RESET}\n`);
+
+      try {
+        // Run skills audit script if available
+        const auditScript = join(REPO_ROOT, 'scripts', 'run-skills-audit.sh');
+        if (existsSync(auditScript)) {
+          execSync(`bash "${auditScript}" "${projectPath}" --skill react-best-practices`, {
+            stdio: 'inherit'
+          });
+          console.log(`${GREEN}✓ Skills audit passed${RESET}\n`);
+        } else {
+          console.log(`${YELLOW}${getDegradationMessage('vercel-agent-skills', 'skipping')}${RESET}\n`);
+        }
+      } catch (err) {
+        // Skills audit failed, but this is not fatal
+        console.log(`${YELLOW}⚠️  Skills audit failed - continuing anyway (audits are optional)${RESET}\n`);
+      }
+    } else {
+      console.log(`${DIM}${getDegradationMessage('vercel-agent-skills', 'skipping')}${RESET}`);
+      console.log(`${DIM}${getDegradationMessage('vercel-agent-skills', 'alternative')}${RESET}\n`);
+    }
+  } catch (err) {
+    // Skill detection library not available - graceful degradation
+    console.log(`${DIM}⚠️  Skill detection not available - skipping optional quality checks${RESET}\n`);
+  }
+}
+
 // Phase 5: Launch card
 function showLaunchCard(projectPath, port) {
   setPhase(4, 'complete');
@@ -495,6 +534,9 @@ async function main() {
     console.log(`\nCheck logs at: ${projectPath}/.appfactory/logs/`);
     process.exit(1);
   }
+
+  // Phase 4.5: Optional Skills Audits (non-blocking)
+  await runSkillsAudits(projectPath);
 
   // Phase 5: Check for RUN_CERTIFICATE.json with PASS status
   const certified = checkRunCertificate(projectPath);

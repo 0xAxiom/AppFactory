@@ -402,6 +402,48 @@ async function verifyProject(projectPath, port) {
   }
 }
 
+// Phase 4.5: Optional Skills Audits
+async function runSkillsAudits(projectPath) {
+  console.log(`\n${CYAN}Checking for optional quality enhancements...${RESET}\n`);
+
+  try {
+    // Import skill detection library
+    const { detectSkill, getDegradationMessage } = await import('./lib/skill-detection.mjs');
+
+    // Check for code quality tools (ESLint, Prettier)
+    const hasEslint = await detectSkill('eslint');
+    const hasPrettier = await detectSkill('prettier');
+
+    if (hasEslint || hasPrettier) {
+      console.log(`${GREEN}✓ Code quality tools available - running checks...${RESET}\n`);
+
+      if (hasEslint) {
+        try {
+          execSync('npx eslint --version', { cwd: projectPath, stdio: 'inherit' });
+          console.log(`${GREEN}✓ ESLint check passed${RESET}\n`);
+        } catch (err) {
+          console.log(`${YELLOW}⚠️  ESLint check skipped - continuing anyway${RESET}\n`);
+        }
+      }
+
+      if (hasPrettier) {
+        try {
+          execSync('npx prettier --version', { cwd: projectPath, stdio: 'inherit' });
+          console.log(`${GREEN}✓ Prettier check passed${RESET}\n`);
+        } catch (err) {
+          console.log(`${YELLOW}⚠️  Prettier check skipped - continuing anyway${RESET}\n`);
+        }
+      }
+    } else {
+      console.log(`${DIM}${getDegradationMessage('eslint', 'skipping')}${RESET}`);
+      console.log(`${DIM}${getDegradationMessage('eslint', 'alternative')}${RESET}\n`);
+    }
+  } catch (err) {
+    // Skill detection library not available - graceful degradation
+    console.log(`${DIM}⚠️  Skill detection not available - skipping optional quality checks${RESET}\n`);
+  }
+}
+
 // Phase 5: Launch card
 function showLaunchCard(projectPath, port) {
   setPhase(4, 'complete');
@@ -467,6 +509,9 @@ async function main() {
     console.log(`\nCheck logs at: ${projectPath}/.appfactory/logs/`);
     process.exit(1);
   }
+
+  // Phase 4.5: Optional Skills Audits (non-blocking)
+  await runSkillsAudits(projectPath);
 
   // Phase 5: Check for RUN_CERTIFICATE.json with PASS status
   const certified = checkRunCertificate(projectPath);
