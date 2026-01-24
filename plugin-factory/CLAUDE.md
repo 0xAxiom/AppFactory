@@ -26,7 +26,6 @@ The output is a ready-to-install plugin, not prompts or scaffolds.
 | Generate AI agent scaffolds     | Wrong pipeline         | agent-factory     |
 | Build Base Mini Apps            | Wrong pipeline         | miniapp-pipeline  |
 | Deploy automatically            | Requires user approval | Manual step       |
-| Make network calls without auth | Offline by default     | Root orchestrator |
 
 ### Output Directory
 

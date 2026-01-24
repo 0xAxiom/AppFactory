@@ -22,7 +22,6 @@ dApp Factory generates **complete, production-ready decentralized applications**
 | Generate Claude plugins          | Wrong pipeline         | plugin-factory    |
 | Generate AI agent scaffolds only | Wrong scope            | agent-factory     |
 | Deploy to production             | Requires user approval | Manual step       |
-| Make network calls without auth  | Offline by default     | Root orchestrator |
 
 ### Output Directory
 
@@ -328,8 +327,7 @@ COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 4. **MUST NOT** deploy without user approval
 5. **MUST NOT** hardcode secrets or API keys
 6. **MUST NOT** claim success without Ralph PASS verdict
-7. **MUST NOT** make network calls without explicit authorization
-8. **MUST NOT** use deprecated `web3-builds/` directory
+7. **MUST NOT** use deprecated `web3-builds/` directory
 
 ---
 

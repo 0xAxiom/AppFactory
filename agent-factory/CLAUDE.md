@@ -23,7 +23,6 @@ Agent Factory generates **complete, production-ready AI agent scaffolds** from p
 | Generate Claude plugins         | Wrong pipeline         | plugin-factory    |
 | Build Base Mini Apps            | Wrong pipeline         | miniapp-pipeline  |
 | Deploy automatically            | Requires user approval | Manual step       |
-| Make network calls without auth | Offline by default     | Root orchestrator |
 
 ### Output Directory
 
