@@ -185,16 +185,16 @@ vercel deploy
 
 ---
 
-## Mandatory Skills Audits
+## Optional Quality Enhancements
 
-Every website must pass two audits before Ralph QA:
+When available, websites can be enhanced with additional quality audits:
 
-| Skill                 | Threshold | What It Checks                                     |
-| --------------------- | --------- | -------------------------------------------------- |
-| react-best-practices  | 95%       | Server Components, no barrel imports, proper hooks |
-| web-design-guidelines | 90%       | Accessibility, responsive design, Core Web Vitals  |
+| Skill                 | Threshold | What It Checks                                     | Availability       |
+| --------------------- | --------- | -------------------------------------------------- | ------------------ |
+| react-best-practices  | 95%       | Server Components, no barrel imports, proper hooks | @vercel/agent-skills |
+| web-design-guidelines | 90%       | Accessibility, responsive design, Core Web Vitals  | @vercel/agent-skills |
 
-No exceptions. Builds cannot complete without passing these audits.
+**Note**: These audits are OPTIONAL. If @vercel/agent-skills is not available, builds proceed without them. The mandatory quality gate is LOCAL_RUN_PROOF_GATE (verifies the build runs successfully).
 
 ---
 

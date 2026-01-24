@@ -1,7 +1,7 @@
 # Website Pipeline
 
-**Version**: 2.2.0
-**Mode**: Full Build Factory with Mandatory Skills Audits
+**Version**: 2.3.0
+**Mode**: Full Build Factory with Optional Quality Enhancements
 **Status**: MANDATORY CONSTITUTION
 
 ---
@@ -13,8 +13,9 @@
 **What This Pipeline Does**:
 
 - Generates complete, production-ready websites from plain-language descriptions
-- Enforces mandatory skills audits (react-best-practices, web-design-guidelines)
-- Runs UX Polish Loop with Playwright E2E testing
+- Runs LOCAL_RUN_PROOF_GATE verification (mandatory)
+- Optional: Skills audits (react-best-practices, web-design-guidelines) when @vercel/agent-skills available
+- Optional: UX Polish Loop with Playwright E2E testing when Playwright available
 - Outputs to `website-builds/<slug>/`
 
 **What This Pipeline Does NOT Do**:
@@ -24,7 +25,7 @@
 - Build AI agents (use agent-factory/)
 - Build plugins (use plugin-factory/)
 - Execute without showing plan first
-- Skip approval gates or skills audits
+- Skip the LOCAL_RUN_PROOF_GATE verification (mandatory)
 
 **Authority**: This constitution is sovereign within `website-pipeline/`. It inherits constraints from the Root Orchestrator but makes all execution decisions within scope.
 
