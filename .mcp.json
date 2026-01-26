@@ -36,11 +36,7 @@
     "repo-mode-launch": {
       "command": "node",
       "args": ["plugins/repo-mode-launch/server.mjs"],
-      "env": {
-        "LAUNCHPAD_API_URL": "${LAUNCHPAD_API_URL}",
-        "APP_FACTORY_WEBHOOK_SECRET": "${APP_FACTORY_WEBHOOK_SECRET}"
-      },
-      "description": "Repo Mode token launch orchestration - creates launch.intent.json, coordinates with Factory Launchpad"
+      "description": "Repo Mode token launch orchestration - creates launch.intent.json, coordinates with Factory Launchpad. Optional env: LAUNCHPAD_API_URL, APP_FACTORY_WEBHOOK_SECRET"
     }
   }
 }
