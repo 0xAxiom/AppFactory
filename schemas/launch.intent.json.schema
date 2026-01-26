@@ -1,0 +1,246 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://appfactory.fun/schemas/launch.intent.json",
+  "title": "Launch Intent v1.0",
+  "description": "Canonical launch intent for Repo Mode token launches via AppFactory MCP",
+  "type": "object",
+  "required": ["version", "id", "timestamp", "repo", "launch", "wallet", "branch", "hashes"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Schema version"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "Deterministic launch ID (SHA256 of core fields)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp (UTC)"
+    },
+    "repo": {
+      "type": "object",
+      "required": ["url", "owner", "name", "provider", "commitSha"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$",
+          "description": "GitHub repository URL"
+        },
+        "owner": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "description": "Repository owner (user or organization)"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "description": "Repository name"
+        },
+        "provider": {
+          "type": "string",
+          "const": "github",
+          "description": "Git provider (only GitHub supported)"
+        },
+        "commitSha": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$",
+          "description": "Full 40-character commit SHA"
+        },
+        "branch": {
+          "type": "string",
+          "description": "Branch name (optional, for reference)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "launch": {
+      "type": "object",
+      "required": ["brand", "symbol"],
+      "properties": {
+        "brand": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "description": "Launch brand/token name"
+        },
+        "symbol": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{1,10}$",
+          "description": "Token symbol (1-10 uppercase alphanumeric)"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Token description"
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Token image URL"
+        },
+        "twitter": {
+          "type": "string",
+          "description": "Twitter handle (without @)"
+        },
+        "telegram": {
+          "type": "string",
+          "description": "Telegram group/channel"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Project website URL"
+        }
+      },
+      "additionalProperties": false
+    },
+    "wallet": {
+      "type": "object",
+      "required": ["address", "network"],
+      "properties": {
+        "address": {
+          "type": "string",
+          "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}$",
+          "description": "Solana wallet address (base58)"
+        },
+        "network": {
+          "type": "string",
+          "const": "solana",
+          "description": "Blockchain network"
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When attestation was signed"
+        }
+      },
+      "additionalProperties": false
+    },
+    "branch": {
+      "type": "object",
+      "required": ["name", "strategy"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^launch/[a-z0-9-]+-[a-f0-9]{8}$",
+          "description": "Deterministic branch name (launch/{slug}-{hash})"
+        },
+        "strategy": {
+          "type": "string",
+          "const": "deterministic-hash",
+          "description": "Branch naming strategy"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When branch was created"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hashes": {
+      "type": "object",
+      "required": ["intentHash"],
+      "properties": {
+        "intentHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA256 hash of intent (excluding hashes object)"
+        },
+        "configHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA256 hash of launch config only"
+        },
+        "repoStateHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA256 hash of repo state metadata"
+        }
+      },
+      "additionalProperties": false
+    },
+    "launchpadIntegration": {
+      "type": "object",
+      "description": "Populated after Launchpad confirmation",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "description": "Launchpad API version"
+        },
+        "projectId": {
+          "type": "string",
+          "description": "Launchpad project ID"
+        },
+        "tokenMint": {
+          "type": "string",
+          "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}$",
+          "description": "Token mint address"
+        },
+        "attestationId": {
+          "type": "string",
+          "description": "Attestation record ID"
+        },
+        "stagingId": {
+          "type": "string",
+          "description": "Staging record ID (if staged)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "timestamps": {
+      "type": "object",
+      "description": "Lifecycle timestamps",
+      "properties": {
+        "intentGenerated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "attestationPrepared": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "attestationConfirmed": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "branchCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "launched": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "appFactory": {
+      "type": "object",
+      "description": "AppFactory metadata (if built via pipeline)",
+      "properties": {
+        "pipeline": {
+          "type": "string",
+          "enum": ["app-factory", "website-pipeline", "dapp-factory", "agent-factory", "plugin-factory", "miniapp-pipeline"]
+        },
+        "buildPath": {
+          "type": "string"
+        },
+        "buildTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "runCertificateHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

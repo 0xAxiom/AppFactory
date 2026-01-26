@@ -519,7 +519,7 @@ ed888b3 feat(skills): enhance detection library with 30+ skills and tier system
 - 7 skill-detection.mjs files (library + vendored copies)
 - 6 pipeline run.mjs files (capability detection + Ralph QA)
 - 1 run-skills-audit.sh file (planned feature implementation)
-- 2 documentation files (IMPLEMENTATION_SUMMARY.md, this file)
+- 2 documentation files ([2026-01-24-network-enabled-architecture.md](2026-01-24-network-enabled-architecture.md), this file)
 
 ---
 

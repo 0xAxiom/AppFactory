@@ -1,0 +1,31 @@
+{
+  "name": "@appfactory/repo-mode-launch",
+  "version": "1.0.0",
+  "description": "MCP server for Repo Mode token launches via Factory Launchpad",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "bs58": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "repo-mode",
+    "token-launch",
+    "solana"
+  ],
+  "license": "MIT"
+}

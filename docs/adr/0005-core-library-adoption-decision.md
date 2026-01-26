@@ -157,7 +157,7 @@ However, this should be a **deliberate decision**, not a default. If centralized
 
 ## References
 
-- TIER1_FIXES_REPORT.md (TODO-MEDIUM-2)
+- [Tier 1 Fixes Report](../reports/audits/2026-01-23-tier1-fixes.md) (TODO-MEDIUM-2)
 - Tier-3 Vendoring Fix (commit: refactor(tier-3): vendor scripts/lib)
 
 ---

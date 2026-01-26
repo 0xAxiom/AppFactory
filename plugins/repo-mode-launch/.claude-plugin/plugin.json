@@ -1,0 +1,45 @@
+{
+  "name": "repo-mode-launch",
+  "version": "1.0.0",
+  "description": "MCP server for Repo Mode token launches. Orchestrates creation of launch.intent.json, coordinates with Factory Launchpad for attestation and deployment. Never handles private keys - all signing happens in user's wallet.",
+  "author": {
+    "name": "App Factory"
+  },
+  "license": "MIT",
+  "keywords": [
+    "repo-mode",
+    "token-launch",
+    "solana",
+    "attestation",
+    "mcp-server"
+  ],
+  "engines": {
+    "claude-code": ">=1.0.0"
+  },
+  "capabilities": {
+    "commands": false,
+    "agents": false,
+    "hooks": false,
+    "mcp": true
+  },
+  "permissions": {
+    "network": true,
+    "filesystem": "read",
+    "secrets": false
+  },
+  "mcp": {
+    "server": "../server.mjs",
+    "tools": [
+      "validate-repo",
+      "generate-launch-intent",
+      "prepare-attestation",
+      "confirm-attestation",
+      "setup-pipeline-hooks"
+    ]
+  },
+  "marketplace": {
+    "category": "developer-tools",
+    "tags": ["repo-mode", "token-launch", "solana", "web3"],
+    "documentation": "../README.md"
+  }
+}
