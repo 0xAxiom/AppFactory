@@ -27,7 +27,7 @@
     "zod": "^3.22.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^25.0.10",
     "@types/archiver": "^6.0.0",
     "@vitest/coverage-v8": "^2.1.0",
     "typescript": "^5.2.0",
