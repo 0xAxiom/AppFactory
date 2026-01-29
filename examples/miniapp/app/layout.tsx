@@ -9,12 +9,12 @@ import './globals.css';
  */
 
 export const metadata: Metadata = {
-  title: minikitConfig.name,
-  description: minikitConfig.description,
+  title: minikitConfig.miniapp.name,
+  description: minikitConfig.miniapp.description,
   openGraph: {
-    title: minikitConfig.name,
-    description: minikitConfig.description,
-    images: [minikitConfig.ogImageUrl],
+    title: minikitConfig.miniapp.ogTitle,
+    description: minikitConfig.miniapp.ogDescription,
+    images: [minikitConfig.miniapp.ogImageUrl],
   },
 };
 

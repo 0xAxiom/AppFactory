@@ -9,27 +9,28 @@ import { NextResponse } from 'next/server';
 import { minikitConfig, FarcasterManifest } from '../../../minikit.config';
 
 export async function GET() {
+  const { miniapp } = minikitConfig;
+  
   // Build the manifest from config
   const manifest: FarcasterManifest = {
     accountAssociation: minikitConfig.accountAssociation,
     frame: {
-      name: minikitConfig.name,
-      version: minikitConfig.version,
-      iconUrl: minikitConfig.iconUrl,
-      splashImageUrl: minikitConfig.splashImageUrl,
+      name: miniapp.name,
+      version: miniapp.version,
+      iconUrl: miniapp.iconUrl,
+      splashImageUrl: miniapp.splashImageUrl,
       splashBackgroundColor: '#1a1a2e',
-      homeUrl: minikitConfig.homeUrl,
-      webhookUrl: minikitConfig.webhookUrl,
-      tagline: minikitConfig.tagline,
-      subtitle: minikitConfig.tagline,
-      description: minikitConfig.description,
+      homeUrl: miniapp.homeUrl,
+      webhookUrl: miniapp.webhookUrl,
+      subtitle: miniapp.subtitle,
+      description: miniapp.description,
       screenshotUrls: [],
-      primaryCategory: minikitConfig.category,
-      tags: minikitConfig.tags,
-      heroImageUrl: minikitConfig.heroImageUrl,
-      ogTitle: minikitConfig.name,
-      ogDescription: minikitConfig.description,
-      ogImageUrl: minikitConfig.ogImageUrl,
+      primaryCategory: miniapp.category,
+      tags: miniapp.tags,
+      heroImageUrl: miniapp.heroImageUrl,
+      ogTitle: miniapp.ogTitle,
+      ogDescription: miniapp.ogDescription,
+      ogImageUrl: miniapp.ogImageUrl,
     },
   };
 

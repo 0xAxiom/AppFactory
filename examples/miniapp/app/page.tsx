@@ -29,10 +29,10 @@ export default function Home() {
 
         {/* Title */}
         <h1 className="text-2xl font-bold text-center mb-2">
-          {minikitConfig.name}
+          {minikitConfig.miniapp.name}
         </h1>
         <p className="text-gray-400 text-center mb-8 max-w-xs">
-          {minikitConfig.tagline}
+          {minikitConfig.miniapp.subtitle}
         </p>
 
         {/* Status */}
