@@ -40,8 +40,25 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
+// Omit props that conflict between React's native events and Framer Motion
+type MotionButtonProps = Omit<
+  ButtonProps,
+  'onDrag' | 'onDragEnd' | 'onDragStart' | 'onDragOver' | 'onAnimationStart' | 'onAnimationEnd'
+>;
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, children, ...props }, ref) => {
+    // Destructure conflicting props to prevent them from being spread to motion.button
+    const {
+      onDrag,
+      onDragEnd,
+      onDragStart,
+      onDragOver,
+      onAnimationStart,
+      onAnimationEnd,
+      ...restProps
+    } = props;
+
     if (asChild) {
       return (
         <span className={cn(buttonVariants({ variant, size, className }))}>
@@ -57,7 +74,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         transition={{ duration: 0.15 }}
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        {...props}
+        {...restProps}
       >
         {children}
       </motion.button>
