@@ -7,7 +7,7 @@ import { theme } from '../../src/ui/theme';
 
 export default function OnboardingWelcome() {
   const handleGetStarted = () => {
-    router.push('/onboarding/features');
+    router.replace('/(tabs)');
   };
 
   return (
