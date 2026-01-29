@@ -1,8 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
+/* Theme configuration */
+@theme {
   --color-primary: #10B981;
   --color-secondary: #F59E0B;
   --color-background: #0A0A0A;
