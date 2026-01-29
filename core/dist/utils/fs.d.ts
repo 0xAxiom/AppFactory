@@ -71,11 +71,7 @@ export declare function readJsonSafe<T = unknown>(filePath: string): T | null;
  * @param data - Data to write
  * @param pretty - Whether to format with indentation (default: true)
  */
-export declare function writeJson(
-  filePath: string,
-  data: unknown,
-  pretty?: boolean
-): void;
+export declare function writeJson(filePath: string, data: unknown, pretty?: boolean): void;
 /**
  * Ensure a directory exists, creating it and parents if needed
  *
@@ -116,17 +112,14 @@ export declare function listFiles(dirPath: string): string[];
  * @param options - Options for listing
  * @returns Array of relative file paths
  */
-export declare function listFilesRecursive(
-  dirPath: string,
-  options?: {
+export declare function listFilesRecursive(dirPath: string, options?: {
     /** File extensions to include (e.g., ['.ts', '.tsx']) */
     extensions?: string[];
     /** Directories to exclude */
     excludeDirs?: string[];
     /** Maximum depth (undefined = unlimited) */
     maxDepth?: number;
-  }
-): string[];
+}): string[];
 /**
  * Get file size in bytes
  *

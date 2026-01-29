@@ -25,13 +25,7 @@ export declare const checkTypecheck: RalphCheck;
 /**
  * Create a check for file existence
  */
-export declare function createFileExistsCheck(
-  id: string,
-  filePath: string,
-  description: string,
-  mandatory?: boolean,
-  points?: number
-): RalphCheck;
+export declare function createFileExistsCheck(id: string, filePath: string, description: string, mandatory?: boolean, points?: number): RalphCheck;
 /**
  * Check that package.json exists
  */
@@ -55,10 +49,7 @@ export declare const checkNoSecrets: RalphCheck;
 /**
  * Check that research files are substantive (not placeholders)
  */
-export declare function createResearchCheck(
-  fileName: string,
-  minLength?: number
-): RalphCheck;
+export declare function createResearchCheck(fileName: string, minLength?: number): RalphCheck;
 /**
  * Standard research checks
  */

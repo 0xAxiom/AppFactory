@@ -21,17 +21,12 @@ export declare function generateQANotesMarkdown(report: RalphReport): string;
 /**
  * Generate acceptance criteria status
  */
-export declare function generateAcceptanceMarkdown(
-  checks: {
+export declare function generateAcceptanceMarkdown(checks: {
     name: string;
     passed: boolean;
-  }[]
-): string;
+}[]): string;
 /**
  * Parse a progress entry from markdown
  */
-export declare function parseProgressEntry(
-  markdown: string,
-  iteration: number
-): RalphProgressEntry | null;
+export declare function parseProgressEntry(markdown: string, iteration: number): RalphProgressEntry | null;
 //# sourceMappingURL=report.d.ts.map

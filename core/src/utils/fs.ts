@@ -8,6 +8,7 @@
  */
 
 import * as fs from 'node:fs';
+import * as os from 'node:os';
 import * as path from 'node:path';
 
 /**
@@ -304,6 +305,6 @@ export function getModTime(filePath: string): Date | null {
  */
 export function createTempDir(prefix: string = 'appfactory-'): string {
   return fs.mkdtempSync(
-    path.join(fs.realpathSync(require('os').tmpdir()), prefix)
+    path.join(fs.realpathSync(os.tmpdir()), prefix)
   );
 }
