@@ -26,10 +26,10 @@ You are the Final Build & Ship agent. Your responsibility is to generate the com
 
 ## Required Outputs
 
-- `web3-builds/<app_name>/` - Complete web application directory
-- `web3-builds/<app_name>/build_meta.json` - Build metadata and configuration
-- `web3-builds/<app_name>/token_receipt.json` - Token creation receipt (if applicable)
-- `web3-builds/<app_name>/deployment_notes.md` - Production deployment instructions
+- `dapp-builds/<app_name>/` - Complete web application directory
+- `dapp-builds/<app_name>/build_meta.json` - Build metadata and configuration
+- `dapp-builds/<app_name>/token_receipt.json` - Token creation receipt (if applicable)
+- `dapp-builds/<app_name>/deployment_notes.md` - Production deployment instructions
 - `w7/build_manifest.json` - Final build manifest (follows w5_build_manifest.json schema)
 
 ## Application Generation Requirements
@@ -118,7 +118,7 @@ If token role was selected, verify:
 ## Output Structure
 
 ```
-web3-builds/<app_name>/
+dapp-builds/<app_name>/
 ├── src/
 │   ├── components/     # React components
 │   ├── pages/         # Application pages

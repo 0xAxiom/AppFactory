@@ -26,7 +26,7 @@
 | -------------------- | ---------------------------------------------------- |
 | `CLAUDE.md`          | Agent constitution - defines full-build contract     |
 | `validator/index.ts` | Validates builds (fails on prompt packs)             |
-| `web3-builds/`       | Output directory for built applications              |
+| `dapp-builds/`       | Output directory for built applications              |
 | `generated/`         | Internal/intermediate artifacts (not primary output) |
 
 ---
@@ -48,7 +48,7 @@
 │     - No → standard Next.js app                                              │
 │                                                                              │
 │  4. Claude builds complete application                                       │
-│     └─> Creates: web3-builds/<app-slug>/                                     │
+│     └─> Creates: dapp-builds/<app-slug>/                                     │
 │         - package.json (with dev, build scripts)                             │
 │         - tsconfig.json                                                      │
 │         - next.config.js                                                     │
@@ -63,7 +63,7 @@
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  5. Install dependencies                                                     │
-│     cd web3-builds/<app-slug>                                                │
+│     cd dapp-builds/<app-slug>                                                │
 │     npm install                                                              │
 │                                                                              │
 │  6. Run development server                                                   │
@@ -88,7 +88,7 @@ All builds MUST produce a runnable Next.js application with:
 ### Required Files
 
 ```
-web3-builds/<app-slug>/
+dapp-builds/<app-slug>/
 ├── package.json          # REQUIRED - with dev AND build scripts
 ├── tsconfig.json         # REQUIRED
 ├── next.config.js        # REQUIRED
@@ -121,7 +121,7 @@ Validation FAILS if:
 - Output is a prompt pack (only .md files, no package.json)
 - Missing src/app/ directory
 - Missing dev or build scripts
-- Output in `generated/` instead of `web3-builds/`
+- Output in `generated/` instead of `dapp-builds/`
 
 ---
 
@@ -135,7 +135,7 @@ web3-factory/
 ├── GET_STARTED.md          # User guide
 ├── validator/
 │   └── index.ts            # Build validator (enforces contract)
-├── web3-builds/            # Built applications (PRIMARY OUTPUT)
+├── dapp-builds/            # Built applications (PRIMARY OUTPUT)
 │   └── <app-slug>/         # Complete runnable Next.js app
 └── generated/              # Internal artifacts (NOT primary output)
 ```
@@ -147,7 +147,7 @@ web3-factory/
 The validator enforces the full-build contract:
 
 ```bash
-cd web3-builds/<app-slug>
+cd dapp-builds/<app-slug>
 npx tsx ../../validator/index.ts
 ```
 

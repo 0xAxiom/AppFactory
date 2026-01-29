@@ -709,7 +709,7 @@ export async function runWeb3Factory(
   const config: Web3PipelineConfig = {
     projectRoot,
     runsDir: path.join(projectRoot, 'runs'),
-    buildsDir: path.join(projectRoot, 'web3-builds'),
+    buildsDir: path.join(projectRoot, 'dapp-builds'),
     idea,
   };
 

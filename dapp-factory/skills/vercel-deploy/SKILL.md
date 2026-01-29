@@ -46,7 +46,7 @@ Before deploying:
 ### Step 1: Verify Build
 
 ```bash
-cd web3-builds/<app-slug>
+cd dapp-builds/<app-slug>
 npm run build
 ```
 

@@ -862,10 +862,10 @@ When a build completes successfully (COMPLETION_PROMISE written), the following 
 
 ### Reference Documentation
 
-- `/references/frameworks/nextjs-15.md`
-- `/references/frameworks/tailwind-v4.md`
-- `/references/frameworks/shadcn-ui.md`
-- `/references/frameworks/vercel-ai-sdk-6.md`
+- `../references/frameworks/nextjs-15.md`
+- `../references/frameworks/tailwind-v4.md`
+- `../references/frameworks/shadcn-ui.md`
+- `../references/frameworks/vercel-ai-sdk-6.md`
 
 ---
 
@@ -914,7 +914,7 @@ Before outputting "To Run Locally" instructions or declaring BUILD COMPLETE, Cla
 
 ```bash
 node ../scripts/local-run-proof/verify.mjs \
-  --cwd builds/<website-slug> \
+  --cwd website-builds/<website-slug> \
   --install "npm install" \
   --build "npm run build" \
   --dev "npm run dev" \

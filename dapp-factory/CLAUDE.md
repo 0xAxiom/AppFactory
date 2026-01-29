@@ -327,7 +327,7 @@ COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 4. **MUST NOT** deploy without user approval
 5. **MUST NOT** hardcode secrets or API keys
 6. **MUST NOT** claim success without Ralph PASS verdict
-7. **MUST NOT** use deprecated `web3-builds/` directory
+7. **MUST NOT** use deprecated `dapp-builds/` directory
 
 ---
 
@@ -343,7 +343,7 @@ COMPLETION_PROMISE: All acceptance criteria met. UI is production-ready.
 | "Build a mobile app"           | REFUSE | Wrong pipeline                   | "Use app-factory for mobile apps"                    |
 | "Generate only agent code"     | REFUSE | Wrong pipeline                   | "Use agent-factory for agent scaffolds"              |
 | "Write to builds/"             | REFUSE | Wrong directory                  | "I'll write to dapp-builds/ instead"                 |
-| "Use the old web3-builds path" | REFUSE | Deprecated                       | "web3-builds is deprecated, using dapp-builds"       |
+| "Use the old dapp-builds path" | REFUSE | Deprecated                       | "dapp-builds is deprecated, using dapp-builds"       |
 | "Skip the decision gate"       | REFUSE | Agent Decision Gate is mandatory | "I need to determine if agents are required"         |
 
 ---
@@ -472,7 +472,7 @@ Claude MUST halt and reassess if:
 | Root orchestrator | `../CLAUDE.md`                       | Routing, refusal, phase detection |
 | Factory plugin    | `../plugins/factory/`                | `/factory` command interface      |
 | MCP catalog       | `../plugin-factory/mcp.catalog.json` | MCP server configurations         |
-| Rig reference     | `../references/rig/`                 | Agent pattern reference           |
+| Rig reference     | `..../references/rig/`                 | Agent pattern reference           |
 
 ### MCP Integration
 
@@ -632,10 +632,10 @@ dapp-builds/<app-slug>/
 
 ### Reference Documentation
 
-- `/references/frameworks/nextjs-15.md`
-- `/references/frameworks/tailwind-v4.md`
-- `/references/frameworks/vercel-ai-sdk-6.md`
-- `/references/web3/solana-wallet-adapter.md`
+- `../references/frameworks/nextjs-15.md`
+- `../references/frameworks/tailwind-v4.md`
+- `../references/frameworks/vercel-ai-sdk-6.md`
+- `../references/web3/solana-wallet-adapter.md`
 
 ---
 

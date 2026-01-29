@@ -473,7 +473,7 @@ Claude MUST halt and reassess if:
 | Root orchestrator | `../CLAUDE.md`                       | Routing, refusal, phase detection |
 | Factory plugin    | `../plugins/factory/`                | `/factory` command interface      |
 | MCP catalog       | `../plugin-factory/mcp.catalog.json` | MCP server configurations         |
-| Rig reference     | `../references/rig/`                 | Agent pattern reference           |
+| Rig reference     | `..../references/rig/`                 | Agent pattern reference           |
 
 ### Rig Framework Integration
 
@@ -566,9 +566,9 @@ VERIFIED:
 
 ### Reference Documentation
 
-- `/references/ai-agents/claude-api-tools.md`
-- `/references/ai-agents/rig-framework.md`
-- `/references/ai-agents/langgraph.md`
+- `../references/ai-agents/claude-api-tools.md`
+- `../references/ai-agents/rig-framework.md`
+- `../references/ai-agents/langgraph.md`
 
 ---
 

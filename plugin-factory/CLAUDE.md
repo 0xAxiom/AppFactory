@@ -581,7 +581,7 @@ Essential MCP servers for development:
 
 - `/docs/MCP_INTEGRATION.md` - Setup guide
 - `/mcp-config.example.json` - Configuration template
-- `/references/mcp-servers/` - Server-specific docs
+- `../references/mcp-servers/` - Server-specific docs
 
 ---
 

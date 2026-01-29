@@ -817,7 +817,7 @@ When a build completes successfully (Ralph PASS), the following are guaranteed:
 
 ### Reference Documentation
 
-See `/references/frameworks/expo-sdk-53.md` for detailed patterns and examples.
+See `../references/frameworks/expo-sdk-53.md` for detailed patterns and examples.
 
 ---
 

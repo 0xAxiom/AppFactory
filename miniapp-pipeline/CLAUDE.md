@@ -603,9 +603,9 @@ Use these as canonical references for manifest fields, signing process, and trou
 
 ### Reference Documentation
 
-- `/references/web3/base-minikit.md`
-- `/references/web3/farcaster-frames.md`
-- `/references/frameworks/nextjs-15.md`
+- `../references/web3/base-minikit.md`
+- `../references/web3/farcaster-frames.md`
+- `../references/frameworks/nextjs-15.md`
 
 ---
 

@@ -137,8 +137,8 @@ Raw Web3 Idea → W1 → W2 → W3 → W4 → W5 → Complete Tokenized Web App
 
 - `w5/build_manifest.json` (build execution record)
 - `w5/w5_execution.md` (build process log)
-- `web3-builds/<app_name>/` (complete web application)
-- `web3-builds/<app_name>/token/` (token creation artifacts)
+- `dapp-builds/<app_name>/` (complete web application)
+- `dapp-builds/<app_name>/token/` (token creation artifacts)
 
 **Key Responsibilities**:
 
@@ -194,7 +194,7 @@ Raw Web3 Idea → W1 → W2 → W3 → W4 → W5 → Complete Tokenized Web App
 ### Output Segregation
 
 - Web3 builds: `web3-factory/builds/` (never `builds/`)
-- Token artifacts: `web3-builds/<app_name>/token/`
+- Token artifacts: `dapp-builds/<app_name>/token/`
 - No overlap with App Factory mobile app outputs
 
 ### Fee Routing Isolation

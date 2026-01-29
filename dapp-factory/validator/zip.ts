@@ -197,7 +197,7 @@ async function main(): Promise<void> {
   if (!fs.existsSync(path.join(buildDir, 'package.json'))) {
     console.error('\nError: No package.json found in current directory.\n');
     console.error('Run this command from your build directory:\n');
-    console.error('  cd web3-builds/your-app');
+    console.error('  cd dapp-builds/your-app');
     console.error('  npm run zip\n');
     process.exit(1);
   }

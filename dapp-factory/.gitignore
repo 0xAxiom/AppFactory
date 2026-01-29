@@ -25,7 +25,7 @@ dist/
 Thumbs.db
 
 # Web3 Factory specific (runs/ and builds/ are tracked intentionally)
-web3-builds/
+dapp-builds/
 
 # Temporary files
 *.tmp

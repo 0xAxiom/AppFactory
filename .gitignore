@@ -162,3 +162,8 @@ promo-video/
 # Sandbox build artifacts
 tools/sandbox/node_modules/
 tools/sandbox/dist/
+
+# Build artifacts
+.next/
+dist/
+*.d.ts.map

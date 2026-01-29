@@ -33,7 +33,7 @@ The Web3 Factory will:
 
 Output:
   - Run artifacts in: ./runs/
-  - Built apps in: ./web3-builds/
+  - Built apps in: ./dapp-builds/
 `);
     process.exit(0);
   }
@@ -58,7 +58,7 @@ Output:
       await runWeb3Factory(idea, projectRoot);
       console.log('');
       console.log('✅ Web3 Factory completed successfully!');
-      console.log('📁 Check ./web3-builds/ for your generated app');
+      console.log('📁 Check ./dapp-builds/ for your generated app');
       console.log('📋 Check ./runs/ for detailed execution logs');
     } catch (error) {
       console.error('');
