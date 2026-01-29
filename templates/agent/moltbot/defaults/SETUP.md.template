@@ -1,0 +1,113 @@
+# SETUP.md - Installation Guide
+
+## Prerequisites
+
+- [Moltbot](https://github.com/moltbot/moltbot) installed
+- Node.js 20+
+- Anthropic API key
+
+## Quick Start
+
+### 1. Copy Workspace
+
+```bash
+# Copy this agent workspace to your Moltbot agents directory
+cp -r {{AGENT_NAME}} ~/.moltbot/agents/
+```
+
+### 2. Configure Moltbot
+
+Add the agent to your `moltbot.json`:
+
+```json
+{
+  "agents": [
+    {
+      "id": "{{AGENT_NAME}}",
+      "workspace": "~/.moltbot/agents/{{AGENT_NAME}}",
+      "model": "claude-sonnet-4-20250514",
+      "enabled": true
+    }
+  ]
+}
+```
+
+### 3. Set Up Channels
+
+{{#each CHANNELS}}
+#### {{this}}
+{{#if (eq this "telegram")}}
+1. Create a bot via [@BotFather](https://t.me/botfather)
+2. Add token to config: `channels.telegram.token`
+3. Set allowed users: `channels.telegram.allowedUsers`
+{{/if}}
+{{#if (eq this "discord")}}
+1. Create application at [Discord Developer Portal](https://discord.com/developers)
+2. Add bot token to config: `channels.discord.token`
+3. Invite bot to your server
+{{/if}}
+{{#if (eq this "slack")}}
+1. Create Slack app at [api.slack.com](https://api.slack.com/apps)
+2. Add tokens to config
+3. Install to workspace
+{{/if}}
+{{#if (eq this "terminal")}}
+No additional setup needed — use `moltbot chat` to interact.
+{{/if}}
+{{/each}}
+
+### 4. Configure External Services
+
+{{#if EXTERNAL_SERVICES}}
+Set up the following services:
+
+{{#each EXTERNAL_SERVICES}}
+- **{{name}}**: {{setup_instructions}}
+{{/each}}
+{{else}}
+No external services required.
+{{/if}}
+
+### 5. Customize Your Agent
+
+1. Edit `USER.md` with your information
+2. Review `SOUL.md` and adjust personality if needed
+3. Update `TOOLS.md` with any API credentials
+4. Optionally adjust `HEARTBEAT.md` for proactive behavior
+
+### 6. Start Moltbot
+
+```bash
+moltbot gateway start
+```
+
+## Testing
+
+```bash
+# Interactive chat
+moltbot chat --agent {{AGENT_NAME}}
+
+# Check status
+moltbot status
+```
+
+## Troubleshooting
+
+### Agent not responding
+- Check `moltbot status` for errors
+- Verify API key is set
+- Check channel configuration
+
+### Memory not persisting
+- Ensure workspace directory is writable
+- Check `memory/` directory exists
+
+### Tools not working
+- Verify credentials in `TOOLS.md`
+- Check tool permissions in config
+
+## Resources
+
+- [Moltbot Docs](https://docs.molt.bot)
+- [Discord Community](https://discord.gg/clawd)
+- [GitHub Issues](https://github.com/moltbot/moltbot/issues)

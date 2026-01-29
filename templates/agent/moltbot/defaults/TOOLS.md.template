@@ -1,0 +1,49 @@
+# TOOLS.md - Local Notes
+
+Skills define *how* tools work. This file is for *your* specifics.
+
+---
+
+## Available Tools
+
+{{#each TOOLS}}
+### {{name}}
+{{description}}
+
+{{#if config}}
+**Configuration:**
+```
+{{config}}
+```
+{{/if}}
+{{/each}}
+
+---
+
+## API Credentials
+
+{{#each EXTERNAL_SERVICES}}
+### {{name}}
+- **Purpose:** {{purpose}}
+- **Docs:** {{docs_url}}
+- **Setup:** {{setup_instructions}}
+
+```
+# Add to environment or config
+{{env_var}}=your_key_here
+```
+{{/each}}
+
+---
+
+## Paths
+
+- Your workspace: `{{WORKSPACE_PATH}}`
+- Memory files: `memory/YYYY-MM-DD.md`
+- Config: Check parent Moltbot config
+
+---
+
+## Notes
+
+Add whatever helps you do your job. This is your cheat sheet.

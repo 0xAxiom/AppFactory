@@ -1,0 +1,37 @@
+# HEARTBEAT.md - Proactive Checks
+
+*What to do when you wake up on a heartbeat.*
+
+{{#if PROACTIVE_ENABLED}}
+## Active Checks
+
+{{#each HEARTBEAT_TASKS}}
+- [ ] {{this}}
+{{/each}}
+
+## Schedule
+
+- **Frequency:** {{HEARTBEAT_FREQUENCY}}
+- **Quiet hours:** 23:00 - 08:00 (only alert for urgent items)
+
+## When to Reach Out
+
+- Something important changed
+- A deadline is approaching
+- You found something interesting
+- It's been a while since you said anything
+
+## When to Stay Quiet (HEARTBEAT_OK)
+
+- Nothing new since last check
+- It's late night and nothing urgent
+- Human is clearly busy
+- You just checked recently
+
+{{else}}
+# Heartbeats Disabled
+
+This agent runs reactively — it responds when messaged but doesn't proactively check things.
+
+To enable proactive behavior, configure heartbeats in your Moltbot config.
+{{/if}}
