@@ -11,7 +11,7 @@
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn, execSync } from 'node:child_process';
-import { existsSync, readFileSync, unlinkSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, unlinkSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -78,7 +78,7 @@ function cleanArtifacts(dir) {
     const filePath = join(dir, file);
     if (existsSync(filePath)) {
       try {
-        execSync(`rm -rf "${filePath}"`, { stdio: 'pipe' });
+        rmSync(filePath, { recursive: true, force: true });
       } catch {
         // Ignore errors
       }
@@ -653,7 +653,7 @@ describe('Solana Dependency Compatibility', () => {
       assert.ok(result.details.walletAdapterPackages.length > 0, 'Should list wallet adapter packages');
     } finally {
       // Cleanup
-      execSync(`rm -rf "${testDir}"`, { stdio: 'pipe' });
+      rmSync(testDir, { recursive: true, force: true });
     }
   });
 
@@ -679,7 +679,7 @@ describe('Solana Dependency Compatibility', () => {
       assert.equal(result.hasIssue, false, 'Should not detect incompatibility');
     } finally {
       // Cleanup
-      execSync(`rm -rf "${testDir}"`, { stdio: 'pipe' });
+      rmSync(testDir, { recursive: true, force: true });
     }
   });
 
@@ -704,7 +704,7 @@ describe('Solana Dependency Compatibility', () => {
       assert.equal(result.hasIssue, false, 'Should not detect incompatibility');
     } finally {
       // Cleanup
-      execSync(`rm -rf "${testDir}"`, { stdio: 'pipe' });
+      rmSync(testDir, { recursive: true, force: true });
     }
   });
 
@@ -741,7 +741,7 @@ describe('Solana Dependency Compatibility', () => {
       assert.equal(afterCheck.hasIssue, false, 'Should not detect incompatibility after fix');
     } finally {
       // Cleanup
-      execSync(`rm -rf "${testDir}"`, { stdio: 'pipe' });
+      rmSync(testDir, { recursive: true, force: true });
     }
   });
 });

@@ -2,6 +2,35 @@
 
 Welcome to App Factory! This guide will get you building in under 5 minutes.
 
+## First-Time Setup
+
+New to App Factory? Run the `/setup` command inside Claude to automatically check and configure your environment:
+
+```bash
+claude
+# Then type: /setup
+```
+
+This will:
+- Verify Node.js 18+, npm, Git, and Claude Code CLI are installed
+- Check all 6 pipeline directories are intact
+- Ensure npm dependencies are installed
+- Validate MCP server configuration
+- Create `.env` from `.env.example` if missing
+- Check optional tools (watchman, Xcode CLI tools)
+- Output a status report showing what's ready vs. what needs manual setup
+
+**After setup, you'll need to manually add:**
+- `ANTHROPIC_API_KEY` in your `.env` file ([get one here](https://console.anthropic.com/))
+- Pipeline-specific keys as needed (RevenueCat, WalletConnect, Alchemy, etc.)
+
+You can also run the setup validator directly:
+
+```bash
+./scripts/validate-setup.sh          # Colored terminal output
+./scripts/validate-setup.sh --json   # Machine-readable JSON (for CI)
+```
+
 ## Prerequisites
 
 Before you start, make sure you have:
@@ -9,7 +38,7 @@ Before you start, make sure you have:
 - **Node.js 18+** - Check with `node --version`
 - **Claude Code CLI** - Check with `claude --version`
 
-Run `./quickstart.sh check` to verify your setup.
+Run `./quickstart.sh check` or `./scripts/validate-setup.sh` to verify your setup.
 
 ## Quick Start (Interactive)
 

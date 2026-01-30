@@ -8,7 +8,8 @@ echo "🚀 Installing {{APP_NAME}} dependencies..."
 
 # Clean install
 echo "🧹 Cleaning previous install..."
-rm -rf node_modules package-lock.json
+if [ -d node_modules ]; then node -e "require('fs').rmSync('node_modules',{recursive:true,force:true})"; fi
+rm -f package-lock.json
 
 # Install core dependencies first
 echo "📦 Running npm install..."
@@ -43,7 +44,7 @@ npx tsc --noEmit --skipLibCheck || echo "⚠️ TypeScript check failed (non-blo
 
 # Test bundler
 echo "🎯 Testing Metro bundler..."
-timeout 30s npx expo start --non-interactive --clear || echo "⚠️ Metro test completed"
+node -e "const c=require('child_process').spawn('npx',['expo','start','--non-interactive','--clear'],{stdio:'inherit'});const t=setTimeout(()=>{c.kill();process.exit(0)},30000);c.on('close',()=>{clearTimeout(t)})" || echo "⚠️ Metro test completed"
 
 echo "✅ Installation and validation complete!"
 echo ""

@@ -111,7 +111,7 @@ run_npm_install() {
 
     # Run npm install with full output capture
     {
-        echo "=== npm install started at $(date -Iseconds) ==="
+        echo "=== npm install started at $(date '+%Y-%m-%dT%H:%M:%S%z') ==="
         echo "Directory: $app_dir"
         echo ""
         npm install 2>&1
@@ -150,7 +150,7 @@ run_expo_check() {
     cd "$app_dir"
 
     {
-        echo "=== expo install --check started at $(date -Iseconds) ==="
+        echo "=== expo install --check started at $(date '+%Y-%m-%dT%H:%M:%S%z') ==="
         npx expo install --check 2>&1
         local exit_code=$?
         echo ""
@@ -166,7 +166,7 @@ run_expo_check() {
         # Try to fix with expo install --fix
         {
             echo ""
-            echo "=== expo install --fix started at $(date -Iseconds) ==="
+            echo "=== expo install --fix started at $(date '+%Y-%m-%dT%H:%M:%S%z') ==="
             npx expo install --fix 2>&1
             echo "=== expo install --fix completed ==="
         } >> "$expo_check_log" 2>&1
@@ -174,7 +174,7 @@ run_expo_check() {
         # Re-check after fix
         {
             echo ""
-            echo "=== expo install --check (retry) started at $(date -Iseconds) ==="
+            echo "=== expo install --check (retry) started at $(date '+%Y-%m-%dT%H:%M:%S%z') ==="
             npx expo install --check 2>&1
             local retry_exit=$?
             echo "=== expo install --check (retry) completed with exit code $retry_exit ==="
@@ -206,7 +206,7 @@ run_expo_doctor() {
     cd "$app_dir"
 
     {
-        echo "=== expo-doctor started at $(date -Iseconds) ==="
+        echo "=== expo-doctor started at $(date '+%Y-%m-%dT%H:%M:%S%z') ==="
         npx expo-doctor 2>&1 || npx expo doctor 2>&1 || echo "expo-doctor not available"
         local exit_code=$?
         echo ""
@@ -231,7 +231,7 @@ run_expo_start_test() {
     kill_metro_on_port $METRO_PORT
 
     {
-        echo "=== expo start test started at $(date -Iseconds) ==="
+        echo "=== expo start test started at $(date '+%Y-%m-%dT%H:%M:%S%z') ==="
         echo "Port: $METRO_PORT"
         echo "Timeout: ${METRO_START_TIMEOUT}s"
         echo ""
@@ -271,7 +271,7 @@ run_expo_start_test() {
     # Capture final state
     {
         echo ""
-        echo "=== Checking final state at $(date -Iseconds) ==="
+        echo "=== Checking final state at $(date '+%Y-%m-%dT%H:%M:%S%z') ==="
         if $start_success; then
             echo "Metro bundler: RUNNING on port $METRO_PORT"
             echo "STATUS: PASSED"
@@ -348,7 +348,7 @@ generate_validation_summary() {
     # Write JSON summary
     cat > "$summary_file" << EOF
 {
-  "validatedAt": "$(date -Iseconds)",
+  "validatedAt": "$(date '+%Y-%m-%dT%H:%M:%S%z')",
   "appDirectory": "$app_dir",
   "overall": "$overall_status",
   "checks": {

@@ -30,7 +30,7 @@
     "deps:outdated": "npm outdated && cd CLI && npm outdated && cd ../dapp-factory && npm outdated",
     "maintain": "npm run lint && npm run type-check && npm run deps:check",
     "maintain:full": "npm run maintain && npm run deps:audit",
-    "clean": "rm -rf node_modules && cd CLI && rm -rf node_modules dist && cd ../dapp-factory && rm -rf node_modules dist",
+    "clean": "node -e \"const r=require('fs');['node_modules','CLI/node_modules','CLI/dist','dapp-factory/node_modules','dapp-factory/dist'].forEach(d=>{try{r.rmSync(d,{recursive:true,force:true})}catch{}})\"",
     "build:cli": "cd CLI && npm run build",
     "build:dapp": "cd dapp-factory && npm run build",
     "release": "standard-version",

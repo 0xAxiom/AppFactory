@@ -3,7 +3,7 @@
  * Uses SHA256 for all cryptographic hashing
  */
 
-import { createHash } from 'crypto';
+import { createHash, timingSafeEqual } from 'crypto';
 
 /**
  * Compute SHA256 hash of a string
@@ -117,6 +117,5 @@ export function timingSafeEqual(a: string, b: string): boolean {
   const bufB = Buffer.from(b, 'utf8');
 
   // Use crypto.timingSafeEqual for constant-time comparison
-  const { timingSafeEqual: tsEqual } = require('crypto');
-  return tsEqual(bufA, bufB);
+  return timingSafeEqual(bufA, bufB);
 }

@@ -512,8 +512,13 @@ export function killProcessTree(pid) {
 
   try {
     if (isWindows) {
-      // Windows: use taskkill with /T to kill tree
-      execSync(`taskkill /T /F /PID ${pid}`, { stdio: 'pipe' });
+      // Windows: attempt graceful kill first, then force
+      try {
+        execSync(`taskkill /T /PID ${pid}`, { stdio: 'pipe' });
+      } catch {
+        // Graceful kill failed (common for CLI processes), force kill
+        execSync(`taskkill /T /F /PID ${pid}`, { stdio: 'pipe' });
+      }
     } else {
       // Unix: kill process group
       try {

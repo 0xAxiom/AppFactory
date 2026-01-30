@@ -17,7 +17,7 @@ DOCTOR_EXIT_CODE=$?
 # Write results to file
 cat > expo-doctor-results.json << EOF
 {
-  "timestamp": "$(date -Iseconds)",
+  "timestamp": "$(date '+%Y-%m-%dT%H:%M:%S%z')",
   "exitCode": $DOCTOR_EXIT_CODE,
   "output": $(echo "$DOCTOR_OUTPUT" | jq -Rs .),
   "status": $([ $DOCTOR_EXIT_CODE -eq 0 ] && echo '"passed"' || echo '"failed"'),

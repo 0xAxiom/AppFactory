@@ -37,6 +37,19 @@ App Factory turns your ideas into real, working products. No coding experience r
 
 ---
 
+## First-Time Setup
+
+```bash
+claude
+# Then type: /setup
+```
+
+Or validate your environment manually: `./scripts/validate-setup.sh`
+
+See [QUICKSTART.md](./QUICKSTART.md) for full setup details.
+
+---
+
 ## Quick Start Commands
 
 ### For Mobile Apps

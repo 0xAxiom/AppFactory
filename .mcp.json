@@ -19,7 +19,7 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/Users/melted/Documents/GitHub/AppFactory"
+        "."
       ],
       "description": "Secure local file operations within AppFactory project directory only"
     },

@@ -3,7 +3,7 @@
  * Handles all communication with the Launchpad backend
  */
 
-import { createHmac } from 'crypto';
+import { createHmac, timingSafeEqual } from 'crypto';
 
 export interface LaunchpadConfig {
   apiUrl: string;
@@ -65,7 +65,6 @@ export function verifyWebhookSignature(
   const expectedBuf = Buffer.from(expected);
   const signatureBuf = Buffer.from(signature);
 
-  const { timingSafeEqual } = require('crypto');
   return timingSafeEqual(expectedBuf, signatureBuf);
 }
 

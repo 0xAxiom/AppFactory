@@ -224,7 +224,7 @@ const SKILL_DETECTORS = {
   'mcp-filesystem': async () => {
     // Filesystem is typically always available as a local MCP server
     return existsSync(join(process.cwd(), '.mcp.json')) ||
-           existsSync(join(process.env.HOME || '', '.config/claude-code/mcp-config.json'));
+           existsSync(join(process.env.HOME || process.env.USERPROFILE || '', '.config/claude-code/mcp-config.json'));
   }
 };
 
@@ -346,7 +346,7 @@ export async function detectHeavyDependency(skillName) {
         }
 
         // Check if browsers are installed
-        const browsersPath = join(process.env.HOME || '', '.cache/ms-playwright');
+        const browsersPath = join(process.env.HOME || process.env.USERPROFILE || '', '.cache/ms-playwright');
         const hasBrowsers = existsSync(browsersPath);
 
         return {
