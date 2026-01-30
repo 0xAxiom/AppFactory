@@ -119,7 +119,8 @@ claude
 
 ```
 Want a mobile app?     → Go to app-factory folder
-Want a dApp/website?   → Go to dapp-factory folder
+Want a website?        → Go to website-pipeline folder
+Want a dApp (Web3)?    → Go to dapp-factory folder
 Want an AI agent?      → Go to agent-factory folder
 Want a Claude plugin?  → Go to plugin-factory folder
 Want a Base Mini App?  → Go to miniapp-pipeline folder
@@ -128,7 +129,7 @@ Want a Base Mini App?  → Go to miniapp-pipeline folder
 ### Step 2: Open Claude and Describe Your Idea
 
 ```bash
-cd app-factory    # (or dapp-factory, or agent-factory)
+cd app-factory    # (or website-pipeline, dapp-factory, agent-factory, etc.)
 claude
 ```
 
@@ -558,7 +559,9 @@ Found a security issue? See [SECURITY.md](./SECURITY.md) for responsible disclos
 ### "npm install fails"
 
 ```bash
-npm install --legacy-peer-deps
+# Clear node_modules and retry
+node -e "require('fs').rmSync('node_modules',{recursive:true,force:true})"
+npm install
 ```
 
 ### "Port already in use"
