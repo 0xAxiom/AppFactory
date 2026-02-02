@@ -35,6 +35,11 @@ pipelines:
     entrypoint: scripts/run.mjs
     output_dir: builds
     description: Claude plugin pipeline (MCP servers, skills)
+  claw:
+    root: ../../claw-pipeline
+    entrypoint: scripts/run.mjs
+    output_dir: builds/claws
+    description: Custom Clawbot AI assistant pipeline with dual-chain token launch
 
 # Execution Settings
 execution:

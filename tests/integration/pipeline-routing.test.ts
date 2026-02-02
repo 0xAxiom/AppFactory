@@ -20,7 +20,8 @@ type PipelineId =
   | 'agent-factory'
   | 'plugin-factory'
   | 'miniapp-pipeline'
-  | 'website-pipeline';
+  | 'website-pipeline'
+  | 'claw-pipeline';
 
 /**
  * Routing result type
@@ -109,6 +110,18 @@ const PIPELINE_KEYWORDS: Record<PipelineId, string[]> = {
     'blog',
     'marketing site',
   ],
+  'claw-pipeline': [
+    'openclaw',
+    'claw',
+    'clawbot',
+    'whatsapp bot',
+    'telegram bot',
+    'discord bot',
+    'slack bot',
+    'personal assistant bot',
+    'ai assistant with integrations',
+    'moltbot',
+  ],
 };
 
 /**
@@ -121,6 +134,7 @@ const PIPELINE_EXCLUSIONS: Record<PipelineId, string[]> = {
   'plugin-factory': [],
   'miniapp-pipeline': ['native', 'full app'],
   'website-pipeline': ['app', 'mobile', 'dapp'],
+  'claw-pipeline': ['website', 'mobile', 'dapp', 'plugin'],
 };
 
 /**
@@ -135,6 +149,7 @@ function routeToPipeline(intent: string): RoutingResult {
     'plugin-factory': 0,
     'miniapp-pipeline': 0,
     'website-pipeline': 0,
+    'claw-pipeline': 0,
   };
 
   const matchedKeywords: string[] = [];
@@ -337,6 +352,43 @@ describe('Pipeline Routing', () => {
     });
   });
 
+  describe('Claw Routing', () => {
+    it('should route "openclaw" to claw-pipeline', () => {
+      const result = routeToPipeline('build an openclaw assistant');
+      expect(result.pipeline).toBe('claw-pipeline');
+    });
+
+    it('should route "clawbot" to claw-pipeline', () => {
+      const result = routeToPipeline('create a clawbot for customer support');
+      expect(result.pipeline).toBe('claw-pipeline');
+    });
+
+    it('should route "whatsapp bot" to claw-pipeline', () => {
+      const result = routeToPipeline('make a whatsapp bot for my business');
+      expect(result.pipeline).toBe('claw-pipeline');
+    });
+
+    it('should route "telegram bot" to claw-pipeline', () => {
+      const result = routeToPipeline('build a telegram bot assistant');
+      expect(result.pipeline).toBe('claw-pipeline');
+    });
+
+    it('should route "discord bot" to claw-pipeline', () => {
+      const result = routeToPipeline('create a discord bot for my server');
+      expect(result.pipeline).toBe('claw-pipeline');
+    });
+
+    it('should route "moltbot" to claw-pipeline', () => {
+      const result = routeToPipeline('build a moltbot agent');
+      expect(result.pipeline).toBe('claw-pipeline');
+    });
+
+    it('should route "personal assistant bot" to claw-pipeline', () => {
+      const result = routeToPipeline('make a personal assistant bot');
+      expect(result.pipeline).toBe('claw-pipeline');
+    });
+  });
+
   describe('Ambiguous Routing', () => {
     it('should detect ambiguous intent', () => {
       // "app" could be mobile or web
@@ -433,6 +485,11 @@ describe('Pipeline Existence Verification', () => {
 
   it('should find miniapp-pipeline directory', () => {
     const exists = pipelineExists('miniapp-pipeline', repoRoot);
+    expect(exists).toBe(true);
+  });
+
+  it('should find claw-pipeline directory', () => {
+    const exists = pipelineExists('claw-pipeline', repoRoot);
     expect(exists).toBe(true);
   });
 });

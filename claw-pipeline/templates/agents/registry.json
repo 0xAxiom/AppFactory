@@ -1,0 +1,28 @@
+{
+  "primaryAgent": {
+    "name": "{{BOT_NAME}}",
+    "role": "primary",
+    "model": "{{MODEL_PROVIDER}}",
+    "status": "active"
+  },
+  "subAgents": {
+    "scout": {
+      "role": "research",
+      "triggers": ["research", "find", "look up", "search"],
+      "status": "{{SCOUT_STATUS}}",
+      "capabilities": ["web_browsing", "api_queries", "data_lookup"]
+    },
+    "builder": {
+      "role": "creation",
+      "triggers": ["build", "create", "generate", "code"],
+      "status": "{{BUILDER_STATUS}}",
+      "capabilities": ["code_generation", "file_creation", "skill_building"]
+    },
+    "watcher": {
+      "role": "monitoring",
+      "triggers": ["watch", "monitor", "alert", "notify"],
+      "status": "{{WATCHER_STATUS}}",
+      "capabilities": ["price_watch", "event_monitoring", "scheduled_checks"]
+    }
+  }
+}

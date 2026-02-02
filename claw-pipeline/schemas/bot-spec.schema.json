@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OpenClaw Bot Specification",
+  "type": "object",
+  "required": ["name", "personality", "platforms", "skills", "modelProvider"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "description": "Bot name"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL-safe bot identifier"
+    },
+    "personality": {
+      "type": "object",
+      "required": ["traits", "communicationStyle"],
+      "properties": {
+        "traits": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "Personality trait keywords"
+        },
+        "communicationStyle": {
+          "type": "string",
+          "enum": ["formal", "casual", "technical", "friendly", "concise"],
+          "description": "Primary communication style"
+        },
+        "language": {
+          "type": "string",
+          "default": "en",
+          "description": "Primary language"
+        },
+        "customPreamble": {
+          "type": "string",
+          "description": "Custom system prompt preamble"
+        }
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["whatsapp", "telegram", "discord", "slack"]
+      },
+      "minItems": 1,
+      "description": "Enabled chat platforms"
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Enabled integration IDs"
+    },
+    "customSkills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "trigger"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "trigger": { "type": "string" }
+        }
+      },
+      "description": "User-defined custom skills"
+    },
+    "modelProvider": {
+      "type": "string",
+      "enum": ["claude", "openai", "local"],
+      "description": "AI model provider"
+    },
+    "memory": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable persistent memory"
+    },
+    "proactiveMode": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable proactive background tasks"
+    },
+    "cronJobs": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable scheduled cron jobs"
+    },
+    "tokenLaunch": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to launch a token"
+    }
+  }
+}

@@ -11,6 +11,7 @@ export default {
         'plugin-factory',
         'miniapp-pipeline',
         'website-pipeline',
+        'claw-pipeline',
         'cli',
         'core',
         'docs',

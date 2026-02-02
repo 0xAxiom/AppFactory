@@ -1,0 +1,27 @@
+{
+  "name": "claw-pipeline",
+  "version": "1.0.0",
+  "description": "Custom Clawbot AI assistant pipeline with dual-chain token launch (Solana/Base)",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/run.mjs",
+    "setup": "node scripts/configure.mjs",
+    "validate": "node scripts/validate-setup.mjs",
+    "launch-token": "node scripts/launch-token.mjs",
+    "generate-identity": "node scripts/generate-identity.mjs"
+  },
+  "keywords": [
+    "openclaw",
+    "clawbot",
+    "ai-assistant",
+    "token-launch",
+    "bags",
+    "clanker",
+    "solana",
+    "base"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

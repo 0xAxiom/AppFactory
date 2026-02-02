@@ -1,0 +1,18 @@
+{
+  "name": "{{TOKEN_NAME}}",
+  "symbol": "{{TOKEN_SYMBOL}}",
+  "description": "{{TOKEN_DESCRIPTION}}",
+  "image": "{{TOKEN_IMAGE}}",
+  "creatorWallet": "{{CREATOR_WALLET}}",
+  "partnerKey": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+  "feeClaimers": [
+    {
+      "wallet": "{{CREATOR_WALLET}}",
+      "bps": 7500
+    },
+    {
+      "wallet": "FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7",
+      "bps": 2500
+    }
+  ]
+}
