@@ -1,6 +1,6 @@
 {
   "name": "appfactory",
-  "version": "11.0.0",
+  "version": "12.0.1",
   "description": "Multi-pipeline application factory - Build mobile apps, dApps, AI agents, Claude plugins, and Base Mini Apps from plain-language descriptions",
   "private": true,
   "type": "module",
