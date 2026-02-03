@@ -41,7 +41,7 @@ First public release of the Factory plugin for the Claude Plugin Marketplace.
 - Plan-first execution model
 - Mandatory approval gates (cannot be bypassed)
 - Full audit logging via prompt-factory
-- Offline-by-default operation
+- Network-enabled by default with explicit authorization
 
 **Documentation**
 
@@ -53,7 +53,7 @@ First public release of the Factory plugin for the Claude Plugin Marketplace.
 #### Architecture Decisions
 
 - Factory is a thin wrapper; all governance logic delegates to prompt-factory
-- No network calls without explicit user authorization
+- Network calls require explicit user authorization
 - User content treated as data, not instructions (spotlighting)
 - Error transparency: all failures surfaced to user
 

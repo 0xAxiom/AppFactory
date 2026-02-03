@@ -19,7 +19,8 @@
  *     --timeout 60000 \
  *     [--skip-install] \
  *     [--skip-build] \
- *     [--open]
+ *     [--open] \
+ *     [--skip-http]
  */
 
 import { existsSync, mkdirSync, writeFileSync, readFileSync, unlinkSync } from 'fs';
@@ -38,7 +39,8 @@ function parseArgs(argv) {
     timeout: 60000,
     skipInstall: false,
     skipBuild: false,
-    open: false
+    open: false,
+    skipHttp: false
   };
 
   for (let i = 0; i < argv.length; i++) {
@@ -49,6 +51,7 @@ function parseArgs(argv) {
       case '--skip-install': args.skipInstall = true; break;
       case '--skip-build': args.skipBuild = true; break;
       case '--open': args.open = true; break;
+      case '--skip-http': args.skipHttp = true; break;
     }
   }
 
@@ -84,7 +87,7 @@ function checkForbiddenFlags(command) {
 
 // Main verification logic
 async function verify(args) {
-  const { cwd, port, timeout, skipInstall, skipBuild, open } = args;
+  const { cwd, port, timeout, skipInstall, skipBuild, open, skipHttp } = args;
 
   // Validate
   if (!cwd) {
@@ -124,7 +127,7 @@ async function verify(args) {
   const pm = detectPackageManager(cwd);
   log(`Package manager: ${pm}`);
 
-  const url = `http://localhost:${port}`;
+  const url = skipHttp ? null : `http://localhost:${port}`;
   let devHandle = null;
 
   try {
@@ -162,38 +165,44 @@ async function verify(args) {
       log('Step 2: Skipped (--skip-build)');
     }
 
-    // Step 3: Start dev server
-    log('Step 3: Starting dev server...');
-    const devLogFile = join(logDir, 'devserver.log');
+    let result = { ok: true, attempts: 0 };
 
-    devHandle = startProcess({
-      command: pm,
-      args: ['run', 'dev'],
-      cwd,
-      logFile: devLogFile,
-      env: { PORT: port.toString() }
-    });
+    if (!skipHttp) {
+      // Step 3: Start dev server
+      log('Step 3: Starting dev server...');
+      const devLogFile = join(logDir, 'devserver.log');
 
-    log(`Dev server started (PID: ${devHandle.pid})`);
+      devHandle = startProcess({
+        command: pm,
+        args: ['run', 'dev'],
+        cwd,
+        logFile: devLogFile,
+        env: { PORT: port.toString() }
+      });
 
-    // Step 4: Wait for HTTP 200
-    log(`Step 4: Waiting for ${url} to return HTTP 200...`);
+      log(`Dev server started (PID: ${devHandle.pid})`);
 
-    const result = await waitForReady({
-      url,
-      processHandle: devHandle,
-      timeout,
-      interval: 1000,
-      onProgress: ({ type, attempts, status, error }) => {
-        if (type === 'poll' && attempts % 5 === 0) {
-          log(`Still waiting... (attempt ${attempts})`);
+      // Step 4: Wait for HTTP 200
+      log(`Step 4: Waiting for ${url} to return HTTP 200...`);
+
+      result = await waitForReady({
+        url,
+        processHandle: devHandle,
+        timeout,
+        interval: 1000,
+        onProgress: ({ type, attempts, status, error }) => {
+          if (type === 'poll' && attempts % 5 === 0) {
+            log(`Still waiting... (attempt ${attempts})`);
+          }
         }
-      }
-    });
+      });
 
-    // Step 5: Clean up and write result
-    log('Step 5: Shutting down dev server...');
-    await killProcess(devHandle, 2000);
+      // Step 5: Clean up and write result
+      log('Step 5: Shutting down dev server...');
+      await killProcess(devHandle, 2000);
+    } else {
+      log('Step 3: Skipped HTTP verification (--skip-http)');
+    }
 
     if (result.ok) {
       // SUCCESS
@@ -204,17 +213,19 @@ async function verify(args) {
         url,
         port,
         attempts: result.attempts,
-        logFile: devLogFile
+        logFile
       };
       writeFileSync(certPath, JSON.stringify(cert, null, 2));
 
       log('=== LOCAL RUN PROOF: PASS ===');
       console.log(`\nRUN_CERTIFICATE: ${certPath}`);
       console.log(`Project: ${cwd}`);
-      console.log(`URL: ${url}`);
+      if (url) {
+        console.log(`URL: ${url}`);
+      }
 
       // Open browser if requested
-      if (open) {
+      if (open && url) {
         log('Opening browser...');
         const { opened, error } = await openBrowser(url);
         if (!opened) {

@@ -48,15 +48,15 @@ Pipelines write only to their designated output directories:
 
 **Enforced by**: Directory validation before writes.
 
-### 4. Offline by Default
+### 4. Network-Enabled with Explicit Authorization
 
-No network calls occur without explicit authorization. The system does not:
+Network access is available, but no network calls occur without explicit authorization. The system does not:
 
-- Phone home
-- Fetch remote dependencies during generation
-- Call external APIs
+- Phone home without approval
+- Fetch remote dependencies during generation unless authorized
+- Call external APIs without explicit consent
 
-**Enforced by**: Network blocking unless explicitly enabled.
+**Enforced by**: Authorization gates before any network-capable action.
 
 ### 5. No Telemetry
 
@@ -144,7 +144,7 @@ EXECUTION PLAN REQUIRES APPROVAL
 
 Pipeline: app
 Creates:  ./app-factory/builds/meditation-app/
-Network:  None (offline mode)
+Network:  Available (requires explicit authorization)
 Files:    ~45 files
 
 Type 'approve' to proceed, 'reject' to cancel:

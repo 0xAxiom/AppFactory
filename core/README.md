@@ -9,6 +9,7 @@ This package provides common functionality shared across all AppFactory pipeline
 - **Types** - Common TypeScript interfaces for pipelines, phases, and results
 - **Ralph** - Reusable QA engine for quality assurance
 - **Utils** - Logger, file system helpers, and hashing utilities
+- **Run Utilities** - Shared helpers for pipeline entrypoints (audit logging, proof gating, template scaffolding)
 - **Config** - Configuration loading and validation
 
 ## Installation

@@ -16,11 +16,19 @@ import { execSync } from 'child_process';
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import {
+  checkRunCertificate,
+  copyTemplate,
+  ensureDir,
+  runLocalProof,
+  writeAuditEvent
+} from '../../core/scripts/run-utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PIPELINE_ROOT = resolve(__dirname, '..');
 const REPO_ROOT = resolve(PIPELINE_ROOT, '..');
 const BUILDS_DIR = join(PIPELINE_ROOT, 'outputs');
+const TEMPLATE_ROOT = join(REPO_ROOT, 'templates', 'agent');
 
 // Shared libraries
 const LIB_DIR = join(__dirname, 'lib');
@@ -84,47 +92,7 @@ function setPhase(index, status) {
   phases[index].status = status;
 }
 
-// Validate RUN_CERTIFICATE.json exists with PASS status
-function checkRunCertificate(projectPath) {
-  const certPath = join(projectPath, '.appfactory', 'RUN_CERTIFICATE.json');
-  const failPath = join(projectPath, '.appfactory', 'RUN_FAILURE.json');
-
-  // Check for failure first
-  if (existsSync(failPath)) {
-    try {
-      const failure = JSON.parse(readFileSync(failPath, 'utf-8'));
-      console.error(`\n${RED}${BOLD}BUILD VERIFICATION FAILED${RESET}\n`);
-      console.error(`${RED}Error: ${failure.error}${RESET}\n`);
-      console.error(`See details: ${failPath}\n`);
-      return false;
-    } catch (err) {
-      console.error(`\n${RED}RUN_FAILURE.json exists but could not be read${RESET}\n`);
-      return false;
-    }
-  }
-
-  // Check for certificate
-  if (!existsSync(certPath)) {
-    console.error(`\n${RED}${BOLD}NO RUN CERTIFICATE FOUND${RESET}\n`);
-    console.error(`${RED}Verification did not produce a valid RUN_CERTIFICATE.json${RESET}\n`);
-    console.error(`Expected: ${certPath}\n`);
-    return false;
-  }
-
-  // Validate certificate has PASS status
-  try {
-    const cert = JSON.parse(readFileSync(certPath, 'utf-8'));
-    if (cert.status !== 'PASS') {
-      console.error(`\n${RED}${BOLD}VERIFICATION FAILED${RESET}\n`);
-      console.error(`${RED}Certificate status: ${cert.status}${RESET}\n`);
-      return false;
-    }
-    return true;
-  } catch (err) {
-    console.error(`\n${RED}RUN_CERTIFICATE.json exists but could not be parsed${RESET}\n`);
-    return false;
-  }
-}
+// (Run certificate validation uses shared core helper)
 
 // Readline helper
 function ask(question, options = null) {
@@ -200,6 +168,25 @@ function scaffoldProject(slug) {
 
   const projectPath = join(BUILDS_DIR, slug);
   console.log(`Creating: ${projectPath}\n`);
+
+  const templateByType = {
+    http: 'api-integration',
+    cli: 'api-integration'
+  };
+
+  const templateName = templateByType[state.agentType?.value] || 'api-integration';
+  const templateDir = join(TEMPLATE_ROOT, templateName);
+
+  if (copyTemplate({ templateDir, targetDir: projectPath })) {
+    ensureDir(join(projectPath, '.appfactory'));
+    writeFileSync(
+      join(projectPath, '.appfactory', 'template.json'),
+      JSON.stringify({ template: `templates/agent/${templateName}` }, null, 2)
+    );
+    console.log(`${GREEN}Template scaffold complete (${templateName})${RESET}\n`);
+    setPhase(1, 'complete');
+    return projectPath;
+  }
 
   // Create directory structure
   mkdirSync(join(projectPath, 'src'), { recursive: true });
@@ -391,8 +378,13 @@ async function verifyProject(projectPath, port) {
   try {
     // Use 'start' script for agent (not 'dev' which may not exist in package.json)
     // Override the dev command expectation by using the proof script directly
-    execSync(`node "${proofScript}" --cwd "${projectPath}" --port ${port} --skip-build --skip-install`, {
-      stdio: 'inherit'
+    runLocalProof({
+      proofScript,
+      projectPath,
+      port,
+      skipBuild: true,
+      skipInstall: true,
+      open: false
     });
     setPhase(3, 'complete');
     return true;
@@ -514,33 +506,83 @@ async function main() {
 
   // Phase 2: Scaffold
   const projectPath = scaffoldProject(slug);
+  writeAuditEvent({
+    projectPath,
+    pipeline: 'agent-factory',
+    phase: 'scaffold',
+    status: 'complete',
+    message: 'Project scaffolded'
+  });
 
   // Phase 3: Install
   const installed = installDeps(projectPath);
   if (!installed) {
+    writeAuditEvent({
+      projectPath,
+      pipeline: 'agent-factory',
+      phase: 'install',
+      status: 'failed',
+      message: 'Dependency install failed'
+    });
     console.error(`\n${RED}Pipeline failed at install phase${RESET}`);
     process.exit(1);
   }
+  writeAuditEvent({
+    projectPath,
+    pipeline: 'agent-factory',
+    phase: 'install',
+    status: 'complete',
+    message: 'Dependencies installed'
+  });
 
   // Phase 4: Verify
   const verified = await verifyProject(projectPath, config.port);
   if (!verified) {
+    writeAuditEvent({
+      projectPath,
+      pipeline: 'agent-factory',
+      phase: 'verify',
+      status: 'failed',
+      message: 'Verification failed'
+    });
     console.error(`\n${RED}Pipeline failed at verification phase${RESET}`);
     console.log(`\nCheck logs at: ${projectPath}/.appfactory/logs/`);
     process.exit(1);
   }
+  writeAuditEvent({
+    projectPath,
+    pipeline: 'agent-factory',
+    phase: 'verify',
+    status: 'complete',
+    message: 'Verification passed'
+  });
 
   // Phase 4.5: Optional Skills Audits (non-blocking)
   await runSkillsAudits(projectPath);
 
   // Phase 5: Check for RUN_CERTIFICATE.json with PASS status
-  const certified = checkRunCertificate(projectPath);
-  if (!certified) {
+  const certificate = checkRunCertificate(projectPath);
+  if (!certificate.ok) {
+    writeAuditEvent({
+      projectPath,
+      pipeline: 'agent-factory',
+      phase: 'cert',
+      status: 'failed',
+      message: certificate.error,
+      data: { path: certificate.path }
+    });
     console.error(`\n${RED}Pipeline failed: No valid RUN_CERTIFICATE.json${RESET}`);
     console.log(`\nThis build has NOT passed the Local Run Proof Gate.`);
     console.log(`Fix the issues above and re-run verification.\n`);
     process.exit(1);
   }
+  writeAuditEvent({
+    projectPath,
+    pipeline: 'agent-factory',
+    phase: 'cert',
+    status: 'complete',
+    message: 'RUN_CERTIFICATE.json verified'
+  });
 
   // Phase 6: Launch card (only shown if certificate exists with PASS)
   showLaunchCard(projectPath, config.port);

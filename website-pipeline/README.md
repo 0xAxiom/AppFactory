@@ -2,7 +2,7 @@
 
 **Static Website Pipeline** | Part of [App Factory](../README.md)
 
-Build production-ready, SEO-optimized websites from plain-language descriptions. Includes mandatory skills audits and Playwright E2E testing.
+Build production-ready, SEO-optimized websites from plain-language descriptions. Includes skills audits and Playwright E2E testing when available.
 
 ---
 
@@ -36,8 +36,8 @@ Claude will:
 2. **Research the market** - Competitor analysis, positioning
 3. **Plan architecture** - Sitemap, content model, navigation
 4. **Build everything** - Complete Next.js implementation
-5. **Run skills audits** - Mandatory performance + accessibility checks
-6. **Run Ralph QA** - 20-pass polish loop until completion promise
+5. **Run skills audits** - Performance + accessibility checks when available
+6. **Run Ralph QA** - Optional 20-pass polish loop until completion promise
 
 **Output:** A production-ready website in `website-builds/<site-slug>/`
 
@@ -48,8 +48,8 @@ Claude will:
 Your build is complete when:
 
 1. **Code runs**: `npm install && npm run dev` works
-2. **Skills audit passes**: react-best-practices (95%), web-design-guidelines (90%)
-3. **Ralph completes**: COMPLETION_PROMISE written
+2. **Skills audit passes** (if available): react-best-practices (95%), web-design-guidelines (90%)
+3. **Ralph completes** (if enabled): COMPLETION_PROMISE written
 4. **All artifacts exist**: research/, planning/, audits/
 
 Claude won't stop until all of this is done.
@@ -189,8 +189,8 @@ vercel deploy
 
 When available, websites can be enhanced with additional quality audits:
 
-| Skill                 | Threshold | What It Checks                                     | Availability       |
-| --------------------- | --------- | -------------------------------------------------- | ------------------ |
+| Skill                 | Threshold | What It Checks                                     | Availability         |
+| --------------------- | --------- | -------------------------------------------------- | -------------------- |
 | react-best-practices  | 95%       | Server Components, no barrel imports, proper hooks | @vercel/agent-skills |
 | web-design-guidelines | 90%       | Accessibility, responsive design, Core Web Vitals  | @vercel/agent-skills |
 

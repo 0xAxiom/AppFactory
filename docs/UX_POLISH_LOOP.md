@@ -57,8 +57,8 @@ This is not a formality. The promise requires:
 
 | Pipeline             | Playwright | Notes                                         |
 | -------------------- | ---------- | --------------------------------------------- |
-| **website-pipeline** | REQUIRED   | Next.js websites                              |
-| **dapp-factory**     | REQUIRED   | Next.js dApps                                 |
+| **website-pipeline** | OPTIONAL   | Next.js websites (when configured)            |
+| **dapp-factory**     | OPTIONAL   | Next.js dApps (when configured)               |
 | **app-factory**      | OPTIONAL   | Mobile-first; Playwright for web exports only |
 | **agent-factory**    | NO         | HTTP API, no UI                               |
 | **plugin-factory**   | NO         | CLI/API based                                 |

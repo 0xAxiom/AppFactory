@@ -42,16 +42,16 @@ These are behavioral guarantees that cannot be bypassed by configuration, comman
 
 ---
 
-## 4. Offline by Default
+## 4. Network-Enabled with Explicit Authorization
 
-**Guarantee:** Factory makes no network calls.
+**Guarantee:** Network access is available, but never used without explicit user authorization.
 
 **What this means:**
 
-- All operations are fully local
-- Templates are read from your local repository
-- URLs in output are references only—not fetched
-- No external connections are made
+- Network-capable tools remain gated behind approval
+- Templates are read locally unless a user approves external fetches
+- URLs in output are references only—not fetched automatically
+- No background or implicit network activity
 
 ---
 

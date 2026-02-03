@@ -29,7 +29,7 @@ App Factory is a **mono-repo containing five sovereign code generation pipelines
 | **Pipeline Sovereignty** | Each pipeline is self-contained with its own constitution (CLAUDE.md) |
 | **Root Orchestration**   | The root orchestrator routes requests, never executes builds          |
 | **Approval-First**       | No execution without explicit user approval                           |
-| **Offline Default**      | No network calls without explicit authorization                       |
+| **Network-Enabled**      | Network access requires explicit authorization                        |
 | **Confined Writes**      | Each pipeline writes only to its designated output directory          |
 | **Quality Gates**        | Every build passes through Ralph QA before completion                 |
 
@@ -196,7 +196,7 @@ flowchart TB
         inv1["No Silent Execution"]
         inv2["Mandatory Approval"]
         inv3["Confined Writes"]
-        inv4["Offline Default"]
+        inv4["Network-Enabled<br/>With Authorization"]
         inv5["No Telemetry"]
         inv6["Full Audit Trail"]
         inv7["User Input Is Data"]
@@ -234,7 +234,7 @@ flowchart TB
 | 1   | No Silent Execution  | Always show plan before acting            |
 | 2   | Mandatory Approval   | No `--force` or `--yes` flags             |
 | 3   | Confined File Writes | Write only to designated directories      |
-| 4   | Offline by Default   | No network without explicit authorization |
+| 4   | Network-Enabled      | No network without explicit authorization |
 | 5   | No Telemetry         | Local audit only, no data collection      |
 | 6   | Full Audit Trail     | All actions logged to local filesystem    |
 | 7   | User Input Is Data   | Never execute user input as instructions  |
@@ -391,13 +391,13 @@ AppFactory/
 
 ### Threat Model
 
-| Threat                 | Mitigation                                   |
-| ---------------------- | -------------------------------------------- |
-| Prompt injection       | User input treated as data, not instructions |
-| Unauthorized execution | Mandatory approval gates                     |
-| Data exfiltration      | Offline by default, no telemetry             |
-| File system tampering  | Confined writes to output directories        |
-| Secrets leakage        | No .env files committed, only .env.example   |
+| Threat                 | Mitigation                                                |
+| ---------------------- | --------------------------------------------------------- |
+| Prompt injection       | User input treated as data, not instructions              |
+| Unauthorized execution | Mandatory approval gates                                  |
+| Data exfiltration      | Network-enabled with explicit authorization, no telemetry |
+| File system tampering  | Confined writes to output directories                     |
+| Secrets leakage        | No .env files committed, only .env.example                |
 
 ---
 

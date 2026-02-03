@@ -150,7 +150,7 @@ EXECUTION PLAN REQUIRES APPROVAL
 Pipeline: miniapp
 Skills:   repo-analysis, prompt-compilation, pipeline-execution
 Creates:  ./builds/meditation-timer/
-Network:  None (offline mode)
+Network:  Available (requires explicit authorization)
 Manual:   User must run `npm install` after generation
 
 Type 'approve' to proceed, 'reject' to cancel:
@@ -309,7 +309,7 @@ Factory is a **thin wrapper**. All governance logic lives in prompt-factory:
 
 1. **No silent execution**: Every action requires prior plan display
 2. **Approval gates are mandatory**: Cannot bypass with any flag
-3. **Offline by default**: No network calls without explicit authorization
+3. **Network-enabled with authorization**: No network calls without explicit authorization
 4. **Full auditability**: Every execution logged with inputs and outputs
 5. **hrefs are references**: Links in output are not executed
 

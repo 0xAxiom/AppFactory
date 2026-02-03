@@ -16,6 +16,11 @@ import { execSync } from 'child_process';
 import { existsSync, mkdirSync, writeFileSync, readFileSync, cpSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import {
+  checkRunCertificate,
+  runLocalProof,
+  writeAuditEvent
+} from '../../core/scripts/run-utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PIPELINE_ROOT = resolve(__dirname, '..');
@@ -555,6 +560,13 @@ async function main() {
   console.log(`  ${GREEN}✓${RESET} README.md created`);
 
   setPhase(5, 'complete');
+  writeAuditEvent({
+    projectPath: buildDir,
+    pipeline: 'claw-pipeline',
+    phase: 'scaffold',
+    status: 'complete',
+    message: 'Workspace scaffolded'
+  });
 
   // ─── C6: VERIFY ───
   setPhase(6, 'active');
@@ -586,6 +598,58 @@ async function main() {
       console.log(`  ${GREEN}✓ All required files present${RESET}`);
     }
     setPhase(6, 'complete');
+  }
+
+  // Local Run Proof (non-HTTP verification)
+  const proofScript = join(LIB_DIR, 'local-run-proof.mjs');
+  if (existsSync(proofScript)) {
+    try {
+      runLocalProof({
+        proofScript,
+        projectPath: buildDir,
+        port: 0,
+        skipBuild: true,
+        skipInstall: true,
+        open: false,
+        extraArgs: ['--skip-http']
+      });
+      writeAuditEvent({
+        projectPath: buildDir,
+        pipeline: 'claw-pipeline',
+        phase: 'verify',
+        status: 'complete',
+        message: 'Local run proof completed'
+      });
+    } catch (err) {
+      console.log(`\n${YELLOW}  Local run proof failed. Continuing...${RESET}`);
+      writeAuditEvent({
+        projectPath: buildDir,
+        pipeline: 'claw-pipeline',
+        phase: 'verify',
+        status: 'failed',
+        message: 'Local run proof failed'
+      });
+    }
+  }
+
+  const certificate = checkRunCertificate(buildDir);
+  if (!certificate.ok) {
+    writeAuditEvent({
+      projectPath: buildDir,
+      pipeline: 'claw-pipeline',
+      phase: 'cert',
+      status: 'failed',
+      message: certificate.error,
+      data: { path: certificate.path }
+    });
+  } else {
+    writeAuditEvent({
+      projectPath: buildDir,
+      pipeline: 'claw-pipeline',
+      phase: 'cert',
+      status: 'complete',
+      message: 'RUN_CERTIFICATE.json verified'
+    });
   }
 
   // ─── C7: RALPH QA ───

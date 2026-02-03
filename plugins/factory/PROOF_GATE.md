@@ -15,14 +15,14 @@ Steps to verify that the Factory plugin is correctly installed and functioning.
 
 Quick verification that the plugin meets marketplace expectations:
 
-| Requirement            | How to Verify                                         | Status |
-| ---------------------- | ----------------------------------------------------- | ------ |
-| Help works             | Run `/factory help` — displays commands               | ☐      |
-| Plan requires approval | Run `/factory run miniapp test` — blocks for approval | ☐      |
-| Audit log exists       | Run `/factory audit` — shows history                  | ☐      |
-| No network by default  | Check `config.default.yaml` — `offline.enabled: true` | ☐      |
-| Writes confined        | Check `config.default.yaml` — `output_base: ./builds` | ☐      |
-| No telemetry           | No external connections, no usage reporting           | ☐      |
+| Requirement             | How to Verify                                          | Status |
+| ----------------------- | ------------------------------------------------------ | ------ |
+| Help works              | Run `/factory help` — displays commands                | ☐      |
+| Plan requires approval  | Run `/factory run miniapp test` — blocks for approval  | ☐      |
+| Audit log exists        | Run `/factory audit` — shows history                   | ☐      |
+| Network-enabled default | Check `config.default.yaml` — `offline.enabled: false` | ☐      |
+| Writes confined         | Check `config.default.yaml` — `output_base: ./builds`  | ☐      |
+| No telemetry            | No external connections, no usage reporting            | ☐      |
 
 ---
 

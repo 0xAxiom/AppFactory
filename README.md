@@ -26,14 +26,15 @@ App Factory turns your ideas into real, working products. No coding experience r
 
 ## What Can I Build?
 
-| I want to make...        | Use this                                 | What you get                                    |
-| ------------------------ | ---------------------------------------- | ----------------------------------------------- |
-| A **mobile app**         | [app-factory/](./app-factory/)           | iPhone & Android app ready for the App Store    |
-| A **website**            | [website-pipeline/](./website-pipeline/) | Portfolio, blog, or marketing website           |
-| A **dApp**               | [dapp-factory/](./dapp-factory/)         | Web3 app with blockchain integration            |
-| An **AI agent**          | [agent-factory/](./agent-factory/)       | Smart bot with tools (Rig-aligned architecture) |
-| A **Claude plugin**      | [plugin-factory/](./plugin-factory/)     | Extension for Claude Code or Claude Desktop     |
-| A **Base Mini App**      | [miniapp-pipeline/](./miniapp-pipeline/) | Mini app for the Base app (MiniKit + Next.js)   |
+| I want to make...       | Use this                                 | What you get                                    |
+| ----------------------- | ---------------------------------------- | ----------------------------------------------- |
+| A **mobile app**        | [app-factory/](./app-factory/)           | iPhone & Android app ready for the App Store    |
+| A **website**           | [website-pipeline/](./website-pipeline/) | Portfolio, blog, or marketing website           |
+| A **dApp**              | [dapp-factory/](./dapp-factory/)         | Web3 app with blockchain integration            |
+| An **AI agent**         | [agent-factory/](./agent-factory/)       | Smart bot with tools (Rig-aligned architecture) |
+| A **Claude plugin**     | [plugin-factory/](./plugin-factory/)     | Extension for Claude Code or Claude Desktop     |
+| A **Base Mini App**     | [miniapp-pipeline/](./miniapp-pipeline/) | Mini app for the Base app (MiniKit + Next.js)   |
+| A **Clawbot assistant** | [claw-pipeline/](./claw-pipeline/)       | Custom AI assistant (OpenClaw)                  |
 
 ---
 
@@ -91,6 +92,15 @@ claude
 # Test: curl http://localhost:8080/health
 ```
 
+### For Clawbot Assistants
+
+```bash
+cd claw-pipeline
+claude
+# Type your assistant idea
+# When done: cd builds/claws/<your-assistant> && npm install && npm start
+```
+
 ### For Claude Plugins
 
 ```bash
@@ -122,6 +132,7 @@ Want a mobile app?     → Go to app-factory folder
 Want a website?        → Go to website-pipeline folder
 Want a dApp (Web3)?    → Go to dapp-factory folder
 Want an AI agent?      → Go to agent-factory folder
+Want a Clawbot?        → Go to claw-pipeline folder
 Want a Claude plugin?  → Go to plugin-factory folder
 Want a Base Mini App?  → Go to miniapp-pipeline folder
 ```
@@ -195,7 +206,7 @@ If something's wrong, the AI fixes it automatically. You only see the final, wor
 
 ## UX Polish Loop (Playwright E2E)
 
-UI-generating pipelines (websites, dApps) include automated **Playwright E2E testing** for extra quality assurance.
+UI-generating pipelines (websites, dApps) support automated **Playwright E2E testing** when configured for extra quality assurance.
 
 ### What's Included
 
@@ -221,8 +232,8 @@ The loop continues until a "completion promise" is earned - proof that all accep
 
 | Pipeline         | Playwright                  |
 | ---------------- | --------------------------- |
-| website-pipeline | Required                    |
-| dapp-factory     | Required                    |
+| website-pipeline | Optional (when configured)  |
+| dapp-factory     | Optional (when configured)  |
 | miniapp-pipeline | Optional (for verification) |
 | app-factory      | Optional (for web exports)  |
 | agent-factory    | Not needed (HTTP API)       |
@@ -382,6 +393,7 @@ AppFactory/
 ├── agent-factory/     # AI agent builder (Rig-aligned)
 ├── plugin-factory/    # Claude plugin builder
 ├── miniapp-pipeline/  # Base Mini App builder (MiniKit + Next.js)
+├── claw-pipeline/     # Clawbot assistant builder (OpenClaw)
 ├── website-pipeline/  # Static website builder
 ├── plugins/factory/   # /factory command plugin
 ├── CLI/               # Standalone CLI tool
@@ -405,7 +417,7 @@ Each folder is independent. Just pick one and start building.
 
 **Factory** is the official Claude plugin for AppFactory.
 It provides a governed command interface for planning pipelines, running builds, and performing adversarial QA inside this repository.
-Factory requires explicit user approval before execution, operates offline by default, writes files only to designated output directories, and collects no telemetry.
+Factory requires explicit user approval before execution, is network-enabled by default with explicit authorization gates, writes files only to designated output directories, and collects no telemetry.
 It is designed for AppFactory contributors and is not intended to operate as a standalone plugin.
 
 See [`plugins/factory/`](./plugins/factory/) for documentation.

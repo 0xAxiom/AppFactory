@@ -16,7 +16,7 @@ Factory is designed with explicit consent and minimal permissions:
 
 - **No background execution** — Only runs when you invoke a command
 - **No silent actions** — Always shows a plan before doing anything
-- **No network calls** — Offline by default; no external connections
+- **Network calls require authorization** — Network-enabled by default, but nothing runs without explicit approval
 - **No telemetry** — Does not collect, transmit, or report any data
 - **No writes outside scope** — All generated files go to `./builds/` only
 - **No approval bypass** — There is no `--force` or `--yes` flag
@@ -90,7 +90,7 @@ Runs 3 rounds of code review and produces a verdict file.
 
 Pipeline paths are defined in `config.default.yaml`. Default settings:
 
-- Offline mode enabled (no network calls)
+- Network-enabled by default (still requires explicit authorization)
 - Approval required for all executions
 - Output confined to `./builds/` directory
 
@@ -102,7 +102,7 @@ See [INVARIANTS.md](./INVARIANTS.md) for the non-negotiable constraints:
 - Mandatory approval gates
 - Confined file writes (`./builds/` only)
 - Full audit logging
-- Offline by default
+- Network-enabled by default
 
 ## Verification
 

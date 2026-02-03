@@ -84,7 +84,7 @@ Generate a structured execution plan by analyzing:
 
 ### Network Actions
 
-None (offline mode)
+Available (requires explicit authorization)
 
 ### Manual Steps After Completion
 

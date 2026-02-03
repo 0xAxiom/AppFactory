@@ -74,6 +74,6 @@ audit:
 
 # Network Settings
 offline:
-  # Factory operates offline by default.
-  # No network calls are made without explicit user authorization.
-  enabled: true
+  # Factory is network-enabled by default.
+  # Network calls still require explicit user authorization.
+  enabled: false
