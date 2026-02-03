@@ -507,7 +507,7 @@ export function printCapabilityReport(skills, options = {}) {
 
   const GREEN = colors ? '\x1b[32m' : '';
   const YELLOW = colors ? '\x1b[33m' : '';
-  const RED = colors ? '\x1b[31m' : '';
+  const _RED = colors ? '\x1b[31m' : '';
   const BLUE = colors ? '\x1b[34m' : '';
   const RESET = colors ? '\x1b[0m' : '';
   const DIM = colors ? '\x1b[2m' : '';

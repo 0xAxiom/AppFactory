@@ -23,7 +23,7 @@
  *     [--skip-http]
  */
 
-import { existsSync, mkdirSync, writeFileSync, readFileSync, unlinkSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, unlinkSync } from 'fs';
 import { join, resolve, dirname } from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
@@ -190,7 +190,7 @@ async function verify(args) {
         processHandle: devHandle,
         timeout,
         interval: 1000,
-        onProgress: ({ type, attempts, status, error }) => {
+        onProgress: ({ type, attempts, _status, _error }) => {
           if (type === 'poll' && attempts % 5 === 0) {
             log(`Still waiting... (attempt ${attempts})`);
           }

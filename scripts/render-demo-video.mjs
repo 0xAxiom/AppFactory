@@ -24,7 +24,7 @@
  */
 
 import { spawn } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync, mkdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, mkdirSync, statSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';

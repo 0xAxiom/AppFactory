@@ -13,7 +13,7 @@
 
 import { createInterface } from 'readline';
 import { execSync } from 'child_process';
-import { existsSync, mkdirSync, writeFileSync, readFileSync, cpSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import {
@@ -24,7 +24,7 @@ import {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PIPELINE_ROOT = resolve(__dirname, '..');
-const REPO_ROOT = resolve(PIPELINE_ROOT, '..');
+const _REPO_ROOT = resolve(PIPELINE_ROOT, '..');
 const BUILDS_DIR = join(PIPELINE_ROOT, 'builds', 'claws');
 
 // Shared libraries
@@ -123,9 +123,9 @@ function ask(question) {
 // Detect available capabilities
 async function detectCapabilities() {
   const caps = { node: false, npm: false, git: false };
-  try { execSync('node --version', { stdio: 'pipe' }); caps.node = true; } catch {}
-  try { execSync('npm --version', { stdio: 'pipe' }); caps.npm = true; } catch {}
-  try { execSync('git --version', { stdio: 'pipe' }); caps.git = true; } catch {}
+  try { execSync('node --version', { stdio: 'pipe' }); caps.node = true; } catch { /* ignore */ }
+  try { execSync('npm --version', { stdio: 'pipe' }); caps.npm = true; } catch { /* ignore */ }
+  try { execSync('git --version', { stdio: 'pipe' }); caps.git = true; } catch { /* ignore */ }
   return caps;
 }
 
@@ -369,7 +369,7 @@ async function main() {
             console.log(`\n${GREEN}  ✓ Token launched: ${receipt.tokenAddress}${RESET}`);
             console.log(`${DIM}  Explorer: ${receipt.explorerUrl}${RESET}`);
           }
-        } catch (err) {
+        } catch (_err) {
           console.log(`\n${RED}  ✗ Token launch failed: ${err.message}${RESET}`);
           console.log(`${YELLOW}  Continuing without token...${RESET}`);
           tokenConfig = null;
@@ -620,7 +620,7 @@ async function main() {
         status: 'complete',
         message: 'Local run proof completed'
       });
-    } catch (err) {
+    } catch (_err) {
       console.log(`\n${YELLOW}  Local run proof failed. Continuing...${RESET}`);
       writeAuditEvent({
         projectPath: buildDir,

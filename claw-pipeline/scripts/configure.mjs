@@ -15,7 +15,7 @@
  */
 
 import { createInterface } from 'readline';
-import { readFileSync, writeFileSync, mkdirSync, existsSync, cpSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
