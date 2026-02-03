@@ -1,5 +1,5 @@
 {
-  "name": "appfactory",
+  "name": "@appfactory/cli",
   "version": "1.0.0",
   "description": "CLI for the App Factory pipeline - Generate store-ready Expo React Native apps using Claude AI",
   "main": "dist/src/index.js",
