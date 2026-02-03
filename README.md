@@ -798,6 +798,6 @@ MIT License - Free to use, modify, and share.
 </p>
 
 <p align="center">
-  <strong>App Factory v12.0</strong><br/>
+  <strong>App Factory v12.0.1</strong><br/>
   Tell us what you want. We'll make it for you.
 </p>
