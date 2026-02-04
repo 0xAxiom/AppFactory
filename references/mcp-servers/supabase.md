@@ -29,28 +29,28 @@ npx -y @supabase/mcp-server
 
 ### Database Operations
 
-| Tool                | Description                      |
-| ------------------- | -------------------------------- |
-| `list_tables`       | List all tables in the database  |
-| `get_table_schema`  | Get schema for a specific table  |
-| `create_table`      | Create a new table               |
-| `alter_table`       | Modify table structure           |
-| `run_query`         | Execute SQL query                |
+| Tool               | Description                     |
+| ------------------ | ------------------------------- |
+| `list_tables`      | List all tables in the database |
+| `get_table_schema` | Get schema for a specific table |
+| `create_table`     | Create a new table              |
+| `alter_table`      | Modify table structure          |
+| `run_query`        | Execute SQL query               |
 
 ### Migrations
 
-| Tool                | Description                      |
-| ------------------- | -------------------------------- |
-| `list_migrations`   | List all migrations              |
-| `create_migration`  | Create a new migration           |
-| `run_migration`     | Execute a migration              |
-| `rollback_migration`| Rollback a migration             |
+| Tool                 | Description            |
+| -------------------- | ---------------------- |
+| `list_migrations`    | List all migrations    |
+| `create_migration`   | Create a new migration |
+| `run_migration`      | Execute a migration    |
+| `rollback_migration` | Rollback a migration   |
 
 ### Type Generation
 
-| Tool                | Description                      |
-| ------------------- | -------------------------------- |
-| `generate_types`    | Generate TypeScript types        |
+| Tool             | Description               |
+| ---------------- | ------------------------- |
+| `generate_types` | Generate TypeScript types |
 
 ## Usage Examples
 

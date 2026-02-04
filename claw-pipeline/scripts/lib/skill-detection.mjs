@@ -359,10 +359,11 @@ export async function detectHeavyDependency(skillName) {
         return { available: false, reason: error.message };
       }
 
-    default:
+    default: {
       // Fallback to regular detection
       const result = await detectSkill(skillName);
       return { available: result };
+    }
   }
 }
 
@@ -503,7 +504,7 @@ export async function getDetailedCapabilities(options = {}) {
  * @param {Object} options - Display options
  */
 export function printCapabilityReport(skills, options = {}) {
-  const { showAll = true, colors = true, detailed = false } = options;
+  const { showAll = true, colors = true, _detailed = false } = options;
 
   const GREEN = colors ? '\x1b[32m' : '';
   const YELLOW = colors ? '\x1b[33m' : '';

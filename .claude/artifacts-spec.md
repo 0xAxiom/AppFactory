@@ -14,13 +14,13 @@ This document defines the machine-readable artifact formats used for Claude oper
 
 ## ARTIFACT TYPES
 
-| Artifact | Purpose | Location | Format |
-|----------|---------|----------|--------|
-| `SUCCESS.json` | Task completion confirmation | Repository root | JSON |
-| `FAILURE.json` | Task failure details | Repository root | JSON |
-| `AUDIT.json` | Workspace audit results | Repository root | JSON |
-| `.claude/audit.log` | Operation history | `.claude/` | Text log |
-| `.claude/mode-transitions.log` | Mode switch history | `.claude/` | Text log |
+| Artifact                       | Purpose                      | Location        | Format   |
+| ------------------------------ | ---------------------------- | --------------- | -------- |
+| `SUCCESS.json`                 | Task completion confirmation | Repository root | JSON     |
+| `FAILURE.json`                 | Task failure details         | Repository root | JSON     |
+| `AUDIT.json`                   | Workspace audit results      | Repository root | JSON     |
+| `.claude/audit.log`            | Operation history            | `.claude/`      | Text log |
+| `.claude/mode-transitions.log` | Mode switch history          | `.claude/`      | Text log |
 
 ---
 
@@ -114,9 +114,7 @@ Created when a task completes successfully.
       ".vscode/settings.json",
       ".vscode/extensions.json"
     ],
-    "files_modified": [
-      ".gitignore"
-    ],
+    "files_modified": [".gitignore"],
     "commands_executed": [
       {
         "command": "npm run lint",
@@ -551,9 +549,9 @@ if (fs.existsSync('SUCCESS.json')) {
 
 ## VERSION HISTORY
 
-| Version | Date       | Changes                    |
-| ------- | ---------- | -------------------------- |
-| 1.0.0   | 2026-01-22 | Initial artifacts spec     |
+| Version | Date       | Changes                |
+| ------- | ---------- | ---------------------- |
+| 1.0.0   | 2026-01-22 | Initial artifacts spec |
 
 ---
 

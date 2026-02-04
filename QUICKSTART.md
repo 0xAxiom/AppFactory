@@ -12,6 +12,7 @@ claude
 ```
 
 This will:
+
 - Verify Node.js 18+, npm, Git, and Claude Code CLI are installed
 - Check all 6 pipeline directories are intact
 - Ensure npm dependencies are installed
@@ -21,6 +22,7 @@ This will:
 - Output a status report showing what's ready vs. what needs manual setup
 
 **After setup, you'll need to manually add:**
+
 - `ANTHROPIC_API_KEY` in your `.env` file ([get one here](https://console.anthropic.com/))
 - Pipeline-specific keys as needed (RevenueCat, WalletConnect, Alchemy, etc.)
 

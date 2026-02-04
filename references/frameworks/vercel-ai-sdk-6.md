@@ -23,24 +23,24 @@ npm install ai @ai-sdk/anthropic
 ### Text Generation
 
 ```typescript
-import { generateText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { generateText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
 
 const { text } = await generateText({
-  model: anthropic("claude-sonnet-4-5"),
-  prompt: "Explain quantum computing in simple terms.",
+  model: anthropic('claude-sonnet-4-5'),
+  prompt: 'Explain quantum computing in simple terms.',
 });
 ```
 
 ### Streaming
 
 ```typescript
-import { streamText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { streamText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
 
 const { textStream } = await streamText({
-  model: anthropic("claude-sonnet-4-5"),
-  prompt: "Write a story about a robot.",
+  model: anthropic('claude-sonnet-4-5'),
+  prompt: 'Write a story about a robot.',
 });
 
 for await (const chunk of textStream) {
@@ -100,14 +100,14 @@ export function ChatComponent() {
 
 ```typescript
 // app/api/chat/route.ts
-import { streamText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { streamText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = await streamText({
-    model: anthropic("claude-sonnet-4-5"),
+    model: anthropic('claude-sonnet-4-5'),
     messages,
   });
 
@@ -120,22 +120,22 @@ export async function POST(req: Request) {
 ### Define Tools
 
 ```typescript
-import { tool } from "ai";
-import { z } from "zod";
+import { tool } from 'ai';
+import { z } from 'zod';
 
 const weatherTool = tool({
-  description: "Get the current weather for a location",
+  description: 'Get the current weather for a location',
   parameters: z.object({
-    location: z.string().describe("The city and state"),
-    unit: z.enum(["celsius", "fahrenheit"]).optional(),
+    location: z.string().describe('The city and state'),
+    unit: z.enum(['celsius', 'fahrenheit']).optional(),
   }),
-  execute: async ({ location, unit = "celsius" }) => {
+  execute: async ({ location, unit = 'celsius' }) => {
     // Fetch weather data
     return {
       location,
       temperature: 22,
       unit,
-      condition: "sunny",
+      condition: 'sunny',
     };
   },
 });
@@ -144,11 +144,11 @@ const weatherTool = tool({
 ### Use Tools
 
 ```typescript
-import { generateText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { generateText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
 
 const { text, toolCalls, toolResults } = await generateText({
-  model: anthropic("claude-sonnet-4-5"),
+  model: anthropic('claude-sonnet-4-5'),
   tools: { weather: weatherTool },
   prompt: "What's the weather in San Francisco?",
 });
@@ -157,22 +157,22 @@ const { text, toolCalls, toolResults } = await generateText({
 ### Multi-Turn Tool Use
 
 ```typescript
-import { streamText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { streamText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
 
 const result = await streamText({
-  model: anthropic("claude-sonnet-4-5"),
+  model: anthropic('claude-sonnet-4-5'),
   tools: { weather: weatherTool },
   maxSteps: 5, // Allow multiple tool calls
-  messages: [{ role: "user", content: "Compare weather in SF and NYC" }],
+  messages: [{ role: 'user', content: 'Compare weather in SF and NYC' }],
 });
 
 for await (const part of result.fullStream) {
-  if (part.type === "tool-call") {
-    console.log("Calling tool:", part.toolName);
-  } else if (part.type === "tool-result") {
-    console.log("Tool result:", part.result);
-  } else if (part.type === "text-delta") {
+  if (part.type === 'tool-call') {
+    console.log('Calling tool:', part.toolName);
+  } else if (part.type === 'tool-result') {
+    console.log('Tool result:', part.result);
+  } else if (part.type === 'text-delta') {
     process.stdout.write(part.textDelta);
   }
 }
@@ -183,8 +183,8 @@ for await (const part of result.fullStream) {
 ### Simple Agent Loop
 
 ```typescript
-import { streamText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { streamText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
 
 const tools = {
   search: searchTool,
@@ -193,26 +193,26 @@ const tools = {
 };
 
 const result = await streamText({
-  model: anthropic("claude-sonnet-4-5"),
+  model: anthropic('claude-sonnet-4-5'),
   tools,
   maxSteps: 10,
   system: `You are a helpful assistant. Use tools to help the user.`,
-  messages: [{ role: "user", content: userQuery }],
+  messages: [{ role: 'user', content: userQuery }],
 });
 ```
 
 ### Agent with Memory
 
 ```typescript
-import { generateText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { generateText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
 
 class Agent {
   private messages: Message[] = [];
-  private model = anthropic("claude-sonnet-4-5");
+  private model = anthropic('claude-sonnet-4-5');
 
   async chat(userMessage: string) {
-    this.messages.push({ role: "user", content: userMessage });
+    this.messages.push({ role: 'user', content: userMessage });
 
     const { text, toolCalls } = await generateText({
       model: this.model,
@@ -221,7 +221,7 @@ class Agent {
       maxSteps: 5,
     });
 
-    this.messages.push({ role: "assistant", content: text });
+    this.messages.push({ role: 'assistant', content: text });
 
     return text;
   }
@@ -233,12 +233,12 @@ class Agent {
 ### Generate Object
 
 ```typescript
-import { generateObject } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
-import { z } from "zod";
+import { generateObject } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
+import { z } from 'zod';
 
 const { object } = await generateObject({
-  model: anthropic("claude-sonnet-4-5"),
+  model: anthropic('claude-sonnet-4-5'),
   schema: z.object({
     recipe: z.object({
       name: z.string(),
@@ -251,21 +251,21 @@ const { object } = await generateObject({
       steps: z.array(z.string()),
     }),
   }),
-  prompt: "Generate a recipe for chocolate chip cookies.",
+  prompt: 'Generate a recipe for chocolate chip cookies.',
 });
 ```
 
 ### Stream Object
 
 ```typescript
-import { streamObject } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
-import { z } from "zod";
+import { streamObject } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
+import { z } from 'zod';
 
 const { partialObjectStream } = await streamObject({
-  model: anthropic("claude-sonnet-4-5"),
+  model: anthropic('claude-sonnet-4-5'),
   schema: recipeSchema,
-  prompt: "Generate a recipe for pasta.",
+  prompt: 'Generate a recipe for pasta.',
 });
 
 for await (const partialObject of partialObjectStream) {
@@ -315,45 +315,45 @@ export function RecipeGenerator() {
 ### Anthropic (Claude)
 
 ```typescript
-import { anthropic } from "@ai-sdk/anthropic";
+import { anthropic } from '@ai-sdk/anthropic';
 
 // Models
-anthropic("claude-opus-4-5"); // Most capable
-anthropic("claude-sonnet-4-5"); // Balanced
-anthropic("claude-haiku-3-5"); // Fast and cheap
+anthropic('claude-opus-4-5'); // Most capable
+anthropic('claude-sonnet-4-5'); // Balanced
+anthropic('claude-haiku-3-5'); // Fast and cheap
 ```
 
 ### OpenAI
 
 ```typescript
-import { openai } from "@ai-sdk/openai";
+import { openai } from '@ai-sdk/openai';
 
-openai("gpt-4o"); // Latest GPT-4
-openai("gpt-4o-mini"); // Smaller, faster
+openai('gpt-4o'); // Latest GPT-4
+openai('gpt-4o-mini'); // Smaller, faster
 ```
 
 ### Google
 
 ```typescript
-import { google } from "@ai-sdk/google";
+import { google } from '@ai-sdk/google';
 
-google("gemini-2.5-pro"); // Latest Gemini
+google('gemini-2.5-pro'); // Latest Gemini
 ```
 
 ## Error Handling
 
 ```typescript
-import { generateText, APICallError } from "ai";
+import { generateText, APICallError } from 'ai';
 
 try {
   const { text } = await generateText({
-    model: anthropic("claude-sonnet-4-5"),
-    prompt: "Hello",
+    model: anthropic('claude-sonnet-4-5'),
+    prompt: 'Hello',
   });
 } catch (error) {
   if (error instanceof APICallError) {
-    console.error("API Error:", error.message);
-    console.error("Status:", error.statusCode);
+    console.error('API Error:', error.message);
+    console.error('Status:', error.statusCode);
   }
 }
 ```

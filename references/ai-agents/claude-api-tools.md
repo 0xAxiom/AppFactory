@@ -11,22 +11,22 @@ Claude's tool use allows the model to call external functions, enabling agents t
 ```typescript
 const tools = [
   {
-    name: "get_weather",
-    description: "Get the current weather for a location",
+    name: 'get_weather',
+    description: 'Get the current weather for a location',
     input_schema: {
-      type: "object",
+      type: 'object',
       properties: {
         location: {
-          type: "string",
+          type: 'string',
           description: "City and state, e.g., 'San Francisco, CA'",
         },
         unit: {
-          type: "string",
-          enum: ["celsius", "fahrenheit"],
-          description: "Temperature unit",
+          type: 'string',
+          enum: ['celsius', 'fahrenheit'],
+          description: 'Temperature unit',
         },
       },
-      required: ["location"],
+      required: ['location'],
     },
   },
 ];
@@ -35,15 +35,15 @@ const tools = [
 ### API Call
 
 ```typescript
-import Anthropic from "@anthropic-ai/sdk";
+import Anthropic from '@anthropic-ai/sdk';
 
 const client = new Anthropic();
 
 const response = await client.messages.create({
-  model: "claude-sonnet-4-5-20250514",
+  model: 'claude-sonnet-4-5-20250514',
   max_tokens: 1024,
   tools: tools,
-  messages: [{ role: "user", content: "What's the weather in NYC?" }],
+  messages: [{ role: 'user', content: "What's the weather in NYC?" }],
 });
 ```
 
@@ -53,14 +53,14 @@ const response = await client.messages.create({
 
 ```typescript
 const tool = {
-  name: "search",
-  description: "Search for information",
+  name: 'search',
+  description: 'Search for information',
   input_schema: {
-    type: "object",
+    type: 'object',
     properties: {
-      query: { type: "string" },
+      query: { type: 'string' },
     },
-    required: ["query"],
+    required: ['query'],
     additionalProperties: false, // Strict validation
   },
   strict: true, // Enable strict mode
@@ -85,11 +85,11 @@ When getting weather, specify the location clearly:
 
 ### 3. Model Selection for Tools
 
-| Model                | Best For                        |
-| -------------------- | ------------------------------- |
-| claude-opus-4-5      | Complex tools, ambiguous inputs |
-| claude-sonnet-4-5    | Standard tools, clear inputs    |
-| claude-haiku-3-5     | Simple tools, fast responses    |
+| Model             | Best For                        |
+| ----------------- | ------------------------------- |
+| claude-opus-4-5   | Complex tools, ambiguous inputs |
+| claude-sonnet-4-5 | Standard tools, clear inputs    |
+| claude-haiku-3-5  | Simple tools, fast responses    |
 
 ### 4. Error Handling
 
@@ -100,13 +100,13 @@ function executeToolCall(toolName: string, toolInput: unknown) {
   try {
     const result = toolRegistry[toolName](toolInput);
     return {
-      type: "tool_result",
+      type: 'tool_result',
       tool_use_id: toolUseId,
       content: JSON.stringify(result),
     };
   } catch (error) {
     return {
-      type: "tool_result",
+      type: 'tool_result',
       tool_use_id: toolUseId,
       content: `Error: ${error.message}. Please try a different approach.`,
       is_error: true, // Mark as error
@@ -118,11 +118,11 @@ function executeToolCall(toolName: string, toolInput: unknown) {
 ### 5. Validate Parameters
 
 ```typescript
-import { z } from "zod";
+import { z } from 'zod';
 
 const WeatherSchema = z.object({
   location: z.string().min(1),
-  unit: z.enum(["celsius", "fahrenheit"]).optional(),
+  unit: z.enum(['celsius', 'fahrenheit']).optional(),
 });
 
 function getWeather(input: unknown) {
@@ -137,31 +137,28 @@ function getWeather(input: unknown) {
 
 ```typescript
 async function runAgent(userMessage: string) {
-  const messages = [{ role: "user", content: userMessage }];
+  const messages = [{ role: 'user', content: userMessage }];
 
   while (true) {
     const response = await client.messages.create({
-      model: "claude-sonnet-4-5-20250514",
+      model: 'claude-sonnet-4-5-20250514',
       max_tokens: 4096,
       tools: tools,
       messages: messages,
     });
 
     // Check if done
-    if (
-      response.stop_reason === "end_turn" ||
-      !response.content.some((block) => block.type === "tool_use")
-    ) {
+    if (response.stop_reason === 'end_turn' || !response.content.some((block) => block.type === 'tool_use')) {
       return response;
     }
 
     // Process tool calls
     const toolResults = [];
     for (const block of response.content) {
-      if (block.type === "tool_use") {
+      if (block.type === 'tool_use') {
         const result = await executeToolCall(block.name, block.input);
         toolResults.push({
-          type: "tool_result",
+          type: 'tool_result',
           tool_use_id: block.id,
           content: result,
         });
@@ -169,8 +166,8 @@ async function runAgent(userMessage: string) {
     }
 
     // Add assistant message and tool results
-    messages.push({ role: "assistant", content: response.content });
-    messages.push({ role: "user", content: toolResults });
+    messages.push({ role: 'assistant', content: response.content });
+    messages.push({ role: 'user', content: toolResults });
   }
 }
 ```
@@ -181,27 +178,27 @@ async function runAgent(userMessage: string) {
 const MAX_ITERATIONS = 10;
 
 async function runAgentSafe(userMessage: string) {
-  const messages = [{ role: "user", content: userMessage }];
+  const messages = [{ role: 'user', content: userMessage }];
   let iterations = 0;
 
   while (iterations < MAX_ITERATIONS) {
     iterations++;
 
     const response = await client.messages.create({
-      model: "claude-sonnet-4-5-20250514",
+      model: 'claude-sonnet-4-5-20250514',
       max_tokens: 4096,
       tools: tools,
       messages: messages,
     });
 
-    if (response.stop_reason === "end_turn") {
+    if (response.stop_reason === 'end_turn') {
       return response;
     }
 
     // Process tools...
   }
 
-  throw new Error("Max iterations reached");
+  throw new Error('Max iterations reached');
 }
 ```
 
@@ -213,14 +210,14 @@ For large tool sets, use tool search to defer loading:
 
 ```typescript
 const toolSearchTool = {
-  name: "search_tools",
-  description: "Search for available tools by description",
+  name: 'search_tools',
+  description: 'Search for available tools by description',
   input_schema: {
-    type: "object",
+    type: 'object',
     properties: {
-      query: { type: "string", description: "What you want to do" },
+      query: { type: 'string', description: 'What you want to do' },
     },
-    required: ["query"],
+    required: ['query'],
   },
 };
 
@@ -233,7 +230,7 @@ Claude 4+ models have improved parallel tool calling. Allow it by default:
 
 ```typescript
 const response = await client.messages.create({
-  model: "claude-sonnet-4-5-20250514",
+  model: 'claude-sonnet-4-5-20250514',
   max_tokens: 4096,
   tools: tools,
   // tool_choice: "auto" is default, allows parallel calls
@@ -242,7 +239,7 @@ const response = await client.messages.create({
 
 // Response may contain multiple tool_use blocks
 for (const block of response.content) {
-  if (block.type === "tool_use") {
+  if (block.type === 'tool_use') {
     // Execute in parallel if independent
     toolPromises.push(executeToolCall(block.name, block.input));
   }
@@ -255,10 +252,10 @@ Force Claude to use a specific tool:
 
 ```typescript
 const response = await client.messages.create({
-  model: "claude-sonnet-4-5-20250514",
+  model: 'claude-sonnet-4-5-20250514',
   max_tokens: 4096,
   tools: tools,
-  tool_choice: { type: "tool", name: "get_weather" },
+  tool_choice: { type: 'tool', name: 'get_weather' },
   messages: messages,
 });
 ```
@@ -266,7 +263,9 @@ const response = await client.messages.create({
 Or force any tool use:
 
 ```typescript
-tool_choice: { type: "any" }
+tool_choice: {
+  type: 'any';
+}
 ```
 
 ## Common Tool Patterns
@@ -275,17 +274,17 @@ tool_choice: { type: "any" }
 
 ```typescript
 const queryDbTool = {
-  name: "query_database",
-  description: "Execute a read-only SQL query",
+  name: 'query_database',
+  description: 'Execute a read-only SQL query',
   input_schema: {
-    type: "object",
+    type: 'object',
     properties: {
       query: {
-        type: "string",
-        description: "SQL SELECT query (read-only)",
+        type: 'string',
+        description: 'SQL SELECT query (read-only)',
       },
     },
-    required: ["query"],
+    required: ['query'],
   },
 };
 ```
@@ -294,27 +293,27 @@ const queryDbTool = {
 
 ```typescript
 const readFileTool = {
-  name: "read_file",
-  description: "Read contents of a file",
+  name: 'read_file',
+  description: 'Read contents of a file',
   input_schema: {
-    type: "object",
+    type: 'object',
     properties: {
-      path: { type: "string", description: "File path" },
+      path: { type: 'string', description: 'File path' },
     },
-    required: ["path"],
+    required: ['path'],
   },
 };
 
 const writeFileTool = {
-  name: "write_file",
-  description: "Write content to a file",
+  name: 'write_file',
+  description: 'Write content to a file',
   input_schema: {
-    type: "object",
+    type: 'object',
     properties: {
-      path: { type: "string" },
-      content: { type: "string" },
+      path: { type: 'string' },
+      content: { type: 'string' },
     },
-    required: ["path", "content"],
+    required: ['path', 'content'],
   },
 };
 ```
@@ -323,20 +322,20 @@ const writeFileTool = {
 
 ```typescript
 const webSearchTool = {
-  name: "web_search",
-  description: "Search the web for information",
+  name: 'web_search',
+  description: 'Search the web for information',
   input_schema: {
-    type: "object",
+    type: 'object',
     properties: {
-      query: { type: "string", description: "Search query" },
+      query: { type: 'string', description: 'Search query' },
       num_results: {
-        type: "integer",
-        description: "Number of results (1-10)",
+        type: 'integer',
+        description: 'Number of results (1-10)',
         minimum: 1,
         maximum: 10,
       },
     },
-    required: ["query"],
+    required: ['query'],
   },
 };
 ```

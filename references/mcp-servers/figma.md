@@ -35,28 +35,28 @@ npx -y figma-developer-mcp --stdio
 
 ### File Access
 
-| Tool           | Description                    |
-| -------------- | ------------------------------ |
-| `get_file`     | Get file structure             |
-| `get_node`     | Get specific node by ID        |
-| `get_images`   | Export nodes as images         |
-| `get_comments` | Get file comments              |
+| Tool           | Description             |
+| -------------- | ----------------------- |
+| `get_file`     | Get file structure      |
+| `get_node`     | Get specific node by ID |
+| `get_images`   | Export nodes as images  |
+| `get_comments` | Get file comments       |
 
 ### Design Tokens
 
-| Tool             | Description                  |
-| ---------------- | ---------------------------- |
-| `get_styles`     | Get all styles (colors, text)|
-| `get_variables`  | Get design variables         |
-| `get_components` | Get component library        |
+| Tool             | Description                   |
+| ---------------- | ----------------------------- |
+| `get_styles`     | Get all styles (colors, text) |
+| `get_variables`  | Get design variables          |
+| `get_components` | Get component library         |
 
 ### Layer Information
 
-| Tool               | Description                |
-| ------------------ | -------------------------- |
-| `get_layers`       | Get layer hierarchy        |
-| `get_auto_layout`  | Get auto-layout properties |
-| `get_constraints`  | Get constraint settings    |
+| Tool              | Description                |
+| ----------------- | -------------------------- |
+| `get_layers`      | Get layer hierarchy        |
+| `get_auto_layout` | Get auto-layout properties |
+| `get_constraints` | Get constraint settings    |
 
 ## Usage Examples
 
@@ -166,12 +166,12 @@ Output:
 
 Auto-layout in Figma maps directly to Flexbox:
 
-| Figma Auto-Layout | Tailwind CSS     |
-| ----------------- | ---------------- |
-| Horizontal        | `flex flex-row`  |
-| Vertical          | `flex flex-col`  |
-| Space between     | `justify-between`|
-| Packed            | `justify-start`  |
+| Figma Auto-Layout | Tailwind CSS      |
+| ----------------- | ----------------- |
+| Horizontal        | `flex flex-row`   |
+| Vertical          | `flex flex-col`   |
+| Space between     | `justify-between` |
+| Packed            | `justify-start`   |
 
 ### Use Design Variables
 

@@ -150,7 +150,13 @@ export interface LaunchIntentTimestamps {
 
 export interface LaunchIntentAppFactory {
   /** Pipeline that built the project */
-  pipeline?: 'app-factory' | 'website-pipeline' | 'dapp-factory' | 'agent-factory' | 'plugin-factory' | 'miniapp-pipeline';
+  pipeline?:
+    | 'app-factory'
+    | 'website-pipeline'
+    | 'dapp-factory'
+    | 'agent-factory'
+    | 'plugin-factory'
+    | 'miniapp-pipeline';
 
   /** Build output path */
   buildPath?: string;

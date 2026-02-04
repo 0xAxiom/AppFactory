@@ -29,6 +29,7 @@ Users now receive transparent, honest messaging about which features are availab
 ### Changes Applied to All 6 Pipelines
 
 **Pipelines Updated**:
+
 - website-pipeline/scripts/run.mjs
 - app-factory/scripts/run.mjs
 - dapp-factory/scripts/run.mjs
@@ -50,12 +51,12 @@ try {
   const capabilities = await getDetailedCapabilities({
     checkBaseline: true,
     checkQuality: true,
-    checkAdvanced: false
+    checkAdvanced: false,
   });
 
   printCapabilityReport(capabilities, {
     detailed: true,
-    showAll: false
+    showAll: false,
   });
 } catch (err) {
   console.log(`${DIM}Capability detection unavailable - continuing with baseline tier${RESET}\n`);
@@ -63,6 +64,7 @@ try {
 ```
 
 **User Experience**:
+
 ```
 MiniApp Pipeline
 
@@ -89,6 +91,7 @@ Quality Tools:
 ```
 
 **Benefits**:
+
 - User knows exactly what tier they're operating in
 - Clear upgrade path shown if tools are missing
 - No surprises about missing features
@@ -133,16 +136,17 @@ if (!config.skipPrompts) {
 ```
 
 **Added Helper Function** (to each pipeline):
+
 ```javascript
 // Helper for asking yes/no questions
 async function askQuestion(prompt) {
   const rl = createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
   });
 
-  return new Promise(resolve => {
-    rl.question(prompt, answer => {
+  return new Promise((resolve) => {
+    rl.question(prompt, (answer) => {
       rl.close();
       resolve(answer);
     });
@@ -151,6 +155,7 @@ async function askQuestion(prompt) {
 ```
 
 **User Experience**:
+
 ```
 ╔════════════════════════════════════════╗
 ║         YOUR SITE IS READY             ║
@@ -168,6 +173,7 @@ Run Ralph QA now? (y/n): _
 ```
 
 **Benefits**:
+
 - User decides whether to run Ralph QA
 - Opt-in approach keeps Ralph as human-in-the-loop
 - Clear explanation of what Ralph does
@@ -186,11 +192,13 @@ Run Ralph QA now? (y/n): _
 ### Changes to scripts/run-skills-audit.sh
 
 **Old Implementation** (Placeholder):
+
 - Created mock audit files with `status: "not_implemented"`
 - Marked as failure (FAILURES counter incremented)
 - Generic "not implemented" message
 
 **New Implementation** (Planned Feature):
+
 - Creates informational status files with `status: "planned"`
 - NOT marked as failure (non-blocking)
 - Provides skill-specific workaround instructions
@@ -232,7 +240,7 @@ To enable skills audits (experimental):
 
 #### Markdown Report Created
 
-```markdown
+````markdown
 # Skills Audit Report: react-best-practices
 
 **Project**: website-builds/my-site
@@ -243,6 +251,7 @@ To enable skills audits (experimental):
 
 Skills audits using @vercel/agent-skills are planned for a future release.
 This feature will provide automated code quality checks for:
+
 - React best practices (target: 95% score)
 - Web design guidelines (target: 90% score)
 - Accessibility compliance
@@ -251,19 +260,23 @@ This feature will provide automated code quality checks for:
 ## Current Workarounds
 
 ### For react-best-practices:
+
 ```bash
 cd website-builds/my-site
 npm run lint                    # ESLint checks
 npm run type-check              # TypeScript validation
 ```
+````
 
 ### For web-design-guidelines:
+
 - Manual design review
 - WCAG accessibility checklist
 - Visual consistency inspection
 - Browser testing (Chrome, Firefox, Safari)
 
 ### General Code Quality:
+
 ```bash
 cd website-builds/my-site
 npm run lint                    # ESLint
@@ -275,12 +288,14 @@ npm run test                    # Unit tests (if configured)
 
 **Target Release**: v3.0
 **Dependencies**:
+
 - @vercel/agent-skills package integration
 - Custom skill definitions
 - Automated scoring system
 - Threshold enforcement
 
 **Installation (when available)**:
+
 ```bash
 npm install -D @vercel/agent-skills
 # Configure in docs/skills-audit-setup.md
@@ -289,6 +304,7 @@ npm install -D @vercel/agent-skills
 ## Recommendations
 
 For production builds:
+
 1. ✅ Run ESLint and fix all errors
 2. ✅ Manual code review by experienced developer
 3. ✅ Test in multiple browsers
@@ -296,7 +312,8 @@ For production builds:
 5. ✅ Performance audit with Lighthouse
 
 **Note**: This build continues without skills audit. Quality checks are your responsibility.
-```
+
+````
 
 **Benefits**:
 - Honest messaging about planned status
@@ -349,9 +366,10 @@ node scripts/run.mjs --skip-prompts
 # - Suggests upgrading to QUALITY tier
 # - Build completes successfully
 # - No crashes when tools are missing
-```
+````
 
 #### Quality Tier (+ Playwright + agent-skills)
+
 ```bash
 npm install -D playwright @vercel/agent-skills
 npx playwright install
@@ -365,6 +383,7 @@ node scripts/run.mjs --skip-prompts
 ```
 
 #### Advanced Tier (+ MCP servers + specialized tools)
+
 ```bash
 # With all MCP servers enabled and available
 node scripts/run.mjs --skip-prompts
@@ -379,6 +398,7 @@ node scripts/run.mjs --skip-prompts
 ### Automated Testing
 
 **Test Script** (to be created):
+
 ```bash
 #!/bin/bash
 # test-all-tiers.sh
@@ -431,6 +451,7 @@ done
 ### User Experience Comparison
 
 **Before**:
+
 ```
 $ node website-pipeline/scripts/run.mjs
 
@@ -438,9 +459,11 @@ $ node website-pipeline/scripts/run.mjs
 
 BUILD COMPLETE
 ```
+
 User has no idea what tools were used or what tier they're in.
 
 **After**:
+
 ```
 $ node website-pipeline/scripts/run.mjs
 
@@ -483,6 +506,7 @@ Ralph provides automated adversarial testing to catch edge cases
 
 Run Ralph QA now? (y/n): _
 ```
+
 User knows exactly what happened, what's available, and what to do next.
 
 ---

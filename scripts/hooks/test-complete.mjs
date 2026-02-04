@@ -31,7 +31,7 @@ try {
   };
 }
 
-const { celebrate, errorBox, log } = visual;
+const { celebrate, errorBox } = visual;
 
 function getHookContext() {
   const toolInput = process.env.CLAUDE_TOOL_INPUT;

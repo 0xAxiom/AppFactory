@@ -21,6 +21,7 @@ OpenClaw is an open-source personal AI assistant platform that enables deploying
 ## Architecture
 
 OpenClaw bots are Node.js applications with:
+
 - TypeScript configuration files
 - Skill-based plugin system
 - Platform adapters for each chat service
@@ -30,6 +31,7 @@ OpenClaw bots are Node.js applications with:
 ## Configuration
 
 Main configuration is done through TypeScript config files:
+
 - `bot.config.ts` — Core bot settings
 - `platforms.config.ts` — Platform-specific settings
 - `skills.config.ts` — Enabled skills/integrations

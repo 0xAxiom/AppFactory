@@ -33,7 +33,7 @@ export enum RepoModeErrorCode {
 
   // Internal errors (5xx)
   INTERNAL_ERROR = 'REPO_500',
-  CONFIG_MISSING = 'REPO_501'
+  CONFIG_MISSING = 'REPO_501',
 }
 
 export class RepoModeError extends Error {
@@ -62,20 +62,36 @@ export class RepoModeError extends Error {
       code: this.code,
       message: this.message,
       details: this.details,
-      timestamp: this.timestamp
+      timestamp: this.timestamp,
     };
   }
 
-  static validation(code: RepoModeErrorCode, message: string, field?: string): RepoModeError {
+  static validation(
+    code: RepoModeErrorCode,
+    message: string,
+    field?: string
+  ): RepoModeError {
     return new RepoModeError(code, message, field ? { field } : undefined);
   }
 
-  static network(code: RepoModeErrorCode, message: string, url?: string): RepoModeError {
+  static network(
+    code: RepoModeErrorCode,
+    message: string,
+    url?: string
+  ): RepoModeError {
     return new RepoModeError(code, message, url ? { url } : undefined);
   }
 
-  static attestation(code: RepoModeErrorCode, message: string, intentId?: string): RepoModeError {
-    return new RepoModeError(code, message, intentId ? { intentId } : undefined);
+  static attestation(
+    code: RepoModeErrorCode,
+    message: string,
+    intentId?: string
+  ): RepoModeError {
+    return new RepoModeError(
+      code,
+      message,
+      intentId ? { intentId } : undefined
+    );
   }
 }
 

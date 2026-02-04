@@ -17,7 +17,7 @@ npm install @langchain/langgraph @langchain/anthropic
 State is passed between nodes and persists across the graph:
 
 ```typescript
-import { Annotation } from "@langchain/langgraph";
+import { Annotation } from '@langchain/langgraph';
 
 const AgentState = Annotation.Root({
   messages: Annotation<BaseMessage[]>({
@@ -53,32 +53,32 @@ Edges define flow between nodes:
 function shouldContinue(state: typeof AgentState.State) {
   const lastMessage = state.messages[state.messages.length - 1];
   if (lastMessage.tool_calls?.length > 0) {
-    return "tools";
+    return 'tools';
   }
-  return "end";
+  return 'end';
 }
 ```
 
 ## Basic Agent
 
 ```typescript
-import { StateGraph } from "@langchain/langgraph";
-import { ChatAnthropic } from "@langchain/anthropic";
+import { StateGraph } from '@langchain/langgraph';
+import { ChatAnthropic } from '@langchain/anthropic';
 
 const model = new ChatAnthropic({
-  model: "claude-sonnet-4-5-20250514",
+  model: 'claude-sonnet-4-5-20250514',
 });
 
 // Define the graph
 const graph = new StateGraph(AgentState)
-  .addNode("agent", agent)
-  .addNode("tools", tools)
-  .addEdge("__start__", "agent")
-  .addConditionalEdges("agent", shouldContinue, {
-    tools: "tools",
-    end: "__end__",
+  .addNode('agent', agent)
+  .addNode('tools', tools)
+  .addEdge('__start__', 'agent')
+  .addConditionalEdges('agent', shouldContinue, {
+    tools: 'tools',
+    end: '__end__',
   })
-  .addEdge("tools", "agent");
+  .addEdge('tools', 'agent');
 
 // Compile
 const app = graph.compile();
@@ -97,16 +97,16 @@ One agent coordinates others:
 
 ```typescript
 const supervisorGraph = new StateGraph(SupervisorState)
-  .addNode("supervisor", supervisorAgent)
-  .addNode("researcher", researcherAgent)
-  .addNode("writer", writerAgent)
-  .addConditionalEdges("supervisor", routeTask, {
-    researcher: "researcher",
-    writer: "writer",
-    end: "__end__",
+  .addNode('supervisor', supervisorAgent)
+  .addNode('researcher', researcherAgent)
+  .addNode('writer', writerAgent)
+  .addConditionalEdges('supervisor', routeTask, {
+    researcher: 'researcher',
+    writer: 'writer',
+    end: '__end__',
   })
-  .addEdge("researcher", "supervisor")
-  .addEdge("writer", "supervisor");
+  .addEdge('researcher', 'supervisor')
+  .addEdge('writer', 'supervisor');
 ```
 
 ### Hierarchical Pattern
@@ -116,15 +116,15 @@ Nested graphs for complex workflows:
 ```typescript
 // Sub-graph for research
 const researchGraph = new StateGraph(ResearchState)
-  .addNode("search", searchNode)
-  .addNode("summarize", summarizeNode)
+  .addNode('search', searchNode)
+  .addNode('summarize', summarizeNode)
   .compile();
 
 // Main graph using sub-graph
 const mainGraph = new StateGraph(MainState)
-  .addNode("plan", planNode)
-  .addNode("research", researchGraph) // Nested graph
-  .addNode("write", writeNode);
+  .addNode('plan', planNode)
+  .addNode('research', researchGraph) // Nested graph
+  .addNode('write', writeNode);
 ```
 
 ## Checkpointing
@@ -153,22 +153,22 @@ const resumedResult = await app.invoke(
 Pause for human approval:
 
 ```typescript
-import { interrupt } from "@langchain/langgraph";
+import { interrupt } from '@langchain/langgraph';
 
 async function sensitiveAction(state: typeof AgentState.State) {
   // Pause and wait for human approval
   const approved = interrupt({
-    action: "delete_user",
+    action: 'delete_user',
     user_id: state.userId,
-    message: "Approve user deletion?",
+    message: 'Approve user deletion?',
   });
 
   if (approved) {
     await deleteUser(state.userId);
-    return { messages: [new AIMessage("User deleted")] };
+    return { messages: [new AIMessage('User deleted')] };
   }
 
-  return { messages: [new AIMessage("Action cancelled")] };
+  return { messages: [new AIMessage('Action cancelled')] };
 }
 ```
 
@@ -184,13 +184,10 @@ await app.invoke({ approved: true }, config);
 Stream intermediate results:
 
 ```typescript
-const stream = await app.stream(
-  { messages: [new HumanMessage("Research AI trends")] },
-  { streamMode: "values" }
-);
+const stream = await app.stream({ messages: [new HumanMessage('Research AI trends')] }, { streamMode: 'values' });
 
 for await (const state of stream) {
-  console.log("Current state:", state);
+  console.log('Current state:', state);
 }
 ```
 
@@ -212,8 +209,8 @@ for await (const event of eventStream) {
 ## Tool Integration
 
 ```typescript
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const searchTool = tool(
   async ({ query }) => {
@@ -221,8 +218,8 @@ const searchTool = tool(
     return results;
   },
   {
-    name: "search",
-    description: "Search the web",
+    name: 'search',
+    description: 'Search the web',
     schema: z.object({
       query: z.string(),
     }),
@@ -235,17 +232,17 @@ const modelWithTools = model.bindTools([searchTool]);
 ## Error Handling
 
 ```typescript
-import { RetryPolicy } from "@langchain/langgraph";
+import { RetryPolicy } from '@langchain/langgraph';
 
 const graph = new StateGraph(AgentState)
-  .addNode("agent", agent, {
+  .addNode('agent', agent, {
     retryPolicy: new RetryPolicy({
       maxAttempts: 3,
       initialDelay: 1000,
       backoffFactor: 2,
     }),
   })
-  .addNode("tools", tools);
+  .addNode('tools', tools);
 ```
 
 ## Best Practices
@@ -263,15 +260,15 @@ const graph = new StateGraph(AgentState)
 
 ```typescript
 const reactGraph = new StateGraph(AgentState)
-  .addNode("reason", reasonNode)
-  .addNode("act", actNode)
-  .addNode("observe", observeNode)
-  .addEdge("__start__", "reason")
-  .addEdge("reason", "act")
-  .addEdge("act", "observe")
-  .addConditionalEdges("observe", shouldContinue, {
-    reason: "reason",
-    end: "__end__",
+  .addNode('reason', reasonNode)
+  .addNode('act', actNode)
+  .addNode('observe', observeNode)
+  .addEdge('__start__', 'reason')
+  .addEdge('reason', 'act')
+  .addEdge('act', 'observe')
+  .addConditionalEdges('observe', shouldContinue, {
+    reason: 'reason',
+    end: '__end__',
   });
 ```
 
@@ -279,16 +276,16 @@ const reactGraph = new StateGraph(AgentState)
 
 ```typescript
 const planExecuteGraph = new StateGraph(PlanState)
-  .addNode("planner", plannerNode)
-  .addNode("executor", executorNode)
-  .addNode("replanner", replannerNode)
-  .addEdge("__start__", "planner")
-  .addEdge("planner", "executor")
-  .addConditionalEdges("executor", checkCompletion, {
-    replanner: "replanner",
-    end: "__end__",
+  .addNode('planner', plannerNode)
+  .addNode('executor', executorNode)
+  .addNode('replanner', replannerNode)
+  .addEdge('__start__', 'planner')
+  .addEdge('planner', 'executor')
+  .addConditionalEdges('executor', checkCompletion, {
+    replanner: 'replanner',
+    end: '__end__',
   })
-  .addEdge("replanner", "executor");
+  .addEdge('replanner', 'executor');
 ```
 
 ## Resources

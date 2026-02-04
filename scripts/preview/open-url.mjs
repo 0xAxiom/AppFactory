@@ -4,7 +4,7 @@
  * Opens URLs in the default browser across macOS, Linux, and Windows
  */
 
-import { spawn, execSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 

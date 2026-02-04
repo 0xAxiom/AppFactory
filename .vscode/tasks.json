@@ -252,7 +252,10 @@
       "detail": "Launch dev server and discover URL - writes PREVIEW.json",
       "type": "shell",
       "command": "node",
-      "args": ["${workspaceFolder}/scripts/preview/launch-dev.mjs", "${workspaceFolder}"],
+      "args": [
+        "${workspaceFolder}/scripts/preview/launch-dev.mjs",
+        "${workspaceFolder}"
+      ],
       "problemMatcher": [],
       "presentation": {
         "echo": true,
@@ -273,7 +276,10 @@
       "detail": "Detect package manager and dev command without launching",
       "type": "shell",
       "command": "node",
-      "args": ["${workspaceFolder}/scripts/preview/detect.mjs", "${workspaceFolder}"],
+      "args": [
+        "${workspaceFolder}/scripts/preview/detect.mjs",
+        "${workspaceFolder}"
+      ],
       "problemMatcher": [],
       "presentation": {
         "echo": true,
@@ -290,7 +296,10 @@
       "detail": "Open in Playwright with iPhone 14 Pro emulation (cross-platform)",
       "type": "shell",
       "command": "node",
-      "args": ["${workspaceFolder}/scripts/preview/mobile-emulate.mjs", "iphone"],
+      "args": [
+        "${workspaceFolder}/scripts/preview/mobile-emulate.mjs",
+        "iphone"
+      ],
       "problemMatcher": [],
       "presentation": {
         "echo": true,
@@ -307,7 +316,10 @@
       "detail": "Open in Playwright with Pixel 7 emulation (cross-platform)",
       "type": "shell",
       "command": "node",
-      "args": ["${workspaceFolder}/scripts/preview/mobile-emulate.mjs", "android"],
+      "args": [
+        "${workspaceFolder}/scripts/preview/mobile-emulate.mjs",
+        "android"
+      ],
       "problemMatcher": [],
       "presentation": {
         "echo": true,
@@ -358,7 +370,10 @@
       "detail": "Launch iOS Simulator - requires macOS with Xcode",
       "type": "shell",
       "command": "node",
-      "args": ["${workspaceFolder}/scripts/preview/ios-simulator.mjs", "${workspaceFolder}"],
+      "args": [
+        "${workspaceFolder}/scripts/preview/ios-simulator.mjs",
+        "${workspaceFolder}"
+      ],
       "problemMatcher": [],
       "presentation": {
         "echo": true,

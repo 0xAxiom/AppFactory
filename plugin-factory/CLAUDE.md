@@ -19,13 +19,13 @@ The output is a ready-to-install plugin, not prompts or scaffolds.
 
 ### What This Pipeline Does NOT Do
 
-| Action                          | Reason                 | Where It Belongs  |
-| ------------------------------- | ---------------------- | ----------------- |
-| Build mobile apps               | Wrong output format    | app-factory       |
-| Build dApps/websites            | Wrong output format    | dapp-factory      |
-| Generate AI agent scaffolds     | Wrong pipeline         | agent-factory     |
-| Build Base Mini Apps            | Wrong pipeline         | miniapp-pipeline  |
-| Deploy automatically            | Requires user approval | Manual step       |
+| Action                      | Reason                 | Where It Belongs |
+| --------------------------- | ---------------------- | ---------------- |
+| Build mobile apps           | Wrong output format    | app-factory      |
+| Build dApps/websites        | Wrong output format    | dapp-factory     |
+| Generate AI agent scaffolds | Wrong pipeline         | agent-factory    |
+| Build Base Mini Apps        | Wrong pipeline         | miniapp-pipeline |
+| Deploy automatically        | Requires user approval | Manual step      |
 
 ### Output Directory
 

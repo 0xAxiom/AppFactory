@@ -42,7 +42,7 @@ try {
   };
 }
 
-const { Spinner, log, COLORS, SYMBOLS } = visual;
+const { Spinner, log, SYMBOLS } = visual;
 
 // ============================================================================
 // Configuration

@@ -35,11 +35,13 @@ App Factory has transitioned from a contradictory "offline by default" model to 
 #### Invariant 4: Changed Definition
 
 **Before**:
+
 ```markdown
 4. Offline by Default - no network without authorization
 ```
 
 **After**:
+
 ```markdown
 4. Capability-Aware Execution - tools are optional, network is available
 ```
@@ -70,26 +72,32 @@ explicitly disabled. Tools degrade gracefully if unavailable—network access it
 Updated all 6 pipeline CLAUDE.md files to remove contradictory network prohibitions:
 
 #### [app-factory/CLAUDE.md](app-factory/CLAUDE.md)
+
 - ✅ Updated Invariant 4 (line 638): "Offline by Default" → "Capability-Aware Execution"
 - ✅ Removed "Execute network calls without authorization" from prohibitions (line 469)
-- ✅ Kept application feature "Offline-first apps" (line 47) - this refers to *generated app behavior*, not pipeline behavior
+- ✅ Kept application feature "Offline-first apps" (line 47) - this refers to _generated app behavior_, not pipeline behavior
 
 #### [website-pipeline/CLAUDE.md](website-pipeline/CLAUDE.md)
+
 - ✅ Updated Invariant 4 (line 760)
 - ✅ Removed "Execute network calls without authorization" prohibition (line 612)
 - ✅ Removed "Make it work offline first" refusal (line 626)
 
 #### [dapp-factory/CLAUDE.md](dapp-factory/CLAUDE.md)
+
 - ✅ Removed "Make network calls without auth | Offline by default" (line 24)
 - ✅ Removed "MUST NOT make network calls without explicit authorization" (line 330)
 
 #### [agent-factory/CLAUDE.md](agent-factory/CLAUDE.md)
+
 - ✅ Removed "Make network calls without auth | Offline by default" (line 26)
 
 #### [plugin-factory/CLAUDE.md](plugin-factory/CLAUDE.md)
+
 - ✅ Removed "Make network calls without auth | Offline by default" (line 29)
 
 #### [miniapp-pipeline/CLAUDE.md](miniapp-pipeline/CLAUDE.md)
+
 - ✅ No changes needed (already had no "offline" references)
 
 **Impact**: All pipeline constitutions now align with root orchestrator's honest network-enabled model.
@@ -103,6 +111,7 @@ Updated all 6 pipeline CLAUDE.md files to remove contradictory network prohibiti
 #### Added Detectors (30+ total)
 
 **Quality Tier**:
+
 - `playwright` - E2E testing (existing, enhanced)
 - `lighthouse` - Performance audits
 - `axe` - Accessibility testing
@@ -114,6 +123,7 @@ Updated all 6 pipeline CLAUDE.md files to remove contradictory network prohibiti
 - `semgrep` - Advanced security (existing)
 
 **Advanced Tier**:
+
 - `vercel-cli` - Deployment
 - `expo-cli` - Mobile deployment
 - `supabase` - Database tools
@@ -123,6 +133,7 @@ Updated all 6 pipeline CLAUDE.md files to remove contradictory network prohibiti
 - `figma` - Design tools (env var detection)
 
 **MCP Servers**:
+
 - `mcp-github` - GitHub integration (existing)
 - `mcp-playwright` - Browser automation (existing)
 - `mcp-context7` - Documentation lookup (existing)
@@ -134,15 +145,18 @@ Updated all 6 pipeline CLAUDE.md files to remove contradictory network prohibiti
 #### New Functions
 
 **Detection**:
+
 - `detectHeavyDependency(skillName)` - Detects heavy dependencies like Playwright browsers (~500MB)
 - `checkEnvironmentVars(varNames)` - Checks for required env vars
 - `getDetailedCapabilities(options)` - Comprehensive capability analysis with tier determination
 
 **Tier Analysis**:
+
 - `detectSkillsByTier(skillsByTier)` - Batch detection with tier-level recommendations
 - Returns: `{ tier, missing, available, recommendations }`
 
 **Messaging**:
+
 - `detectDegradeMessage(skillName, onAvailable, onUnavailable, options)` - Complete Detect → Degrade → Message pattern
 - Enhanced `DEGRADATION_MESSAGES` with fallback and alternative fields for all skills
 - Enhanced `printCapabilityReport()` with detailed tier display
@@ -154,7 +168,7 @@ import {
   detectSkill,
   getDetailedCapabilities,
   printCapabilityReport,
-  detectDegradeMessage
+  detectDegradeMessage,
 } from './lib/skill-detection.mjs';
 
 // Upfront capability detection
@@ -182,6 +196,7 @@ await detectDegradeMessage(
 #### Vendored to All Pipelines
 
 The enhanced library (905 lines) was copied to all 6 pipeline lib directories:
+
 - ✅ `app-factory/scripts/lib/skill-detection.mjs`
 - ✅ `dapp-factory/scripts/lib/skill-detection.mjs`
 - ✅ `website-pipeline/scripts/lib/skill-detection.mjs`
@@ -200,11 +215,13 @@ The enhanced library (905 lines) was copied to all 6 pipeline lib directories:
 **File**: [website-pipeline/scripts/run.mjs](website-pipeline/scripts/run.mjs)
 
 **Current State**:
+
 - ✅ Already has `runSkillsAudits()` function (lines 581-620)
 - ✅ Detects `vercel-agent-skills` and shows degradation messages
 - ✅ Calls skills audit script if available
 
 **Still Needed**:
+
 1. Add upfront capability detection at start of `main()`
 2. Display capability report to user
 3. Add Playwright detection in `verifyProject()` phase
@@ -218,11 +235,7 @@ Here's the recommended pattern for wiring detection into all pipelines:
 #### Step 1: Import Detection Library (Top of File)
 
 ```javascript
-import {
-  getDetailedCapabilities,
-  printCapabilityReport,
-  detectDegradeMessage
-} from './lib/skill-detection.mjs';
+import { getDetailedCapabilities, printCapabilityReport, detectDegradeMessage } from './lib/skill-detection.mjs';
 ```
 
 #### Step 2: Add Capability Detection Phase (Start of main())
@@ -239,12 +252,12 @@ async function main() {
   const capabilities = await getDetailedCapabilities({
     checkBaseline: true,
     checkQuality: true,
-    checkAdvanced: false // Skip advanced for faster startup
+    checkAdvanced: false, // Skip advanced for faster startup
   });
 
   printCapabilityReport(capabilities, {
     detailed: true,
-    showAll: true
+    showAll: true,
   });
 
   // Continue with existing phases...
@@ -254,6 +267,7 @@ async function main() {
 ```
 
 **Output to User**:
+
 ```
 Detecting available capabilities...
 
@@ -343,14 +357,14 @@ async function main() {
 
 ### 2.3 Remaining Pipeline Wiring Work
 
-| Pipeline | File | Status | Effort |
-|----------|------|--------|--------|
-| website-pipeline | `scripts/run.mjs` | Partial (has skills audit detection) | 2 hours |
-| app-factory | `scripts/run.mjs` | Not started | 2 hours |
-| dapp-factory | `scripts/run.mjs` | Not started | 2 hours |
-| agent-factory | `scripts/run.mjs` | Not started | 1.5 hours |
-| plugin-factory | `scripts/run.mjs` | Not started | 1.5 hours |
-| miniapp-pipeline | `scripts/run.mjs` | Not started | 2 hours |
+| Pipeline         | File              | Status                               | Effort    |
+| ---------------- | ----------------- | ------------------------------------ | --------- |
+| website-pipeline | `scripts/run.mjs` | Partial (has skills audit detection) | 2 hours   |
+| app-factory      | `scripts/run.mjs` | Not started                          | 2 hours   |
+| dapp-factory     | `scripts/run.mjs` | Not started                          | 2 hours   |
+| agent-factory    | `scripts/run.mjs` | Not started                          | 1.5 hours |
+| plugin-factory   | `scripts/run.mjs` | Not started                          | 1.5 hours |
+| miniapp-pipeline | `scripts/run.mjs` | Not started                          | 2 hours   |
 
 **Total Estimated Effort**: 11 hours (1-2 days)
 
@@ -359,6 +373,7 @@ async function main() {
 After wiring detection, test each pipeline in these scenarios:
 
 **Baseline Tier** (only Node.js + npm):
+
 - [ ] Pipeline runs without crashing
 - [ ] Capability report shows "BASELINE (Core tools only)"
 - [ ] Degradation messages appear for missing quality tools
@@ -366,6 +381,7 @@ After wiring detection, test each pipeline in these scenarios:
 - [ ] Output artifacts are functional
 
 **Quality Tier** (+ Playwright + agent-skills):
+
 - [ ] Capability report shows "QUALITY (Enhanced with quality tools)"
 - [ ] E2E tests run with Playwright
 - [ ] Skills audits execute
@@ -373,6 +389,7 @@ After wiring detection, test each pipeline in these scenarios:
 - [ ] Build completes successfully
 
 **Advanced Tier** (+ MCP servers + specialized tools):
+
 - [ ] Capability report shows "ADVANCED (Full suite available)"
 - [ ] All quality + advanced features work
 - [ ] MCP servers are detected and used
@@ -532,7 +549,7 @@ async function offerRalphQA(projectPath) {
 
     // Run ralph interactively (user must execute each iteration)
     execSync(`bash ${REPO_ROOT}/ralph/run-ralph.sh ${pipelineName} 1`, {
-      stdio: 'inherit'
+      stdio: 'inherit',
     });
 
     console.log(`${GREEN}✓ Ralph QA iteration 1 complete${RESET}`);
@@ -583,6 +600,7 @@ fi
 ### Key Governance Changes
 
 #### Old Model (Contradictory)
+
 ```
 ✗ "Offline by Default" invariant
 ✗ 5 MCP servers enabled (require network)
@@ -592,6 +610,7 @@ fi
 ```
 
 #### New Model (Honest)
+
 ```
 ✓ "Capability-Aware Execution" invariant
 ✓ Network-enabled by default (MCP servers, Claude, quality tools)
@@ -603,6 +622,7 @@ fi
 ### Capability Tiers
 
 **Baseline Tier** (Always Available):
+
 - Node.js ≥18
 - npm/pnpm/yarn
 - Git
@@ -610,6 +630,7 @@ fi
 - Package.json dependencies (ESLint, TypeScript)
 
 **Quality Tier** (Optional, High ROI):
+
 - Playwright (E2E testing)
 - Lighthouse (performance audits)
 - Axe-core (accessibility)
@@ -618,6 +639,7 @@ fi
 - Ralph QA (adversarial review)
 
 **Advanced Tier** (Optional, Specialized):
+
 - MCP servers (GitHub, Semgrep, Context7, Playwright, etc.)
 - Figma integration
 - Supabase/database tools
@@ -633,6 +655,7 @@ All optional tools MUST follow this pattern:
 3. **MESSAGE**: Tell user clearly what's happening
 
 Example:
+
 ```
 ⚠️  Playwright not available - skipping browser verification
 Using HTTP-only verification instead
@@ -789,18 +812,22 @@ Commits are designed to be independently revertible without breaking dependencie
 ## RISK ASSESSMENT
 
 ### Low Risk
+
 - ✅ Governance documentation updates (no code changes)
 - ✅ Library enhancements (additive, no breaking changes)
 - ✅ Library vendoring (copies, no overwrites)
 
 ### Medium Risk
+
 - ⚠️ Pipeline run.mjs wiring (requires testing in all capability tiers)
 - ⚠️ Skills audit implementation (may have @vercel/agent-skills API changes)
 
 ### High Risk
+
 - ❌ Ralph QA automation (DO NOT fully automate - keep human-in-the-loop)
 
 ### Mitigation
+
 - Test in all 3 capability tiers before merging
 - Start with one pipeline (website-pipeline) as proof-of-concept
 - Keep existing behavior as fallback

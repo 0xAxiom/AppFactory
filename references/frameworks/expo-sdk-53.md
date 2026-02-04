@@ -39,19 +39,19 @@ my-app/
 
 ## Key Dependencies
 
-| Package                   | Version  | Purpose                    |
-| ------------------------- | -------- | -------------------------- |
-| expo                      | ^53.0.0  | Core framework             |
-| expo-router               | ^4.0.0   | File-based routing         |
-| expo-video                | ^2.0.0   | Video playback (stable)    |
-| expo-audio                | ^1.0.0   | Audio playback (stable)    |
-| expo-file-system          | ^18.0.0  | File operations            |
-| expo-image                | ^2.0.0   | Optimized images           |
-| expo-notifications        | ^0.29.0  | Push notifications         |
-| expo-secure-store         | ^14.0.0  | Secure storage             |
-| react-native-purchases    | ^8.0.0   | RevenueCat SDK             |
-| zustand                   | ^5.0.0   | State management           |
-| nativewind                | ^4.0.0   | Tailwind for RN            |
+| Package                | Version | Purpose                 |
+| ---------------------- | ------- | ----------------------- |
+| expo                   | ^53.0.0 | Core framework          |
+| expo-router            | ^4.0.0  | File-based routing      |
+| expo-video             | ^2.0.0  | Video playback (stable) |
+| expo-audio             | ^1.0.0  | Audio playback (stable) |
+| expo-file-system       | ^18.0.0 | File operations         |
+| expo-image             | ^2.0.0  | Optimized images        |
+| expo-notifications     | ^0.29.0 | Push notifications      |
+| expo-secure-store      | ^14.0.0 | Secure storage          |
+| react-native-purchases | ^8.0.0  | RevenueCat SDK          |
+| zustand                | ^5.0.0  | State management        |
+| nativewind             | ^4.0.0  | Tailwind for RN         |
 
 ## Expo Router
 
@@ -102,8 +102,8 @@ export default function RootLayout() {
 ```typescript
 // tailwind.config.js
 module.exports = {
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
-  presets: [require("nativewind/preset")],
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('nativewind/preset')],
   theme: {
     extend: {},
   },
@@ -132,8 +132,8 @@ export default function Card() {
 
 ```typescript
 // app/_layout.tsx
-import Purchases from "react-native-purchases";
-import { useEffect } from "react";
+import Purchases from 'react-native-purchases';
+import { useEffect } from 'react';
 
 export default function RootLayout() {
   useEffect(() => {
@@ -149,11 +149,11 @@ export default function RootLayout() {
 ### Subscription Check
 
 ```typescript
-import Purchases from "react-native-purchases";
+import Purchases from 'react-native-purchases';
 
 async function checkSubscription() {
   const customerInfo = await Purchases.getCustomerInfo();
-  const isPro = customerInfo.entitlements.active["pro"] !== undefined;
+  const isPro = customerInfo.entitlements.active['pro'] !== undefined;
   return isPro;
 }
 ```
@@ -310,11 +310,11 @@ export default function Form() {
 
 ### Recommended Servers
 
-| Server   | Purpose                      |
-| -------- | ---------------------------- |
-| figma    | Import designs directly      |
-| github   | Repository management        |
-| context7 | Real-time Expo/RN docs       |
+| Server   | Purpose                 |
+| -------- | ----------------------- |
+| figma    | Import designs directly |
+| github   | Repository management   |
+| context7 | Real-time Expo/RN docs  |
 
 ## Resources
 

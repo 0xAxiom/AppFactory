@@ -16,7 +16,7 @@
  * @module scripts/local-run-proof/verify
  */
 
-import { existsSync, writeFileSync, readFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { platform, arch, release } from 'node:os';
@@ -37,7 +37,6 @@ import {
   openBrowser,
   cleanBuildArtifacts,
   extractPort,
-  timestamp,
   CLEAN_FILES,
 } from './lib.mjs';
 
@@ -145,7 +144,7 @@ async function verify(options) {
   };
 
   // Track dev server for cleanup
-  let devServerProc = null;
+  let _devServerProc = null;
   let devServerPid = null;
 
   // Cleanup handler
@@ -405,7 +404,7 @@ async function verify(options) {
         },
       });
 
-      devServerProc = devServer.proc;
+      _devServerProc = devServer.proc;
       devServerPid = devServer.proc.pid;
       logs.dev = devServer.stdout;
 

@@ -16,10 +16,9 @@
  */
 
 import { spawn } from 'child_process';
-import { existsSync, mkdirSync, writeFileSync, appendFileSync, readFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, appendFileSync, unlinkSync } from 'fs';
 import { join, resolve } from 'path';
 import http from 'http';
-import https from 'https';
 
 // Parse arguments
 const args = process.argv.slice(2);
@@ -75,10 +74,10 @@ writeFileSync(logPath, `=== Website Local Run Proof ===\nStarted: ${new Date().t
 
 // Delete old certificates
 if (existsSync(certPath)) {
-  require('fs').unlinkSync(certPath);
+  unlinkSync(certPath);
 }
 if (existsSync(failPath)) {
-  require('fs').unlinkSync(failPath);
+  unlinkSync(failPath);
 }
 
 const url = `http://localhost:${port}`;
@@ -202,7 +201,6 @@ async function main() {
 
       // Open browser if requested
       if (openBrowser) {
-        const { spawn: spawnOpen } = await import('child_process');
         const openScript = join(process.cwd(), 'scripts', 'open-url.mjs');
         if (existsSync(openScript)) {
           log(`Opening browser: ${url}`);

@@ -16,11 +16,7 @@
     },
     "filesystem": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "."
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
       "description": "Secure local file operations within AppFactory project directory only"
     },
     "context7": {

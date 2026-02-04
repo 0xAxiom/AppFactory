@@ -11,11 +11,11 @@ This optional integration enables Claude Code to interact with Blender for 3D as
 
 ## Requirements
 
-| Requirement | Version | Notes |
-|-------------|---------|-------|
-| Blender | 3.0+ | Download from [blender.org](https://www.blender.org/download/) |
-| Python | 3.10+ | Usually bundled with Blender |
-| uv | latest | Install via `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+| Requirement | Version | Notes                                                          |
+| ----------- | ------- | -------------------------------------------------------------- |
+| Blender     | 3.0+    | Download from [blender.org](https://www.blender.org/download/) |
+| Python      | 3.10+   | Usually bundled with Blender                                   |
+| uv          | latest  | Install via `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 
 ## Installation
 
@@ -109,6 +109,7 @@ blender --background \
 ### Output Directory
 
 Exports go to `artifacts/tour-guide/`:
+
 - `tour-guide.glb` - Web-ready 3D model
 - `thumbnail.png` - Preview image
 

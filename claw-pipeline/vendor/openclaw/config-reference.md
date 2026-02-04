@@ -52,31 +52,34 @@ export const config = {
 ## Environment Variables
 
 ### Required (all bots)
-| Variable | Description |
-|----------|-------------|
+
+| Variable            | Description                      |
+| ------------------- | -------------------------------- |
 | `ANTHROPIC_API_KEY` | Claude API key (if using Claude) |
-| `OPENAI_API_KEY` | OpenAI API key (if using OpenAI) |
+| `OPENAI_API_KEY`    | OpenAI API key (if using OpenAI) |
 
 ### Platform-Specific
-| Variable | Description |
-|----------|-------------|
-| `WHATSAPP_API_KEY` | WhatsApp Business API key |
+
+| Variable              | Description                  |
+| --------------------- | ---------------------------- |
+| `WHATSAPP_API_KEY`    | WhatsApp Business API key    |
 | `WHATSAPP_API_SECRET` | WhatsApp Business API secret |
-| `TELEGRAM_API_KEY` | Telegram Bot Token |
-| `TELEGRAM_API_SECRET` | Telegram webhook secret |
-| `DISCORD_API_KEY` | Discord Bot Token |
-| `DISCORD_API_SECRET` | Discord application secret |
-| `SLACK_API_KEY` | Slack Bot Token |
-| `SLACK_API_SECRET` | Slack signing secret |
+| `TELEGRAM_API_KEY`    | Telegram Bot Token           |
+| `TELEGRAM_API_SECRET` | Telegram webhook secret      |
+| `DISCORD_API_KEY`     | Discord Bot Token            |
+| `DISCORD_API_SECRET`  | Discord application secret   |
+| `SLACK_API_KEY`       | Slack Bot Token              |
+| `SLACK_API_SECRET`    | Slack signing secret         |
 
 ### Token Launch (Optional)
-| Variable | Description |
-|----------|-------------|
-| `BAGS_API_KEY` | Bags.fm API key (Solana) |
-| `SOLANA_RPC_URL` | Solana RPC endpoint |
-| `CREATOR_WALLET_ADDRESS` | Solana wallet (Base58) |
-| `CLANKER_API_KEY` | Clanker API key (Base) |
-| `ADMIN_WALLET_ADDRESS` | EVM wallet (0x) |
+
+| Variable                 | Description              |
+| ------------------------ | ------------------------ |
+| `BAGS_API_KEY`           | Bags.fm API key (Solana) |
+| `SOLANA_RPC_URL`         | Solana RPC endpoint      |
+| `CREATOR_WALLET_ADDRESS` | Solana wallet (Base58)   |
+| `CLANKER_API_KEY`        | Clanker API key (Base)   |
+| `ADMIN_WALLET_ADDRESS`   | EVM wallet (0x)          |
 
 ## Skill Interface
 

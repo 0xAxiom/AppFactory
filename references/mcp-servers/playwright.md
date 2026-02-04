@@ -36,38 +36,38 @@ Instead of taking screenshots and using vision models, Playwright MCP uses the b
 
 ### Navigation
 
-| Tool        | Description                 |
-| ----------- | --------------------------- |
-| `navigate`  | Navigate to a URL           |
-| `back`      | Go back in browser history  |
-| `forward`   | Go forward                  |
-| `reload`    | Reload current page         |
+| Tool       | Description                |
+| ---------- | -------------------------- |
+| `navigate` | Navigate to a URL          |
+| `back`     | Go back in browser history |
+| `forward`  | Go forward                 |
+| `reload`   | Reload current page        |
 
 ### Page Interaction
 
-| Tool        | Description                 |
-| ----------- | --------------------------- |
-| `click`     | Click an element            |
-| `fill`      | Fill a form field           |
-| `select`    | Select dropdown option      |
-| `check`     | Check/uncheck checkbox      |
-| `hover`     | Hover over element          |
-| `press`     | Press keyboard key          |
+| Tool     | Description            |
+| -------- | ---------------------- |
+| `click`  | Click an element       |
+| `fill`   | Fill a form field      |
+| `select` | Select dropdown option |
+| `check`  | Check/uncheck checkbox |
+| `hover`  | Hover over element     |
+| `press`  | Press keyboard key     |
 
 ### Information Gathering
 
-| Tool        | Description                 |
-| ----------- | --------------------------- |
-| `snapshot`  | Get accessibility snapshot  |
-| `text`      | Get text content            |
-| `title`     | Get page title              |
-| `url`       | Get current URL             |
+| Tool       | Description                |
+| ---------- | -------------------------- |
+| `snapshot` | Get accessibility snapshot |
+| `text`     | Get text content           |
+| `title`    | Get page title             |
+| `url`      | Get current URL            |
 
 ### Screenshots (Optional)
 
-| Tool          | Description               |
-| ------------- | ------------------------- |
-| `screenshot`  | Take page screenshot      |
+| Tool         | Description          |
+| ------------ | -------------------- |
+| `screenshot` | Take page screenshot |
 
 ## Usage Examples
 

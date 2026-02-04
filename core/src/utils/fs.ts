@@ -304,7 +304,5 @@ export function getModTime(filePath: string): Date | null {
  * @returns Path to the created temp directory
  */
 export function createTempDir(prefix: string = 'appfactory-'): string {
-  return fs.mkdtempSync(
-    path.join(fs.realpathSync(os.tmpdir()), prefix)
-  );
+  return fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), prefix));
 }

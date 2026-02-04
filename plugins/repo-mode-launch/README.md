@@ -7,6 +7,7 @@ MCP server for orchestrating Repo Mode token launches via Factory Launchpad.
 This plugin provides tools for Claude to help users launch tokens backed by GitHub repositories. It implements the AppFactory side of the "one flow" Repo Mode integration.
 
 **Key Principles:**
+
 - Never handles private keys - all signing happens in user's wallet
 - Deterministic outputs - same inputs produce same launch.intent.json
 - Minimal trust - verifies with Launchpad but works offline when needed
@@ -18,11 +19,13 @@ This plugin provides tools for Claude to help users launch tokens backed by GitH
 Validates a GitHub repository URL and optionally verifies it with Launchpad.
 
 **Input:**
+
 - `repoUrl` (required): GitHub repository URL
 - `branch` (optional): Branch name to validate
 - `launchpadApiUrl` (optional): Custom Launchpad API URL
 
 **Output:**
+
 - `valid`: boolean
 - `owner`: GitHub username/org
 - `repo`: Repository name
@@ -34,6 +37,7 @@ Validates a GitHub repository URL and optionally verifies it with Launchpad.
 Creates a deterministic `launch.intent.json` for a token launch.
 
 **Input:**
+
 - `repoUrl` (required): GitHub repository URL
 - `commitSha` (required): Full 40-character commit SHA
 - `walletAddress` (required): Solana wallet address (base58)
@@ -43,6 +47,7 @@ Creates a deterministic `launch.intent.json` for a token launch.
 - `imageUrl`, `twitter`, `telegram`, `website` (optional): Social links
 
 **Output:**
+
 - `launchIntent`: The complete intent object
 - `launchIntentJson`: JSON string for file writing
 - `branchName`: Deterministic branch name (e.g., `launch/mytoken-f3a8c291`)
@@ -53,11 +58,13 @@ Creates a deterministic `launch.intent.json` for a token launch.
 Prepares the attestation message for wallet signing.
 
 **Input:**
+
 - `launchIntentJson` (required): Complete launch.intent.json as string
 - `walletAddress` (required): Wallet that will sign
 - `launchpadApiUrl` (optional): Custom API URL
 
 **Output:**
+
 - `payloadForSignature`: Message to sign with wallet
 - `payloadHash`: SHA256 of the message
 - `instructions`: Human-readable signing instructions
@@ -68,11 +75,13 @@ Prepares the attestation message for wallet signing.
 Confirms the signed attestation with Launchpad to stage the launch.
 
 **Input:**
+
 - `launchIntentJson` (required): Complete launch.intent.json as string
 - `walletSignature` (required): Base58-encoded wallet signature
 - `launchpadApiUrl` (optional): Custom API URL
 
 **Output:**
+
 - `success`: boolean
 - `tokenMint`: Token mint address (if available)
 - `launchpadUrl`: URL to complete launch
@@ -84,12 +93,14 @@ Confirms the signed attestation with Launchpad to stage the launch.
 Returns configuration for AppFactory pipeline hooks (does not write files).
 
 **Input:**
+
 - `launchBrand` (required): Token/project name
 - `branchName` (required): Launch branch name
 - `appFactoryPath` (optional): Path to AppFactory root
 - `enableAutoRun` (optional): Enable auto-run on build success
 
 **Output:**
+
 - `configured`: Always false (informational only)
 - `hookConfig`: JSON configuration object
 - `hooksPath`: Where to save the config
@@ -108,10 +119,10 @@ Returns configuration for AppFactory pipeline hooks (does not write files).
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `LAUNCHPAD_API_URL` | Factory Launchpad API URL | `https://appfactory.fun` |
-| `APP_FACTORY_WEBHOOK_SECRET` | HMAC webhook secret | (none) |
+| Variable                     | Description               | Default                  |
+| ---------------------------- | ------------------------- | ------------------------ |
+| `LAUNCHPAD_API_URL`          | Factory Launchpad API URL | `https://appfactory.fun` |
+| `APP_FACTORY_WEBHOOK_SECRET` | HMAC webhook secret       | (none)                   |
 
 ## Security Considerations
 

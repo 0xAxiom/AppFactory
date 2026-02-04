@@ -231,18 +231,15 @@ Since components are in your codebase, customize directly:
 
 ```typescript
 // components/ui/button.tsx
-const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md...",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground",
-        // Add your own variant
-        brand: "bg-blue-600 text-white hover:bg-blue-700",
-      },
+const buttonVariants = cva('inline-flex items-center justify-center rounded-md...', {
+  variants: {
+    variant: {
+      default: 'bg-primary text-primary-foreground',
+      // Add your own variant
+      brand: 'bg-blue-600 text-white hover:bg-blue-700',
     },
-  }
-);
+  },
+});
 ```
 
 ## Utility: cn()
@@ -251,8 +248,8 @@ The `cn()` function merges Tailwind classes:
 
 ```typescript
 // lib/utils.ts
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

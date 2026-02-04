@@ -109,10 +109,10 @@ interface Agent {
 }
 
 const searchAgent: Agent = {
-  name: "search-agent",
+  name: 'search-agent',
   preamble: `You are a search assistant. Use the search tool to find information.
   Always cite your sources.`,
-  model: "claude-sonnet-4-5-20250514",
+  model: 'claude-sonnet-4-5-20250514',
   tools: [searchTool, summarizeTool],
   maxIterations: 10,
 };
@@ -130,10 +130,10 @@ interface Tool<TArgs, TOutput> {
 }
 
 const searchTool: Tool<SearchArgs, SearchResult[]> = {
-  name: "search",
-  description: "Search the web for information",
+  name: 'search',
+  description: 'Search the web for information',
   argsSchema: z.object({
-    query: z.string().describe("The search query"),
+    query: z.string().describe('The search query'),
     maxResults: z.number().default(5),
   }),
   outputSchema: z.array(
@@ -155,14 +155,14 @@ const searchTool: Tool<SearchArgs, SearchResult[]> = {
 ```typescript
 async function runAgent(agent: Agent, userMessage: string): Promise<string> {
   const messages: Message[] = [
-    { role: "system", content: agent.preamble },
-    { role: "user", content: userMessage },
+    { role: 'system', content: agent.preamble },
+    { role: 'user', content: userMessage },
   ];
 
   for (let i = 0; i < agent.maxIterations; i++) {
     const response = await callLLM(agent.model, messages, agent.tools);
 
-    if (response.stopReason === "end_turn") {
+    if (response.stopReason === 'end_turn') {
       return response.content;
     }
 
@@ -173,16 +173,16 @@ async function runAgent(agent: Agent, userMessage: string): Promise<string> {
 
       const result = await tool.execute(toolCall.args);
       messages.push({
-        role: "tool_result",
+        role: 'tool_result',
         toolUseId: toolCall.id,
         content: JSON.stringify(result),
       });
     }
 
-    messages.push({ role: "assistant", content: response.content });
+    messages.push({ role: 'assistant', content: response.content });
   }
 
-  throw new Error("Max iterations reached");
+  throw new Error('Max iterations reached');
 }
 ```
 
@@ -225,7 +225,7 @@ async function ragQuery(pipeline: RAGPipeline, query: string): Promise<string> {
   const docs = await pipeline.retriever.retrieve(query, 5);
 
   // Build context
-  const context = docs.map((d) => d.content).join("\n\n");
+  const context = docs.map((d) => d.content).join('\n\n');
 
   // Query agent with context
   return pipeline.agent.prompt(`Context:\n${context}\n\nQuery: ${query}`);
@@ -256,7 +256,7 @@ let agent = client
 ```typescript
 // Always use Zod schemas for validation
 const toolSchema = z.object({
-  param: z.string().describe("Clear description"),
+  param: z.string().describe('Clear description'),
 });
 ```
 

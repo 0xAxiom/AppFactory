@@ -25,6 +25,7 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
 - **Impact**: Eliminates the possibility of claiming a build is ready without cryptographic proof
 
 **Technical Details**:
+
 - Added `readFileSync` import to all run.mjs files
 - Created `checkRunCertificate()` function that:
   - Checks for RUN_FAILURE.json first and displays error
@@ -60,6 +61,7 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
 - **Impact**: Consistent certificate format across all verification types
 
 **Technical Details**:
+
 - Created `writeCertificate()` function for standardized PASS certificates
 - Created `writeFailure()` function for standardized FAIL certificates
 - Certificate schema now includes:
@@ -84,6 +86,7 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
 - **Impact**: Ralph QA iterations can now be run consistently across all pipelines
 
 **Features**:
+
 - Accepts pipeline name and iteration number as arguments
 - Supports batch mode (`--pipeline all`)
 - Generates iteration-specific prompts with focus areas
@@ -92,6 +95,7 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
 - Executable with proper permissions
 
 **Usage**:
+
 ```bash
 ./ralph/run-ralph.sh app-factory 2      # Single pipeline
 ./ralph/run-ralph.sh all 3              # All pipelines
@@ -108,6 +112,7 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
 - **Impact**: Skills audits can be run independently of pipeline execution
 
 **Features**:
+
 - Runs @vercel/agent-skills audits on generated projects
 - Supports react-best-practices and web-design-guidelines
 - Configurable thresholds per skill (default: 95% react, 90% design)
@@ -116,6 +121,7 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
 - Creates `<project>/audits/` directory
 
 **Usage**:
+
 ```bash
 ./scripts/run-skills-audit.sh website-pipeline/website-builds/my-site
 ./scripts/run-skills-audit.sh dapp-factory/dapp-builds/my-dapp --skill react-best-practices
@@ -136,17 +142,20 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
 - **Impact**: Pipelines can be distributed independently without cross-pipeline dependencies
 
 **Technical Details**:
+
 - Copied `scripts/lib/{local-run-proof,process-manager,visual}.mjs` to all 6 pipeline directories
 - Updated `LIB_DIR` in all run.mjs files from `join(REPO_ROOT, 'scripts', 'lib')` to `join(__dirname, 'lib')`
 - Each pipeline now has autonomous copies (~29KB per pipeline)
 
 **Benefits**:
+
 - Pipelines can be distributed independently
 - No cross-pipeline dependencies
 - Easier to version libraries per-pipeline
 - Simpler deployment model
 
 **Trade-offs**:
+
 - Code duplication (~174KB total across 6 pipelines)
 - Updates to lib must be propagated manually
 - Alternative considered: npm package (requires publishing infrastructure)
@@ -184,6 +193,7 @@ Successfully implemented all Tier-2 (architectural judgment required) and Tier-3
    - Most complex
 
 **Recommendation**: Option B (Deprecate) based on:
+
 - Recent Tier-3 vendoring decision
 - AppFactory philosophy of autonomous pipelines
 - Audit findings on coupling issues
@@ -200,16 +210,19 @@ This is a strategic architectural decision that should not be implemented unilat
 ### Before Tier-2/3 Fixes
 
 **Verification Gate Integrity**: ⚠️ WEAK
+
 - Pipelines could claim "ready" without proof
 - Certificate validation was implicit, not enforced
 - Manual certificate writing was inconsistent
 
 **Automation**: ❌ MANUAL
+
 - Ralph QA required manual prompt pasting
 - Skills audits embedded in pipeline execution only
 - No standalone audit tools
 
 **Architecture**: 🔗 COUPLED
+
 - Shared scripts/lib/ created cross-pipeline dependencies
 - Core library decision unresolved
 - Pipelines could not be distributed independently
@@ -217,16 +230,19 @@ This is a strategic architectural decision that should not be implemented unilat
 ### After Tier-2/3 Fixes
 
 **Verification Gate Integrity**: ✅ ENFORCED
+
 - All pipelines explicitly validate RUN_CERTIFICATE.json
 - Standardized certificate writing via helpers
 - Cannot claim "ready" without PASS certificate
 
 **Automation**: ✅ AUTOMATED
+
 - Ralph QA runner available for all pipelines
 - Skills audit runner for standalone execution
 - Both scripts executable and documented
 
 **Architecture**: 🔓 AUTONOMOUS
+
 - Pipelines have vendored lib files (self-contained)
 - Core library decision documented with recommendation
 - Pipelines can be distributed independently
@@ -258,6 +274,7 @@ a5cbd56 fix(tier-2): remove forbidden bypass flags from agent-factory README [TO
 ```
 
 All commits are:
+
 - Atomic (one logical change each)
 - Reversible (can be cherry-picked or reverted independently)
 - Documented (clear commit messages with TODO references)
@@ -274,11 +291,13 @@ All commits are:
 **Lines Removed**: -43
 
 **Fixes Implemented**: 14 total
+
 - 7 Tier-1 (safe, non-architectural)
 - 5 Tier-2 (architectural judgment required)
 - 2 Tier-3 (long-term refactoring)
 
 **TODOs Resolved**:
+
 - 6 BLOCKER
 - 4 HIGH
 - 2 MEDIUM
@@ -290,12 +309,14 @@ All commits are:
 All identified issues from the full-spectrum audit have been addressed. The only remaining item is a **strategic decision**:
 
 **Core Library Adoption** (ADR-0005):
+
 - Decision documented with three options
 - Recommendation provided (Option B: Deprecate)
 - Requires user input to proceed
 - Implementation blocked pending decision
 
 If Option B (Deprecate) is chosen:
+
 1. Create `scripts/extract-core-utils.sh` to vendor useful core utilities
 2. Copy relevant code from core/ to each pipeline's scripts/lib/
 3. Update documentation to reflect vendoring approach
@@ -310,6 +331,7 @@ If Option B (Deprecate) is chosen:
 ### Repository Health
 
 **Before All Fixes**:
+
 - 🟡 USABLE WITH REQUIRED FIXES
 - Fresh clone success: ❌ NO
 - Verification gate: ⚠️ WEAK
@@ -318,6 +340,7 @@ If Option B (Deprecate) is chosen:
 - Documentation accuracy: A- (93%)
 
 **After All Fixes**:
+
 - 🟢 PRODUCTION READY
 - Fresh clone success: ✅ YES (with proper guidance)
 - Verification gate: ✅ ENFORCED
@@ -340,6 +363,7 @@ git push origin main
 ```
 
 These changes are:
+
 - ✅ Safe and non-breaking
 - ✅ Improve verification integrity
 - ✅ Add automation capabilities
@@ -349,6 +373,7 @@ These changes are:
 ### Post-Merge (Core Library Decision)
 
 After merging, review ADR-0005 and decide on core library approach:
+
 - If adopting: Implement Option A
 - If deprecating: Implement Option B
 - If hybrid: Implement Option C
@@ -362,6 +387,7 @@ The Tier-2/3 fixes establish a clear architectural direction:
 **Pipeline Autonomy Over Centralization**
 
 Rationale:
+
 1. Each pipeline can be distributed independently
 2. No cross-pipeline dependencies or coupling
 3. Simpler deployment and distribution model

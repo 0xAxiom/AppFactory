@@ -17,12 +17,14 @@ This document defines expected repository hygiene invariants and provides a chec
 ### 1. Git Cleanliness
 
 **Invariants**:
+
 - No uncommitted changes to `package-lock.json` (unless intentional)
 - No untracked build artifacts
 - No `.DS_Store` or OS-specific files
 - No temporary files (`.tmp`, `.log`, `.cache`)
 
 **Checks**:
+
 ```bash
 # Check git status
 git status --porcelain
@@ -34,6 +36,7 @@ A  .vscode/tasks.json
 ```
 
 **Red Flags**:
+
 - `M package-lock.json` (unless you just ran npm install)
 - `?? node_modules/` (should be gitignored)
 - `?? .env` (secrets file not ignored)
@@ -43,12 +46,14 @@ A  .vscode/tasks.json
 ### 2. Dependency Health
 
 **Invariants**:
+
 - `package-lock.json` exists and is committed
 - `node_modules/` is gitignored
 - No `npm-debug.log` files
 - Dependencies are installed (`node_modules/` exists locally)
 
 **Checks**:
+
 ```bash
 # Verify lock file exists
 ls -la package-lock.json
@@ -63,6 +68,7 @@ find . -name "npm-debug.log" -o -name "yarn-error.log"
 ```
 
 **Red Flags**:
+
 - Missing `package-lock.json`
 - `node_modules/` not in `.gitignore`
 - Debug logs present
@@ -72,12 +78,14 @@ find . -name "npm-debug.log" -o -name "yarn-error.log"
 ### 3. Code Quality
 
 **Invariants**:
+
 - Linting passes (`npm run lint` exits 0)
 - Formatting is consistent (`npm run format:check` exits 0)
 - TypeScript compilation succeeds (`npm run type-check` exits 0)
 - Tests pass (`npm run test` exits 0)
 
 **Checks**:
+
 ```bash
 # Run verification suite
 npm run ci
@@ -90,6 +98,7 @@ npm run ci
 ```
 
 **Red Flags**:
+
 - Lint errors (exit code 1)
 - Type errors (exit code 1)
 - Failing tests (exit code 1)
@@ -99,12 +108,14 @@ npm run ci
 ### 4. File Structure
 
 **Invariants**:
+
 - `.claude/` directory exists with governance files
 - `.vscode/` directory exists with tasks and settings
 - `.gitignore` includes agent artifacts
 - No duplicate configuration files
 
 **Checks**:
+
 ```bash
 # Verify governance files
 ls .claude/control.md .claude/guardrails.md .claude/commands.md
@@ -117,6 +128,7 @@ grep -E "(SUCCESS\.json|FAILURE\.json|AUDIT\.json)" .gitignore
 ```
 
 **Red Flags**:
+
 - Missing governance files
 - Missing VS Code configuration
 - Agent artifacts not gitignored
@@ -126,12 +138,14 @@ grep -E "(SUCCESS\.json|FAILURE\.json|AUDIT\.json)" .gitignore
 ### 5. Security
 
 **Invariants**:
+
 - No `.env` files committed
 - No API keys in code
 - No AWS credentials in code
 - No private keys committed
 
 **Checks**:
+
 ```bash
 # Check for .env files in git
 git ls-files | grep "\.env"
@@ -145,6 +159,7 @@ grep -r "API_KEY\|SECRET\|PASSWORD" --include="*.ts" --include="*.js" . | grep -
 ```
 
 **Red Flags**:
+
 - `.env` file committed
 - Hardcoded API keys
 - AWS credentials in code
@@ -154,12 +169,14 @@ grep -r "API_KEY\|SECRET\|PASSWORD" --include="*.ts" --include="*.js" . | grep -
 ### 6. Build Artifacts
 
 **Invariants**:
+
 - Build artifacts are gitignored
 - `dist/` directories are gitignored
 - `build/` directories are gitignored
 - Coverage reports are gitignored
 
 **Checks**:
+
 ```bash
 # Verify build artifacts are ignored
 grep -E "(dist/|build/|coverage/)" .gitignore
@@ -171,6 +188,7 @@ git ls-files | grep -E "(dist/|build/|coverage/)"
 ```
 
 **Red Flags**:
+
 - Build artifacts committed to git
 - Missing gitignore entries
 
@@ -240,14 +258,14 @@ Type Check:
 
 Watch for these patterns indicating degradation:
 
-| Pattern | Severity | Action |
-|---------|----------|--------|
-| Increasing lint warnings | LOW | Address gradually |
-| New type errors | MEDIUM | Fix before merging |
-| Failing tests | HIGH | Fix immediately |
-| Uncommitted lock file changes | MEDIUM | Commit or revert |
-| Untracked `.env` file | HIGH | Add to `.gitignore` immediately |
-| Build artifacts committed | HIGH | Remove from git history |
+| Pattern                       | Severity | Action                          |
+| ----------------------------- | -------- | ------------------------------- |
+| Increasing lint warnings      | LOW      | Address gradually               |
+| New type errors               | MEDIUM   | Fix before merging              |
+| Failing tests                 | HIGH     | Fix immediately                 |
+| Uncommitted lock file changes | MEDIUM   | Commit or revert                |
+| Untracked `.env` file         | HIGH     | Add to `.gitignore` immediately |
+| Build artifacts committed     | HIGH     | Remove from git history         |
 
 ---
 
@@ -256,12 +274,14 @@ Watch for these patterns indicating degradation:
 If hygiene degrades:
 
 ### Step 1: Assess
+
 ```bash
 git status
 npm run ci
 ```
 
 ### Step 2: Categorize Issues
+
 - Linting issues → Enter FIX MODE → `npm run lint:fix`
 - Format issues → Enter FIX MODE → `npm run format`
 - Type errors → Enter FIX MODE → Manual fixes
@@ -269,12 +289,14 @@ npm run ci
 - Git issues → Review and commit/revert
 
 ### Step 3: Verify Recovery
+
 ```bash
 npm run ci
 git status
 ```
 
 ### Step 4: Document
+
 Log recovery actions to `.claude/audit.log`
 
 ---
@@ -306,15 +328,15 @@ Log recovery actions to `.claude/audit.log`
 
 Track these metrics over time:
 
-| Metric | Command | Target |
-|--------|---------|--------|
-| Lint errors | `npm run lint` | 0 errors |
-| Lint warnings | `npm run lint` | < 10 warnings |
-| Type errors | `npm run type-check` | 0 errors |
-| Test failures | `npm run test` | 0 failures |
-| Test coverage | `npm run test:coverage` | > 80% |
-| Outdated deps | `npm outdated` | < 5 packages |
-| Security vulns | `npm audit` | 0 high/critical |
+| Metric         | Command                 | Target          |
+| -------------- | ----------------------- | --------------- |
+| Lint errors    | `npm run lint`          | 0 errors        |
+| Lint warnings  | `npm run lint`          | < 10 warnings   |
+| Type errors    | `npm run type-check`    | 0 errors        |
+| Test failures  | `npm run test`          | 0 failures      |
+| Test coverage  | `npm run test:coverage` | > 80%           |
+| Outdated deps  | `npm outdated`          | < 5 packages    |
+| Security vulns | `npm audit`             | 0 high/critical |
 
 ---
 
@@ -329,6 +351,7 @@ Track these metrics over time:
 ### Scheduled Checks (Optional)
 
 Consider setting up:
+
 - Daily dependency checks (`npm run deps:check`)
 - Weekly security audits (`npm audit`)
 - Monthly dependency updates (with approval)
@@ -337,9 +360,9 @@ Consider setting up:
 
 ## VERSION HISTORY
 
-| Version | Date       | Changes                   |
-| ------- | ---------- | ------------------------- |
-| 1.0.0   | 2026-01-22 | Initial hygiene report    |
+| Version | Date       | Changes                |
+| ------- | ---------- | ---------------------- |
+| 1.0.0   | 2026-01-22 | Initial hygiene report |
 
 ---
 

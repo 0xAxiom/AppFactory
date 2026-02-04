@@ -60,16 +60,16 @@ my-app/
 
 ## Key Dependencies
 
-| Package            | Version   | Purpose              |
-| ------------------ | --------- | -------------------- |
-| next               | ^15.5.0   | Core framework       |
-| react              | ^19.0.0   | UI library           |
-| react-dom          | ^19.0.0   | React DOM            |
-| tailwindcss        | ^4.0.0    | Styling              |
-| @ai-sdk/anthropic  | ^1.0.0    | Claude integration   |
-| ai                 | ^6.0.0    | Vercel AI SDK        |
-| zod                | ^3.23.0   | Schema validation    |
-| @tanstack/react-query | ^5.0.0 | Data fetching        |
+| Package               | Version | Purpose            |
+| --------------------- | ------- | ------------------ |
+| next                  | ^15.5.0 | Core framework     |
+| react                 | ^19.0.0 | UI library         |
+| react-dom             | ^19.0.0 | React DOM          |
+| tailwindcss           | ^4.0.0  | Styling            |
+| @ai-sdk/anthropic     | ^1.0.0  | Claude integration |
+| ai                    | ^6.0.0  | Vercel AI SDK      |
+| zod                   | ^3.23.0 | Schema validation  |
+| @tanstack/react-query | ^5.0.0  | Data fetching      |
 
 ## Server Components
 
@@ -116,20 +116,20 @@ Replace API routes with Server Actions:
 
 ```typescript
 // app/actions.ts
-"use server";
+'use server';
 
-import { db } from "@/lib/db";
-import { revalidatePath } from "next/cache";
+import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export async function createPost(formData: FormData) {
-  const title = formData.get("title") as string;
-  const content = formData.get("content") as string;
+  const title = formData.get('title') as string;
+  const content = formData.get('content') as string;
 
   await db.posts.create({
     data: { title, content },
   });
 
-  revalidatePath("/posts");
+  revalidatePath('/posts');
 }
 ```
 
@@ -199,7 +199,7 @@ export default function RootLayout({
 
 ```typescript
 // app/blog/[slug]/page.tsx
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 type Props = {
   params: { slug: string };
@@ -225,7 +225,7 @@ For API routes that need more control:
 
 ```typescript
 // app/api/webhooks/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -248,13 +248,13 @@ export async function POST(request: NextRequest) {
 
 ## MCP Integrations
 
-| Server     | Purpose                  |
-| ---------- | ------------------------ |
-| supabase   | Database management      |
-| playwright | UX Polish Loop testing   |
-| figma      | Design-to-code           |
-| context7   | Real-time Next.js docs   |
-| semgrep    | Security scanning        |
+| Server     | Purpose                |
+| ---------- | ---------------------- |
+| supabase   | Database management    |
+| playwright | UX Polish Loop testing |
+| figma      | Design-to-code         |
+| context7   | Real-time Next.js docs |
+| semgrep    | Security scanning      |
 
 ## Resources
 

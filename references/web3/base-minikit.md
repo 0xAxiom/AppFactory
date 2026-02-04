@@ -16,14 +16,14 @@ npm install @coinbase/onchainkit viem @upstash/redis
 
 ```typescript
 // minikit.config.ts
-import { MiniKitConfig } from "@coinbase/onchainkit/minikit";
+import { MiniKitConfig } from '@coinbase/onchainkit/minikit';
 
 export const config: MiniKitConfig = {
-  name: "My Mini App",
-  description: "A mini app for Farcaster",
-  icon: "/icon.png",
-  splashImage: "/splash.png",
-  splashBackgroundColor: "#1E40AF",
+  name: 'My Mini App',
+  description: 'A mini app for Farcaster',
+  icon: '/icon.png',
+  splashImage: '/splash.png',
+  splashBackgroundColor: '#1E40AF',
 };
 ```
 
@@ -127,22 +127,22 @@ Create the Farcaster manifest:
 
 ```typescript
 // app/.well-known/farcaster.json/route.ts
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   return NextResponse.json({
     accountAssociation: {
-      header: "...", // From Warpcast developer portal
-      payload: "...",
-      signature: "...",
+      header: '...', // From Warpcast developer portal
+      payload: '...',
+      signature: '...',
     },
     frame: {
-      version: "1",
-      name: "My Mini App",
-      iconUrl: "https://myapp.com/icon.png",
-      splashImageUrl: "https://myapp.com/splash.png",
-      splashBackgroundColor: "#1E40AF",
-      homeUrl: "https://myapp.com",
+      version: '1',
+      name: 'My Mini App',
+      iconUrl: 'https://myapp.com/icon.png',
+      splashImageUrl: 'https://myapp.com/splash.png',
+      splashBackgroundColor: '#1E40AF',
+      homeUrl: 'https://myapp.com',
     },
   });
 }
@@ -154,7 +154,7 @@ export async function GET() {
 
 ```typescript
 // lib/redis.ts
-import { Redis } from "@upstash/redis";
+import { Redis } from '@upstash/redis';
 
 export const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -168,7 +168,7 @@ export async function saveUserScore(fid: number, score: number) {
 
 // Get leaderboard
 export async function getLeaderboard(limit = 10) {
-  return redis.zrange("leaderboard", 0, limit - 1, {
+  return redis.zrange('leaderboard', 0, limit - 1, {
     rev: true,
     withScores: true,
   });
@@ -179,16 +179,16 @@ export async function getLeaderboard(limit = 10) {
 
 ```typescript
 // app/actions.ts
-"use server";
+'use server';
 
-import { redis } from "@/lib/redis";
+import { redis } from '@/lib/redis';
 
 export async function submitScore(fid: number, score: number) {
   // Update user's score
   await redis.set(`user:${fid}:score`, score);
 
   // Update leaderboard
-  await redis.zadd("leaderboard", { score, member: fid.toString() });
+  await redis.zadd('leaderboard', { score, member: fid.toString() });
 
   return { success: true };
 }
@@ -244,8 +244,8 @@ function Leaderboard() {
 
 ```typescript
 // app/api/claim/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { redis } from "@/lib/redis";
+import { NextRequest, NextResponse } from 'next/server';
+import { redis } from '@/lib/redis';
 
 export async function POST(req: NextRequest) {
   const { fid } = await req.json();
@@ -256,10 +256,7 @@ export async function POST(req: NextRequest) {
   const oneDayMs = 24 * 60 * 60 * 1000;
 
   if (lastClaim && now - Number(lastClaim) < oneDayMs) {
-    return NextResponse.json(
-      { error: "Already claimed today" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'Already claimed today' }, { status: 400 });
   }
 
   // Award points

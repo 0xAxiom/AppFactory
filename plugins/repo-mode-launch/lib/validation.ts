@@ -27,7 +27,8 @@ export interface CommitShaValidation {
  * Only supports github.com repositories
  */
 export function validateRepoUrl(url: string): RepoValidation {
-  const githubPattern = /^https:\/\/github\.com\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_.-]+)\/?$/;
+  const githubPattern =
+    /^https:\/\/github\.com\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_.-]+)\/?$/;
   const match = url.match(githubPattern);
 
   if (!match) {
@@ -35,7 +36,7 @@ export function validateRepoUrl(url: string): RepoValidation {
       valid: false,
       owner: null,
       repo: null,
-      error: 'Invalid GitHub URL. Must be https://github.com/{owner}/{repo}'
+      error: 'Invalid GitHub URL. Must be https://github.com/{owner}/{repo}',
     };
   }
 
@@ -47,7 +48,7 @@ export function validateRepoUrl(url: string): RepoValidation {
   return {
     valid: true,
     owner,
-    repo: cleanRepo
+    repo: cleanRepo,
   };
 }
 
@@ -63,13 +64,14 @@ export function validateWalletAddress(address: string): WalletValidation {
     return {
       valid: false,
       address: null,
-      error: 'Invalid Solana wallet address. Must be base58-encoded, 32-44 characters.'
+      error:
+        'Invalid Solana wallet address. Must be base58-encoded, 32-44 characters.',
     };
   }
 
   return {
     valid: true,
-    address
+    address,
   };
 }
 
@@ -83,13 +85,13 @@ export function validateCommitSha(sha: string): CommitShaValidation {
     return {
       valid: false,
       sha: null,
-      error: 'Invalid commit SHA. Must be 40 lowercase hexadecimal characters.'
+      error: 'Invalid commit SHA. Must be 40 lowercase hexadecimal characters.',
     };
   }
 
   return {
     valid: true,
-    sha: sha.toLowerCase()
+    sha: sha.toLowerCase(),
   };
 }
 
@@ -97,20 +99,25 @@ export function validateCommitSha(sha: string): CommitShaValidation {
  * Validate token symbol
  * 1-10 uppercase alphanumeric characters
  */
-export function validateTokenSymbol(symbol: string): { valid: boolean; symbol: string | null; error?: string } {
+export function validateTokenSymbol(symbol: string): {
+  valid: boolean;
+  symbol: string | null;
+  error?: string;
+} {
   const symbolPattern = /^[A-Z0-9]{1,10}$/;
 
   if (!symbolPattern.test(symbol)) {
     return {
       valid: false,
       symbol: null,
-      error: 'Invalid token symbol. Must be 1-10 uppercase alphanumeric characters.'
+      error:
+        'Invalid token symbol. Must be 1-10 uppercase alphanumeric characters.',
     };
   }
 
   return {
     valid: true,
-    symbol
+    symbol,
   };
 }
 
@@ -118,14 +125,18 @@ export function validateTokenSymbol(symbol: string): { valid: boolean; symbol: s
  * Validate brand name
  * 1-32 characters, non-empty
  */
-export function validateBrandName(brand: string): { valid: boolean; brand: string | null; error?: string } {
+export function validateBrandName(brand: string): {
+  valid: boolean;
+  brand: string | null;
+  error?: string;
+} {
   const trimmed = brand.trim();
 
   if (trimmed.length === 0) {
     return {
       valid: false,
       brand: null,
-      error: 'Brand name cannot be empty.'
+      error: 'Brand name cannot be empty.',
     };
   }
 
@@ -133,13 +144,13 @@ export function validateBrandName(brand: string): { valid: boolean; brand: strin
     return {
       valid: false,
       brand: null,
-      error: 'Brand name must be 32 characters or less.'
+      error: 'Brand name must be 32 characters or less.',
     };
   }
 
   return {
     valid: true,
-    brand: trimmed
+    brand: trimmed,
   };
 }
 
@@ -147,17 +158,20 @@ export function validateBrandName(brand: string): { valid: boolean; brand: strin
  * Validate branch name matches deterministic pattern
  * Format: launch/{slug}-{8-char-hash}
  */
-export function validateBranchName(branchName: string): { valid: boolean; error?: string } {
+export function validateBranchName(branchName: string): {
+  valid: boolean;
+  error?: string;
+} {
   const branchPattern = /^launch\/[a-z0-9-]+-[a-f0-9]{8}$/;
 
   if (!branchPattern.test(branchName)) {
     return {
       valid: false,
-      error: 'Branch name must match pattern: launch/{slug}-{8-char-hash}'
+      error: 'Branch name must match pattern: launch/{slug}-{8-char-hash}',
     };
   }
 
   return {
-    valid: true
+    valid: true,
   };
 }

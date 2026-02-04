@@ -122,7 +122,7 @@ export async function waitForReady({ url, processHandle, timeout = 60000, interv
       if (onProgress) onProgress({ type: 'poll', attempts, status });
     } catch (_err) {
       // Network error, keep trying
-      if (onProgress) onProgress({ type: 'poll', attempts, error: err.message });
+      if (onProgress) onProgress({ type: 'poll', attempts, error: _err.message });
     }
 
     await sleep(interval);
@@ -169,7 +169,7 @@ export async function killProcess(processHandle, gracePeriod = 2000) {
         // Unix: kill the process group
         process.kill(-pid, 'SIGTERM');
       }
-    } catch (_err) {
+    } catch {
       // Process may already be dead, that's fine
     }
 
@@ -181,7 +181,7 @@ export async function killProcess(processHandle, gracePeriod = 2000) {
         } else {
           process.kill(-pid, 'SIGKILL');
         }
-      } catch (_err) {
+      } catch {
         // Process is dead
       }
       proc.removeListener('exit', onExit);
@@ -227,7 +227,7 @@ export async function openBrowser(url) {
 
     return { opened: true };
   } catch (_err) {
-    return { opened: false, error: err.message };
+    return { opened: false, error: _err.message };
   }
 }
 

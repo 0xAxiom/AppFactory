@@ -17,10 +17,10 @@
  * @module scripts/build-orchestrator
  */
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
 import { parseArgs } from 'node:util';
-import { spawn, execSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
@@ -70,7 +70,6 @@ const {
   phaseHeader,
   celebrate,
   errorBox,
-  summaryTable,
   log,
   formatDuration,
   COLORS,

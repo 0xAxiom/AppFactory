@@ -169,7 +169,7 @@ export async function killProcess(processHandle, gracePeriod = 2000) {
         // Unix: kill the process group
         process.kill(-pid, 'SIGTERM');
       }
-    } catch (err) {
+    } catch {
       // Process may already be dead, that's fine
     }
 
@@ -181,7 +181,7 @@ export async function killProcess(processHandle, gracePeriod = 2000) {
         } else {
           process.kill(-pid, 'SIGKILL');
         }
-      } catch (err) {
+      } catch {
         // Process is dead
       }
       proc.removeListener('exit', onExit);

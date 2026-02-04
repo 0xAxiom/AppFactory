@@ -17,10 +17,7 @@ A frame is defined by meta tags in an HTML page:
     <meta property="fc:frame" content="vNext" />
     <meta property="fc:frame:image" content="https://myapp.com/image.png" />
     <meta property="fc:frame:button:1" content="Click me" />
-    <meta
-      property="fc:frame:post_url"
-      content="https://myapp.com/api/frame"
-    />
+    <meta property="fc:frame:post_url" content="https://myapp.com/api/frame" />
   </head>
 </html>
 ```
@@ -71,7 +68,7 @@ export default function FramePage() {
 
 ```typescript
 // app/api/frame/vote/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
 interface FrameMessage {
   untrustedData: {
@@ -93,7 +90,7 @@ export async function POST(req: NextRequest) {
   const { fid, buttonIndex } = body.untrustedData;
 
   // Process vote
-  const vote = buttonIndex === 1 ? "yes" : "no";
+  const vote = buttonIndex === 1 ? 'yes' : 'no';
   await recordVote(fid, vote);
 
   // Return new frame
@@ -108,7 +105,7 @@ export async function POST(req: NextRequest) {
         <meta property="fc:frame:button:1:target" content="https://myapp.com" />
       </head>
     </html>`,
-    { headers: { "Content-Type": "text/html" } }
+    { headers: { 'Content-Type': 'text/html' } }
   );
 }
 ```
@@ -202,8 +199,7 @@ export async function GET(req: Request) {
 Sends POST to post_url:
 
 ```html
-<meta property="fc:frame:button:1" content="Click" />
-<meta property="fc:frame:button:1:action" content="post" />
+<meta property="fc:frame:button:1" content="Click" /> <meta property="fc:frame:button:1:action" content="post" />
 ```
 
 ### Link
@@ -223,10 +219,7 @@ Triggers NFT mint:
 ```html
 <meta property="fc:frame:button:1" content="Mint" />
 <meta property="fc:frame:button:1:action" content="mint" />
-<meta
-  property="fc:frame:button:1:target"
-  content="eip155:8453:0x...?tokenId=1"
-/>
+<meta property="fc:frame:button:1:target" content="eip155:8453:0x...?tokenId=1" />
 ```
 
 ### Transaction
@@ -256,17 +249,17 @@ const inputText = body.untrustedData.inputText;
 ### Verify Frame Message
 
 ```typescript
-import { validateFrameMessage } from "frames.js";
+import { validateFrameMessage } from 'frames.js';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
   const { isValid, message } = await validateFrameMessage(body, {
-    hubHttpUrl: "https://nemes.farcaster.xyz:2281",
+    hubHttpUrl: 'https://nemes.farcaster.xyz:2281',
   });
 
   if (!isValid) {
-    return new NextResponse("Invalid frame message", { status: 400 });
+    return new NextResponse('Invalid frame message', { status: 400 });
   }
 
   // Process validated message
@@ -310,7 +303,7 @@ if (step === "2") {
 ### With Database
 
 ```typescript
-import { db } from "@/lib/db";
+import { db } from '@/lib/db';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

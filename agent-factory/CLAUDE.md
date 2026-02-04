@@ -16,13 +16,13 @@ Agent Factory generates **complete, production-ready AI agent scaffolds** from p
 
 ### What This Pipeline Does NOT Do
 
-| Action                          | Reason                 | Where It Belongs  |
-| ------------------------------- | ---------------------- | ----------------- |
-| Build mobile apps               | Wrong output format    | app-factory       |
-| Build dApps/websites            | Wrong output format    | dapp-factory      |
-| Generate Claude plugins         | Wrong pipeline         | plugin-factory    |
-| Build Base Mini Apps            | Wrong pipeline         | miniapp-pipeline  |
-| Deploy automatically            | Requires user approval | Manual step       |
+| Action                  | Reason                 | Where It Belongs |
+| ----------------------- | ---------------------- | ---------------- |
+| Build mobile apps       | Wrong output format    | app-factory      |
+| Build dApps/websites    | Wrong output format    | dapp-factory     |
+| Generate Claude plugins | Wrong pipeline         | plugin-factory   |
+| Build Base Mini Apps    | Wrong pipeline         | miniapp-pipeline |
+| Deploy automatically    | Requires user approval | Manual step      |
 
 ### Output Directory
 
@@ -473,7 +473,7 @@ Claude MUST halt and reassess if:
 | Root orchestrator | `../CLAUDE.md`                       | Routing, refusal, phase detection |
 | Factory plugin    | `../plugins/factory/`                | `/factory` command interface      |
 | MCP catalog       | `../plugin-factory/mcp.catalog.json` | MCP server configurations         |
-| Rig reference     | `..../references/rig/`                 | Agent pattern reference           |
+| Rig reference     | `..../references/rig/`               | Agent pattern reference           |
 
 ### Rig Framework Integration
 

@@ -9,12 +9,12 @@
 No more `tailwind.config.js`. Configure in CSS with `@theme`:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-primary: #3b82f6;
   --color-secondary: #10b981;
-  --font-display: "Inter", sans-serif;
+  --font-display: 'Inter', sans-serif;
   --radius-lg: 12px;
 }
 ```
@@ -30,7 +30,7 @@ Replace multiple imports with one:
 @tailwind utilities;
 
 /* After (v4) */
-@import "tailwindcss";
+@import 'tailwindcss';
 ```
 
 ### No Extra PostCSS Plugins
@@ -44,7 +44,7 @@ These are now built-in:
 // postcss.config.js (simplified)
 module.exports = {
   plugins: {
-    "@tailwindcss/postcss": {},
+    '@tailwindcss/postcss': {},
   },
 };
 ```
@@ -66,17 +66,15 @@ Respond to container size, not viewport:
 ### 3D Transforms
 
 ```html
-<div class="rotate-x-45 rotate-y-12 perspective-500 transform-3d">
-  3D transformed element
-</div>
+<div class="rotate-x-45 rotate-y-12 perspective-500 transform-3d">3D transformed element</div>
 ```
 
-| Class          | CSS Property                   |
-| -------------- | ------------------------------ |
-| `rotate-x-*`   | `transform: rotateX(*deg)`     |
-| `rotate-y-*`   | `transform: rotateY(*deg)`     |
-| `perspective-*`| `perspective: *px`             |
-| `transform-3d` | `transform-style: preserve-3d` |
+| Class           | CSS Property                   |
+| --------------- | ------------------------------ |
+| `rotate-x-*`    | `transform: rotateX(*deg)`     |
+| `rotate-y-*`    | `transform: rotateY(*deg)`     |
+| `perspective-*` | `perspective: *px`             |
+| `transform-3d`  | `transform-style: preserve-3d` |
 
 ### Field Sizing
 
@@ -92,11 +90,7 @@ Auto-grow textareas:
 
 ```css
 @theme {
-  --color-primary-light: color-mix(
-    in oklch,
-    var(--color-primary),
-    white 20%
-  );
+  --color-primary-light: color-mix(in oklch, var(--color-primary), white 20%);
 }
 ```
 
@@ -134,8 +128,8 @@ Usage:
 
 ```css
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -181,7 +175,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: "#6366f1",
+        brand: '#6366f1',
       },
     },
   },
@@ -192,7 +186,7 @@ module.exports = {
 
 ```css
 /* globals.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-brand: #6366f1;
@@ -212,9 +206,9 @@ Same syntax, now more powerful:
 Plugins are now CSS-based:
 
 ```css
-@import "tailwindcss";
-@import "@tailwindcss/typography";
-@import "@tailwindcss/forms";
+@import 'tailwindcss';
+@import '@tailwindcss/typography';
+@import '@tailwindcss/forms';
 ```
 
 ## Dark Mode
@@ -237,7 +231,9 @@ Or use class-based:
 
 ```html
 <html class="dark">
-  <body class="bg-white dark:bg-slate-900">Content</body>
+  <body class="bg-white dark:bg-slate-900">
+    Content
+  </body>
 </html>
 ```
 
@@ -246,9 +242,7 @@ Or use class-based:
 ### Card Component
 
 ```html
-<div
-  class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg ring-1 ring-slate-900/5"
->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg ring-1 ring-slate-900/5">
   <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Title</h3>
   <p class="mt-2 text-slate-600 dark:text-slate-300">Description</p>
 </div>

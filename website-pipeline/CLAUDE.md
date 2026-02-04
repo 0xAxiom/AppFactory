@@ -616,17 +616,17 @@ Claude MUST NEVER:
 
 ## 8. REFUSAL TABLE
 
-| Request Pattern               | Action | Reason                  | Alternative                     |
-| ----------------------------- | ------ | ----------------------- | ------------------------------- |
-| "Build a mobile app"          | REFUSE | Out of scope            | cd app-factory && claude        |
-| "Build a dApp"                | REFUSE | Out of scope            | cd dapp-factory && claude       |
-| "Skip the skills audit"       | REFUSE | Mandatory gate          | None - audit required           |
-| "Skip Ralph"                  | REFUSE | Mandatory gate          | None - QA required              |
-| "Just build without research" | REFUSE | Quality requirement     | Research is mandatory           |
-| "Deploy to production now"    | REFUSE | User deploys            | Provide deployment guide        |
-| "Add user authentication"     | REFUSE | Out of scope            | Recommend separate auth service |
-| "Add a database backend"      | REFUSE | Static sites only       | Recommend headless CMS          |
-| "Ignore accessibility"        | REFUSE | Mandatory requirement   | None - a11y required            |
+| Request Pattern               | Action | Reason                | Alternative                     |
+| ----------------------------- | ------ | --------------------- | ------------------------------- |
+| "Build a mobile app"          | REFUSE | Out of scope          | cd app-factory && claude        |
+| "Build a dApp"                | REFUSE | Out of scope          | cd dapp-factory && claude       |
+| "Skip the skills audit"       | REFUSE | Mandatory gate        | None - audit required           |
+| "Skip Ralph"                  | REFUSE | Mandatory gate        | None - QA required              |
+| "Just build without research" | REFUSE | Quality requirement   | Research is mandatory           |
+| "Deploy to production now"    | REFUSE | User deploys          | Provide deployment guide        |
+| "Add user authentication"     | REFUSE | Out of scope          | Recommend separate auth service |
+| "Add a database backend"      | REFUSE | Static sites only     | Recommend headless CMS          |
+| "Ignore accessibility"        | REFUSE | Mandatory requirement | None - a11y required            |
 
 ### Refusal Message Template
 

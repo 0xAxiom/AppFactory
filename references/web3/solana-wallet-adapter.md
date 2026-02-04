@@ -195,19 +195,14 @@ function Balance() {
 ### Send SOL
 
 ```typescript
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import {
-  Transaction,
-  SystemProgram,
-  PublicKey,
-  LAMPORTS_PER_SOL,
-} from "@solana/web3.js";
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { Transaction, SystemProgram, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 
 async function sendSol(to: string, amount: number) {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
 
-  if (!publicKey) throw new Error("Wallet not connected");
+  if (!publicKey) throw new Error('Wallet not connected');
 
   const transaction = new Transaction().add(
     SystemProgram.transfer({
@@ -220,7 +215,7 @@ async function sendSol(to: string, amount: number) {
   const signature = await sendTransaction(transaction, connection);
 
   // Wait for confirmation
-  await connection.confirmTransaction(signature, "confirmed");
+  await connection.confirmTransaction(signature, 'confirmed');
 
   return signature;
 }
@@ -229,20 +224,20 @@ async function sendSol(to: string, amount: number) {
 ### Sign Message
 
 ```typescript
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from '@solana/wallet-adapter-react';
 
 async function signMessage(message: string) {
   const { signMessage, publicKey } = useWallet();
 
   if (!publicKey || !signMessage) {
-    throw new Error("Wallet not connected or signing not supported");
+    throw new Error('Wallet not connected or signing not supported');
   }
 
   const encodedMessage = new TextEncoder().encode(message);
   const signature = await signMessage(encodedMessage);
 
   return {
-    signature: Buffer.from(signature).toString("base64"),
+    signature: Buffer.from(signature).toString('base64'),
     publicKey: publicKey.toBase58(),
   };
 }
@@ -250,14 +245,14 @@ async function signMessage(message: string) {
 
 ## Supported Wallets
 
-| Wallet          | Adapter                    |
-| --------------- | -------------------------- |
-| Phantom         | PhantomWalletAdapter       |
-| Solflare        | SolflareWalletAdapter      |
-| Backpack        | BackpackWalletAdapter      |
-| Coinbase Wallet | CoinbaseWalletAdapter      |
-| Ledger          | LedgerWalletAdapter        |
-| Torus           | TorusWalletAdapter         |
+| Wallet          | Adapter               |
+| --------------- | --------------------- |
+| Phantom         | PhantomWalletAdapter  |
+| Solflare        | SolflareWalletAdapter |
+| Backpack        | BackpackWalletAdapter |
+| Coinbase Wallet | CoinbaseWalletAdapter |
+| Ledger          | LedgerWalletAdapter   |
+| Torus           | TorusWalletAdapter    |
 
 ## UI Customization
 

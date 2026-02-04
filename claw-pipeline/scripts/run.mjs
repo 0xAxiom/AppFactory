@@ -370,7 +370,7 @@ async function main() {
             console.log(`${DIM}  Explorer: ${receipt.explorerUrl}${RESET}`);
           }
         } catch (_err) {
-          console.log(`\n${RED}  ✗ Token launch failed: ${err.message}${RESET}`);
+          console.log(`\n${RED}  ✗ Token launch failed: ${_err.message}${RESET}`);
           console.log(`${YELLOW}  Continuing without token...${RESET}`);
           tokenConfig = null;
         }
@@ -620,7 +620,7 @@ async function main() {
         status: 'complete',
         message: 'Local run proof completed'
       });
-    } catch (_err) {
+    } catch {
       console.log(`\n${YELLOW}  Local run proof failed. Continuing...${RESET}`);
       writeAuditEvent({
         projectPath: buildDir,

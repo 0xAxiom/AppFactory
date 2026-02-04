@@ -84,14 +84,7 @@
   "terminal.integrated.defaultProfile.linux": "bash",
 
   "// TODO Tree (highlight TODOs, FIXMEs, etc.)": "",
-  "todo-tree.general.tags": [
-    "TODO",
-    "FIXME",
-    "BUG",
-    "HACK",
-    "NOTE",
-    "REVIEW"
-  ],
+  "todo-tree.general.tags": ["TODO", "FIXME", "BUG", "HACK", "NOTE", "REVIEW"],
   "todo-tree.highlights.defaultHighlight": {
     "icon": "alert",
     "type": "text",
