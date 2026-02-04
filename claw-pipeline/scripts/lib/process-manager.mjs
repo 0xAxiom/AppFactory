@@ -120,7 +120,7 @@ export async function waitForReady({ url, processHandle, timeout = 60000, interv
         return { ok: true, attempts };
       }
       if (onProgress) onProgress({ type: 'poll', attempts, status });
-    } catch (_err) {
+    } catch (err) {
       // Network error, keep trying
       if (onProgress) onProgress({ type: 'poll', attempts, error: err.message });
     }
