@@ -2,7 +2,7 @@
 
 Build and deploy production apps in minutes using AppFactory's 7 pipelines. No setup required — describe what you want, get a live URL.
 
-**Repo:** [github.com/MeltedMindz/AppFactory](https://github.com/MeltedMindz/AppFactory)
+**Repo:** [github.com/0xAxiom/AppFactory](https://github.com/0xAxiom/AppFactory)
 **Showcase:** [factoryapp.dev](https://factoryapp.dev)
 
 ---
@@ -26,7 +26,7 @@ Build and deploy production apps in minutes using AppFactory's 7 pipelines. No s
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/MeltedMindz/AppFactory.git
+git clone https://github.com/0xAxiom/AppFactory.git
 cd AppFactory
 ```
 
@@ -183,7 +183,7 @@ Each pipeline has its own `CLAUDE.md` constitution. To improve a pipeline:
 
 ### Report Issues
 
-File issues at [github.com/MeltedMindz/AppFactory/issues](https://github.com/MeltedMindz/AppFactory/issues) for:
+File issues at [github.com/0xAxiom/AppFactory/issues](https://github.com/0xAxiom/AppFactory/issues) for:
 
 - Pipeline bugs or failures
 - Missing features
@@ -239,7 +239,7 @@ This adds periodic checks to:
 
 ## Links
 
-- **Repo:** [github.com/MeltedMindz/AppFactory](https://github.com/MeltedMindz/AppFactory)
+- **Repo:** [github.com/0xAxiom/AppFactory](https://github.com/0xAxiom/AppFactory)
 - **Showcase:** [factoryapp.dev](https://factoryapp.dev)
 - **Token Launchpad:** [appfactory.fun](https://appfactory.fun)
 - **$FACTORY Token:** [Jupiter](https://jup.ag/swap?buy=BkSbFrDMkfkoG4NDUwadEGeQgVwoXkR3F3P1MPUnBAGS)
