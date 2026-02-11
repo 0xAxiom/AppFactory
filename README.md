@@ -22,6 +22,14 @@
 
 App Factory turns your ideas into real, working products. No coding experience required. Just describe what you want in plain English, and Claude builds it.
 
+## Quick Install
+
+Install as a skill in your OpenClaw environment:
+
+```bash
+npx skills add 0xAxiom/AppFactory
+```
+
 ---
 
 ## What Can I Build?
@@ -47,7 +55,7 @@ claude
 
 Or validate your environment manually: `./scripts/validate-setup.sh`
 
-See [QUICKSTART.md](./QUICKSTART.md) for full setup details.
+See [QUICKSTART.md](./docs/QUICKSTART.md) for full setup details.
 
 ---
 
@@ -517,7 +525,7 @@ node scripts/security/ralph-security-checks.js <build-path>
 
 ### Reporting Vulnerabilities
 
-Found a security issue? See [SECURITY.md](./SECURITY.md) for responsible disclosure guidelines.
+Found a security issue? See [SECURITY.md](./docs/SECURITY.md) for responsible disclosure guidelines.
 
 ---
 
@@ -750,7 +758,7 @@ With MCP integration, Ralph QA can perform:
 
 ## Roadmap
 
-See [ROADMAP.md](./ROADMAP.md) for detailed plans.
+See [ROADMAP.md](./docs/ROADMAP.md) for detailed plans.
 
 ### Coming Soon
 
@@ -763,7 +771,7 @@ See [ROADMAP.md](./ROADMAP.md) for detailed plans.
 
 ### Request a Feature
 
-1. Check [ROADMAP.md](./ROADMAP.md) for existing plans
+1. Check [ROADMAP.md](./docs/ROADMAP.md) for existing plans
 2. Open a GitHub issue with the `[Feature Request]` template
 3. Vote on existing requests with reactions
 

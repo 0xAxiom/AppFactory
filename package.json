@@ -59,10 +59,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MeltedMindz/AppFactory.git"
+    "url": "https://github.com/0xAxiom/AppFactory.git"
   },
   "bugs": {
-    "url": "https://github.com/MeltedMindz/AppFactory/issues"
+    "url": "https://github.com/0xAxiom/AppFactory/issues"
   },
   "homepage": "https://github.com/MeltedMindz/AppFactory#readme",
   "engines": {
