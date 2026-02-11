@@ -25,7 +25,7 @@ export const minikitConfig = {
     splashImageUrl: '/splash.png', // 200x200
     heroImageUrl: '/hero.png', // 1200x630
     ogImageUrl: '/og.png', // 1200x630
-    
+
     // OG metadata
     ogTitle: 'Mini App Example',
     ogDescription: 'A minimal Base Mini App example from App Factory',

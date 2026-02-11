@@ -30,16 +30,19 @@ App Factory operates successfully when all skills are present, but fails unpredi
 ### Recommended Immediate Actions
 
 **P0 (Merge Blocking):**
+
 - Add runtime detection for ALL skills/tools before use (Playwright, @vercel/agent-skills, Ralph)
 - Fix "Offline by Default" contradiction - either disable MCP servers by default or update invariant
 - Add capability tier messaging to user-facing documentation
 
 **P1 (Pre-Production):**
+
 - Implement graceful degradation when skills unavailable
 - Add LOCAL_RUN_PROOF_GATE as actual gate (currently bypassed in some pipelines)
 - Create unified MCP governance model
 
 **P2 (Quality Improvement):**
+
 - Integrate skills audits into build pipelines with fallback
 - Automate Ralph QA with human-in-the-loop option
 - Add skill availability dashboard
@@ -58,30 +61,30 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 
 ## 2. Current State of Skills Usage
 
-| Skill/Tool | Where Used | Dependency Level | Detection? | Fallback? | Risk Level |
-|------------|------------|------------------|------------|-----------|------------|
-| **MCP Servers** |
-| github | Root .mcp.json | Optional (enabled) | No | No | MEDIUM |
-| playwright | Root .mcp.json | Optional (enabled) | No | No | HIGH |
-| filesystem | Root .mcp.json | Optional (enabled) | No | No | LOW |
-| context7 | Root .mcp.json | Optional (enabled) | No | No | MEDIUM |
-| semgrep | Root .mcp.json | Optional (enabled) | No | No | LOW |
-| **Testing/QA Tools** |
-| Playwright (local) | All web pipelines | Required (CLAUDE.md) | No | No | CRITICAL |
-| @vercel/agent-skills | website-pipeline, dapp-factory | "Mandatory" (doc) | No | No | CRITICAL |
-| Ralph QA automation | All 6 pipelines | Required (CLAUDE.md) | No | No | HIGH |
+| Skill/Tool             | Where Used                     | Dependency Level        | Detection? | Fallback?       | Risk Level |
+| ---------------------- | ------------------------------ | ----------------------- | ---------- | --------------- | ---------- |
+| **MCP Servers**        |
+| github                 | Root .mcp.json                 | Optional (enabled)      | No         | No              | MEDIUM     |
+| playwright             | Root .mcp.json                 | Optional (enabled)      | No         | No              | HIGH       |
+| filesystem             | Root .mcp.json                 | Optional (enabled)      | No         | No              | LOW        |
+| context7               | Root .mcp.json                 | Optional (enabled)      | No         | No              | MEDIUM     |
+| semgrep                | Root .mcp.json                 | Optional (enabled)      | No         | No              | LOW        |
+| **Testing/QA Tools**   |
+| Playwright (local)     | All web pipelines              | Required (CLAUDE.md)    | No         | No              | CRITICAL   |
+| @vercel/agent-skills   | website-pipeline, dapp-factory | "Mandatory" (doc)       | No         | No              | CRITICAL   |
+| Ralph QA automation    | All 6 pipelines                | Required (CLAUDE.md)    | No         | No              | HIGH       |
 | **Verification Gates** |
-| LOCAL_RUN_PROOF_GATE | All 6 pipelines | Non-bypassable (doc) | Yes | No | LOW |
-| RUN_CERTIFICATE.json | All 6 pipelines | Non-bypassable (doc) | Yes | No | LOW |
-| **Code Quality** |
-| ESLint | All web pipelines | Baseline (package.json) | No | No | LOW |
-| TypeScript | All pipelines | Baseline (package.json) | No | No | LOW |
-| Prettier | Some pipelines | Optional (package.json) | No | No | LOW |
-| **Build Tools** |
-| Node.js | All pipelines | Baseline (required) | No | Yes (fail fast) | LOW |
-| npm/pnpm/yarn | All pipelines | Baseline (required) | No | Yes (fail fast) | LOW |
-| Expo CLI | app-factory | Required | No | No | MEDIUM |
-| Next.js | Web pipelines | Required | No | No | LOW |
+| LOCAL_RUN_PROOF_GATE   | All 6 pipelines                | Non-bypassable (doc)    | Yes        | No              | LOW        |
+| RUN_CERTIFICATE.json   | All 6 pipelines                | Non-bypassable (doc)    | Yes        | No              | LOW        |
+| **Code Quality**       |
+| ESLint                 | All web pipelines              | Baseline (package.json) | No         | No              | LOW        |
+| TypeScript             | All pipelines                  | Baseline (package.json) | No         | No              | LOW        |
+| Prettier               | Some pipelines                 | Optional (package.json) | No         | No              | LOW        |
+| **Build Tools**        |
+| Node.js                | All pipelines                  | Baseline (required)     | No         | Yes (fail fast) | LOW        |
+| npm/pnpm/yarn          | All pipelines                  | Baseline (required)     | No         | Yes (fail fast) | LOW        |
+| Expo CLI               | app-factory                    | Required                | No         | No              | MEDIUM     |
+| Next.js                | Web pipelines                  | Required                | No         | No              | LOW        |
 
 ### Risk Level Definitions
 
@@ -105,6 +108,7 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 ### app-factory (Mobile Apps)
 
 **Skills/Tools Assumed:**
+
 - RevenueCat SDK (non-negotiable per CLAUDE.md line 52)
 - Expo CLI + Metro bundler
 - SQLite for local storage
@@ -112,16 +116,19 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 - Playwright (optional, for web exports)
 
 **Safe vs. Unsafe Assumptions:**
+
 - SAFE: Expo, Metro (installed via package.json, fail fast if missing)
 - UNSAFE: Ralph QA documented as "check code quality rules" but no implementation
 - UNSAFE: RevenueCat requires API key configuration (not detected before use)
 
 **CLAUDE.md vs. run.mjs Gaps:**
+
 - CLAUDE.md documents 6-milestone build with Ralph QA after each
 - run.mjs has no Ralph invocation logic
 - CLAUDE.md references "Skills Auditor" role with no corresponding code
 
 **Breaking Points for Users Without Tools:**
+
 - RevenueCat configuration fails with cryptic API errors
 - Ralph QA never runs (documented as mandatory)
 - Skills audit mentioned in docs but never executed
@@ -131,6 +138,7 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 ### website-pipeline (Websites)
 
 **Skills/Tools Assumed:**
+
 - Playwright E2E testing (REQUIRED per CLAUDE.md line 17)
 - @vercel/agent-skills audits (MANDATORY per CLAUDE.md line 150)
   - react-best-practices ≥95%
@@ -139,18 +147,21 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 - Framer Motion (required by design guidelines)
 
 **Safe vs. Unsafe Assumptions:**
+
 - SAFE: Next.js, React (package.json baseline)
 - UNSAFE: "Mandatory skills audits" declared but not executed
 - UNSAFE: Playwright documented as required but no detection before use
 - UNSAFE: CLAUDE.md Phase 6 is "Skills Audit (MANDATORY GATE)" but run.mjs skips it
 
 **CLAUDE.md vs. run.mjs Gaps:**
+
 - CLAUDE.md line 494: "Phase 6: Skills Audit (MANDATORY GATE)"
 - run.mjs: Only 5 phases (Inputs, Scaffold, Install, Verify, Launch) - Phase 6 missing entirely
 - CLAUDE.md documents 20-pass Ralph loop, run.mjs has no Ralph logic
 - CLAUDE.md line 584: "Run skills audits BEFORE Ralph" - never happens
 
 **Breaking Points for Users Without Tools:**
+
 - Skills audit "mandatory gate" is skipped silently
 - Build shows "PASS" despite missing entire quality phase
 - Playwright failures during LOCAL_RUN_PROOF cause cryptic errors
@@ -163,6 +174,7 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 ### dapp-factory (Web3 dApps)
 
 **Skills/Tools Assumed:**
+
 - Playwright E2E testing (REQUIRED per CLAUDE.md)
 - @vercel/agent-skills (react-best-practices ≥95%, web-design-guidelines ≥90%)
 - Ralph Polish Loop (documented at line 79)
@@ -170,18 +182,21 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 - Web3 wallet browser extensions (for testing)
 
 **Safe vs. Unsafe Assumptions:**
+
 - SAFE: Next.js, Web3 libraries (package.json)
 - UNSAFE: "Mandatory Skills Audits" section (line 397) not enforced
 - UNSAFE: Agent Decision Gate documented but no corresponding run.mjs logic
 - UNSAFE: Playwright assumed for E2E but no detection
 
 **CLAUDE.md vs. run.mjs Gaps:**
+
 - CLAUDE.md has "Phase 4: Ralph Polish Loop" (line 78-81)
 - run.mjs has no Ralph invocation
 - Agent Decision Gate (Mode A vs Mode B) documented but not implemented
 - Skills audits documented in directory map (line 102-103) but no execution
 
 **Breaking Points for Users Without Tools:**
+
 - Ralph Polish Loop never runs despite being in canonical flow
 - Skills audits create empty directories but no reports
 - Agent Decision Gate skipped, Mode B never activates
@@ -192,23 +207,27 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 ### agent-factory (AI Agents)
 
 **Skills/Tools Assumed:**
+
 - Ralph QA (documented in flow)
 - Semgrep security scanning (MCP server)
 - E2B code execution sandbox (optional)
 - GitHub integration for deployment
 
 **Safe vs. Unsafe Assumptions:**
+
 - SAFE: Node.js, TypeScript (package.json)
 - UNSAFE: README.md previously recommended `--legacy-peer-deps` (fixed in Tier-2)
 - UNSAFE: Ralph QA documented but not automated
 - UNSAFE: Semgrep MCP assumed available without detection
 
 **CLAUDE.md vs. run.mjs Gaps:**
+
 - Ralph QA referenced but no automation
 - Security scanning mentioned but no enforcement
 - E2B integration documented but optional without fallback messaging
 
 **Breaking Points for Users Without Tools:**
+
 - No security scanning despite MCP server enabled
 - Ralph QA skipped silently
 - `--legacy-peer-deps` used to bypass dependency issues (security risk)
@@ -220,21 +239,25 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 ### plugin-factory (Claude Plugins)
 
 **Skills/Tools Assumed:**
+
 - MCP protocol tools
 - Ralph QA testing
 - Smoke testing via HTTP server
 
 **Safe vs. Unsafe Assumptions:**
+
 - SAFE: MCP SDK (package.json)
 - SAFE: HTTP verification (implemented in run.mjs)
 - UNSAFE: Ralph QA documented but manual
 
 **CLAUDE.md vs. run.mjs Gaps:**
+
 - Ralph QA mentioned but not automated
 - Smoke test implemented (good!)
 - RUN_CERTIFICATE handling was manual (fixed in Tier-2)
 
 **Breaking Points for Users Without Tools:**
+
 - Ralph QA requires manual invocation
 - MCP server testing assumes Claude Code environment
 
@@ -245,22 +268,26 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 ### miniapp-pipeline (Base Mini Apps)
 
 **Skills/Tools Assumed:**
+
 - MiniKit SDK
 - Playwright testing (optional)
 - Ralph QA
 - Worldcoin wallet for testing
 
 **Safe vs. Unsafe Assumptions:**
+
 - SAFE: MiniKit (package.json)
 - UNSAFE: Ralph QA documented but not automated
 - UNSAFE: Worldcoin wallet required for full testing (not documented clearly)
 
 **CLAUDE.md vs. run.mjs Gaps:**
+
 - Ralph QA mentioned but no automation
 - Wallet testing requirements unclear
 - Deployment to World App requires manual association (documented but buried)
 
 **Breaking Points for Users Without Tools:**
+
 - Ralph QA skipped
 - Wallet testing fails with cryptic errors
 - MiniKit simulator requirements not detected
@@ -276,11 +303,13 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 **Location**: Root CLAUDE.md line 34 (Invariant 4)
 
 **Stated Policy:**
+
 ```
 4. Offline by Default - no network without authorization
 ```
 
 **Reality**: `.mcp.json` enables 5 servers by default:
+
 - `github` - Requires GITHUB_PERSONAL_ACCESS_TOKEN (network)
 - `playwright` - Downloads 500MB+ browsers (network)
 - `context7` - Real-time documentation lookup (network, requires API key)
@@ -288,6 +317,7 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 - `filesystem` - Local only (COMPLIANT)
 
 **Contradiction Evidence:**
+
 - Root CLAUDE.md line 112: "Execute network calls: Offline by default, Only with explicit authorization"
 - `.mcp.json` line 6: `"command": "npx"` (auto-installs packages from network)
 - MCP servers start on Claude Code launch (no authorization prompt)
@@ -295,6 +325,7 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 **Impact**: Users expect offline operation per constitution, but get network activity without consent.
 
 **Recommendation**:
+
 - Option A: Change invariant to "Offline by default EXCEPT enabled MCP servers"
 - Option B: Disable MCP servers by default, require explicit opt-in
 - Option C: Add MCP authorization gate on first use
@@ -304,22 +335,26 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 #### 2. "Mandatory" Skills Audits That Never Run (CRITICAL)
 
 **Locations:**
+
 - website-pipeline/CLAUDE.md line 4: "Mode: Full Build Factory with Mandatory Skills Audits"
 - website-pipeline/CLAUDE.md line 150: "This pipeline has **mandatory skills audits**"
 - website-pipeline/CLAUDE.md line 494: "Phase 6: Skills Audit (MANDATORY GATE)"
 
 **Reality:**
+
 - website-pipeline/scripts/run.mjs: Only 5 phases (no Phase 6)
 - Skills audit runner exists: `scripts/run-skills-audit.sh`
 - Runner is NEVER called by any pipeline
 - Runner itself is a placeholder (line 164: "This is a placeholder")
 
 **Impact**:
+
 - Builds claim "PASS" without quality checks
 - Users expect ≥95% React quality, get unknown quality
 - "Mandatory" becomes meaningless
 
 **Similar Issues:**
+
 - dapp-factory/CLAUDE.md line 397: "Mandatory Skills Audits" section
 - app-factory/CLAUDE.md line 413: "Skills Auditor" role documented
 - All pipelines: Ralph QA documented as mandatory, never automated
@@ -329,18 +364,21 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 #### 3. Ralph QA Loop Documentation vs. Implementation Gap (HIGH)
 
 **Documented in CLAUDE.md files:**
+
 - app-factory: 6 milestones with Ralph QA after each (≥97% required)
 - website-pipeline: 20-pass UX Polish Loop
 - dapp-factory: Ralph Polish Loop (Phase 4)
 - All pipelines: Ralph as quality gate
 
 **Reality:**
+
 - Ralph runner exists: `ralph/run-ralph.sh` (created in Tier-2)
 - NO pipeline run.mjs calls Ralph automatically
 - Ralph iterations require manual prompt pasting
 - `docs/UX_POLISH_LOOP.md` documents system as "Production" but it's manual
 
 **Evidence from Code:**
+
 - No `ralph` imports in any run.mjs
 - No `execSync('ralph')` calls
 - No Ralph logic in build phases
@@ -353,6 +391,7 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 #### 1. What Happens When Optional Tools Are Missing?
 
 **Gap**: No documented behavior for:
+
 - Playwright unavailable during LOCAL_RUN_PROOF
 - @vercel/agent-skills not installed
 - MCP server fails to start
@@ -361,6 +400,7 @@ Every tool use MUST follow: **Detect → Degrade → Message** pattern.
 **Current Behavior**: Cryptic errors, silent failures, or skipped features
 
 **Needed Policy**:
+
 ```markdown
 ### Tool Availability Policy
 
@@ -382,17 +422,20 @@ Example: "Playwright not found. Skipping E2E tests. Install with: npm i -D playw
 #### 2. MCP Server Capability Negotiation (MISSING)
 
 **Gap**: No protocol for:
+
 - Checking if MCP server is responding
 - Handling MCP server startup failures
 - Falling back when MCP tool unavailable
 - Communicating capability levels to user
 
 **Industry Best Practice (from Agent F research):**
+
 - Capability negotiation handshake
 - Graceful degradation tiers
 - Clear error messages with resolution steps
 
 **Needed in App Factory**:
+
 ```markdown
 ### MCP Server Capability Protocol
 
@@ -412,27 +455,30 @@ Before using any MCP server tool:
 #### 3. Skills Audit Threshold Governance (FRAGMENTED)
 
 **Current State**:
+
 - website-pipeline: react ≥95%, design ≥90% (CLAUDE.md line 501)
 - dapp-factory: react ≥95%, design ≥90% (CLAUDE.md line 401)
 - Other pipelines: No thresholds documented
 - `scripts/run-skills-audit.sh`: Defaults to 95/90 (line 38-39)
 
 **Fragmentation Issues**:
+
 - Thresholds duplicated across documents
 - No central authority for quality standards
 - Per-pipeline overrides not supported
 - Threshold changes require multi-file updates
 
 **Recommendation**: Create `ralph/QUALITY_STANDARDS.md` with:
+
 ```markdown
 ### Skills Audit Thresholds
 
-| Skill | Minimum Pass | Aspirational | Applies To |
-|-------|-------------|--------------|------------|
-| react-best-practices | 90% | 95% | All React pipelines |
-| web-design-guidelines | 85% | 90% | UI pipelines |
-| accessibility | 95% | 100% | Public-facing sites |
-| security | 100% | 100% | All pipelines |
+| Skill                 | Minimum Pass | Aspirational | Applies To          |
+| --------------------- | ------------ | ------------ | ------------------- |
+| react-best-practices  | 90%          | 95%          | All React pipelines |
+| web-design-guidelines | 85%          | 90%          | UI pipelines        |
+| accessibility         | 95%          | 100%         | Public-facing sites |
+| security              | 100%         | 100%         | All pipelines       |
 
 Pipelines MAY set stricter thresholds but MUST NOT relax these minimums.
 ```
@@ -448,6 +494,7 @@ Pipelines MAY set stricter thresholds but MUST NOT relax these minimums.
 **No Clear Owner**: Who decides which MCP servers to enable?
 
 **Needed**: Central MCP governance in root CLAUDE.md:
+
 ```markdown
 ### MCP Server Governance
 
@@ -462,11 +509,13 @@ Pipelines MAY set stricter thresholds but MUST NOT relax these minimums.
 #### 2. Skills Audit Ownership Unclear
 
 **Who owns skills audits?**
+
 - Root: Mentions in invariants but no ownership claim
 - Pipelines: Document as "mandatory" but don't implement
 - Scripts: `/scripts/run-skills-audit.sh` exists but no authority
 
 **Recommendation**: Establish in root CLAUDE.md:
+
 ```markdown
 ### Skills Audit Authority
 
@@ -488,12 +537,14 @@ Pipelines MAY set stricter thresholds but MUST NOT relax these minimums.
 App Factory operates in three capability tiers:
 
 ### Tier 1: Baseline (Always Available)
+
 - Node.js ≥18
 - npm/pnpm/yarn
 - File system operations
 - Core build tools (Next.js, Expo, etc.)
 
 ### Tier 2: Quality (Optional, High ROI)
+
 - Playwright (E2E testing)
 - ESLint + Prettier (code quality)
 - Skills audits (React, design, a11y)
@@ -502,6 +553,7 @@ App Factory operates in three capability tiers:
 Pipelines MUST detect Tier 2 availability and degrade gracefully.
 
 ### Tier 3: Advanced (Optional, Specialized)
+
 - MCP servers (GitHub, Semgrep, Context7, etc.)
 - Figma integration
 - Payment SDKs (Stripe, RevenueCat)
@@ -529,22 +581,26 @@ Before using any Tier 2 or Tier 3 tool:
 ## REQUIRED TOOLS
 
 ### Baseline (Build Fails if Missing)
+
 - Node.js ≥18
 - npm/pnpm/yarn
 - [Pipeline-specific: Next.js, Expo, etc.]
 
 ### Quality Tools (Build Succeeds if Missing, with Warnings)
+
 - Playwright (E2E testing) - Recommended
 - @vercel/agent-skills (code quality) - Recommended
 - ESLint + Prettier - Recommended
 
 ### Advanced Tools (Optional, Silent Skip if Missing)
+
 - [MCP servers]
 - [Specialized SDKs]
 
 ## DEGRADATION BEHAVIOR
 
 When quality tools unavailable:
+
 - Build continues
 - User receives warning
 - Output includes "Quality tier: Baseline" notice
@@ -560,15 +616,18 @@ When quality tools unavailable:
 **Scenario**: New developer clones App Factory, has only Node.js + npm.
 
 #### Step 1: Clone Repository
+
 ```bash
 git clone https://github.com/user/AppFactory.git
 cd AppFactory
 ```
+
 **Status**: SUCCESS (no issues)
 
 ---
 
 #### Step 2: Read Root CLAUDE.md
+
 **User Expectation**: "Offline by default" (line 34)
 **Reality**: Will download packages from npm on first run
 **Mismatch**: MINOR (expected behavior for Node.js projects)
@@ -576,6 +635,7 @@ cd AppFactory
 ---
 
 #### Step 3: Try to Build a Website
+
 ```bash
 cd website-pipeline
 claude
@@ -583,6 +643,7 @@ claude
 ```
 
 **What Happens:**
+
 1. Claude reads CLAUDE.md: "Mandatory Skills Audits"
 2. User expects build to fail if audits missing
 3. Build proceeds without audits (Phase 6 skipped)
@@ -598,6 +659,7 @@ claude
 #### Step 4: LOCAL_RUN_PROOF Verification
 
 **If Playwright installed as dev dependency:**
+
 - Next.js app tries to run Playwright tests
 - Playwright auto-downloads 500MB+ of browsers (FIRST TIME ONLY)
 - No progress indicator, appears frozen
@@ -605,6 +667,7 @@ claude
 - Eventually succeeds
 
 **If Playwright NOT in package.json:**
+
 - Verification uses HTTP server only (fallback)
 - Succeeds quickly
 - User doesn't know E2E tests were skipped
@@ -618,11 +681,13 @@ claude
 #### Step 5: Try Skills Audit Manually
 
 **User reads documentation, tries:**
+
 ```bash
 ./scripts/run-skills-audit.sh website-builds/my-site
 ```
 
 **What Happens:**
+
 1. Script runs
 2. Checks for @vercel/agent-skills
 3. Not found, tries to install locally
@@ -639,11 +704,13 @@ claude
 #### Step 6: Try Ralph QA
 
 **User reads UX_POLISH_LOOP.md, tries:**
+
 ```bash
 ./ralph/run-ralph.sh website-pipeline 1
 ```
 
 **What Happens:**
+
 1. Script generates prompt file
 2. Waits for user to press ENTER
 3. Opens Claude Code with prompt
@@ -658,13 +725,13 @@ claude
 
 ### Breaking Points Summary
 
-| Step | Feature | Expected | Actual | Risk |
-|------|---------|----------|--------|------|
-| 2 | Offline mode | No network | MCP servers enabled | LOW |
-| 3 | Mandatory audits | Build fails if missing | Silent skip | HIGH |
-| 4 | Playwright | Fast or skip | 500MB download, no warning | MEDIUM |
-| 5 | Skills audit script | Works | Placeholder only | HIGH |
-| 6 | Ralph automation | Automated | Manual prompts | MEDIUM |
+| Step | Feature             | Expected               | Actual                     | Risk   |
+| ---- | ------------------- | ---------------------- | -------------------------- | ------ |
+| 2    | Offline mode        | No network             | MCP servers enabled        | LOW    |
+| 3    | Mandatory audits    | Build fails if missing | Silent skip                | HIGH   |
+| 4    | Playwright          | Fast or skip           | 500MB download, no warning | MEDIUM |
+| 5    | Skills audit script | Works                  | Placeholder only           | HIGH   |
+| 6    | Ralph automation    | Automated              | Manual prompts             | MEDIUM |
 
 ---
 
@@ -681,11 +748,13 @@ claude
 - Playwright: "REQUIRED" in table (website-pipeline CLAUDE.md line 60)
 
 **User Mental Model:**
+
 - Mandatory = Build fails if missing
 - Required = Build fails if missing
 - Optional = Build succeeds, feature skipped
 
 **Reality:**
+
 - "Mandatory" audits are skipped silently
 - "Required" Playwright degrades to HTTP-only
 - "Optional" MCP servers are enabled by default
@@ -697,17 +766,20 @@ claude
 #### 2. "Documented" vs. "Implemented"
 
 **Features documented but not implemented:**
+
 - Skills audits (placeholder script)
 - Ralph automation (manual prompts)
 - Agent Decision Gate (dapp-factory)
 - Phase 6 (website-pipeline)
 
 **User Impact**:
+
 - Wasted time trying to use features
 - Loss of trust in documentation
 - Uncertainty about what works
 
 **Recommendation**: Add implementation status to all features:
+
 ```markdown
 ### Skills Audits (Status: PLANNED - Not Yet Implemented)
 
@@ -727,14 +799,17 @@ This pipeline will include automated skills audits in a future release.
 #### Good Examples (to keep):
 
 1. **RUN_CERTIFICATE validation** (Tier-2 fix):
+
 ```
 BUILD VERIFICATION FAILED
 Error: Dev server failed to respond after 30 seconds
 See details: /path/to/RUN_FAILURE.json
 ```
+
 Clear, actionable, points to details.
 
 2. **HTTP verification failure** (plugin-factory):
+
 ```
 Smoke test failed: HTTP server did not respond
 Expected: 200
@@ -744,12 +819,15 @@ Actual: [error]
 #### Bad Examples (to fix):
 
 1. **Skills audit failure** (run-skills-audit.sh line 209):
+
 ```
 Actual implementation requires @vercel/agent-skills integration
 ```
+
 Not actionable. User doesn't know how to integrate it.
 
 **Better:**
+
 ```
 Skills audit unavailable: @vercel/agent-skills not configured
 
@@ -763,7 +841,8 @@ npm install -D @vercel/agent-skills
 ```
 
 2. **Playwright missing** (no current message, fails cryptically):
-**Better:**
+   **Better:**
+
 ```
 Playwright not found. E2E tests will be skipped.
 
@@ -775,7 +854,8 @@ Build will continue with HTTP-only verification.
 ```
 
 3. **MCP server failure** (no current handling):
-**Better:**
+   **Better:**
+
 ```
 Warning: MCP server 'playwright' failed to start
 
@@ -799,23 +879,26 @@ To fix: Check .mcp.json configuration
 **Industry Standard**: Tools check availability at runtime, not trust config.
 
 **Example from npm ecosystem:**
+
 ```javascript
 // Good: Runtime detection
 const hasPlaywright = await checkPlaywrightAvailable();
 if (!hasPlaywright) {
-  console.warn("Playwright not found, skipping E2E tests");
+  console.warn('Playwright not found, skipping E2E tests');
   return;
 }
 
 // Bad: Assume from config
-if (config.playwright.enabled) {  // Config lies!
-  await runPlaywrightTests();  // Crashes if not installed
+if (config.playwright.enabled) {
+  // Config lies!
+  await runPlaywrightTests(); // Crashes if not installed
 }
 ```
 
 **App Factory Status**: All assumptions from CLAUDE.md, zero runtime checks.
 
 **Recommendation**: Add detection utilities:
+
 ```javascript
 // /core/src/capability-detection.ts
 export async function detectPlaywright() {
@@ -835,6 +918,7 @@ export async function detectPlaywright() {
 **Industry Pattern**: Netflix, Stripe, Vercel all use capability tiers.
 
 **Example from Vercel Edge Functions:**
+
 - Tier 1: Basic functions (always work)
 - Tier 2: Node.js APIs (work if available)
 - Tier 3: Full Node.js (works in Node.js runtime only)
@@ -842,6 +926,7 @@ export async function detectPlaywright() {
 Code detects environment and degrades gracefully.
 
 **App Factory Equivalent**:
+
 - Tier 1: Baseline (Node.js + npm tools)
 - Tier 2: Quality (Playwright, skills audits, Ralph)
 - Tier 3: Advanced (MCP servers, cloud integrations)
@@ -851,6 +936,7 @@ Code detects environment and degrades gracefully.
 #### 3. Clear User Communication of Capability Levels
 
 **Industry Example - Stripe CLI:**
+
 ```
 ✓ Authentication successful
 ✓ Webhooks available
@@ -861,6 +947,7 @@ Code detects environment and degrades gracefully.
 Clear status, actionable remediation.
 
 **App Factory Should Do:**
+
 ```
 ✓ Project scaffolded
 ✓ Dependencies installed
@@ -882,6 +969,7 @@ Upgrade to Quality tier:
 #### 1. Explicit Permission Model (Anthropic Docs)
 
 MCP servers should:
+
 - Request permissions explicitly
 - Degrade gracefully if denied
 - Document required vs optional permissions
@@ -889,11 +977,12 @@ MCP servers should:
 **App Factory Status**: No permission model, all servers auto-start.
 
 **Recommendation**: Add MCP permission gate:
+
 ```json
 {
   "mcpServers": {
     "playwright": {
-      "enabled": false,  // Require opt-in
+      "enabled": false, // Require opt-in
       "permissions": ["network", "filesystem"],
       "purpose": "E2E testing for UX Polish Loop"
     }
@@ -902,6 +991,7 @@ MCP servers should:
 ```
 
 On first use, prompt:
+
 ```
 Playwright MCP server wants to:
 - Download browsers (~500MB)
@@ -915,6 +1005,7 @@ Allow? [y/N]
 #### 2. Capability Negotiation Handshake (MCP Spec)
 
 Standard MCP pattern:
+
 1. Client connects to server
 2. Server announces capabilities
 3. Client uses only announced capabilities
@@ -923,6 +1014,7 @@ Standard MCP pattern:
 **App Factory Status**: No handshake, assumes all tools work.
 
 **Recommendation**: Add capability probe before use:
+
 ```javascript
 async function probePlaywrightCapabilities() {
   const mcp = await connectMCP('playwright');
@@ -931,7 +1023,7 @@ async function probePlaywrightCapabilities() {
   return {
     browser: caps.includes('browser-control'),
     screenshots: caps.includes('screenshots'),
-    a11y: caps.includes('accessibility-tree')
+    a11y: caps.includes('accessibility-tree'),
   };
 }
 ```
@@ -941,11 +1033,13 @@ async function probePlaywrightCapabilities() {
 #### 3. Fallback Modes (Industry Standard)
 
 **Example from Playwright itself:**
+
 - Full mode: All browsers (Chromium, Firefox, WebKit)
 - Lite mode: Chromium only
 - Headless mode: No browser download (API testing only)
 
 **App Factory Should Do:**
+
 ```markdown
 ### Playwright Fallback Modes
 
@@ -964,12 +1058,12 @@ Based on Agent F research + industry surveys:
 
 #### Tier 1: Must-Have Quality Tools
 
-| Tool | Purpose | ROI | Current Status |
-|------|---------|-----|----------------|
-| **Playwright** | E2E testing | Very High | Enabled in MCP, not integrated |
-| **ESLint** | Code quality | High | Baseline (package.json) |
-| **TypeScript** | Type safety | Very High | Baseline (package.json) |
-| **Prettier** | Code formatting | Medium | Some pipelines only |
+| Tool           | Purpose         | ROI       | Current Status                 |
+| -------------- | --------------- | --------- | ------------------------------ |
+| **Playwright** | E2E testing     | Very High | Enabled in MCP, not integrated |
+| **ESLint**     | Code quality    | High      | Baseline (package.json)        |
+| **TypeScript** | Type safety     | Very High | Baseline (package.json)        |
+| **Prettier**   | Code formatting | Medium    | Some pipelines only            |
 
 **Recommendation**: Make these baseline in ALL pipelines.
 
@@ -977,16 +1071,17 @@ Based on Agent F research + industry surveys:
 
 #### Tier 2: High-ROI Optional Tools
 
-| Tool | Purpose | ROI | Current Status |
-|------|---------|-----|----------------|
-| **Lighthouse** | Performance + A11y | High | Not configured |
-| **Axe-core** | Accessibility | High | Not configured |
-| **Semgrep** | Security | Medium-High | MCP enabled, not used |
-| **@vercel/agent-skills** | Code quality | Medium | Documented, not implemented |
+| Tool                     | Purpose            | ROI         | Current Status              |
+| ------------------------ | ------------------ | ----------- | --------------------------- |
+| **Lighthouse**           | Performance + A11y | High        | Not configured              |
+| **Axe-core**             | Accessibility      | High        | Not configured              |
+| **Semgrep**              | Security           | Medium-High | MCP enabled, not used       |
+| **@vercel/agent-skills** | Code quality       | Medium      | Documented, not implemented |
 
 **Recommendation**: Add detection + graceful skip for these.
 
 **Code Example:**
+
 ```javascript
 // Quality enhancement (skippable)
 const lighthouse = await detectLighthouse();
@@ -996,7 +1091,7 @@ if (lighthouse.available) {
     console.warn(`Performance score: ${score.performance}/100`);
   }
 } else {
-  console.log("Lighthouse not available, skipping performance audit");
+  console.log('Lighthouse not available, skipping performance audit');
 }
 ```
 
@@ -1004,12 +1099,12 @@ if (lighthouse.available) {
 
 #### Tier 3: Specialized Tools (Don't Block on These)
 
-| Tool | Purpose | ROI | Current Status |
-|------|---------|-----|----------------|
-| **Figma MCP** | Design import | Medium | Documented, not enabled |
-| **Supabase MCP** | Database | Medium | Documented, not enabled |
-| **Stripe SDK** | Payments | Medium | Not configured |
-| **E2B** | Code execution | Low-Medium | Documented, not enabled |
+| Tool             | Purpose        | ROI        | Current Status          |
+| ---------------- | -------------- | ---------- | ----------------------- |
+| **Figma MCP**    | Design import  | Medium     | Documented, not enabled |
+| **Supabase MCP** | Database       | Medium     | Documented, not enabled |
+| **Stripe SDK**   | Payments       | Medium     | Not configured          |
+| **E2B**          | Code execution | Low-Medium | Documented, not enabled |
 
 **Recommendation**: Document as optional, provide setup guides, never assume.
 
@@ -1034,6 +1129,7 @@ From Agent F research on what NOT to do:
 **Anti-Pattern**: Feature disappears without user knowing.
 
 **Good Pattern**:
+
 ```
 ⚠ Feature X unavailable (tool Y missing)
 Build continues with reduced capability
@@ -1048,6 +1144,7 @@ Build continues with reduced capability
 **Anti-Pattern**: Document as optional but build breaks without it.
 
 **App Factory Example**:
+
 - Playwright documented as "optional" but `website-pipeline` fails cryptically without it
 - Skills audits documented as "mandatory" but are actually skipped
 
@@ -1114,44 +1211,50 @@ Build continues with reduced capability
 #### 1. Playwright (E2E Testing)
 
 **Why Valuable:**
+
 - Catch UI regressions before shipping
 - Test real user interactions (clicks, forms, navigation)
 - Accessibility tree validation
 - Cross-browser compatibility testing
 
 **When to Use:**
+
 - All web pipelines (website, dapp, miniapp)
 - After scaffold + install, before declaring "ready"
 - In Ralph QA iterations for regression detection
 
 **Fallback Strategy:**
+
 ```javascript
 const hasPlaywright = await detectPlaywright();
 
 if (hasPlaywright) {
-  console.log("Running E2E tests with Playwright...");
+  console.log('Running E2E tests with Playwright...');
   await runPlaywrightTests();
 } else {
-  console.warn("⚠ Playwright not found. Skipping E2E tests.");
-  console.warn("Install: npm install -D playwright && npx playwright install");
-  console.log("Continuing with HTTP-only verification...");
+  console.warn('⚠ Playwright not found. Skipping E2E tests.');
+  console.warn('Install: npm install -D playwright && npx playwright install');
+  console.log('Continuing with HTTP-only verification...');
   await runHTTPVerification();
 }
 ```
 
 **ROI Estimate:**
+
 - Setup time: 5 minutes (first time), 0 minutes (cached browsers)
 - Test execution: 10-30 seconds
 - Bugs caught: 2-5 per project (medium-severity UI issues)
 - ROI: Very High (prevents broken UIs from shipping)
 
 **Current Status**:
+
 - Enabled in MCP (root .mcp.json)
 - Documented as "REQUIRED" in website-pipeline
 - NOT detected before use
 - NOT gracefully degraded
 
 **Recommendation**:
+
 1. Add detection in all web pipeline run.mjs
 2. Graceful HTTP-only fallback
 3. User message about reduced test coverage
@@ -1161,17 +1264,20 @@ if (hasPlaywright) {
 #### 2. Lighthouse (Performance + Accessibility Audits)
 
 **Why Valuable:**
+
 - Objective performance scores (0-100)
 - Accessibility issue detection
 - Best practice enforcement (HTTPS, image optimization, etc.)
 - SEO audit
 
 **When to Use:**
+
 - After build completion, before declaring success
 - On localhost:PORT during verification phase
 - Optional in CI/CD for regression detection
 
 **Fallback Strategy:**
+
 ```javascript
 const hasLighthouse = await detectLighthouse();
 
@@ -1181,16 +1287,17 @@ if (hasLighthouse) {
   console.log(`Accessibility: ${report.accessibility}/100`);
 
   if (report.accessibility < 90) {
-    console.warn("⚠ Accessibility score below 90. See report:");
+    console.warn('⚠ Accessibility score below 90. See report:');
     console.warn(report.reportPath);
   }
 } else {
-  console.log("ℹ Lighthouse not available. Skipping performance audit.");
-  console.log("Install: npm install -g lighthouse");
+  console.log('ℹ Lighthouse not available. Skipping performance audit.');
+  console.log('Install: npm install -g lighthouse');
 }
 ```
 
 **ROI Estimate:**
+
 - Setup: 2 minutes (npm install -g lighthouse)
 - Audit time: 30-60 seconds
 - Issues caught: 3-8 per project (performance, a11y, SEO)
@@ -1199,6 +1306,7 @@ if (hasLighthouse) {
 **Current Status**: Not configured anywhere
 
 **Recommendation**:
+
 1. Add as optional quality check in web pipelines
 2. Run after LOCAL_RUN_PROOF passes
 3. Non-blocking (warn on low scores, don't fail build)
@@ -1208,31 +1316,35 @@ if (hasLighthouse) {
 #### 3. Axe-core (Accessibility)
 
 **Why Valuable:**
+
 - Detects 57% of accessibility issues automatically (Deque research)
 - WCAG 2.1 compliance checking
 - Fast (milliseconds)
 - Integrates with Playwright
 
 **When to Use:**
+
 - During Playwright E2E tests (if available)
 - On every rendered page
 - Before declaring build complete
 
 **Fallback Strategy:**
+
 ```javascript
 const hasPlaywright = await detectPlaywright();
 
 if (hasPlaywright) {
   // Axe-core works best with Playwright
   await runPlaywrightWithAxe();
-  console.log("✓ Accessibility scan: PASS");
+  console.log('✓ Accessibility scan: PASS');
 } else {
-  console.log("ℹ Playwright unavailable. Skipping automated a11y scan.");
-  console.log("Manual testing recommended: docs/a11y-checklist.md");
+  console.log('ℹ Playwright unavailable. Skipping automated a11y scan.');
+  console.log('Manual testing recommended: docs/a11y-checklist.md');
 }
 ```
 
 **ROI Estimate:**
+
 - Setup: 0 minutes (ships with Playwright)
 - Scan time: <1 second per page
 - Issues caught: 4-12 per project (color contrast, labels, ARIA)
@@ -1241,6 +1353,7 @@ if (hasPlaywright) {
 **Current Status**: Not configured
 
 **Recommendation**:
+
 1. Integrate into Playwright tests (if available)
 2. Add to Ralph QA acceptance criteria
 3. Fail on CRITICAL a11y issues, warn on others
@@ -1250,17 +1363,20 @@ if (hasPlaywright) {
 #### 4. @vercel/agent-skills (Code Quality Audits)
 
 **Why Valuable:**
+
 - React best practices enforcement
 - Next.js optimization checks
 - Design guideline compliance
 - Automated code review
 
 **When to Use:**
+
 - After code generation, before Ralph QA
 - Phase 6 in website-pipeline (currently missing)
 - Mandatory gate for production builds
 
 **Fallback Strategy:**
+
 ```javascript
 const hasSkills = await detectAgentSkills();
 
@@ -1268,30 +1384,36 @@ if (hasSkills) {
   const result = await runSkillsAudit(['react-best-practices']);
   if (result.score < 95) {
     console.warn(`⚠ React quality: ${result.score}/100 (target: 95)`);
-    console.warn("Issues:", result.violations.map(v => v.message));
+    console.warn(
+      'Issues:',
+      result.violations.map((v) => v.message)
+    );
   } else {
     console.log(`✓ React quality: ${result.score}/100`);
   }
 } else {
-  console.warn("⚠ Skills audits unavailable.");
-  console.warn("Install: npm install -D @vercel/agent-skills");
-  console.warn("Build continues with ESLint-only quality checks.");
+  console.warn('⚠ Skills audits unavailable.');
+  console.warn('Install: npm install -D @vercel/agent-skills');
+  console.warn('Build continues with ESLint-only quality checks.');
   await runESLint();
 }
 ```
 
 **ROI Estimate:**
+
 - Setup: 5 minutes (npm install + config)
 - Audit time: 10-20 seconds
 - Issues caught: 5-15 per project (React patterns, design)
 - ROI: Medium-High (prevents code quality debt)
 
 **Current Status**:
+
 - Documented as "mandatory" in website-pipeline, dapp-factory
 - Placeholder script exists
 - NOT implemented
 
 **Recommendation**:
+
 1. Implement actual skills audit in run-skills-audit.sh
 2. Integrate into pipeline run.mjs Phase 6
 3. Fallback to ESLint if unavailable
@@ -1301,28 +1423,32 @@ if (hasSkills) {
 #### 5. Prettier (Code Formatting)
 
 **Why Valuable:**
+
 - Consistent code style
 - No formatting debates
 - Auto-fixable
 
 **When to Use:**
+
 - After code generation
 - Before git commit
 - In editor (format on save)
 
 **Fallback Strategy:**
+
 ```javascript
 const hasPrettier = existsSync('prettier.config.js');
 
 if (hasPrettier) {
   execSync('npx prettier --write src/**/*.{js,jsx,ts,tsx}');
-  console.log("✓ Code formatted");
+  console.log('✓ Code formatted');
 } else {
-  console.log("ℹ Prettier not configured. Skipping formatting.");
+  console.log('ℹ Prettier not configured. Skipping formatting.');
 }
 ```
 
 **ROI Estimate:**
+
 - Setup: 2 minutes (.prettierrc + package.json)
 - Format time: 1-3 seconds
 - Issues prevented: Style consistency
@@ -1337,16 +1463,19 @@ if (hasPrettier) {
 #### 6. Ralph QA Automation
 
 **Why Valuable:**
+
 - Adversarial review catches issues humans miss
 - Structured iteration (max 5 passes)
 - Completion promise ensures quality
 
 **When to Use:**
+
 - After skills audits pass
 - Before declaring build complete
 - Optional: manual invocation for deep review
 
 **Fallback Strategy:**
+
 ```javascript
 const ralphAvailable = existsSync('ralph/run-ralph.sh');
 
@@ -1360,17 +1489,20 @@ if (ralphAvailable && userOptedIn) {
 ```
 
 **ROI Estimate:**
+
 - Setup: 0 minutes (already exists)
 - Iteration time: 2-5 minutes each
 - Issues caught: 3-10 per project (edge cases, polish)
 - ROI: High (catches subtle bugs)
 
 **Current Status**:
+
 - Runner exists (ralph/run-ralph.sh)
 - Documented as mandatory
 - NOT automated in pipelines
 
 **Recommendation**:
+
 1. Make Ralph optional (not mandatory)
 2. Prompt user: "Run Ralph QA? (Recommended) [Y/n]"
 3. If declined, add note: "Quality tier: Manual review recommended"
@@ -1385,15 +1517,16 @@ if (ralphAvailable && userOptedIn) {
 
 **Recommendation for Each:**
 
-| Server | Keep? | Detection? | Fallback |
-|--------|-------|------------|----------|
-| github | Yes | Check token + API | Skip GitHub features |
-| playwright | Yes | Probe before use | HTTP-only mode |
-| filesystem | Yes | Always available | N/A |
-| context7 | Optional | Check API key | Skip doc lookups |
-| semgrep | Optional | Probe binary | Skip security scan |
+| Server     | Keep?    | Detection?        | Fallback             |
+| ---------- | -------- | ----------------- | -------------------- |
+| github     | Yes      | Check token + API | Skip GitHub features |
+| playwright | Yes      | Probe before use  | HTTP-only mode       |
+| filesystem | Yes      | Always available  | N/A                  |
+| context7   | Optional | Check API key     | Skip doc lookups     |
+| semgrep    | Optional | Probe binary      | Skip security scan   |
 
 **Policy**: ALL MCP servers should:
+
 1. Detect availability before use
 2. Degrade gracefully if unavailable
 3. Log to audit when skipped
@@ -1457,17 +1590,17 @@ export async function detectCLITool(command, args = ['--version']) {
     const output = execSync(`${command} ${args.join(' ')}`, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
-      timeout: 5000
+      timeout: 5000,
     });
 
     return {
       available: true,
-      version: output.trim()
+      version: output.trim(),
     };
   } catch (error) {
     return {
       available: false,
-      error: error.code === 'ENOENT' ? 'Command not found' : error.message
+      error: error.code === 'ENOENT' ? 'Command not found' : error.message,
     };
   }
 }
@@ -1496,9 +1629,7 @@ export async function detectNPMPackage(packageName, projectPath) {
     const pkgPath = join(projectPath, 'package.json');
     const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
 
-    const version =
-      pkg.dependencies?.[packageName] ||
-      pkg.devDependencies?.[packageName];
+    const version = pkg.dependencies?.[packageName] || pkg.devDependencies?.[packageName];
 
     if (!version) {
       return { available: false };
@@ -1509,14 +1640,14 @@ export async function detectNPMPackage(packageName, projectPath) {
     if (!existsSync(modulePath)) {
       return {
         available: false,
-        error: 'Listed in package.json but not installed (run npm install)'
+        error: 'Listed in package.json but not installed (run npm install)',
       };
     }
 
     return {
       available: true,
       version,
-      location: modulePath
+      location: modulePath,
     };
   } catch (error) {
     return { available: false, error: error.message };
@@ -1558,7 +1689,7 @@ export async function detectMCPServer(serverName) {
     return {
       available: probe.responding,
       capabilities: probe.capabilities,
-      error: probe.error
+      error: probe.error,
     };
   } catch (error) {
     return { available: false, error: error.message };
@@ -1586,20 +1717,20 @@ async function runE2ETests(projectPath, url) {
   // Tier 1: Full Playwright
   const playwright = await detectPlaywright();
   if (playwright.available) {
-    console.log("✓ Running full E2E test suite (Playwright)");
+    console.log('✓ Running full E2E test suite (Playwright)');
     return await runPlaywrightTests(projectPath, url);
   }
 
   // Tier 2: Puppeteer (if available)
   const puppeteer = await detectPuppeteer();
   if (puppeteer.available) {
-    console.log("⚠ Playwright unavailable. Using Puppeteer (limited)");
+    console.log('⚠ Playwright unavailable. Using Puppeteer (limited)');
     return await runPuppeteerTests(projectPath, url);
   }
 
   // Tier 3: HTTP-only
-  console.warn("⚠ No browser testing available. HTTP verification only.");
-  console.warn("Install Playwright: npm install -D playwright");
+  console.warn('⚠ No browser testing available. HTTP verification only.');
+  console.warn('Install Playwright: npm install -D playwright');
   return await runHTTPVerification(url);
 }
 ```
@@ -1614,19 +1745,19 @@ async function runE2ETests(projectPath, url) {
  */
 async function detectCapabilities(projectPath) {
   const capabilities = {
-    baseline: true,  // Always available
+    baseline: true, // Always available
     e2e: false,
     a11y: false,
     performance: false,
     security: false,
-    codeQuality: false
+    codeQuality: false,
   };
 
   // E2E testing
   const playwright = await detectPlaywright();
   if (playwright.available) {
     capabilities.e2e = true;
-    capabilities.a11y = true;  // Axe-core works with Playwright
+    capabilities.a11y = true; // Axe-core works with Playwright
   }
 
   // Performance auditing
@@ -1653,7 +1784,7 @@ async function detectCapabilities(projectPath) {
 // Usage in build pipeline
 const caps = await detectCapabilities(projectPath);
 
-console.log("\n--- Build Capabilities ---");
+console.log('\n--- Build Capabilities ---');
 console.log(`E2E Testing: ${caps.e2e ? '✓' : '✗ (install Playwright)'}`);
 console.log(`Accessibility: ${caps.a11y ? '✓' : '✗ (requires Playwright)'}`);
 console.log(`Performance: ${caps.performance ? '✓' : '✗ (install Lighthouse)'}`);
@@ -1676,7 +1807,7 @@ function determineQualityTier(capabilities) {
     capabilities.a11y,
     capabilities.performance,
     capabilities.security,
-    capabilities.codeQuality
+    capabilities.codeQuality,
   ].filter(Boolean).length;
 
   if (qualityScore === 5) return 'PREMIUM (Full quality suite)';
@@ -1697,14 +1828,14 @@ function determineQualityTier(capabilities) {
  * Display capability report to user
  */
 function displayCapabilityReport(capabilities) {
-  console.log("\n╔════════════════════════════════════════╗");
-  console.log("║      BUILD CAPABILITY REPORT           ║");
-  console.log("╚════════════════════════════════════════╝\n");
+  console.log('\n╔════════════════════════════════════════╗');
+  console.log('║      BUILD CAPABILITY REPORT           ║');
+  console.log('╚════════════════════════════════════════╝\n');
 
   const tier = determineQualityTier(capabilities);
   console.log(`Quality Tier: ${tier}\n`);
 
-  console.log("Available Tools:");
+  console.log('Available Tools:');
   console.log(`  ${capabilities.e2e ? '✓' : '✗'} E2E Testing (Playwright)`);
   console.log(`  ${capabilities.a11y ? '✓' : '✗'} Accessibility Audits (Axe-core)`);
   console.log(`  ${capabilities.performance ? '✓' : '✗'} Performance Audits (Lighthouse)`);
@@ -1712,12 +1843,12 @@ function displayCapabilityReport(capabilities) {
   console.log(`  ${capabilities.codeQuality ? '✓' : '✗'} Code Quality Audits (agent-skills)`);
 
   if (!capabilities.e2e) {
-    console.log("\nℹ Upgrade to Enhanced tier:");
-    console.log("  npm install -D playwright");
-    console.log("  npx playwright install");
+    console.log('\nℹ Upgrade to Enhanced tier:');
+    console.log('  npm install -D playwright');
+    console.log('  npx playwright install');
   }
 
-  console.log("\n");
+  console.log('\n');
 }
 ```
 
@@ -1747,14 +1878,17 @@ function displayToolUnavailable(tool, context) {
 }
 
 // Usage
-displayToolUnavailable({
-  name: 'Playwright',
-  feature: 'E2E testing',
-  installCommand: 'npm install -D playwright && npx playwright install',
-  purpose: 'Test real user interactions in browser',
-  impact: 'Build continues with HTTP-only verification (reduced coverage)',
-  docsUrl: 'https://playwright.dev'
-}, { verbose: false });
+displayToolUnavailable(
+  {
+    name: 'Playwright',
+    feature: 'E2E testing',
+    installCommand: 'npm install -D playwright && npx playwright install',
+    purpose: 'Test real user interactions in browser',
+    impact: 'Build continues with HTTP-only verification (reduced coverage)',
+    docsUrl: 'https://playwright.dev',
+  },
+  { verbose: false }
+);
 ```
 
 ---
@@ -1769,19 +1903,20 @@ displayToolUnavailable({
 # MCP Server Governance
 
 ## Authority
+
 - **Owner**: Root orchestrator (CLAUDE.md)
 - **Configuration**: .mcp.json in repository root
 - **Approval**: Requires ADR for changes
 
 ## Enabled Servers
 
-| Server | Purpose | Network | Required Credentials | Status |
-|--------|---------|---------|---------------------|--------|
-| github | Repository management | Yes | GITHUB_PERSONAL_ACCESS_TOKEN | Enabled |
-| playwright | Browser automation | Yes (browser download) | None | Enabled |
-| filesystem | Local file operations | No | None | Enabled |
-| context7 | Documentation lookup | Yes | API key (optional) | Enabled |
-| semgrep | Security scanning | Yes (rules update) | None | Enabled |
+| Server     | Purpose               | Network                | Required Credentials         | Status  |
+| ---------- | --------------------- | ---------------------- | ---------------------------- | ------- |
+| github     | Repository management | Yes                    | GITHUB_PERSONAL_ACCESS_TOKEN | Enabled |
+| playwright | Browser automation    | Yes (browser download) | None                         | Enabled |
+| filesystem | Local file operations | No                     | None                         | Enabled |
+| context7   | Documentation lookup  | Yes                    | API key (optional)           | Enabled |
+| semgrep    | Security scanning     | Yes (rules update)     | None                         | Enabled |
 
 ## Adding a Server
 
@@ -1821,33 +1956,33 @@ This document tracks all external tools, MCP servers, and skills used by App Fac
 
 ## Baseline Tier (Always Available)
 
-| Tool | Purpose | Version | Detection |
-|------|---------|---------|-----------|
-| Node.js | Runtime | ≥18 | process.version |
-| npm | Package manager | ≥8 | npm --version |
-| Git | Version control | ≥2.0 | git --version |
+| Tool    | Purpose         | Version | Detection       |
+| ------- | --------------- | ------- | --------------- |
+| Node.js | Runtime         | ≥18     | process.version |
+| npm     | Package manager | ≥8      | npm --version   |
+| Git     | Version control | ≥2.0    | git --version   |
 
 Baseline tools MUST be available or build fails immediately with clear error.
 
 ## Quality Tier (Optional, High ROI)
 
-| Tool | Purpose | Pipelines | Detection | Fallback |
-|------|---------|-----------|-----------|----------|
-| Playwright | E2E testing | web, dapp, miniapp | detectPlaywright() | HTTP-only |
-| Lighthouse | Performance audit | web, dapp | detectLighthouse() | Skip audit |
-| Axe-core | Accessibility | web, dapp | (via Playwright) | Skip audit |
-| @vercel/agent-skills | Code quality | web, dapp | detectAgentSkills() | ESLint only |
-| Ralph QA | Adversarial review | All | existsSync('ralph/') | Manual mode |
+| Tool                 | Purpose            | Pipelines          | Detection            | Fallback    |
+| -------------------- | ------------------ | ------------------ | -------------------- | ----------- |
+| Playwright           | E2E testing        | web, dapp, miniapp | detectPlaywright()   | HTTP-only   |
+| Lighthouse           | Performance audit  | web, dapp          | detectLighthouse()   | Skip audit  |
+| Axe-core             | Accessibility      | web, dapp          | (via Playwright)     | Skip audit  |
+| @vercel/agent-skills | Code quality       | web, dapp          | detectAgentSkills()  | ESLint only |
+| Ralph QA             | Adversarial review | All                | existsSync('ralph/') | Manual mode |
 
 Quality tools MUST be detected before use. Build continues without them.
 
 ## Advanced Tier (Optional, Specialized)
 
-| Tool | Purpose | Pipelines | Detection | Fallback |
-|------|---------|-----------|-----------|----------|
-| Figma MCP | Design import | web, app | detectMCPServer('figma') | Manual design |
-| Semgrep | Security scan | All | detectMCPServer('semgrep') | Skip scan |
-| Supabase | Database | web, dapp, miniapp | detectMCPServer('supabase') | Local storage |
+| Tool      | Purpose       | Pipelines          | Detection                   | Fallback      |
+| --------- | ------------- | ------------------ | --------------------------- | ------------- |
+| Figma MCP | Design import | web, app           | detectMCPServer('figma')    | Manual design |
+| Semgrep   | Security scan | All                | detectMCPServer('semgrep')  | Skip scan     |
+| Supabase  | Database      | web, dapp, miniapp | detectMCPServer('supabase') | Local storage |
 
 Advanced tools MUST NOT block builds. Silent skip acceptable.
 
@@ -1899,12 +2034,12 @@ export async function detectPlaywright(): Promise<DetectionResult> {
     return {
       available: true,
       version: chromium.version(),
-      capabilities: ['chromium', 'firefox', 'webkit']
+      capabilities: ['chromium', 'firefox', 'webkit'],
     };
   } catch (error) {
     return {
       available: false,
-      error: error.code === 'MODULE_NOT_FOUND' ? 'Not installed' : error.message
+      error: error.code === 'MODULE_NOT_FOUND' ? 'Not installed' : error.message,
     };
   }
 }
@@ -1915,7 +2050,7 @@ export async function detectLighthouse(): Promise<DetectionResult> {
     const version = execSync('npx lighthouse --version', {
       encoding: 'utf-8',
       timeout: 5000,
-      stdio: ['pipe', 'pipe', 'ignore']
+      stdio: ['pipe', 'pipe', 'ignore'],
     }).trim();
 
     return { available: true, version };
@@ -1965,7 +2100,7 @@ export async function detectAllCapabilities() {
     detectLighthouse(),
     detectAgentSkills(),
     detectMCPServer('github'),
-    detectMCPServer('semgrep')
+    detectMCPServer('semgrep'),
   ]);
 
   return {
@@ -1974,8 +2109,8 @@ export async function detectAllCapabilities() {
     skills,
     mcp: {
       github,
-      semgrep
-    }
+      semgrep,
+    },
   };
 }
 ```
@@ -1987,6 +2122,7 @@ export async function detectAllCapabilities() {
 ### Current Safety Score: C+ (70/100)
 
 **Breakdown:**
+
 - **Baseline functionality**: A (Works when all tools present)
 - **Optional tool handling**: F (No detection, cryptic failures)
 - **Documentation accuracy**: C (Promises features not implemented)
@@ -2006,6 +2142,7 @@ export async function detectAllCapabilities() {
 **Impact**: Governance violation, user trust issue
 
 **Fix Options:**
+
 1. **Option A** (Recommended): Update Invariant 4 to "Offline by default EXCEPT enabled MCP servers (github, playwright, context7, semgrep)"
 2. **Option B**: Disable MCP servers by default, require opt-in
 3. **Option C**: Add MCP authorization gate on first use
@@ -2013,12 +2150,13 @@ export async function detectAllCapabilities() {
 **Effort**: 30 minutes (documentation update)
 
 **Implementation**:
+
 ```markdown
 # Root CLAUDE.md update
 
-4. Offline by Default* - no network without authorization
+4. Offline by Default\* - no network without authorization
 
-*Exception: MCP servers enabled in .mcp.json are authorized to make network calls for their documented purposes (GitHub API, browser downloads, documentation lookup, security rules). To disable, set "enabled": false in .mcp.json.
+\*Exception: MCP servers enabled in .mcp.json are authorized to make network calls for their documented purposes (GitHub API, browser downloads, documentation lookup, security rules). To disable, set "enabled": false in .mcp.json.
 ```
 
 ---
@@ -2034,6 +2172,7 @@ export async function detectAllCapabilities() {
 **Effort**: 4-6 hours (implementation across pipelines)
 
 **Example Implementation** (website-pipeline):
+
 ```javascript
 // In website-pipeline/scripts/run.mjs
 
@@ -2043,12 +2182,12 @@ async function runVerification(projectPath, url) {
   const playwright = await detectPlaywright();
 
   if (playwright.available) {
-    console.log("✓ Running E2E tests with Playwright...");
+    console.log('✓ Running E2E tests with Playwright...');
     await runPlaywrightTests(projectPath, url);
   } else {
-    console.warn("⚠ Playwright not found. E2E tests skipped.");
-    console.warn("  Install: npm install -D playwright && npx playwright install");
-    console.log("  Continuing with HTTP-only verification...");
+    console.warn('⚠ Playwright not found. E2E tests skipped.');
+    console.warn('  Install: npm install -D playwright && npx playwright install');
+    console.log('  Continuing with HTTP-only verification...');
     await runHTTPVerification(url);
   }
 }
@@ -2057,12 +2196,12 @@ async function runSkillsAudit(projectPath) {
   const skills = await detectAgentSkills();
 
   if (skills.available) {
-    console.log("Running skills audits...");
+    console.log('Running skills audits...');
     await runSkillsAuditImpl(projectPath);
   } else {
-    console.warn("⚠ @vercel/agent-skills not found. Code quality audit skipped.");
-    console.warn("  Install: npm install -D @vercel/agent-skills");
-    console.log("  Continuing with ESLint-only checks...");
+    console.warn('⚠ @vercel/agent-skills not found. Code quality audit skipped.');
+    console.warn('  Install: npm install -D @vercel/agent-skills');
+    console.log('  Continuing with ESLint-only checks...');
     await runESLint(projectPath);
   }
 }
@@ -2077,6 +2216,7 @@ async function runSkillsAudit(projectPath) {
 **Impact**: Massive expectation violation, users expect ≥95% quality
 
 **Fix Options:**
+
 1. **Option A**: Implement Phase 6 with detection + fallback
 2. **Option B**: Remove "mandatory" language, mark as "planned"
 3. **Option C**: Change to "optional" and implement with opt-in
@@ -2086,15 +2226,16 @@ async function runSkillsAudit(projectPath) {
 **Effort**: 2-3 hours
 
 **Implementation**:
+
 ```javascript
 // Phase 6: Skills Audit (with fallback)
 async function runPhase6SkillsAudit(projectPath) {
-  setPhase(5, 'active');  // Add 6th phase
+  setPhase(5, 'active'); // Add 6th phase
 
   const skills = await detectAgentSkills();
 
   if (skills.available) {
-    console.log("Phase 6/6: Skills Audit");
+    console.log('Phase 6/6: Skills Audit');
     const reactScore = await runSkillAudit(projectPath, 'react-best-practices');
     const designScore = await runSkillAudit(projectPath, 'web-design-guidelines');
 
@@ -2105,12 +2246,12 @@ async function runPhase6SkillsAudit(projectPath) {
       console.warn(`⚠ Skills audits below threshold`);
       console.warn(`  React: ${reactScore}/100 (target: 95)`);
       console.warn(`  Design: ${designScore}/100 (target: 90)`);
-      setPhase(5, 'complete');  // Continue anyway
+      setPhase(5, 'complete'); // Continue anyway
     }
   } else {
-    console.log("Phase 6/6: Skills Audit (Degraded Mode)");
-    console.warn("⚠ @vercel/agent-skills unavailable");
-    console.log("  Running ESLint as fallback...");
+    console.log('Phase 6/6: Skills Audit (Degraded Mode)');
+    console.warn('⚠ @vercel/agent-skills unavailable');
+    console.log('  Running ESLint as fallback...');
     await runESLint(projectPath);
     setPhase(5, 'complete');
   }
@@ -2123,42 +2264,45 @@ async function runPhase6SkillsAudit(projectPath) {
 
 #### P1 (High Priority - Pre-Production)
 
-| Issue | Fix | Effort | Impact |
-|-------|-----|--------|--------|
-| Ralph QA automation gaps | Add opt-in Ralph automation to pipelines | 1 day | Users get documented QA |
-| LOCAL_RUN_PROOF bypassed | Enforce gate in all pipelines (mostly done in Tier-2) | 2 hours | Verification integrity |
-| Playwright 500MB surprise | Add size warning before download | 30 min | Better UX |
-| Skills audit script placeholder | Implement actual skills audit | 1-2 days | Feature works as documented |
-| MCP server failure handling | Add detection + fallback for all MCP uses | 4 hours | Graceful degradation |
+| Issue                           | Fix                                                   | Effort   | Impact                      |
+| ------------------------------- | ----------------------------------------------------- | -------- | --------------------------- |
+| Ralph QA automation gaps        | Add opt-in Ralph automation to pipelines              | 1 day    | Users get documented QA     |
+| LOCAL_RUN_PROOF bypassed        | Enforce gate in all pipelines (mostly done in Tier-2) | 2 hours  | Verification integrity      |
+| Playwright 500MB surprise       | Add size warning before download                      | 30 min   | Better UX                   |
+| Skills audit script placeholder | Implement actual skills audit                         | 1-2 days | Feature works as documented |
+| MCP server failure handling     | Add detection + fallback for all MCP uses             | 4 hours  | Graceful degradation        |
 
 ---
 
 #### P2 (Quality Improvement - Post-Production)
 
-| Issue | Fix | Effort | Impact |
-|-------|-----|--------|--------|
-| Add Lighthouse audits | Integrate into web pipelines | 1 day | Performance visibility |
-| Add Axe-core a11y audits | Integrate with Playwright | 4 hours | Accessibility |
-| Capability tier dashboard | Show user which tier they're in | 2 hours | Transparency |
-| MCP permission prompts | Add authorization gate | 1 day | User control |
-| Skills catalog documentation | Create SKILLS_CATALOG.md | 2 hours | Developer clarity |
-| Detection function library | Vendor to all pipelines | 4 hours | Reusability |
+| Issue                        | Fix                             | Effort  | Impact                 |
+| ---------------------------- | ------------------------------- | ------- | ---------------------- |
+| Add Lighthouse audits        | Integrate into web pipelines    | 1 day   | Performance visibility |
+| Add Axe-core a11y audits     | Integrate with Playwright       | 4 hours | Accessibility          |
+| Capability tier dashboard    | Show user which tier they're in | 2 hours | Transparency           |
+| MCP permission prompts       | Add authorization gate          | 1 day   | User control           |
+| Skills catalog documentation | Create SKILLS_CATALOG.md        | 2 hours | Developer clarity      |
+| Detection function library   | Vendor to all pipelines         | 4 hours | Reusability            |
 
 ---
 
 ### Implementation Priority
 
 **Week 1 (P0 - Blockers):**
+
 1. Day 1: Fix "Offline by Default" documentation
 2. Day 2-3: Add runtime detection to all pipelines
 3. Day 4-5: Implement website-pipeline Phase 6 with fallback
 
 **Week 2 (P1 - High Priority):**
+
 1. Day 1-2: Add Ralph QA opt-in automation
 2. Day 3: Implement skills audit script (real version)
 3. Day 4-5: MCP server detection + fallback
 
 **Week 3 (P2 - Quality):**
+
 1. Day 1-2: Add Lighthouse + Axe-core
 2. Day 3: Capability tier dashboard
 3. Day 4-5: Documentation (catalog, governance)
@@ -2201,18 +2345,20 @@ async function runPhase6SkillsAudit(projectPath) {
 #### Concrete Example
 
 **Before (Current - Unsafe):**
+
 ```javascript
 // website-pipeline/scripts/run.mjs
 async function main() {
   await scaffold();
   await install();
-  await verify();  // Assumes Playwright exists
-  await skillsAudit();  // Documented as mandatory, but function doesn't exist!
-  outputLaunchCard();  // Claims success even if verification failed
+  await verify(); // Assumes Playwright exists
+  await skillsAudit(); // Documented as mandatory, but function doesn't exist!
+  outputLaunchCard(); // Claims success even if verification failed
 }
 ```
 
 **After (Capability-Aware - Safe):**
+
 ```javascript
 // website-pipeline/scripts/run.mjs
 async function main() {
@@ -2234,20 +2380,20 @@ async function main() {
   if (caps.skills) {
     await runSkillsAudit();
   } else {
-    console.warn("⚠ Skills audits unavailable. Install: npm i -D @vercel/agent-skills");
-    await runESLint();  // Fallback
+    console.warn('⚠ Skills audits unavailable. Install: npm i -D @vercel/agent-skills');
+    await runESLint(); // Fallback
   }
 
   // Ralph QA (opt-in)
-  if (await askUserYesNo("Run Ralph QA? (Recommended)")) {
+  if (await askUserYesNo('Run Ralph QA? (Recommended)')) {
     await runRalphIterations();
   }
 
   // Only output launch card if verification passed
   if (checkRunCertificate(projectPath)) {
-    outputLaunchCard(caps);  // Include capability tier
+    outputLaunchCard(caps); // Include capability tier
   } else {
-    console.error("Build failed verification. See RUN_FAILURE.json");
+    console.error('Build failed verification. See RUN_FAILURE.json');
     process.exit(1);
   }
 }
@@ -2256,6 +2402,7 @@ async function main() {
 #### User Experience Outcome
 
 **New user clones App Factory with only Node.js:**
+
 ```
 $ cd website-pipeline && claude
 > "Build me a portfolio site"
@@ -2310,6 +2457,7 @@ To upgrade quality:
 ```
 
 **Key Improvements:**
+
 1. User knows EXACTLY what happened
 2. No surprises (no 500MB downloads)
 3. No false confidence (clearly says "BASELINE")
@@ -2323,12 +2471,14 @@ To upgrade quality:
 After implementing capability-aware architecture:
 
 **Objective Measures:**
+
 - Detection coverage: 100% (every optional tool checked)
 - Graceful degradation rate: 100% (no hard failures on missing tools)
 - Documentation accuracy: 95%+ (promises match implementation)
 - First-time user success rate: 90%+ (build succeeds with Node.js only)
 
 **Subjective Measures:**
+
 - User trust: "I know what's happening"
 - User control: "I can choose my quality tier"
 - Developer confidence: "Code matches docs"
@@ -2348,6 +2498,7 @@ App Factory has solid foundations (Tier-1 and Tier-2 fixes) but dangerous assump
 The repository can achieve **A grade** (90+/100) by implementing the P0 and P1 fixes outlined in this report. The key insight: **Skills make App Factory better, but safety requires treating them as optional with runtime detection and graceful degradation.**
 
 **Final Grade Path:**
+
 - Current: C+ (70/100)
 - After P0 fixes: B (80/100)
 - After P1 fixes: B+ (85/100)

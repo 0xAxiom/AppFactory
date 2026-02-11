@@ -33,15 +33,26 @@ jobs:
       - name: Run format check
         run: npm run format:check
 
+      - name: Install CLI dependencies
+        run: cd CLI && npm ci
+
       - name: Install dapp-factory dependencies
         run: cd dapp-factory && npm ci
 
-      - name: Run type check
-        run: npm run type-check:dapp
+      - name: Run type checks
+        run: npm run type-check
+
+      - name: Run root tests
+        run: npm run test
+
+      - name: Run CLI tests
+        run: npm run test:cli
+
+      - name: Run dapp-factory tests
+        run: npm run test:dapp
 
       - name: Security audit
         run: npm audit --audit-level=high
-        continue-on-error: true
 
   release:
     name: Create Release

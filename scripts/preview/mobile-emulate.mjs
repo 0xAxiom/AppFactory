@@ -5,11 +5,10 @@
  * Installs Playwright on-demand if missing
  */
 
-import { spawn, execSync, spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createRequire } from 'node:module';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

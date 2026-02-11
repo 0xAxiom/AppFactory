@@ -10,7 +10,7 @@ import { minikitConfig, FarcasterManifest } from '../../../minikit.config';
 
 export async function GET() {
   const { miniapp } = minikitConfig;
-  
+
   // Build the manifest from config
   const manifest: FarcasterManifest = {
     accountAssociation: minikitConfig.accountAssociation,

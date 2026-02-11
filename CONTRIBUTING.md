@@ -79,28 +79,34 @@ AppFactory/
 
 2. Make your changes
 
-3. Run linting and formatting:
+3. Install all local dependencies:
+
+   ```bash
+   npm run bootstrap
+   ```
+
+4. Run linting and formatting:
 
    ```bash
    npm run lint:fix
    npm run format
    ```
 
-4. Run type checking:
+5. Run type checking:
 
    ```bash
    npm run type-check
    ```
 
-5. Commit your changes (see [Commit Guidelines](#commit-guidelines))
+6. Commit your changes (see [Commit Guidelines](#commit-guidelines))
 
-6. Push to your fork:
+7. Push to your fork:
 
    ```bash
    git push origin feature/your-feature-name
    ```
 
-7. Open a Pull Request
+8. Open a Pull Request
 
 ## Coding Standards
 
@@ -342,8 +348,8 @@ Each pipeline has designated output directories:
 ### Running Tests
 
 ```bash
-# Run all checks
-npm run test
+# Install all dependencies (root + subprojects)
+npm run bootstrap
 
 # Run linting only
 npm run lint
@@ -353,6 +359,13 @@ npm run type-check
 
 # Run formatting check
 npm run format:check
+
+# Run root tests
+npm run test
+
+# Run subproject tests
+npm run test:cli
+npm run test:dapp
 ```
 
 ### Pipeline-Specific Testing

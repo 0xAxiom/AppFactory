@@ -10,6 +10,12 @@ dapp-builds/
 .next/
 coverage/
 
+# Generated pipeline artifacts
+**/runs/
+**/runs/**
+website-pipeline/example/website-builds/
+website-pipeline/example/website-builds/**
+
 # Generated files
 *.min.js
 *.min.css

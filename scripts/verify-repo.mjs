@@ -12,7 +12,7 @@
  *   1 - One or more checks failed
  */
 
-import { existsSync, readFileSync, readdirSync, statSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';

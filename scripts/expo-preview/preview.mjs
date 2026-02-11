@@ -115,15 +115,6 @@ function extractPort(command) {
   return CONFIG.DEFAULT_PORT;
 }
 
-/**
- * Determines if this is a web preview command
- * @param {string} command
- * @returns {boolean}
- */
-function isWebMode(command) {
-  return /\s--web(\s|$)/.test(command);
-}
-
 // ============================================================================
 // Health Check
 // ============================================================================

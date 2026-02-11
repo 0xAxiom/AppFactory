@@ -154,7 +154,9 @@ export default function PaywallScreen() {
           </Text>
         </View>
 
-        <View style={styles.features}>{/* PREMIUM_FEATURES_PLACEHOLDER */}</View>
+        <View style={styles.features}>
+          {/* PREMIUM_FEATURES_PLACEHOLDER */}
+        </View>
 
         <View style={styles.packages}>
           {offerings.availablePackages.map((pkg) => (

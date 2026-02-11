@@ -6,13 +6,13 @@ AppFactory uses **5 essential MCP servers** to enhance code generation quality, 
 
 ## Configured Servers
 
-| Server | Purpose | Auth Required | Status |
-|--------|---------|---------------|--------|
-| **github** | Repository management, PRs, issues | GitHub PAT (env var) | ⚠️ Requires setup |
-| **playwright** | Browser automation for UX testing | None | ✅ Ready |
-| **filesystem** | Local file operations (project-scoped) | None | ✅ Ready |
-| **context7** | Real-time documentation lookup | None | ✅ Ready |
-| **semgrep** | Security vulnerability scanning | None | ✅ Ready |
+| Server         | Purpose                                | Auth Required        | Status            |
+| -------------- | -------------------------------------- | -------------------- | ----------------- |
+| **github**     | Repository management, PRs, issues     | GitHub PAT (env var) | ⚠️ Requires setup |
+| **playwright** | Browser automation for UX testing      | None                 | ✅ Ready          |
+| **filesystem** | Local file operations (project-scoped) | None                 | ✅ Ready          |
+| **context7**   | Real-time documentation lookup         | None                 | ✅ Ready          |
+| **semgrep**    | Security vulnerability scanning        | None                 | ✅ Ready          |
 
 ## Quick Setup
 
@@ -168,14 +168,7 @@ Refer to [mcp-config.example.json](../mcp-config.example.json) for the full cata
 ```json
 {
   "mcp": {
-    "enabledMcpjsonServers": [
-      "github",
-      "playwright",
-      "filesystem",
-      "context7",
-      "semgrep",
-      "your-new-server"
-    ]
+    "enabledMcpjsonServers": ["github", "playwright", "filesystem", "context7", "semgrep", "your-new-server"]
   }
 }
 ```
@@ -215,6 +208,6 @@ source ~/.zshrc
 
 ## Version History
 
-| Version | Date       | Changes                              |
-|---------|------------|--------------------------------------|
-| 1.0.0   | 2026-01-23 | Initial project-scoped MCP setup     |
+| Version | Date       | Changes                          |
+| ------- | ---------- | -------------------------------- |
+| 1.0.0   | 2026-01-23 | Initial project-scoped MCP setup |

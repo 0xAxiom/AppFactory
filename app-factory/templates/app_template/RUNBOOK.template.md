@@ -123,18 +123,21 @@ Open Xcode > Preferences > Locations > Command Line Tools (select a version)
 Ensure ANDROID_HOME is set:
 
 **macOS:**
+
 ```bash
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
 **Linux:**
+
 ```bash
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
 $env:PATH += ";$env:ANDROID_HOME\platform-tools"

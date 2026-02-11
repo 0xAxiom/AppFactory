@@ -45,14 +45,14 @@ This template generates a complete **Moltbot agent workspace** — a set of mark
 
 When generating a Moltbot agent, Claude asks these 6 questions:
 
-| # | Question | Purpose |
-|---|----------|---------|
-| 1 | Agent name (lowercase-with-hyphens) | Directory name, identity |
-| 2 | Personality in one sentence | SOUL.md core vibe |
-| 3 | Primary mission/purpose | What the agent does |
-| 4 | Channels (telegram/discord/slack/terminal) | Deployment targets |
-| 5 | External services needed (APIs, databases) | TOOLS.md setup |
-| 6 | Proactive behavior? What to monitor? | HEARTBEAT.md config |
+| #   | Question                                   | Purpose                  |
+| --- | ------------------------------------------ | ------------------------ |
+| 1   | Agent name (lowercase-with-hyphens)        | Directory name, identity |
+| 2   | Personality in one sentence                | SOUL.md core vibe        |
+| 3   | Primary mission/purpose                    | What the agent does      |
+| 4   | Channels (telegram/discord/slack/terminal) | Deployment targets       |
+| 5   | External services needed (APIs, databases) | TOOLS.md setup           |
+| 6   | Proactive behavior? What to monitor?       | HEARTBEAT.md config      |
 
 ## Tech Stack
 
@@ -64,6 +64,7 @@ When generating a Moltbot agent, Claude asks these 6 questions:
 ## Quality Expectations
 
 Ralph QA validates:
+
 - [ ] SOUL.md has clear identity and values
 - [ ] AGENTS.md has actionable workspace rules
 - [ ] TOOLS.md documents all required integrations
@@ -86,6 +87,7 @@ Ralph QA validates:
 ## Customization Points
 
 After generation, users typically customize:
+
 1. `SOUL.md` — Refine personality and values
 2. `TOOLS.md` — Add API credentials and tool notes
 3. `USER.md` — Fill in their personal context
@@ -94,6 +96,7 @@ After generation, users typically customize:
 ## Deployment
 
 Generated agents deploy to Moltbot via:
+
 ```bash
 # Copy workspace to Moltbot agents directory
 cp -r <agent-name> ~/.moltbot/agents/
@@ -114,5 +117,5 @@ moltbot gateway restart
 
 ---
 
-*Template version: 1.0.0*
-*Compatible with: Moltbot 0.1.x+*
+_Template version: 1.0.0_
+_Compatible with: Moltbot 0.1.x+_

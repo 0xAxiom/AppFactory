@@ -84,6 +84,7 @@ YYYY-MM-DD-descriptive-name.md
 ```
 
 **Benefits**:
+
 - Chronological sorting
 - Clear date attribution
 - Descriptive names

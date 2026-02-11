@@ -15,9 +15,9 @@ import { sha256 } from './hashing.js';
 export function generateSlug(brand: string): string {
   return brand
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')  // Replace non-alphanumeric with hyphens
-    .replace(/-+/g, '-')           // Collapse consecutive hyphens
-    .replace(/^-|-$/g, '');        // Trim leading/trailing hyphens
+    .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+    .replace(/-+/g, '-') // Collapse consecutive hyphens
+    .replace(/^-|-$/g, ''); // Trim leading/trailing hyphens
 }
 
 /**
@@ -48,9 +48,7 @@ export function generateBranchName(params: {
  * - Max 5 characters
  */
 export function generateTokenSymbol(brand: string): string {
-  const words = brand
-    .split(/[\s-_]+/)
-    .filter(w => w.length > 0);
+  const words = brand.split(/[\s-_]+/).filter((w) => w.length > 0);
 
   if (words.length === 1) {
     // Single word: take first 3-5 chars
@@ -59,7 +57,7 @@ export function generateTokenSymbol(brand: string): string {
 
   // Multiple words: take first letter of each
   const symbol = words
-    .map(w => w[0])
+    .map((w) => w[0])
     .join('')
     .substring(0, 5)
     .toUpperCase();

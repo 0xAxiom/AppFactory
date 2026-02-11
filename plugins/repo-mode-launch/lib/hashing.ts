@@ -57,7 +57,7 @@ export function generateLaunchId(params: {
     commitSha: params.commitSha.toLowerCase(),
     repoUrl: params.repoUrl.toLowerCase(),
     symbol: params.symbol.toUpperCase(),
-    walletAddress: params.walletAddress
+    walletAddress: params.walletAddress,
   });
 
   return sha256(canonical);

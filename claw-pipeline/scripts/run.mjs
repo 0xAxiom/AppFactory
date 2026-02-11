@@ -24,7 +24,6 @@ import {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PIPELINE_ROOT = resolve(__dirname, '..');
-const _REPO_ROOT = resolve(PIPELINE_ROOT, '..');
 const BUILDS_DIR = join(PIPELINE_ROOT, 'builds', 'claws');
 
 // Shared libraries
@@ -620,7 +619,7 @@ async function main() {
         status: 'complete',
         message: 'Local run proof completed'
       });
-    } catch (_err) {
+    } catch {
       console.log(`\n${YELLOW}  Local run proof failed. Continuing...${RESET}`);
       writeAuditEvent({
         projectPath: buildDir,

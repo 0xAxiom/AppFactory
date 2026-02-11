@@ -67,13 +67,12 @@ jobs:
 
       - name: Install CLI dependencies
         run: cd CLI && npm ci
-        continue-on-error: true
 
       - name: Install dapp-factory dependencies
         run: cd dapp-factory && npm ci
 
-      - name: Type check dapp-factory
-        run: npm run type-check:dapp
+      - name: Run type checks
+        run: npm run type-check
 
   test:
     name: Test
@@ -93,14 +92,18 @@ jobs:
 
       - name: Install CLI dependencies
         run: cd CLI && npm ci
-        continue-on-error: true
 
       - name: Install dapp-factory dependencies
         run: cd dapp-factory && npm ci
 
-      - name: Run tests
+      - name: Run root tests
         run: npm run test
-        continue-on-error: true
+
+      - name: Run CLI tests
+        run: npm run test:cli
+
+      - name: Run dapp-factory tests
+        run: npm run test:dapp
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
@@ -127,21 +130,24 @@ jobs:
 
       - name: Audit root dependencies
         run: npm audit --audit-level=high
-        continue-on-error: true
 
       - name: Install and audit CLI dependencies
         run: |
           cd CLI
           npm ci
           npm audit --audit-level=high
-        continue-on-error: true
 
       - name: Install and audit dapp-factory dependencies
         run: |
           cd dapp-factory
           npm ci
           npm audit --audit-level=high
-        continue-on-error: true
+
+      - name: Install and audit plugin mcp-server dependencies
+        run: |
+          cd plugin-factory/examples/mcp-server
+          npm ci
+          npm audit --audit-level=high
 
   validate-structure:
     name: Validate Structure
@@ -229,18 +235,16 @@ jobs:
             echo "✓ Type check passed"
           fi
 
-          # Advisory jobs (report but don't fail CI)
-          echo ""
-          echo "=== Advisory Checks ==="
-
           if [ "${{ needs.test.result }}" != "success" ]; then
-            echo "WARNING: Tests have issues"
+            echo "FAIL: Tests failed"
+            critical_failed=1
           else
             echo "✓ Tests passed"
           fi
 
           if [ "${{ needs.security-audit.result }}" != "success" ]; then
-            echo "WARNING: Security audit has findings"
+            echo "FAIL: Security audit failed"
+            critical_failed=1
           else
             echo "✓ Security audit passed"
           fi

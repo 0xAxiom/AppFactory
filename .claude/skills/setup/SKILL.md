@@ -248,12 +248,14 @@ After all phases, display a summary table:
 ## Error Recovery
 
 If any BLOCKING check fails:
+
 1. Show the specific error
 2. Provide the exact fix command
 3. Ask user to fix and re-run `/setup`
 4. Do NOT attempt to continue past blocking failures
 
 If any OPTIONAL check fails:
+
 1. Mark as SKIP in the report
 2. Note what functionality is affected
 3. Continue with remaining checks

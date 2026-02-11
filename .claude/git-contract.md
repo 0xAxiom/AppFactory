@@ -84,6 +84,7 @@ Use conventional commit format for all commits:
 ```
 
 **Types**:
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation only
@@ -95,6 +96,7 @@ Use conventional commit format for all commits:
 - `setup`: Initial setup or governance changes
 
 **Examples**:
+
 ```
 setup(claude): add governance layer and VS Code integration
 fix(cli): resolve TypeScript errors in generator.ts
@@ -133,6 +135,7 @@ git stash apply           # Apply but keep in stash
 ### Emergency Rollback (VS Code Task)
 
 VS Code task will execute:
+
 ```bash
 #!/bin/bash
 echo "=== EMERGENCY ROLLBACK ==="
@@ -179,14 +182,14 @@ git status
 
 These operations are **NEVER allowed** without explicit user override:
 
-| Operation | Risk | Alternative |
-|-----------|------|-------------|
-| `git reset --hard` | Loses uncommitted work | `git stash` |
-| `git push --force` | Rewrites remote history | `git push --force-with-lease` (with approval) |
-| `git clean -fd` | Deletes untracked files | Manual review + selective delete |
-| `git checkout .` | Discards all changes | `git stash` |
-| `git rebase` on shared branches | Rewrites history | `git merge` |
-| `git commit --amend` on pushed commits | Rewrites history | New commit |
+| Operation                              | Risk                    | Alternative                                   |
+| -------------------------------------- | ----------------------- | --------------------------------------------- |
+| `git reset --hard`                     | Loses uncommitted work  | `git stash`                                   |
+| `git push --force`                     | Rewrites remote history | `git push --force-with-lease` (with approval) |
+| `git clean -fd`                        | Deletes untracked files | Manual review + selective delete              |
+| `git checkout .`                       | Discards all changes    | `git stash`                                   |
+| `git rebase` on shared branches        | Rewrites history        | `git merge`                                   |
+| `git commit --amend` on pushed commits | Rewrites history        | New commit                                    |
 
 ---
 
@@ -197,6 +200,7 @@ These operations are **NEVER allowed** without explicit user override:
 **Branch**: `main` (or `master`)
 
 **Rules**:
+
 1. Never force push to main
 2. All commits should be meaningful and tested
 3. Prefer feature branches for experimental work
@@ -332,11 +336,13 @@ echo "Option 3: I can help resolve if you explain intent"
 This repository uses Husky for git hooks:
 
 ### Pre-Commit Hook
+
 - Runs `lint-staged` (linting and formatting)
 - Enforced by Husky
 - Claude respects these hooks (does not bypass with `--no-verify`)
 
 ### Commit-Msg Hook
+
 - Validates commit message format
 - Enforced by commitlint
 - Claude follows conventional commit format to pass validation
@@ -407,6 +413,7 @@ Before any git operation, Claude verifies:
 If a git operation goes wrong:
 
 ### Undo Last Commit (Not Pushed)
+
 ```bash
 # Undo commit, keep changes staged
 git reset --soft HEAD~1
@@ -420,6 +427,7 @@ git status
 ```
 
 ### Recover Lost Commits
+
 ```bash
 # View reflog (shows all HEAD movements)
 git reflog
@@ -432,6 +440,7 @@ git reset --hard <commit-hash>  # Only with explicit approval
 ```
 
 ### Recover Deleted Branch
+
 ```bash
 # Find branch in reflog
 git reflog | grep branch-name
@@ -444,9 +453,9 @@ git checkout -b branch-name <commit-hash>
 
 ## VERSION HISTORY
 
-| Version | Date       | Changes                 |
-| ------- | ---------- | ----------------------- |
-| 1.0.0   | 2026-01-22 | Initial git contract    |
+| Version | Date       | Changes              |
+| ------- | ---------- | -------------------- |
+| 1.0.0   | 2026-01-22 | Initial git contract |
 
 ---
 

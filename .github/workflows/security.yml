@@ -68,21 +68,24 @@ jobs:
 
       - name: Audit root dependencies
         run: npm audit --audit-level=high
-        continue-on-error: true
 
       - name: Install and audit CLI dependencies
         run: |
           cd CLI
           npm ci
           npm audit --audit-level=high
-        continue-on-error: true
 
       - name: Install and audit dapp-factory dependencies
         run: |
           cd dapp-factory
           npm ci
           npm audit --audit-level=high
-        continue-on-error: true
+
+      - name: Install and audit plugin mcp-server dependencies
+        run: |
+          cd plugin-factory/examples/mcp-server
+          npm ci
+          npm audit --audit-level=high
 
   secret-scan:
     name: Secret Pattern Scanning

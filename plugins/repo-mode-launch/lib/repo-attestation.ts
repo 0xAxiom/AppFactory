@@ -9,9 +9,14 @@ import {
   generateLaunchId,
   generateIntentHash,
   generateConfigHash,
-  generateRepoStateHash
+  generateRepoStateHash,
 } from './hashing.js';
-import { generateBranchName, generateTokenSymbol, extractOwner, extractRepoName } from './naming.js';
+import {
+  generateBranchName,
+  generateTokenSymbol,
+  extractOwner,
+  extractRepoName,
+} from './naming.js';
 import type { LaunchIntent } from '../types/launch-intent.js';
 
 export interface GenerateLaunchIntentParams {
@@ -37,7 +42,9 @@ export interface GeneratedLaunchIntent {
  * Generate a complete launch.intent.json object
  * All values are deterministic based on inputs
  */
-export function generateLaunchIntent(params: GenerateLaunchIntentParams): GeneratedLaunchIntent {
+export function generateLaunchIntent(
+  params: GenerateLaunchIntentParams
+): GeneratedLaunchIntent {
   const owner = extractOwner(params.repoUrl);
   const repoName = extractRepoName(params.repoUrl);
 
@@ -54,14 +61,14 @@ export function generateLaunchIntent(params: GenerateLaunchIntentParams): Genera
     commitSha: params.commitSha,
     walletAddress: params.walletAddress,
     brand: params.brand,
-    symbol
+    symbol,
   });
 
   // Generate deterministic branch name
   const branchName = generateBranchName({
     brand: params.brand,
     walletAddress: params.walletAddress,
-    commitSha: params.commitSha
+    commitSha: params.commitSha,
   });
 
   // Use commit timestamp for determinism (current time as fallback)
@@ -70,7 +77,7 @@ export function generateLaunchIntent(params: GenerateLaunchIntentParams): Genera
   // Build the launch config
   const launchConfig: LaunchIntent['launch'] = {
     brand: params.brand,
-    symbol
+    symbol,
   };
 
   if (params.description) {
@@ -99,17 +106,17 @@ export function generateLaunchIntent(params: GenerateLaunchIntentParams): Genera
       owner,
       name: repoName,
       provider: 'github',
-      commitSha: params.commitSha.toLowerCase()
+      commitSha: params.commitSha.toLowerCase(),
     },
     launch: launchConfig,
     wallet: {
       address: params.walletAddress,
-      network: 'solana'
+      network: 'solana',
     },
     branch: {
       name: branchName,
-      strategy: 'deterministic-hash'
-    }
+      strategy: 'deterministic-hash',
+    },
   };
 
   // Generate hashes
@@ -123,8 +130,8 @@ export function generateLaunchIntent(params: GenerateLaunchIntentParams): Genera
     hashes: {
       intentHash,
       configHash,
-      repoStateHash
-    }
+      repoStateHash,
+    },
   };
 
   // Generate canonical JSON
@@ -133,7 +140,7 @@ export function generateLaunchIntent(params: GenerateLaunchIntentParams): Genera
   return {
     intent,
     intentJson,
-    branchName
+    branchName,
   };
 }
 
@@ -156,14 +163,17 @@ export function createAttestationMessage(intent: LaunchIntent): string {
     '3. I accept the terms of the Factory Launchpad protocol',
     '',
     `Timestamp: ${intent.timestamp}`,
-    `Intent Hash: ${intent.hashes.intentHash}`
+    `Intent Hash: ${intent.hashes.intentHash}`,
   ].join('\n');
 }
 
 /**
  * Verify attestation message matches intent
  */
-export function verifyAttestationMessage(message: string, intent: LaunchIntent): boolean {
+export function verifyAttestationMessage(
+  message: string,
+  intent: LaunchIntent
+): boolean {
   const expected = createAttestationMessage(intent);
   return message === expected;
 }
@@ -175,7 +185,16 @@ export function parseLaunchIntent(json: string): LaunchIntent {
   const parsed = JSON.parse(json);
 
   // Validate required fields
-  const required = ['version', 'id', 'timestamp', 'repo', 'launch', 'wallet', 'branch', 'hashes'];
+  const required = [
+    'version',
+    'id',
+    'timestamp',
+    'repo',
+    'launch',
+    'wallet',
+    'branch',
+    'hashes',
+  ];
   for (const field of required) {
     if (!(field in parsed)) {
       throw new Error(`Missing required field: ${field}`);

@@ -46,7 +46,10 @@ const DEFAULT_API_URL = 'https://appfactory.fun';
 /**
  * Generate HMAC-SHA256 signature for webhook authentication
  */
-export function generateWebhookSignature(payload: string, secret: string): string {
+export function generateWebhookSignature(
+  payload: string,
+  secret: string
+): string {
   return createHmac('sha256', secret).update(payload).digest('hex');
 }
 
@@ -76,15 +79,20 @@ export class LaunchpadClient {
   private webhookSecret?: string;
 
   constructor(config?: Partial<LaunchpadConfig>) {
-    this.apiUrl = config?.apiUrl || process.env.LAUNCHPAD_API_URL || DEFAULT_API_URL;
-    this.webhookSecret = config?.webhookSecret || process.env.APP_FACTORY_WEBHOOK_SECRET;
+    this.apiUrl =
+      config?.apiUrl || process.env.LAUNCHPAD_API_URL || DEFAULT_API_URL;
+    this.webhookSecret =
+      config?.webhookSecret || process.env.APP_FACTORY_WEBHOOK_SECRET;
   }
 
   /**
    * Validate repository with Launchpad
    * Checks if repo exists, is public, and returns current commit SHA
    */
-  async validateRepo(repoUrl: string, branch?: string): Promise<RepoValidationResult> {
+  async validateRepo(
+    repoUrl: string,
+    branch?: string
+  ): Promise<RepoValidationResult> {
     const url = new URL('/api/repo/validate', this.apiUrl);
     url.searchParams.set('url', repoUrl);
     if (branch) {
@@ -95,20 +103,22 @@ export class LaunchpadClient {
       const response = await fetch(url.toString(), {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'AppFactory-RepoMode/1.0'
-        }
+          Accept: 'application/json',
+          'User-Agent': 'AppFactory-RepoMode/1.0',
+        },
       });
 
       if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+        const error = await response
+          .json()
+          .catch(() => ({ error: 'Unknown error' }));
         return {
           valid: false,
           owner: '',
           repo: '',
           commitSha: '',
           isPublic: false,
-          error: error.error || `HTTP ${response.status}`
+          error: error.error || `HTTP ${response.status}`,
         };
       }
 
@@ -118,7 +128,7 @@ export class LaunchpadClient {
         owner: data.owner,
         repo: data.repo,
         commitSha: data.commitSha,
-        isPublic: data.isPublic ?? true
+        isPublic: data.isPublic ?? true,
       };
     } catch (error) {
       return {
@@ -127,7 +137,7 @@ export class LaunchpadClient {
         repo: '',
         commitSha: '',
         isPublic: false,
-        error: error instanceof Error ? error.message : 'Network error'
+        error: error instanceof Error ? error.message : 'Network error',
       };
     }
   }
@@ -146,17 +156,19 @@ export class LaunchpadClient {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'User-Agent': 'AppFactory-RepoMode/1.0'
+        Accept: 'application/json',
+        'User-Agent': 'AppFactory-RepoMode/1.0',
       },
       body: JSON.stringify({
         launchIntent: launchIntentJson,
-        walletAddress
-      })
+        walletAddress,
+      }),
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+      const error = await response
+        .json()
+        .catch(() => ({ error: 'Unknown error' }));
       throw new Error(error.error || `HTTP ${response.status}`);
     }
 
@@ -177,17 +189,19 @@ export class LaunchpadClient {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'User-Agent': 'AppFactory-RepoMode/1.0'
+        Accept: 'application/json',
+        'User-Agent': 'AppFactory-RepoMode/1.0',
       },
       body: JSON.stringify({
         launchIntent: launchIntentJson,
-        signature: walletSignature
-      })
+        signature: walletSignature,
+      }),
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+      const error = await response
+        .json()
+        .catch(() => ({ error: 'Unknown error' }));
       throw new Error(error.error || `HTTP ${response.status}`);
     }
 
@@ -204,23 +218,28 @@ export class LaunchpadClient {
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'User-Agent': 'AppFactory-RepoMode/1.0'
+      Accept: 'application/json',
+      'User-Agent': 'AppFactory-RepoMode/1.0',
     };
 
     // Add webhook signature if secret is configured
     if (this.webhookSecret) {
-      headers['X-AppFactory-Signature'] = generateWebhookSignature(payload, this.webhookSecret);
+      headers['X-AppFactory-Signature'] = generateWebhookSignature(
+        payload,
+        this.webhookSecret
+      );
     }
 
     const response = await fetch(url.toString(), {
       method: 'POST',
       headers,
-      body: payload
+      body: payload,
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+      const error = await response
+        .json()
+        .catch(() => ({ error: 'Unknown error' }));
       throw new Error(error.error || `HTTP ${response.status}`);
     }
 
@@ -239,18 +258,23 @@ export class LaunchpadClient {
     };
     expiresAt: string;
   }> {
-    const url = new URL(`/api/launch/repo-mode/staging/${stagingId}`, this.apiUrl);
+    const url = new URL(
+      `/api/launch/repo-mode/staging/${stagingId}`,
+      this.apiUrl
+    );
 
     const response = await fetch(url.toString(), {
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'AppFactory-RepoMode/1.0'
-      }
+        Accept: 'application/json',
+        'User-Agent': 'AppFactory-RepoMode/1.0',
+      },
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+      const error = await response
+        .json()
+        .catch(() => ({ error: 'Unknown error' }));
       throw new Error(error.error || `HTTP ${response.status}`);
     }
 

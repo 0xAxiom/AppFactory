@@ -16,12 +16,14 @@ This creates architectural inconsistency. The Tier-2/3 audit identified this as 
 ### Current State
 
 **Core Library** (ADR-0001):
+
 - Provides: Types, Ralph QA engine, utilities, configuration schemas
 - Status: Implemented, documented, not widely adopted by pipelines
 - Dependencies: chalk, ajv, zod
 - Size: ~50KB (src/) + dependencies
 
 **Vendored Approach** (Tier-3 fix):
+
 - Provides: local-run-proof, process-manager, visual utilities
 - Status: Recently vendored to all 6 pipelines
 - Dependencies: None (standalone)
@@ -38,6 +40,7 @@ The core library creates **coupling** (all pipelines depend on @appfactory/core)
 **Approach**: Migrate all pipelines to use `/core/` for shared code.
 
 **Pros**:
+
 - Single source of truth for types and utilities
 - Easier to maintain and update shared code
 - Type safety across pipeline boundaries
@@ -45,6 +48,7 @@ The core library creates **coupling** (all pipelines depend on @appfactory/core)
 - Follows ADR-0001 decision
 
 **Cons**:
+
 - Creates cross-pipeline coupling
 - Harder to distribute pipelines independently
 - Requires build step (TypeScript compilation)
@@ -52,6 +56,7 @@ The core library creates **coupling** (all pipelines depend on @appfactory/core)
 - Conflicts with recent vendoring decision
 
 **Implementation**:
+
 1. Complete core library implementation
 2. Migrate all 6 pipelines to import from core
 3. Remove vendored scripts/lib files
@@ -65,6 +70,7 @@ The core library creates **coupling** (all pipelines depend on @appfactory/core)
 **Approach**: Continue vendoring approach, deprecate `/core/` library.
 
 **Pros**:
+
 - Each pipeline is autonomous and self-contained
 - Pipelines can be distributed independently
 - No shared dependencies or coupling
@@ -72,6 +78,7 @@ The core library creates **coupling** (all pipelines depend on @appfactory/core)
 - Simpler deployment model
 
 **Cons**:
+
 - Code duplication (~50KB per pipeline if core is vendored)
 - Updates must be propagated manually to all pipelines
 - No type safety across pipelines
@@ -79,6 +86,7 @@ The core library creates **coupling** (all pipelines depend on @appfactory/core)
 - Wastes ADR-0001 implementation effort
 
 **Implementation**:
+
 1. Extract useful utilities from `/core/` to vendorable modules
 2. Copy relevant code to each pipeline's scripts/lib/
 3. Mark `/core/` as deprecated
@@ -92,18 +100,21 @@ The core library creates **coupling** (all pipelines depend on @appfactory/core)
 **Approach**: Keep core for types/schemas, vendor for runtime utilities.
 
 **Pros**:
+
 - Type safety benefits without runtime coupling
 - Utilities are self-contained per pipeline
 - Balances consistency and autonomy
 - TypeScript types don't affect deployment
 
 **Cons**:
+
 - Most complex option
 - Still requires core as devDependency
 - Unclear boundary between core vs vendored
 - Maintenance overhead for two systems
 
 **Implementation**:
+
 1. Move runtime utilities from core to vendorable modules
 2. Keep types, schemas, interfaces in core as devDependency
 3. Pipelines import types for type-checking only
@@ -124,6 +135,7 @@ The choice depends on strategic priorities:
 ## Recommendation
 
 Given:
+
 - Recent Tier-3 fix chose vendoring approach
 - AppFactory philosophy emphasizes autonomous pipelines
 - CLAUDE.md documents suggest pipeline sovereignty
@@ -132,6 +144,7 @@ Given:
 **Recommended: Option B (Deprecate Core Library)**
 
 Rationale:
+
 - Aligns with architectural direction already taken
 - Simplifies deployment and distribution
 - Reduces coupling as identified in audit

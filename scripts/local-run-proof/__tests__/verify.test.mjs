@@ -10,8 +10,8 @@
 
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { spawn, execSync } from 'node:child_process';
-import { existsSync, readFileSync, unlinkSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { spawn } from 'node:child_process';
+import { existsSync, readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
