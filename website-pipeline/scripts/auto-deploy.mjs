@@ -55,9 +55,12 @@ function deployToVercel(buildPath, buildName) {
       return;
     }
 
-    const child = spawn('bash', [deployScript], {
+    // Set predictable project name
+    const projectName = `appfactory-${buildName}`;
+    const child = spawn('bash', [deployScript, projectName], {
       cwd: buildPath,
-      stdio: ['inherit', 'pipe', 'pipe']
+      stdio: ['inherit', 'pipe', 'pipe'],
+      env: { ...process.env, VERCEL_PROJECT_NAME: projectName }
     });
 
     let stdout = '';

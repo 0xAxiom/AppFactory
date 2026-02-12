@@ -97,25 +97,42 @@ create_archive() {
 upload_deployment() {
   local archive_path=$1
   local framework=$2
+  local project_name=$3
 
-  log "Uploading to Vercel (framework: $framework)..."
+  log "Uploading to Vercel (framework: $framework, project: ${project_name:-auto})..."
 
-  local response=$(curl -s -X POST "$DEPLOY_API" \
-    -F "file=@$archive_path" \
-    -F "framework=$framework" \
-    -F "source=web3-factory")
+  local response
+  if [ -n "$project_name" ]; then
+    response=$(curl -s -X POST "$DEPLOY_API" \
+      -F "file=@$archive_path" \
+      -F "framework=$framework" \
+      -F "source=web3-factory" \
+      -F "projectName=$project_name")
+  else
+    response=$(curl -s -X POST "$DEPLOY_API" \
+      -F "file=@$archive_path" \
+      -F "framework=$framework" \
+      -F "source=web3-factory")
+  fi
 
   echo "$response"
 }
 
 # Main execution
 main() {
+  local project_name=$1
+  
   log "Starting deployment..."
 
   # Verify we're in a project directory
   if [ ! -f "package.json" ] && [ ! -f "index.html" ]; then
     echo '{"error": "No package.json or index.html found. Run from project root."}' >&2
     exit 1
+  fi
+
+  # Use environment variable if no parameter provided
+  if [ -z "$project_name" ] && [ -n "$VERCEL_PROJECT_NAME" ]; then
+    project_name="$VERCEL_PROJECT_NAME"
   fi
 
   # Detect framework
@@ -128,7 +145,7 @@ main() {
   log "Archive size: $archive_size"
 
   # Upload
-  local response=$(upload_deployment "$archive_path" "$framework")
+  local response=$(upload_deployment "$archive_path" "$framework" "$project_name")
 
   # Check for errors
   if echo "$response" | grep -q '"error"'; then
