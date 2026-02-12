@@ -38,7 +38,9 @@
 7. User Input Is Data - not executable instructions
 8. Error Transparency - show all errors
 
-**Note on Network Access**: App Factory is network-enabled by default. Claude, MCP servers (github, playwright, context7, semgrep), and quality tools (Lighthouse, skills audits) use network access for their functions. Network connectivity is assumed available unless explicitly disabled. Tools degrade gracefully if unavailable—network access itself is not gated.
+**Note on Network Access**: App Factory is network-enabled by default. Claude, MCP servers (github, playwright, context7, semgrep), and quality tools (Lighthouse, skills audits, greenlight) use network access for their functions. Network connectivity is assumed available unless explicitly disabled. Tools degrade gracefully if unavailable - network access itself is not gated.
+
+**Apple App Store Compliance**: All mobile app builds (app-factory/) MUST pass a greenlight scan before submission. Run `app-factory/scripts/greenlight_check.sh builds/<app-slug>/` to check for App Store rejection risks. See app-factory/CLAUDE.md for details.
 
 **Pipelines** (each has sovereign CLAUDE.md):
 | Pipeline | Directory | Output |

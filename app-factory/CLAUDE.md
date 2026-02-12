@@ -898,6 +898,47 @@ Claude MUST NOT:
 
 ---
 
+## APPLE APP STORE COMPLIANCE (greenlight)
+
+Every mobile app build MUST pass an App Store compliance scan before being considered ship-ready.
+
+### Tool: greenlight (RevylAI)
+
+Pre-submission compliance scanner that catches Apple rejection risks offline.
+
+```bash
+# Full scan (run from build directory)
+scripts/greenlight_check.sh builds/<app-slug>/
+
+# With IPA binary
+scripts/greenlight_check.sh builds/<app-slug>/ path/to/build.ipa
+
+# Quick code scan only
+greenlight codescan builds/<app-slug>/
+
+# Privacy manifest check
+greenlight privacy builds/<app-slug>/
+```
+
+### What It Catches
+
+| Scanner  | Checks                                                                                       |
+| -------- | -------------------------------------------------------------------------------------------- |
+| codescan | Private APIs, hardcoded secrets, payment violations, missing ATT, social login, placeholders |
+| privacy  | PrivacyInfo.xcprivacy, Required Reason APIs, tracking SDKs vs ATT                            |
+| metadata | Info.plist, bundle ID, icons, privacy policy URL, purpose strings                            |
+| ipa      | Binary inspection, launch storyboard, app size, framework manifests                          |
+
+### Integration Rules
+
+1. Run `greenlight preflight` after every successful build verification
+2. CRITICAL and HIGH severity findings MUST be fixed before shipping
+3. JSON report auto-saved to `builds/<app-slug>/.greenlight/report.json`
+4. Include greenlight results in build completion output
+5. For Melted's personal apps: run greenlight BEFORE `eas build` or any submission
+
+---
+
 ## VERSION HISTORY
 
 | Version | Date       | Changes                                                                                                                                |
