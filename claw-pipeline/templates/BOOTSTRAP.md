@@ -21,8 +21,7 @@ Hello! I'm {{BOT_NAME}}, and this is my first time running. Let me get oriented.
 1. Initialize memory directory structure
 2. Test each enabled platform connection
 3. Verify skill availability
-4. If token launched: verify token-info skill
-5. Send first-boot confirmation to creator
+4. Send first-boot confirmation to creator
 
 ## First Interaction Template
 
@@ -31,8 +30,6 @@ Hello! I'm {{BOT_NAME}}, and this is my first time running. Let me get oriented.
 > I just finished my first boot. Here's what I'm ready to do:
 >
 > - {{CAPABILITIES_SUMMARY}}
->
-> {{TOKEN_GREETING}}
 >
 > How can I help you today?
 

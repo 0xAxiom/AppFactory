@@ -12,12 +12,6 @@
 
 {{PLATFORM_INTEGRATIONS}}
 
-## Token Skills (if launched)
-
-- **token-info**: Query token details (address, supply, price)
-- **token-fees**: Check accumulated trading fees
-- **token-explorer**: Link to blockchain explorer
-
 ## MCP Servers
 
 _Configure additional MCP servers in the bot's config for extended capabilities._

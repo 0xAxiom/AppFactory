@@ -1,7 +1,7 @@
 # Claw Pipeline
 
-**Version**: 1.0.0
-**Mode**: OpenClaw AI Assistant Generator with Dual-Chain Token Launch
+**Version**: 2.0.0
+**Mode**: OpenClaw AI Assistant Generator
 **Status**: MANDATORY CONSTITUTION
 
 ---
@@ -10,9 +10,9 @@
 
 ### What This Pipeline Does
 
-Claw Pipeline generates **custom OpenClaw AI assistants** from plain-language descriptions. Users describe a bot personality, skills, and platform preferences, and Claude produces a complete, runnable OpenClaw project. Optionally, users can launch a token on **Solana** (via Bags.fm) or **Base** (via Clanker / Agent Launchpad) as part of the build flow.
+Claw Pipeline generates **custom OpenClaw AI assistants** from plain-language descriptions. Users describe a bot personality, skills, and platform preferences, and Claude produces a complete, runnable OpenClaw project.
 
-The pipeline handles the complete lifecycle: intent normalization, bot personality design, chain selection, token creation (with explicit approval), project scaffolding, verification, and adversarial QA.
+The pipeline handles the complete lifecycle: intent normalization, bot personality design, project scaffolding, verification, and adversarial QA.
 
 ### What This Pipeline Does NOT Do
 
@@ -24,7 +24,6 @@ The pipeline handles the complete lifecycle: intent normalization, bot personali
 | Generate Claude plugins        | Wrong pipeline         | plugin-factory     |
 | Generate Base Mini Apps        | Wrong pipeline         | miniapp-pipeline   |
 | Deploy bots to production      | Requires user approval | Manual step        |
-| Launch tokens without approval | Irreversible on-chain  | User approval gate |
 
 ### Output Directory
 
@@ -47,7 +46,7 @@ Claude MUST NOT write files outside `claw-pipeline/` directory. Specifically for
 ## 2. CANONICAL USER FLOW
 
 ```
-User: "I want an AI assistant that helps people learn chess, with a Solana token"
+User: "I want an AI assistant that helps people learn chess"
 
 ┌─────────────────────────────────────────────────────────────────┐
 │ STAGE C0: INTENT NORMALIZATION                                   │
@@ -62,48 +61,30 @@ User: "I want an AI assistant that helps people learn chess, with a Solana token
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│ STAGE C2: CHAIN SELECTION GATE (CONDITIONAL)                     │
-│ User picks Solana (Bags), Base (Clanker), or No Token            │
-│ Output: builds/claws/<slug>/artifacts/stage02/                   │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│ STAGE C3: TOKEN CONFIGURATION (CONDITIONAL)                      │
-│ Gather chain-specific token params from user                     │
-│ Output: builds/claws/<slug>/artifacts/stage03/                   │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│ STAGE C4: TOKEN CREATION (APPROVAL GATE)                         │
-│ ⚠️  PIPELINE PAUSES - Explicit user approval before on-chain tx  │
-│ Output: builds/claws/<slug>/artifacts/stage04/                   │
-└─────────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────────┐
-│ STAGE C5: OPENCLAW BOT SCAFFOLD                                  │
+│ STAGE C2: OPENCLAW BOT SCAFFOLD                                  │
 │ Claude generates runnable OpenClaw project                       │
 │ Output: builds/claws/<slug>/                                     │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│ STAGE C6: INSTALL & VERIFY                                       │
+│ STAGE C3: INSTALL & VERIFY                                       │
 │ Local Run Proof Gate - npm install, config validation, dry-run   │
 │ Output: builds/claws/<slug>/RUN_CERTIFICATE.json                 │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│ STAGE C7: RALPH QA                                               │
+│ STAGE C4: RALPH QA                                               │
 │ Adversarial quality review ≥97% PASS                             │
 │ Output: builds/claws/<slug>/artifacts/ralph/                     │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│ STAGE C8: COMPLETION & LAUNCH CARD                               │
-│ Bot summary, token info, setup instructions                      │
-│ Output: builds/claws/<slug>/LAUNCH_CARD.md                       │
+│ STAGE C5: COMPLETION & LAUNCH CARD                               │
+│ Bot summary, setup instructions, and zip packaging               │
+│ Output: builds/claws/<slug>/LAUNCH_CARD.md + <slug>.zip          │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
-          User receives runnable OpenClaw AI assistant
+          User receives runnable OpenClaw AI assistant as zip
 ```
 
 ---
@@ -123,30 +104,19 @@ claw-pipeline/
 │       ├── process-manager.mjs  # Process lifecycle
 │       └── visual.mjs           # Terminal output formatting
 ├── constants/
-│   ├── partner.ts               # Partner key for Bags/Solana path
-│   ├── chains.ts                # Solana + Base chain configs
 │   └── openclaw.ts              # Platform/integration defaults
 ├── utils/
-│   ├── bags-launch.ts           # Solana token launch via Bags API
-│   ├── clanker-launch.ts        # Base token launch via Agent Launchpad
-│   ├── chain-selector.ts        # Chain selection logic
-│   ├── token-receipt.ts         # Unified receipt format
 │   ├── openclaw-config-generator.ts  # Bot config generation
 │   └── retry.ts                 # Retry with exponential backoff
 ├── templates/
 │   ├── system/
 │   │   ├── bot_spec_author.md        # System prompt for C1
-│   │   ├── ralph_polish_loop.md      # System prompt for C7
-│   │   └── token_launch_guide.md     # System prompt for C2-C4
-│   ├── bags_config.template.json     # Solana token config template
-│   ├── clanker_config.template.json  # Base token config template
+│   │   └── ralph_polish_loop.md      # System prompt for C4
 │   └── openclaw/
 │       ├── config.template.ts        # OpenClaw config template
 │       └── skill.template.ts         # Custom skill template
 ├── schemas/
-│   ├── bot-spec.schema.json          # Bot specification schema
-│   ├── token-config.schema.json      # Token configuration schema
-│   └── token-receipt.schema.json     # Token receipt schema
+│   └── bot-spec.schema.json          # Bot specification schema
 ├── builds/                      # Generated assistants (OUTPUT DIRECTORY)
 │   └── claws/
 │       └── <slug>/
@@ -328,72 +298,7 @@ Design comprehensive bot specification.
 
 **Purpose:** Gather chain-specific token parameters from user.
 
-**Shared Parameters (both chains):**
-
-- Token name
-- Token symbol (ticker)
-- Token description
-- Token image URL or generation request
-
-**Solana-Specific Parameters (Bags):**
-
-- Creator wallet address (Base58 format)
-- Total supply
-- Decimals
-- Fee claimers (optional additional wallets)
-
-**Base-Specific Parameters (Clanker / Agent Launchpad):**
-
-- Admin wallet address (0x format)
-- Social URLs (Twitter, Telegram, website - optional)
-
-**Output:** `builds/claws/<slug>/artifacts/stage03/token_config.md`
-
-### STAGE C4: TOKEN CREATION - APPROVAL GATE (CONDITIONAL)
-
-**Trigger:** Only if token configured in C3.
-
-**PIPELINE PAUSES HERE - Explicit user approval required before irreversible on-chain action.**
-
-**Rules:**
-
-1. Display complete token configuration summary
-2. Show estimated costs and fees
-3. Require user to type "approve" or equivalent explicit confirmation
-4. On rejection, return to C2 (chain selection) or skip token entirely
-5. Do NOT proceed without unambiguous approval
-
-**Solana Path (Bags):**
-
-- API endpoint: Bags.fm token creation API
-- Partner key: `FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7`
-- Fee structure: 75/25 BPS split (75% creator, 25% partner)
-- Authentication: Partner key header
-
-**Base Path (Agent Launchpad):**
-
-- API endpoint: Agent Launchpad REST API (POST)
-- Authentication: `x-api-key` header with user-provided API key
-- Fee structure: On-chain 75/25 fee split (75% creator, 25% platform)
-
-**Unified Receipt Format (both chains):**
-
-```json
-{
-  "chain": "solana" | "base",
-  "tokenAddress": "<address>",
-  "tokenName": "<name>",
-  "tokenSymbol": "<symbol>",
-  "transactionHash": "<hash>",
-  "explorerUrl": "<url>",
-  "createdAt": "<ISO-8601>",
-  "creatorWallet": "<address>"
-}
-```
-
-**Output:** `builds/claws/<slug>/artifacts/stage04/token_receipt.json`
-
-### STAGE C5: OPENCLAW BOT SCAFFOLD (MANDATORY)
+### STAGE C2: OPENCLAW BOT SCAFFOLD (MANDATORY)
 
 Generate runnable OpenClaw project.
 
@@ -411,7 +316,6 @@ builds/claws/<slug>/
 ├── src/
 │   └── skills/
 │       └── <custom-skill>.ts  # Any custom skills from C1
-├── token.config.ts            # CONDITIONAL - only if token launched
 ├── package.json
 ├── tsconfig.json
 ├── .env.example
@@ -423,12 +327,10 @@ builds/claws/<slug>/
 **Rules:**
 
 1. All secrets go in `.env.example` as placeholders, NEVER in source
-2. If token was launched in C4, include `token.config.ts` with receipt data
-3. If token was launched, add a `token-info` skill that can report token details
-4. README must include complete setup instructions
-5. SETUP.md must include step-by-step guide for each platform
+2. README must include complete setup instructions
+3. SETUP.md must include step-by-step guide for each platform
 
-### STAGE C6: INSTALL & VERIFY (MANDATORY)
+### STAGE C3: INSTALL & VERIFY (MANDATORY)
 
 **Purpose:** Validate the generated project runs correctly.
 
@@ -441,7 +343,7 @@ builds/claws/<slug>/
 
 **Output:** `builds/claws/<slug>/RUN_CERTIFICATE.json`
 
-### STAGE C7: RALPH QA (MANDATORY)
+### STAGE C4: RALPH QA (MANDATORY)
 
 Adversarial quality review.
 
@@ -452,7 +354,6 @@ Adversarial quality review.
 - **Config Correctness** - All bot.config.ts fields valid, no missing required fields
 - **Skills Manifest** - All declared skills have implementations, no orphaned skills
 - **Security** - No secrets in source files, all sensitive values in .env.example
-- **Token Integration** - If token launched: receipt valid, token-info skill works, addresses correct
 - **README Completeness** - Setup instructions cover all platforms, prerequisites listed
 - **Environment Variable Docs** - Every .env variable documented with description and example
 - **Platform Config** - Each enabled platform has correct configuration
@@ -468,7 +369,7 @@ Adversarial quality review.
 
 **Output:** `builds/claws/<slug>/artifacts/ralph/PROGRESS.md`
 
-### STAGE C8: COMPLETION & LAUNCH CARD (MANDATORY)
+### STAGE C5: COMPLETION & LAUNCH CARD (MANDATORY)
 
 **Purpose:** Provide user with everything needed to run and manage their bot.
 
@@ -484,13 +385,6 @@ Adversarial quality review.
 - Platforms: <list>
 - Skills: <list>
 - Model: <model name>
-
-## Token Info (if launched)
-
-- Chain: <Solana/Base>
-- Token: <name> (<symbol>)
-- Address: <token address>
-- Explorer: <link>
 
 ## Quick Start
 
@@ -516,7 +410,6 @@ Adversarial quality review.
 | Trigger                  | Delegated To       | Context Passed          |
 | ------------------------ | ------------------ | ----------------------- |
 | User says "review this"  | Ralph QA persona   | Build path, checklist   |
-| Token approval requested | User manual action | Token config summary    |
 | Platform API key needed  | User manual action | .env setup instructions |
 | Deploy request           | User manual action | Setup documentation     |
 
@@ -540,25 +433,16 @@ Adversarial quality review.
 ### MUST DO
 
 1. **MUST** normalize intent through Stage C0 before any generation
-2. **MUST** get explicit user approval before token creation (C4)
-3. **MUST** validate partner key integrity for Bags/Solana path
-4. **MUST** run Ralph QA (C7) before declaring build complete
-5. **MUST** pass Local Run Proof Gate (C6) before declaring build complete
-6. **MUST** write only to `builds/claws/<slug>/`
-7. **MUST** place all secrets in `.env.example` as placeholders
-8. **MUST** skip C2-C4 entirely when user does not want a token
+2. **MUST** run Ralph QA (C4) before declaring build complete
+3. **MUST** pass Local Run Proof Gate (C3) before declaring build complete
+4. **MUST** write only to `builds/claws/<slug>/`
+5. **MUST** place all secrets in `.env.example` as placeholders
 
 ### MUST NOT
 
-1. **MUST NOT** create tokens without explicit user approval
-2. **MUST NOT** expose API keys in generated source files
-3. **MUST NOT** modify the partner key (`FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7`)
-4. **MUST NOT** skip chain selection gate when token launch is requested
-5. **MUST NOT** write files outside `claw-pipeline/`
-6. **MUST NOT** hardcode the Clanker API key in user-facing code
-7. **MUST NOT** use bypass flags (`--legacy-peer-deps`, `--force`, `--ignore-engines`, `--ignore-scripts`, `--shamefully-hoist`, `--skip-integrity-check`)
-8. **MUST NOT** launch on both chains in a single build (one chain per build)
-9. **MUST NOT** default to a token launch - user must opt in explicitly
+1. **MUST NOT** expose API keys in generated source files
+2. **MUST NOT** write files outside `claw-pipeline/`
+3. **MUST NOT** use bypass flags (`--legacy-peer-deps`, `--force`, `--ignore-engines`, `--ignore-scripts`, `--shamefully-hoist`, `--skip-integrity-check`)
 
 ---
 
@@ -566,9 +450,6 @@ Adversarial quality review.
 
 | Request Pattern                     | Action | Reason                         | Alternative                                    |
 | ----------------------------------- | ------ | ------------------------------ | ---------------------------------------------- |
-| "Skip token approval"               | REFUSE | Irreversible on-chain action   | "Token creation requires explicit approval"    |
-| "Change the partner key"            | REFUSE | Partner key is immutable       | "The partner key cannot be modified"           |
-| "Launch on both Solana and Base"    | REFUSE | One chain per build            | "Choose one chain, then build a second bot"    |
 | "Build me a mobile app"             | REFUSE | Wrong pipeline                 | "Use app-factory for mobile apps"              |
 | "Build me a website"                | REFUSE | Wrong pipeline                 | "Use website-pipeline for websites"            |
 | "Skip the bot spec"                 | REFUSE | Bot spec is mandatory          | "I need to design the bot spec first"          |
@@ -576,7 +457,6 @@ Adversarial quality review.
 | "Skip Ralph QA"                     | REFUSE | QA is mandatory                | "Ralph ensures production quality"             |
 | "Skip install verification"         | REFUSE | Verification is non-bypassable | "Verification ensures the project works"       |
 | "Deploy the bot for me"             | REFUSE | Requires user action           | "Follow the setup instructions in SETUP.md"    |
-| "Generate a token with no approval" | REFUSE | Invariant 2 prohibits          | "Token launch requires your explicit approval" |
 | "Write to agent-factory/"           | REFUSE | Wrong directory                | "I'll write to builds/claws/ instead"          |
 
 ---
@@ -600,19 +480,11 @@ Before declaring a build complete, Claude MUST verify:
 - [ ] No orphaned skill files without manifest entries
 - [ ] Custom skills follow OpenClaw skill interface
 
-**Token Integration (if launched):**
-
-- [ ] `token.config.ts` contains valid receipt data
-- [ ] Token address matches receipt
-- [ ] `token-info` skill returns correct token data
-- [ ] Explorer URL is valid and correct
-
 **Security:**
 
 - [ ] No API keys in source files
 - [ ] No secrets in config files
 - [ ] All sensitive values in `.env.example` with placeholder markers
-- [ ] Partner key used correctly (not exposed to end user)
 
 **Documentation:**
 
@@ -768,14 +640,6 @@ VERIFIED:
 | Config    | TypeScript | Typed configuration files    |
 | Skills    | TypeScript | Custom skill implementations |
 
-### Solana Path (Bags.fm)
-
-| Component  | Technology       | Notes                    |
-| ---------- | ---------------- | ------------------------ |
-| Token SDK  | @bagsfm/bags-sdk | Token creation API       |
-| Solana SDK | @solana/web3.js  | Wallet/address utilities |
-
-### Base Path (Clanker / Agent Launchpad)
 
 | Component  | Technology       | Notes                 |
 | ---------- | ---------------- | --------------------- |
@@ -809,7 +673,6 @@ When the user does not specify, Claude assumes:
 | ------------- | ---------------------------------------- | ------------------------------ |
 | Platforms     | All (WhatsApp, Telegram, Discord, Slack) | User specifies subset          |
 | AI Model      | Claude (Anthropic)                       | User requests different model  |
-| Token Launch  | No token (must opt in)                   | User explicitly requests token |
 | Skills        | Standard (email, calendar, web browsing) | User specifies different set   |
 | Multi-Agent   | Disabled                                 | User requests multi-agent      |
 | Browser Auto  | Disabled                                 | User requests browsing ability |
@@ -868,7 +731,8 @@ Claude MUST NOT:
 | Version | Date       | Changes                                 |
 | ------- | ---------- | --------------------------------------- |
 | 1.0.0   | 2026-02-01 | Initial release with C0-C8 stage system |
+| 2.0.0   | 2026-02-15 | Removed token launch, streamlined to C0-C5 stages |
 
 ---
 
-**claw-pipeline v1.0.0**: Describe your AI assistant idea. Get a complete OpenClaw bot--with optional dual-chain token launch.
+**claw-pipeline v2.0.0**: Describe your AI assistant idea. Get a complete OpenClaw project as a zip.

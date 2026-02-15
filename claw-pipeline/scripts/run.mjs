@@ -2,7 +2,7 @@
 /**
  * Claw Pipeline - Canonical Entrypoint
  *
- * Generates custom Clawbot AI assistants with optional dual-chain token launch.
+ * Generates custom Clawbot AI assistants.
  * Follows the App Factory gold standard pipeline pattern.
  *
  * Output: claw-pipeline/builds/claws/<slug>/
@@ -76,13 +76,10 @@ ${BOLD}Examples:${RESET}
 const phases = [
   { name: 'C0: Intent Normalization', status: 'pending' },
   { name: 'C1: Bot Spec Design', status: 'pending' },
-  { name: 'C2: Chain Selection', status: 'pending' },
-  { name: 'C3: Token Config', status: 'pending' },
-  { name: 'C4: Token Creation', status: 'pending' },
-  { name: 'C5: Bot Scaffold', status: 'pending' },
-  { name: 'C6: Verify', status: 'pending' },
-  { name: 'C7: Ralph QA', status: 'pending' },
-  { name: 'C8: Launch Card', status: 'pending' },
+  { name: 'C2: Bot Scaffold', status: 'pending' },
+  { name: 'C3: Verify', status: 'pending' },
+  { name: 'C4: Ralph QA', status: 'pending' },
+  { name: 'C5: Launch Card + Zip', status: 'pending' },
 ];
 
 function showProgress() {
@@ -135,7 +132,7 @@ async function main() {
 
   console.log(`\n${BOLD}${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}`);
   console.log(`${BOLD}${MAGENTA}  🐾 CLAW PIPELINE — Custom AI Assistant Generator${RESET}`);
-  console.log(`${MAGENTA}  claw-pipeline v1.0.0${RESET}`);
+  console.log(`${MAGENTA}  claw-pipeline v2.0.0${RESET}`);
   console.log(`${BOLD}${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}`);
 
   const caps = await detectCapabilities();
@@ -161,7 +158,7 @@ async function main() {
   if (!idea) {
     console.log(`${BOLD}Describe your AI assistant idea:${RESET}`);
     console.log(`${DIM}  Example: "A chess tutor that teaches openings and analyzes positions"${RESET}`);
-    console.log(`${DIM}  Example: "A crypto portfolio tracker with Solana token"${RESET}\n`);
+    console.log(`${DIM}  Example: "A personal research assistant that helps with writing"${RESET}\n`);
     idea = await ask(`${CYAN}> ${RESET}`);
   }
 
@@ -249,148 +246,8 @@ async function main() {
   console.log(`\n${GREEN}  ✓ Bot spec designed: ${botName}${RESET}`);
   setPhase(1, 'complete');
 
-  // ─── C2: CHAIN SELECTION ───
+  // ─── C2: BOT SCAFFOLD ───
   setPhase(2, 'active');
-  showProgress();
-
-  console.log(`${BOLD}Token Launch (Optional):${RESET}\n`);
-  console.log(`  ${MAGENTA}[1]${RESET} No token — skip`);
-  console.log(`  ${MAGENTA}[2]${RESET} Solana — via Bags.fm (fast, low fees, bonding curve)`);
-  console.log(`  ${MAGENTA}[3]${RESET} Base — via Clanker (EVM, Uniswap V4 pool)\n`);
-  console.log(`  ${DIM}Fee split: 75% creator / 25% partner (both chains)${RESET}\n`);
-
-  const chainChoice = await ask(`  Choose (1-3): `) || '1';
-  const wantsToken = chainChoice !== '1';
-  const chain = chainChoice === '2' ? 'solana' : chainChoice === '3' ? 'base' : null;
-
-  if (chain) {
-    console.log(`\n${GREEN}  ✓ Chain selected: ${chain}${RESET}`);
-  } else {
-    console.log(`\n${GREEN}  ✓ No token — skipping chain selection${RESET}`);
-  }
-
-  writeFileSync(
-    join(artifactsDir, 'stage02', 'chain_decision.md'),
-    `# Chain Decision\n\nToken: ${wantsToken ? 'Yes' : 'No'}\nChain: ${chain || 'N/A'}\nTimestamp: ${new Date().toISOString()}\n`
-  );
-
-  setPhase(2, 'complete');
-
-  // ─── C3: TOKEN CONFIG (CONDITIONAL) ───
-  let tokenConfig = null;
-
-  if (wantsToken) {
-    setPhase(3, 'active');
-    showProgress();
-
-    console.log(`${BOLD}Token Configuration (${chain}):${RESET}\n`);
-
-    const tokenName = await ask(`  Token name: `);
-    const tokenSymbol = await ask(`  Token symbol (uppercase): `);
-    const tokenDesc = await ask(`  Token description: `);
-    const tokenImage = await ask(`  Token image URL (or Enter to skip): `);
-
-    let wallet;
-    if (chain === 'solana') {
-      wallet = await ask(`  Creator wallet (Solana Base58): `);
-      if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(wallet)) {
-        console.log(`  ${YELLOW}Warning: wallet format may be invalid${RESET}`);
-      }
-    } else {
-      wallet = await ask(`  Admin wallet (0x...): `);
-      if (!/^0x[a-fA-F0-9]{40}$/.test(wallet)) {
-        console.log(`  ${YELLOW}Warning: wallet format may be invalid${RESET}`);
-      }
-    }
-
-    tokenConfig = { chain, name: tokenName, symbol: tokenSymbol, description: tokenDesc, image: tokenImage || null, wallet };
-
-    writeFileSync(
-      join(artifactsDir, 'stage03', 'token_config.json'),
-      JSON.stringify(tokenConfig, null, 2)
-    );
-
-    console.log(`\n${GREEN}  ✓ Token configured: ${tokenName} (${tokenSymbol}) on ${chain}${RESET}`);
-    setPhase(3, 'complete');
-  } else {
-    setPhase(3, 'skipped');
-  }
-
-  // ─── C4: TOKEN CREATION — APPROVAL GATE (CONDITIONAL) ───
-  if (wantsToken && tokenConfig) {
-    setPhase(4, 'active');
-    showProgress();
-
-    console.log(`\n${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}`);
-    console.log(`${BOLD}${YELLOW}  ⚠️  TOKEN LAUNCH APPROVAL GATE${RESET}`);
-    console.log(`${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}\n`);
-    console.log(`  Token: ${tokenConfig.name} (${tokenConfig.symbol})`);
-    console.log(`  Chain: ${tokenConfig.chain}`);
-    console.log(`  Wallet: ${tokenConfig.wallet}`);
-    console.log(`  Fee Split: 75% creator / 25% partner`);
-    if (tokenConfig.chain === 'solana') {
-      console.log(`  Platform: Bags.fm`);
-      console.log(`  Partner Key: FDYcV...dGE7`);
-    } else {
-      console.log(`  Platform: Clanker / Agent Launchpad`);
-    }
-    console.log(`\n${YELLOW}  This action is IRREVERSIBLE. A token will be created on-chain.${RESET}\n`);
-
-    const approval = await ask(`  Type 'approve' to launch, or 'skip' to continue without token: `);
-
-    if (approval.toLowerCase() === 'approve') {
-      console.log(`\n${CYAN}  Launching token on ${tokenConfig.chain}...${RESET}`);
-
-      // Determine launch script
-      const launchScript = tokenConfig.chain === 'solana'
-        ? join(PIPELINE_ROOT, 'skills', 'token-launch', 'solana-launch.mjs')
-        : join(PIPELINE_ROOT, 'skills', 'token-launch', 'base-launch.mjs');
-
-      if (existsSync(launchScript)) {
-        try {
-          const env = { ...process.env };
-          env.TOKEN_NAME = tokenConfig.name;
-          env.TOKEN_SYMBOL = tokenConfig.symbol;
-          env.TOKEN_DESCRIPTION = tokenConfig.description || '';
-          env.TOKEN_IMAGE = tokenConfig.image || '';
-          if (tokenConfig.chain === 'solana') {
-            env.CREATOR_WALLET_ADDRESS = tokenConfig.wallet;
-          } else {
-            env.ADMIN_WALLET_ADDRESS = tokenConfig.wallet;
-          }
-
-          execSync(`node "${launchScript}"`, { cwd: buildDir, env, stdio: 'inherit' });
-
-          const receiptPath = join(buildDir, 'token-receipt.json');
-          if (existsSync(receiptPath)) {
-            const receipt = JSON.parse(readFileSync(receiptPath, 'utf-8'));
-            writeFileSync(join(artifactsDir, 'stage04', 'token_receipt.json'), JSON.stringify(receipt, null, 2));
-            console.log(`\n${GREEN}  ✓ Token launched: ${receipt.tokenAddress}${RESET}`);
-            console.log(`${DIM}  Explorer: ${receipt.explorerUrl}${RESET}`);
-          }
-        } catch (_err) {
-          console.log(`\n${RED}  ✗ Token launch failed: ${err.message}${RESET}`);
-          console.log(`${YELLOW}  Continuing without token...${RESET}`);
-          tokenConfig = null;
-        }
-      } else {
-        console.log(`\n${YELLOW}  Launch script not found. Token launch requires API keys configured.${RESET}`);
-        console.log(`${YELLOW}  Continuing without token. Run manually later:${RESET}`);
-        console.log(`${DIM}  node scripts/launch-token.mjs --slug ${slug}${RESET}`);
-      }
-
-      setPhase(4, 'complete');
-    } else {
-      console.log(`\n${YELLOW}  Token launch skipped.${RESET}`);
-      tokenConfig = null;
-      setPhase(4, 'skipped');
-    }
-  } else {
-    setPhase(4, 'skipped');
-  }
-
-  // ─── C5: BOT SCAFFOLD ───
-  setPhase(5, 'active');
   showProgress();
 
   console.log(`${BOLD}Generating Clawbot workspace...${RESET}\n`);
@@ -432,16 +289,9 @@ async function main() {
     SCOUT_STATUS_ICON: '🟢',
     BUILDER_STATUS_ICON: '⚫',
     WATCHER_STATUS_ICON: '⚫',
-    TOKEN_CHAIN: tokenConfig?.chain || 'none',
-    TOKEN_NAME: tokenConfig?.name || '(no token)',
-    TOKEN_SYMBOL: tokenConfig?.symbol || '—',
-    TOKEN_ADDRESS: '(pending launch)',
-    TOKEN_EXPLORER_URL: '(pending launch)',
-    CREATOR_WALLET: tokenConfig?.wallet || '(not set)',
     CREATED_AT: new Date().toISOString(),
     LAST_BOOT: '(not yet booted)',
     CAPABILITIES_SUMMARY: 'web-browsing, email, calendar',
-    TOKEN_GREETING: tokenConfig ? `I also have an onchain presence via $${tokenConfig.symbol} on ${tokenConfig.chain}.` : '',
   };
 
   // Apply templates
@@ -481,14 +331,6 @@ async function main() {
     envContent += `${p.toUpperCase()}_API_KEY=your-${p}-api-key\n`;
     envContent += `${p.toUpperCase()}_API_SECRET=your-${p}-api-secret\n`;
   }
-  if (tokenConfig) {
-    envContent += `\n# Token Launch (${tokenConfig.chain})\n`;
-    if (tokenConfig.chain === 'solana') {
-      envContent += `BAGS_API_KEY=your-bags-api-key\nSOLANA_RPC_URL=https://api.mainnet-beta.solana.com\nCREATOR_WALLET_ADDRESS=${tokenConfig.wallet}\n`;
-    } else {
-      envContent += `CLANKER_API_KEY=your-clanker-api-key\nADMIN_WALLET_ADDRESS=${tokenConfig.wallet}\n`;
-    }
-  }
   writeFileSync(join(buildDir, '.env.example'), envContent);
 
   // Create config.json
@@ -501,12 +343,11 @@ async function main() {
     skills: ['web-browsing', 'email', 'calendar'],
     modelProvider,
     subAgents: { scout: true, builder: false, watcher: false },
-    token: tokenConfig ? { chain: tokenConfig.chain, name: tokenConfig.name, symbol: tokenConfig.symbol, description: tokenConfig.description, image: tokenConfig.image, wallet: tokenConfig.wallet } : null,
     memory: true,
     proactiveMode: false,
     cronJobs: false,
     createdAt: new Date().toISOString(),
-    pipelineVersion: '1.0.0',
+    pipelineVersion: '2.0.0',
   };
   writeFileSync(join(buildDir, 'config.json'), JSON.stringify(configJson, null, 2));
 
@@ -520,7 +361,6 @@ async function main() {
       start: 'node index.mjs',
       setup: 'node ../../scripts/configure.mjs',
       validate: `node ../../scripts/validate-setup.mjs --slug ${slug}`,
-      'launch-token': `node ../../scripts/launch-token.mjs --slug ${slug}`,
     },
     dependencies: {},
   }, null, 2));
@@ -534,22 +374,17 @@ async function main() {
   readmeContent += `- **Platforms**: ${platforms.join(', ')}\n`;
   readmeContent += `- **Model**: ${modelProvider}\n`;
   readmeContent += `- **Style**: ${commStyle}\n`;
-  if (tokenConfig) {
-    readmeContent += `\n## Token\n\n`;
-    readmeContent += `- **Chain**: ${tokenConfig.chain}\n`;
-    readmeContent += `- **Token**: ${tokenConfig.name} (${tokenConfig.symbol})\n`;
-  }
   readmeContent += `\n## Workspace Files\n\n`;
   readmeContent += `| File | Purpose |\n|------|--------|\n`;
   readmeContent += `| SOUL.md | Bot identity and personality |\n`;
-  readmeContent += `| IDENTITY.md | Public profile and token info |\n`;
+  readmeContent += `| IDENTITY.md | Public profile |\n`;
   readmeContent += `| AGENTS.md | Sub-agent configuration |\n`;
   readmeContent += `| USER.md | Creator context and preferences |\n`;
   readmeContent += `| TOOLS.md | Skills and integrations |\n`;
   readmeContent += `| MEMORY.md | Memory system config |\n`;
   readmeContent += `| HEARTBEAT.md | Health status |\n`;
   readmeContent += `| BOOTSTRAP.md | First boot protocol |\n`;
-  readmeContent += `\n---\nGenerated by claw-pipeline v1.0.0\n`;
+  readmeContent += `\n---\nGenerated by claw-pipeline v2.0.0\n`;
   writeFileSync(join(buildDir, 'README.md'), readmeContent);
 
   console.log(`  ${GREEN}✓${RESET} ${filesWritten} workspace files generated`);
@@ -558,7 +393,7 @@ async function main() {
   console.log(`  ${GREEN}✓${RESET} package.json created`);
   console.log(`  ${GREEN}✓${RESET} README.md created`);
 
-  setPhase(5, 'complete');
+  setPhase(2, 'complete');
   writeAuditEvent({
     projectPath: buildDir,
     pipeline: 'claw-pipeline',
@@ -567,8 +402,8 @@ async function main() {
     message: 'Workspace scaffolded'
   });
 
-  // ─── C6: VERIFY ───
-  setPhase(6, 'active');
+  // ─── C3: VERIFY ───
+  setPhase(3, 'active');
   showProgress();
 
   console.log(`${BOLD}Verifying workspace...${RESET}\n`);
@@ -596,7 +431,7 @@ async function main() {
     if (allPresent) {
       console.log(`  ${GREEN}✓ All required files present${RESET}`);
     }
-    setPhase(6, 'complete');
+    setPhase(3, 'complete');
   }
 
   // Local Run Proof (non-HTTP verification)
@@ -651,8 +486,8 @@ async function main() {
     });
   }
 
-  // ─── C7: RALPH QA ───
-  setPhase(7, 'active');
+  // ─── C4: RALPH QA ───
+  setPhase(4, 'active');
   showProgress();
 
   console.log(`${BOLD}Running Ralph QA...${RESET}\n`);
@@ -679,11 +514,6 @@ async function main() {
   qaCheck('memory/ directory exists', existsSync(join(buildDir, 'memory')));
   qaCheck('README.md exists', existsSync(join(buildDir, 'README.md')));
 
-  if (wantsToken && tokenConfig) {
-    qaCheck('Token chain configured', tokenConfig.chain === 'solana' || tokenConfig.chain === 'base');
-    qaCheck('Token wallet set', !!tokenConfig.wallet);
-  }
-
   for (const r of qaResults) console.log(r);
 
   const pct = Math.round((qaScore / qaTotal) * 100);
@@ -693,7 +523,7 @@ async function main() {
     join(artifactsDir, 'ralph', 'PROGRESS.md'),
     `# Ralph QA Progress\n\nScore: ${qaScore}/${qaTotal} (${pct}%)\nVerdict: ${pct >= 97 ? 'PASS' : 'NEEDS REVIEW'}\nTimestamp: ${new Date().toISOString()}\n\n${qaResults.join('\n')}\n\n` +
     (pct >= 97
-      ? `COMPLETION_PROMISE: All acceptance criteria met. Clawbot workspace is ready for deployment.\n\nPIPELINE: claw-pipeline v1.0.0\nOUTPUT: builds/claws/${slug}/\nRALPH_VERDICT: PASS (${pct}%)\nTOKEN_LAUNCHED: ${tokenConfig ? `Yes - ${tokenConfig.chain}` : 'No'}\nTIMESTAMP: ${new Date().toISOString()}\n`
+      ? `COMPLETION_PROMISE: All acceptance criteria met. Clawbot workspace is ready for deployment.\n\nPIPELINE: claw-pipeline v2.0.0\nOUTPUT: builds/claws/${slug}/\nRALPH_VERDICT: PASS (${pct}%)\nTIMESTAMP: ${new Date().toISOString()}\n`
       : `Note: Score below 97%. Review failed checks above.\n`)
   );
 
@@ -703,10 +533,10 @@ async function main() {
     console.log(`\n${YELLOW}${BOLD}  RALPH VERDICT: NEEDS REVIEW (${pct}%)${RESET}`);
   }
 
-  setPhase(7, 'complete');
+  setPhase(4, 'complete');
 
-  // ─── C8: LAUNCH CARD ───
-  setPhase(8, 'active');
+  // ─── C5: LAUNCH CARD + ZIP ───
+  setPhase(5, 'active');
   showProgress();
 
   let launchCard = `# Launch Card: ${botSpec.name}\n\n`;
@@ -716,21 +546,6 @@ async function main() {
   launchCard += `- **Style**: ${commStyle}\n`;
   launchCard += `- **Platforms**: ${platforms.join(', ')}\n`;
   launchCard += `- **Model**: ${modelProvider}\n\n`;
-
-  if (tokenConfig) {
-    launchCard += `## Token Info\n`;
-    launchCard += `- **Chain**: ${tokenConfig.chain}\n`;
-    launchCard += `- **Token**: ${tokenConfig.name} (${tokenConfig.symbol})\n`;
-    launchCard += `- **Wallet**: ${tokenConfig.wallet}\n`;
-    const receiptPath = join(buildDir, 'token-receipt.json');
-    if (existsSync(receiptPath)) {
-      const receipt = JSON.parse(readFileSync(receiptPath, 'utf-8'));
-      launchCard += `- **Address**: ${receipt.tokenAddress}\n`;
-      launchCard += `- **Explorer**: ${receipt.explorerUrl}\n`;
-    }
-    launchCard += `\n`;
-  }
-
   launchCard += `## Quick Start\n`;
   launchCard += `\`\`\`bash\ncd builds/claws/${slug}/\ncp .env.example .env\n# Fill in your API keys\nnpm install\nnpm start\n\`\`\`\n\n`;
   launchCard += `## Workspace Files\n`;
@@ -738,20 +553,16 @@ async function main() {
   launchCard += `- BOOTSTRAP.md — First boot protocol\n`;
   launchCard += `- AGENTS.md — Sub-agent configuration\n`;
   launchCard += `- config.json — Machine-readable config\n\n`;
-  launchCard += `---\nGenerated by claw-pipeline v1.0.0 at ${new Date().toISOString()}\n`;
+  launchCard += `---\nGenerated by claw-pipeline v2.0.0 at ${new Date().toISOString()}\n`;
 
   writeFileSync(join(buildDir, 'LAUNCH_CARD.md'), launchCard);
 
-  setPhase(8, 'complete');
-  showProgress();
-
-  // ─── ZIP PACKAGING ───
   console.log(`${BOLD}Packaging zip...${RESET}\n`);
 
   // Generate the bot's own setup.sh that installs OpenClaw + configures everything
   const botSetupSh = `#!/bin/bash
 # ${botSpec.name} — One-Command Setup
-# Generated by claw-pipeline v1.0.0
+# Generated by claw-pipeline v2.0.0
 # Usage: unzip, cd into folder, run: bash setup.sh
 
 set -e
@@ -864,7 +675,6 @@ echo ""
   console.log(`  Bot:     ${botSpec.name}`);
   console.log(`  Style:   ${commStyle}`);
   console.log(`  Model:   ${modelProvider}`);
-  console.log(`  Token:   ${tokenConfig ? `${tokenConfig.name} (${tokenConfig.symbol}) on ${tokenConfig.chain}` : 'none'}`);
   console.log('');
   console.log(`  Zip:     ${CYAN}builds/claws/${slug}.zip${RESET}`);
   console.log('');
@@ -874,12 +684,10 @@ echo ""
   console.log(`    bash setup.sh`);
   console.log(`    # Edit .env with your API keys`);
   console.log(`    openclaw start`);
-  if (tokenConfig && !existsSync(join(buildDir, 'token-receipt.json'))) {
-    console.log('');
-    console.log(`  ${BOLD}Launch token later:${RESET}`);
-    console.log(`    node scripts/launch-token.mjs --slug ${slug}`);
-  }
   console.log('');
+
+  setPhase(5, 'complete');
+  showProgress();
 
   rl.close();
 }

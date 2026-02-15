@@ -1,7 +1,0 @@
-{
-  "name": "{{TOKEN_NAME}}",
-  "symbol": "{{TOKEN_SYMBOL}}",
-  "description": "{{TOKEN_DESCRIPTION}}",
-  "image": "{{TOKEN_IMAGE}}",
-  "walletAddress": "{{ADMIN_WALLET}}"
-}

@@ -27,17 +27,7 @@ Ensure every Clawbot workspace meets production quality standards before deploym
 ### Security (25 points)
 
 - [ ] No API keys or secrets in any file (only .env.example placeholders)
-- [ ] No hardcoded wallet addresses in source files
-- [ ] Partner key not exposed to end-user-facing files
 - [ ] .env.example uses placeholder values, not real keys
-
-### Token Integration (25 points, if applicable)
-
-- [ ] Token config matches selected chain
-- [ ] Wallet address format correct for chain (Base58 for Solana, 0x for Base)
-- [ ] token-receipt.json is valid (if token launched)
-- [ ] IDENTITY.md updated with token data (if launched)
-- [ ] Fee split is 75/25 (immutable)
 
 ## Scoring
 

@@ -7,7 +7,6 @@
  * - Personality (traits, communication style, preamble)
  * - Human context (who the user is, preferences)
  * - Capabilities (platforms, skills, model, sub-agents)
- * - Token launch (chain selection, wallet, token details)
  * - Advanced (memory, proactive mode, cron jobs)
  *
  * Usage: node scripts/configure.mjs
@@ -129,11 +128,10 @@ async function main() {
 
   console.log('  14. Skills to enable (comma-separated, or "all"):');
   console.log('      Options: email, calendar, web-browsing, code-execution,');
-  console.log('               file-management, image-generation, token-info,');
-  console.log('               price-watch, social, agent-ops');
+  console.log('               file-management, image-generation, social, agent-ops');
   const skillInput = await ask('      Skills: ');
   if (skillInput.toLowerCase() === 'all') {
-    config.skills = ['email', 'calendar', 'web-browsing', 'code-execution', 'file-management', 'image-generation', 'token-info', 'price-watch', 'social', 'agent-ops'];
+    config.skills = ['email', 'calendar', 'web-browsing', 'code-execution', 'file-management', 'image-generation', 'social', 'agent-ops'];
   } else {
     config.skills = skillInput.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
   }
@@ -156,39 +154,8 @@ async function main() {
   config.builderEnabled = ['3', '4'].includes(agentChoice);
   config.watcherEnabled = agentChoice === '4';
 
-  // ─── SECTION 5: TOKEN LAUNCH ───
-  console.log('\n🪙 SECTION 5: Token Launch\n');
-
-  console.log('  17. Launch a token for your bot?');
-  console.log('      [1] No token');
-  console.log('      [2] Solana (via Bags.fm)');
-  console.log('      [3] Base (via Clanker)');
-  const tokenChoice = await ask('      Choose (1-3): ');
-
-  config.tokenLaunch = tokenChoice !== '1';
-  config.tokenChain = tokenChoice === '2' ? 'solana' : tokenChoice === '3' ? 'base' : 'none';
-
-  if (config.tokenLaunch) {
-    config.tokenName = await ask('      Token name: ');
-    config.tokenSymbol = await ask('      Token symbol (uppercase): ');
-    config.tokenDescription = await ask('      Token description: ');
-    config.tokenImage = await ask('      Token image URL (or Enter to skip): ');
-
-    if (config.tokenChain === 'solana') {
-      config.creatorWallet = await ask('      Creator wallet (Solana Base58): ');
-      if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(config.creatorWallet)) {
-        console.log('      ⚠️  Warning: wallet format may be invalid');
-      }
-    } else {
-      config.creatorWallet = await ask('      Admin wallet (0x...): ');
-      if (!/^0x[a-fA-F0-9]{40}$/.test(config.creatorWallet)) {
-        console.log('      ⚠️  Warning: wallet format may be invalid');
-      }
-    }
-  }
-
-  // ─── SECTION 6: ADVANCED ───
-  console.log('\n🔧 SECTION 6: Advanced Options\n');
+  // ─── SECTION 5: ADVANCED ───
+  console.log('\n🔧 SECTION 5: Advanced Options\n');
 
   const memoryInput = (await ask('  Memory enabled? (yes/no, default: yes): ')) || 'yes';
   config.memoryEnabled = memoryInput.toLowerCase() === 'yes';
@@ -241,16 +208,9 @@ async function main() {
     SCOUT_STATUS_ICON: config.scoutEnabled ? '🟢' : '⚫',
     BUILDER_STATUS_ICON: config.builderEnabled ? '🟢' : '⚫',
     WATCHER_STATUS_ICON: config.watcherEnabled ? '🟢' : '⚫',
-    TOKEN_CHAIN: config.tokenChain || 'none',
-    TOKEN_NAME: config.tokenName || '(no token)',
-    TOKEN_SYMBOL: config.tokenSymbol || '—',
-    TOKEN_ADDRESS: '(pending launch)',
-    TOKEN_EXPLORER_URL: '(pending launch)',
-    CREATOR_WALLET: config.creatorWallet || '(not set)',
     CREATED_AT: new Date().toISOString(),
     LAST_BOOT: '(not yet booted)',
     CAPABILITIES_SUMMARY: config.skills.slice(0, 5).join(', ') + (config.skills.length > 5 ? `, and ${config.skills.length - 5} more` : ''),
-    TOKEN_GREETING: config.tokenLaunch ? `I also have an onchain presence via $${config.tokenSymbol} on ${config.tokenChain}.` : '',
   };
 
   // Write workspace files
@@ -295,17 +255,6 @@ async function main() {
     envContent += `${platform.toUpperCase()}_API_KEY=your-${platform}-api-key\n`;
     envContent += `${platform.toUpperCase()}_API_SECRET=your-${platform}-api-secret\n`;
   }
-  if (config.tokenLaunch) {
-    envContent += `\n# Token Launch (${config.tokenChain})\n`;
-    if (config.tokenChain === 'solana') {
-      envContent += `BAGS_API_KEY=your-bags-api-key\n`;
-      envContent += `SOLANA_RPC_URL=https://api.mainnet-beta.solana.com\n`;
-      envContent += `CREATOR_WALLET_ADDRESS=${config.creatorWallet}\n`;
-    } else {
-      envContent += `CLANKER_API_KEY=your-clanker-api-key\n`;
-      envContent += `ADMIN_WALLET_ADDRESS=${config.creatorWallet}\n`;
-    }
-  }
   writeOutput(outputDir, '.env.example', envContent);
 
   // Write config.json (machine-readable config)
@@ -328,21 +277,11 @@ async function main() {
       builder: config.builderEnabled,
       watcher: config.watcherEnabled,
     },
-    token: config.tokenLaunch
-      ? {
-          chain: config.tokenChain,
-          name: config.tokenName,
-          symbol: config.tokenSymbol,
-          description: config.tokenDescription,
-          image: config.tokenImage || null,
-          wallet: config.creatorWallet,
-        }
-      : null,
     memory: config.memoryEnabled,
     proactiveMode: config.proactiveMode,
     cronJobs: config.cronEnabled,
     createdAt: new Date().toISOString(),
-    pipelineVersion: '1.0.0',
+    pipelineVersion: '2.0.0',
   };
   writeOutput(outputDir, 'config.json', JSON.stringify(configJson, null, 2));
 
@@ -350,21 +289,11 @@ async function main() {
   console.log(`  ✅ Clawbot workspace created: builds/claws/${config.botSlug}/`);
   console.log('━'.repeat(60));
 
-  if (config.tokenLaunch) {
-    console.log(`\n  🪙 Token launch configured for ${config.tokenChain}`);
-    console.log(`     Run: node scripts/launch-token.mjs --slug ${config.botSlug}`);
-  }
-
   console.log(`\n  📋 Next steps:`);
   console.log(`     1. cd builds/claws/${config.botSlug}/`);
   console.log(`     2. cp .env.example .env`);
   console.log(`     3. Fill in API keys in .env`);
-  if (config.tokenLaunch) {
-    console.log(`     4. node ../../scripts/launch-token.mjs --slug ${config.botSlug}`);
-    console.log(`     5. npm install && npm start`);
-  } else {
-    console.log(`     4. npm install && npm start`);
-  }
+  console.log(`     4. npm install && npm start`);
   console.log('');
 
   rl.close();
