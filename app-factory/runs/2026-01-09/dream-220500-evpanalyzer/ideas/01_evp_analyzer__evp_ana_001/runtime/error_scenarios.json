@@ -1,8 +1,0 @@
-{
-  "error_scenarios": [
-    {"scenario": "Microphone permission denied", "recovery": "Settings link"},
-    {"scenario": "Storage full", "recovery": "Delete sessions prompt"},
-    {"scenario": "Recording interrupted", "recovery": "Partial save"},
-    {"scenario": "Network error during purchase", "recovery": "Retry option"}
-  ]
-}

@@ -167,3 +167,13 @@ tools/sandbox/dist/
 .next/
 dist/
 *.d.ts.map
+
+# Dist/compiled output (build on CI, not committed)
+**/dist/
+
+# Large binary assets (use Git LFS or external storage)
+*.blend
+*.glb
+
+# Vendor upstream (reference only, not tracked)
+docs/vendor/**/_upstream/

@@ -1,8 +1,0 @@
-npm error code E404
-npm error 404 Not Found - GET https://registry.npmjs.org/expo-ml-kit - Not found
-npm error 404
-npm error 404  'expo-ml-kit@~0.1.0' is not in this registry.
-npm error 404
-npm error 404 Note that you can also install from a
-npm error 404 tarball, folder, http url, or git url.
-npm error A complete log of this run can be found in: /Users/melted/.npm/_logs/2026-01-10T03_07_20_028Z-debug-0.log
