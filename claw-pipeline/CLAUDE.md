@@ -16,14 +16,14 @@ The pipeline handles the complete lifecycle: intent normalization, bot personali
 
 ### What This Pipeline Does NOT Do
 
-| Action                         | Reason                 | Where It Belongs   |
-| ------------------------------ | ---------------------- | ------------------ |
-| Build mobile apps              | Wrong output format    | app-factory        |
-| Build websites                 | Wrong pipeline         | website-pipeline   |
-| Build dApps                    | Wrong pipeline         | dapp-factory       |
-| Generate Claude plugins        | Wrong pipeline         | plugin-factory     |
-| Generate Base Mini Apps        | Wrong pipeline         | miniapp-pipeline   |
-| Deploy bots to production      | Requires user approval | Manual step        |
+| Action                    | Reason                 | Where It Belongs |
+| ------------------------- | ---------------------- | ---------------- |
+| Build mobile apps         | Wrong output format    | app-factory      |
+| Build websites            | Wrong pipeline         | website-pipeline |
+| Build dApps               | Wrong pipeline         | dapp-factory     |
+| Generate Claude plugins   | Wrong pipeline         | plugin-factory   |
+| Generate Base Mini Apps   | Wrong pipeline         | miniapp-pipeline |
+| Deploy bots to production | Requires user approval | Manual step      |
 
 ### Output Directory
 
@@ -407,11 +407,11 @@ Adversarial quality review.
 
 ### When claw-pipeline Delegates
 
-| Trigger                  | Delegated To       | Context Passed          |
-| ------------------------ | ------------------ | ----------------------- |
-| User says "review this"  | Ralph QA persona   | Build path, checklist   |
-| Platform API key needed  | User manual action | .env setup instructions |
-| Deploy request           | User manual action | Setup documentation     |
+| Trigger                 | Delegated To       | Context Passed          |
+| ----------------------- | ------------------ | ----------------------- |
+| User says "review this" | Ralph QA persona   | Build path, checklist   |
+| Platform API key needed | User manual action | .env setup instructions |
+| Deploy request          | User manual action | Setup documentation     |
 
 ### When claw-pipeline Receives Delegation
 
@@ -448,16 +448,16 @@ Adversarial quality review.
 
 ## 8. REFUSAL TABLE
 
-| Request Pattern                     | Action | Reason                         | Alternative                                    |
-| ----------------------------------- | ------ | ------------------------------ | ---------------------------------------------- |
-| "Build me a mobile app"             | REFUSE | Wrong pipeline                 | "Use app-factory for mobile apps"              |
-| "Build me a website"                | REFUSE | Wrong pipeline                 | "Use website-pipeline for websites"            |
-| "Skip the bot spec"                 | REFUSE | Bot spec is mandatory          | "I need to design the bot spec first"          |
-| "Put my API key in the source code" | REFUSE | Security violation             | "Use environment variables in .env"            |
-| "Skip Ralph QA"                     | REFUSE | QA is mandatory                | "Ralph ensures production quality"             |
-| "Skip install verification"         | REFUSE | Verification is non-bypassable | "Verification ensures the project works"       |
-| "Deploy the bot for me"             | REFUSE | Requires user action           | "Follow the setup instructions in SETUP.md"    |
-| "Write to agent-factory/"           | REFUSE | Wrong directory                | "I'll write to builds/claws/ instead"          |
+| Request Pattern                     | Action | Reason                         | Alternative                                 |
+| ----------------------------------- | ------ | ------------------------------ | ------------------------------------------- |
+| "Build me a mobile app"             | REFUSE | Wrong pipeline                 | "Use app-factory for mobile apps"           |
+| "Build me a website"                | REFUSE | Wrong pipeline                 | "Use website-pipeline for websites"         |
+| "Skip the bot spec"                 | REFUSE | Bot spec is mandatory          | "I need to design the bot spec first"       |
+| "Put my API key in the source code" | REFUSE | Security violation             | "Use environment variables in .env"         |
+| "Skip Ralph QA"                     | REFUSE | QA is mandatory                | "Ralph ensures production quality"          |
+| "Skip install verification"         | REFUSE | Verification is non-bypassable | "Verification ensures the project works"    |
+| "Deploy the bot for me"             | REFUSE | Requires user action           | "Follow the setup instructions in SETUP.md" |
+| "Write to agent-factory/"           | REFUSE | Wrong directory                | "I'll write to builds/claws/ instead"       |
 
 ---
 
@@ -640,7 +640,6 @@ VERIFIED:
 | Config    | TypeScript | Typed configuration files    |
 | Skills    | TypeScript | Custom skill implementations |
 
-
 | Component  | Technology       | Notes                 |
 | ---------- | ---------------- | --------------------- |
 | API Client | fetch (native)   | REST API calls        |
@@ -728,9 +727,9 @@ Claude MUST NOT:
 
 ## VERSION HISTORY
 
-| Version | Date       | Changes                                 |
-| ------- | ---------- | --------------------------------------- |
-| 1.0.0   | 2026-02-01 | Initial release with C0-C8 stage system |
+| Version | Date       | Changes                                           |
+| ------- | ---------- | ------------------------------------------------- |
+| 1.0.0   | 2026-02-01 | Initial release with C0-C8 stage system           |
 | 2.0.0   | 2026-02-15 | Removed token launch, streamlined to C0-C5 stages |
 
 ---
