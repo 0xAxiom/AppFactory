@@ -123,7 +123,7 @@ export function createBuildCommand(): Command {
               JSON.stringify({ success: false, error: result.error }, null, 2)
             );
           } else {
-            printFailureBanner('build', result.error || 'Unknown error');
+            printFailureBanner('build', result.error ?? 'Unknown error');
           }
           process.exit(2);
         }
@@ -149,7 +149,7 @@ export function createBuildCommand(): Command {
           console.log(
             formatKeyValue([
               { key: 'App Name', value: found.idea.name },
-              { key: 'Build Path', value: result.buildPath || 'N/A' },
+              { key: 'Build Path', value: result.buildPath ?? 'N/A' },
             ])
           );
           console.log();

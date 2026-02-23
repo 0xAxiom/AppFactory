@@ -18,7 +18,7 @@ export function formatTable(
 
   // Calculate column widths
   const widths = headers.map((h, i) => {
-    const maxRowWidth = Math.max(...rows.map((r) => (r[i] || '').length));
+    const maxRowWidth = Math.max(...rows.map((r) => (r[i] ?? '').length));
     return Math.max(h.length, maxRowWidth);
   });
 
@@ -32,7 +32,7 @@ export function formatTable(
   // Format rows
   const formattedRows = rows.map((row) =>
     row
-      .map((cell, i) => (cell || '').padEnd(widths[i]))
+      .map((cell, i) => (cell ?? '').padEnd(widths[i]))
       .join(' '.repeat(padding))
   );
 
@@ -55,15 +55,15 @@ export function formatKeyValue(
 ): string {
   const { keyWidth, separator = ':' } = options;
 
-  const maxKeyLen = keyWidth || Math.max(...items.map((i) => i.key.length));
+  const maxKeyLen = keyWidth ?? Math.max(...items.map((i) => i.key.length));
 
   return items
     .map((item) => {
       const key = item.key.padEnd(maxKeyLen);
       const colorFn = item.color
-        ? (chalk as unknown as Record<string, (s: string) => string>)[
+        ? ((chalk as unknown as Record<string, (s: string) => string>)[
             item.color
-          ] || ((s: string) => s)
+          ] ?? ((s: string) => s))
         : (s: string) => s;
       return `${chalk.gray(key)} ${separator} ${colorFn(item.value)}`;
     })
@@ -219,7 +219,7 @@ export function formatBox(
   const lines = text.split('\n');
   const maxLen = Math.max(
     ...lines.map((l) => l.length),
-    (title?.length || 0) + 4
+    (title?.length ?? 0) + 4
   );
   const innerWidth = maxLen + padding * 2;
 

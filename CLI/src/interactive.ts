@@ -198,7 +198,7 @@ async function handleRun(): Promise<void> {
     spinner.stop();
 
     if (!result.success) {
-      printFailureBanner('Run', result.error || 'Unknown error');
+      printFailureBanner('Run', result.error ?? 'Unknown error');
       showTip('Check your API key and try again');
     } else {
       const duration = Date.now() - startTime;
@@ -275,7 +275,7 @@ async function handleBuild(): Promise<void> {
             name: idea.name,
             rank: idea.rank,
             score: idea.validation_score,
-            runId: manifest?.run_id || path.basename(runPath),
+            runId: manifest?.run_id ?? path.basename(runPath),
             directory: idea.directory,
           });
         }
@@ -368,7 +368,7 @@ async function handleBuild(): Promise<void> {
     spinner.stop();
 
     if (!result.success) {
-      printFailureBanner('Build', result.error || 'Unknown error');
+      printFailureBanner('Build', result.error ?? 'Unknown error');
     } else {
       const duration = Date.now() - startTime;
       printCompletionBanner('Build', duration);
@@ -493,7 +493,7 @@ async function handleDream(): Promise<void> {
     spinner.stop();
 
     if (!result.success) {
-      printFailureBanner('Dream', result.error || 'Unknown error');
+      printFailureBanner('Dream', result.error ?? 'Unknown error');
     } else {
       const duration = Date.now() - startTime;
       printCompletionBanner('Dream', duration);
@@ -546,14 +546,14 @@ async function handleList(): Promise<void> {
     const modTime = getModTime(runPath);
 
     runs.push({
-      id: manifest?.run_id || path.basename(runPath),
+      id: manifest?.run_id ?? path.basename(runPath),
       date:
-        manifest?.date?.split('T')[0] ||
-        modTime?.toISOString().split('T')[0] ||
+        manifest?.date?.split('T')[0] ??
+        modTime?.toISOString().split('T')[0] ??
         'unknown',
-      command: manifest?.command_invoked || 'unknown',
-      status: manifest?.run_status || 'unknown',
-      ideas: Object.keys(manifest?.per_idea || {}).length,
+      command: manifest?.command_invoked ?? 'unknown',
+      status: manifest?.run_status ?? 'unknown',
+      ideas: Object.keys(manifest?.per_idea ?? {}).length,
     });
   }
 
@@ -584,7 +584,7 @@ async function handleList(): Promise<void> {
       const modTime = getModTime(bp);
       return [
         path.basename(bp).substring(0, 40),
-        modTime?.toISOString().split('T')[0] || 'unknown',
+        modTime?.toISOString().split('T')[0] ?? 'unknown',
       ];
     });
     console.log(formatTable(headers, rows));
