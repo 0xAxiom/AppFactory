@@ -29,7 +29,20 @@ export function sha256(input: string, length?: number): string {
  * @returns Hex-encoded hash
  */
 export function hashObject(obj: unknown, length?: number): string {
-  const content = JSON.stringify(obj, Object.keys(obj as object).sort());
+  const content = JSON.stringify(obj, (_key, value) => {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      return Object.keys(value)
+        .sort()
+        .reduce(
+          (sorted, key) => {
+            sorted[key] = value[key];
+            return sorted;
+          },
+          {} as Record<string, unknown>
+        );
+    }
+    return value;
+  });
   return sha256(content, length);
 }
 
