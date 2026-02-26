@@ -13,8 +13,8 @@
 
 import { createInterface } from 'readline';
 import { execSync } from 'child_process';
-import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync, statSync } from 'fs';
-import { join, dirname, resolve, relative } from 'path';
+import { existsSync, mkdirSync, writeFileSync, readFileSync, statSync } from 'fs';
+import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import {
   checkRunCertificate,
