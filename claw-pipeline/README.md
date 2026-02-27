@@ -80,17 +80,16 @@ npm start
 
 ## Pipeline Stages
 
-| Stage | Name                 | Purpose                                       |
-| ----- | -------------------- | --------------------------------------------- |
-| C0    | Intent Normalization | Transform raw input into structured concept   |
-| C1    | Bot Spec Design      | Design persona, skills, platforms             |
-| C2    | Bot Scaffold         | Generate workspace files                      |
-| C3    | Verify               | Validate workspace integrity                  |
-| C4    | Ralph QA             | Adversarial quality review                    |
-| C5    | Launch Card + Zip    | Package and create setup instructions         |
+| Stage | Name                 | Purpose                                     |
+| ----- | -------------------- | ------------------------------------------- |
+| C0    | Intent Normalization | Transform raw input into structured concept |
+| C1    | Bot Spec Design      | Design persona, skills, platforms           |
+| C2    | Bot Scaffold         | Generate workspace files                    |
+| C3    | Verify               | Validate workspace integrity                |
+| C4    | Ralph QA             | Adversarial quality review                  |
+| C5    | Launch Card + Zip    | Package and create setup instructions       |
 
 ---
-
 
 ## Workspace Features
 
