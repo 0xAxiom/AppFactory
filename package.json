@@ -64,7 +64,7 @@
   "bugs": {
     "url": "https://github.com/0xAxiom/AppFactory/issues"
   },
-  "homepage": "https://github.com/MeltedMindz/AppFactory#readme",
+  "homepage": "https://github.com/0xAxiom/AppFactory#readme",
   "engines": {
     "node": ">=18.0.0"
   },
