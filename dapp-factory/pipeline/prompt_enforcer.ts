@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
+import { APP_FACTORY_PARTNER_KEY } from '../constants/partner';
 
 /**
  * Web3 Factory Prompt-Driven Execution Framework
@@ -242,12 +243,9 @@ ${Object.entries(report.validation_results)
           const feeRouting = JSON.parse(
             fs.readFileSync(feeRoutingPath, 'utf-8')
           );
-          if (
-            feeRouting.partner_key !==
-            'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7'
-          ) {
+          if (feeRouting.partner_key !== APP_FACTORY_PARTNER_KEY) {
             validationErrors.push(
-              'Partner key must be exactly FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7'
+              `Partner key must be exactly ${APP_FACTORY_PARTNER_KEY}`
             );
           }
           if (
@@ -274,8 +272,7 @@ ${Object.entries(report.validation_results)
           );
           if (
             !bagsConfig.fee_routing ||
-            bagsConfig.fee_routing.partner_key !==
-              'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7'
+            bagsConfig.fee_routing.partner_key !== APP_FACTORY_PARTNER_KEY
           ) {
             validationErrors.push(
               'Bags config must include hardcoded partner key'
