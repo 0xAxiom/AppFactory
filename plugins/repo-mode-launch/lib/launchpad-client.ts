@@ -8,6 +8,7 @@ import { createHmac, timingSafeEqual } from 'crypto';
 export interface LaunchpadConfig {
   apiUrl: string;
   webhookSecret?: string;
+  timeoutMs?: number;
 }
 
 export interface RepoValidationResult {
@@ -42,6 +43,7 @@ export interface StageResult {
 }
 
 const DEFAULT_API_URL = 'https://appfactory.fun';
+const DEFAULT_TIMEOUT_MS = 30_000;
 
 /**
  * Generate HMAC-SHA256 signature for webhook authentication
@@ -77,12 +79,14 @@ export function verifyWebhookSignature(
 export class LaunchpadClient {
   private apiUrl: string;
   private webhookSecret?: string;
+  private timeoutMs: number;
 
   constructor(config?: Partial<LaunchpadConfig>) {
     this.apiUrl =
       config?.apiUrl || process.env.LAUNCHPAD_API_URL || DEFAULT_API_URL;
     this.webhookSecret =
       config?.webhookSecret || process.env.APP_FACTORY_WEBHOOK_SECRET;
+    this.timeoutMs = config?.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   }
 
   /**
@@ -106,6 +110,7 @@ export class LaunchpadClient {
           Accept: 'application/json',
           'User-Agent': 'AppFactory-RepoMode/1.0',
         },
+        signal: AbortSignal.timeout(this.timeoutMs),
       });
 
       if (!response.ok) {
@@ -131,13 +136,19 @@ export class LaunchpadClient {
         isPublic: data.isPublic ?? true,
       };
     } catch (error) {
+      const message =
+        error instanceof DOMException && error.name === 'TimeoutError'
+          ? `Request timed out after ${this.timeoutMs}ms`
+          : error instanceof Error
+            ? error.message
+            : 'Network error';
       return {
         valid: false,
         owner: '',
         repo: '',
         commitSha: '',
         isPublic: false,
-        error: error instanceof Error ? error.message : 'Network error',
+        error: message,
       };
     }
   }
@@ -163,6 +174,7 @@ export class LaunchpadClient {
         launchIntent: launchIntentJson,
         walletAddress,
       }),
+      signal: AbortSignal.timeout(this.timeoutMs),
     });
 
     if (!response.ok) {
@@ -196,6 +208,7 @@ export class LaunchpadClient {
         launchIntent: launchIntentJson,
         signature: walletSignature,
       }),
+      signal: AbortSignal.timeout(this.timeoutMs),
     });
 
     if (!response.ok) {
@@ -234,6 +247,7 @@ export class LaunchpadClient {
       method: 'POST',
       headers,
       body: payload,
+      signal: AbortSignal.timeout(this.timeoutMs),
     });
 
     if (!response.ok) {
@@ -269,6 +283,7 @@ export class LaunchpadClient {
         Accept: 'application/json',
         'User-Agent': 'AppFactory-RepoMode/1.0',
       },
+      signal: AbortSignal.timeout(this.timeoutMs),
     });
 
     if (!response.ok) {
