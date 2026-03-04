@@ -9,6 +9,7 @@
 
 import { Command } from 'commander';
 import dotenv from 'dotenv';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -24,6 +25,11 @@ import { setStubMode } from './core/anthropic.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Read version from package.json to avoid hardcoding
+const packageJsonPath = path.join(__dirname, '..', 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+const CLI_VERSION: string = packageJson.version;
 
 // Load environment variables
 // First try CLI directory, then current working directory
@@ -43,7 +49,7 @@ const program = new Command();
 program
   .name('appfactory')
   .description('Generate store-ready Expo React Native apps using Claude AI')
-  .version('1.0.0')
+  .version(CLI_VERSION)
   .option('--json', 'Output all results as JSON (for CI/scripting)')
   .option('--debug', 'Enable debug logging')
   .option('--stub', 'Enable stub mode for testing (no API calls)')
