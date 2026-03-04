@@ -177,3 +177,6 @@ dist/
 
 # Vendor upstream (reference only, not tracked)
 docs/vendor/**/_upstream/
+# Generated build artifacts
+base-tx-decoder-enhanced/
+tx-decoder-enhancement/
