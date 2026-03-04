@@ -3,14 +3,14 @@
  * Uses SHA256 for all cryptographic hashing
  */
 
-import { createHash, timingSafeEqual } from 'crypto';
+import * as crypto from 'crypto';
 
 /**
  * Compute SHA256 hash of a string
  * Returns lowercase hex string
  */
 export function sha256(input: string): string {
-  return createHash('sha256').update(input, 'utf8').digest('hex');
+  return crypto.createHash('sha256').update(input, 'utf8').digest('hex');
 }
 
 /**
@@ -18,7 +18,7 @@ export function sha256(input: string): string {
  * Returns lowercase hex string
  */
 export function sha256Buffer(input: Buffer): string {
-  return createHash('sha256').update(input).digest('hex');
+  return crypto.createHash('sha256').update(input).digest('hex');
 }
 
 /**
@@ -117,5 +117,5 @@ export function timingSafeEqual(a: string, b: string): boolean {
   const bufB = Buffer.from(b, 'utf8');
 
   // Use crypto.timingSafeEqual for constant-time comparison
-  return timingSafeEqual(bufA, bufB);
+  return crypto.timingSafeEqual(bufA, bufB);
 }
