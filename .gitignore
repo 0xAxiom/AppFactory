@@ -9,6 +9,8 @@ updates/
 **/builds/
 **/dapp-builds/
 **/website-builds/
+**/generated/
+!**/generated/.gitkeep
 **/runs/
 *.log
 *.tmp
