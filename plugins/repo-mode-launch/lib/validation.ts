@@ -3,6 +3,8 @@
  * All validation is deterministic and does not make network calls
  */
 
+import bs58 from 'bs58';
+
 export interface RepoValidation {
   valid: boolean;
   owner: string | null;
@@ -66,6 +68,25 @@ export function validateWalletAddress(address: string): WalletValidation {
       address: null,
       error:
         'Invalid Solana wallet address. Must be base58-encoded, 32-44 characters.',
+    };
+  }
+
+  // Verify base58 decodes to exactly 32 bytes (valid Solana public key)
+  try {
+    const decoded = bs58.decode(address);
+    if (decoded.length !== 32) {
+      return {
+        valid: false,
+        address: null,
+        error:
+          'Invalid Solana wallet address. Decoded key must be exactly 32 bytes.',
+      };
+    }
+  } catch {
+    return {
+      valid: false,
+      address: null,
+      error: 'Invalid Solana wallet address. Failed to decode base58.',
     };
   }
 
