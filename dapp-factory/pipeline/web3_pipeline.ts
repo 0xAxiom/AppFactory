@@ -27,9 +27,8 @@ export class Web3Pipeline {
 
     // Generate run ID if not provided
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const crypto = await import('crypto');
-    const ideaHash = crypto
-      .createHash('md5')
+    const { createHash } = require('crypto');
+    const ideaHash = createHash('md5')
       .update(config.idea)
       .digest('hex')
       .substring(0, 8);
