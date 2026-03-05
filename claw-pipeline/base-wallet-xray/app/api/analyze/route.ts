@@ -8,6 +8,7 @@ interface EtherscanTx {
   gasUsed: string;
   gasPrice: string;
   input: string;
+  functionName?: string;
   timeStamp: string;
   isError: string;
 }
@@ -173,6 +174,7 @@ export async function GET(req: NextRequest) {
       recentTokens,
     });
   } catch (e: unknown) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    const message = e instanceof Error ? e.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
