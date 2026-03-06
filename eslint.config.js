@@ -40,6 +40,11 @@ export default tseslint.config(
       '**/scripts/security/**',
       '**/verification/**',
       '**/CLI/tests/**',
+      '**/enhancement-examples/**',
+      '**/base-tx-decoder-enhanced/**',
+      '**/demo-video/**',
+      '**/generated/**',
+      '**/out/**',
     ],
   },
 
