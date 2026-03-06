@@ -55,7 +55,7 @@ If there are new commits:
 - Pull updates: `git pull origin main`
 - Check for new pipelines or features
 - Try building with any updated pipeline
-- Report bugs to github.com/MeltedMindz/AppFactory/issues
+- Report bugs to github.com/0xAxiom/AppFactory/issues
 
 ---
 

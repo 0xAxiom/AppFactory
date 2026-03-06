@@ -112,11 +112,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Simplified pipeline architecture
 
-[Unreleased]: https://github.com/MeltedMindz/AppFactory/compare/v11.0.0...HEAD
-[11.0.0]: https://github.com/MeltedMindz/AppFactory/compare/v10.0.0...v11.0.0
-[10.0.0]: https://github.com/MeltedMindz/AppFactory/compare/v9.0.0...v10.0.0
-[9.0.0]: https://github.com/MeltedMindz/AppFactory/compare/v8.0.0...v9.0.0
-[8.0.0]: https://github.com/MeltedMindz/AppFactory/compare/v7.0.0...v8.0.0
-[7.0.0]: https://github.com/MeltedMindz/AppFactory/compare/v5.0.0...v7.0.0
-[5.0.0]: https://github.com/MeltedMindz/AppFactory/compare/v4.0.0...v5.0.0
-[4.0.0]: https://github.com/MeltedMindz/AppFactory/releases/tag/v4.0.0
+[Unreleased]: https://github.com/0xAxiom/AppFactory/compare/v11.0.0...HEAD
+[11.0.0]: https://github.com/0xAxiom/AppFactory/compare/v10.0.0...v11.0.0
+[10.0.0]: https://github.com/0xAxiom/AppFactory/compare/v9.0.0...v10.0.0
+[9.0.0]: https://github.com/0xAxiom/AppFactory/compare/v8.0.0...v9.0.0
+[8.0.0]: https://github.com/0xAxiom/AppFactory/compare/v7.0.0...v8.0.0
+[7.0.0]: https://github.com/0xAxiom/AppFactory/compare/v5.0.0...v7.0.0
+[5.0.0]: https://github.com/0xAxiom/AppFactory/compare/v4.0.0...v5.0.0
+[4.0.0]: https://github.com/0xAxiom/AppFactory/releases/tag/v4.0.0

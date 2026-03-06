@@ -10,17 +10,17 @@
 
 ### Questions and Discussions
 
-- Open a [Discussion](https://github.com/MeltedMindz/AppFactory/discussions) for questions
+- Open a [Discussion](https://github.com/0xAxiom/AppFactory/discussions) for questions
 - Check existing discussions for answers
 
 ### Bug Reports
 
-- Use the [Bug Report template](https://github.com/MeltedMindz/AppFactory/issues/new?template=bug_report.yml)
+- Use the [Bug Report template](https://github.com/0xAxiom/AppFactory/issues/new?template=bug_report.yml)
 - Include reproduction steps and relevant logs
 
 ### Feature Requests
 
-- Use the [Feature Request template](https://github.com/MeltedMindz/AppFactory/issues/new?template=feature_request.yml)
+- Use the [Feature Request template](https://github.com/0xAxiom/AppFactory/issues/new?template=feature_request.yml)
 - Describe the use case and expected behavior
 
 ### Security Issues
