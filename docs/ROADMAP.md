@@ -158,7 +158,7 @@ App Factory aims to be the most comprehensive AI-powered application generation 
 
 ### GitHub Issues
 
-1. Go to [GitHub Issues](https://github.com/MeltedMindz/AppFactory/issues)
+1. Go to [GitHub Issues](https://github.com/0xAxiom/AppFactory/issues)
 2. Check if feature already requested
 3. Create new issue with template:
    - **Title**: `[Feature Request] Brief description`
