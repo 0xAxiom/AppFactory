@@ -287,12 +287,17 @@ export class RalphEngine {
         );
         results.push(result);
       } else {
-        // Default stub result - pipelines should provide actual implementation
+        // Warn when no audit runner is provided - don't silently pass
+        console.warn(
+          `[ralph] No skill audit runner provided for "${skillConfig.name}" - skipping (score: 0)`
+        );
         results.push({
           skill: skillConfig.name,
-          score: 100,
-          passed: true,
-          violations: [],
+          score: 0,
+          passed: false,
+          violations: [
+            `No audit runner configured for skill "${skillConfig.name}"`,
+          ],
           timestamp: new Date().toISOString(),
         });
       }
@@ -313,7 +318,8 @@ export class RalphEngine {
       return this.options.runE2ETests(this.config.e2eConfig);
     }
 
-    // Default stub result - pipelines should provide actual implementation
+    // Warn when no E2E runner is provided - don't silently pass
+    console.warn('[ralph] No E2E test runner provided - skipping');
     return {
       passed: true,
       total: 0,
