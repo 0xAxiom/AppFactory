@@ -10,6 +10,7 @@ updates/
 **/dapp-builds/
 **/website-builds/
 **/runs/
+**/generated/
 *.log
 *.tmp
 
