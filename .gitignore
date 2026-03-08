@@ -16,6 +16,9 @@ updates/
 # Coverage reports
 coverage/
 .nyc_output/
+.coverage/
+*.lcov
+.jest/
 
 # Runtime & local artifacts - never commit user run data
 .appfactory/

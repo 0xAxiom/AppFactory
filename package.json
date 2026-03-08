@@ -27,7 +27,7 @@
     "validate": "npm run test",
     "prepare": "husky || true",
     "precommit": "lint-staged",
-    "ci": "npm run lint && npm run format:check && npm run type-check",
+    "ci": "npm run lint && npm run format:check && npm run type-check && npm run deps:audit",
     "deps:check": "node scripts/check-dependencies.js",
     "deps:audit": "npm audit && cd CLI && npm audit && cd ../dapp-factory && npm audit && cd ../plugin-factory/examples/mcp-server && npm audit",
     "deps:outdated": "npm outdated && cd CLI && npm outdated && cd ../dapp-factory && npm outdated && cd ../plugin-factory/examples/mcp-server && npm outdated",
@@ -59,10 +59,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/0xAxiom/AppFactory.git"
+    "url": "https://github.com/MeltedMindz/AppFactory.git"
   },
   "bugs": {
-    "url": "https://github.com/0xAxiom/AppFactory/issues"
+    "url": "https://github.com/MeltedMindz/AppFactory/issues"
   },
   "homepage": "https://github.com/MeltedMindz/AppFactory#readme",
   "engines": {
