@@ -30,7 +30,7 @@
     "app-generator",
     "mobile-app"
   ],
-  "author": "",
+  "author": "MeltedMindz",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
