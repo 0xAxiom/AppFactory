@@ -59,23 +59,23 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/0xAxiom/AppFactory.git"
+    "url": "https://github.com/MeltedMindz/AppFactory.git"
   },
   "bugs": {
-    "url": "https://github.com/0xAxiom/AppFactory/issues"
+    "url": "https://github.com/MeltedMindz/AppFactory/issues"
   },
   "homepage": "https://github.com/MeltedMindz/AppFactory#readme",
   "engines": {
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0",
-    "@eslint/js": "^9.0.0",
+    "@commitlint/cli": "^20.4.3",
+    "@commitlint/config-conventional": "^20.4.3",
+    "@eslint/js": "^9.39.4",
     "@vitest/coverage-v8": "^4.0.18",
-    "eslint": "^9.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "globals": "^15.0.0",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.4.0",
     "husky": "^9.0.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
@@ -95,6 +95,7 @@
   },
   "workspaces": [
     "CLI",
+    "core",
     "dapp-factory"
   ]
 }
