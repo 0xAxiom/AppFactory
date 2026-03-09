@@ -108,7 +108,7 @@ export function formatSha256Hash(hash: string): string {
 /**
  * Timing-safe hash comparison to prevent timing attacks
  */
-export function timingSafeEqual(a: string, b: string): boolean {
+export function timingSafeHashEqual(a: string, b: string): boolean {
   if (a.length !== b.length) {
     return false;
   }
