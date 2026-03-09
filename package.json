@@ -12,8 +12,9 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,yml,yaml}' --ignore-path .prettierignore",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json,md,yml,yaml}' --ignore-path .prettierignore",
     "bootstrap": "npm ci && npm run bootstrap:subprojects",
-    "bootstrap:subprojects": "cd CLI && npm ci && cd ../dapp-factory && npm ci && cd ../plugin-factory/examples/mcp-server && npm ci",
-    "type-check": "npm run type-check:cli && npm run type-check:dapp",
+    "bootstrap:subprojects": "cd core && npm ci && npm run build && cd ../CLI && npm ci && cd ../dapp-factory && npm ci && cd ../plugin-factory/examples/mcp-server && npm ci",
+    "type-check": "npm run type-check:core && npm run type-check:cli && npm run type-check:dapp",
+    "type-check:core": "cd core && npx tsc --noEmit",
     "type-check:cli": "cd CLI && npx tsc --noEmit",
     "type-check:dapp": "cd dapp-factory && npx tsc --noEmit",
     "test": "vitest run",
@@ -33,9 +34,11 @@
     "deps:outdated": "npm outdated && cd CLI && npm outdated && cd ../dapp-factory && npm outdated && cd ../plugin-factory/examples/mcp-server && npm outdated",
     "maintain": "npm run lint && npm run type-check && npm run deps:check",
     "maintain:full": "npm run maintain && npm run deps:audit",
-    "clean": "node -e \"const r=require('fs');['node_modules','CLI/node_modules','CLI/dist','dapp-factory/node_modules','dapp-factory/dist'].forEach(d=>{try{r.rmSync(d,{recursive:true,force:true})}catch{}})\"",
+    "clean": "node -e \"const r=require('fs');['node_modules','core/node_modules','core/dist','CLI/node_modules','CLI/dist','dapp-factory/node_modules','dapp-factory/dist'].forEach(d=>{try{r.rmSync(d,{recursive:true,force:true})}catch{}})\"",
+    "build:core": "cd core && npm run build",
     "build:cli": "cd CLI && npm run build",
     "build:dapp": "cd dapp-factory && npm run build",
+    "build": "npm run build:core && npm run build:cli && npm run build:dapp",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
@@ -94,6 +97,7 @@
     ]
   },
   "workspaces": [
+    "core",
     "CLI",
     "dapp-factory"
   ]
