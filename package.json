@@ -34,6 +34,8 @@
     "maintain": "npm run lint && npm run type-check && npm run deps:check",
     "maintain:full": "npm run maintain && npm run deps:audit",
     "clean": "node -e \"const r=require('fs');['node_modules','CLI/node_modules','CLI/dist','dapp-factory/node_modules','dapp-factory/dist'].forEach(d=>{try{r.rmSync(d,{recursive:true,force:true})}catch{}})\"",
+    "build": "npm run build:core && npm run build:cli && npm run build:dapp",
+    "build:core": "cd core && npm run build",
     "build:cli": "cd CLI && npm run build",
     "build:dapp": "cd dapp-factory && npm run build",
     "release": "standard-version",
@@ -95,6 +97,7 @@
   },
   "workspaces": [
     "CLI",
+    "core",
     "dapp-factory"
   ]
 }
