@@ -95,6 +95,7 @@
   },
   "workspaces": [
     "CLI",
+    "core",
     "dapp-factory"
   ]
 }
