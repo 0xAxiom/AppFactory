@@ -12,7 +12,7 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,yml,yaml}' --ignore-path .prettierignore",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,json,md,yml,yaml}' --ignore-path .prettierignore",
     "bootstrap": "npm ci && npm run bootstrap:subprojects",
-    "bootstrap:subprojects": "cd CLI && npm ci && cd ../dapp-factory && npm ci && cd ../plugin-factory/examples/mcp-server && npm ci",
+    "bootstrap:subprojects": "cd CLI && npm ci && cd ../dapp-factory && npm ci && cd ../core && npm ci && cd ../plugin-factory/examples/mcp-server && npm ci",
     "type-check": "npm run type-check:cli && npm run type-check:dapp",
     "type-check:cli": "cd CLI && npx tsc --noEmit",
     "type-check:dapp": "cd dapp-factory && npx tsc --noEmit",
@@ -95,6 +95,7 @@
   },
   "workspaces": [
     "CLI",
-    "dapp-factory"
+    "dapp-factory",
+    "core"
   ]
 }
