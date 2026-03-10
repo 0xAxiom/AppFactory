@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 import { PromptEnforcer, executeStageWithPrompt } from './prompt_enforcer';
 
 /**
@@ -27,7 +28,6 @@ export class Web3Pipeline {
 
     // Generate run ID if not provided
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const crypto = await import('crypto');
     const ideaHash = crypto
       .createHash('md5')
       .update(config.idea)
