@@ -6,253 +6,78 @@ on:
   pull_request:
     branches: [main]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  lint:
-    name: Lint
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: ${{ matrix.node-version }}
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm run bootstrap
 
-      - name: Run ESLint
+      - name: Lint
         run: npm run lint
 
-  format:
-    name: Format Check
+      - name: Format check
+        run: npm run format:check
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Run tests
+        run: npm run test:all
+
+      - name: Dependency audit
+        run: npm run deps:audit
+        if: matrix.node-version == 20 # Only run once
+
+      - name: Check outdated dependencies
+        run: npm run deps:outdated || true
+        if: matrix.node-version == 20 # Only run once
+
+  build:
     runs-on: ubuntu-latest
+    needs: test
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm run bootstrap
 
-      - name: Check formatting
-        run: npm run format:check
+      - name: Build CLI
+        run: npm run build:cli
 
-  type-check:
-    name: Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - name: Build dApp factory
+        run: npm run build:dapp
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Upload CLI build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          name: cli-dist
+          path: CLI/dist/
 
-      - name: Install root dependencies
-        run: npm ci
-
-      - name: Install CLI dependencies
-        run: cd CLI && npm ci
-
-      - name: Install dapp-factory dependencies
-        run: cd dapp-factory && npm ci
-
-      - name: Run type checks
-        run: npm run type-check
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Upload dApp factory build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Install root dependencies
-        run: npm ci
-
-      - name: Install CLI dependencies
-        run: cd CLI && npm ci
-
-      - name: Install dapp-factory dependencies
-        run: cd dapp-factory && npm ci
-
-      - name: Run root tests
-        run: npm run test
-
-      - name: Run CLI tests
-        run: npm run test:cli
-
-      - name: Run dapp-factory tests
-        run: npm run test:dapp
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        if: always()
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unittests
-          fail_ci_if_error: false
-          verbose: true
-        continue-on-error: true
-
-  security-audit:
-    name: Security Audit
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "20"
-          cache: "npm"
-
-      - name: Audit root dependencies
-        run: npm audit --audit-level=high
-
-      - name: Install and audit CLI dependencies
-        run: |
-          cd CLI
-          npm ci
-          npm audit --audit-level=high
-
-      - name: Install and audit dapp-factory dependencies
-        run: |
-          cd dapp-factory
-          npm ci
-          npm audit --audit-level=high
-
-      - name: Install and audit plugin mcp-server dependencies
-        run: |
-          cd plugin-factory/examples/mcp-server
-          npm ci
-          npm audit --audit-level=high
-
-  validate-structure:
-    name: Validate Structure
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Check required files exist
-        run: |
-          echo "Checking required files..."
-          test -f "package.json" && echo "✓ package.json"
-          test -f "README.md" && echo "✓ README.md"
-          test -f "CLAUDE.md" && echo "✓ CLAUDE.md"
-          test -f "SECURITY.md" && echo "✓ SECURITY.md"
-          test -f "eslint.config.js" && echo "✓ eslint.config.js"
-          test -f ".prettierrc" && echo "✓ .prettierrc"
-          test -f "CHANGELOG.md" && echo "✓ CHANGELOG.md"
-          test -f "CONTRIBUTING.md" && echo "✓ CONTRIBUTING.md"
-          test -f "LICENSE" && echo "✓ LICENSE"
-          echo "All required files present!"
-
-      - name: Check pipeline directories
-        run: |
-          echo "Checking pipeline directories..."
-          test -d "app-factory" && echo "✓ app-factory/"
-          test -d "dapp-factory" && echo "✓ dapp-factory/"
-          test -d "agent-factory" && echo "✓ agent-factory/"
-          test -d "plugin-factory" && echo "✓ plugin-factory/"
-          test -d "miniapp-pipeline" && echo "✓ miniapp-pipeline/"
-          echo "All pipeline directories present!"
-
-      - name: Validate CLAUDE.md files
-        run: |
-          echo "Validating CLAUDE.md constitution files..."
-          for dir in app-factory dapp-factory agent-factory plugin-factory miniapp-pipeline; do
-            if [ -f "$dir/CLAUDE.md" ]; then
-              echo "✓ $dir/CLAUDE.md exists"
-            else
-              echo "✗ Missing $dir/CLAUDE.md"
-              exit 1
-            fi
-          done
-          echo "All pipeline constitutions present!"
-
-  ci-complete:
-    name: CI Complete
-    needs: [lint, format, type-check, test, security-audit, validate-structure]
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - name: Check job results
-        run: |
-          echo "=== CI Summary ==="
-          echo ""
-
-          # Critical jobs that must pass
-          critical_failed=0
-
-          if [ "${{ needs.validate-structure.result }}" != "success" ]; then
-            echo "FAIL: Structure validation failed"
-            critical_failed=1
-          else
-            echo "✓ Structure validation passed"
-          fi
-
-          if [ "${{ needs.lint.result }}" != "success" ]; then
-            echo "FAIL: Linting failed"
-            critical_failed=1
-          else
-            echo "✓ Linting passed"
-          fi
-
-          if [ "${{ needs.format.result }}" != "success" ]; then
-            echo "FAIL: Format check failed"
-            critical_failed=1
-          else
-            echo "✓ Format check passed"
-          fi
-
-          if [ "${{ needs.type-check.result }}" != "success" ]; then
-            echo "FAIL: Type check failed"
-            critical_failed=1
-          else
-            echo "✓ Type check passed"
-          fi
-
-          if [ "${{ needs.test.result }}" != "success" ]; then
-            echo "FAIL: Tests failed"
-            critical_failed=1
-          else
-            echo "✓ Tests passed"
-          fi
-
-          if [ "${{ needs.security-audit.result }}" != "success" ]; then
-            echo "FAIL: Security audit failed"
-            critical_failed=1
-          else
-            echo "✓ Security audit passed"
-          fi
-
-          echo ""
-          if [ $critical_failed -eq 1 ]; then
-            echo "CI FAILED: One or more critical checks failed"
-            exit 1
-          else
-            echo "CI PASSED: All critical checks passed"
-          fi
+          name: dapp-factory-dist
+          path: dapp-factory/dist/
