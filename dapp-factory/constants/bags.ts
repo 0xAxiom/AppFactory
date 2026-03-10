@@ -194,7 +194,7 @@ export function validateImageFile(file: File): void {
     );
   }
 
-  if (!BAGS_FILE_UPLOAD.SUPPORTED_TYPES.includes(file.type)) {
+  if (!BAGS_FILE_UPLOAD.SUPPORTED_TYPES.includes(file.type as any)) {
     throw new Error(
       `Invalid file type. Supported: ${BAGS_FILE_UPLOAD.SUPPORTED_TYPES.join(', ')}`
     );
@@ -202,7 +202,7 @@ export function validateImageFile(file: File): void {
 }
 
 export function isRetryableError(statusCode: number): boolean {
-  return BAGS_ERROR_HANDLING.RETRYABLE_STATUS_CODES.includes(statusCode);
+  return BAGS_ERROR_HANDLING.RETRYABLE_STATUS_CODES.includes(statusCode as any);
 }
 
 export function calculateBackoffDelay(attempt: number): number {

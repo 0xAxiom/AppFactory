@@ -32,7 +32,12 @@
     "useDefineForClassFields": true,
     "types": ["node"]
   },
-  "include": ["generator/**/*", "validator/**/*"],
+  "include": [
+    "generator/**/*",
+    "validator/**/*",
+    "utils/**/*",
+    "constants/**/*"
+  ],
   "exclude": [
     "node_modules",
     "dist",
@@ -40,8 +45,6 @@
     "runs",
     "dapp-builds",
     "scripts",
-    "utils",
-    "constants",
     "templates",
     "deprecated"
   ],
