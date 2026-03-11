@@ -39,7 +39,7 @@
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/MeltedMindz/AppFactory.git
+git clone https://github.com/0xAxiom/AppFactory.git
 cd AppFactory
 ```
 

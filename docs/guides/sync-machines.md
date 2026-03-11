@@ -35,7 +35,7 @@ git push          # Push to GitHub
 Clone the repository:
 
 ```bash
-git clone https://github.com/MeltedMindz/AppFactory.git
+git clone https://github.com/0xAxiom/AppFactory.git
 cd AppFactory
 npm ci            # Install dependencies
 ```
