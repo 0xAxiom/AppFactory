@@ -140,7 +140,7 @@ export function getTippingConfigFromEnv(): TippingConfig {
     enabled: true,
     wallet: tipWallet,
     lamports: tipLamports,
-    provider: 'custom',
+    provider: 'custom' as any,
   };
 }
 
@@ -160,7 +160,7 @@ export function getProviderTippingConfig(
     enabled: true,
     wallet: providerInfo.wallet,
     lamports: providerInfo.recommendedTip,
-    provider,
+    provider: provider as any,
   };
 }
 

@@ -114,7 +114,7 @@ export async function resolveSocialFeeClaimer(
       }),
     });
 
-    const resolution: SocialResolutionResult = await response.json();
+    const resolution = (await response.json()) as SocialResolutionResult;
 
     if (!resolution.success || !resolution.wallet_address) {
       throw new Error(
@@ -128,8 +128,9 @@ export async function resolveSocialFeeClaimer(
       bps: claimer.bps,
     };
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     throw new Error(
-      `Social resolution failed for ${claimer.provider}:${claimer.username}: ${error.message}`
+      `Social resolution failed for ${claimer.provider}:${claimer.username}: ${errorMessage}`
     );
   }
 }

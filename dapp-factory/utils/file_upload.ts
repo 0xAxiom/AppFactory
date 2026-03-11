@@ -61,7 +61,7 @@ export async function uploadImageFile(
 
   // Validate file if requested
   if (validateFile) {
-    validateImageFileBuffer(fileBuffer, fileSize, contentType, filename);
+    validateImageFileBuffer(fileBuffer, fileSize, contentType as any, filename);
   }
 
   // Generate checksum if requested
@@ -94,7 +94,7 @@ export async function uploadImageFile(
       body: formData,
     });
 
-    return response.json();
+    return response.json() as any;
   }, retryOptions);
 
   console.log(`✅ File uploaded successfully: ${uploadResponse.url}`);
@@ -127,7 +127,7 @@ function validateImageFileBuffer(
   }
 
   // Check content type
-  if (!BAGS_FILE_UPLOAD.SUPPORTED_TYPES.includes(contentType)) {
+  if (!BAGS_FILE_UPLOAD.SUPPORTED_TYPES.includes(contentType as any)) {
     throw new Error(
       `Unsupported file type: ${contentType}. ` +
         `Supported types: ${BAGS_FILE_UPLOAD.SUPPORTED_TYPES.join(', ')}`
@@ -138,7 +138,7 @@ function validateImageFileBuffer(
   if (buffer.length >= 4) {
     const signature = buffer.subarray(0, 4);
 
-    if (!isValidImageSignature(signature, contentType)) {
+    if (!isValidImageSignature(signature, contentType as any)) {
       throw new Error(
         `File signature does not match content type ${contentType}. ` +
           `File may be corrupted or mislabeled.`
@@ -303,9 +303,11 @@ export async function prepareTokenAssets(
   if (assets.image) {
     console.log('🖼️ Preparing token image...');
 
-    const { buffer, filename, contentType } = await prepareFileForUpload(
-      assets.image
-    );
+    const {
+      buffer,
+      filename,
+      contentType: _contentType,
+    } = await prepareFileForUpload(assets.image);
 
     // Optimize image if needed
     const optimizedBuffer = await optimizeImageForUpload(buffer, {
@@ -347,7 +349,7 @@ export async function prepareTokenAssets(
     .digest('hex');
 
   return {
-    imageUrl,
+    ...(imageUrl ? { imageUrl } : {}),
     metadataHash,
     uploadReceipts,
   };
