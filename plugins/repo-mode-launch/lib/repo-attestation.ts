@@ -11,6 +11,12 @@ import {
   generateConfigHash,
   generateRepoStateHash,
 } from './hashing.js';
+import { timingSafeEqual } from 'crypto';
+import {
+  validateWalletAddress,
+  validateCommitSha,
+  validateTokenSymbol,
+} from './validation.js';
 import {
   generateBranchName,
   generateTokenSymbol,
@@ -211,14 +217,32 @@ export function parseLaunchIntent(json: string): LaunchIntent {
     throw new Error('Invalid repo configuration');
   }
 
+  // Validate commit SHA format
+  const commitValidation = validateCommitSha(parsed.repo.commitSha);
+  if (!commitValidation.valid) {
+    throw new Error(`Invalid commit SHA: ${commitValidation.error}`);
+  }
+
   // Validate launch
   if (!parsed.launch.brand || !parsed.launch.symbol) {
     throw new Error('Invalid launch configuration');
   }
 
+  // Validate token symbol format
+  const symbolValidation = validateTokenSymbol(parsed.launch.symbol);
+  if (!symbolValidation.valid) {
+    throw new Error(`Invalid token symbol: ${symbolValidation.error}`);
+  }
+
   // Validate wallet
   if (!parsed.wallet.address || parsed.wallet.network !== 'solana') {
     throw new Error('Invalid wallet configuration');
+  }
+
+  // Validate wallet address format
+  const walletValidation = validateWalletAddress(parsed.wallet.address);
+  if (!walletValidation.valid) {
+    throw new Error(`Invalid wallet address: ${walletValidation.error}`);
   }
 
   // Validate hashes exist
@@ -231,8 +255,19 @@ export function parseLaunchIntent(json: string): LaunchIntent {
 
 /**
  * Verify intent hash matches content
+ * Uses timing-safe comparison to prevent timing attacks
  */
 export function verifyIntentHash(intent: LaunchIntent): boolean {
   const computedHash = generateIntentHash(intent);
-  return computedHash === intent.hashes.intentHash;
+  const expectedHash = intent.hashes.intentHash;
+
+  // Ensure both hashes have the same length before comparison
+  if (computedHash.length !== expectedHash.length) {
+    return false;
+  }
+
+  const computedBuffer = Buffer.from(computedHash, 'utf8');
+  const expectedBuffer = Buffer.from(expectedHash, 'utf8');
+
+  return timingSafeEqual(computedBuffer, expectedBuffer);
 }

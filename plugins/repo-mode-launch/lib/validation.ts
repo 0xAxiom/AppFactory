@@ -3,6 +3,8 @@
  * All validation is deterministic and does not make network calls
  */
 
+import bs58 from 'bs58';
+
 export interface RepoValidation {
   valid: boolean;
   owner: string | null;
@@ -57,7 +59,7 @@ export function validateRepoUrl(url: string): RepoValidation {
  * Does not verify address exists on-chain
  */
 export function validateWalletAddress(address: string): WalletValidation {
-  // Solana addresses are base58-encoded and 32-44 characters
+  // First check basic format constraints
   const base58Pattern = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
 
   if (!base58Pattern.test(address)) {
@@ -65,14 +67,35 @@ export function validateWalletAddress(address: string): WalletValidation {
       valid: false,
       address: null,
       error:
-        'Invalid Solana wallet address. Must be base58-encoded, 32-44 characters.',
+        'Invalid Solana wallet address format. Must be base58-encoded, 32-44 characters.',
     };
   }
 
-  return {
-    valid: true,
-    address,
-  };
+  // Validate the address by decoding and checking structure
+  try {
+    const decoded = bs58.decode(address);
+
+    // Solana public keys must be exactly 32 bytes
+    if (decoded.length !== 32) {
+      return {
+        valid: false,
+        address: null,
+        error:
+          'Invalid Solana wallet address. Decoded address must be exactly 32 bytes.',
+      };
+    }
+
+    return {
+      valid: true,
+      address,
+    };
+  } catch (error) {
+    return {
+      valid: false,
+      address: null,
+      error: 'Invalid Solana wallet address. Failed to decode base58.',
+    };
+  }
 }
 
 /**
