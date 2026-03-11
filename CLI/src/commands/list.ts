@@ -66,7 +66,7 @@ export function createListCommand(): Command {
           } else {
             runs.push({
               id: path.basename(runPath),
-              date: modTime?.toISOString().split('T')[0] || 'unknown',
+              date: modTime?.toISOString().split('T')[0] ?? 'unknown',
               command: 'unknown',
               status: 'unknown',
               ideaCount: 0,
@@ -111,7 +111,7 @@ export function createListCommand(): Command {
           builds.push({
             name: path.basename(buildPath),
             path: buildPath,
-            date: modTime?.toISOString().split('T')[0] || 'unknown',
+            date: modTime?.toISOString().split('T')[0] ?? 'unknown',
           });
         }
 
@@ -164,12 +164,12 @@ export function createListCommand(): Command {
             }
             const ideaStatus = manifest?.per_idea[idea.id];
             allIdeas.push({
-              id: idea.id || 'unknown',
-              name: idea.name || 'Unknown',
-              rank: idea.rank || 0,
-              score: idea.validation_score || 0,
-              runId: manifest?.run_id || path.basename(runPath),
-              status: ideaStatus?.status || 'unknown',
+              id: idea.id ?? 'unknown',
+              name: idea.name ?? 'Unknown',
+              rank: idea.rank ?? 0,
+              score: idea.validation_score ?? 0,
+              runId: manifest?.run_id ?? path.basename(runPath),
+              status: ideaStatus?.status ?? 'unknown',
             });
           }
         }
