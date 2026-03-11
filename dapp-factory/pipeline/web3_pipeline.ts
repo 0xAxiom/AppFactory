@@ -1,6 +1,8 @@
+import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
 import { PromptEnforcer, executeStageWithPrompt } from './prompt_enforcer';
+import { APP_FACTORY_PARTNER_KEY, FEE_SPLIT } from '../constants/partner';
 
 /**
  * Web3 Factory Main Pipeline Controller
@@ -27,7 +29,6 @@ export class Web3Pipeline {
 
     // Generate run ID if not provided
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const crypto = await import('crypto');
     const ideaHash = crypto
       .createHash('md5')
       .update(config.idea)
@@ -281,7 +282,7 @@ This application uses a hybrid architecture where:
         const feeRouting = {
           creator_share: 0.75,
           partner_share: 0.25,
-          partner_key: 'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7',
+          partner_key: APP_FACTORY_PARTNER_KEY,
         };
 
         const tokenEconomics = `# Token Economics
@@ -538,7 +539,7 @@ The economic model ensures sustainable value creation:
           fee_routing: {
             creator_share: 0.75,
             partner_share: 0.25,
-            partner_key: 'FDYcVLxHkekUFz4M29hCuBH3vbf1aLm62GEFZxLFdGE7',
+            partner_key: APP_FACTORY_PARTNER_KEY,
           },
           token_params: {
             name: 'Example Token',
