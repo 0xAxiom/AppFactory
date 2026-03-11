@@ -88,9 +88,21 @@ export function extractJson(content: string): string {
   }
 
   // Try to find JSON object or array
-  const jsonMatch = content.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
+  // Use non-greedy matching to avoid spanning across multiple JSON blocks
+  // (greedy [\s\S]* would match from first { to LAST }, grabbing too much)
+  const jsonMatch = content.match(/(\{[\s\S]*?\}|\[[\s\S]*?\])/);
   if (jsonMatch) {
-    return jsonMatch[1].trim();
+    // Validate it's actually parseable JSON; if not, try greedy as fallback
+    try {
+      JSON.parse(jsonMatch[1]);
+      return jsonMatch[1].trim();
+    } catch {
+      // Non-greedy grabbed too little (nested braces); fall back to greedy
+      const greedyMatch = content.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
+      if (greedyMatch) {
+        return greedyMatch[1].trim();
+      }
+    }
   }
 
   // Return as-is
