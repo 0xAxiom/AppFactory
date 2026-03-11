@@ -22,13 +22,13 @@
   "author": "App Factory",
   "license": "MIT",
   "dependencies": {
-    "archiver": "^6.0.0",
+    "archiver": "^7.0.1",
     "handlebars": "^4.7.8",
     "zod": "^3.22.0"
   },
   "devDependencies": {
-    "@types/archiver": "^6.0.0",
-    "@types/node": "^20.0.0",
+    "@types/archiver": "^7.0.0",
+    "@types/node": "^22.19.15",
     "@vitest/coverage-v8": "^4.0.18",
     "tsx": "^4.0.0",
     "typescript": "^5.2.0",
