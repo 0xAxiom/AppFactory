@@ -198,7 +198,7 @@ async function handleRun(): Promise<void> {
     spinner.stop();
 
     if (!result.success) {
-      printFailureBanner('Run', result.error || 'Unknown error');
+      printFailureBanner('Run', result.error ?? 'Unknown error');
       showTip('Check your API key and try again');
     } else {
       const duration = Date.now() - startTime;
@@ -275,7 +275,7 @@ async function handleBuild(): Promise<void> {
             name: idea.name,
             rank: idea.rank,
             score: idea.validation_score,
-            runId: manifest?.run_id || path.basename(runPath),
+            runId: manifest?.run_id ?? path.basename(runPath),
             directory: idea.directory,
           });
         }
@@ -368,7 +368,7 @@ async function handleBuild(): Promise<void> {
     spinner.stop();
 
     if (!result.success) {
-      printFailureBanner('Build', result.error || 'Unknown error');
+      printFailureBanner('Build', result.error ?? 'Unknown error');
     } else {
       const duration = Date.now() - startTime;
       printCompletionBanner('Build', duration);

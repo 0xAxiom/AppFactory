@@ -10,7 +10,7 @@ import { readFile, readJson, writeFile, writeJson, fileExists } from './io.js';
 import { getTemplatePath, getSchemaPath, getStandardsPath } from './paths.js';
 import { extractJson, callClaude } from './anthropic.js';
 import { logger } from './logging.js';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { promisify } from 'util';
 
 const execAsync = promisify(exec);
@@ -373,7 +373,7 @@ export async function executeStage(
     }
 
     // Validate against schema if available
-    const schemaValidated = true;
+    let schemaValidated = false;
     if (stage.schemaFile) {
       const schemaPath = getSchemaPath(stageId);
       if (fileExists(schemaPath)) {
@@ -388,6 +388,7 @@ export async function executeStage(
         }
 
         logger.validationSuccess(stage.schemaFile);
+        schemaValidated = true;
       }
     }
 
@@ -471,15 +472,48 @@ export async function executeScript(
   logger.scriptStart(scriptName);
 
   try {
-    const command = `bash "${scriptPath}" ${args.map((a) => `"${a}"`).join(' ')}`;
-    const { stdout, stderr } = await execAsync(command, {
+    // Use spawn instead of exec to prevent command injection
+    const child = spawn('bash', [scriptPath, ...args], {
       cwd,
-      timeout: 120000, // 2 minute timeout
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+
+    let stdout = '';
+    let stderr = '';
+
+    child.stdout?.on('data', (data) => {
+      stdout += data.toString();
+    });
+
+    child.stderr?.on('data', (data) => {
+      stderr += data.toString();
+    });
+
+    const exitCode = await new Promise<number>((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        child.kill();
+        reject(new Error('Script execution timeout (2 minutes)'));
+      }, 120000); // 2 minute timeout
+
+      child.on('close', (code) => {
+        clearTimeout(timeout);
+        resolve(code ?? 1);
+      });
+
+      child.on('error', (err) => {
+        clearTimeout(timeout);
+        reject(err);
+      });
     });
 
     const output = stdout + (stderr ? '\n' + stderr : '');
-    logger.scriptSuccess(scriptName);
 
+    if (exitCode !== 0) {
+      logger.scriptError(scriptName, exitCode);
+      return { success: false, output, exitCode };
+    }
+
+    logger.scriptSuccess(scriptName);
     return { success: true, output, exitCode: 0 };
   } catch (err) {
     const execError = err as {
