@@ -124,7 +124,7 @@ export function createDreamCommand(): Command {
               JSON.stringify({ success: false, error: result.error }, null, 2)
             );
           } else {
-            printFailureBanner('dream', result.error || 'Unknown error');
+            printFailureBanner('dream', result.error ?? 'Unknown error');
           }
           process.exit(2);
         }
@@ -151,7 +151,7 @@ export function createDreamCommand(): Command {
           console.log(
             formatKeyValue([
               { key: 'Run Path', value: result.runPath },
-              { key: 'Build Path', value: result.buildPath || 'N/A' },
+              { key: 'Build Path', value: result.buildPath ?? 'N/A' },
             ])
           );
           console.log();
