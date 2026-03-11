@@ -15,6 +15,9 @@ coverage/
 **/runs/**
 website-pipeline/example/website-builds/
 website-pipeline/example/website-builds/**
+dapp-factory/generated/
+miniapp-pipeline/base-token-scanner/
+base-tx-decoder-enhanced/
 
 # Generated files
 *.min.js
