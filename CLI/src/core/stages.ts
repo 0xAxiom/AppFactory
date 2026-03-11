@@ -10,10 +10,10 @@ import { readFile, readJson, writeFile, writeJson, fileExists } from './io.js';
 import { getTemplatePath, getSchemaPath, getStandardsPath } from './paths.js';
 import { extractJson, callClaude } from './anthropic.js';
 import { logger } from './logging.js';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
 // Stage definition
 export interface StageDefinition {
@@ -471,8 +471,7 @@ export async function executeScript(
   logger.scriptStart(scriptName);
 
   try {
-    const command = `bash "${scriptPath}" ${args.map((a) => `"${a}"`).join(' ')}`;
-    const { stdout, stderr } = await execAsync(command, {
+    const { stdout, stderr } = await execFileAsync('bash', [scriptPath, ...args], {
       cwd,
       timeout: 120000, // 2 minute timeout
     });
