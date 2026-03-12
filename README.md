@@ -27,7 +27,7 @@ App Factory turns your ideas into real, working products. No coding experience r
 Install as a skill in your OpenClaw environment:
 
 ```bash
-npx skills add 0xAxiom/AppFactory
+npx skills add MeltedMindz/AppFactory
 ```
 
 ---
