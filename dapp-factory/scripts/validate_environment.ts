@@ -41,7 +41,6 @@ function validateEnvironment(): ValidationResult {
     'SOLANA_RPC_URL',
     'SOLANA_NETWORK',
     'CREATOR_WALLET_ADDRESS',
-    'PRIVATE_KEY',
   ];
 
   // Check required variables exist
@@ -89,9 +88,14 @@ function validateEnvironment(): ValidationResult {
     );
   }
 
+  // Note: PRIVATE_KEY is not required by AppFactory infrastructure.
+  // If you need to add signing functionality, ensure proper key management
+  // practices: dedicated hot wallet, minimal funds, secure storage.
   const privateKey = process.env.PRIVATE_KEY;
   if (privateKey && !validateBase58Key(privateKey)) {
-    errors.push('PRIVATE_KEY appears to be invalid Base58 format');
+    warnings.push(
+      'PRIVATE_KEY is set but appears to be invalid Base58 format. Consider removing if not needed.'
+    );
   }
 
   // Check for common misconfigurations
