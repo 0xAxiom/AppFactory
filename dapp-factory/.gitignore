@@ -27,6 +27,13 @@ Thumbs.db
 # Web3 Factory specific (runs/ and builds/ are tracked intentionally)
 dapp-builds/
 
+# Generated applications (should not be committed to repo)
+base-*/
+*-pulse/
+*-scanner/
+*-radar/
+*-xray/
+
 # Temporary files
 *.tmp
 *.temp
