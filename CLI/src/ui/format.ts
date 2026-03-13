@@ -219,7 +219,7 @@ export function formatBox(
   const lines = text.split('\n');
   const maxLen = Math.max(
     ...lines.map((l) => l.length),
-    (title?.length || 0) + 4
+    (title?.length ?? 0) + 4
   );
   const innerWidth = maxLen + padding * 2;
 

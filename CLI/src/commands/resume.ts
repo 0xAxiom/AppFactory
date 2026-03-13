@@ -213,7 +213,7 @@ export function createResumeCommand(): Command {
                 JSON.stringify({ success: false, error: result.error }, null, 2)
               );
             } else {
-              printFailureBanner('resume', result.error || 'Unknown error');
+              printFailureBanner('resume', result.error ?? 'Unknown error');
             }
             process.exit(2);
           }
