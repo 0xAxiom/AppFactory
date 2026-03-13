@@ -1,0 +1,68 @@
+{
+  "mcpVersion": "2024-11-05",
+  "servers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/test", "mcp-server"],
+      "env": {
+        "PLAYWRIGHT_HEADLESS": "true",
+        "PLAYWRIGHT_TIMEOUT": "30000"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["@context7/mcp"],
+      "env": {
+        "CONTEXT7_API_KEY": "your-context7-api-key-here"
+      }
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["@supabase/mcp-server"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_ANON_KEY": "your-anon-key-here"
+      }
+    },
+    "vercel": {
+      "command": "npx",
+      "args": ["@vercel/mcp-server"],
+      "env": {
+        "VERCEL_TOKEN": "your-vercel-token-here"
+      }
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["@figma/mcp-server"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "your-figma-token-here"
+      }
+    },
+    "semgrep": {
+      "command": "npx",
+      "args": ["@semgrep/mcp-server"],
+      "env": {
+        "SEMGREP_APP_TOKEN": "your-semgrep-token-here"
+      }
+    },
+    "e2b": {
+      "command": "npx",
+      "args": ["@e2b/mcp-server"],
+      "env": {
+        "E2B_API_KEY": "your-e2b-api-key-here"
+      }
+    }
+  },
+  "environmentVariables": {
+    "comment": "Copy your credentials from environment variables or secure storage",
+    "instructions": "Replace 'your-*-here' values above with actual credentials. Store this file as ~/.config/claude-code/mcp-config.json (NOT in your repository)."
+  },
+  "pipelineRecommendations": {
+    "app-factory": ["playwright", "figma"],
+    "dapp-factory": ["playwright", "supabase", "context7"],
+    "agent-factory": ["context7", "e2b"],
+    "plugin-factory": ["semgrep", "context7"],
+    "miniapp-pipeline": ["playwright", "vercel"],
+    "website-pipeline": ["playwright", "figma", "vercel"]
+  }
+}
