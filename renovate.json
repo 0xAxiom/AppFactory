@@ -9,13 +9,80 @@
   "labels": ["dependencies"],
   "packageRules": [
     {
+      "description": "Auto-merge non-major updates for production dependencies",
       "matchUpdateTypes": ["minor", "patch"],
+      "matchDepTypes": ["dependencies"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Auto-merge patch updates for dev dependencies",
+      "matchUpdateTypes": ["patch"],
+      "matchDepTypes": ["devDependencies"],
       "automerge": true
     },
     {
-      "matchPackagePatterns": ["*"],
+      "description": "Security updates get high priority and auto-merge",
+      "matchDatasources": ["npm"],
+      "vulnerabilityAlerts": true,
+      "labels": ["dependencies", "security"],
+      "priority": 100,
+      "automerge": true,
+      "schedule": ["at any time"]
+    },
+    {
+      "description": "Major version updates need manual review",
       "matchUpdateTypes": ["major"],
-      "labels": ["dependencies", "major"]
+      "labels": ["dependencies", "major"],
+      "reviewers": ["team:core-maintainers"],
+      "automerge": false
+    },
+    {
+      "description": "Group TypeScript ecosystem updates",
+      "matchPackageNames": ["typescript", "@types/node", "ts-node", "tsx"],
+      "groupName": "TypeScript ecosystem",
+      "labels": ["dependencies", "typescript"]
+    },
+    {
+      "description": "Group testing framework updates",
+      "matchPackageNames": [
+        "vitest",
+        "@vitest/coverage-v8",
+        "playwright",
+        "@playwright/test"
+      ],
+      "groupName": "Testing frameworks",
+      "labels": ["dependencies", "testing"]
+    },
+    {
+      "description": "Group linting and formatting tools",
+      "matchPackageNames": [
+        "eslint",
+        "prettier",
+        "@eslint/js",
+        "typescript-eslint",
+        "eslint-config-prettier"
+      ],
+      "groupName": "Code quality tools",
+      "labels": ["dependencies", "code-quality"]
+    },
+    {
+      "description": "Pin exact versions for CLI tools",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackageNames": [
+        "standard-version",
+        "husky",
+        "lint-staged",
+        "@commitlint/cli"
+      ],
+      "rangeStrategy": "pin"
+    },
+    {
+      "description": "High-impact dependencies get slower rollout",
+      "matchPackageNames": ["react", "next", "express", "@anthropic-ai/sdk"],
+      "minimumReleaseAge": "3 days",
+      "labels": ["dependencies", "high-impact"]
     }
   ],
   "ignorePaths": [
@@ -24,6 +91,22 @@
     "**/dapp-builds/**",
     "**/website-builds/**",
     "**/vendor/**",
-    "**/runs/**"
-  ]
+    "**/runs/**",
+    "**/generated/**",
+    "**/templates/**"
+  ],
+  "assignees": ["team:core-maintainers"],
+  "reviewersFromCodeOwners": true,
+  "separateMajorMinor": true,
+  "separateMinorPatch": false,
+  "rebaseWhen": "conflicted",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 3am on the first day of the month"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["dependencies", "security", "vulnerability"],
+    "assignees": ["team:security-maintainers"],
+    "schedule": ["at any time"]
+  }
 }
