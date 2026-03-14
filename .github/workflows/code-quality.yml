@@ -1,0 +1,200 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  code-metrics:
+    name: Code Quality Metrics
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # Full history for better analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run complexity analysis
+        run: |
+          echo "## Code Complexity Analysis" >> complexity-report.md
+          echo "" >> complexity-report.md
+
+          # Analyze TypeScript files for complexity
+          find . -name "*.ts" -not -path "*/node_modules/*" -not -path "*/builds/*" -not -path "*/outputs/*" | head -20 | while read -r file; do
+            if [ -f "$file" ]; then
+              lines=$(wc -l < "$file" 2>/dev/null || echo "0")
+              echo "- \`$file\`: $lines lines" >> complexity-report.md
+            fi
+          done
+
+      - name: Check for TODO/FIXME comments
+        run: |
+          echo "" >> complexity-report.md
+          echo "## Technical Debt Tracking" >> complexity-report.md
+          echo "" >> complexity-report.md
+
+          todo_count=$(grep -r "TODO\|FIXME\|XXX\|HACK" --include="*.ts" --include="*.js" . | wc -l || echo "0")
+          echo "- Total TODO/FIXME comments: $todo_count" >> complexity-report.md
+
+          if [ "$todo_count" -gt 0 ]; then
+            echo "- Top items:" >> complexity-report.md
+            grep -r "TODO\|FIXME\|XXX\|HACK" --include="*.ts" --include="*.js" . | head -5 | while read -r line; do
+              echo "  - $line" >> complexity-report.md
+            done
+          fi
+
+      - name: Analyze bundle sizes (if applicable)
+        run: |
+          echo "" >> complexity-report.md
+          echo "## Bundle Size Analysis" >> complexity-report.md
+          echo "" >> complexity-report.md
+
+          # Check for common bundle analysis files
+          if [ -f "package-lock.json" ]; then
+            total_deps=$(jq -r '.packages | length' package-lock.json 2>/dev/null || echo "N/A")
+            echo "- Total dependencies: $total_deps" >> complexity-report.md
+          fi
+
+          # Count TypeScript files
+          ts_files=$(find . -name "*.ts" -not -path "*/node_modules/*" | wc -l)
+          echo "- TypeScript files: $ts_files" >> complexity-report.md
+
+      - name: Generate documentation coverage report
+        run: |
+          echo "" >> complexity-report.md
+          echo "## Documentation Coverage" >> complexity-report.md
+          echo "" >> complexity-report.md
+
+          # Count documented vs undocumented exports
+          total_exports=$(grep -r "export " --include="*.ts" --include="*.js" . | grep -v node_modules | wc -l || echo "0")
+          documented_exports=$(grep -r "\/\*\*" --include="*.ts" --include="*.js" . -A 5 | grep -c "export " || echo "0")
+
+          echo "- Total exports: $total_exports" >> complexity-report.md
+          echo "- Documented exports: $documented_exports" >> complexity-report.md
+
+          if [ "$total_exports" -gt 0 ]; then
+            coverage_percent=$(( documented_exports * 100 / total_exports ))
+            echo "- Documentation coverage: ~${coverage_percent}%" >> complexity-report.md
+          fi
+
+      - name: Comment PR with analysis
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            let report = '';
+            try {
+              report = fs.readFileSync('complexity-report.md', 'utf8');
+            } catch (error) {
+              report = 'Unable to generate complexity report.';
+            }
+
+            const body = `## 📊 Code Quality Analysis
+
+            ${report}
+
+            <details>
+            <summary>📝 Quality Guidelines</summary>
+
+            - Keep functions under 50 lines when possible
+            - Limit cognitive complexity (max 15 per ESLint)
+            - Maintain documentation coverage above 70%
+            - Address TODO/FIXME comments in separate PRs
+            - Consider breaking down large files (>500 lines)
+
+            </details>`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+  dependency-audit:
+    name: Dependency Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Run comprehensive dependency audit
+        run: |
+          echo "## 🔍 Dependency Security Audit" > audit-report.md
+          echo "" >> audit-report.md
+
+          # Run npm audit and capture results
+          if npm audit --audit-level=moderate 2>&1 | tee audit-output.txt; then
+            echo "✅ No security vulnerabilities found" >> audit-report.md
+          else
+            echo "⚠️ Security vulnerabilities detected:" >> audit-report.md
+            echo "" >> audit-report.md
+            echo "\`\`\`" >> audit-report.md
+            head -20 audit-output.txt >> audit-report.md
+            echo "\`\`\`" >> audit-report.md
+          fi
+
+          echo "" >> audit-report.md
+          echo "### Dependency Statistics" >> audit-report.md
+          echo "" >> audit-report.md
+
+          if [ -f "package-lock.json" ]; then
+            total_packages=$(jq -r '.packages | keys | length' package-lock.json)
+            echo "- Total packages: $total_packages" >> audit-report.md
+          fi
+
+          # Check for outdated packages
+          echo "- Checking for outdated packages..." >> audit-report.md
+          if npm outdated --depth=0 2>/dev/null | tail -n +2 | wc -l | grep -q "^[0-9]*$"; then
+            outdated_count=$(npm outdated --depth=0 2>/dev/null | tail -n +2 | wc -l)
+            echo "- Outdated packages: $outdated_count" >> audit-report.md
+          fi
+
+      - name: Comment PR with audit results
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            let report = '';
+            try {
+              report = fs.readFileSync('audit-report.md', 'utf8');
+            } catch (error) {
+              report = '## 🔍 Dependency Security Audit\n\nUnable to generate audit report.';
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
