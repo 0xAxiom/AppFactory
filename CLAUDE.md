@@ -1,6 +1,6 @@
 # App Factory - Root Orchestrator
 
-**Version**: 1.2.0
+**Version**: 12.0.1
 **Mode**: Orchestration Only
 **Status**: CANONICAL AUTHORITY
 
