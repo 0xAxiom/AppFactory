@@ -1,143 +1,62 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: "Release type"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
-  validate:
-    name: Validate Release
+  release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "20.x"
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm run bootstrap
 
-      - name: Run lint
-        run: npm run lint
+      - name: Run full CI checks
+        run: npm run ci
 
-      - name: Run format check
-        run: npm run format:check
-
-      - name: Install CLI dependencies
-        run: cd CLI && npm ci
-
-      - name: Install dapp-factory dependencies
-        run: cd dapp-factory && npm ci
-
-      - name: Run type checks
-        run: npm run type-check
-
-      - name: Run root tests
-        run: npm run test
-
-      - name: Run CLI tests
-        run: npm run test:cli
-
-      - name: Run dapp-factory tests
-        run: npm run test:dapp
-
-      - name: Security audit
-        run: npm audit --audit-level=high
-
-  release:
-    name: Create Release
-    needs: validate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Extract version from tag
-        id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-
-      - name: Validate version matches package.json
+      - name: Configure git
         run: |
-          PKG_VERSION=$(node -p "require('./package.json').version")
-          TAG_VERSION="${{ steps.version.outputs.VERSION }}"
-          echo "Package version: $PKG_VERSION"
-          echo "Tag version: $TAG_VERSION"
-          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
-            echo "WARNING: Package version ($PKG_VERSION) does not match tag version ($TAG_VERSION)"
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Generate release notes
-        id: release_notes
+      - name: Create release
+        run: npm run release:${{ github.event.inputs.release_type }}
+
+      - name: Push changes
         run: |
-          VERSION="${{ steps.version.outputs.VERSION }}"
+          git push --follow-tags origin main
 
-          # Extract changelog for this version
-          if [ -f "CHANGELOG.md" ]; then
-            # Get content between current version header and previous version header
-            sed -n "/^## \[${VERSION}\]/,/^## \[/p" CHANGELOG.md | head -n -1 > release_notes.md
-            if [ -s release_notes.md ]; then
-              echo "Found changelog entry for version $VERSION"
-              echo "NOTES_FILE=release_notes.md" >> $GITHUB_OUTPUT
-            else
-              echo "No changelog entry found for version $VERSION"
-              echo "## What's Changed" > release_notes.md
-              echo "" >> release_notes.md
-              echo "See [CHANGELOG.md](CHANGELOG.md) for details." >> release_notes.md
-              echo "NOTES_FILE=release_notes.md" >> $GITHUB_OUTPUT
-            fi
-          else
-            echo "## Release v$VERSION" > release_notes.md
-            echo "" >> release_notes.md
-            echo "See commit history for changes." >> release_notes.md
-            echo "NOTES_FILE=release_notes.md" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          body_path: ${{ steps.release_notes.outputs.NOTES_FILE }}
-          draft: false
-          prerelease: ${{ contains(github.ref, '-alpha') || contains(github.ref, '-beta') || contains(github.ref, '-rc') }}
-          generate_release_notes: true
+      - name: Create GitHub release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  publish-cli:
-    name: Publish CLI (if applicable)
-    needs: release
-    runs-on: ubuntu-latest
-    # Only run if the CLI package is public
-    if: false # Set to true when ready to publish CLI to npm
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "20"
-          registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-
-      - name: Install CLI dependencies
-        run: cd CLI && npm ci
-
-      - name: Build CLI
-        run: cd CLI && npm run build
-
-      - name: Publish to npm
-        run: cd CLI && npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
+            --notes-from-tag \
+            --latest
