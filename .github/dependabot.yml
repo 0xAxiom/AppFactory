@@ -1,0 +1,82 @@
+version: 2
+updates:
+  # Root package
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Los_Angeles"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "MeltedMindz"
+    assignees:
+      - "MeltedMindz"
+    commit-message:
+      prefix: "chore(deps):"
+      include: "scope"
+
+  # CLI package
+  - package-ecosystem: "npm"
+    directory: "/CLI"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Los_Angeles"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "MeltedMindz"
+    assignees:
+      - "MeltedMindz"
+    commit-message:
+      prefix: "chore(deps):"
+      include: "scope"
+
+  # Core package
+  - package-ecosystem: "npm"
+    directory: "/core"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Los_Angeles"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "MeltedMindz"
+    assignees:
+      - "MeltedMindz"
+    commit-message:
+      prefix: "chore(deps):"
+      include: "scope"
+
+  # dApp Factory package
+  - package-ecosystem: "npm"
+    directory: "/dapp-factory"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Los_Angeles"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "MeltedMindz"
+    assignees:
+      - "MeltedMindz"
+    commit-message:
+      prefix: "chore(deps):"
+      include: "scope"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    reviewers:
+      - "MeltedMindz"
+    assignees:
+      - "MeltedMindz"
+    commit-message:
+      prefix: "chore(actions):"
+      include: "scope"
