@@ -182,3 +182,6 @@ docs/vendor/**/_upstream/
 dapp-factory/generated/
 /generated/
 **/generated/
+
+# Generated app directories with node_modules
+dapp-factory/generated/*/node_modules/
