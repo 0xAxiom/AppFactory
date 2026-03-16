@@ -177,3 +177,6 @@ dist/
 
 # Vendor upstream (reference only, not tracked)
 docs/vendor/**/_upstream/
+
+# Generated app directories with node_modules
+dapp-factory/generated/*/node_modules/
