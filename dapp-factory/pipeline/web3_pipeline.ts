@@ -24,26 +24,35 @@ export class Web3Pipeline {
   constructor(config: Web3PipelineConfig) {
     this.config = config;
     this.enforcer = new PromptEnforcer(config.projectRoot);
+    this.runDir = '';
+  }
 
+  /**
+   * Initialize the pipeline with async setup
+   */
+  private async initialize(): Promise<void> {
     // Generate run ID if not provided
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const crypto = await import('crypto');
     const ideaHash = crypto
       .createHash('md5')
-      .update(config.idea)
+      .update(this.config.idea)
       .digest('hex')
       .substring(0, 8);
-    this.config.runId = config.runId || `web3-${timestamp}-${ideaHash}`;
+    this.config.runId = this.config.runId || `web3-${timestamp}-${ideaHash}`;
 
     // Set up run directory
     const today = new Date().toISOString().split('T')[0];
-    this.runDir = path.join(config.runsDir, today, this.config.runId);
+    this.runDir = path.join(this.config.runsDir, today, this.config.runId);
   }
 
   /**
    * Execute the complete Web3 Factory pipeline W1-W7
    */
   async execute(): Promise<void> {
+    // Initialize async components
+    await this.initialize();
+
     console.log(`Starting Web3 Factory pipeline: ${this.config.runId}`);
     console.log(`Run directory: ${this.runDir}`);
 
