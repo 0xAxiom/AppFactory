@@ -62,14 +62,11 @@ jobs:
           node-version: "20"
           cache: "npm"
 
-      - name: Install root dependencies
+      - name: Install all workspace dependencies
         run: npm ci
 
-      - name: Install CLI dependencies
-        run: cd CLI && npm ci
-
-      - name: Install dapp-factory dependencies
-        run: cd dapp-factory && npm ci
+      - name: Bootstrap workspaces
+        run: npm run bootstrap:subprojects
 
       - name: Run type checks
         run: npm run type-check
@@ -87,14 +84,11 @@ jobs:
           node-version: "20"
           cache: "npm"
 
-      - name: Install root dependencies
+      - name: Install all workspace dependencies
         run: npm ci
 
-      - name: Install CLI dependencies
-        run: cd CLI && npm ci
-
-      - name: Install dapp-factory dependencies
-        run: cd dapp-factory && npm ci
+      - name: Bootstrap workspaces
+        run: npm run bootstrap:subprojects
 
       - name: Run root tests
         run: npm run test
@@ -128,26 +122,23 @@ jobs:
           node-version: "20"
           cache: "npm"
 
+      - name: Install all workspace dependencies
+        run: npm ci
+
+      - name: Bootstrap workspaces
+        run: npm run bootstrap:subprojects
+
       - name: Audit root dependencies
         run: npm audit --audit-level=high
 
-      - name: Install and audit CLI dependencies
-        run: |
-          cd CLI
-          npm ci
-          npm audit --audit-level=high
+      - name: Audit CLI dependencies
+        run: cd CLI && npm audit --audit-level=high
 
-      - name: Install and audit dapp-factory dependencies
-        run: |
-          cd dapp-factory
-          npm ci
-          npm audit --audit-level=high
+      - name: Audit dapp-factory dependencies
+        run: cd dapp-factory && npm audit --audit-level=high
 
-      - name: Install and audit plugin mcp-server dependencies
-        run: |
-          cd plugin-factory/examples/mcp-server
-          npm ci
-          npm audit --audit-level=high
+      - name: Audit plugin mcp-server dependencies
+        run: cd plugin-factory/examples/mcp-server && npm audit --audit-level=high
 
   validate-structure:
     name: Validate Structure
