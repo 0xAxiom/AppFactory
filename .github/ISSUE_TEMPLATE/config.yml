@@ -1,8 +1,14 @@
-blank_issues_enabled: false
+blank_issues_enabled: true
 contact_links:
-  - name: Discussions
-    url: https://github.com/MeltedMindz/AppFactory/discussions
-    about: Ask questions and discuss ideas
-  - name: Documentation
-    url: https://github.com/MeltedMindz/AppFactory/tree/main/docs
-    about: Read the documentation
+  - name: 📖 Documentation
+    url: https://github.com/MeltedMindz/AppFactory#readme
+    about: Check the documentation for guides and examples
+  - name: 💬 Discord Community
+    url: https://discord.com/invite/clawd
+    about: Join our Discord community for questions and discussions
+  - name: 🚀 App Factory Live
+    url: https://appfactory.fun
+    about: Try App Factory online (token launchpad mode)
+  - name: 🛠️ Factory App Builder
+    url: https://factoryapp.dev
+    about: Try the builder platform (prompt mode)

@@ -1,51 +1,88 @@
 name: Feature Request
-description: Suggest a new feature for AppFactory
-labels: ["enhancement"]
+description: Suggest an idea for App Factory
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
 body:
-  - type: dropdown
-    id: pipeline
+  - type: markdown
     attributes:
-      label: Which pipeline?
+      value: |
+        Thanks for suggesting a new feature! Your ideas help make App Factory better.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature Category
+      description: What area does this feature request relate to?
       options:
-        - app-factory
-        - dapp-factory
-        - agent-factory
-        - plugin-factory
-        - miniapp-pipeline
-        - website-pipeline
-        - Root/General
-        - New pipeline
+        - New Pipeline Type
+        - Existing Pipeline Enhancement
+        - CLI/Developer Experience
+        - Documentation
+        - Performance
+        - Security
+        - Integration
+        - Other
     validations:
       required: true
 
   - type: textarea
     id: problem
     attributes:
-      label: What problem does this solve?
-      description: Describe the use case or problem
+      label: Problem Statement
+      description: What problem does this feature solve? Is your feature request related to a problem?
+      placeholder: "I'm frustrated when..."
     validations:
       required: true
 
   - type: textarea
     id: solution
     attributes:
-      label: Proposed solution
-      description: How would you like this to work?
+      label: Proposed Solution
+      description: What would you like to happen? Describe your ideal solution.
+      placeholder: "I would like..."
     validations:
       required: true
 
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: Any other approaches you've thought of?
+      label: Alternatives Considered
+      description: What alternative solutions or features have you considered?
+      placeholder: "I've also considered..."
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, mockups, or examples about the feature request.
 
   - type: dropdown
     id: priority
     attributes:
-      label: Priority (your assessment)
+      label: Priority
+      description: How important is this feature to you?
       options:
-        - Critical - Blocking my workflow
-        - High - Would significantly improve experience
-        - Medium - Nice to have
-        - Low - Someday would be nice
+        - Nice to have
+        - Important
+        - Critical
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: implementation
+    attributes:
+      label: Implementation
+      description: Are you interested in implementing this feature?
+      options:
+        - label: I'm willing to submit a PR for this feature
+        - label: I can help with testing
+        - label: I can help with documentation
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

@@ -1,60 +1,87 @@
 name: Bug Report
-description: Report a bug in AppFactory
+description: File a bug report to help us improve App Factory
+title: "[Bug]: "
 labels: ["bug", "triage"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please provide as much detail as possible.
+
   - type: dropdown
     id: pipeline
     attributes:
-      label: Which pipeline?
+      label: Which pipeline are you using?
+      description: What type of app are you building?
       options:
-        - app-factory
-        - dapp-factory
-        - agent-factory
-        - plugin-factory
-        - miniapp-pipeline
-        - website-pipeline
-        - Root/General
+        - Mobile App (app-factory)
+        - Website (website-pipeline)
+        - dApp (dapp-factory)
+        - AI Agent (agent-factory)
+        - Claude Plugin (plugin-factory)
+        - Base Mini App (miniapp-pipeline)
+        - Clawbot Assistant (claw-pipeline)
+        - Other/Unknown
     validations:
       required: true
 
   - type: textarea
-    id: description
+    id: what-happened
     attributes:
       label: What happened?
-      description: Describe the bug clearly
+      description: Describe the bug. What did you expect to happen instead?
+      placeholder: Tell us what you see!
     validations:
       required: true
 
   - type: textarea
-    id: expected
-    attributes:
-      label: What did you expect?
-      description: Describe the expected behavior
-    validations:
-      required: true
-
-  - type: textarea
-    id: reproduce
+    id: steps
     attributes:
       label: Steps to reproduce
       description: How can we reproduce this issue?
       placeholder: |
-        1. Run `claude` in app-factory
-        2. Describe "..."
-        3. See error
+        1. Run command...
+        2. Enter description...
+        3. See error...
     validations:
       required: true
 
   - type: textarea
     id: logs
     attributes:
-      label: Relevant logs or output
-      description: Paste any relevant error messages or logs
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
 
   - type: input
     id: version
     attributes:
-      label: AppFactory version
-      description: Check package.json or CHANGELOG.md
-      placeholder: "v11.0"
+      label: App Factory Version
+      description: What version of App Factory are you running? (check package.json or `npm list appfactory`)
+      placeholder: "ex. 12.0.1"
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - Other
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+      description: What version of Node.js are you using? (run `node --version`)
+      placeholder: "ex. v18.17.0"
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
