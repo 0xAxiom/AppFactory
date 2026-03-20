@@ -69,8 +69,8 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^9.39.4",
     "@vitest/coverage-v8": "^4.1.0",
     "eslint": "^9.39.4",

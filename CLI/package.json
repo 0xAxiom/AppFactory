@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^22.19.15",
+    "@types/node": "^25.5.0",
     "@vitest/coverage-v8": "^4.1.0",
     "typescript": "^5.7.3",
     "vitest": "^4.1.0"
