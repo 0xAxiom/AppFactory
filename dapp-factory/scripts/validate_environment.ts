@@ -41,8 +41,10 @@ function validateEnvironment(): ValidationResult {
     'SOLANA_RPC_URL',
     'SOLANA_NETWORK',
     'CREATOR_WALLET_ADDRESS',
-    'PRIVATE_KEY',
   ];
+
+  // Optional but sensitive environment variables
+  const sensitiveOptionalVars = ['PRIVATE_KEY'];
 
   // Check required variables exist
   for (const varName of requiredVars) {
@@ -60,6 +62,8 @@ function validateEnvironment(): ValidationResult {
         : value;
     }
   }
+
+  // Check optional sensitive variables (handled separately for security warnings)
 
   // Validate Bags API key format
   const apiKey = process.env.BAGS_API_KEY;
@@ -89,9 +93,22 @@ function validateEnvironment(): ValidationResult {
     );
   }
 
+  // Validate optional private key with security warnings
   const privateKey = process.env.PRIVATE_KEY;
-  if (privateKey && !validateBase58Key(privateKey)) {
-    errors.push('PRIVATE_KEY appears to be invalid Base58 format');
+  if (privateKey) {
+    if (!validateBase58Key(privateKey)) {
+      errors.push('PRIVATE_KEY appears to be invalid Base58 format');
+    }
+    warnings.push(
+      '🔐 SECURITY WARNING: PRIVATE_KEY is set in environment variables. ' +
+        'Consider using hardware wallets, keyring services, or encrypted keystores for production.'
+    );
+    config.PRIVATE_KEY = maskSensitiveValue(privateKey);
+  } else {
+    warnings.push(
+      '💡 PRIVATE_KEY not set. You will need wallet credentials for transaction signing. ' +
+        'Consider secure key management options like hardware wallets or encrypted keystores.'
+    );
   }
 
   // Check for common misconfigurations
@@ -277,7 +294,10 @@ async function main(): Promise<void> {
     console.log('1. Copy .env.example to .env');
     console.log('2. Get your API key from https://dev.bags.fm');
     console.log('3. Configure your Solana wallet and RPC URL');
-    console.log('4. Run this script again to validate');
+    console.log(
+      '4. (Optional) Set PRIVATE_KEY for transactions (consider hardware wallets for production)'
+    );
+    console.log('5. Run this script again to validate');
 
     process.exit(1);
   }
