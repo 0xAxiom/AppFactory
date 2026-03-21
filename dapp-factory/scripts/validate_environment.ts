@@ -36,6 +36,9 @@ function validateEnvironment(): ValidationResult {
   const config: Record<string, any> = {};
 
   // Required environment variables
+  // WARNING: PRIVATE_KEY in environment variables is a security risk.
+  // Consider using wallet file paths, hardware wallets, or secure key management.
+  // Ensure .env files are never committed and environment is properly secured.
   const requiredVars = [
     'BAGS_API_KEY',
     'SOLANA_RPC_URL',
@@ -92,6 +95,23 @@ function validateEnvironment(): ValidationResult {
   const privateKey = process.env.PRIVATE_KEY;
   if (privateKey && !validateBase58Key(privateKey)) {
     errors.push('PRIVATE_KEY appears to be invalid Base58 format');
+  }
+
+  // Additional private key security checks
+  if (privateKey) {
+    if (privateKey.length < 64) {
+      warnings.push(
+        'PRIVATE_KEY appears shorter than expected Solana private key length'
+      );
+    }
+    if (
+      privateKey.toLowerCase().includes('test') ||
+      privateKey.includes('example')
+    ) {
+      errors.push(
+        'PRIVATE_KEY appears to be a test/example value - use a real private key'
+      );
+    }
   }
 
   // Check for common misconfigurations
