@@ -81,7 +81,7 @@ export async function showMainMenu(): Promise<string> {
 
   const { choice } = await inquirer.prompt([
     {
-      type: 'list',
+      type: 'select',
       name: 'choice',
       message: 'What would you like to do?',
       choices: MAIN_MENU_CHOICES.map((c) => ({
@@ -217,7 +217,7 @@ export async function selectFromList<T extends string>(
 ): Promise<T> {
   const { selected } = await inquirer.prompt([
     {
-      type: 'list',
+      type: 'select',
       name: 'selected',
       message,
       choices,

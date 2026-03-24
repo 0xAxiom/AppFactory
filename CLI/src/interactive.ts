@@ -152,7 +152,7 @@ async function handleRun(): Promise<void> {
   // Ask for custom intake or use default
   const { intakeType } = await inquirer.prompt([
     {
-      type: 'list',
+      type: 'select',
       name: 'intakeType',
       message: 'How would you like to generate ideas?',
       choices: [

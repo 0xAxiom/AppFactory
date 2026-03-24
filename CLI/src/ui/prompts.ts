@@ -54,7 +54,7 @@ export async function select<T extends string>(
 ): Promise<T> {
   const { selected } = await inquirer.prompt([
     {
-      type: 'list',
+      type: 'select',
       name: 'selected',
       message,
       choices: choices.map((c) => ({
@@ -101,7 +101,7 @@ export async function selectIdea(
 
   const { selected } = await inquirer.prompt([
     {
-      type: 'list',
+      type: 'select',
       name: 'selected',
       message: 'Select an idea to build:',
       choices,
@@ -195,7 +195,7 @@ export async function selectRun(
 
   const { selected } = await inquirer.prompt([
     {
-      type: 'list',
+      type: 'select',
       name: 'selected',
       message: 'Select a run:',
       choices,
