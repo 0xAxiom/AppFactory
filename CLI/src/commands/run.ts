@@ -78,7 +78,7 @@ export function createRunCommand(): Command {
               JSON.stringify({ success: false, error: result.error }, null, 2)
             );
           } else {
-            printFailureBanner('run', result.error || 'Unknown error');
+            printFailureBanner('run', result.error ?? 'Unknown error');
           }
           process.exit(2);
         }
