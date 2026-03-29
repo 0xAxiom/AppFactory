@@ -228,7 +228,7 @@ export function getDreamStages(): StageDefinition[] {
 }
 
 // Schema validation
-const ajv = new Ajv.default({ allErrors: true, strict: false });
+const ajv = new Ajv({ allErrors: true });
 
 export function validateAgainstSchema(
   data: unknown,
