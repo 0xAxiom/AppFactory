@@ -1,0 +1,47 @@
+version: 2
+updates:
+  # Enable version updates for npm in root
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    assignees:
+      - "MeltedMindz"
+    reviewers:
+      - "MeltedMindz"
+
+  # Enable version updates for CLI workspace
+  - package-ecosystem: "npm"
+    directory: "/CLI"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Enable version updates for dapp-factory workspace
+  - package-ecosystem: "npm"
+    directory: "/dapp-factory"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Enable version updates for core workspace
+  - package-ecosystem: "npm"
+    directory: "/core"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Enable version updates for MCP server example
+  - package-ecosystem: "npm"
+    directory: "/plugin-factory/examples/mcp-server"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
