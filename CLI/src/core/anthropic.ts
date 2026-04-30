@@ -133,7 +133,15 @@ export async function callClaude(
         model: fullConfig.model,
         max_tokens: fullConfig.maxTokens,
         temperature: fullConfig.temperature,
-        ...(systemPrompt && { system: systemPrompt }),
+        ...(systemPrompt && {
+          system: [
+            {
+              type: 'text',
+              text: systemPrompt,
+              cache_control: { type: 'ephemeral' },
+            },
+          ],
+        }),
         messages: [{ role: 'user', content: prompt }],
       });
 
@@ -144,7 +152,14 @@ export async function callClaude(
       }
 
       const responseText = textContent.text;
+      const cacheRead = response.usage?.cache_read_input_tokens || 0;
+      const cacheCreation = response.usage?.cache_creation_input_tokens || 0;
       logger.apiSuccess(response.usage?.output_tokens || 0);
+      if (cacheRead > 0) {
+        logger.debug(
+          `Cache hit: ${cacheRead} tokens read from cache (${cacheCreation} created)`
+        );
+      }
 
       return responseText;
     } catch (err) {
@@ -225,7 +240,15 @@ export async function streamClaude(
     model: fullConfig.model,
     max_tokens: fullConfig.maxTokens,
     temperature: fullConfig.temperature,
-    ...(systemPrompt && { system: systemPrompt }),
+    ...(systemPrompt && {
+      system: [
+        {
+          type: 'text',
+          text: systemPrompt,
+          cache_control: { type: 'ephemeral' },
+        },
+      ],
+    }),
     messages: [{ role: 'user', content: prompt }],
   });
 

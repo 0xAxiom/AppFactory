@@ -228,7 +228,8 @@ export function getDreamStages(): StageDefinition[] {
 }
 
 // Schema validation
-const ajv = new Ajv.default({ allErrors: true, strict: false });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ajv = new Ajv({ allErrors: true } as any);
 
 export function validateAgainstSchema(
   data: unknown,
