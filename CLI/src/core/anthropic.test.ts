@@ -54,7 +54,7 @@ describe('anthropic module', () => {
 
       const config = loadConfig();
 
-      expect(config.model).toBe('claude-sonnet-4-20250514');
+      expect(config.model).toBe('claude-sonnet-4-6');
       expect(config.maxTokens).toBe(16000);
       expect(config.temperature).toBe(0.3);
     });

@@ -134,7 +134,7 @@ export const MODEL_PROVIDERS = {
   claude: {
     name: 'Claude (Anthropic)',
     envVars: ['ANTHROPIC_API_KEY'],
-    defaultModel: 'claude-sonnet-4-20250514',
+    defaultModel: 'claude-sonnet-4-6',
     description: 'Recommended for complex reasoning and tool use',
   },
   openai: {

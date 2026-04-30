@@ -270,7 +270,7 @@ export async function executeRun(config: PipelineConfig = {}): Promise<{
     const manifest = createRunManifest(
       runId,
       'run',
-      config.model || 'claude-sonnet-4-20250514',
+      config.model || 'claude-sonnet-4-6',
       inputsHash
     );
     manifest.run_status = 'in_progress';
@@ -660,7 +660,7 @@ export async function executeDream(
     const manifest = createRunManifest(
       runId,
       'dream',
-      config.model || 'claude-sonnet-4-20250514',
+      config.model || 'claude-sonnet-4-6',
       inputsHash
     );
     manifest.run_status = 'in_progress';
