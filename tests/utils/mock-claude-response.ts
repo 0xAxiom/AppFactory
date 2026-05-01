@@ -58,7 +58,7 @@ export function createMockResponse(
       output_tokens: Math.floor(content.length / 3),
     },
     stopReason: options.stopReason ?? 'end_turn',
-    model: options.model ?? 'claude-3-sonnet-20240229',
+    model: options.model ?? 'claude-sonnet-4-6',
   };
 }
 
