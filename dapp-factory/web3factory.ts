@@ -85,4 +85,7 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
