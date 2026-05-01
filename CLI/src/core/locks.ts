@@ -59,13 +59,13 @@ export function acquireLock(runId: string, command: string): boolean {
       // Stale lock - process is dead, remove it
       logger.warn(`Removing stale lock from dead process ${lockInfo.pid}`);
       fs.unlinkSync(lockPath);
-    } catch {
+    } catch (err) {
       // Corrupted lock file, remove it
-      logger.warn('Removing corrupted lock file');
+      logger.warn(`Removing corrupted lock file: ${err}`);
       try {
         fs.unlinkSync(lockPath);
-      } catch {
-        // Ignore
+      } catch (unlinkErr) {
+        logger.warn(`Failed to remove corrupted lock file: ${unlinkErr}`);
       }
     }
   }
@@ -115,8 +115,8 @@ export function releaseLock(): void {
         logger.debug('Lock released');
       }
     }
-  } catch {
-    // Ignore errors during cleanup
+  } catch (err) {
+    logger.warn(`Failed to release lock during cleanup: ${err}`);
   }
 }
 
@@ -131,8 +131,8 @@ export function getLockInfo(): LockInfo | null {
       const lockContent = fs.readFileSync(lockPath, 'utf-8');
       return JSON.parse(lockContent) as LockInfo;
     }
-  } catch {
-    // Ignore
+  } catch (err) {
+    logger.warn(`Failed to read lock file: ${err}`);
   }
 
   return null;
