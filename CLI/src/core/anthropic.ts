@@ -16,7 +16,7 @@ export interface AnthropicConfig {
 }
 
 // Default configuration values
-const DEFAULT_MODEL = 'claude-sonnet-4-20250514';
+const DEFAULT_MODEL = 'claude-sonnet-4-6';
 const DEFAULT_MAX_TOKENS = 16000;
 const DEFAULT_TEMPERATURE = 0.3;
 const MAX_RETRIES = 3;
