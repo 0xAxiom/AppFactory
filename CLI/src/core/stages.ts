@@ -5,7 +5,7 @@
  */
 
 import path from 'path';
-import Ajv from 'ajv';
+import { Ajv } from 'ajv';
 import { readFile, readJson, writeFile, writeJson, fileExists } from './io.js';
 import { getTemplatePath, getSchemaPath, getStandardsPath } from './paths.js';
 import { extractJson, callClaude } from './anthropic.js';
@@ -228,7 +228,7 @@ export function getDreamStages(): StageDefinition[] {
 }
 
 // Schema validation
-const ajv = new Ajv.default({ allErrors: true, strict: false });
+const ajv = new Ajv({ allErrors: true, strict: false });
 
 export function validateAgainstSchema(
   data: unknown,
