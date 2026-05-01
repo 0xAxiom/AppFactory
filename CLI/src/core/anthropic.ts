@@ -1,7 +1,8 @@
 /**
  * Anthropic API Client Module
  *
- * Wrapper around the official Anthropic SDK with retry logic and streaming support.
+ * Wrapper around the official Anthropic SDK with retry logic, streaming support,
+ * and prompt caching for cost-efficient repeated system prompt usage.
  */
 
 import Anthropic from '@anthropic-ai/sdk';
@@ -16,7 +17,7 @@ export interface AnthropicConfig {
 }
 
 // Default configuration values
-const DEFAULT_MODEL = 'claude-sonnet-4-20250514';
+const DEFAULT_MODEL = 'claude-sonnet-4-6';
 const DEFAULT_MAX_TOKENS = 16000;
 const DEFAULT_TEMPERATURE = 0.3;
 const MAX_RETRIES = 3;
@@ -78,6 +79,40 @@ function sleep(ms: number): Promise<void> {
 }
 
 /**
+ * Build a cacheable system parameter from a system prompt string.
+ * Attaches ephemeral cache_control so repeated pipeline calls reuse the
+ * cached prompt and avoid re-tokenising the same large system instructions.
+ */
+function buildSystemParam(
+  systemPrompt: string
+): Anthropic.Messages.TextBlockParam[] {
+  return [
+    {
+      type: 'text',
+      text: systemPrompt,
+      cache_control: { type: 'ephemeral' },
+    },
+  ];
+}
+
+/**
+ * Check whether an error should trigger a retry attempt.
+ */
+function isRetryableError(err: unknown): boolean {
+  if (err instanceof Anthropic.RateLimitError) return true;
+  // InternalServerError covers 503 overloaded and 529 too-many-requests
+  if (err instanceof Anthropic.InternalServerError) return true;
+  // Fallback for non-SDK error shapes
+  const msg = err instanceof Error ? err.message : String(err);
+  return (
+    msg.includes('rate') ||
+    msg.includes('429') ||
+    msg.includes('overloaded') ||
+    msg.includes('503')
+  );
+}
+
+/**
  * Extract JSON from a Claude response that may contain markdown code blocks
  */
 export function extractJson(content: string): string {
@@ -133,7 +168,7 @@ export async function callClaude(
         model: fullConfig.model,
         max_tokens: fullConfig.maxTokens,
         temperature: fullConfig.temperature,
-        ...(systemPrompt && { system: systemPrompt }),
+        ...(systemPrompt && { system: buildSystemParam(systemPrompt) }),
         messages: [{ role: 'user', content: prompt }],
       });
 
@@ -149,28 +184,17 @@ export async function callClaude(
       return responseText;
     } catch (err) {
       lastError = err as Error;
-      const errorMessage = lastError.message || String(err);
 
-      // Check for rate limiting
-      if (errorMessage.includes('rate') || errorMessage.includes('429')) {
+      if (isRetryableError(err)) {
         logger.warn(
-          `Rate limited, waiting ${RETRY_DELAY_MS * attempt}ms before retry ${attempt}/${MAX_RETRIES}`
-        );
-        await sleep(RETRY_DELAY_MS * attempt);
-        continue;
-      }
-
-      // Check for overloaded
-      if (errorMessage.includes('overloaded') || errorMessage.includes('503')) {
-        logger.warn(
-          `API overloaded, waiting ${RETRY_DELAY_MS * attempt}ms before retry ${attempt}/${MAX_RETRIES}`
+          `API unavailable, waiting ${RETRY_DELAY_MS * attempt}ms before retry ${attempt}/${MAX_RETRIES}`
         );
         await sleep(RETRY_DELAY_MS * attempt);
         continue;
       }
 
       // Other errors - don't retry
-      logger.apiError(errorMessage);
+      logger.apiError(lastError.message || String(err));
       throw err;
     }
   }
@@ -225,21 +249,18 @@ export async function streamClaude(
     model: fullConfig.model,
     max_tokens: fullConfig.maxTokens,
     temperature: fullConfig.temperature,
-    ...(systemPrompt && { system: systemPrompt }),
+    ...(systemPrompt && { system: buildSystemParam(systemPrompt) }),
     messages: [{ role: 'user', content: prompt }],
   });
 
-  for await (const event of stream) {
-    if (event.type === 'content_block_delta') {
-      const delta = event.delta;
-      if ('text' in delta) {
-        fullResponse += delta.text;
-        if (onChunk) {
-          onChunk(delta.text);
-        }
-      }
+  stream.on('text', (text) => {
+    fullResponse += text;
+    if (onChunk) {
+      onChunk(text);
     }
-  }
+  });
+
+  await stream.finalMessage();
 
   return fullResponse;
 }
