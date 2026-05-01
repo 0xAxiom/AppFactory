@@ -22,7 +22,6 @@ async function runCommand(
   return new Promise((resolve) => {
     const proc = spawn(command, args, {
       cwd,
-      shell: true,
       stdio: ['pipe', 'pipe', 'pipe'],
     });
 
