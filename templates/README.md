@@ -51,9 +51,10 @@ Templates **accelerate** your build by providing sensible defaults while remaini
 
 ### AI Agents (agent-factory)
 
-| Template                                               | Description                 | Best For                   |
-| ------------------------------------------------------ | --------------------------- | -------------------------- |
-| [api-integration](./agent/api-integration/TEMPLATE.md) | Multi-API integration agent | Data aggregation, webhooks |
+| Template                                               | Description                                                          | Best For                                              |
+| ------------------------------------------------------ | -------------------------------------------------------------------- | ----------------------------------------------------- |
+| [api-integration](./agent/api-integration/TEMPLATE.md) | Multi-API integration agent                                          | Data aggregation, webhooks                            |
+| [x402-endpoint](./agent/x402-endpoint/TEMPLATE.md)     | Pay-per-call API with x402 paywall. Live in ~5 min, Bazaar-listable. | Monetized agent services, paid data/AI APIs on Base   |
 
 ### Claude Plugins (plugin-factory)
 

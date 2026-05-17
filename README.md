@@ -373,6 +373,7 @@ Speed up your builds with pre-configured templates for common use cases.
 | **Website**  | [saas-landing](./templates/website/saas-landing/)     | Hero, pricing, testimonials                   |
 | **Mini App** | [social-starter](./templates/miniapp/social-starter/) | Feed, reactions, sharing                      |
 | **Agent**    | [api-integration](./templates/agent/api-integration/) | HTTP tools, caching, rate limiting            |
+| **Agent**    | [x402-endpoint](./templates/agent/x402-endpoint/)     | Pay-per-call API, x402 paywall, Bazaar-listable |
 | **Plugin**   | [code-formatter](./templates/plugin/code-formatter/)  | Auto-format on save                           |
 
 ### How Templates Work
